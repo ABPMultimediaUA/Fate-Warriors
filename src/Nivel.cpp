@@ -10,7 +10,12 @@
 #include <iostream>
 #include <fstream>
 
-
+/* Funcion de crear pasillo
+ * Crea los datos del pasillo y se guarda en el vector de pasillos del nivel
+ * Input:
+ * ifstream para leer el fichero
+ * string para guardar los datos del fichero
+ * */
 void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	float x,y,ancho,alto;
 	Pasillo* _pasillo;
@@ -31,9 +36,16 @@ void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_ite
 	delete _pasillo;
 	_i_nivel_txt >> _i_iteracion;//se guarda el siguiente valor de nombre
 }
+/* Funcion de crear nodo
+ * Crea los datos del pasillo y se guarda en el vector de pasillos del nivel
+ * Input:
+ * ifstream para leer el fichero
+ * string para guardar los datos del fichero
+ * */
 void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	float x,y,ancho,alto;
 	Nodo* _nodo;
+
 	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
 	x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
@@ -55,6 +67,14 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
 	delete _nodo;
 
 }
+/*Funcion de crear objetos
+ * Crea los datos de todos los objetos propios del nodo
+ *  y se guarda en el vector de pasillos del nivel
+ * Input:
+ *  ifstream para ller el fichero
+ *  string que se guarda los datos del fichero
+ *  puntero al nodo dentro del cual se crean
+ * */
 void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, Nodo* _i_nodo){
 	float x,y,ancho,alto;
 	if(_i_iteracion!="null"){
@@ -84,20 +104,27 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
 }
-struct Tinstance2func{
-	std::string _nombre_objeto;
+
+/*Funciones para guardar los datos
+ * */
+struct Tinstance2func{//declaracion de los parametros
+	const char* _nombre_objeto;
 	void (Nivel::*pmet)(std::ifstream&, std::string&);
 };
 
-/*Tinstance2func mapping[] = {
+Tinstance2func mapping[] = {//definicion de los parametros
 		{"PASILLO", &Nivel::nivel_crear_pasillo},
 		{"NODO", &Nivel::nivel_crear_nodo},
 		{0, 0}
-};*/
-
+};
+/*Constructor del nivel, lee el fichero y le pone sus valores a los nodos, pasillos y objetos
+ * Input: string con el nombre del fichero de nivel
+ *
+ * */
 Nivel::Nivel(std::string _i_fichero) {
 	std::ifstream _nivel_txt;
-
+	Tinstance2func *_next;
+	//(this.*pmet)(_nivel_txt,_iteracion);
 	_nivel_txt.open("Nivel.txt");//apertura del fichero
 	std::string _iteracion;
 		if(_nivel_txt.fail()){//comprobacion de la apertura del fichero
@@ -106,11 +133,19 @@ Nivel::Nivel(std::string _i_fichero) {
 	_nivel_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 	while(_iteracion!="Fin"){//bucle de lectura del fichero
 		std::cout << _iteracion << std::endl;
-		if(_iteracion=="NODO"){
+		_next=mapping;
+		while (_next->_nombre_objeto){
+			if(_iteracion==_next->_nombre_objeto){
+				(this->*_next->pmet)(_nivel_txt,_iteracion);
+			}
+
+			++_next;
+		}
+		/*if(_iteracion=="NODO"){
 			nivel_crear_nodo(_nivel_txt, _iteracion);
 		}else if(_iteracion=="PASILLO"){
 			nivel_crear_pasillo(_nivel_txt, _iteracion);//llamada a la funcion de crear un nuevo pasillo
-		}
+		}*/
 	}
 	_nivel_txt.close();//cierre del fichero
 
