@@ -11,13 +11,14 @@
 class Pasillo {
 public:
 
-	Pasillo(float _i_x, float _i_y, float _i_ancho, float _i_alto);
+	Pasillo(float _i_x, float _i_y, float _i_ancho, float _i_alto, unsigned short _i_id);
 	~Pasillo();
 private:
 	float _pasillo_x;
 	float _pasillo_y;
 	float _pasillo_ancho;
 	float _pasillo_alto;
+	unsigned short _id;
 };
 
 

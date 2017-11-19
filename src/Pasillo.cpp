@@ -8,12 +8,9 @@
 #include "Pasillo.h"
 
 
-Pasillo::Pasillo(float _i_x, float _i_y, float _i_ancho, float _i_alto) {
+Pasillo::Pasillo(float _i_x, float _i_y, float _i_ancho, float _i_alto, unsigned short _i_id):
+_pasillo_x(_i_x), _pasillo_y(_i_y), _pasillo_ancho(_i_ancho), _pasillo_alto(_i_alto), _id(_i_id) {
 	// TODO Auto-generated constructor stub
-	this->_pasillo_x=_i_x;
-	this->_pasillo_y=_i_y;
-	this->_pasillo_ancho=_i_ancho;
-	this->_pasillo_alto=_i_alto;
 }
 
 Pasillo::~Pasillo() {

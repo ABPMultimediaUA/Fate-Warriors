@@ -17,21 +17,25 @@
  * string para guardar los datos del fichero
  * */
 void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
-	float x,y,ancho,alto;
+	float _x,_y,_ancho,_alto;
+	unsigned short _id;
 	Pasillo* _pasillo;
 	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
-	x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
-	y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
-	ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
-	alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
-	_pasillo = new Pasillo( x, y, ancho, alto);//creacion del nuevo pasillo
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
+	_id = std::strtoul(_i_iteracion.c_str(),NULL,0);
+
+	_pasillo = new Pasillo( _x, _y, _ancho, _alto, _id);//creacion del nuevo pasillo
 	_pasillos.push_back(_pasillo);//se guarda el nuevo pasillo en el vector de pasillos
 	delete _pasillo;
 	_i_nivel_txt >> _i_iteracion;//se guarda el siguiente valor de nombre
@@ -43,24 +47,26 @@ void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_ite
  * string para guardar los datos del fichero
  * */
 void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
-	float x,y,ancho,alto;
+	float _x,_y,_ancho,_alto;
+	unsigned short _id;
 	Nodo* _nodo;
 
 	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
-	x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
-	y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
-	ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
-	alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
+	_id = std::strtoul(_i_iteracion.c_str(),NULL,0);
 
-
-	_nodo = new Nodo( x, y, ancho, alto);//creacion del nuevo pasillo
+	_nodo = new Nodo( _x, _y, _ancho, _alto, _id);//creacion del nuevo pasillo
 	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero para leer los objetos
 	nivel_crear_objetos( _i_nivel_txt, _i_iteracion, _nodo);//creacion de todos los nodos
 	_nodos.push_back(_nodo);//se guarda el nuevo pasillo en el vector de pasillos
@@ -76,7 +82,7 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
  *  puntero al nodo dentro del cual se crean
  * */
 void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, Nodo* _i_nodo){
-	float x,y,ancho,alto;
+	float _x,_y,_ancho,_alto;
 	if(_i_iteracion!="null"){
 		std::ifstream _nodo_txt;
 		_nodo_txt.open(_i_iteracion);//apertura del fichero
@@ -87,18 +93,18 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 		_nodo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 		while(_iteracion=="OBJETO"){//bucle para crear todos los objetos del nodo
 			_nodo_txt >> _iteracion;//obtiene el valor de la x
-			x = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_x = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			std::cout << _iteracion << std::endl;
 			_nodo_txt>>_iteracion;//obtiene el valor de la y
-			y = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_y = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			std::cout << _iteracion << std::endl;
 			_nodo_txt>>_iteracion;//obtiene el valor de ancho
-			ancho = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_ancho = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			std::cout << _iteracion << std::endl;
 			_nodo_txt>>_iteracion;//obtiene el valor de alto
-			alto = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_alto = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			std::cout << _iteracion << std::endl;
-			_i_nodo->nodo_crear_objeto( x, y, ancho, alto);
+			_i_nodo->nodo_crear_objeto( _x, _y, _ancho, _alto);
 			_nodo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
 		}
 	}
