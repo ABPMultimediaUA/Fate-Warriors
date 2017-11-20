@@ -1,5 +1,6 @@
 #include "Game.h"
-#include<iostream>
+#include "Nivel.h"
+#include <iostream>
 
 
 
@@ -16,5 +17,7 @@
 	}
 
 	void Game::game_run(){
-		std::cout<<"Hola mundo!"<<std::endl;
+		Nivel* _nivel1=new Nivel("Nivel.txt");
+
+
 	}
