@@ -12,6 +12,8 @@
 #include <iostream>
 #include "Game.h"
 
+#include "pruebas.cpp" //perdon, esk lo de este fichero es muy bestia os lo juro. Mejor que no lo veais
+
 void funcion_red(){
 	bool isServer;
 	std::string input;

@@ -588,7 +588,7 @@ void pruebaGlobal() {
 	device->drop();
 }
 void pruebaEngine() {
-	std::cout<<"ME METO"<<std::endl;
+	//std::cout<<"ME METO"<<std::endl;
 	Engine engine(false, 1280, 720); //inicializa el motor usando irrlicht con resolucion 1280x720
 
 	engine.cargaModeloC(
@@ -610,9 +610,10 @@ void pruebaEngine() {
 
 	engine.Render();
 }
+/*
 int main() {
 	pruebaEngine();
 	//pruebaCol1();
 	//pruebaGlobal();
 	return 0;
-}
+}*/
