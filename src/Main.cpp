@@ -10,16 +10,40 @@
  *y trabajo
  */
 
-
+#include <iostream>
 #include "Game.h"
 #include<iostream>
 
+#include "pruebas.cpp" //perdon, esk lo de este fichero es muy bestia os lo juro. Mejor que no lo veais
+
+void funcion_red(){
+	bool isServer;
+	std::string input;
+
+	isServer = true;
+
+	std::cout << "(C)lient or (S)erver: ";
+	std::cin >> input;
+
+	if (input[0] == 'C' || input[0] == 'c')
+		isServer = false;
+
+	if(isServer){
+		Game::getInstance()->main_loop_servidor();
+	}
+	else{
+		Game::getInstance()->main_loop_cliente();
+	}
+}
 int main(){
+
 	Game *_game = Game::game_instancia();
 	_game->game_crea_partida();
 	_game->game_run();
 	_game->game_fin_partida();
+  //funcion_red();
 	delete _game;
 
 	std::cout << "Ha terminado" << std::endl;
+
 }
