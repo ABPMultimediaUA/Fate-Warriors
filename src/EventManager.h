@@ -1,6 +1,6 @@
 #ifndef SRC_HEADER_EVENTMANAGER_H_
 #define SRC_HEADER_EVENTMANAGER_H_
-#include <irrlicht.h>
+#include "irrlicht/irrlicht.h"
 
 using namespace irr;
 

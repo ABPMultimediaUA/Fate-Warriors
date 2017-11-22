@@ -4,7 +4,7 @@
  *  Created on: Nov 15, 2017
  *      Author: manu
  */
-#include <irrlicht.h>
+#include "irrlicht/irrlicht.h"
 using namespace irr;
 
 #ifndef SRC_CPP_CAMARA_H_

@@ -8,7 +8,7 @@
 #ifndef SRC_CPP_ENGINE_H_
 #define SRC_CPP_ENGINE_H_
 
-#include <irrlicht.h>
+#include "irrlicht/irrlicht.h"
 #include "EventManager.h"
 #include "camara.h"
 

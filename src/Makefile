@@ -1,6 +1,6 @@
 SOURCES := $(wildcard *.cpp)
 OBJECTS := $(subst .cpp,.o,$(SOURCES))
-LIBS := -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL
+LIBS := -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht
 INCLUDE := -I.
 CC      := g++
 
@@ -13,6 +13,7 @@ ejecutable: $(OBJECTS)
 info: 
 	$(info $(SOURCES))
 	$(info $(OBJECTS))
+
 
 
 #INSTALAR MINGW G++ PARA WINDORS -> PARA PODER COMPILAR PARA WINDOWS 

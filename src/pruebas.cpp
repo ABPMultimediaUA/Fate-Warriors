@@ -7,7 +7,7 @@
 
 #include "Engine.h"
 #include "EventManager.h"
-#include "irrlicht.h"
+#include "irrlicht/irrlicht.h"
 
 enum {
 	// I use this ISceneNode ID to indicate a scene node that is
