@@ -12,9 +12,8 @@
 
 #include <iostream>
 #include "Game.h"
-#include<iostream>
 
-#include "pruebas.cpp" //perdon, esk lo de este fichero es muy bestia os lo juro. Mejor que no lo veais
+//#include "pruebas.cpp" //perdon, esk lo de este fichero es muy bestia os lo juro. Mejor que no lo veais
 
 void funcion_red(){
 	bool isServer;
@@ -29,10 +28,10 @@ void funcion_red(){
 		isServer = false;
 
 	if(isServer){
-		Game::getInstance()->main_loop_servidor();
+		Game::game_instancia()->main_loop_servidor();
 	}
 	else{
-		Game::getInstance()->main_loop_cliente();
+		Game::game_instancia()->main_loop_cliente();
 	}
 }
 int main(){

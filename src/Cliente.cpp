@@ -107,7 +107,7 @@ void Cliente::recive_join_message(){
 	bitstream.IgnoreBytes(sizeof(RakNet::MessageID));
 	bitstream.Read(id);
 
-	Game::getInstance()->anyadir_jugador();
+	Game::game_instancia()->anyadir_jugador();
 }
 
 void Cliente::recive_existing_message(){
@@ -120,7 +120,7 @@ void Cliente::recive_existing_message(){
 	bitstream.Read(x);
 	bitstream.Read(y);
 
-	Game::getInstance()->anyadir_jugador();
+	Game::game_instancia()->anyadir_jugador();
 }
 
 void Cliente::recive_move_message(){
@@ -137,7 +137,7 @@ void Cliente::recive_move_message(){
 	for(; number_of_inputs; number_of_inputs--){
 		bitstream.Read(key_press);
 		//keys.push_back(key_press);
-		Game::getInstance()->actualizar_by_id(1, key_press);
+		Game::game_instancia()->actualizar_by_id(1, key_press);
 	}
 }
 
@@ -150,7 +150,7 @@ void Cliente::recive_move_message_enemy(){
 	bitstream.Read(id);
 	bitstream.Read(x);
 	bitstream.Read(y);
-	Game::getInstance()->actualizar_posicion_enemigo(x,y,id);
+	Game::game_instancia()->actualizar_posicion_enemigo(x,y,id);
 }
 
 void Cliente::recive_player_desconnect(){

@@ -93,7 +93,7 @@ void Servidor::check_and_send_mesages(){
 				for(stream.Read(number_of_inputs); number_of_inputs; number_of_inputs--){
 					stream.Read(key_press);
 					keys.push_back(key_press);
-					Game::getInstance()->actualizar_by_id(identifyplayers[packet->guid], key_press);
+					Game::game_instancia()->actualizar_by_id(identifyplayers[packet->guid], key_press);
 				}
 
 				float numberallkeys = keys.size();

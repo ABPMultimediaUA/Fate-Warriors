@@ -146,6 +146,7 @@ void Game::game_run(){
 		_action_manager->toma_decisiones();
 		_action_manager->realiza_acciones();
 	}
+}
   
 Datos_Partida* Game::game_get_datos() {
 	return _datos;

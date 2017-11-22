@@ -15,7 +15,6 @@ class Game{
 public:
 
 	~Game();
-	void game_run(); //hola mundo
 	static Game* game_instancia();
 	void main_loop_servidor();
 	void main_loop_cliente();
@@ -25,7 +24,7 @@ public:
 	void actualizar_posicion_enemigo(float x, float y, short id);
 	void game_crea_partida();
 	void game_fin_partida();
-  void game_update();
+  	void game_update();
 	void game_render();
 	void game_run();
   Datos_Partida* game_get_datos();
