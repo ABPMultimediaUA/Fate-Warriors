@@ -1,3 +1,4 @@
+
 /*
  *
  * Codigo base del proyecto
@@ -11,8 +12,14 @@
 
 
 #include "Game.h"
+#include<iostream>
 
 int main(){
-	Game game;
-	game.game_run();
+	Game *_game = Game::game_instancia();
+	_game->game_crea_partida();
+	_game->game_run();
+	_game->game_fin_partida();
+	delete _game;
+
+	std::cout << "Ha terminado" << std::endl;
 }
