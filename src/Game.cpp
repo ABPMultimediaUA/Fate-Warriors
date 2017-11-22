@@ -6,20 +6,22 @@
 
 Game* Game::instancia = 0;
 
-Game* Game::getInstance(){
+Game* Game::game_instancia(){
 	if(instancia == 0)
 		instancia= new Game();
 
 	return instancia;
 }
-
 Game::Game(){
-	enemigo1 = NULL;
+	_datos = nullptr;
+	_action_manager = nullptr;
+  enemigo1 = NULL;
 	yoplayer = new Hero*[2];
 	yoplayer[0] = NULL;
 	yoplayer[1] = NULL;
 }
-
+Game::~Game(){
+}
 void Game::anyadir_jugador(){
 	yoplayer[1] = new Hero();
 }
@@ -129,9 +131,24 @@ void Game::game_update(){
 void Game::actualizar_by_id(short id, Input_key actionkey){
 	yoplayer[id]->update_extern(actionkey);
 }
-
+void Game::game_crea_partida() {
+	_datos = new Datos_Partida();
+	_action_manager = new Action_Manager();
+  Nivel* _nivel1=new Nivel("Nivel.txt");
+}
+void Game::game_fin_partida() {
+	delete _datos;
+	delete _action_manager;
+}
 void Game::game_run(){
-		Nivel* _nivel1=new Nivel("Nivel.txt");
+		
+	for(int cont=0; cont<10; cont++) {
+		_action_manager->toma_decisiones();
+		_action_manager->realiza_acciones();
+	}
+  
+Datos_Partida* Game::game_get_datos() {
+	return _datos;
 
 
 }
