@@ -18,4 +18,16 @@ NODO
 10
 2
 null
+PASILLO
+9
+9
+2
+2
+1
 Fin
+pila push(nodo)
+empieza rama
+empieza rama
+p
+termina rama
+pila pop
