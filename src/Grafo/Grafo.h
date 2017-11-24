@@ -1,7 +1,9 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include <iostream>
-
+#include <queue>
+#include <list>
+#include <stack>
 class Arista;
 
 class Vertice
@@ -31,5 +33,8 @@ public:
 	void InsertaArista(Vertice *origen, Vertice *destino, int peso);
 	void InsertaVertice(std::string nombre);
 	void ListaAdyacencia();
+	void RecorridoAnchura(Vertice *origen);
+	void RecorridoProfundidad(Vertice *origen);
+	void PrimeroAnchura(Vertice *origen, Vertice *destino);
 };
 #endif

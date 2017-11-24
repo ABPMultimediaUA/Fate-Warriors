@@ -99,3 +99,163 @@ void Grafo::ListaAdyacencia(){
 		std::cout<<std::endl;
 	}
 }
+
+void Grafo::RecorridoAnchura(Vertice *origen){
+	
+	int band, band2;
+
+	Vertice *actual;
+
+	std::queue<Vertice*> cola;
+	std::list<Vertice*> lista;
+	std::list<Vertice*>::iterator i;
+
+	cola.push(origen);
+	while(!cola.empty()){
+		
+		band=0;
+		actual=cola.front();
+		cola.pop();
+
+		for(i=lista.begin();i!=lista.end();i++){
+			if(*i==actual){
+				band=1;
+				break;
+
+			}
+		}
+		if(band==0){
+			std::cout << actual->nombre << ", ";
+			lista.push_back(actual);
+
+			Arista *aux;
+			aux = actual->ady;
+			while(aux!=NULL){
+				band2=0;
+				
+				for(i=lista.begin();i!=lista.end();i++){
+					
+					if(aux->ady == *i){
+						
+						band2=1;
+					}
+				}
+				if(band2==0){
+					
+					cola.push(aux->ady);
+				}
+				aux=aux->sig;
+			}
+		}
+	}
+	std::cout << std::endl;
+}
+
+void Grafo::RecorridoProfundidad(Vertice *origen){
+
+	Vertice *actual;
+	std::stack<Vertice*> pila;
+	std::list<Vertice*> lista;
+	std::list<Vertice*>::iterator i;
+	pila.push(origen);
+	int band=0,band2=0;
+
+	while(!pila.empty()){
+		band=0;
+		actual=pila.top();
+		pila.pop();
+		for(i=lista.begin(); i!=lista.end();i++){
+			if(*i==actual){
+				band=1;
+			}
+		}
+		if(band==0){
+			std::cout << actual->nombre<<", ";
+			lista.push_back(actual);
+
+			Arista *aux;
+			aux=actual->ady;
+
+			while(aux!=NULL){
+				band2=0;
+				for(i=lista.begin();i!=lista.end();i++){
+					if(*i==aux->ady){
+						band2=1;
+					}
+				}
+				if(band2==0){
+					pila.push(aux->ady);
+				}
+				aux=aux->sig;
+			}
+		}
+	}
+	std::cout << std::endl;
+
+}
+
+void Grafo::PrimeroAnchura(Vertice *origen, Vertice *destino){
+
+	Vertice *VerticeActual;
+	Vertice *DestinoActual;
+
+	Arista *aux;
+
+	typedef std::pair<Vertice*, Vertice*> VerticeVertice;
+	std::queue<Vertice*> cola;
+	std::stack<VerticeVertice> pila;
+	std::list<Vertice*> lista;
+	std::list<Vertice*>::iterator i;
+
+	int band,band2,band3=0;
+
+	cola.push(origen);
+
+	while(!cola.empty()){
+		band=0;
+		VerticeActual=cola.front();
+		cola.pop();
+		for(i=lista.begin();i!=lista.end();i++){
+			if(VerticeActual == *i){
+				band=1;
+			}
+		}
+		if(band==0){
+			if(VerticeActual==destino){
+				band3=1;
+				DestinoActual=destino;
+				while(!pila.empty()){
+					std::cout << DestinoActual->nombre << " <- ";
+					while(!pila.empty() && pila.top().second!=DestinoActual){
+						pila.pop();
+					} 
+					if(!pila.empty()){
+						DestinoActual=pila.top().first;
+					}
+				}
+			}
+			lista.push_back(VerticeActual);
+
+			aux=VerticeActual->ady;
+
+			while(aux!=NULL){
+				band2=0;
+				for(i=lista.begin();i!=lista.end();i++){
+					if(aux->ady == *i){
+						band2=1;
+					}
+				}
+				if(band2==0){
+					cola.push(aux->ady);
+					pila.push(VerticeVertice(VerticeActual, aux->ady));
+				}
+				aux=aux->sig;
+			}
+
+		}
+	}
+
+	if(band3==0){
+		std::cout << "no hay na entre esos dos " << std::endl;
+	}
+}
