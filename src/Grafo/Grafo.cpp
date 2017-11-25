@@ -99,8 +99,7 @@ void Grafo::ListaAdyacencia(){
 		std::cout<<std::endl;
 	}
 }
-
-void Grafo::RecorridoAnchura(Vertice *origen){
+/*void Grafo::RecorridoAnchura(Vertice *origen){
 	
 	int band, band2;
 
@@ -192,9 +191,13 @@ void Grafo::RecorridoProfundidad(Vertice *origen){
 	}
 	std::cout << std::endl;
 
-}
+}*/
 
-void Grafo::PrimeroAnchura(Vertice *origen, Vertice *destino){
+
+
+//TO-DO: devolver la lista de vertices a seguir
+
+void Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
 
 	Vertice *VerticeActual;
 	Vertice *DestinoActual;
@@ -228,7 +231,7 @@ void Grafo::PrimeroAnchura(Vertice *origen, Vertice *destino){
 					std::cout << DestinoActual->nombre << " <- ";
 					while(!pila.empty() && pila.top().second!=DestinoActual){
 						pila.pop();
-					} 
+					}
 					if(!pila.empty()){
 						DestinoActual=pila.top().first;
 					}

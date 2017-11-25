@@ -110,15 +110,8 @@ int main()
         cout<<"2. Ingresar arista"<<endl;
         cout<<"3. Lista de adyacencia"<<endl;
         cout<<"4. Tamaño"<<endl;
-        /*cout<<"5. Eliminar vertice (no)"<<endl;
-        cout<<"6. Eliminar arista (no)"<<endl;
-        cout<<"7. Anular (no)"<<endl;*/
-        cout<<"8. Recorrido en anchura"<<endl;
-        cout<<"9. Recorrido en profundidad"<<endl;
-        cout<<"10. Primero en anchura"<<endl;
-        /*cout<<"11. Primero en profundidad"<<endl;
-        cout<<"12. Primero el mejor"<<endl;*/
-        cout<<"13. Salir"<<endl;
+        cout<<"5. CaminoCortoL2"<<endl;
+        cout<<"6. Salir"<<endl;
         cout<<endl<<"Elija una opcion: ";
         cin>>opc;
         switch(opc)
@@ -185,203 +178,32 @@ int main()
             }
             break;
         }
-        /*case 5:
+        case 5:
         {
-            string nombre;
-            system("cls");
+            string origen, destino;
             if(G.Vacio())
             {
                 cout<<"El grafo esta vacio"<<endl;
             }
             else
             {
-                cout<<"Ingrese el nombre del vertice a eliminar: ";
+                cout<<"Ingrese el nombre del vertice origen: ";
                 cin.ignore();
-                getline(cin, nombre, '\n');
-                if(G.GetVertice(nombre) == NULL)
+                getline(cin, origen, '\n');
+                cout<<"Ingrese el nombre del vertice destino: ";
+                getline(cin, destino, '\n');
+                if(G.GetVertice(origen) == NULL || G.GetVertice(destino) == NULL)
                 {
-                    cout<<"Vertice invalido"<<endl;
+                    cout<<"Vertices invalidos"<<endl;
                 }
                 else
                 {
-                   G.EliminarVertice(G.GetVertice(nombre));
+                    G.CaminoCortoL2(G.GetVertice(origen), G.GetVertice(destino));
                 }
             }
-            cin.get();
-            cin.get();
             break;
-        }
+        }       
         case 6:
-        {
-            string origen, destino;
-            system("cls");
-            if(G.Vacio())
-            {
-                cout<<"El grafo esta vacio"<<endl;
-            }
-            else
-            {
-                cout<<"Ingrese del nombre del vertice origen: ";
-                cin.ignore();
-                getline(cin, origen, '\n');
-                cout<<"Ingrese el nombre del vertice destino: ";
-                getline(cin, destino, '\n');
-                if(G.GetVertice(origen) == NULL || G.GetVertice(destino) == NULL)
-                {
-                    cout<<"Vertices no validos"<<endl;
-                }
-                else
-                {
-                    G.EliminarArista(G.GetVertice(origen), G.GetVertice(destino));
-                }
-            }
-            cin.get();
-            cin.get();
-            break;
-        }
-        case 7:
-        {
-            system("cls");
-            if(G.Vacio())
-            {
-                cout<<"El grafo esta vacio"<<endl;
-            }
-            else
-            {
-               G.Anular();
-            }
-            cin.get();
-            cin.get();
-            break;
-        }*/
-        case 8:
-        {
-            string nombre;
-            if(G.Vacio())
-            {
-                cout<<"El grafo esta vacio"<<endl;
-            }
-            else
-            {
-                cout<<"Ingrese el nombre del vertice inicial: ";
-                cin.ignore();
-                getline(cin, nombre, '\n');
-                if(G.GetVertice(nombre) == NULL)
-                {
-                    cout<<"Ese vertice es invalido"<<endl;
-                }
-                else
-                {
-                    G.RecorridoAnchura(G.GetVertice(nombre));
-                }
-            }
-            break;
-        }
-        case 9:
-        {
-            string nombre;
-            if(G.Vacio())
-            {
-                cout<<"El grafo esta vacio"<<endl;
-            }
-            else
-            {
-                cout<<"Ingrese el nombre del vertice inicial: ";
-                cin.ignore();
-                getline(cin, nombre, '\n');
-                if(G.GetVertice(nombre) == NULL)
-                {
-                    cout<<"Ese vertice es invalido"<<endl;
-                }
-                else
-                {
-                    G.RecorridoProfundidad(G.GetVertice(nombre));
-                }
-            }
-            break;
-        }
-        case 10:
-        {
-            string origen, destino;
-            if(G.Vacio())
-            {
-                cout<<"El grafo esta vacio"<<endl;
-            }
-            else
-            {
-                cout<<"Ingrese el nombre del vertice origen: ";
-                cin.ignore();
-                getline(cin, origen, '\n');
-                cout<<"Ingrese el nombre del vertice destino: ";
-                getline(cin, destino, '\n');
-                if(G.GetVertice(origen) == NULL || G.GetVertice(destino) == NULL)
-                {
-                    cout<<"Vertices invalidos"<<endl;
-                }
-                else
-                {
-                    G.PrimeroAnchura(G.GetVertice(origen), G.GetVertice(destino));
-                }
-            }
-            break;
-        }
-        /*case 11:
-        {
-            string origen, destino;
-            system("cls");
-            if(G.Vacio())
-            {
-                cout<<"El grafo esta vacio"<<endl;
-            }
-            else
-            {
-                cout<<"Ingrese el nombre del vertice origen: ";
-                cin.ignore();
-                getline(cin, origen, '\n');
-                cout<<"Ingrese el nombre del vertice destino: ";
-                getline(cin, destino, '\n');
-                if(G.GetVertice(origen) == NULL || G.GetVertice(destino) == NULL)
-                {
-                    cout<<"Vertices invalidos"<<endl;
-                }
-                else
-                {
-                    G.PrimeroProfundidad(G.GetVertice(origen), G.GetVertice(destino));
-                }
-            }
-            cin.get();
-            cin.get();
-            break;
-        }
-        case 12:
-        {
-            string origen, destino;
-            system("cls");
-            if(G.Vacio())
-            {
-                cout<<"El grafo esta vacio"<<endl;
-            }
-            else
-            {
-                cout<<"Ingrese el nombre del vertice origen: ";
-                cin.ignore();
-                getline(cin, origen, '\n');
-                cout<<"Ingrese el nombre del vertice destino: ";
-                getline(cin, destino, '\n');
-                if(G.GetVertice(origen) == NULL || G.GetVertice(destino) == NULL)
-                {
-                    cout<<"Vertices invalidos"<<endl;
-                }
-                else
-                {
-                    G.PrimeroMejor(G.GetVertice(origen), G.GetVertice(destino));
-                }
-            }
-            cin.get();
-            cin.get();
-            break;
-        }*/
-        case 13:
         {
             break;
         }
