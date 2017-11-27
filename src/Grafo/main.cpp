@@ -1,108 +1,108 @@
 #include <iostream>
-//#include <windows.h>
+//#include <windows->h>
 #include "Grafo.h"
+#include "Vertice.h"
 
 using namespace std;
 
 int main()
 {
-    Grafo G;
-    G.Inicializa();
+    Grafo *G = new Grafo();
     int opc;
 
-    G.InsertaVertice("NodoA");
-    G.InsertaVertice("PasilloB");
-    G.InsertaVertice("NodoC");
-    G.InsertaVertice("PasilloD");
-    G.InsertaVertice("NodoG");
-    G.InsertaVertice("PasilloJ");
-    G.InsertaVertice("NodoN");
-    G.InsertaVertice("PasilloE");
-    G.InsertaVertice("NodoH");
-    G.InsertaVertice("PasilloK");
-    G.InsertaVertice("NodoO");
-    G.InsertaVertice("PasilloL");
-    G.InsertaVertice("NodoP");
-    G.InsertaVertice("PasilloR");
-    G.InsertaVertice("NodoS");
-    G.InsertaVertice("PasilloT");
-    G.InsertaVertice("NodoU");
-    G.InsertaVertice("PasilloF");
-    G.InsertaVertice("NodoI");
-    G.InsertaVertice("PasilloM");
-    G.InsertaVertice("NodoQ");
-    G.InsertaVertice("PasilloAux1");
-    G.InsertaVertice("PasilloAux2");
+    G->InsertaVertice("NodoA");
+    G->InsertaVertice("PasilloB");
+    G->InsertaVertice("NodoC");
+    G->InsertaVertice("PasilloD");
+    G->InsertaVertice("NodoG");
+    G->InsertaVertice("PasilloJ");
+    G->InsertaVertice("NodoN");
+    G->InsertaVertice("PasilloE");
+    G->InsertaVertice("NodoH");
+    G->InsertaVertice("PasilloK");
+    G->InsertaVertice("NodoO");
+    G->InsertaVertice("PasilloL");
+    G->InsertaVertice("NodoP");
+    G->InsertaVertice("PasilloR");
+    G->InsertaVertice("NodoS");
+    G->InsertaVertice("PasilloT");
+    G->InsertaVertice("NodoU");
+    G->InsertaVertice("PasilloF");
+    G->InsertaVertice("NodoI");
+    G->InsertaVertice("PasilloM");
+    G->InsertaVertice("NodoQ");
+    G->InsertaVertice("PasilloAux1");
+    G->InsertaVertice("PasilloAux2");
 
-    G.InsertaArista(G.GetVertice("NodoA"), G.GetVertice("PasilloB"), 10);
-    G.InsertaArista(G.GetVertice("PasilloB"), G.GetVertice("NodoA"), 10);
+    G->InsertaArista(G->GetVertice("NodoA"), G->GetVertice("PasilloB"), 10);
+    G->InsertaArista(G->GetVertice("PasilloB"), G->GetVertice("NodoA"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloB"), G.GetVertice("NodoC"), 10);
-    G.InsertaArista(G.GetVertice("NodoC"), G.GetVertice("PasilloB"), 10);
+    G->InsertaArista(G->GetVertice("PasilloB"), G->GetVertice("NodoC"), 10);
+    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloB"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoC"), G.GetVertice("PasilloD"), 10);
-    G.InsertaArista(G.GetVertice("PasilloD"), G.GetVertice("NodoC"), 10);
+    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloD"), 10);
+    G->InsertaArista(G->GetVertice("PasilloD"), G->GetVertice("NodoC"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloD"), G.GetVertice("NodoG"), 10);
-    G.InsertaArista(G.GetVertice("NodoG"), G.GetVertice("PasilloD"), 10);
+    G->InsertaArista(G->GetVertice("PasilloD"), G->GetVertice("NodoG"), 10);
+    G->InsertaArista(G->GetVertice("NodoG"), G->GetVertice("PasilloD"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoG"), G.GetVertice("PasilloJ"), 10);
-    G.InsertaArista(G.GetVertice("PasilloJ"), G.GetVertice("NodoG"), 10);
+    G->InsertaArista(G->GetVertice("NodoG"), G->GetVertice("PasilloJ"), 10);
+    G->InsertaArista(G->GetVertice("PasilloJ"), G->GetVertice("NodoG"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloJ"), G.GetVertice("NodoN"), 30);
-    G.InsertaArista(G.GetVertice("NodoN"), G.GetVertice("PasilloJ"), 30);
+    G->InsertaArista(G->GetVertice("PasilloJ"), G->GetVertice("NodoN"), 30);
+    G->InsertaArista(G->GetVertice("NodoN"), G->GetVertice("PasilloJ"), 30);
 
-    G.InsertaArista(G.GetVertice("NodoC"), G.GetVertice("PasilloE"), 10);
-    G.InsertaArista(G.GetVertice("PasilloE"), G.GetVertice("NodoC"), 10);
+    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloE"), 10);
+    G->InsertaArista(G->GetVertice("PasilloE"), G->GetVertice("NodoC"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloE"), G.GetVertice("NodoH"), 10);
-    G.InsertaArista(G.GetVertice("NodoH"), G.GetVertice("PasilloE"), 10);
+    G->InsertaArista(G->GetVertice("PasilloE"), G->GetVertice("NodoH"), 10);
+    G->InsertaArista(G->GetVertice("NodoH"), G->GetVertice("PasilloE"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoH"), G.GetVertice("PasilloK"), 10);
-    G.InsertaArista(G.GetVertice("PasilloK"), G.GetVertice("NodoH"), 10);
+    G->InsertaArista(G->GetVertice("NodoH"), G->GetVertice("PasilloK"), 10);
+    G->InsertaArista(G->GetVertice("PasilloK"), G->GetVertice("NodoH"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoO"), G.GetVertice("PasilloK"), 10);
-    G.InsertaArista(G.GetVertice("PasilloK"), G.GetVertice("NodoO"), 10);
+    G->InsertaArista(G->GetVertice("NodoO"), G->GetVertice("PasilloK"), 10);
+    G->InsertaArista(G->GetVertice("PasilloK"), G->GetVertice("NodoO"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoH"), G.GetVertice("PasilloL"), 10);
-    G.InsertaArista(G.GetVertice("PasilloL"), G.GetVertice("NodoH"), 10);
+    G->InsertaArista(G->GetVertice("NodoH"), G->GetVertice("PasilloL"), 10);
+    G->InsertaArista(G->GetVertice("PasilloL"), G->GetVertice("NodoH"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloL"), G.GetVertice("NodoP"), 10);
-    G.InsertaArista(G.GetVertice("NodoP"), G.GetVertice("PasilloL"), 10);
+    G->InsertaArista(G->GetVertice("PasilloL"), G->GetVertice("NodoP"), 10);
+    G->InsertaArista(G->GetVertice("NodoP"), G->GetVertice("PasilloL"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoP"), G.GetVertice("PasilloR"), 10);
-    G.InsertaArista(G.GetVertice("PasilloR"), G.GetVertice("NodoP"), 10);
+    G->InsertaArista(G->GetVertice("NodoP"), G->GetVertice("PasilloR"), 10);
+    G->InsertaArista(G->GetVertice("PasilloR"), G->GetVertice("NodoP"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloR"), G.GetVertice("NodoS"), 10);
-    G.InsertaArista(G.GetVertice("NodoS"), G.GetVertice("PasilloR"), 10);
+    G->InsertaArista(G->GetVertice("PasilloR"), G->GetVertice("NodoS"), 10);
+    G->InsertaArista(G->GetVertice("NodoS"), G->GetVertice("PasilloR"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoS"), G.GetVertice("PasilloT"), 10);
-    G.InsertaArista(G.GetVertice("PasilloT"), G.GetVertice("NodoS"), 10);
+    G->InsertaArista(G->GetVertice("NodoS"), G->GetVertice("PasilloT"), 10);
+    G->InsertaArista(G->GetVertice("PasilloT"), G->GetVertice("NodoS"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloT"), G.GetVertice("NodoU"), 10);
-    G.InsertaArista(G.GetVertice("NodoU"), G.GetVertice("PasilloT"), 10);
+    G->InsertaArista(G->GetVertice("PasilloT"), G->GetVertice("NodoU"), 10);
+    G->InsertaArista(G->GetVertice("NodoU"), G->GetVertice("PasilloT"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoC"), G.GetVertice("PasilloF"), 10);
-    G.InsertaArista(G.GetVertice("PasilloF"), G.GetVertice("NodoC"), 10);
+    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloF"), 10);
+    G->InsertaArista(G->GetVertice("PasilloF"), G->GetVertice("NodoC"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloF"), G.GetVertice("NodoI"), 10);
-    G.InsertaArista(G.GetVertice("NodoI"), G.GetVertice("PasilloF"), 10);
+    G->InsertaArista(G->GetVertice("PasilloF"), G->GetVertice("NodoI"), 10);
+    G->InsertaArista(G->GetVertice("NodoI"), G->GetVertice("PasilloF"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoI"), G.GetVertice("PasilloM"), 10);
-    G.InsertaArista(G.GetVertice("PasilloM"), G.GetVertice("NodoI"), 10);
+    G->InsertaArista(G->GetVertice("NodoI"), G->GetVertice("PasilloM"), 10);
+    G->InsertaArista(G->GetVertice("PasilloM"), G->GetVertice("NodoI"), 10);
 
-    G.InsertaArista(G.GetVertice("PasilloM"), G.GetVertice("NodoQ"), 10);
-    G.InsertaArista(G.GetVertice("NodoQ"), G.GetVertice("PasilloM"), 10);
+    G->InsertaArista(G->GetVertice("PasilloM"), G->GetVertice("NodoQ"), 10);
+    G->InsertaArista(G->GetVertice("NodoQ"), G->GetVertice("PasilloM"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoG"), G.GetVertice("PasilloAux1"), 10);
-    G.InsertaArista(G.GetVertice("PasilloAux1"), G.GetVertice("NodoO"), 10);
-    G.InsertaArista(G.GetVertice("NodoO"), G.GetVertice("PasilloAux1"), 10);
-    G.InsertaArista(G.GetVertice("PasilloAux1"), G.GetVertice("NodoG"), 10);
+    G->InsertaArista(G->GetVertice("NodoG"), G->GetVertice("PasilloAux1"), 10);
+    G->InsertaArista(G->GetVertice("PasilloAux1"), G->GetVertice("NodoO"), 10);
+    G->InsertaArista(G->GetVertice("NodoO"), G->GetVertice("PasilloAux1"), 10);
+    G->InsertaArista(G->GetVertice("PasilloAux1"), G->GetVertice("NodoG"), 10);
 
-    G.InsertaArista(G.GetVertice("NodoN"), G.GetVertice("PasilloAux2"), 10);
-    G.InsertaArista(G.GetVertice("PasilloAux2"), G.GetVertice("NodoU"), 10);
-    G.InsertaArista(G.GetVertice("NodoU"), G.GetVertice("PasilloAux2"), 20);
-    G.InsertaArista(G.GetVertice("PasilloAux2"), G.GetVertice("NodoN"), 20);
+    G->InsertaArista(G->GetVertice("NodoN"), G->GetVertice("PasilloAux2"), 10);
+    G->InsertaArista(G->GetVertice("PasilloAux2"), G->GetVertice("NodoU"), 10);
+    G->InsertaArista(G->GetVertice("NodoU"), G->GetVertice("PasilloAux2"), 20);
+    G->InsertaArista(G->GetVertice("PasilloAux2"), G->GetVertice("NodoN"), 20);
 
     do
     {
@@ -122,14 +122,14 @@ int main()
             cout<<"Ingrese el nombre del vertice: ";
             cin.ignore();
             getline(cin, nombre, '\n');
-            G.InsertaVertice(nombre);
+            G->InsertaVertice(nombre);
             break;
         }
         case 2:
         {
             string origen, destino;
             int peso;
-            if(G.Vacio())
+            if(G->Vacio())
             {
                 cout<<"El grafo esta vacio"<<endl;
             }
@@ -143,45 +143,45 @@ int main()
                 cout<<"Ingrese el peso: ";
                 cin>>peso;
 
-                if(G.GetVertice(origen) == NULL || G.GetVertice(destino) == NULL)
+                if(G->GetVertice(origen) == NULL || G->GetVertice(destino) == NULL)
                 {
                     cout<<"Uno de los vertices no es valido"<<endl;
                 }
                 else
                 {
-                    G.InsertaArista(G.GetVertice(origen), G.GetVertice(destino), peso);
+                    G->InsertaArista(G->GetVertice(origen), G->GetVertice(destino), peso);
                 }
             }
             break;
         }
         case 3:
         {
-            if(G.Vacio())
+            if(G->Vacio())
             {
                 cout<<"El grafo esta vacio"<<endl;
             }
             else
             {
-                G.ListaAdyacencia();
+                G->ListaAdyacencia();
             }
             break;
         }
         case 4:
         {
-            if(G.Vacio())
+            if(G->Vacio())
             {
                 cout<<"El grafo esta vacio"<<endl;
             }
             else
             {
-                cout<<"Tamano: "<<G.Tamano()<<endl;
+                cout<<"Tamano: "<<G->Tamano()<<endl;
             }
             break;
         }
         case 5:
         {
             string origen, destino;
-            if(G.Vacio())
+            if(G->Vacio())
             {
                 cout<<"El grafo esta vacio"<<endl;
             }
@@ -192,19 +192,28 @@ int main()
                 getline(cin, origen, '\n');
                 cout<<"Ingrese el nombre del vertice destino: ";
                 getline(cin, destino, '\n');
-                if(G.GetVertice(origen) == NULL || G.GetVertice(destino) == NULL)
+                if(G->GetVertice(origen) == NULL || G->GetVertice(destino) == NULL)
                 {
                     cout<<"Vertices invalidos"<<endl;
                 }
                 else
                 {
-                    G.CaminoCortoL2(G.GetVertice(origen), G.GetVertice(destino));
+                    Vertice *pv;
+                    stack<Vertice*> algo=G->CaminoCortoL2(G->GetVertice(origen), G->GetVertice(destino));
+                    while(!algo.empty()){
+                        pv=algo.top();
+                        cout << pv->nombre <<" -> ";
+                        algo.pop();
+                    }
+                    cout<<endl;
+
                 }
             }
             break;
         }       
         case 6:
         {
+
             break;
         }
         default:
@@ -213,6 +222,7 @@ int main()
         }
         }
     }
-    while(opc != 13);
+    while(opc != 6);
+    delete G;
     return 0;
 }

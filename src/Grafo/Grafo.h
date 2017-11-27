@@ -4,28 +4,17 @@
 #include <queue>
 #include <list>
 #include <stack>
-class Arista;
-
-class Vertice
-{
-  Vertice *sig;
-  Arista *ady;
-  std::string nombre;
-  friend class Grafo;
-};
-
-class Arista{
-  Arista *sig;
-  Vertice *ady;
-  int peso;
-  friend class Grafo;
-};
+class Vertice;
 
 class Grafo
 {
 	Vertice *h;
 public:
-	void Inicializa();
+
+
+	Grafo();
+	~Grafo();
+
 	bool Vacio();
 	int Tamano();
 
@@ -35,7 +24,7 @@ public:
 	void ListaAdyacencia();
 	/*void RecorridoAnchura(Vertice *origen);
 	void RecorridoProfundidad(Vertice *origen);*/
-	void CaminoCortoL2(Vertice *origen, Vertice *destino);
+	std::stack<Vertice*> CaminoCortoL2(Vertice *origen, Vertice *destino);
 	
 };
 #endif

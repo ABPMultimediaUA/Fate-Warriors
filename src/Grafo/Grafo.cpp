@@ -1,7 +1,13 @@
 #include "Grafo.h"
-
-void Grafo::Inicializa(){
+#include "Vertice.h"
+#include "Arista.h"
+#include <iostream>
+Grafo::Grafo(){
 	h = NULL;
+}
+
+Grafo::~Grafo(){
+	delete h;
 }
 
 bool Grafo::Vacio(){
@@ -197,7 +203,7 @@ void Grafo::RecorridoProfundidad(Vertice *origen){
 
 //TO-DO: devolver la lista de vertices a seguir
 
-void Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
+std::stack<Vertice*> Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
 
 	Vertice *VerticeActual;
 	Vertice *DestinoActual;
@@ -207,28 +213,30 @@ void Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
 	typedef std::pair<Vertice*, Vertice*> VerticeVertice;
 	std::queue<Vertice*> cola;
 	std::stack<VerticeVertice> pila;
+	std::stack<Vertice*> recorrido;
 	std::list<Vertice*> lista;
 	std::list<Vertice*>::iterator i;
 
-	int band,band2,band3=0;
+	bool band,band2,band3=false;
 
 	cola.push(origen);
 
 	while(!cola.empty()){
-		band=0;
+		band=false;
 		VerticeActual=cola.front();
 		cola.pop();
 		for(i=lista.begin();i!=lista.end();i++){
 			if(VerticeActual == *i){
-				band=1;
+				band=true;
 			}
 		}
-		if(band==0){
+		if(band==false){
 			if(VerticeActual==destino){
-				band3=1;
+				band3=true;
 				DestinoActual=destino;
 				while(!pila.empty()){
-					std::cout << DestinoActual->nombre << " <- ";
+					//pila que sera la que se devuelva
+					recorrido.push(DestinoActual);
 					while(!pila.empty() && pila.top().second!=DestinoActual){
 						pila.pop();
 					}
@@ -242,13 +250,13 @@ void Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
 			aux=VerticeActual->ady;
 
 			while(aux!=NULL){
-				band2=0;
+				band2=false;
 				for(i=lista.begin();i!=lista.end();i++){
 					if(aux->ady == *i){
-						band2=1;
+						band2=true;
 					}
 				}
-				if(band2==0){
+				if(band2==false){
 					cola.push(aux->ady);
 					pila.push(VerticeVertice(VerticeActual, aux->ady));
 				}
@@ -258,7 +266,8 @@ void Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
 		}
 	}
 
-	if(band3==0){
+	if(band3==false){
 		std::cout << "no hay na entre esos dos " << std::endl;
 	}
+	return recorrido;
 }
