@@ -27,6 +27,7 @@ public:
   	void game_update();
 	void game_render();
 	void game_run();
+	int prueba_grafo();
   Datos_Partida* game_get_datos();
 private:
 	Game();

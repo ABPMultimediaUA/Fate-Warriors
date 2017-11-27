@@ -7,7 +7,7 @@
 
 #include "Nodo.h"
 
-Nodo::Nodo(float _i_x, float _i_y, float _i_ancho, float _i_alto, unsigned short _i_id): _nodo_x(_i_x),
+Nodo::Nodo(float _i_x, float _i_y, float _i_ancho, float _i_alto, unsigned short _i_id): Vertice(_i_id), _nodo_x(_i_x),
 	_nodo_y(_i_y), _nodo_ancho(_i_ancho), _nodo_alto(_i_alto), _estado(1), _id(_i_id){
 	// TODO Auto-generated constructor stub
 }
