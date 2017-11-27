@@ -1,6 +1,8 @@
 #include "Grafo.h"
 #include "Vertice.h"
 #include "Arista.h"
+#include <queue>
+#include <list>
 #include <iostream>
 Grafo::Grafo(){
 	h = NULL;

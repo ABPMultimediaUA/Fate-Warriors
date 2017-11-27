@@ -1,8 +1,6 @@
 #ifndef GRAFO_H
 #define GRAFO_H
-#include <iostream>
-#include <queue>
-#include <list>
+
 #include <stack>
 class Vertice;
 

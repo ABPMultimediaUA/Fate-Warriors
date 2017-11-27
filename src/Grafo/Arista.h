@@ -1,9 +1,5 @@
 #ifndef ARISTA_H
 #define ARISTA_H
-#include <iostream>
-#include <queue>
-#include <list>
-#include <stack>
 
 class Vertice;
 class Arista
