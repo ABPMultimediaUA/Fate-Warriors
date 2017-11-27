@@ -9,7 +9,7 @@ Grafo::Grafo(){
 }
 
 Grafo::~Grafo(){
-	delete h;
+	this->Anular();
 }
 
 bool Grafo::Vacio(){
@@ -32,11 +32,11 @@ int Grafo::Tamano(){
 	return cont;
 }
 
-Vertice *Grafo::GetVertice(std::string nombre){
+Vertice *Grafo::GetVertice(int id){
 	Vertice *aux;
 	aux = h;
 	while(aux!=NULL){
-		if(aux->nombre == nombre){
+		if(aux->id == id){
 			return aux;
 		}
 		aux=aux->sig;
@@ -45,9 +45,9 @@ Vertice *Grafo::GetVertice(std::string nombre){
 	return NULL;
 }
 
-void Grafo::InsertaVertice(std::string nombre){
+void Grafo::InsertaVertice(int id){
 	Vertice *nuevo = new Vertice;
-	nuevo->nombre=nombre;
+	nuevo->id=id;
 	nuevo->sig=NULL;
 	nuevo->ady=NULL;
 
@@ -64,7 +64,10 @@ void Grafo::InsertaVertice(std::string nombre){
 	}
 
 }
-
+void Grafo::InsertaAristaBi(Vertice *origen, Vertice *destino, int peso){
+	InsertaArista(origen,destino,peso);
+	InsertaArista(destino,origen,peso);
+}
 void Grafo::InsertaArista(Vertice *origen, Vertice *destino, int peso){
 	Arista *nueva = new Arista;
 
@@ -97,10 +100,10 @@ void Grafo::ListaAdyacencia(){
 	VertAux = h;
 
 	while(VertAux != NULL){
-		std::cout << VertAux->nombre << " -> ";
+		std::cout << VertAux->id << " -> ";
 		ArisAux = VertAux->ady;
 		while(ArisAux != NULL){
-			std::cout << ArisAux->ady->nombre << " -> " ;
+			std::cout << ArisAux->ady->id << " -> " ;
 			ArisAux = ArisAux->sig;
 		}
 		VertAux = VertAux->sig;
@@ -201,9 +204,68 @@ void Grafo::RecorridoProfundidad(Vertice *origen){
 
 }*/
 
+void Grafo::Anular(){
+
+	Vertice *aux;
+
+	while(h!=NULL){
+		aux=h;
+		EliminarArista(h,h->sig);
+		//std::cout<< aux->id << std::endl;
+		h=h->sig;
+		//std::cout<< h->id << std::endl;
+		
+		delete(aux);
+	}
+}
 
 
-//TO-DO: devolver la lista de vertices a seguir
+void Grafo::EliminarArista(Vertice *origen, Vertice *destino){
+
+	bool flag=false;
+
+	Arista *actual, *anterior;
+
+	actual = origen->ady;
+
+	if(actual==NULL){
+		std::cout << "Vertices no na" << std::endl;
+	}
+	else if(actual->ady==destino){
+std::cout << "Vertices no naasdf" << std::endl;
+		origen->ady = actual->sig;
+		delete(actual);
+		EliminarArista(destino,origen);
+	}
+	else
+	{
+		while(actual->ady != NULL){
+			if(actual->ady==destino){
+
+				flag=true;
+				anterior->sig=actual->sig;
+				delete(actual);
+				std::cout << "Se ha eliminado la arista" << std::endl;
+				EliminarArista(destino,origen);
+				break;
+			}
+			if(actual->sig != NULL){
+				anterior=actual;
+				actual=actual->sig;
+			}else{
+				break;
+			}
+		}
+		if(!flag)
+		{
+			std::cout << "Vertices no conectados" << std::endl;
+		}
+
+	}
+
+}
+
+//TO-DO: devolver la lista de vertices a seguir DONE
 
 std::stack<Vertice*> Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
 

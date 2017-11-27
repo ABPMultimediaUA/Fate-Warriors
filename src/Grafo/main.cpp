@@ -10,99 +10,99 @@ int main()
     Grafo *G = new Grafo();
     int opc;
 
-    G->InsertaVertice("NodoA");
-    G->InsertaVertice("PasilloB");
-    G->InsertaVertice("NodoC");
-    G->InsertaVertice("PasilloD");
-    G->InsertaVertice("NodoG");
-    G->InsertaVertice("PasilloJ");
-    G->InsertaVertice("NodoN");
-    G->InsertaVertice("PasilloE");
-    G->InsertaVertice("NodoH");
-    G->InsertaVertice("PasilloK");
-    G->InsertaVertice("NodoO");
-    G->InsertaVertice("PasilloL");
-    G->InsertaVertice("NodoP");
-    G->InsertaVertice("PasilloR");
-    G->InsertaVertice("NodoS");
-    G->InsertaVertice("PasilloT");
-    G->InsertaVertice("NodoU");
-    G->InsertaVertice("PasilloF");
-    G->InsertaVertice("NodoI");
-    G->InsertaVertice("PasilloM");
-    G->InsertaVertice("NodoQ");
-    G->InsertaVertice("PasilloAux1");
-    G->InsertaVertice("PasilloAux2");
+    G->InsertaVertice(1); //NodoA
+    G->InsertaVertice(2); //PasilloB
+    G->InsertaVertice(3); //NodoC
+    G->InsertaVertice(4); //PasilloD
+    G->InsertaVertice(5); //NodoG
+    G->InsertaVertice(6); //PasilloJ
+    G->InsertaVertice(7); //NodoN
+    G->InsertaVertice(8); //PasilloE
+    G->InsertaVertice(9); //NodoH
+    G->InsertaVertice(10); //PasilloK
+    G->InsertaVertice(11); //NodoO
+    G->InsertaVertice(12); //PasilloL
+    G->InsertaVertice(13); //NodoP
+    G->InsertaVertice(14); //PasilloR
+    G->InsertaVertice(15); //NodoS
+    G->InsertaVertice(16); //PasilloT
+    G->InsertaVertice(17); //NodoU
+    G->InsertaVertice(18); //PasilloF
+    G->InsertaVertice(19); //NodoI
+    G->InsertaVertice(20); //PasilloM
+    G->InsertaVertice(21); //NodoQ
+    G->InsertaVertice(22); //PasilloAux1
+    G->InsertaVertice(23); //PasilloAux2
 
-    G->InsertaArista(G->GetVertice("NodoA"), G->GetVertice("PasilloB"), 10);
-    G->InsertaArista(G->GetVertice("PasilloB"), G->GetVertice("NodoA"), 10);
+    G->InsertaAristaBi(G->GetVertice(1), G->GetVertice(2), 1);
+    //G->InsertaAristaBi(G->GetVertice(2), G->GetVertice(1), 1);
 
-    G->InsertaArista(G->GetVertice("PasilloB"), G->GetVertice("NodoC"), 10);
-    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloB"), 10);
+    G->InsertaAristaBi(G->GetVertice(2), G->GetVertice(3), 1);
+    //G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(2), 1);
 
-    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloD"), 10);
-    G->InsertaArista(G->GetVertice("PasilloD"), G->GetVertice("NodoC"), 10);
+    G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(4), 1);
+    //G->InsertaAristaBi(G->GetVertice(4), G->GetVertice(3), 1);
 
-    G->InsertaArista(G->GetVertice("PasilloD"), G->GetVertice("NodoG"), 10);
-    G->InsertaArista(G->GetVertice("NodoG"), G->GetVertice("PasilloD"), 10);
+    G->InsertaAristaBi(G->GetVertice(4), G->GetVertice(5), 1);
+   // G->InsertaAristaBi(G->GetVertice(5), G->GetVertice(4), 1);
 
-    G->InsertaArista(G->GetVertice("NodoG"), G->GetVertice("PasilloJ"), 10);
-    G->InsertaArista(G->GetVertice("PasilloJ"), G->GetVertice("NodoG"), 10);
+    G->InsertaAristaBi(G->GetVertice(5), G->GetVertice(6), 1);
+   // G->InsertaAristaBi(G->GetVertice(6), G->GetVertice(5), 1);
 
-    G->InsertaArista(G->GetVertice("PasilloJ"), G->GetVertice("NodoN"), 30);
-    G->InsertaArista(G->GetVertice("NodoN"), G->GetVertice("PasilloJ"), 30);
+    G->InsertaAristaBi(G->GetVertice(6), G->GetVertice(7), 3);
+  //  G->InsertaAristaBi(G->GetVertice(7), G->GetVertice(6), 3);
 
-    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloE"), 10);
-    G->InsertaArista(G->GetVertice("PasilloE"), G->GetVertice("NodoC"), 10);
+    G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(8), 1);
+  //  G->InsertaAristaBi(G->GetVertice(8), G->GetVertice(3), 1);
 
-    G->InsertaArista(G->GetVertice("PasilloE"), G->GetVertice("NodoH"), 10);
-    G->InsertaArista(G->GetVertice("NodoH"), G->GetVertice("PasilloE"), 10);
+    G->InsertaAristaBi(G->GetVertice(8), G->GetVertice(9), 1);
+   // G->InsertaAristaBi(G->GetVertice(9), G->GetVertice(8), 1);
 
-    G->InsertaArista(G->GetVertice("NodoH"), G->GetVertice("PasilloK"), 10);
-    G->InsertaArista(G->GetVertice("PasilloK"), G->GetVertice("NodoH"), 10);
+    G->InsertaAristaBi(G->GetVertice(9), G->GetVertice(10), 10);
+  //  G->InsertaAristaBi(G->GetVertice(10), G->GetVertice(9), 10);
 
-    G->InsertaArista(G->GetVertice("NodoO"), G->GetVertice("PasilloK"), 10);
-    G->InsertaArista(G->GetVertice("PasilloK"), G->GetVertice("NodoO"), 10);
+    G->InsertaAristaBi(G->GetVertice(11), G->GetVertice(10), 10);
+ //   G->InsertaAristaBi(G->GetVertice(10), G->GetVertice(11), 10);
 
-    G->InsertaArista(G->GetVertice("NodoH"), G->GetVertice("PasilloL"), 10);
-    G->InsertaArista(G->GetVertice("PasilloL"), G->GetVertice("NodoH"), 10);
+    G->InsertaAristaBi(G->GetVertice(9), G->GetVertice(12), 10);
+ //   G->InsertaAristaBi(G->GetVertice(12), G->GetVertice(9), 10);
 
-    G->InsertaArista(G->GetVertice("PasilloL"), G->GetVertice("NodoP"), 10);
-    G->InsertaArista(G->GetVertice("NodoP"), G->GetVertice("PasilloL"), 10);
+    G->InsertaAristaBi(G->GetVertice(12), G->GetVertice(13), 10);
+  //  G->InsertaAristaBi(G->GetVertice(13), G->GetVertice(12), 10);
 
-    G->InsertaArista(G->GetVertice("NodoP"), G->GetVertice("PasilloR"), 10);
-    G->InsertaArista(G->GetVertice("PasilloR"), G->GetVertice("NodoP"), 10);
+    G->InsertaAristaBi(G->GetVertice(13), G->GetVertice(14), 10);
+  //  G->InsertaAristaBi(G->GetVertice(14), G->GetVertice(13), 10);
 
-    G->InsertaArista(G->GetVertice("PasilloR"), G->GetVertice("NodoS"), 10);
-    G->InsertaArista(G->GetVertice("NodoS"), G->GetVertice("PasilloR"), 10);
+    G->InsertaAristaBi(G->GetVertice(14), G->GetVertice(15), 10);
+   // G->InsertaAristaBi(G->GetVertice(15), G->GetVertice(14), 10);
 
-    G->InsertaArista(G->GetVertice("NodoS"), G->GetVertice("PasilloT"), 10);
-    G->InsertaArista(G->GetVertice("PasilloT"), G->GetVertice("NodoS"), 10);
+    G->InsertaAristaBi(G->GetVertice(15), G->GetVertice(16), 10);
+  //  G->InsertaAristaBi(G->GetVertice(16), G->GetVertice(15), 10);
 
-    G->InsertaArista(G->GetVertice("PasilloT"), G->GetVertice("NodoU"), 10);
-    G->InsertaArista(G->GetVertice("NodoU"), G->GetVertice("PasilloT"), 10);
+    G->InsertaAristaBi(G->GetVertice(16), G->GetVertice(17), 10);
+  //  G->InsertaAristaBi(G->GetVertice(17), G->GetVertice(16), 10);
 
-    G->InsertaArista(G->GetVertice("NodoC"), G->GetVertice("PasilloF"), 10);
-    G->InsertaArista(G->GetVertice("PasilloF"), G->GetVertice("NodoC"), 10);
+    G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(18), 10);
+  //  G->InsertaAristaBi(G->GetVertice(18), G->GetVertice(3), 10);
 
-    G->InsertaArista(G->GetVertice("PasilloF"), G->GetVertice("NodoI"), 10);
-    G->InsertaArista(G->GetVertice("NodoI"), G->GetVertice("PasilloF"), 10);
+    G->InsertaAristaBi(G->GetVertice(18), G->GetVertice(19), 10);
+ //   G->InsertaAristaBi(G->GetVertice(19), G->GetVertice(18), 10);
 
-    G->InsertaArista(G->GetVertice("NodoI"), G->GetVertice("PasilloM"), 10);
-    G->InsertaArista(G->GetVertice("PasilloM"), G->GetVertice("NodoI"), 10);
+    G->InsertaAristaBi(G->GetVertice(19), G->GetVertice(20), 10);
+ //   G->InsertaAristaBi(G->GetVertice(20), G->GetVertice(19), 10);
 
-    G->InsertaArista(G->GetVertice("PasilloM"), G->GetVertice("NodoQ"), 10);
-    G->InsertaArista(G->GetVertice("NodoQ"), G->GetVertice("PasilloM"), 10);
+    G->InsertaAristaBi(G->GetVertice(20), G->GetVertice(21), 10);
+ //   G->InsertaAristaBi(G->GetVertice(21), G->GetVertice(20), 10);
 
-    G->InsertaArista(G->GetVertice("NodoG"), G->GetVertice("PasilloAux1"), 10);
-    G->InsertaArista(G->GetVertice("PasilloAux1"), G->GetVertice("NodoO"), 10);
-    G->InsertaArista(G->GetVertice("NodoO"), G->GetVertice("PasilloAux1"), 10);
-    G->InsertaArista(G->GetVertice("PasilloAux1"), G->GetVertice("NodoG"), 10);
+    G->InsertaAristaBi(G->GetVertice(5), G->GetVertice(22), 10);
+    G->InsertaAristaBi(G->GetVertice(22), G->GetVertice(11), 10);
+  //  G->InsertaAristaBi(G->GetVertice(11), G->GetVertice(22), 10);
+  //  G->InsertaAristaBi(G->GetVertice(22), G->GetVertice(5), 10);
 
-    G->InsertaArista(G->GetVertice("NodoN"), G->GetVertice("PasilloAux2"), 10);
-    G->InsertaArista(G->GetVertice("PasilloAux2"), G->GetVertice("NodoU"), 10);
-    G->InsertaArista(G->GetVertice("NodoU"), G->GetVertice("PasilloAux2"), 20);
-    G->InsertaArista(G->GetVertice("PasilloAux2"), G->GetVertice("NodoN"), 20);
+    G->InsertaAristaBi(G->GetVertice(7), G->GetVertice(23), 10);
+    G->InsertaAristaBi(G->GetVertice(23), G->GetVertice(17), 10);
+  // G->InsertaAristaBi(G->GetVertice(17), G->GetVertice(23), 20);
+   // G->InsertaAristaBi(G->GetVertice(23), G->GetVertice(7), 20);
 
     do
     {
@@ -118,16 +118,16 @@ int main()
         {
         case 1:
         {
-            string nombre;
-            cout<<"Ingrese el nombre del vertice: ";
+            int nombre;
+            cout<<"Ingrese la id nombre del vertice: ";
             cin.ignore();
-            getline(cin, nombre, '\n');
+            cin>>nombre;
             G->InsertaVertice(nombre);
             break;
         }
         case 2:
         {
-            string origen, destino;
+            int origen, destino;
             int peso;
             if(G->Vacio())
             {
@@ -135,11 +135,11 @@ int main()
             }
             else
             {
-                cout<<"Ingrese del nombre del vertice origen: ";
+                cout<<"Ingrese id del nombre del vertice origen: ";
                 cin.ignore();
-                getline(cin, origen, '\n');
-                cout<<"Ingrese el nombre del vertice destino: ";
-                getline(cin, destino, '\n');
+                cin>>origen;
+                cout<<"Ingrese id del nombre del vertice destino: ";
+                cin>>destino;
                 cout<<"Ingrese el peso: ";
                 cin>>peso;
 
@@ -149,7 +149,7 @@ int main()
                 }
                 else
                 {
-                    G->InsertaArista(G->GetVertice(origen), G->GetVertice(destino), peso);
+                    G->InsertaAristaBi(G->GetVertice(origen), G->GetVertice(destino), peso);
                 }
             }
             break;
@@ -180,18 +180,18 @@ int main()
         }
         case 5:
         {
-            string origen, destino;
+            int origen, destino;
             if(G->Vacio())
             {
                 cout<<"El grafo esta vacio"<<endl;
             }
             else
             {
-                cout<<"Ingrese el nombre del vertice origen: ";
+                cout<<"Ingrese el id nombre del vertice origen: ";
                 cin.ignore();
-                getline(cin, origen, '\n');
-                cout<<"Ingrese el nombre del vertice destino: ";
-                getline(cin, destino, '\n');
+                cin>>origen;
+                cout<<"Ingrese id del nombre del vertice destino: ";
+                cin>>destino;
                 if(G->GetVertice(origen) == NULL || G->GetVertice(destino) == NULL)
                 {
                     cout<<"Vertices invalidos"<<endl;
@@ -202,7 +202,7 @@ int main()
                     stack<Vertice*> algo=G->CaminoCortoL2(G->GetVertice(origen), G->GetVertice(destino));
                     while(!algo.empty()){
                         pv=algo.top();
-                        cout << pv->nombre <<" -> ";
+                        cout << pv->id <<" -> ";
                         algo.pop();
                     }
                     cout<<endl;
@@ -210,8 +210,45 @@ int main()
                 }
             }
             break;
-        }       
+        }
         case 6:
+        {
+            int origen, destino;
+            if(G->Vacio())
+            {
+                cout<<"El grafo esta vacio"<<endl;
+            }
+            else
+            {
+                cout<<"Ingrese id del nombre del vertice origen: ";
+                cin.ignore();
+                cin>>origen;
+                cout<<"Ingrese id del nombre del vertice destino: ";
+                cin>>destino;
+                if(G->GetVertice(origen) == NULL || G->GetVertice(destino) == NULL)
+                {
+                    cout<<"Vertices no validos"<<endl;
+                }
+                else
+                {
+                    G->EliminarArista(G->GetVertice(origen), G->GetVertice(destino));
+                }
+            }
+            break;
+        }
+        case 7:
+        {
+            if(G->Vacio())
+            {
+                cout<<"El grafo esta vacio"<<endl;
+            }
+            else
+            {
+               G->Anular();
+            }
+            break;
+        }   
+        case 9:
         {
 
             break;
@@ -222,7 +259,7 @@ int main()
         }
         }
     }
-    while(opc != 6);
+    while(opc != 9);
     delete G;
     return 0;
 }

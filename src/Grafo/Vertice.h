@@ -1,6 +1,8 @@
 #ifndef VERTICE_H
 #define VERTICE_H
 
+#include <string>
+
 class Arista;
 class Vertice
 {
@@ -8,7 +10,6 @@ class Vertice
 
 	  Vertice *sig;
 	  Arista *ady;
-	  std::string nombre;
 	  int id;
 
 	  Vertice();

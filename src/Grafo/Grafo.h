@@ -2,6 +2,8 @@
 #define GRAFO_H
 
 #include <stack>
+#include <string>
+
 class Vertice;
 
 class Grafo
@@ -16,13 +18,17 @@ public:
 	bool Vacio();
 	int Tamano();
 
-	Vertice * GetVertice(std::string nombre);
+	Vertice * GetVertice(int id);
+	void InsertaAristaBi(Vertice *origen, Vertice *destino, int peso);
 	void InsertaArista(Vertice *origen, Vertice *destino, int peso);
-	void InsertaVertice(std::string nombre);
+	void InsertaVertice(int id);
 	void ListaAdyacencia();
 	/*void RecorridoAnchura(Vertice *origen);
 	void RecorridoProfundidad(Vertice *origen);*/
 	std::stack<Vertice*> CaminoCortoL2(Vertice *origen, Vertice *destino);
+
+	void EliminarArista(Vertice *origen, Vertice *destino);
+	void Anular();
 	
 };
 #endif
