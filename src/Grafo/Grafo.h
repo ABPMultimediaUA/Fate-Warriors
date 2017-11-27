@@ -8,27 +8,26 @@ class Vertice;
 
 class Grafo
 {
-	Vertice *h;
+protected:
+	Vertice *_h;
+
+	void inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_peso);
 public:
 
 
 	Grafo();
 	~Grafo();
 
-	bool Vacio();
-	int Tamano();
+	bool grafo_vacio();
+	int grafo_tamano();
 
-	Vertice * GetVertice(int id);
-	void InsertaAristaBi(Vertice *origen, Vertice *destino, int peso);
-	void InsertaArista(Vertice *origen, Vertice *destino, int peso);
-	void InsertaVertice(int id);
-	void ListaAdyacencia();
-	/*void RecorridoAnchura(Vertice *origen);
-	void RecorridoProfundidad(Vertice *origen);*/
-	std::stack<Vertice*> CaminoCortoL2(Vertice *origen, Vertice *destino);
-
-	void EliminarArista(Vertice *origen, Vertice *destino);
-	void Anular();
+	Vertice * grafo_get_vertice(int _i_id);
+	void grafo_inserta_arista_bi(Vertice *_i_origen, Vertice *i_i_destino, int _i_peso);	
+	void grafo_inserta_vertice(int _i_id);
+	void grafo_lista_adyacencia();
+	std::stack<Vertice*> grafo_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino);
+	void grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino);
+	void grafo_anular();
 	
 };
 #endif

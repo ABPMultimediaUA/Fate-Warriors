@@ -5,15 +5,15 @@
 #include <list>
 #include <iostream>
 Grafo::Grafo(){
-	h = NULL;
+	_h = NULL;
 }
 
 Grafo::~Grafo(){
-	this->Anular();
+	this->grafo_anular();
 }
 
-bool Grafo::Vacio(){
-	if(h==NULL){
+bool Grafo::grafo_vacio(){
+	if(_h==NULL){
 		return true;
 	}
 	else{
@@ -21,96 +21,96 @@ bool Grafo::Vacio(){
 	}
 }
 
-int Grafo::Tamano(){
-	int cont=0;
-	Vertice *aux;
-	aux = h;
-	while(aux!=NULL){
-		cont++;
-		aux=aux->sig;
+int Grafo::grafo_tamano(){
+	int _cont=0;
+	Vertice *_aux;
+	_aux = _h;
+	while(_aux!=NULL){
+		_cont++;
+		_aux=_aux->_sig;
 	}
-	return cont;
+	return _cont;
 }
 
-Vertice *Grafo::GetVertice(int id){
-	Vertice *aux;
-	aux = h;
-	while(aux!=NULL){
-		if(aux->id == id){
-			return aux;
+Vertice *Grafo::grafo_get_vertice(int _i_id){
+	Vertice *_aux;
+	_aux = _h;
+	while(_aux!=NULL){
+		if(_aux->_id == _i_id){
+			return _aux;
 		}
-		aux=aux->sig;
+		_aux=_aux->_sig;
 		
 	}
 	return NULL;
 }
 
-void Grafo::InsertaVertice(int id){
-	Vertice *nuevo = new Vertice;
-	nuevo->id=id;
-	nuevo->sig=NULL;
-	nuevo->ady=NULL;
+void Grafo::grafo_inserta_vertice(int _i_id){
+	Vertice *_nuevo = new Vertice;
+	_nuevo->_id=_i_id;
+	_nuevo->_sig=NULL;
+	_nuevo->_ady=NULL;
 
-	if(Vacio()){
-		h=nuevo;
+	if(grafo_vacio()){
+		_h=_nuevo;
 	}
 	else{
-		Vertice *aux;
-		aux=h;
-		while(aux->sig!=NULL){
-			aux = aux->sig;
+		Vertice *_aux;
+		_aux=_h;
+		while(_aux->_sig!=NULL){
+			_aux = _aux->_sig;
 		}
-		aux->sig=nuevo;
+		_aux->_sig=_nuevo;
 	}
 
 }
-void Grafo::InsertaAristaBi(Vertice *origen, Vertice *destino, int peso){
-	InsertaArista(origen,destino,peso);
-	InsertaArista(destino,origen,peso);
+void Grafo::grafo_inserta_arista_bi(Vertice *_i_origen, Vertice *_i_destino, int _i_peso){
+	inserta_arista(_i_origen,_i_destino,_i_peso);
+	inserta_arista(_i_destino,_i_origen,_i_peso);
 }
-void Grafo::InsertaArista(Vertice *origen, Vertice *destino, int peso){
-	Arista *nueva = new Arista;
+void Grafo::inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_peso){
+	Arista *_nueva = new Arista;
 
-	nueva->peso=peso;
-	nueva->sig=NULL;
-	nueva->ady=NULL;
+	_nueva->_peso=_i_peso;
+	_nueva->_sig=NULL;
+	_nueva->_ady=NULL;
 
-	Arista *aux;
+	Arista *_aux;
 
-	aux=origen->ady;
+	_aux=_i_origen->_ady;
 
-	if(aux==NULL){
-		origen->ady=nueva;
-		nueva->ady=destino;
+	if(_aux==NULL){
+		_i_origen->_ady=_nueva;
+		_nueva->_ady=_i_destino;
 	}
 	else{
-		while(aux->sig!=NULL){
-			aux= aux->sig;
+		while(_aux->_sig!=NULL){
+			_aux= _aux->_sig;
 		}
-		aux->sig=nueva;
-		nueva->ady=destino;
+		_aux->_sig=_nueva;
+		_nueva->_ady=_i_destino;
 	}
 
 }
 
-void Grafo::ListaAdyacencia(){
-	Vertice *VertAux;
-	Arista *ArisAux;
+void Grafo::grafo_lista_adyacencia(){
+	Vertice *_VertAux;
+	Arista *_ArisAux;
 
-	VertAux = h;
+	_VertAux = _h;
 
-	while(VertAux != NULL){
-		std::cout << VertAux->id << " -> ";
-		ArisAux = VertAux->ady;
-		while(ArisAux != NULL){
-			std::cout << ArisAux->ady->id << " -> " ;
-			ArisAux = ArisAux->sig;
+	while(_VertAux != NULL){
+		std::cout << _VertAux->_id << " -> ";
+		_ArisAux = _VertAux->_ady;
+		while(_ArisAux != NULL){
+			std::cout << _ArisAux->_ady->_id << " -> " ;
+			_ArisAux = _ArisAux->_sig;
 		}
-		VertAux = VertAux->sig;
+		_VertAux = _VertAux->_sig;
 		std::cout<<std::endl;
 	}
 }
-/*void Grafo::RecorridoAnchura(Vertice *origen){
+/*void Grafo::RecorridoAnchura(Vertice *_origen){
 	
 	int band, band2;
 
@@ -120,7 +120,7 @@ void Grafo::ListaAdyacencia(){
 	std::list<Vertice*> lista;
 	std::list<Vertice*>::iterator i;
 
-	cola.push(origen);
+	cola.push(_origen);
 	while(!cola.empty()){
 		
 		band=0;
@@ -139,35 +139,35 @@ void Grafo::ListaAdyacencia(){
 			lista.push_back(actual);
 
 			Arista *aux;
-			aux = actual->ady;
+			aux = actual->_ady;
 			while(aux!=NULL){
 				band2=0;
 				
 				for(i=lista.begin();i!=lista.end();i++){
 					
-					if(aux->ady == *i){
+					if(aux->_ady == *i){
 						
 						band2=1;
 					}
 				}
 				if(band2==0){
 					
-					cola.push(aux->ady);
+					cola.push(aux->_ady);
 				}
-				aux=aux->sig;
+				aux=aux->_sig;
 			}
 		}
 	}
 	std::cout << std::endl;
 }
 
-void Grafo::RecorridoProfundidad(Vertice *origen){
+void Grafo::RecorridoProfundidad(Vertice *_origen){
 
 	Vertice *actual;
 	std::stack<Vertice*> pila;
 	std::list<Vertice*> lista;
 	std::list<Vertice*>::iterator i;
-	pila.push(origen);
+	pila.push(_origen);
 	int band=0,band2=0;
 
 	while(!pila.empty()){
@@ -184,19 +184,19 @@ void Grafo::RecorridoProfundidad(Vertice *origen){
 			lista.push_back(actual);
 
 			Arista *aux;
-			aux=actual->ady;
+			aux=actual->_ady;
 
 			while(aux!=NULL){
 				band2=0;
 				for(i=lista.begin();i!=lista.end();i++){
-					if(*i==aux->ady){
+					if(*i==aux->_ady){
 						band2=1;
 					}
 				}
 				if(band2==0){
-					pila.push(aux->ady);
+					pila.push(aux->_ady);
 				}
-				aux=aux->sig;
+				aux=aux->_sig;
 			}
 		}
 	}
@@ -204,59 +204,59 @@ void Grafo::RecorridoProfundidad(Vertice *origen){
 
 }*/
 
-void Grafo::Anular(){
+void Grafo::grafo_anular(){
 
-	Vertice *aux;
+	Vertice *_aux;
 
-	while(h!=NULL){
-		aux=h;
-		EliminarArista(h,h->sig);
-		//std::cout<< aux->id << std::endl;
-		h=h->sig;
-		//std::cout<< h->id << std::endl;
+	while(_h!=NULL){
+		_aux=_h;
+		grafo_eliminar_arista(_h,_h->_sig);
+		//std::cout<< aux->_id << std::endl;
+		_h=_h->_sig;
+		//std::cout<< h->_id << std::endl;
 		
-		delete(aux);
+		delete(_aux);
 	}
 }
 
 
-void Grafo::EliminarArista(Vertice *origen, Vertice *destino){
+void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 
-	bool flag=false;
+	bool _flag=false;
 
-	Arista *actual, *anterior;
+	Arista *_actual, *_anterior;
 
-	actual = origen->ady;
+	_actual = _i_origen->_ady;
 
-	if(actual==NULL){
+	if(_actual==NULL){
 		std::cout << "Vertices no na" << std::endl;
 	}
-	else if(actual->ady==destino){
+	else if(_actual->_ady==_i_destino){
 std::cout << "Vertices no naasdf" << std::endl;
-		origen->ady = actual->sig;
-		delete(actual);
-		EliminarArista(destino,origen);
+		_i_origen->_ady = _actual->_sig;
+		delete(_actual);
+		grafo_eliminar_arista(_i_destino,_i_origen);
 	}
 	else
 	{
-		while(actual->ady != NULL){
-			if(actual->ady==destino){
+		while(_actual->_ady != NULL){
+			if(_actual->_ady==_i_destino){
 
-				flag=true;
-				anterior->sig=actual->sig;
-				delete(actual);
+				_flag=true;
+				_anterior->_sig=_actual->_sig;
+				delete(_actual);
 				std::cout << "Se ha eliminado la arista" << std::endl;
-				EliminarArista(destino,origen);
+				grafo_eliminar_arista(_i_destino,_i_origen);
 				break;
 			}
-			if(actual->sig != NULL){
-				anterior=actual;
-				actual=actual->sig;
+			if(_actual->_sig != NULL){
+				_anterior=_actual;
+				_actual=_actual->_sig;
 			}else{
 				break;
 			}
 		}
-		if(!flag)
+		if(!_flag)
 		{
 			std::cout << "Vertices no conectados" << std::endl;
 		}
@@ -267,71 +267,71 @@ std::cout << "Vertices no naasdf" << std::endl;
 
 //TO-DO: devolver la lista de vertices a seguir DONE
 
-std::stack<Vertice*> Grafo::CaminoCortoL2(Vertice *origen, Vertice *destino){
+std::stack<Vertice*> Grafo::grafo_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino){
 
-	Vertice *VerticeActual;
-	Vertice *DestinoActual;
+	Vertice *_VerticeActual;
+	Vertice *_i_destinoActual;
 
-	Arista *aux;
+	Arista *_aux;
 
 	typedef std::pair<Vertice*, Vertice*> VerticeVertice;
-	std::queue<Vertice*> cola;
-	std::stack<VerticeVertice> pila;
-	std::stack<Vertice*> recorrido;
-	std::list<Vertice*> lista;
-	std::list<Vertice*>::iterator i;
+	std::queue<Vertice*> _cola;
+	std::stack<VerticeVertice> _pila;
+	std::stack<Vertice*> _recorrido;
+	std::list<Vertice*> _lista;
+	std::list<Vertice*>::iterator _i;
 
-	bool band,band2,band3=false;
+	bool _band,_band2,_band3=false;
 
-	cola.push(origen);
+	_cola.push(_i_origen);
 
-	while(!cola.empty()){
-		band=false;
-		VerticeActual=cola.front();
-		cola.pop();
-		for(i=lista.begin();i!=lista.end();i++){
-			if(VerticeActual == *i){
-				band=true;
+	while(!_cola.empty()){
+		_band=false;
+		_VerticeActual=_cola.front();
+		_cola.pop();
+		for(_i=_lista.begin();_i!=_lista.end();_i++){
+			if(_VerticeActual == *_i){
+				_band=true;
 			}
 		}
-		if(band==false){
-			if(VerticeActual==destino){
-				band3=true;
-				DestinoActual=destino;
-				while(!pila.empty()){
+		if(_band==false){
+			if(_VerticeActual==_i_destino){
+				_band3=true;
+				_i_destinoActual=_i_destino;
+				while(!_pila.empty()){
 					//pila que sera la que se devuelva
-					recorrido.push(DestinoActual);
-					while(!pila.empty() && pila.top().second!=DestinoActual){
-						pila.pop();
+					_recorrido.push(_i_destinoActual);
+					while(!_pila.empty() && _pila.top().second!=_i_destinoActual){
+						_pila.pop();
 					}
-					if(!pila.empty()){
-						DestinoActual=pila.top().first;
+					if(!_pila.empty()){
+						_i_destinoActual=_pila.top().first;
 					}
 				}
 			}
-			lista.push_back(VerticeActual);
+			_lista.push_back(_VerticeActual);
 
-			aux=VerticeActual->ady;
+			_aux=_VerticeActual->_ady;
 
-			while(aux!=NULL){
-				band2=false;
-				for(i=lista.begin();i!=lista.end();i++){
-					if(aux->ady == *i){
-						band2=true;
+			while(_aux!=NULL){
+				_band2=false;
+				for(_i=_lista.begin();_i!=_lista.end();_i++){
+					if(_aux->_ady == *_i){
+						_band2=true;
 					}
 				}
-				if(band2==false){
-					cola.push(aux->ady);
-					pila.push(VerticeVertice(VerticeActual, aux->ady));
+				if(_band2==false){
+					_cola.push(_aux->_ady);
+					_pila.push(VerticeVertice(_VerticeActual, _aux->_ady));
 				}
-				aux=aux->sig;
+				_aux=_aux->_sig;
 			}
 
 		}
 	}
 
-	if(band3==false){
+	if(_band3==false){
 		std::cout << "no hay na entre esos dos " << std::endl;
 	}
-	return recorrido;
+	return _recorrido;
 }

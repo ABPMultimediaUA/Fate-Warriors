@@ -8,9 +8,9 @@ class Vertice
 {
 	public:
 
-	  Vertice *sig;
-	  Arista *ady;
-	  int id;
+	  Vertice *_sig;
+	  Arista *_ady;
+	  int _id;
 
 	  Vertice();
 	  virtual ~Vertice();

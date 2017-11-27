@@ -10,99 +10,99 @@ int main()
     Grafo *G = new Grafo();
     int opc;
 
-    G->InsertaVertice(1); //NodoA
-    G->InsertaVertice(2); //PasilloB
-    G->InsertaVertice(3); //NodoC
-    G->InsertaVertice(4); //PasilloD
-    G->InsertaVertice(5); //NodoG
-    G->InsertaVertice(6); //PasilloJ
-    G->InsertaVertice(7); //NodoN
-    G->InsertaVertice(8); //PasilloE
-    G->InsertaVertice(9); //NodoH
-    G->InsertaVertice(10); //PasilloK
-    G->InsertaVertice(11); //NodoO
-    G->InsertaVertice(12); //PasilloL
-    G->InsertaVertice(13); //NodoP
-    G->InsertaVertice(14); //PasilloR
-    G->InsertaVertice(15); //NodoS
-    G->InsertaVertice(16); //PasilloT
-    G->InsertaVertice(17); //NodoU
-    G->InsertaVertice(18); //PasilloF
-    G->InsertaVertice(19); //NodoI
-    G->InsertaVertice(20); //PasilloM
-    G->InsertaVertice(21); //NodoQ
-    G->InsertaVertice(22); //PasilloAux1
-    G->InsertaVertice(23); //PasilloAux2
+    G->grafo_inserta_vertice(1); //NodoA
+    G->grafo_inserta_vertice(2); //PasilloB
+    G->grafo_inserta_vertice(3); //NodoC
+    G->grafo_inserta_vertice(4); //PasilloD
+    G->grafo_inserta_vertice(5); //NodoG
+    G->grafo_inserta_vertice(6); //PasilloJ
+    G->grafo_inserta_vertice(7); //NodoN
+    G->grafo_inserta_vertice(8); //PasilloE
+    G->grafo_inserta_vertice(9); //NodoH
+    G->grafo_inserta_vertice(10); //PasilloK
+    G->grafo_inserta_vertice(11); //NodoO
+    G->grafo_inserta_vertice(12); //PasilloL
+    G->grafo_inserta_vertice(13); //NodoP
+    G->grafo_inserta_vertice(14); //PasilloR
+    G->grafo_inserta_vertice(15); //NodoS
+    G->grafo_inserta_vertice(16); //PasilloT
+    G->grafo_inserta_vertice(17); //NodoU
+    G->grafo_inserta_vertice(18); //PasilloF
+    G->grafo_inserta_vertice(19); //NodoI
+    G->grafo_inserta_vertice(20); //PasilloM
+    G->grafo_inserta_vertice(21); //NodoQ
+    G->grafo_inserta_vertice(22); //PasilloAux1
+    G->grafo_inserta_vertice(23); //PasilloAux2
 
-    G->InsertaAristaBi(G->GetVertice(1), G->GetVertice(2), 1);
-    //G->InsertaAristaBi(G->GetVertice(2), G->GetVertice(1), 1);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(1), G->grafo_get_vertice(2), 1);
+    //G->grafo_inserta_arista_bi(G->grafo_get_vertice(2), G->grafo_get_vertice(1), 1);
 
-    G->InsertaAristaBi(G->GetVertice(2), G->GetVertice(3), 1);
-    //G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(2), 1);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(2), G->grafo_get_vertice(3), 1);
+    //G->grafo_inserta_arista_bi(G->grafo_get_vertice(3), G->grafo_get_vertice(2), 1);
 
-    G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(4), 1);
-    //G->InsertaAristaBi(G->GetVertice(4), G->GetVertice(3), 1);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(3), G->grafo_get_vertice(4), 1);
+    //G->grafo_inserta_arista_bi(G->grafo_get_vertice(4), G->grafo_get_vertice(3), 1);
 
-    G->InsertaAristaBi(G->GetVertice(4), G->GetVertice(5), 1);
-   // G->InsertaAristaBi(G->GetVertice(5), G->GetVertice(4), 1);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(4), G->grafo_get_vertice(5), 1);
+   // G->grafo_inserta_arista_bi(G->grafo_get_vertice(5), G->grafo_get_vertice(4), 1);
 
-    G->InsertaAristaBi(G->GetVertice(5), G->GetVertice(6), 1);
-   // G->InsertaAristaBi(G->GetVertice(6), G->GetVertice(5), 1);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(5), G->grafo_get_vertice(6), 1);
+   // G->grafo_inserta_arista_bi(G->grafo_get_vertice(6), G->grafo_get_vertice(5), 1);
 
-    G->InsertaAristaBi(G->GetVertice(6), G->GetVertice(7), 3);
-  //  G->InsertaAristaBi(G->GetVertice(7), G->GetVertice(6), 3);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(6), G->grafo_get_vertice(7), 3);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(7), G->grafo_get_vertice(6), 3);
 
-    G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(8), 1);
-  //  G->InsertaAristaBi(G->GetVertice(8), G->GetVertice(3), 1);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(3), G->grafo_get_vertice(8), 1);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(8), G->grafo_get_vertice(3), 1);
 
-    G->InsertaAristaBi(G->GetVertice(8), G->GetVertice(9), 1);
-   // G->InsertaAristaBi(G->GetVertice(9), G->GetVertice(8), 1);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(8), G->grafo_get_vertice(9), 1);
+   // G->grafo_inserta_arista_bi(G->grafo_get_vertice(9), G->grafo_get_vertice(8), 1);
 
-    G->InsertaAristaBi(G->GetVertice(9), G->GetVertice(10), 10);
-  //  G->InsertaAristaBi(G->GetVertice(10), G->GetVertice(9), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(9), G->grafo_get_vertice(10), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(10), G->grafo_get_vertice(9), 10);
 
-    G->InsertaAristaBi(G->GetVertice(11), G->GetVertice(10), 10);
- //   G->InsertaAristaBi(G->GetVertice(10), G->GetVertice(11), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(11), G->grafo_get_vertice(10), 10);
+ //   G->grafo_inserta_arista_bi(G->grafo_get_vertice(10), G->grafo_get_vertice(11), 10);
 
-    G->InsertaAristaBi(G->GetVertice(9), G->GetVertice(12), 10);
- //   G->InsertaAristaBi(G->GetVertice(12), G->GetVertice(9), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(9), G->grafo_get_vertice(12), 10);
+ //   G->grafo_inserta_arista_bi(G->grafo_get_vertice(12), G->grafo_get_vertice(9), 10);
 
-    G->InsertaAristaBi(G->GetVertice(12), G->GetVertice(13), 10);
-  //  G->InsertaAristaBi(G->GetVertice(13), G->GetVertice(12), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(12), G->grafo_get_vertice(13), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(13), G->grafo_get_vertice(12), 10);
 
-    G->InsertaAristaBi(G->GetVertice(13), G->GetVertice(14), 10);
-  //  G->InsertaAristaBi(G->GetVertice(14), G->GetVertice(13), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(13), G->grafo_get_vertice(14), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(14), G->grafo_get_vertice(13), 10);
 
-    G->InsertaAristaBi(G->GetVertice(14), G->GetVertice(15), 10);
-   // G->InsertaAristaBi(G->GetVertice(15), G->GetVertice(14), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(14), G->grafo_get_vertice(15), 10);
+   // G->grafo_inserta_arista_bi(G->grafo_get_vertice(15), G->grafo_get_vertice(14), 10);
 
-    G->InsertaAristaBi(G->GetVertice(15), G->GetVertice(16), 10);
-  //  G->InsertaAristaBi(G->GetVertice(16), G->GetVertice(15), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(15), G->grafo_get_vertice(16), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(16), G->grafo_get_vertice(15), 10);
 
-    G->InsertaAristaBi(G->GetVertice(16), G->GetVertice(17), 10);
-  //  G->InsertaAristaBi(G->GetVertice(17), G->GetVertice(16), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(16), G->grafo_get_vertice(17), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(17), G->grafo_get_vertice(16), 10);
 
-    G->InsertaAristaBi(G->GetVertice(3), G->GetVertice(18), 10);
-  //  G->InsertaAristaBi(G->GetVertice(18), G->GetVertice(3), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(3), G->grafo_get_vertice(18), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(18), G->grafo_get_vertice(3), 10);
 
-    G->InsertaAristaBi(G->GetVertice(18), G->GetVertice(19), 10);
- //   G->InsertaAristaBi(G->GetVertice(19), G->GetVertice(18), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(18), G->grafo_get_vertice(19), 10);
+ //   G->grafo_inserta_arista_bi(G->grafo_get_vertice(19), G->grafo_get_vertice(18), 10);
 
-    G->InsertaAristaBi(G->GetVertice(19), G->GetVertice(20), 10);
- //   G->InsertaAristaBi(G->GetVertice(20), G->GetVertice(19), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(19), G->grafo_get_vertice(20), 10);
+ //   G->grafo_inserta_arista_bi(G->grafo_get_vertice(20), G->grafo_get_vertice(19), 10);
 
-    G->InsertaAristaBi(G->GetVertice(20), G->GetVertice(21), 10);
- //   G->InsertaAristaBi(G->GetVertice(21), G->GetVertice(20), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(20), G->grafo_get_vertice(21), 10);
+ //   G->grafo_inserta_arista_bi(G->grafo_get_vertice(21), G->grafo_get_vertice(20), 10);
 
-    G->InsertaAristaBi(G->GetVertice(5), G->GetVertice(22), 10);
-    G->InsertaAristaBi(G->GetVertice(22), G->GetVertice(11), 10);
-  //  G->InsertaAristaBi(G->GetVertice(11), G->GetVertice(22), 10);
-  //  G->InsertaAristaBi(G->GetVertice(22), G->GetVertice(5), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(5), G->grafo_get_vertice(22), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(22), G->grafo_get_vertice(11), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(11), G->grafo_get_vertice(22), 10);
+  //  G->grafo_inserta_arista_bi(G->grafo_get_vertice(22), G->grafo_get_vertice(5), 10);
 
-    G->InsertaAristaBi(G->GetVertice(7), G->GetVertice(23), 10);
-    G->InsertaAristaBi(G->GetVertice(23), G->GetVertice(17), 10);
-  // G->InsertaAristaBi(G->GetVertice(17), G->GetVertice(23), 20);
-   // G->InsertaAristaBi(G->GetVertice(23), G->GetVertice(7), 20);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(7), G->grafo_get_vertice(23), 10);
+    G->grafo_inserta_arista_bi(G->grafo_get_vertice(23), G->grafo_get_vertice(17), 10);
+  // G->grafo_inserta_arista_bi(G->grafo_get_vertice(17), G->grafo_get_vertice(23), 20);
+   // G->grafo_inserta_arista_bi(G->grafo_get_vertice(23), G->grafo_get_vertice(7), 20);
 
     do
     {
@@ -110,7 +110,7 @@ int main()
         cout<<"2. Ingresar arista"<<endl;
         cout<<"3. Lista de adyacencia"<<endl;
         cout<<"4. Tamaño"<<endl;
-        cout<<"5. CaminoCortoL2"<<endl;
+        cout<<"5. grafo_camino_corto_l2"<<endl;
         cout<<"6. Salir"<<endl;
         cout<<endl<<"Elija una opcion: ";
         cin>>opc;
@@ -122,16 +122,16 @@ int main()
             cout<<"Ingrese la id nombre del vertice: ";
             cin.ignore();
             cin>>nombre;
-            G->InsertaVertice(nombre);
+            G->grafo_inserta_vertice(nombre);
             break;
         }
         case 2:
         {
             int origen, destino;
             int peso;
-            if(G->Vacio())
+            if(G->grafo_vacio())
             {
-                cout<<"El grafo esta vacio"<<endl;
+                cout<<"El grafo esta grafo_vacio"<<endl;
             }
             else
             {
@@ -143,47 +143,47 @@ int main()
                 cout<<"Ingrese el peso: ";
                 cin>>peso;
 
-                if(G->GetVertice(origen) == NULL || G->GetVertice(destino) == NULL)
+                if(G->grafo_get_vertice(origen) == NULL || G->grafo_get_vertice(destino) == NULL)
                 {
                     cout<<"Uno de los vertices no es valido"<<endl;
                 }
                 else
                 {
-                    G->InsertaAristaBi(G->GetVertice(origen), G->GetVertice(destino), peso);
+                    G->grafo_inserta_arista_bi(G->grafo_get_vertice(origen), G->grafo_get_vertice(destino), peso);
                 }
             }
             break;
         }
         case 3:
         {
-            if(G->Vacio())
+            if(G->grafo_vacio())
             {
-                cout<<"El grafo esta vacio"<<endl;
+                cout<<"El grafo esta grafo_vacio"<<endl;
             }
             else
             {
-                G->ListaAdyacencia();
+                G->grafo_lista_adyacencia();
             }
             break;
         }
         case 4:
         {
-            if(G->Vacio())
+            if(G->grafo_vacio())
             {
-                cout<<"El grafo esta vacio"<<endl;
+                cout<<"El grafo esta grafo_vacio"<<endl;
             }
             else
             {
-                cout<<"Tamano: "<<G->Tamano()<<endl;
+                cout<<"Tamano: "<<G->grafo_tamano()<<endl;
             }
             break;
         }
         case 5:
         {
             int origen, destino;
-            if(G->Vacio())
+            if(G->grafo_vacio())
             {
-                cout<<"El grafo esta vacio"<<endl;
+                cout<<"El grafo esta grafo_vacio"<<endl;
             }
             else
             {
@@ -192,14 +192,14 @@ int main()
                 cin>>origen;
                 cout<<"Ingrese id del nombre del vertice destino: ";
                 cin>>destino;
-                if(G->GetVertice(origen) == NULL || G->GetVertice(destino) == NULL)
+                if(G->grafo_get_vertice(origen) == NULL || G->grafo_get_vertice(destino) == NULL)
                 {
                     cout<<"Vertices invalidos"<<endl;
                 }
                 else
                 {
                     Vertice *pv;
-                    stack<Vertice*> algo=G->CaminoCortoL2(G->GetVertice(origen), G->GetVertice(destino));
+                    stack<Vertice*> algo=G->grafo_camino_corto_l2(G->grafo_get_vertice(origen), G->grafo_get_vertice(destino));
                     while(!algo.empty()){
                         pv=algo.top();
                         cout << pv->id <<" -> ";
@@ -214,9 +214,9 @@ int main()
         case 6:
         {
             int origen, destino;
-            if(G->Vacio())
+            if(G->grafo_vacio())
             {
-                cout<<"El grafo esta vacio"<<endl;
+                cout<<"El grafo esta grafo_vacio"<<endl;
             }
             else
             {
@@ -225,26 +225,26 @@ int main()
                 cin>>origen;
                 cout<<"Ingrese id del nombre del vertice destino: ";
                 cin>>destino;
-                if(G->GetVertice(origen) == NULL || G->GetVertice(destino) == NULL)
+                if(G->grafo_get_vertice(origen) == NULL || G->grafo_get_vertice(destino) == NULL)
                 {
                     cout<<"Vertices no validos"<<endl;
                 }
                 else
                 {
-                    G->EliminarArista(G->GetVertice(origen), G->GetVertice(destino));
+                    G->grafo_eliminar_arista(G->grafo_get_vertice(origen), G->grafo_get_vertice(destino));
                 }
             }
             break;
         }
         case 7:
         {
-            if(G->Vacio())
+            if(G->grafo_vacio())
             {
-                cout<<"El grafo esta vacio"<<endl;
+                cout<<"El grafo esta grafo_vacio"<<endl;
             }
             else
             {
-               G->Anular();
+               G->grafo_anular();
             }
             break;
         }   

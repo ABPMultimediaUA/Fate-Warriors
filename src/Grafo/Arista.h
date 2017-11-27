@@ -6,10 +6,10 @@ class Arista
 {
 	public:
 
-	  Arista *sig;
-	  Vertice *ady;
-	  int id;
-	  int peso;
+	  Arista *_sig;
+	  Vertice *_ady;
+	  int _id;
+	  int _peso;
 	  Arista();
 	  virtual ~Arista();
 };

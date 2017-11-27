@@ -2,8 +2,8 @@
 //#include "Arista.h"
 #include <iostream>
 Vertice::Vertice(){
-	sig = nullptr;
-	ady = nullptr;
+	_sig = nullptr;
+	_ady = nullptr;
 }
 
 Vertice::~Vertice(){
