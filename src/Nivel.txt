@@ -24,6 +24,13 @@ PASILLO
 2
 2
 4
+NODO
+20
+25
+5
+10
+5
+null
 ARISTA
 1
 2
@@ -33,4 +40,7 @@ ARISTA
 ARISTA
 3
 4
+ARISTA
+4
+5
 Fin
