@@ -37,9 +37,10 @@ void funcion_red(){
 int main(){
 
 	Game *_game = Game::game_instancia();
-	_game->game_crea_partida();
+	/*_game->game_crea_partida();
 	_game->game_run();
-	_game->game_fin_partida();
+	_game->game_fin_partida();*/
+	_game->prueba_grafo();
   //funcion_red();
 	delete _game;
 

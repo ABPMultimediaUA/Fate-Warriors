@@ -4,7 +4,7 @@
 #include "Interactuable.h"
 class Mina : public Interactuable{
 public:
-	Mina(float _i_x, float _i_y, float _i_ancho, float _i_alto);
+	Mina(float _i_x, float _i_y, float _i_ancho, float _i_alto, int _i_id);
 	virtual ~Mina();
 	void change_activate_value();
 	bool usar();

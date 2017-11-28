@@ -3,11 +3,11 @@
 
 class Objeto {
 public:
-	Objeto(float _i_x, float _i_y, float _i_ancho, float _i_alto);
+	Objeto(float _i_x, float _i_y, float _i_ancho, float _i_alto, int _id);
 	virtual bool usar() = 0;
-
+	int _id;
 	virtual ~Objeto();
-private:
+protected:
 	float _objeto_x;
 	float _objeto_y;
 	float _objeto_ancho;
