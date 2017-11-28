@@ -70,8 +70,10 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
 
 	_nodo = new Nodo( _x, _y, _ancho, _alto, _id);//creacion del nuevo nodo
 	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero para leer los objetos
+
 	nivel_crear_objetos( _i_nivel_txt, _i_iteracion, _nodo);//creacion de todos los nodos
 	nivel_inserta_vertice(_nodo);//creacion del nodo en el grafo
+
 }
 /*Funcion de crear objetos
  * Crea los datos de todos los objetos propios del nodo
@@ -83,6 +85,7 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
  * */
 void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, Nodo* _i_nodo){
 	float _x,_y,_ancho,_alto;
+	int _id;
 	if(_i_iteracion!="null"){
 		std::ifstream _nodo_txt;
 		_nodo_txt.open(_i_iteracion);//apertura del fichero
@@ -104,11 +107,15 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 			_nodo_txt>>_iteracion;//obtiene el valor de alto
 			_alto = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			
-			_i_nodo->nodo_crear_objeto( _x, _y, _ancho, _alto);
+			_nodo_txt>>_iteracion;//obtiene el valor de la id
+			_id = std::strtoul(_iteracion.c_str(),NULL,0);
+			
+			_i_nodo->nodo_crear_objeto( _x, _y, _ancho, _alto, _id);
 			_nodo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
 		}
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
+
 }
 /*
 *Crea la relacion entre dos nodos (nodo-pasillo), con un peso.

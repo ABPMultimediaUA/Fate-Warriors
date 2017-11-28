@@ -15,9 +15,9 @@
 class Nodo: public Vertice {
 public:
 
-	Nodo(float _i_x, float _i_y, float _i_ancho, float _i_alto, unsigned short _i_id);
+	Nodo(float _i_x, float _i_y, float _i_ancho, float _i_alto, int _i_id);
 	~Nodo();
-	void nodo_crear_objeto(float _i_x, float _i_y, float _i_ancho, float _i_alto);
+	void nodo_crear_objeto(float _i_x, float _i_y, float _i_ancho, float _i_alto, int _i_id);
 
 private:
 	float _nodo_x;
