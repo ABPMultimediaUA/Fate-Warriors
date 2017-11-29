@@ -71,13 +71,13 @@ Vector2 operator -(Vector2 _i_vector, const short _i_valor);
 
 //VECTOR 3D
 	//Para floats
-/*
+
 Vector3 operator *(Vector3 _i_vector, const float _i_valor);
 Vector3 operator /(Vector3 _i_vector, const float _i_valor);
 Vector3 operator +(Vector3 _i_vector, const float _i_valor);
 Vector3 operator -(Vector3 _i_vector, const float _i_valor);
 
-*/
+
 	//Para short
 Vector3 operator *(Vector3 _i_vector, const short _i_valor);
 Vector3 operator /(Vector3 _i_vector, const short _i_valor);

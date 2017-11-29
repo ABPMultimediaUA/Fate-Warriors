@@ -4,7 +4,7 @@
 #include "Interactuable.h"
 class Bala : public Interactuable{
 public:
-	Bala(short _id, float _i_x, float _i_y, float _i_z,  float _i_ancho, float _i_alto);
+	Bala(short _id, float _i_x, float _i_y, float _i_z);
 	virtual ~Bala();
 
 	void update() override;

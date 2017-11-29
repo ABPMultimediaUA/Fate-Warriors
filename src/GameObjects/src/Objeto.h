@@ -11,7 +11,7 @@ enum NombreObjetos{
 class Objeto {
 public:
 
-	Objeto(short id, float _i_x, float _i_y, float _i_z, float _i_ancho, float _i_alto /*, Modelado _i_modelo*/);
+	Objeto(short id, float _i_x, float _i_y, float _i_z);
 	virtual ~Objeto();
 
 	virtual void update() = 0;
@@ -25,7 +25,6 @@ public:
 	float getY();
 	float get_widht();
 	float get_height();
-	//Modelado get_Modelado();
 
 protected:
 	short _id;
@@ -34,7 +33,6 @@ protected:
 	float _objeto_z;
 	float _objeto_ancho;
 	float _objeto_alto;
-	//Modelado _modelo;
 
 };
 

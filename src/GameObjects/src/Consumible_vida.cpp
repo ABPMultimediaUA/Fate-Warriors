@@ -1,7 +1,7 @@
 #include "Consumible_vida.h"
 #include <iostream>
 
-Consumible_vida::Consumible_vida(short _id, float _i_x, float _i_y, float _i_z, float _i_ancho, float _i_alto, short vida) : Consumible(_id,_i_x, _i_y, _i_z,  _i_ancho, _i_alto,vida){
+Consumible_vida::Consumible_vida(short _id, float _i_x, float _i_y, float _i_z, short vida) : Consumible(_id,_i_x, _i_y, _i_z, vida){
 }
 
 Consumible_vida::~Consumible_vida(){

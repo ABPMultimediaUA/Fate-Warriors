@@ -7,7 +7,7 @@
 class Bala;
 class Arma_distancia : public Arma{
 public:
-	Arma_distancia(short _id, float _i_x, float _i_y, float _i_z,  float _i_ancho, float _i_alto, short _i_uses);
+	Arma_distancia(short _id, float _i_x, float _i_y, float _i_z, short _i_uses);
 	virtual ~Arma_distancia();
 	void render() override;
 	void update(); 

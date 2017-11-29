@@ -25,9 +25,9 @@ int main(){
 
 	short vida = 0;
 
-	Arma_cerca * hola = new Arma_cerca (15,15,15,15,15,15 ,56);
-	Arma_distancia * soydedistancia = new Arma_distancia (15,15,15,15,15,15,56);
-	Consumible * consum = new Consumible(15,15,15,15,15,15,56);
+	Arma_cerca * hola = new Arma_cerca (15,15,15,15,56);
+	Arma_distancia * soydedistancia = new Arma_distancia (15,15,15,15,56);
+	Consumible * consum = new Consumible(15,15,15,15,56);
 
 	std::cout << hola << std::endl;
 	std::cout << soydedistancia << std::endl;

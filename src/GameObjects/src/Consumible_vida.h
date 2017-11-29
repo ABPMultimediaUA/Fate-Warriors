@@ -5,7 +5,7 @@
 
 class Consumible_vida : public Consumible{
 public:
-	Consumible_vida(short _id, float _i_x, float _i_y, float _i_z, float _i_ancho, float _i_alto, short vida);
+	Consumible_vida(short _id, float _i_x, float _i_y, float _i_z, short vida);
 	virtual ~Consumible_vida();
 
 	bool usar() override;
