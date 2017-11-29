@@ -5,9 +5,9 @@
 #include "Arma_distancia.h"
 #include "Objeto.h"
 #include "Arma_cerca.h"
+#include "Consumible.h"
 
-
-Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr){
+Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr), _consumible(nullptr){
 
 }
 
@@ -64,15 +64,27 @@ void Inventario::cambiar_seleccionado(){
 	}
 }
 
+void Inventario::cambiar_consumbible(Consumible* _i_consumible){
+	_consumible = _i_consumible;
+}
+
+
 /*Metodos GET*/
 Objeto* Inventario::get_seleccionado(){
 	return _seleccionado;
 }
 
+
 Objeto* Inventario::get_objeto_cerca(){
 	return _objeto_cerca;
 }
 
+
 Objeto* Inventario::get_objeto_distancia(){
 	return _objeto_distancia;
+}
+
+
+Consumible* Inventario::get_consumible(){
+	return _consumible;
 }

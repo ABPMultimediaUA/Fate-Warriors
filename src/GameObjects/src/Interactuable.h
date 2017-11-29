@@ -5,7 +5,7 @@
 
 class Interactuable : public Objeto{
 public:
-	Interactuable(float _i_x, float _i_y, float _i_z, float _i_ancho, float _i_alto);
+	Interactuable(short _id, float _i_x, float _i_y, float _i_z, float _i_ancho, float _i_alto);
 	virtual ~Interactuable();
 
 };

@@ -1,7 +1,7 @@
 #include "Bala.h"
 #include <iostream>
 
-Bala::Bala(float _i_x, float _i_y, float _i_z,  float _i_ancho, float _i_alto) : Interactuable(_i_x, _i_y, _i_z,  _i_ancho, _i_alto){
+Bala::Bala(short _id, float _i_x, float _i_y, float _i_z,  float _i_ancho, float _i_alto) : Interactuable(_id, _i_x, _i_y, _i_z,  _i_ancho, _i_alto){
 	std::cout << "Bala" << std::endl;
 	_activated = false;
 	_collision = false;
