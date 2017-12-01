@@ -1,9 +1,7 @@
 #include "Game.h"
-#include "Nivel.h"
+#include "Nivel/Nivel.h"
 #include "Cliente.h"
 #include "Servidor.h"
-#include "Vertice.h"
-#include "Arista.h"
 #include <stack>
 #include <iostream>
 
@@ -137,7 +135,7 @@ void Game::actualizar_by_id(short id, Input_key actionkey){
 void Game::game_crea_partida() {
 	_datos = new Datos_Partida();
 	_action_manager = new Action_Manager();
-  Nivel* _nivel1=new Nivel("Nivel.txt");
+//  Nivel* _nivel1=new Nivel("Nivel.txt");
 }
 void Game::game_fin_partida() {
 	delete _datos;
@@ -257,12 +255,14 @@ int Game::prueba_grafo()
 
     do
     {
-        std::cout<<"1. Ingresar Vertice"<<std::endl;
+        //std::cout<<"1. Ingresar Vertice"<<std::endl;
         std::cout<<"2. Ingresar arista"<<std::endl;
         std::cout<<"3. Lista de adyacencia"<<std::endl;
         std::cout<<"4. Tamaño"<<std::endl;
         std::cout<<"5. nivel_camino_corto_l2"<<std::endl;
-        std::cout<<"6. Salir"<<std::endl;
+        std::cout<<"6. conexion entre dos vertices?"<<std::endl;
+        std::cout<<"7. Vacio?"<<std::endl;
+        std::cout<<"8. Salir"<<std::endl;
         std::cout<<std::endl<<"Elija una opcion: ";
         std::cin>>opc;
         switch(opc)
@@ -275,7 +275,7 @@ int Game::prueba_grafo()
             std::cin>>nombre;
             G->nivel_inserta_vertice();
             break;
-        }
+        }*/
         case 2:
         {
             int origen, destino;
@@ -304,7 +304,7 @@ int Game::prueba_grafo()
                 }
             }
             break;
-        }*/
+        }
         case 3:
         {
             if(G->nivel_vacio())
@@ -399,7 +399,7 @@ int Game::prueba_grafo()
             }
             break;
         }   
-        case 9:
+        case 8:
         {
 
             break;
@@ -410,7 +410,7 @@ int Game::prueba_grafo()
         }
         }
     }
-    while(opc != 9);
+    while(opc != 8);
     delete G;
     return 0;
 }
