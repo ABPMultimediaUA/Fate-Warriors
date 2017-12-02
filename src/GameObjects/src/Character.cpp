@@ -17,10 +17,6 @@ void Character::render(){
 
 }
 
-bool Character::usar(){
-	return true;
-}
-
 short Character::get_vida(){
 	return _vida;
 }

@@ -16,13 +16,11 @@ public:
 
 	virtual void update() = 0;
 	virtual void render() = 0;
-	virtual bool usar() = 0;
-
 
 	void setPosition(float _i_x, float _i_y, float _i_z);
-
 	float getX();
 	float getY();
+	float getZ();
 	float get_widht();
 	float get_height();
 

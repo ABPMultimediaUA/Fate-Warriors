@@ -15,10 +15,6 @@ void Consumible::render(){
 
 }
 
-bool Consumible::usar(){
-	return true;
-}
-
 short Consumible::get_valor(){
 	return _valor;
 }

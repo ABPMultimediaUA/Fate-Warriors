@@ -2,12 +2,10 @@
 /*Ojo cuidado con los core dumpeds, si se elimina el objeto sin decirle al _seleccionado que ese objeto se ha eliminado al intentar usarlo dara core dumped */
 #include <iostream>
 #include "Inventario.h"
-#include "Arma_distancia.h"
-#include "Objeto.h"
-#include "Arma_cerca.h"
-#include "Consumible.h"
+#include "Armas/Arma_distancia.h"
+#include "Armas/Arma_cerca.h"
 
-Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr), _consumible(nullptr){
+Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr){
 
 }
 
@@ -24,8 +22,8 @@ void Inventario::render(){
 }
 
 bool Inventario::usar(){
-	
-	return _seleccionado->usar();	
+	bool salida = _seleccionado->usar();
+	return salida;
 }
 
 /*Metodos SET*/
@@ -51,7 +49,6 @@ void Inventario::cambiar_objeto_distancia (Arma_distancia *_i_distancia){
 
 void Inventario::cambiar_seleccionado(){
 	if(_seleccionado!=nullptr && _objeto_cerca!=nullptr && _objeto_distancia!=nullptr){
-
 		if (_seleccionado == _objeto_cerca){
 			_seleccionado = _objeto_distancia;
 		}
@@ -63,11 +60,6 @@ void Inventario::cambiar_seleccionado(){
 		std::cout << _objeto_cerca << std::endl;
 	}
 }
-
-void Inventario::cambiar_consumbible(Consumible* _i_consumible){
-	_consumible = _i_consumible;
-}
-
 
 /*Metodos GET*/
 Objeto* Inventario::get_seleccionado(){
@@ -82,9 +74,4 @@ Objeto* Inventario::get_objeto_cerca(){
 
 Objeto* Inventario::get_objeto_distancia(){
 	return _objeto_distancia;
-}
-
-
-Consumible* Inventario::get_consumible(){
-	return _consumible;
 }

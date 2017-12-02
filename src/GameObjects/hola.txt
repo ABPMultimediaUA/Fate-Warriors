@@ -1,0 +1,23 @@
+# ------Ametralladora-------------
+Ametralladora_tipo               1
+Ametralladora_usos               1
+Ametralladora_frecuencia         15
+Ametralladora_rango              10
+
+# -----------Arco---------------- 
+Arco_tipo                       2
+Arco_usos                       15
+Arco_frecuencia                 50
+Arco_rango                      10
+
+# ----------Pistola---------------- 
+Pistola_tipo                    3
+Pistola_usos                    15
+Pistola_frecuencia              50
+Pistola_rango                   10
+
+# ---------Bazooka----------------
+Bazooka_tipo                    4
+Bazooka_usos                    1
+Bazooka_frecuencia              0
+Bazooka_rango                   10

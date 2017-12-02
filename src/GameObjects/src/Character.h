@@ -9,7 +9,6 @@ public:
 	virtual ~Character();
 	void update();
 	void render();
-	bool usar();
 
 	short get_vida();
 

@@ -1,7 +1,7 @@
 #ifndef SRC_CONSUMIBLE_H_
 #define SRC_CONSUMIBLE_H_
 
-#include "Objeto.h"
+#include "../Objeto.h"
 
 class Consumible : public Objeto{
 public:
@@ -9,13 +9,11 @@ public:
 	virtual ~Consumible();
 	void update();
 	void render();
-	bool usar();
-
+	virtual bool usar() = 0;
 	short get_valor();
 
 protected:
 	short _valor;
-
 };
 
 #endif /* SRC_CONSUMIBLE_H_ */

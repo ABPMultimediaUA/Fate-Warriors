@@ -1,53 +1,44 @@
 #include <iostream>
-#include "Arma_cerca.h"
-#include "Arma_distancia.h"
+#include "Armas/Arma_cerca.h"
+#include "Armas/Arma_distancia.h"
 #include "Inventario.h"
-#include "Consumible.h"
+#include "Player.h"
+#include "Consumibles/Consumible.h"
+#include "Scriptor/Game_Scriptor.h"
 
 #include "Objeto.h"
 #include <list>
 
 int main(){
 
-	/*
-	std::list<Objeto*> arrayObjetos;
-	Mina *hola = new Mina(15, 15, 15, 15, 15);
-	Pistola *pisto = new Pistola(15,15,15,15,15, 6);
-	arrayObjetos.push_back(hola);
-	arrayObjetos.push_back(pisto);
-
-	pisto->usar();
-	pisto->usar();
-	pisto->usar();
-	pisto->usar();
-	*/
-
-
 	short vida = 0;
 
-	Arma_cerca * hola = new Arma_cerca (15,15,15,15,56);
-	Arma_distancia * soydedistancia = new Arma_distancia (15,15,15,15,56);
-	Consumible * consum = new Consumible(15,15,15,15,56);
-
+	Arma_cerca * hola = new Arma_cerca (15,15,15,15,15,56,15,56);
+	Arma_distancia * soydedistancia = new Arma_distancia (15,15,15,15,15,56,15,56);
 	std::cout << hola << std::endl;
 	std::cout << soydedistancia << std::endl;
 
+	Player* jugador = new Player(5,0,2000,50, 666);
 //	delete soydedistancia;
 //	delete hola;
 
+	Game_Scriptor* lector = Game_Scriptor::Instance();
+	short ametralladora = script->Dame_valor_de("Ametralladora_tipo");
+	std::cout << "ta cosa funsiona" << ametralladora << std::endl;
+	Scriptor *ey= new Scriptor("hola.txt");
 	Inventario * cosa = new Inventario();
 	cosa->cambiar_objeto_cerca(hola);
 	cosa->cambiar_objeto_cerca(hola);
 	cosa->cambiar_objeto_distancia(soydedistancia);
-	cosa->cambiar_consumbible(consum);
 
 	//if(cosa->usar)
 		vida = vida;
 
-	while(cosa->usar()){
-	}
+
 	cosa->cambiar_seleccionado();
 	cosa->usar();
+
+	std::cout << "ta cosa funsiona" << ametralladora << std::endl;
 
 
 	return 0;
