@@ -8,6 +8,7 @@ Consumible_vida::~Consumible_vida(){
 }
 
 bool Consumible_vida::usar(){
+	
 	return true;
 }
 

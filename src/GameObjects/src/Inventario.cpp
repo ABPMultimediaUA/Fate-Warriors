@@ -22,7 +22,7 @@ void Inventario::render(){
 }
 
 bool Inventario::usar(){
-	bool salida = _seleccionado->usar();
+	bool salida = _seleccionado->usar(15,15,15);
 	return salida;
 }
 

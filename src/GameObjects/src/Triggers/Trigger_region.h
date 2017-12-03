@@ -6,7 +6,7 @@
 class Trigger_region {
 public:
 	virtual ~Trigger_region(){}
-	virtual bool esta_tocando(Vector2 Posicion Personaje, double Radio)const = 0;
+	virtual bool esta_tocando(Vector2 Posicion_Personaje, double Radio)const = 0;
 };
 
 #endif /* TRIGGER_REGION_H_ */

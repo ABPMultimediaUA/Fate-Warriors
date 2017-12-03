@@ -11,7 +11,7 @@ public:
 	virtual ~Arma_distancia();
 	void render() override;
 	void update(); 
-	bool usar() override;
+	bool usar(float _i_x, float _i_y, float _i_z) override;
 
 protected: 
 		//short Velocidad_bala;

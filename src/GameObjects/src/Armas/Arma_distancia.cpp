@@ -1,5 +1,4 @@
 #include "Arma_distancia.h"
-#include "Bala.h"
 #include <iostream>
 //#include <list>
 
@@ -10,7 +9,7 @@ Arma_distancia::~Arma_distancia(){
 	
 }
 
-bool Arma_distancia::usar(){
+bool Arma_distancia::usar(float _i_x, float _i_y, float _i_z){
 	if (decrease_uses()){
 		return true;
 	}

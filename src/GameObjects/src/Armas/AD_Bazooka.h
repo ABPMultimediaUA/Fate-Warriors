@@ -5,11 +5,11 @@
 
 class AD_Bazooka : public Arma_distancia{
 public:
-	AD_Bazooka(short _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango);
+	AD_Bazooka(short _id, float _i_x, float _i_y, float _i_z);
 	virtual ~AD_Bazooka();
 	void render() override;
 	void update(); 
-	bool usar() override;
+	bool usar(float _i_x, float _i_y, float _i_z) override;
 
 protected: 
 		//short Velocidad_bala;

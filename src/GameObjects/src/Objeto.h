@@ -6,8 +6,6 @@ enum NombreObjetos{
 };
 
 
-
-
 class Objeto {
 public:
 
@@ -17,20 +15,22 @@ public:
 	virtual void update() = 0;
 	virtual void render() = 0;
 
-	void setPosition(float _i_x, float _i_y, float _i_z);
-	float getX();
-	float getY();
-	float getZ();
-	float get_widht();
-	float get_height();
+	void 	setPosition(float _i_x, float _i_y, float _i_z);
+	void 	set_borrar();
+	float	getX();
+	float 	getY();
+	float 	getZ();
+	void	setX(float _i_x);
+	void	setY(float _i_y);
+	void	setZ(float _i_z);
+	bool 	get_borrar();
 
 protected:
-	short _id;
-	float _objeto_x;
-	float _objeto_y;
-	float _objeto_z;
-	float _objeto_ancho;
-	float _objeto_alto;
+	short 	_id;
+	float 	_objeto_x;
+	float 	_objeto_y;
+	float 	_objeto_z;
+	bool 	_borrar;
 
 };
 

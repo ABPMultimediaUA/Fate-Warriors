@@ -9,7 +9,7 @@ Arma_cerca::~Arma_cerca(){
 
 }
 
-bool Arma_cerca::usar(){
+bool Arma_cerca::usar(float x, float y, float z){
 	decrease_uses();
 	return true;
 }

@@ -1,15 +1,25 @@
 #include "Objeto.h"
 
-Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _objeto_x(_i_x),_objeto_y(_i_y), _objeto_z(_i_z), _id(id) {
-	
-}
+Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _objeto_x(_i_x),_objeto_y(_i_y), _objeto_z(_i_z), _id(id), _borrar(false) {}
 
-Objeto::~Objeto() {
-}
+Objeto::~Objeto() {}
 
 void Objeto::setPosition(float _i_x, float _i_y, float _i_z){
 	_objeto_x=_i_x;
 	_objeto_y=_i_y;
+	_objeto_z=_i_z;
+}
+
+void Objeto::setX(float _i_x){
+	_objeto_x = _i_x;
+}
+
+void Objeto::setY(float _i_y){
+	_objeto_y = _i_y; 
+}
+
+void Objeto::setZ(float _i_z){
+	_objeto_z = _i_z; 
 }
 
 float Objeto::getX(){
@@ -20,10 +30,10 @@ float Objeto::getY(){
 	return _objeto_y;
 }
 
-float Objeto::get_widht(){
-	return _objeto_ancho;
+float Objeto::getZ(){
+	return _objeto_z;
 }
 
-float Objeto::get_height(){
-	return _objeto_alto;
+bool Objeto::get_borrar(){
+	return _borrar;
 }

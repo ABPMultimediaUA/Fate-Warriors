@@ -8,13 +8,16 @@ AD_Ametralladora::~AD_Ametralladora(){
 	
 }
 
-bool AD_Ametralladora::usar(){
-	if (decrease_uses()){
+bool AD_Ametralladora::usar(float _i_x, float _i_y, float _i_z){
+	if(preparado_siguiente_ataque()){
+		//obtener_mundo->anyadirbalametralladora(_i_x,_i_y,_i_z);
+		actualizar_tiempo_siguiente_ataque();
+		//Anadir trigger sonido
 		return true;
 	}
-
 	return false;
 }
+
 
 
 void AD_Ametralladora::update(){

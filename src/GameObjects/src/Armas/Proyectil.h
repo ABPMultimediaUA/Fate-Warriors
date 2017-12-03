@@ -4,24 +4,32 @@
 #include "../Interactuable.h"
 class Proyectil : public Interactuable{
 public:
-	Proyectil(short _id, float _i_x, float _i_y, float _i_z);
+	Proyectil(short _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter);
 	virtual ~Proyectil();
 
-  virtual void Update() = 0;
-	virtual void Render() = 0;
-	void set_direction(float _i_x, float _i_y, float _i_z);
-	void change_activate_value();
+	virtual void 	Update() = 0;
+	virtual void 	Render() = 0;
 
-	bool get_state();
-	void set_has_impacted();
-	bool get_has_impacted();
+	void	set_direction(float _i_x, float _i_y, float _i_z);
+	void 	change_activate_value();
 
-private:
+	short 	get_danyo();
+	bool 	get_state();
+	void 	set_has_impacted();
+	bool 	get_has_impacted();
+	short	get_id_shooter();
 
-	bool _impacted;
-	float _directionx;
-	float _directiony;
-	float _directionz;
+protected:
+
+	short	_id_shooter;
+	short	_danyo;
+	bool 	_impacted;
+	float 	_directionx;
+	float 	_directiony;
+	float 	_directionz;
+	float 	_origenx;
+	float	_origeny;
+	float	_origenz;
 };
 
-#endif /* MINA_H_ */
+#endif /* PROYECTIL_H_ */
