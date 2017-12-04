@@ -5,24 +5,12 @@
 #include <iostream>
 
 NPC::NPC(float _i_vida, float _i_x, float _i_y) : Character(_i_vida, _i_x, _i_y) {
-	_accion_actual = Nada;
+
 }
 
 NPC::~NPC() {
 }
 
-
-void NPC::set_action(enum Enum_Acciones _i_accion) {
-	_accion_actual = _i_accion;
-}
-
-void NPC::do_action() {
-
-}
-
-enum Enum_Acciones NPC::get_action() {
-	return _accion_actual;
-}
 
 void NPC::move(unsigned long _i_direccion) {
     //std::cout << "Personaje se encuentra en la posicion (" << _x << "," << _y << ")" << std::endl;
