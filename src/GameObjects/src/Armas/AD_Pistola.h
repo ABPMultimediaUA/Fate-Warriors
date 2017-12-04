@@ -8,7 +8,6 @@ public:
 	AD_Pistola(short _id, float _i_x, float _i_y, float _i_z);
 	virtual ~AD_Pistola();
 	void render() override;
-	void update(); 
 	bool usar(float _i_x, float _i_y, float _i_z) override;
 
 protected: 

@@ -25,10 +25,6 @@ bool AD_Arco::usar(float _i_x, float _i_y, float _i_z){
 }
 
 
-void AD_Arco::update(){
-}
-
-
 void AD_Arco::render(){
 
 }

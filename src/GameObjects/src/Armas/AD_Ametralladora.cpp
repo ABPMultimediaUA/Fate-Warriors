@@ -19,11 +19,6 @@ bool AD_Ametralladora::usar(float _i_x, float _i_y, float _i_z){
 }
 
 
-
-void AD_Ametralladora::update(){
-}
-
-
 void AD_Ametralladora::render(){
 
 }

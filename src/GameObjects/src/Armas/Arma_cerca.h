@@ -8,7 +8,6 @@ public:
 	virtual ~Arma_cerca();
 	
 	bool usar(float x, float y, float z) override;
-	void update() override;
 	void render() override;
 };
 

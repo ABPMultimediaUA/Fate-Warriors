@@ -7,7 +7,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
 Player::~Player(){
 }
 
-void Player::update(){
+void Player::Update(){
     /*
    switch (_KeyMan->getLastKeyPressed()) {
       case 'a': std::cout << "holaa"; break;

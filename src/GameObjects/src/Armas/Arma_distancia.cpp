@@ -17,11 +17,6 @@ bool Arma_distancia::usar(float _i_x, float _i_y, float _i_z){
 	return false;
 }
 
-
-void Arma_distancia::update(){
-}
-
-
 void Arma_distancia::render(){
 
 }

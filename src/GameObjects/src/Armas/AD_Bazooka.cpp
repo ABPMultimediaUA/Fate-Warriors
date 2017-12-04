@@ -23,11 +23,6 @@ bool AD_Bazooka::usar(float _i_x, float _i_y, float _i_z){
 	return false;
 }
 
-
-void AD_Bazooka::update(){
-}
-
-
 void AD_Bazooka::render(){
 
 }

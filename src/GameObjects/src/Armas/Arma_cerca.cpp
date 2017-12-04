@@ -14,11 +14,6 @@ bool Arma_cerca::usar(float x, float y, float z){
 	return true;
 }
 
-void Arma_cerca::update(){
-
-}
-
-
 void Arma_cerca::render(){
 
 }

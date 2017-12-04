@@ -11,7 +11,6 @@ public:
 	Inventario();
 	virtual ~Inventario();
 
-	void update();
 	void render();
 	bool usar();
 	

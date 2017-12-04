@@ -12,7 +12,6 @@ public:
 	Objeto(short id, float _i_x, float _i_y, float _i_z);
 	virtual ~Objeto();
 
-	virtual void update() = 0;
 	virtual void render() = 0;
 
 	void 	setPosition(float _i_x, float _i_y, float _i_z);

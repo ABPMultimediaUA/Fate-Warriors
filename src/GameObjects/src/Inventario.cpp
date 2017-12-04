@@ -13,10 +13,6 @@ Inventario::~Inventario(){
 
 }
 
-void Inventario::update(){
-	_seleccionado->update();
-}
-
 void Inventario::render(){
 
 }
