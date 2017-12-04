@@ -24,7 +24,7 @@ public:
 	void actualizar_posicion_enemigo(float x, float y, short id);
 	void game_crea_partida();
 	void game_fin_partida();
-  	void game_update();
+  void game_update();
 	void game_render();
 	void game_run();
 	int prueba_grafo();
@@ -39,8 +39,6 @@ private:
 
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;
-
-
 
 };
 

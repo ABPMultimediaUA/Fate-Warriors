@@ -141,13 +141,14 @@ void Game::game_fin_partida() {
 	delete _datos;
 	delete _action_manager;
 }
+
 void Game::game_run(){
-		
 	for(int cont=0; cont<10; cont++) {
 		_action_manager->toma_decisiones();
 		_action_manager->realiza_acciones();
 	}
 }
+
   
 Datos_Partida* Game::game_get_datos() {
 	return _datos;
