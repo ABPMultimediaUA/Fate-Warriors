@@ -30,7 +30,7 @@ private:
 
 	//Blackboards
 	Blackboard** _blackboards;
-
+  
 	//Path Manager
 	Path_Manager *_path_manager;
 
