@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "Nivel/Nivel.h"
+#include "PruebaLOD1/Nivel.h"
 #include "Cliente.h"
 #include "Servidor.h"
 #include <stack>
