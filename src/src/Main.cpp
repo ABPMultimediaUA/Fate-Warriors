@@ -1,48 +1,54 @@
-
-/*
- *
- * Codigo base del proyecto
- *
- * Clase Main crea un objeto de clase game (clase vacia con solo la estructura)
- * en el método run hemos puesto un hola mundo.
- *
- *Cread una rama del código y añadidle vuestras pruebas
- *y trabajo
- */
-#include <iostream>
 #include "Game.h"
+#include "Interfaz/Interfaz.h"
+#include "Personajes/Player.h"
+#include "Tiempo/Time.h"
+#include <iostream>
 
-//#include "pruebas.cpp" //perdon, esk lo de este fichero es muy bestia os lo juro. Mejor que no lo veais
-
-void funcion_red(){
-	bool isServer;
-	std::string input;
-
-	isServer = true;
-
-	std::cout << "(C)lient or (S)erver: ";
-	std::cin >> input;
-
-	if (input[0] == 'C' || input[0] == 'c')
-		isServer = false;
-
-	if(isServer){
-		Game::game_instancia()->main_loop_servidor();
-	}
-	else{
-		Game::game_instancia()->main_loop_cliente();
-	}
-}
+const float t_min_IA=(1000/15);
 int main(){
+	Game* _juego = Game::game_instancia();
 
-	Game *_game = Game::game_instancia();
-	/*_game->game_crea_partida();
-	_game->game_run();
-	_game->game_fin_partida();*/
-	_game->prueba_grafo();
-  //funcion_red();
-	delete _game;
+	Time* time=Time::Instance();
+	//double _tiempo_desde_ultimo_update=time->get_current();
+	double _h_ultimo_update=time->get_current();
+	double _interpolacion;
 
-	std::cout << "Ha terminado" << std::endl;
+	_juego->crea_partida();
 
+	Time* _time = Time::Instance();
+
+	Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
+	
+
+	double aa;
+	double bb;
+
+	//_time->updateAntes();
+	while(_interface->Interfaz_getDevice()->run()){
+		//evento para cerrar la ventana
+
+
+		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj
+		//std::cout << "Tiempo desde update " << time->get_tiempo_desde_ultimo_update() << std::endl;
+		//update
+		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
+			_h_ultimo_update=time->get_current();
+			_juego->update(time->get_tiempo_desde_ultimo_update());
+		}
+
+
+		//render
+		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);
+		_juego->render(_interpolacion);
+		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
+		//_time->cambiar_antes_a_ahora();
+	}
+
+	_juego->fin_partida();
+
+	delete _time;
+
+	delete _juego;
+
+	return 0;
 }

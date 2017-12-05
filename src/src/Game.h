@@ -1,45 +1,31 @@
 #ifndef HEADER_GAME_H_
 #define HEADER_GAME_H_
 
-
-#include "Datos_Partida.h"
-#include "Action_Manager.h"
-#include "Enemy.h"
-#include "Hero.h"
-#include "Input.h"
-
-
+class Datos_Partida;
+class Action_Manager;
+class Datos_Partida;
+class Interfaz;
 
 class Game{
 
 public:
 
 	~Game();
-	static Game* game_instancia();
-	void main_loop_servidor();
-	void main_loop_cliente();
-	void anyadir_jugador();
-	void actualizar_jugador_coop(float x, float y);
-	void actualizar_by_id(short id, Input_key actionkey);
-	void actualizar_posicion_enemigo(float x, float y, short id);
-	void game_crea_partida();
-	void game_fin_partida();
-  void game_update();
-	void game_render();
-	void game_run();
-	int prueba_grafo();
-  Datos_Partida* game_get_datos();
+	static Game* game_instancia();	
+	void crea_partida();
+	void fin_partida();
+ 	void update(double _i_tiempo_desde_ultimo_update);
+	void render(float _i_interpolacion);
+	void run();
+  	Datos_Partida* game_get_datos();
+
 private:
+
 	Game();
-
-	Enemy *enemigo1;
-	Hero**yoplayer;
-
 	static Game* instancia;
-
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;
-
+	Interfaz *_interfaz_grafica;
 };
 
 

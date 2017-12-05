@@ -1,8 +1,8 @@
 #ifndef SRC_DATOS_PARTIDA_H_
 #define SRC_DATOS_PARTIDA_H_
 
-#include "Player.h"
-#include "NPC.h"
+class NPC;
+class Player;
 
 class Datos_Partida {
 public:

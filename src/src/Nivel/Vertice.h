@@ -16,6 +16,4 @@ class Vertice
 	  virtual ~Vertice();
 };
 
-
-
 #endif

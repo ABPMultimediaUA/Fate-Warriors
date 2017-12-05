@@ -4,13 +4,12 @@
  *  Created on: 7 nov. 2017
  *      Author: francisco
  */
-#include "../Skewers.h"
 #include <vector>
 #include "Vertice.h"
 #ifndef NODO_H_
 #define NODO_H_
 
-
+class Objeto;
 
 class Nodo: public Vertice {
 public:
