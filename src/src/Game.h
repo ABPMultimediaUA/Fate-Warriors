@@ -24,8 +24,8 @@ public:
 	void actualizar_posicion_enemigo(float x, float y, short id);
 	void game_crea_partida();
 	void game_fin_partida();
-  	void game_update();
-	void game_render();
+  	void game_update(double _i_tiempo_desde_ultimo_update);
+	void game_render(float _i_interpolacion);
 	void game_run();
 	int prueba_grafo();
   Datos_Partida* game_get_datos();
@@ -34,7 +34,7 @@ private:
 
 	Enemy *enemigo1;
 	Hero**yoplayer;
-
+	float _interpolacion;
 	static Game* instancia;
 
 	Datos_Partida *_datos;

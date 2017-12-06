@@ -1,0 +1,17 @@
+NODO
+14
+7
+3
+3
+1
+null
+PASILLO
+14
+10
+2
+2
+2
+ARISTA
+1
+2
+Fin

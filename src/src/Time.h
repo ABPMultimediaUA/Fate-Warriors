@@ -6,17 +6,19 @@
 
 class Time {
 public:
-	Time();
+	
 	~Time();
-	bool count_down();
-	void set_count_down(const short _i_countDown);
-	void set_start_time();
-	short get_elapsed_time_btw_last_start_time();
+	double get_start();
+	double get_current();
+	double getDeltaTime(double _i_ahora,double _i_antes);
+	static Time* Instance();
 
 private:
-	time_t _frist;
+	static Time* instancia;
+	Time();
+
 	clock_t _startTime; //Start timer
-	short _countDownValue;
+
 
 };
 

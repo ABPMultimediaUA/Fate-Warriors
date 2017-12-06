@@ -1,41 +1,30 @@
 #include "Time.h"
 
+Time* Time::instancia=0;
+
+Time* Time::Instance(){
+	if(instancia==0){
+	instancia= new Time();
+	}
+	return instancia;
+}
+
 Time::Time() {
 	_startTime = clock();
-	_countDownValue = 20;
-	_frist = 0;
-	time(&_frist);
 }
 
 Time::~Time() {
 }
 
-void Time::set_start_time(){
-	_startTime = clock();
+
+double Time::getDeltaTime(double _i_ahora, double _i_antes){
+	return((_i_ahora-_i_antes)/1000);
 }
 
-// GET ELAPSED TIME IN CICLES OF COMPUTER GET TIME ELAPSED BTW START -- DONT FORGET CALL SET START TIME --
-short Time::get_elapsed_time_btw_last_start_time(){
-	return (clock()-_startTime)/(short)CLOCKS_PER_SEC;
+double Time::get_start(){
+	return _startTime;
 }
 
-
-void Time::set_count_down(const short _i_countDown){
-	time(&_frist);
-	_countDownValue = _i_countDown;
-}
-
-// USE COUTNDOWN AND set_count_down TO INITIALIZE
-bool Time::count_down(){
-	//time_t timer;
-	//time(&timer);  /* get current time; same as: timer = time(NULL)  */
-
-	short seconds = difftime(time(NULL), _frist);
-
-	if(seconds-_countDownValue==0){										//Final countdown??
-		return true;
-	}
-	else{
-		return false;
-	}
+double Time::get_current(){
+	return clock();
 }

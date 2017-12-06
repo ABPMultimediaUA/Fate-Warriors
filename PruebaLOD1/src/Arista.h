@@ -11,7 +11,7 @@ class Arista
 	  int _id;
 	  int _peso;
 	  Arista();
-	  virtual ~Arista();
+	  ~Arista();
 };
 
 

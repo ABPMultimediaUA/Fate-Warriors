@@ -1,9 +1,11 @@
 #include "Game.h"
-#include "PruebaLOD1/Nivel.h"
+#include "Nivel/Nivel.h"
 #include "Cliente.h"
 #include "Servidor.h"
 #include <stack>
 #include <iostream>
+#include "Time.h"
+const float t_min_IA=(1000/15);
 
 Game* Game::instancia = 0;
 
@@ -126,7 +128,10 @@ void Game::main_loop_cliente(){
 	delete(enemigo1);
 }
 
-void Game::game_update(){
+void Game::game_update(double _i_tiempo_desde_ultimo_update){
+
+}
+void Game::game_render(float _i_interpolacion){
 
 }
 void Game::actualizar_by_id(short id, Input_key actionkey){
@@ -147,6 +152,26 @@ void Game::game_run(){
 		_action_manager->toma_decisiones();
 		_action_manager->realiza_acciones();
 	}
+    //float t_min_IA=(1000/15);//esta en milisegundos
+    Time* time=Time::Instance();
+    double t=1000;
+    double tiempo_desde_ultimo_update=time->get_current();
+    double h_ultimo_update=time->get_current();
+    //crear un bucle del reloj
+    while(true){
+        //evento para cerrar la ventana
+        //comprobacion del tiempo del update
+        tiempo_desde_ultimo_update =time->getDeltaTime( time->get_current(), h_ultimo_update); 
+        if(tiempo_desde_ultimo_update>t_min_IA){
+            h_ultimo_update=time->get_current();
+            game_update(tiempo_desde_ultimo_update);
+        }
+
+        //parte del render
+        _interpolacion=fmin(1.f,(double)tiempo_desde_ultimo_update/t_min_IA);
+        game_render(_interpolacion);
+
+    }
 }
   
 Datos_Partida* Game::game_get_datos() {
