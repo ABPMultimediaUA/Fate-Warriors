@@ -1,21 +1,26 @@
 #include "Vertice.h"
 //#include "Arista.h"
 #include <iostream>
-Vertice::Vertice(int _i_id){
-	_id=_i_id;
-	_sig = nullptr;
-	_ady = nullptr;
+Vertice::Vertice(int _i_id,float _i_posx, float _i_posy, Grafo *_i_grafo_lod1):
+_id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1), _sig(nullptr),
+_ady(nullptr){
+
 }
 
 Vertice::~Vertice(){
-	//std::cout<< sig->id <<"         AAAAElija una opcion validaaaaaaaaaaaaaaaaa2"<<std::endl;
-/*if(sig!=nullptr){
-	std::cout<< sig->nombre <<"         AAAAElija una opcion validaaaaaaaaaaaaaaaaa2"<<std::endl;
-	delete sig;
-	sig=nullptr;
+	delete _lod1;
+	_sig = nullptr;
+	_ady = nullptr;
+	_lod1 = nullptr; //grafo level of detail
 }
-if(ady!=nullptr){
-	delete ady;
-	ady=nullptr;
-}*/
+Grafo *Vertice::get_lod1(){
+	return _lod1;
+}
+
+float Vertice::get_coord_x(){
+	return _posx;
+}
+
+float Vertice::get_coord_y(){
+	return _posy;
 }

@@ -44,7 +44,9 @@ void Game::crea_partida() {
 	_datos = new Datos_Partida();
 	_action_manager = new Action_Manager();
 
-	//Nivel* _nivel1=new Nivel("Nivel.txt");
+	//cargar nivel 1
+	std::string nivel="txt/Nivel/Nivel1.txt";
+	Nivel* _nivel1=new Nivel(nivel);
 }
 
 void Game::fin_partida() {
