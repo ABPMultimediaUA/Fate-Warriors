@@ -236,6 +236,14 @@ void Interfaz::Interfaz_moverProta(float x,
 	_Prota->setPosition(core::vector3df(x,_Prota->getPosition().Y,z));
 }
 
+void Interfaz::Interfaz_rotarProta(float angulo){
+	float newAngle = this->Interfaz_GetCamaraAngle() + angulo;
+	_Prota->setRotation(core::vector3df(0,newAngle,0));
+	//std::cout<<"prota rot x: "<<_Prota->getRotation().X<<" || "<<
+	//		   "prota rot y: "<<_Prota->getRotation().Y<<" || "<<
+	//		   "prota rot z: "<<_Prota->getRotation().Z<<" || "<<std::endl;
+}
+
 void Interfaz::Interfaz_Update() {
 	_micamara->Camara_Update();
 }
@@ -262,10 +270,12 @@ Camara* Interfaz::Interfaz_getCamara(){
 	return _micamara;
 }
 
-void Interfaz::Interfaz_GetCamaraDirection(float &x, float &y, float &z){
-	x = _micamara->Camara_getDirection().X;
-	y = _micamara->Camara_getDirection().Y;
-	z = _micamara->Camara_getDirection().Z;
+float Interfaz::Interfaz_GetCamaraAngle(){
+	return(_micamara->Camara_getAngle());
+}
+
+float Interfaz::Interfaz_GetCamaraAngleRad(){
+	return(_micamara->Camara_getAngleRad());
 }
 
 void Interfaz::Interfaz_ProtaCollisionEnable(){

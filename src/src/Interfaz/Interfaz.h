@@ -40,8 +40,11 @@ class Interfaz{
 
 		void Interfaz_moverModelo(unsigned short id, float x, float y, float z);
 		void Interfaz_moverProta(float x, float z);
-
-		void Interfaz_GetCamaraDirection(float &x, float &y, float &z);
+		void Interfaz_rotarProta(float angulo);
+		
+		
+		float Interfaz_GetCamaraAngle();
+		float Interfaz_GetCamaraAngleRad();
 
 		scene::ISceneNode* Interfaz_GetProta();
 		scene::ISceneNode* Interfaz_GetNode(unsigned short id);
