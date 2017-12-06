@@ -11,6 +11,9 @@ public:
 	virtual ~Character();
 
 	short get_vida();
+	void modificar_vida_en(short _i_vida);
+	void poner_vida_a(short _i_vida);
+
 
 protected:
 	short _vida;

@@ -84,6 +84,12 @@ Vector2 operator +(Vector2 _i_vector, const short _i_valor);
 Vector2 operator -(Vector2 _i_vector, const short _i_valor);
 
 
+
+
+Vector2 operator +(Vector2 _i_vector, const Vector2 _i_vector2);
+
+
+
 //VECTOR 3D////////////////////////////////////////////////
 	/*---------Operaciones elementales---------*/
 	//Para floats

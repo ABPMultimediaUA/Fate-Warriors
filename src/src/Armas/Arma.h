@@ -22,7 +22,7 @@ public:
 	short 	get_rango();
 
 protected:
-	
+	Time *  _reloj;
 	double 	_tiempo_siguiente_disponible;
 	short 	_tipo;
 	short 	_uses;

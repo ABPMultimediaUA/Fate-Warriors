@@ -122,6 +122,18 @@ Vector2 operator/(Vector2 _i_vector, const float _i_short){
 
 
 
+
+ /////////////////VECTOR 2D
+ Vector2 operator+(Vector2 _i_vector, const Vector2 _i_vector2){
+    Vector2 resultado(0,0);
+    resultado._x=_i_vector._x + _i_vector2._x;
+    resultado._y=_i_vector._y + _i_vector2._y;
+    return resultado;
+ }
+
+
+
+
 float Vector2::Length() {
     return sqrt(_x * _x + _y * _y);
 };

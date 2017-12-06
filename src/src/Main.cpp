@@ -4,8 +4,32 @@
 #include "Tiempo/Time.h"
 #include <iostream>
 
+void pruebas_basura(){
+
+	Vector2 a = Vector2(1,1);
+	Vector2 b = Vector2(0,8);
+	short ba = 6;
+	Vector2 d = a+ba;
+	
+	std::cout << "Prueba de suma de valores: ";
+
+	std::cout << "suma de los vectores es " << d._x << std::endl;
+	float distance = Vector2DistanceSq(a, b);
+
+	std::cout << distance << std::endl;
+	
+	Vector2 sumaVectores  = a+b;
+	std::cout << a._x << "Valor de la x" << a._y << "valor de la y" << std::endl;
+	std::cout << sumaVectores._x << "Valor de la x" << sumaVectores._y << "valor de la y" << std::endl;
+}
+
+
+
 const float t_min_IA=(1000/15);
 int main(){
+
+	pruebas_basura();
+
 	Game* _juego = Game::game_instancia();
 
 	Time* time=Time::Instance();
@@ -19,9 +43,7 @@ int main(){
 
 	Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
 	
-
-	double aa;
-	double bb;
+	
 
 	//_time->updateAntes();
 	while(_interface->Interfaz_getDevice()->run()){
@@ -46,9 +68,11 @@ int main(){
 
 	_juego->fin_partida();
 
+	
 	delete _time;
 
 	delete _juego;
+	
 
 	return 0;
 }

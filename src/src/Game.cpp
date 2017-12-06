@@ -7,6 +7,7 @@
 #include "Personajes/Player.h"
 #include "Interfaz/Interfaz.h"
 #include "Nivel/Nivel.h"
+#include "Triggers/Trigger_zona_vida.h"
 
 #include <iostream>
 #include <stack>
@@ -65,6 +66,11 @@ void Game::run(){
 void Game::update(double _i_tiempo_desde_ultimo_update){
 	Player *_player = _datos->get_player();
 	_player->update();
+	
+	Trigger_zona_vida *zona=_datos->get_trigger();
+	zona->Trys(_player);
+	
+	zona = nullptr;
 	_player = nullptr;
 	_action_manager->toma_decisiones();
 	_action_manager->realiza_acciones();

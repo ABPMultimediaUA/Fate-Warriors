@@ -42,3 +42,8 @@ float Objeto::getZ(){
 bool Objeto::get_borrar(){
 	return _borrar;
 }
+
+
+Vector2 Objeto::get_vector(){
+	return Vector2(_x, _z);
+}

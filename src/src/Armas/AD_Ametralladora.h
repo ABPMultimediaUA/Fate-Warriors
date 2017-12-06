@@ -5,7 +5,7 @@
 
 class AD_Ametralladora : public Arma_distancia{
 public:
-	AD_Ametralladora(short _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango);
+	AD_Ametralladora(short _id, float _i_x, float _i_y, float _i_z);
 	virtual ~AD_Ametralladora();
 
 	void render() override;

@@ -5,6 +5,7 @@ enum NombreObjetos{
 
 };
 
+#include "Utilidades/Vector.h"
 
 class Objeto {
 public:
@@ -12,7 +13,6 @@ public:
 	Objeto(short id, float _i_x, float _i_y, float _i_z);
 	virtual ~Objeto();
 
-	virtual void update() = 0;
 	virtual void render() = 0;
 
 	void 	setPosition(float _i_x, float _i_y, float _i_z);
@@ -24,6 +24,7 @@ public:
 	void	setY(float _i_y);
 	void	setZ(float _i_z);
 	bool 	get_borrar();
+	Vector2	get_vector();
 
 protected:
 	short 	_id;

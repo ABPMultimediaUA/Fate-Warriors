@@ -13,3 +13,12 @@ Character::~Character() {
 short Character::get_vida(){
 	return _vida;
 }
+
+
+void Character::modificar_vida_en(short _i_vida){
+	_vida+=_i_vida;
+}
+
+void Character::poner_vida_a(short _i_vida){
+	_vida=_i_vida;
+}

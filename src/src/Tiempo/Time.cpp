@@ -1,7 +1,5 @@
 #include "Time.h"
-
-
-
+#include "SFML/Graphics.hpp"
 
 Time* Time::instancia=0;
 

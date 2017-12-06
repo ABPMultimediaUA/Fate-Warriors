@@ -3,6 +3,11 @@
 
 class NPC;
 class Player;
+class Trigger_zona_vida;
+class Trigger_region;
+class AD_Ametralladora;
+
+
 
 class Datos_Partida {
 public:
@@ -12,11 +17,14 @@ public:
 	unsigned short get_n_enemigos();
 	Player* get_player();
 	NPC** get_npcs();
+	Trigger_zona_vida* get_trigger();
 
 private:
+	
 	Player* _jugador;
 	NPC** _npc;
-
+	AD_Ametralladora* _ametralladora;
+	Trigger_zona_vida* trigger_zona_vida1; 
 	unsigned short _n_enemigos;
 };
 
