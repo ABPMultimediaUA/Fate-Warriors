@@ -21,16 +21,23 @@ public:
 	core::vector3df Camara_getPosition();
 	core::vector3df Camara_getTarget();
 	core::vector3df Camara_getDirection();
+	float Camara_getAngle();
+	float Camara_getAngleRad();
 	void Camara_Update(); //updatea la Camara usando el device
 	~Camara();
 
 private:
 	scene::ISceneNode* _Prota;         //personaje protagonista A.K.A Target
-	float _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
+	core::vector3df _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
 	scene::ICameraSceneNode* _Camara;  //camara de irrlicht
 	core::vector3df _position;		 	//posicion de la camara
 	core::vector3df _target; 		   //target de la camara
 	IrrlichtDevice* _Cdevice;
+
+	core::vector3df _inicial; //vector de direccion inicial 
+									//hacia donde mira la camara como referencia
+
+	float _dot, _det, _angle, _angleRad;
 	float _direction;	 //desplazamiento del raton
 	float _zdirection;   //desplazamiento del raton
 	float _xf;

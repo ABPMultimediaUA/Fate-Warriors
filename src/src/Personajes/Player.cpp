@@ -28,10 +28,8 @@ void Player::update(){
     Interfaz* interface = Interfaz::Interfaz_getInstance();
     if(interface!=nullptr){
         
-        float direccionX = interface->Interfaz_getCamara()->Camara_getDirection().X;
-        float direccionY = interface->Interfaz_getCamara()->Camara_getDirection().Y;
-        float direccionZ = interface->Interfaz_getCamara()->Camara_getDirection().Z;
-        
+        float angulo = interface->Interfaz_GetCamaraAngleRad();
+   
         float miX = interface->Interfaz_GetNode(_nodoId)->getPosition().X;
         float miZ = interface->Interfaz_GetNode(_nodoId)->getPosition().Z;
 
@@ -40,27 +38,28 @@ void Player::update(){
 
         double _time = _tiempo->get_tiempo_desde_ultimo_update_segundos();
 
-        std::cout << "Direccion X " << direccionX << std::endl;
-        std::cout << "Direccion Z " << direccionZ << std::endl;
-
         if(controles->estaPulsada(Input_key::W)){
-            miZ += direccionZ * _velocidad * _time;
-            miX += direccionX * _velocidad * _time;
+            miZ += cos(angulo) * _velocidad * _time;
+            miX += sin(angulo) * _velocidad * _time;
+            interface->Interfaz_rotarProta(0);
         }
         
         if(controles->estaPulsada(Input_key::S)){
-            miZ -= direccionZ * _velocidad * _time;
-            miX -= direccionX * _velocidad * _time;
+            miZ -= cos(angulo) * _velocidad * _time;
+            miX -= sin(angulo) * _velocidad * _time;
+            interface->Interfaz_rotarProta(180);    
         }
 
         if(controles->estaPulsada(Input_key::A)){
-            miZ -= -direccionX * _velocidad * _time; 
-            miX -=  direccionZ * _velocidad * _time;
+            miZ += sin(angulo) * _velocidad * _time;
+            miX -= cos(angulo) * _velocidad * _time;
+            interface->Interfaz_rotarProta(-90);
         }
 
         if(controles->estaPulsada(Input_key::D)){
-            miZ += -direccionX * _velocidad * _time;
-            miX +=  direccionZ * _velocidad * _time;
+            miZ -= sin(angulo) * _velocidad * _time;
+            miX += cos(angulo) * _velocidad * _time;
+            interface->Interfaz_rotarProta(90);
         }
 
         if(controles->estaPulsada(Input_key::Escape)){
@@ -70,7 +69,7 @@ void Player::update(){
         setX(miX);
         setZ(miZ);
         interface->Interfaz_moverProta(miX, miZ);
-
+        
         _tiempo_anterior = _otro_tiempo;
   }
 }
