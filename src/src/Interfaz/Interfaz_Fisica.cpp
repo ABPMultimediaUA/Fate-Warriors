@@ -1,5 +1,6 @@
 #include "Interfaz_Fisica.h"
-#include "Interfaz.h"
+#include <btBulletDynamicsCommon.h>
+#include "../Utilidades/Vector.h"
 
 Interfaz_Fisica* Interfaz_Fisica::_instancia=0;
 
@@ -10,7 +11,7 @@ Interfaz_Fisica* Interfaz_Fisica::Interfaz_Fisica_GetInstance(){
 	return _instancia;
 }
 
-Interfaz_Fisica::Interfaz_Fisica():_interfaz(Interfaz::Interfaz_getInstance()){
+Interfaz_Fisica::Interfaz_Fisica(){
 
 	_broadphase 			= new btDbvtBroadphase();
 	_collisionConfiguration = new btDefaultCollisionConfiguration();
@@ -30,26 +31,46 @@ Interfaz_Fisica::Interfaz_Fisica():_interfaz(Interfaz::Interfaz_getInstance()){
 	_groundRigidBody 		= new btRigidBody(groundRigidBodyCI);
 
 	_dynamicsWorld->addRigidBody(_groundRigidBody);
-
+	_rigidBodyCounter = 0;
 }
 
 void Interfaz_Fisica::update(){
-
 	_dynamicsWorld->stepSimulation(1 / 60.f, 10);
 	//this->Interfaz_collisionEnable();
 	btTransform trans;
-	_fallRigidBody->getMotionState()->getWorldTransform(trans);
+	//_fallRigidBody->getMotionState()->getWorldTransform(trans);
 	
-	float posX = trans.getOrigin().getX();
-	float posY = trans.getOrigin().getY();
-	float posZ = trans.getOrigin().getZ();
-	
-	_interfaz->Interfaz_moverProta(posX,posY,posZ);	
+	//btVector3 pos =	trans.getOrigin();
 
-		//std::cout<<"algo:     "<<pos<<std::endl;
+	//float tx,ty,tz;
+	//tx = pos.x();
+	//ty = pos.y();
+	//tz = pos.z();
+
+	//this->moverProta(tx,ty,tz);
 }
 
-void Interfaz_Fisica::CargaRigidBodyProta(int mass, float x, float y, float z){
+Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
+	Vector3 vectorsito(0,0,50.0f);
+	
+	btTransform trans;
+	
+	btVector3 algo(vectorsito._x, vectorsito._y, vectorsito._z);
+	
+	_VRigidBodys.at(id)->applyCentralForce(algo);
+	_VRigidBodys.at(id)->setWorldTransform(trans);
+	
+	Vector3 adevolver(0,0,0);
+	btVector3 pos = trans.getOrigin();
+	
+	adevolver._x = pos.x();
+	adevolver._y = pos.y();
+	adevolver._z = pos.z();
+	std::cout<<"adevolverX: "<<adevolver._x<<"adevolverY: "<<adevolver._y<<"adevolverZ: "<<adevolver._z<<std::endl;
+	return(adevolver);
+}
+
+unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float z){
 	_fallMotionState 	= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
 	btScalar Mymass 	= mass;
 	btVector3 			fallInertia(0, 0, 0);
@@ -59,8 +80,30 @@ void Interfaz_Fisica::CargaRigidBodyProta(int mass, float x, float y, float z){
 	btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, _fallMotionState,
 															_fallShape, fallInertia);
 				
-	_fallRigidBody 		= new btRigidBody(fallRigidBodyCI);	
-	_dynamicsWorld->addRigidBody(_fallRigidBody);
+	btRigidBody* rigidBody 		= new btRigidBody(fallRigidBodyCI);	
+	_dynamicsWorld->addRigidBody(rigidBody);
+	_VRigidBodys.push_back(rigidBody);
+	unsigned short counter = _rigidBodyCounter;
+	_rigidBodyCounter++;
+	return(counter);
+}
+
+unsigned short Interfaz_Fisica::CargaRigidBodyProta(int mass, float x, float y, float z){
+	_fallMotionState 	= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar Mymass 	= mass;
+	btVector3 			fallInertia(0, 0, 0);
+	
+	_fallShape->calculateLocalInertia(mass, fallInertia);
+
+	btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, _fallMotionState,
+															_fallShape, fallInertia);
+				
+	btRigidBody* rigidBody 		= new btRigidBody(fallRigidBodyCI);	
+	_dynamicsWorld->addRigidBody(rigidBody);
+	_VRigidBodys.push_back(rigidBody);
+	unsigned short counter = _rigidBodyCounter;
+	_rigidBodyCounter++;
+	return(counter);
 }
 
 Interfaz_Fisica::~Interfaz_Fisica(){
@@ -95,7 +138,7 @@ Interfaz_Fisica::~Interfaz_Fisica(){
 	delete _fallMotionState;		
 	_fallMotionState=nullptr;
 
-	delete _fallRigidBody;
-	_fallRigidBody=nullptr;
+//	delete _fallRigidBody;
+//	_fallRigidBody=nullptr;
 
 }

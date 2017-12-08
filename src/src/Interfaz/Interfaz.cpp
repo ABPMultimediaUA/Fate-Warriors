@@ -16,6 +16,7 @@ Interfaz* Interfaz::Interfaz_getInstance(){
 
 Interfaz::Interfaz(bool moose, unsigned short width, unsigned short height){
 	
+		    std::cout << "me he creado " << std::endl;
 	if (!moose) { //irrlicht Interfaz initialization
 		_device = createDevice(video::E_DRIVER_TYPE::EDT_OPENGL,
 				core::dimension2d<u32>(width, height), 16, false, false, false
@@ -41,7 +42,9 @@ Interfaz::Interfaz(bool moose, unsigned short width, unsigned short height){
 		_width = width;
 
 		_then = _device->getTimer()->getTime();
+
 		_micamara = new Camara(_smgr, _device);
+    std::cout << "me he creado " << std::endl;
 
 	}
 }
@@ -254,7 +257,12 @@ void Interfaz::Interfaz_rotarProta(float angulo){
 }
 
 void Interfaz::Interfaz_Update() {
-	_micamara->Camara_Update();	
+	if(_device->isWindowActive()){
+		_micamara->Camara_Update();
+	}
+	else{
+		_device->yield();
+	}	
 }
 
 void Interfaz::Interfaz_Apagar(){

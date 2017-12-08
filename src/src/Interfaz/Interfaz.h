@@ -11,7 +11,6 @@
 class Camara;
 class irrlicht;
 class InputKey;
-#include <btBulletDynamicsCommon.h>
 
 
 #include <vector>
@@ -78,7 +77,7 @@ class Interfaz{
 		scene::ISceneNode* _node;
 		scene::ITriangleSelector* _selector; //triangle selector para las colisiones
 		scene::ISceneNode* _Prota;
-		btDiscreteDynamicsWorld* _dynamicsWorld;
+
 		float _direction;
 		float _zdirection;
 		const f32 MOVEMENT_SPEED = 200.f;
@@ -92,7 +91,6 @@ class Interfaz{
 		int _meshCounter;
 		int _nodeCounter;
 
-		btRigidBody* _fallRigidBody;
 		//scene::IAnimatedMesh* mesh[100]; //array de meshes
 
 		unsigned short _height;

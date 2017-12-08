@@ -2,22 +2,34 @@
 #define Interfaz_Fisica_H_
 
 #include <iostream>
-#include <btBulletDynamicsCommon.h>
+#include <vector>
 
-class Interfaz;
+class btTransform;
+class btBroadphaseInterface;
+class btDefaultCollisionConfiguration;
+class btCollisionDispatcher;
+class btSequentialImpulseConstraintSolver;
+class btDiscreteDynamicsWorld;
+class btCollisionShape;
+class btCollisionShape;
+class btDefaultMotionState;
+class btRigidBody;	
+class btDefaultMotionState;								
+class btRigidBody; 
+struct Vector3;
 
 class Interfaz_Fisica{
 public:
 
-	
-	void CargaRigidBodyProta(int mass, float x, float y, float z);
+	unsigned short CargaRigidBodyProta(int mass, float x, float y, float z);
+	unsigned short CargaRigidBody(int mass, float x, float y, float z);
+	Vector3 moverObjeto(Vector3 vec, unsigned short id);
 	void update();
 	~Interfaz_Fisica();
 	static Interfaz_Fisica* Interfaz_Fisica_GetInstance();
 
 private:
 	Interfaz_Fisica();
-	Interfaz* _interfaz;
 	btBroadphaseInterface* _broadphase;
 	btDefaultCollisionConfiguration* _collisionConfiguration;
 	btCollisionDispatcher* _dispatcher;
@@ -28,7 +40,8 @@ private:
 	btDefaultMotionState* _groundMotionState;
 	btRigidBody* _groundRigidBody;	
 	btDefaultMotionState* _fallMotionState;								
-	btRigidBody* _fallRigidBody;
+	std::vector<btRigidBody*> _VRigidBodys;
+	unsigned short _rigidBodyCounter;
 	static Interfaz_Fisica* _instancia; 
 };
 
