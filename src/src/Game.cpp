@@ -47,6 +47,19 @@ void Game::crea_partida() {
 	//cargar nivel 1
 	std::string nivel="txt/Nivel/Nivel1.txt";
 	Nivel* _nivel1=new Nivel(nivel);
+
+	/*_nivel1->nivel_set_lod(3);
+
+	stack<Vertice*> algo2=_nivel1->nivel_camino_corto_l2(_nivel1->nivel_get_vertice(1),_nivel1->nivel_get_vertice(9));
+	Vertice *pv2;
+                    
+                    while(!algo2.empty()){
+                        pv2=algo2.top();
+                        std::cout << pv2->_id <<" -> ";
+						std::cout << pv2->_lod <<" * ";
+                        algo2.pop();
+                    }
+                    std::cout<<std::endl;*/
 }
 
 void Game::fin_partida() {

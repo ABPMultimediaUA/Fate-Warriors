@@ -1,18 +1,88 @@
-/*
- * Nivel.cpp
- *
- *  Created on: 7 nov. 2017
- *      Author: francisco
- */
-
 #include "Nivel.h"
 #include <iostream>
 #include <fstream>
 #include "Vertice.h"
 #include "Arista.h"
-#include "Grafo.h"
 #include <queue>
 #include <list>
+
+
+void Nivel::nivel_set_lod(int _i_id){
+	_lod2->grafo_set_lod(_i_id);
+}
+
+void Nivel::leer_nivel(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, float &_i_x, float &_i_y, float _i_ancho, float _i_alto, int &_i_id){
+
+	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
+	_i_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
+	_i_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
+	_i_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
+	_i_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
+	_i_id = std::atoi(_i_iteracion.c_str());
+
+	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero 
+}
+
+/*Funcion de crear grafos
+ * Crea todos los vertices y aristas correspondientes al grafo
+ * Input:
+ *  ifstream para ller el fichero
+ *  string que se guarda los datos del fichero
+ *  puntero al grafo dentro del cual se crean
+ * */
+void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, Grafo* _i_grafo){
+	float _x,_y;
+	int _id;
+	if(_i_iteracion!="null"){
+		std::ifstream _grafo_txt;
+		_grafo_txt.open(_i_iteracion);//apertura del fichero
+		std::string _iteracion;
+		if(_grafo_txt.fail()){//comprobacion de la apertura del fichero
+			std::cout<<"Error al abrir el archivo del grafo"<<std::endl;
+		}
+		_grafo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
+		while(_iteracion!="Fin"){//bucle para crear todos los objetos del nodo
+			if(_iteracion=="VERTICE"){
+				_grafo_txt >> _iteracion;//obtiene el valor de la x
+				_x = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			
+				_grafo_txt>>_iteracion;//obtiene el valor de la y
+				_y = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+				_grafo_txt>>_iteracion;//obtiene el valor de la id
+				_id = std::atoi(_iteracion.c_str());
+
+				Vertice* vertice= new Vertice(_x, _y, _id, nullptr);
+				_i_grafo->grafo_inserta_vertice(vertice);
+			}else if(_iteracion=="ARISTA"){
+				_grafo_txt >> _iteracion;//obtiene el valor de la id del origen
+				_x = std::atoi(_iteracion.c_str());//se convierte a const* char para convertirse en un float
+				
+				_grafo_txt>>_iteracion;//obtiene el valor de la id del destino
+				_y = std::atoi(_iteracion.c_str());//se convierte a const* char para convertirse en un float
+				
+				_grafo_txt>>_iteracion;//obtiene el valor de la id
+				_id = std::atoi(_iteracion.c_str());
+				
+				_i_grafo->grafo_crea_arista(_x, _y, 10, _id);
+				
+			}
+			
+			_grafo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
+		}
+		_grafo_txt.close();
+	}
+	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
+}
+
 
 /* Funcion de crear pasillo
  * Crea los datos del pasillo y se guarda en el vector de pasillos del nivel
@@ -25,25 +95,15 @@ void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_ite
 	int _id;
 	Pasillo* _pasillo;
 	Grafo * _vacio = new Grafo();
-	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
-	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	leer_nivel(_i_nivel_txt,_i_iteracion,_x,_y,_ancho,_alto,_id);
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
-	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
-	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
-	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
-	_id = std::strtoul(_i_iteracion.c_str(),NULL,0);
-
+	nivel_crear_grafo( _i_nivel_txt, _i_iteracion, _vacio);//creacion de todos los nodos
 	_pasillo = new Pasillo( _x, _y, _ancho, _alto, _id, _vacio);//creacion del nuevo pasillo
-	_i_nivel_txt >> _i_iteracion;//se guarda el siguiente valor de nombre
+
 	_lod2->grafo_inserta_vertice(_pasillo);//creacion del pasillo en el grafo
 }
+
+
 /* Funcion de crear nodo
  * Crea los datos del nodo y se guarda en el vector de pasillos del nivel
  * Input:
@@ -55,25 +115,17 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
 	int _id;
 	Nodo* _nodo;
 	Grafo * _vacio = new Grafo();
-	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
-	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	leer_nivel(_i_nivel_txt,_i_iteracion,_x,_y,_ancho,_alto,_id);
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
-	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
-	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	int zona;
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
-	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	nivel_crear_grafo( _i_nivel_txt, _i_iteracion, _vacio);//creacion de todos los nodos
 	
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
-	_id = std::strtoul(_i_iteracion.c_str(),NULL,0);
-
-	_nodo = new Nodo( _x, _y, _ancho, _alto, _id, _vacio);//creacion del nuevo nodo
-	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero para leer los objetos
-
-	nivel_crear_objetos( _i_nivel_txt, _i_iteracion, _nodo);//creacion de todos los nodos
+	zona=std::atoi(_i_iteracion.c_str());
+	_nodo = new Nodo( _x, _y, _ancho, _alto, _id, _vacio, zona);//creacion del nuevo nodo
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor del siguiente nombre
 	
 	_lod2->grafo_inserta_vertice(_nodo);//creacion del nodo en el grafo
 
@@ -111,7 +163,7 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 			_alto = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			
 			_nodo_txt>>_iteracion;//obtiene el valor de la id
-			_id = std::strtoul(_iteracion.c_str(),NULL,0);
+			_id = std::atoi(_iteracion.c_str());
 			
 			_i_nodo->nodo_crear_objeto( _x, _y, _ancho, _alto, _id);
 			_nodo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
@@ -131,20 +183,39 @@ void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iter
 	int _id_o, _id_d, _i_peso, _id_a;
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del origen
-	_id_o = std::strtoul(_i_iteracion.c_str(),NULL,0);
+	_id_o = std::atoi(_i_iteracion.c_str());
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del destino
-	_id_d = std::strtoul(_i_iteracion.c_str(),NULL,0);
+	_id_d = std::atoi(_i_iteracion.c_str());
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id de la arista
-	_id_a = std::strtoul(_i_iteracion.c_str(),NULL,0);
+	_id_a = std::atoi(_i_iteracion.c_str());
 
 	_i_peso=10;
 
 	_lod2->grafo_crea_arista(_id_o, _id_d,  _i_peso, _id_a);
 	
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
+	
 }
+
+
+/*Funciones para guardar los datos del grafo dentro del nodo
+ * */
+/*struct Tnodo_func{//declaracion de los parametros
+	const char* _nombre_objeto;
+	void (Nivel::*pmet)(std::ifstream&, std::string&);
+};
+
+Tnodo_func mapping[] = {//definicion de los parametros
+		{"PASILLO", &Nivel::nivel_crear_pasillo},
+		{"NODO", &Nivel::nivel_crear_nodo},
+		{"ARISTA", &Nivel::nivel_crear_arista},
+		{0, 0}
+};
+
+
+
 /*Funciones para guardar los datos
  * */
 struct Tinstance2func{//declaracion de los parametros
@@ -237,18 +308,9 @@ Nivel::~Nivel() {
  * Input: Id del vertice.
  * Output: puntero del vertice.
  * */
-/*Vertice *Nivel::nivel_get_vertice(int _i_id){
-	Vertice *_aux;
-	_aux = _h;
-	while(_aux!=NULL){
-		if(_aux->_id == _i_id){
-			return _aux;
-		}
-		_aux=_aux->_sig;
-		
-	}
-	return NULL;
-}*/
+Vertice *Nivel::nivel_get_vertice(int _i_id){
+	return _lod2->grafo_get_vertice(_i_id);
+}
 /*Inserta un nodo en el grafo.
  * Input: id del nodo.
  * Output: ~.

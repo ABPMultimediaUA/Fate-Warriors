@@ -30,6 +30,7 @@ public:
 	void grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino);
 	void grafo_anular();
 	void grafo_crea_arista(int _i_origen,int _i_destino, int _i_peso, int _i_id);
+	void grafo_set_lod(int _i_id);
 
 };
 #endif

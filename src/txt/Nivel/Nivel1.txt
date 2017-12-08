@@ -1,8 +1,53 @@
 NODO
 14 7 3 3 1
-txt/Nivel/nodox.txt
+neutro
+null
 PASILLO
 14 10 2 2 2
+null
+NODO
+14 7 3 3 3
+neutro
+null
+PASILLO
+14 10 2 2 4
+null
+NODO
+14 7 3 3 5
+aliado
+null
+PASILLO
+14 10 2 2 6
+null
+NODO
+14 7 3 3 7
+enemigo
+null
+PASILLO
+14 10 2 2 8
+null
+NODO
+14 7 3 3 9
+enemigo
+null
 ARISTA
 1 2 1
+ARISTA
+1 6 1
+ARISTA
+2 3 1
+ARISTA
+2 5 1
+ARISTA
+3 4 1
+ARISTA
+3 5 1
+ARISTA
+5 7 1
+ARISTA
+6 7 1
+ARISTA
+7 8 1
+ARISTA
+8 9 1
 Fin
