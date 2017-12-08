@@ -3,26 +3,30 @@
 #include "../Entrada/Input.h"
 #include "../Entrada/Controles.h"
 #include "../Interfaz/Interfaz.h"
+#include "../Interfaz/Interfaz_Fisica.h"
 #include "../Camara/Camara.h"
 #include "../Tiempo/Time.h"
                                                                                               //  vida_prota, velocidad
 Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 175) 
                                                                 ,_interface(Interfaz::Interfaz_getInstance())
+                                                                ,_interface_fisica(Interfaz_Fisica::Interfaz_Fisica_GetInstance())
                                                                 {
     _tiempo = Time::Instance();
     //std::cout<<"eso: "<<_interface<<std::endl;
     //crear nodo de personaje del motor
     _otro_tiempo = _tiempo->get_start();
     _tiempo_anterior = _tiempo->get_start();
-
+    std::cout << "me he creado " << std::endl;
    _nodoId = _interface->Interfaz_crearProtaZip("models/Personaje.zip", "Personaje.obj",false,
                         _i_x,_i_y,_i_z);
+   _interface_fisica->CargaRigidBodyProta(50,_i_x,_i_y,_i_z);
 }
 
 Player::~Player(){
 }
 
 void Player::update(){
+    
     
     Controles* controles = Controles::Instance();
     Interfaz* interface = Interfaz::Interfaz_getInstance();

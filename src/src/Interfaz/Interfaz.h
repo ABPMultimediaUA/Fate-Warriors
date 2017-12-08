@@ -11,10 +11,13 @@
 class Camara;
 class irrlicht;
 class InputKey;
+#include <btBulletDynamicsCommon.h>
+
 
 #include <vector>
 #include <iostream>
 #include "irrlicht/irrlicht.h"
+
 
 using namespace irr;
 using namespace std;
@@ -40,6 +43,7 @@ class Interfaz{
 
 		void Interfaz_moverModelo(unsigned short id, float x, float y, float z);
 		void Interfaz_moverProta(float x, float z);
+		void Interfaz_moverProta(float x, float y, float z);
 		void Interfaz_rotarProta(float angulo);
 		
 		
@@ -74,6 +78,7 @@ class Interfaz{
 		scene::ISceneNode* _node;
 		scene::ITriangleSelector* _selector; //triangle selector para las colisiones
 		scene::ISceneNode* _Prota;
+		btDiscreteDynamicsWorld* _dynamicsWorld;
 		float _direction;
 		float _zdirection;
 		const f32 MOVEMENT_SPEED = 200.f;
@@ -86,6 +91,8 @@ class Interfaz{
 		/**** POSIBLES VARIABLES A COMENTAR CON EL PROFESOR DE TAG ****/
 		int _meshCounter;
 		int _nodeCounter;
+
+		btRigidBody* _fallRigidBody;
 		//scene::IAnimatedMesh* mesh[100]; //array de meshes
 
 		unsigned short _height;

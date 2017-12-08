@@ -5,7 +5,8 @@
 #include "Personajes/NPC.h"
 
 Datos_Partida::Datos_Partida() {
-	_jugador = new Player(0,0,30,0);
+
+	_jugador = new Player(0,0,230,0);
 
 	_n_enemigos = 1;
 

@@ -3,6 +3,7 @@
 #include "Character.h"
 
 class Interfaz;
+class Interfaz_Fisica;
 class Time;
 
 class Player : public Character{
@@ -17,6 +18,7 @@ public:
 private:
 	short _nodoId; //ID del nodo del modelado del motor
 	Interfaz* _interface;
+	Interfaz_Fisica* _interface_fisica;
 	Time * _tiempo;
 	double _otro_tiempo;
 	double _tiempo_anterior;

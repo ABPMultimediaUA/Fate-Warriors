@@ -5,7 +5,7 @@ class Datos_Partida;
 class Action_Manager;
 class Datos_Partida;
 class Interfaz;
-
+class Interfaz_Fisica;
 class Game{
 
 public:
@@ -26,6 +26,7 @@ private:
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;
 	Interfaz *_interfaz_grafica;
+	Interfaz_Fisica* _interfaz_fisica;
 };
 
 
