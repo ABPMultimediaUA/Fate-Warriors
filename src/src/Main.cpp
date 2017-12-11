@@ -7,8 +7,8 @@
 const float t_min_IA=(1000/15);
 int main(){
 	Game* _juego = Game::game_instancia();
-
-	Time* time=Time::Instance();
+	_juego->crea_partida();
+	/*Time* time=Time::Instance();
 	//double _tiempo_desde_ultimo_update=time->get_current();
 	double _h_ultimo_update=time->get_current();
 	double _interpolacion;
@@ -48,7 +48,7 @@ int main(){
 
 	delete _time;
 
-	delete _juego;
+	delete _juego;*/
 
 	return 0;
 }
