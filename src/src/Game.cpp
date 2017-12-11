@@ -60,7 +60,8 @@ void Game::crea_partida() {
                         algo2.pop();
                     }
                     std::cout<<std::endl;
-	std::cout <<_nivel1->nivel_get_nodo(7)->_blackboard->_zonas_ady[0]->_id <<std::endl;
+	std::cout <<_nivel1->nivel_get_nodo(7)->_blackboard->get_zonas_ady()[0] <<std::endl;
+	std::cout << _nivel1->nivel_get_id_vertice(67,27)<<std::endl;
 
 }
 

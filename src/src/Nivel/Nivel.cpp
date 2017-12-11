@@ -13,22 +13,7 @@ void Nivel::nivel_set_lod(int _i_id){
 
 void Nivel::leer_nivel(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, float &_i_x, float &_i_y, float _i_ancho, float _i_alto, int &_i_id){
 
-	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
-	_i_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
-	_i_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
-	_i_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
-	_i_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 	
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
-	_i_id = std::atoi(_i_iteracion.c_str());
-
-	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero 
 }
 
 /*Funcion de crear grafos
@@ -60,7 +45,7 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 				_grafo_txt>>_iteracion;//obtiene el valor de la id
 				_id = std::atoi(_iteracion.c_str());
 
-				Vertice* vertice= new Vertice(_x, _y, _id, nullptr);
+				Vertice* vertice= new Vertice(_x, _y, 0, 0, _id, nullptr);
 				_i_grafo->grafo_inserta_vertice(vertice);
 			}else if(_iteracion=="ARISTA"){
 				_grafo_txt >> _iteracion;//obtiene el valor de la id del origen
@@ -95,7 +80,22 @@ void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_ite
 	int _id;
 	Pasillo* _pasillo;
 	Grafo * _vacio = new Grafo();
-	leer_nivel(_i_nivel_txt,_i_iteracion,_x,_y,_ancho,_alto,_id);
+	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
+	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
+	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
+	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
+	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
+	_id = std::atoi(_i_iteracion.c_str());
+
+	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero 
 
 	nivel_crear_grafo( _i_nivel_txt, _i_iteracion, _vacio);//creacion de todos los nodos
 	_pasillo = new Pasillo( _x, _y, _ancho, _alto, _id, _vacio);//creacion del nuevo pasillo
@@ -115,7 +115,22 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
 	int _id;
 	Nodo* _nodo;
 	Grafo * _vacio = new Grafo();
-	leer_nivel(_i_nivel_txt,_i_iteracion,_x,_y,_ancho,_alto,_id);
+	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
+	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
+	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
+	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
+	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
+	_id = std::atoi(_i_iteracion.c_str());
+
+	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero 
 
 
 	int zona;
@@ -206,13 +221,12 @@ void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_
 	_id_o = std::atoi(_i_iteracion.c_str());
 
 	Nodo* nodo=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_o));
-	Nodo* nodoaux;
+
 	while(_i_iteracion!="-1"){
 		
 		_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del adyacente
 		_id_a = std::atoi(_i_iteracion.c_str());
-		nodoaux=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_a));
-		nodo->_blackboard->_zonas_ady.push_back(nodoaux);
+		nodo->_blackboard->anyadir_zona(_id_a);
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
 
@@ -336,6 +350,9 @@ Nodo* Nivel::nivel_get_nodo(int _i_id){
 }
 Pasillo * Nivel::nivel_get_pasillo(int _i_id){
 	return static_cast<Pasillo*>(_lod2->grafo_get_vertice(_i_id));
+}
+int Nivel::nivel_get_id_vertice(float _i_x, float _i_y){
+	return _lod2->grafo_get_id_vertice(_i_x, _i_y);
 }
 /*Inserta un nodo en el grafo.
  * Input: id del nodo.

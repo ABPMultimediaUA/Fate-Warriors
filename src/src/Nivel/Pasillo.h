@@ -11,8 +11,6 @@ public:
 	
 
 private:
-	float _ancho;
-	float _alto;
 	unsigned short _id;
 };
 

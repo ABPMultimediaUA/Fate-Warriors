@@ -1,5 +1,4 @@
 #include "Vertice.h"
-#include "Enum_zona.h"
 #include "Nodo_blackboard.h"
 #ifndef NODO_H_
 #define NODO_H_
@@ -15,8 +14,7 @@ public:
 	
 
 private:
-	float _ancho;
-	float _alto;
+
 	
 };
 

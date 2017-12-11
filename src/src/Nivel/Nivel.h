@@ -26,6 +26,7 @@ public:
 	Nodo * nivel_get_nodo(int _i_id);
 	Pasillo * nivel_get_pasillo(int _i_id);
 	void nivel_set_lod(int _i_id);
+	int nivel_get_id_vertice(float _i_x, float _i_y);
 	//unsigned short nivel_get_n_enemigos(int _i_id);
 	//void nivel_set_n_enemigos(int _i_id,unsigned short _i_n_enemigos);
 
