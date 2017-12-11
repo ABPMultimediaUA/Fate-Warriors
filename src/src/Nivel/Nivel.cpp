@@ -199,6 +199,25 @@ void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iter
 	
 }
 
+void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
+	int _id_o, _id_a;
+
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del origen
+	_id_o = std::atoi(_i_iteracion.c_str());
+
+	Nodo* nodo=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_o));
+	Nodo* nodoaux;
+	while(_i_iteracion!="-1"){
+		
+		_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del adyacente
+		_id_a = std::atoi(_i_iteracion.c_str());
+		nodoaux=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_a));
+		nodo->_blackboard->_zonas_ady.push_back(nodoaux);
+	}
+	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
+
+}
+
 
 /*Funciones para guardar los datos del grafo dentro del nodo
  * */
@@ -227,6 +246,7 @@ Tinstance2func mapping[] = {//definicion de los parametros
 		{"PASILLO", &Nivel::nivel_crear_pasillo},
 		{"NODO", &Nivel::nivel_crear_nodo},
 		{"ARISTA", &Nivel::nivel_crear_arista},
+		{"ADYACENTE", &Nivel::nivel_crear_adyacentes},
 		{0, 0}
 };
 /*Constructor del nivel, lee el fichero y le pone sus valores a los nodos, pasillos y objetos
@@ -246,8 +266,8 @@ Nivel::Nivel(std::string &_i_fichero) {
 		}
 	_nivel_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 	while(_iteracion!="Fin"){//bucle de lectura del fichero
-		std::cout << _iteracion << std::endl;
 		_next=mapping;
+		std::cout<<_iteracion<<std::endl;
 		while (_next->_nombre_objeto){
 			if(_iteracion==_next->_nombre_objeto){
 				(this->*_next->pmet)(_nivel_txt,_iteracion);
@@ -310,6 +330,12 @@ Nivel::~Nivel() {
  * */
 Vertice *Nivel::nivel_get_vertice(int _i_id){
 	return _lod2->grafo_get_vertice(_i_id);
+}
+Nodo* Nivel::nivel_get_nodo(int _i_id){
+	return static_cast<Nodo*>(_lod2->grafo_get_vertice(_i_id));
+}
+Pasillo * Nivel::nivel_get_pasillo(int _i_id){
+	return static_cast<Pasillo*>(_lod2->grafo_get_vertice(_i_id));
 }
 /*Inserta un nodo en el grafo.
  * Input: id del nodo.

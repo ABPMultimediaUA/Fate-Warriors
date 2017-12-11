@@ -1,11 +1,12 @@
 #include "Vertice.h"
 #include "Arista.h"
+#include "Nodo.h"
 #include "Grafo.h"
 #include <iostream>
 
 Vertice::Vertice(float _i_posx, float _i_posy, int _i_id, Grafo *_i_grafo_lod1):
 _id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1),_lod(4) , _sig(nullptr),
-_ady(nullptr){
+_ady(nullptr),_n_enemigos(0){
 
 }
 
@@ -30,8 +31,10 @@ void Vertice::set_lod(unsigned short _i_cont){
 	if(_i_cont>4){
 		_i_cont=4;
 	}
+	if(Nodo * n = dynamic_cast<Nodo*>(this)){
+		n->_blackboard->_lod=_i_cont;
+	}
 	_lod=_i_cont;
-	std::cout<< _id << std::endl;
 	Arista* _ArisAux = _ady;
 	while(_ArisAux != nullptr){//recorrer nivel 1
 		if(_ArisAux->_ady->_lod>_i_cont){

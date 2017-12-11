@@ -21,7 +21,10 @@ public:
 	void nivel_crear_objetos(std::ifstream& _i_Nivel_txt, std::string& _i_iteracion, Nodo* _i_nodo);
 	void nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, Grafo* _i_grafo);
 	void nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iteracion);
+	void nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_iteracion);
 	Vertice * nivel_get_vertice(int _i_id);
+	Nodo * nivel_get_nodo(int _i_id);
+	Pasillo * nivel_get_pasillo(int _i_id);
 	void nivel_set_lod(int _i_id);
 	//unsigned short nivel_get_n_enemigos(int _i_id);
 	//void nivel_set_n_enemigos(int _i_id,unsigned short _i_n_enemigos);
