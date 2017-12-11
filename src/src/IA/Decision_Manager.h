@@ -4,7 +4,7 @@
 class Action_Manager;
 class Arbol_Decision_Manager;
 class Blackboard;
-class Interfaz_Toma_Decision;
+class Interfaz_Datos;
 class NPC;
 
 class Decision_Manager {
@@ -28,7 +28,7 @@ private:
 	NPC** _enemigos;
 
 	//Puntero a la interfaz a datos para la toma de decision
-	Interfaz_Toma_Decision *_interfaz_decision;
+	Interfaz_Datos *_interfaz_decision;
 };
 
 #endif /* SRC_ACTION_MANAGER_H_ */

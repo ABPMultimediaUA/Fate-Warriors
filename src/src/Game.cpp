@@ -1,9 +1,9 @@
 #include "Game.h"
 
+#include "Action_Manager.h"
 #include "Datos_Partida.h"
 
 #include "Entrada/Input.h"
-#include "IA/Action_Manager.h"
 #include "IA/Decision_Manager.h"
 #include "Personajes/Player.h"
 #include "Interfaz/Interfaz.h"

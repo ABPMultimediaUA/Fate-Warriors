@@ -1,10 +1,10 @@
 #include "Decision_Manager.h"
 
-#include "Action_Manager.h"
+#include "../Action_Manager.h"
 #include "Arbol_Decision_Manager.h"
 #include "Blackboard.h"
 #include "Enum_Acciones.h"
-#include "Interfaz_Toma_Decision.h"
+#include "Interfaz_Datos.h"
 
 #include "../Personajes/NPC.h"
 
@@ -15,9 +15,9 @@ Decision_Manager::Decision_Manager(Action_Manager* _i_action_manager) {
 
 	_interfaz_decision = _i_action_manager->get_interfaz();
 
-	_enemigos = _interfaz_decision->interfaz_decision_get_enemigos();
+	_enemigos = _interfaz_decision->get_enemigos();
 
-	unsigned short _n_enemigos = _interfaz_decision->interfaz_decision_get_n_enemigos();
+	unsigned short _n_enemigos = _interfaz_decision->get_n_enemigos();
 
 	_blackboards = new Blackboard*[_n_enemigos];
 
@@ -32,7 +32,7 @@ Decision_Manager::Decision_Manager(Action_Manager* _i_action_manager) {
 Decision_Manager::~Decision_Manager() {
 	delete _decision_tree_manager;
 
-	unsigned short _n_enemigos = _interfaz_decision->interfaz_decision_get_n_enemigos();
+	unsigned short _n_enemigos = _interfaz_decision->get_n_enemigos();
 	for(unsigned short _cont=0; _cont<_n_enemigos; _cont++) {
 		delete _blackboards[_cont];
 	}
@@ -46,7 +46,7 @@ Decision_Manager::~Decision_Manager() {
 
 // Recorre todos los enemigos y les agrega una accion
 void Decision_Manager::toma_decisiones(){
-	unsigned short _n_enemigos = _interfaz_decision->interfaz_decision_get_n_enemigos();
+	unsigned short _n_enemigos = _interfaz_decision->get_n_enemigos();
 
 	for(unsigned short _cont=0; _cont<_n_enemigos; _cont++) {
 

@@ -1,16 +1,16 @@
 #include "Action_Manager.h"
 
-#include "Blackboard.h"
-#include "Enum_Acciones.h"
-#include "Interfaz_Toma_Decision.h"
-#include "Path_Manager.h"
+#include "IA/Blackboard.h"
+#include "IA/Enum_Acciones.h"
+#include "IA/Interfaz_Datos.h"
+#include "IA/Path_Manager.h"
 
-#include "../Personajes/NPC.h"
+#include "Personajes/NPC.h"
 
 #include<iostream>
 
 Action_Manager::Action_Manager() {
-	_interfaz_decision = new Interfaz_Toma_Decision();
+	_interfaz_decision = new Interfaz_Datos();
 
 	_path_manager = new Path_Manager(*_interfaz_decision);
 }
@@ -61,6 +61,6 @@ void Action_Manager::mover(Character* _i_personaje, unsigned short _i_direccion)
 
 
 
-Interfaz_Toma_Decision* Action_Manager::get_interfaz() {
+Interfaz_Datos* Action_Manager::get_interfaz() {
 	return _interfaz_decision;
 }
