@@ -3,6 +3,7 @@
 
 class Datos_Partida;
 class NPC;
+class NPC_Manager;
 
 class Interfaz_Toma_Decision {
 public:
@@ -18,6 +19,7 @@ public:
 
 private:
 	Datos_Partida* _datos;
+	NPC_Manager* _npc_manager;
 };
 
 #endif /* INTERFAZ_TOMA_DECISION_H_ */

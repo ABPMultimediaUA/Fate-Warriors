@@ -1,6 +1,9 @@
 #ifndef SRC_ARBOL_DECISION_MANAGER_H_
 #define SRC_ARBOL_DECISION_MANAGER_H_
 
+#include "Enum_Acciones.h"
+
+class Blackboard;
 class Nodo_Decision;
 class Nodo_Decision_Final;
 
@@ -9,7 +12,7 @@ public:
 	Arbol_Decision_Manager();
 	virtual ~Arbol_Decision_Manager();
 
-	Nodo_Decision* crea_arbol_decision();
+	enum Enum_Acciones _tomar_decision(Blackboard* _blackboard);
 
 private:
 	unsigned short _n_nodos;

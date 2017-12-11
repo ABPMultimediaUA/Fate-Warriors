@@ -1,8 +1,7 @@
 #ifndef SRC_ACTION_MANAGER_H_
 #define SRC_ACTION_MANAGER_H_
 
-class Blackboard;
-class Experto_Manager;
+class Character;
 class Interfaz_Toma_Decision;
 class NPC;
 class Path_Manager;
@@ -12,29 +11,15 @@ public:
 	Action_Manager();
 	virtual ~Action_Manager();
 
-	void toma_decisiones();
-	void realiza_acciones();
+	void realiza_accion(NPC* _i_npc);
+
+	void mover(Character* _i_personaje, unsigned short _i_direccion);
+
+	Interfaz_Toma_Decision* get_interfaz();
 
 private:
-	//Interfaz a datos para la toma de decision
-	Interfaz_Toma_Decision *_interfaz_decision;
-
-	//Manager de expertos
-	Experto_Manager* _expert_manager;
-
-	// Nodos y arboles de decision
-	/*Nodo_Decision_Final *_accion_andar;
-	Nodo_Decision_Final *_accion_atacar;
-	Nodo_Decision_Distancia *_arbol_decision;*/
-
-	//NPCs
-	NPC** _enemigos;
-
-	//Blackboards
-	Blackboard** _blackboards;
-  
-	//Path Manager
-	Path_Manager *_path_manager;
+	Interfaz_Toma_Decision *_interfaz_decision; 	//Interfaz que permite la comunicacion entre toma de decision y datos
+	Path_Manager *_path_manager; 					//Path manager que busca el camino a seguir para el enemigo
 
 };
 

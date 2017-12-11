@@ -3,6 +3,8 @@
 
 #include "Character.h"
 
+class Blackboard;
+
 
 class NPC : public Character {
 public:
@@ -12,7 +14,12 @@ public:
   	void render() override;
 	void move(unsigned long _i_direccion);
 
+	void set_blackboard(Blackboard* _i_blackboard);
+	Blackboard* get_blackboard();
+
 private:
+	Blackboard* _blackboard; //Informacion de la memoria almacenada en el Blackboard
+
 };
 
 #endif /* SRC_NPC_H_ */

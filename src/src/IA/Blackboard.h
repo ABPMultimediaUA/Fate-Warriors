@@ -4,6 +4,8 @@
 #include "Enum_Decisiones.h"
 #include "Enum_Acciones.h"
 
+#include "../Personajes/Enum_Tipo_Enemigo.h"
+
 class Interfaz_Toma_Decision;
 
 class Blackboard {
@@ -13,6 +15,9 @@ public:
 
 	void actualiza_datos();
 
+	unsigned short get_n_enemigo();
+
+	enum Enum_Tipo_Enemigo get_tipo_enemigo();
 	enum Enum_Decisiones get_decision();
 	enum Enum_Acciones get_accion();
 	float get_distancia_jugador();
@@ -23,10 +28,21 @@ public:
 private:
 	Interfaz_Toma_Decision *_interfaz;
 
-	unsigned short _n_enemigo;
-	float _disancia_jugador;
-	enum Enum_Decisiones _decision;
-	enum Enum_Acciones _accion;
+	// Datos de identidad del enemigo
+	unsigned short _n_enemigo;				// Numero del enemigo
+	enum Enum_Tipo_Enemigo _tipo_enemigo;	// Tipo de enemigo que es
+
+	// Datos de estado
+	bool _alertado;							// Esta alertado o no
+	bool _hay_orden;						// Hay orden o no
+
+	// Datos de distancia
+	float _disancia_jugador;				// Distancia a la que se encuentra del jugador
+	float _distancia_objeto;				//Distancia al objeto mas cercano
+
+	// Datos de accion y decision
+	enum Enum_Decisiones _decision;			// Decision actual
+	enum Enum_Acciones _accion;				// Accion actual
 };
 
 #endif /* SRC_BLACKBOARD_H_ */

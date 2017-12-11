@@ -4,6 +4,7 @@
 
 Blackboard::Blackboard(Interfaz_Toma_Decision& _i_interfaz, unsigned short _i_n_enemigo) {
 	_n_enemigo = _i_n_enemigo;
+	_tipo_enemigo = Normal;
 	_interfaz = &_i_interfaz;
 	_disancia_jugador = 0;
 	_decision = Decision_Quieto;
@@ -16,6 +17,14 @@ Blackboard::~Blackboard() {
 
 void Blackboard::actualiza_datos() {
 	_disancia_jugador = _interfaz->interfaz_decision_distancia_enemigo_personaje(_n_enemigo);
+}
+
+unsigned short Blackboard::get_n_enemigo() {
+	return _n_enemigo;
+}
+
+enum Enum_Tipo_Enemigo Blackboard::get_tipo_enemigo() {
+	return _tipo_enemigo;
 }
 
 enum Enum_Decisiones Blackboard::get_decision() {

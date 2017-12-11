@@ -1,6 +1,7 @@
 #ifndef SRC_DATOS_PARTIDA_H_
 #define SRC_DATOS_PARTIDA_H_
 
+class NPC_Manager;
 class NPC;
 class Player;
 
@@ -9,15 +10,14 @@ public:
 	Datos_Partida();
 	virtual ~Datos_Partida();
 
-	unsigned short get_n_enemigos();
 	Player* get_player();
-	NPC** get_npcs();
+
+	NPC_Manager* get_npc_manager();
 
 private:
 	Player* _jugador;
-	NPC** _npc;
 
-	unsigned short _n_enemigos;
+	NPC_Manager* _npc_manager;
 };
 
 #endif /* SRC_DATOS_PARTIDA_H_ */

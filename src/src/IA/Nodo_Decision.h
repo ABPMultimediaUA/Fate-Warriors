@@ -11,7 +11,7 @@ public:
 	Nodo_Decision(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der);
 	virtual ~Nodo_Decision();
 
-	virtual enum Enum_Acciones nodo_decision_toma_decision(Blackboard* _blackboard) = 0;
+	virtual enum Enum_Acciones toma_decision(Blackboard* _blackboard) = 0;
 
 protected:
 	Nodo_Decision *_nodo_izq;
