@@ -32,6 +32,7 @@ public:
 	void grafo_crea_arista(int _i_origen,int _i_destino, int _i_peso, int _i_id);
 	void grafo_set_lod(int _i_id);
 	int grafo_get_id_vertice(float _i_x, float _i_y);
+	
 
 };
 #endif

@@ -65,7 +65,6 @@ public:
 private:
 	//Vertice *_h;
 	Grafo *_lod2;
-	void leer_nivel(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, float &_i_x, float &_i_y, float _i_ancho, float _i_alto, int &_i_id);
 	void inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_peso);
 
 };

@@ -11,10 +11,7 @@ void Nivel::nivel_set_lod(int _i_id){
 	_lod2->grafo_set_lod(_i_id);
 }
 
-void Nivel::leer_nivel(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, float &_i_x, float &_i_y, float _i_ancho, float _i_alto, int &_i_id){
 
-	
-}
 
 /*Funcion de crear grafos
  * Crea todos los vertices y aristas correspondientes al grafo
