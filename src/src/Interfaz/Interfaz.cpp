@@ -16,7 +16,7 @@ Interfaz* Interfaz::Interfaz_getInstance(){
 
 Interfaz::Interfaz(bool moose, unsigned short width, unsigned short height){
 	
-		    std::cout << "me he creado " << std::endl;
+		 
 	if (!moose) { //irrlicht Interfaz initialization
 		_device = createDevice(video::E_DRIVER_TYPE::EDT_OPENGL,
 				core::dimension2d<u32>(width, height), 16, false, false, false
@@ -44,7 +44,7 @@ Interfaz::Interfaz(bool moose, unsigned short width, unsigned short height){
 		_then = _device->getTimer()->getTime();
 
 		_micamara = new Camara(_smgr, _device);
-    std::cout << "me he creado " << std::endl;
+    std::cout << "constructor interfaz " << std::endl;
 
 	}
 }
@@ -100,26 +100,28 @@ unsigned short Interfaz::Interfaz_cargaModelo(char* rutaModelo,
 
 unsigned short Interfaz::Interfaz_cargaModeloZip(char* rutaFile,
 		char* rutaModelo, bool emf_lightning, short x, short y, short z) {
+
 	_device->getFileSystem()->addFileArchive(rutaFile);
 	_mesh = _smgr->getMesh(rutaModelo);
-	std::cout << rutaFile << std::endl;
-
+	
 	if (_mesh) {
 		_meshes.push_back(_mesh); //añadir mesh al vector meshes de la escena
 		_meshCounter++;
 		_node = _smgr->addOctTreeSceneNode(_mesh->getMesh(0), 0, -1, 1024);
 	}
 
+	
 	if (!emf_lightning) {
 		_node->setMaterialFlag(video::EMF_LIGHTING, false);
 	} else {
 		_node->setMaterialFlag(video::EMF_LIGHTING, true);
 	}
+	
 	_nodes.push_back(_node);
 	_nodeCounter++;
 	_node->setPosition(core::vector3df(x, y, z));
-	return (_nodeCounter);
 
+	return (_nodeCounter);
 }
 
 unsigned short Interfaz::Interfaz_cargaMapa(char* rutaModelo,
@@ -240,6 +242,7 @@ void Interfaz::Interfaz_moverModelo(unsigned short id, float x, float y,
 
 void Interfaz::Interfaz_moverProta(float x,
 		float z) {
+	std::cout<<"-----------MOVIMIENTO GRAFICO----------"<<_Prota<<std::endl;
 	_Prota->setPosition(core::vector3df(x,_Prota->getPosition().Y,z));
 }
 

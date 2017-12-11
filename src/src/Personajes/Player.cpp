@@ -10,7 +10,7 @@
                                                                                               //  vida_prota, velocidad
 Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 175)
                                                                 {   
-    _matcher = new Matcher("models/Personaje.zip", "Personaje.obj", _i_x, _i_y,  _i_z,  50);                                                                
+    _matcher = new Matcher("models/Personaje.zip", "Personaje.obj", _i_x, _i_y,  _i_z,  50,true);                                                                
     _tiempo = Time::Instance();
     //std::cout<<"eso: "<<_interface<<std::endl;
     //crear nodo de personaje del motor
@@ -29,8 +29,7 @@ void Player::update(){
     
     Controles* controles = Controles::Instance();
     Interfaz* interface = Interfaz::Interfaz_getInstance();
-    if(interface!=nullptr){
-        
+    if(interface!=nullptr){    
         float angulo = interface->Interfaz_GetCamaraAngleRad();
    
         float miX = interface->Interfaz_GetNode(_nodoId)->getPosition().X;
@@ -69,7 +68,7 @@ void Player::update(){
         if(controles->estaPulsada(Input_key::Escape)){
             interface->Interfaz_Apagar();
         }
-
+        
         //setX(miX);
         //setZ(miZ);
 

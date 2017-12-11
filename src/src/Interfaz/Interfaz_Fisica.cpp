@@ -37,7 +37,7 @@ Interfaz_Fisica::Interfaz_Fisica(){
 void Interfaz_Fisica::update(){
 	_dynamicsWorld->stepSimulation(1 / 60.f, 10);
 	//this->Interfaz_collisionEnable();
-	btTransform trans;
+	
 	//_fallRigidBody->getMotionState()->getWorldTransform(trans);
 	
 	//btVector3 pos =	trans.getOrigin();
@@ -51,13 +51,15 @@ void Interfaz_Fisica::update(){
 }
 
 Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
-	Vector3 vectorsito(0,0,50.0f);
+	
+	Vector3 vectorsito(0,0,20);
 	
 	btTransform trans;
 	
 	btVector3 algo(vectorsito._x, vectorsito._y, vectorsito._z);
-	
+	std::cout<<"AQUI VA A PETAR YA VERAS"<<std::endl;
 	_VRigidBodys.at(id)->applyCentralForce(algo);
+	std::cout<<"Como No Pete Me Rayo"<<std::endl;
 	_VRigidBodys.at(id)->setWorldTransform(trans);
 	
 	Vector3 adevolver(0,0,0);
@@ -67,6 +69,7 @@ Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
 	adevolver._y = pos.y();
 	adevolver._z = pos.z();
 	std::cout<<"adevolverX: "<<adevolver._x<<"adevolverY: "<<adevolver._y<<"adevolverZ: "<<adevolver._z<<std::endl;
+	
 	return(adevolver);
 }
 

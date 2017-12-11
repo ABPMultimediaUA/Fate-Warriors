@@ -76,21 +76,20 @@ void pruebasNuevas(){
 int main(){
 
 	//pruebasNuevas();
-
+        
 	Game* _juego = Game::game_instancia();
 
 	Time* time=Time::Instance();
 	//double _tiempo_desde_ultimo_update=time->get_current();
 	double _h_ultimo_update=time->get_current();
 	double _interpolacion;
-
 	_juego->crea_partida();
 
 	Time* _time = Time::Instance();
 
 	Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
 
-
+        
 	//_time->updateAntes();
 	while(_interface->Interfaz_getDevice()->run()){
 		//evento para cerrar la ventana
@@ -101,7 +100,9 @@ int main(){
 		//update
 		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
 			_h_ultimo_update=time->get_current();
-			_juego->update(time->get_tiempo_desde_ultimo_update());
+                        std::cout << "pre update" << std::endl;
+                        _juego->update(time->get_tiempo_desde_ultimo_update());
+                        std::cout << "post update" << std::endl;
 		}
 
 

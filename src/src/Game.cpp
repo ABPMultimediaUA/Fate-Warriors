@@ -50,7 +50,6 @@ void Game::crea_partida() {
 	_interfaz_fisica = Interfaz_Fisica::Interfaz_Fisica_GetInstance();
 	_datos = new Datos_Partida();
 	_action_manager = new Action_Manager();
-
 	//Nivel* _nivel1=new Nivel("Nivel.txt");
 }
 
@@ -74,6 +73,7 @@ void Game::run(){
 
 
 void Game::update(double _i_tiempo_desde_ultimo_update){
+	
 	Player *_player = _datos->get_player();
 	_player->update();
 	_player = nullptr;
