@@ -76,7 +76,6 @@ void pruebasNuevas(){
 int main(){
 
 	//pruebasNuevas();
-        
 	Game* _juego = Game::game_instancia();
 
 	Time* time=Time::Instance();
@@ -88,16 +87,15 @@ int main(){
 	Time* _time = Time::Instance();
 
 	Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
-
         
 	//_time->updateAntes();
 	while(_interface->Interfaz_getDevice()->run()){
 		//evento para cerrar la ventana
 
-
 		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj
 		//std::cout << "Tiempo desde update " << time->get_tiempo_desde_ultimo_update() << std::endl;
 		//update
+                
 		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
 			_h_ultimo_update=time->get_current();
                         std::cout << "pre update" << std::endl;

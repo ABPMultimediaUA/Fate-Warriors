@@ -24,7 +24,6 @@ using namespace std;
 class Interfaz{
 	public:
 
-		
 		unsigned short Interfaz_cargaModelo(char* rutaModelo, bool enf_lightning, 
 						short x, short y, short z);								    //carga un modelo en la escena a partir de una ruta  || returns:
 		unsigned short Interfaz_cargaModeloZip(char* rutaFile, char* rutaModelo, bool enf_lightning,

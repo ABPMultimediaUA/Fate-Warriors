@@ -1,6 +1,7 @@
 #include "Interfaz_Fisica.h"
 #include <btBulletDynamicsCommon.h>
 #include "../Utilidades/Vector.h"
+#include "Interfaz.h"
 
 Interfaz_Fisica* Interfaz_Fisica::_instancia=0;
 
@@ -11,21 +12,20 @@ Interfaz_Fisica* Interfaz_Fisica::Interfaz_Fisica_GetInstance(){
 	return _instancia;
 }
 
-Interfaz_Fisica::Interfaz_Fisica(){
-
+Interfaz_Fisica::Interfaz_Fisica():_interfaz_graficos(Interfaz::Interfaz_getInstance()){
 	_broadphase 			= new btDbvtBroadphase();
 	_collisionConfiguration = new btDefaultCollisionConfiguration();
 	_dispatcher 			= new btCollisionDispatcher(_collisionConfiguration);
 	_solver 				= new btSequentialImpulseConstraintSolver;
 	_dynamicsWorld 			= new btDiscreteDynamicsWorld(_dispatcher,
 														 _broadphase, _solver, _collisionConfiguration);
-
-	_dynamicsWorld->setGravity(btVector3(0,-25,0));
+	_gravity = -40000;
+	_dynamicsWorld->setGravity(btVector3(0,_gravity,0));
 
 	_groundShape 			= new btStaticPlaneShape(btVector3(0,1,0), 1);
 	_fallShape 				= new btSphereShape(1);
 
-	_groundMotionState 		= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0,-1,0)));
+	_groundMotionState 		= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0,18,0)));
 	
 	btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, _groundMotionState, _groundShape, btVector3(0,0,0));
 	_groundRigidBody 		= new btRigidBody(groundRigidBodyCI);
@@ -35,7 +35,17 @@ Interfaz_Fisica::Interfaz_Fisica(){
 }
 
 void Interfaz_Fisica::update(){
+	
+	
+	btTransform transform;
+
 	_dynamicsWorld->stepSimulation(1 / 60.f, 10);
+
+	for(int cont = 0; cont<_VRigidBodys.size(); cont++){
+		_VRigidBodys.at(cont)->getMotionState()->getWorldTransform(transform);
+		btVector3 pos =	transform.getOrigin();
+		_interfaz_graficos->Interfaz_moverModelo(cont, pos.x(), pos.y(), pos.z());
+	}
 	//this->Interfaz_collisionEnable();
 	
 	//_fallRigidBody->getMotionState()->getWorldTransform(trans);
@@ -48,26 +58,28 @@ void Interfaz_Fisica::update(){
 	//tz = pos.z();
 
 	//this->moverProta(tx,ty,tz);
+
 }
 
 Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
-	
-	Vector3 vectorsito(0,0,20);
+	//std::cout<<"--------------------------entra-------------------------"<<std::endl;
+	//Vector3 vectorsito(0,0,100);
 	
 	btTransform trans;
-	
-	btVector3 algo(vectorsito._x, vectorsito._y, vectorsito._z);
-	std::cout<<"AQUI VA A PETAR YA VERAS"<<std::endl;
-	_VRigidBodys.at(id)->applyCentralForce(algo);
-	std::cout<<"Como No Pete Me Rayo"<<std::endl;
-	_VRigidBodys.at(id)->setWorldTransform(trans);
-	
+	std::cout<<"moverX:  "<<vec._x<<"     moverZ:  "<<vec._z<<std::endl;
+	btVector3 vectorBullet(vec._x, 0, vec._z);
+	//std::cout<<"AQUI VA A PETAR YA VERAS"<<std::endl;
+	_VRigidBodys.at(id)->setLinearVelocity(vectorBullet);
+	_VRigidBodys.at(id)->applyGravity(); //justo despues de aplicar velocidad reactivamos la gravedad
+	//std::cout<<"Como No Pete Me Rayo"<<std::endl;
+	//_VRigidBodys.at(id)->setWorldTransform(trans);
+	trans = _VRigidBodys.at(id)->getWorldTransform();
 	Vector3 adevolver(0,0,0);
 	btVector3 pos = trans.getOrigin();
 	
-	adevolver._x = pos.x();
-	adevolver._y = pos.y();
-	adevolver._z = pos.z();
+	adevolver._x = pos.getX(); 
+	adevolver._y = pos.getY();
+	adevolver._z = pos.getZ();
 	std::cout<<"adevolverX: "<<adevolver._x<<"adevolverY: "<<adevolver._y<<"adevolverZ: "<<adevolver._z<<std::endl;
 	
 	return(adevolver);
@@ -79,7 +91,7 @@ unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float
 	btVector3 			fallInertia(0, 0, 0);
 	
 	_fallShape->calculateLocalInertia(mass, fallInertia);
-
+	//std::cout<<"MASA: "<<Mymass<<std::endl;
 	btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, _fallMotionState,
 															_fallShape, fallInertia);
 				
@@ -140,8 +152,6 @@ Interfaz_Fisica::~Interfaz_Fisica(){
 
 	delete _fallMotionState;		
 	_fallMotionState=nullptr;
-
-//	delete _fallRigidBody;
-//	_fallRigidBody=nullptr;
-
+	//	delete _fallRigidBody;
+	//	_fallRigidBody=nullptr;
 }

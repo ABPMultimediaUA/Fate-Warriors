@@ -42,7 +42,7 @@ Interfaz::Interfaz(bool moose, unsigned short width, unsigned short height){
 		_width = width;
 
 		_then = _device->getTimer()->getTime();
-
+		
 		_micamara = new Camara(_smgr, _device);
     std::cout << "constructor interfaz " << std::endl;
 
