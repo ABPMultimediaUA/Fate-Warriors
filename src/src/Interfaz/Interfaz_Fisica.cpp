@@ -40,6 +40,9 @@ void Interfaz_Fisica::update(){
 	btTransform transform;
 
 	_dynamicsWorld->stepSimulation(1 / 60.f, 10);
+	
+	//_dynamicsWorld->getDebugDrawer()->setDebugMode( btIDebugDraw::DBG_DrawWireframe );
+	//_dynamicsWorld->debugDrawWorld();
 
 	for(int cont = 0; cont<_VRigidBodys.size(); cont++){
 		_VRigidBodys.at(cont)->getMotionState()->getWorldTransform(transform);
@@ -97,12 +100,13 @@ unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float
 				
 	btRigidBody* rigidBody 		= new btRigidBody(fallRigidBodyCI);	
 	_dynamicsWorld->addRigidBody(rigidBody);
+	
 	_VRigidBodys.push_back(rigidBody);
 	unsigned short counter = _rigidBodyCounter;
 	_rigidBodyCounter++;
 	return(counter);
 }
-
+/*
 unsigned short Interfaz_Fisica::CargaRigidBodyProta(int mass, float x, float y, float z){
 	_fallMotionState 	= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
 	btScalar Mymass 	= mass;
@@ -120,7 +124,7 @@ unsigned short Interfaz_Fisica::CargaRigidBodyProta(int mass, float x, float y, 
 	_rigidBodyCounter++;
 	return(counter);
 }
-
+*/
 Interfaz_Fisica::~Interfaz_Fisica(){
 
 	delete _dynamicsWorld;

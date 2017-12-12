@@ -3,11 +3,11 @@
 #include "Interfaz/Interfaz.h"
 #include "Personajes/Player.h"
 #include "Personajes/NPC.h"
+#include "Objeto_Estandar.h"
 
 Datos_Partida::Datos_Partida() {
 
-	_jugador = new Player(0,0,230,0);
-
+	_jugador = new Player(0,30,230,0);
 	_n_enemigos = 1;
 
 	_npc = new NPC*[_n_enemigos];
@@ -18,9 +18,11 @@ Datos_Partida::Datos_Partida() {
 
 	//Crea y devuelve el id del mapa
 	Interfaz* _interfaz_grafica = Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
-    _interfaz_grafica->Interfaz_cargaMapaZip("models/Gilipollas.zip", //llamamos a cargar mapa para así indicar que 
-						"ManuManco.obj",false,					  //este es el nodo con el que los demás colisionaran
-						0,0,0);
+    //_interfaz_grafica->Interfaz_cargaMapaZip("models/Gilipollas.zip", //llamamos a cargar mapa para así indicar que 
+	//					"ManuManco.obj",false,					  //este es el nodo con el que los demás colisionaran
+	//					0,0,0);
+	
+	Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Gilipollas.zip", "ManuManco.obj"); 
 
 	/* MODELADO DEL PRIMER NIVEL
 	_interfaz_grafica->Interfaz_cargaMapaZip("models/Nodo1.zip", //llamamos a cargar mapa para así indicar que 
@@ -42,6 +44,7 @@ Datos_Partida::Datos_Partida() {
 						"Pasillo8.obj",false,					  //este es el nodo con el que los demás colisionaran
 						30,0,18);
 	*/
+
 	_interfaz_grafica = nullptr;
 }
 
