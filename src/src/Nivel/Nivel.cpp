@@ -33,15 +33,16 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 		_grafo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 		while(_iteracion!="Fin"){//bucle para crear todos los objetos del nodo
 			if(_iteracion=="VERTICE"){
+				
 				_grafo_txt >> _iteracion;//obtiene el valor de la x
 				_x = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-			
+
 				_grafo_txt>>_iteracion;//obtiene el valor de la y
 				_y = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 				_grafo_txt>>_iteracion;//obtiene el valor de la id
 				_id = std::atoi(_iteracion.c_str());
-
+				
 				Vertice* vertice= new Vertice(_x, _y, 0, 0, _id, nullptr);
 				_i_grafo->grafo_inserta_vertice(vertice);
 			}else if(_iteracion=="ARISTA"){
@@ -53,13 +54,13 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 				
 				_grafo_txt>>_iteracion;//obtiene el valor de la id
 				_id = std::atoi(_iteracion.c_str());
-				
-				_i_grafo->grafo_crea_arista(_x, _y, 10, _id);
+				_i_grafo->grafo_crea_arista(_x, _y, _id);
 				
 			}
 			
 			_grafo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
 		}
+		std::cout << "cierro el txt del lod1" << std::endl;
 		_grafo_txt.close();
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
@@ -203,9 +204,7 @@ void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iter
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id de la arista
 	_id_a = std::atoi(_i_iteracion.c_str());
 
-	_i_peso=10;
-
-	_lod2->grafo_crea_arista(_id_o, _id_d,  _i_peso, _id_a);
+	_lod2->grafo_crea_arista(_id_o, _id_d, _id_a);
 	
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
 	
@@ -213,20 +212,22 @@ void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iter
 
 void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	int _id_o, _id_a;
+	int tamano;
 
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la cantidad de nodos adyacentes
+	tamano = std::atoi(_i_iteracion.c_str());
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del origen
 	_id_o = std::atoi(_i_iteracion.c_str());
 
 	Nodo* nodo=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_o));
-
+	nodo->_blackboard->declarar_zonas_ady(tamano);
 	while(_i_iteracion!="-1"){
-		
 		_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del adyacente
 		_id_a = std::atoi(_i_iteracion.c_str());
 		nodo->_blackboard->anyadir_zona(_id_a);
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
-
+	std::cout<<_i_iteracion<<std::endl;
 }
 
 
@@ -295,10 +296,11 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt.close();//cierre del fichero
 
 }
+unsigned short Nivel::nivel_pathfindinglod1(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino){
+	return _lod2->grafo_pathfindinglod1(_i_xorigen,_i_yorigen,xdestino,ydestino);
+}
 
 Nivel::~Nivel() {
-	// TODO Auto-generated destructor stub
-	//this->nivel_anular();
 	delete _lod2;
 }
 

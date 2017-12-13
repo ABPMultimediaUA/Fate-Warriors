@@ -54,7 +54,7 @@ void Game::crea_partida() {
 	std::string nivel="txt/Nivel/Nivel1.txt";
 	Nivel* _nivel1=new Nivel(nivel);
 
-	_nivel1->nivel_set_lod(3);
+	/*_nivel1->nivel_set_lod(3);
 
 	stack<Vertice*> algo2=_nivel1->nivel_camino_corto_l2(_nivel1->nivel_get_vertice(5),_nivel1->nivel_get_vertice(32));
 	Vertice *pv2;
@@ -67,7 +67,14 @@ void Game::crea_partida() {
                     }
                     std::cout<<std::endl;
 	std::cout <<_nivel1->nivel_get_nodo(7)->_blackboard->get_zonas_ady()[0] <<std::endl;
-	std::cout << _nivel1->nivel_get_id_vertice(67,27)<<std::endl;
+	std::cout << _nivel1->nivel_get_id_vertice(67,27)<<std::endl;*/
+
+	std::cout << _nivel1->nivel_pathfindinglod1(14,14,11,11)<<std::endl;
+
+	std::cout << _nivel1->nivel_pathfindinglod1(19,19,8,15)<<std::endl;
+
+	std::cout << _nivel1->nivel_pathfindinglod1(6,19,19,6)<<std::endl;
+	delete _nivel1;
 
 }
 
