@@ -133,10 +133,9 @@ void Camara::Camara_Update() {
 		core::vector3df inicial(0,0,1); //v1
 
         
-		//angulo entre el vector inicial de referencia
-		//y el vector de direccion actual 
-        _dot = inicial.X * _camaraDir.X + inicial.Z*_camaraDir.Z;
-        _det = inicial.X * _camaraDir.Z - inicial.Z*_camaraDir.X;
+
+        _dot = inicial.X*_camaraDir.X + inicial.Z*_camaraDir.Z;
+        _det = inicial.X*_camaraDir.Z - inicial.Z*_camaraDir.X;
 
         _angle = -(atan2f(_det,_dot)/M_PI)*180;
 
@@ -144,7 +143,7 @@ void Camara::Camara_Update() {
             _angle+=360;
         }
 
-        _angleRad = _angle * (M_PI/180);
+        _angleRad = _angle*(M_PI/180);
 
 	}
 

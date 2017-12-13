@@ -38,7 +38,16 @@ float Objeto::getZ(){
 	return _z;
 }
 
+void Objeto::set_borrar(){
+	_borrar=true;
+}
+
 
 bool Objeto::get_borrar(){
 	return _borrar;
 }
+
+Vector2 Objeto::get_vector(){
+	return Vector2(_x, _z);
+}
+

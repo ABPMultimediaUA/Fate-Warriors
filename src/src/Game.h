@@ -5,8 +5,10 @@ class Datos_Partida;
 class Action_Manager;
 class Decision_Manager;
 class Datos_Partida;
+class Trampas_action;
 class Interfaz;
-class Interfaz_Fisica;
+class Consumible_action;
+
 class Game{
 
 public:
@@ -28,7 +30,8 @@ private:
 	Action_Manager *_action_manager;
 	Decision_Manager *_decision_manager; 	// Encargado de tomar las decisiones de los NPCs
 	Interfaz *_interfaz_grafica;
-	Interfaz_Fisica* _interfaz_fisica;
+	Trampas_action * _trampas_action;
+	Consumible_action * _consumibles_action;
 };
 
 

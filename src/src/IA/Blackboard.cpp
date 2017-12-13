@@ -1,8 +1,8 @@
 #include "Blackboard.h"
 
-#include "Interfaz_Datos.h"
+#include "Interfaz_Toma_Decision.h"
 
-Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo) {
+Blackboard::Blackboard(Interfaz_Toma_Decision& _i_interfaz, unsigned short _i_n_enemigo) {
 	_n_enemigo = _i_n_enemigo;
 	_tipo_enemigo = Normal;
 	_interfaz = &_i_interfaz;
@@ -16,7 +16,7 @@ Blackboard::~Blackboard() {
 }
 
 void Blackboard::actualiza_datos() {
-	_disancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_enemigo);
+	_disancia_jugador = _interfaz->interfaz_decision_distancia_enemigo_personaje(_n_enemigo);
 }
 
 unsigned short Blackboard::get_n_enemigo() {

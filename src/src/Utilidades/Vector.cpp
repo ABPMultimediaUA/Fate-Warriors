@@ -162,6 +162,13 @@ void Vector2::zero() {
   return ySeparation*ySeparation + xSeparation*xSeparation;
 }
 
+bool comprobar_colision_teniendo_tambien_radio(Vector2 v1, float radio1, Vector2 v2, float radio2){
+    if(Vector2DistanceSq(v1, v2) < (radio1 + radio2)*(radio1 + radio2) ){
+        return true;
+    }
+    return false;
+}
+
 
 float Vector2Distance( Vector2 v1,  Vector2 v2){
     float sepX = v2._x - v1._x;

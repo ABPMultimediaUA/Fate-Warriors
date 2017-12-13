@@ -5,7 +5,7 @@
 
 class Consumible_patata : public Consumible{
 public:
-	Consumible_patata(short _id, float _i_x, float _i_y, float _i_z, short vida);
+	Consumible_patata(short _id, float _i_x, float _i_y, float _i_z);
 	virtual ~Consumible_patata();
 
 	bool usar() override;

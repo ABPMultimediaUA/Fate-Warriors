@@ -12,11 +12,9 @@ class Camara;
 class irrlicht;
 class InputKey;
 
-
 #include <vector>
 #include <iostream>
 #include "irrlicht/irrlicht.h"
-
 
 using namespace irr;
 using namespace std;
@@ -24,6 +22,7 @@ using namespace std;
 class Interfaz{
 	public:
 
+		
 		unsigned short Interfaz_cargaModelo(char* rutaModelo, bool enf_lightning, 
 						short x, short y, short z);								    //carga un modelo en la escena a partir de una ruta  || returns:
 		unsigned short Interfaz_cargaModeloZip(char* rutaFile, char* rutaModelo, bool enf_lightning,
@@ -41,7 +40,6 @@ class Interfaz{
 
 		void Interfaz_moverModelo(unsigned short id, float x, float y, float z);
 		void Interfaz_moverProta(float x, float z);
-		void Interfaz_moverProta(float x, float y, float z);
 		void Interfaz_rotarProta(float angulo);
 		
 		
@@ -76,7 +74,6 @@ class Interfaz{
 		scene::ISceneNode* _node;
 		scene::ITriangleSelector* _selector; //triangle selector para las colisiones
 		scene::ISceneNode* _Prota;
-
 		float _direction;
 		float _zdirection;
 		const f32 MOVEMENT_SPEED = 200.f;
@@ -89,7 +86,6 @@ class Interfaz{
 		/**** POSIBLES VARIABLES A COMENTAR CON EL PROFESOR DE TAG ****/
 		int _meshCounter;
 		int _nodeCounter;
-
 		//scene::IAnimatedMesh* mesh[100]; //array de meshes
 
 		unsigned short _height;

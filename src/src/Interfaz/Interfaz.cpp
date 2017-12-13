@@ -1,7 +1,6 @@
 #include "Interfaz.h"
 #include "../Entrada/Input.h"
 #include "../Camara/Camara.h"
-
 using namespace irr;
 
 Interfaz* Interfaz::_instancia=0;
@@ -16,7 +15,6 @@ Interfaz* Interfaz::Interfaz_getInstance(){
 
 Interfaz::Interfaz(bool moose, unsigned short width, unsigned short height){
 	
-		 
 	if (!moose) { //irrlicht Interfaz initialization
 		_device = createDevice(video::E_DRIVER_TYPE::EDT_OPENGL,
 				core::dimension2d<u32>(width, height), 16, false, false, false
@@ -41,11 +39,10 @@ Interfaz::Interfaz(bool moose, unsigned short width, unsigned short height){
 		_height = height;
 		_width = width;
 
-		_then = _device->getTimer()->getTime();
-		
-		_micamara = new Camara(_smgr, _device);
-    std::cout << "constructor interfaz " << std::endl;
 
+		_then = _device->getTimer()->getTime();
+		_micamara = new Camara(_smgr, _device);
+		
 	}
 }
 
@@ -100,28 +97,26 @@ unsigned short Interfaz::Interfaz_cargaModelo(char* rutaModelo,
 
 unsigned short Interfaz::Interfaz_cargaModeloZip(char* rutaFile,
 		char* rutaModelo, bool emf_lightning, short x, short y, short z) {
-
 	_device->getFileSystem()->addFileArchive(rutaFile);
 	_mesh = _smgr->getMesh(rutaModelo);
-	
+	std::cout << rutaFile << std::endl;
+
 	if (_mesh) {
 		_meshes.push_back(_mesh); //añadir mesh al vector meshes de la escena
 		_meshCounter++;
 		_node = _smgr->addOctTreeSceneNode(_mesh->getMesh(0), 0, -1, 1024);
 	}
 
-	
 	if (!emf_lightning) {
 		_node->setMaterialFlag(video::EMF_LIGHTING, false);
 	} else {
 		_node->setMaterialFlag(video::EMF_LIGHTING, true);
 	}
-	
 	_nodes.push_back(_node);
 	_nodeCounter++;
 	_node->setPosition(core::vector3df(x, y, z));
-
 	return (_nodeCounter);
+
 }
 
 unsigned short Interfaz::Interfaz_cargaMapa(char* rutaModelo,
@@ -146,7 +141,7 @@ unsigned short Interfaz::Interfaz_cargaMapa(char* rutaModelo,
 	_nodes.push_back(node);
 	_nodeCounter++;
 	node->setPosition(core::vector3df(x, y, z));
-	//this->Interfaz_collisionEnable();
+	this->Interfaz_collisionEnable();
 	return (_nodeCounter);
 	
 }
@@ -177,7 +172,7 @@ unsigned short Interfaz::Interfaz_cargaMapaZip(char* rutaFile,
 	_nodes.push_back(node);
 	_nodeCounter++;
 	node->setPosition(core::vector3df(x, y, z));
-	//this->Interfaz_collisionEnable(); 
+	this->Interfaz_collisionEnable(); 
 	return (_nodeCounter);	
 }
 
@@ -197,8 +192,6 @@ unsigned short Interfaz::Interfaz_crearProta(char* rutaModelo,
 	_nodeCounter++;
 	_node->setPosition(core::vector3df(x, y, z));
 	//_micamara = new camara(_node, _smgr);
-
-		this->Interfaz_collisionEnable();
 	return (_nodeCounter);
 }
 
@@ -222,8 +215,6 @@ unsigned short Interfaz::Interfaz_crearProtaZip(char* rutaFile,
 	_node->setPosition(core::vector3df(x, y, z));
 	_Prota = _node;
 	_micamara->Camara_setProta(_Prota);
-
-		this->Interfaz_collisionEnable();
 	return (_nodeCounter);
 }
 
@@ -242,13 +233,7 @@ void Interfaz::Interfaz_moverModelo(unsigned short id, float x, float y,
 
 void Interfaz::Interfaz_moverProta(float x,
 		float z) {
-	std::cout<<"-----------MOVIMIENTO GRAFICO----------"<<_Prota<<std::endl;
 	_Prota->setPosition(core::vector3df(x,_Prota->getPosition().Y,z));
-}
-
-void Interfaz::Interfaz_moverProta(float x, float y,
-		float z) {
-	_Prota->setPosition(core::vector3df(x,y,z));
 }
 
 void Interfaz::Interfaz_rotarProta(float angulo){
@@ -260,12 +245,7 @@ void Interfaz::Interfaz_rotarProta(float angulo){
 }
 
 void Interfaz::Interfaz_Update() {
-	if(_device->isWindowActive()){
-		_micamara->Camara_Update();
-	}
-	else{
-		_device->yield();
-	}	
+	_micamara->Camara_Update();
 }
 
 void Interfaz::Interfaz_Apagar(){
@@ -273,10 +253,6 @@ _device->closeDevice();
 }
 
 void Interfaz::Interfaz_collisionEnable() {
-
-
-	/*
-	
 	scene::ISceneNodeAnimator* anim;
 	for (int i = 0; i < _nodes.size(); i++) {
 
@@ -288,71 +264,6 @@ void Interfaz::Interfaz_collisionEnable() {
 		_nodes.at(i)->addAnimator(anim);
 	}
 	anim->drop();
-	
-
-	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
-
-        btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-        btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-
-        btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
-
-        btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-
-        dynamicsWorld->setGravity(btVector3(0, -10, 0));
-
-
-        btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-
-        btCollisionShape* fallShape = new btSphereShape(1);
-
-
-        btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
-        btRigidBody::btRigidBodyConstructionInfo
-                groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
-        btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
-        dynamicsWorld->addRigidBody(groundRigidBody);
-
-
-        btDefaultMotionState* fallMotionState =
-                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, 0)));
-        btScalar mass = 1;
-        btVector3 fallInertia(0, 0, 0);
-        fallShape->calculateLocalInertia(mass, fallInertia);
-        btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
-        btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
-        dynamicsWorld->addRigidBody(fallRigidBody);
-
-
-        for (int i = 0; i < 300; i++) {
-                dynamicsWorld->stepSimulation(1 / 60.f, 10);
-
-                btTransform trans;
-                fallRigidBody->getMotionState()->getWorldTransform(trans);
-
-                std::cout << "sphere height: " << trans.getOrigin().getY() << std::endl;
-        }
-
-        dynamicsWorld->removeRigidBody(fallRigidBody);
-        delete fallRigidBody->getMotionState();
-        delete fallRigidBody;
-
-        dynamicsWorld->removeRigidBody(groundRigidBody);
-        delete groundRigidBody->getMotionState();
-        delete groundRigidBody;
-
-
-        delete fallShape;
-
-        delete groundShape;
-
-
-        delete dynamicsWorld;
-        delete solver;
-        delete collisionConfiguration;
-        delete dispatcher;
-        delete broadphase;
-        */
 }
 
 Camara* Interfaz::Interfaz_getCamara(){
