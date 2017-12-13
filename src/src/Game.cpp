@@ -69,11 +69,11 @@ void Game::crea_partida() {
 	std::cout <<_nivel1->nivel_get_nodo(7)->_blackboard->get_zonas_ady()[0] <<std::endl;
 	std::cout << _nivel1->nivel_get_id_vertice(67,27)<<std::endl;*/
 
-	std::cout << _nivel1->nivel_pathfindinglod1(14,14,11,11)<<std::endl;
+	//std::cout << _nivel1->nivel_pathfindinglod1(14,14,11,11)<<std::endl;
 
-	std::cout << _nivel1->nivel_pathfindinglod1(19,19,8,15)<<std::endl;
+	//std::cout << _nivel1->nivel_pathfindinglod1(19,19,8,15)<<std::endl;
 
-	std::cout << _nivel1->nivel_pathfindinglod1(6,19,19,6)<<std::endl;
+	std::cout << _nivel1->nivel_pathfindinglod1(11,14,6,6)<<std::endl;
 	delete _nivel1;
 
 }
