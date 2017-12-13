@@ -24,7 +24,7 @@ void NPC::move(unsigned long _i_direccion) {
     //std::cout << "Personaje se mueve en la y " << _desp_y << std::endl;
     _x = _x + _desp_x;
     _z = _z + _desp_z;
-    std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
+   // std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
 
     //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';
 }

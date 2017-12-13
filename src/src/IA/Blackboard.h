@@ -6,11 +6,11 @@
 
 #include "../Personajes/Enum_Tipo_Enemigo.h"
 
-class Interfaz_Datos;
+class Interfaz_Toma_Decision;
 
 class Blackboard {
 public:
-	Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo);
+	Blackboard(Interfaz_Toma_Decision& _i_interfaz, unsigned short _i_n_enemigo);
 	virtual ~Blackboard();
 
 	void actualiza_datos();
@@ -26,9 +26,9 @@ public:
 	void set_accion(enum Enum_Acciones _i_accion);
 
 private:
-	Interfaz_Datos *_interfaz;
+	Interfaz_Toma_Decision *_interfaz;
 
-	// Datos de identidad del enemigo NO SE MODIFICAN
+	// Datos de identidad del enemigo
 	unsigned short _n_enemigo;				// Numero del enemigo
 	enum Enum_Tipo_Enemigo _tipo_enemigo;	// Tipo de enemigo que es
 
