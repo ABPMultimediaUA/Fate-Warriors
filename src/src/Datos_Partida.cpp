@@ -1,5 +1,6 @@
 #include "Datos_Partida.h"
 
+#include "Llave.h"
 #include "Interfaz/Interfaz.h"
 #include "Personajes/Player.h"
 #include "Objeto_Estandar.h"
@@ -16,28 +17,11 @@ Datos_Partida::Datos_Partida() {
 	//					"ManuManco.obj",false,					  //este es el nodo con el que los demás colisionaran
 	//					0,0,0);
 	
-	Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Gilipollas.zip", "ManuManco.obj"); 
+	//Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Gilipollas.zip", "ManuManco.obj"); 
+	Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Nivel1_t.zip", "Nivel1_t.obj"); 
+	Llave* llavecita = new Llave(0,0,10,230,0); 
+	//_interfaz_grafica->Interfaz_cargaModeloZip("Nodo1.zip","Nodo1.obj",false,0,0,0);
 
-	/* MODELADO DEL PRIMER NIVEL
-	_interfaz_grafica->Interfaz_cargaMapaZip("models/Nodo1.zip", //llamamos a cargar mapa para así indicar que 
-						"Nodo1.obj",false,					  //este es el nodo con el que los demás colisionaran
-						5,0,5);
-	_interfaz_grafica->Interfaz_cargaMapaZip("models/Nodo3.zip", //llamamos a cargar mapa para así indicar que 
-						"Nodo3.obj",false,					  //este es el nodo con el que los demás colisionaran
-						21,0,22);
-	_interfaz_grafica->Interfaz_cargaMapaZip("models/Nodo7.zip", //llamamos a cargar mapa para así indicar que 
-						"Nodo7.obj",false,					  //este es el nodo con el que los demás colisionaran
-						27,0,3);
-	_interfaz_grafica->Interfaz_cargaMapaZip("models/Pasillo2.zip", //llamamos a cargar mapa para así indicar que 
-						"Pasillo2.obj",false,					  //este es el nodo con el que los demás colisionaran
-						13,0,20);
-	_interfaz_grafica->Interfaz_cargaMapaZip("models/Pasillo6.zip", //llamamos a cargar mapa para así indicar que 
-						"Pasillo6.obj",false,					  //este es el nodo con el que los demás colisionaran
-						20,0,11);
-	_interfaz_grafica->Interfaz_cargaMapaZip("models/Pasillo8.zip", //llamamos a cargar mapa para así indicar que 
-						"Pasillo8.obj",false,					  //este es el nodo con el que los demás colisionaran
-						30,0,18);
-	*/
 
 	_interfaz_grafica = nullptr;
 }

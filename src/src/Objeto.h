@@ -5,6 +5,7 @@ enum NombreObjetos{
 
 };
 
+class Matcher;
 
 class Objeto {
 public:
@@ -31,7 +32,7 @@ protected:
 	float 	_y;
 	float 	_z;
 	bool 	_borrar;
-
+	Matcher* _matcher;
 };
 
 #endif /* HEADERS_OBJETO_H_ */

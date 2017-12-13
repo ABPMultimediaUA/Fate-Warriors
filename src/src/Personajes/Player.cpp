@@ -7,10 +7,12 @@
 #include "../Camara/Camara.h"
 #include "../Tiempo/Time.h"
 #include "../Interfaz/Matcher.h"
+#include "../Utilidades/Modelados.h"
                                                                                               //  vida_prota, velocidad
 Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 10000)
                                                                 {   
-    _matcher = new Matcher("models/Personaje.zip", "Personaje.obj", _i_x, _i_y,  _i_z,  1,true);                                                                
+    //_matcher = new Matcher(LLAVE_R, LLAVE_M, _i_x, _i_y,  _i_z,  1,true);                                                                
+    _matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y,  _i_z,  1,true); 
     _tiempo = Time::Instance();
     //std::cout<<"eso: "<<_interface<<std::endl;
     //crear nodo de personaje del motor
