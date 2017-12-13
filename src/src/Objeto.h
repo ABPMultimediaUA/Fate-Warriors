@@ -5,6 +5,7 @@ enum NombreObjetos{
 
 };
 
+class Matcher;
 #include "Utilidades/Vector.h"
 
 class Character;
@@ -34,7 +35,7 @@ protected:
 	float 	_y;
 	float 	_z;
 	bool 	_borrar;
-
+	Matcher* _matcher;
 };
 
 #endif /* HEADERS_OBJETO_H_ */

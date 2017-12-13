@@ -115,6 +115,7 @@ unsigned short Interfaz::Interfaz_cargaModeloZip(char* rutaFile,
 	_nodes.push_back(_node);
 	_nodeCounter++;
 	_node->setPosition(core::vector3df(x, y, z));
+	std::cout<<"----AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA--------"<<std::endl;
 	return (_nodeCounter);
 
 }
@@ -151,7 +152,7 @@ unsigned short Interfaz::Interfaz_cargaMapaZip(char* rutaFile,
 	_device->getFileSystem()->addFileArchive(rutaFile);
 	_mesh = _smgr->getMesh(rutaModelo);
 	scene::IMeshSceneNode* node;
-
+	std::cout<<"entra"<<std::endl;
 	if (_mesh) {
 		_meshes.push_back(_mesh); //añadir mesh al vector meshes de la escena
 		_meshCounter++;
