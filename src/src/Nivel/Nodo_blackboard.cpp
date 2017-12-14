@@ -3,11 +3,13 @@
 
 Nodo_blackboard::Nodo_blackboard(int _i_zona_actual){
     _zona_actual=static_cast<Enum_zonas>(_i_zona_actual);
+    _zonas_ady=0;
 }
 
 Nodo_blackboard::~Nodo_blackboard(){
     _objetos.clear();
     delete[] _zonas_ady;
+    _zonas_ady=nullptr;
 }
 Enum_zonas Nodo_blackboard::get_zona_actual(){
     return _zona_actual;

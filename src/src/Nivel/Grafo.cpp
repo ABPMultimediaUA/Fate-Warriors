@@ -111,7 +111,6 @@ Arista * Grafo::grafo_get_arista(int _i_id){
 			_ArisAux = _ArisAux->_sig;
 		}
 		_VertAux = _VertAux->_sig;
-		std::cout<<std::endl;
 	}
 }
 void Grafo::grafo_inserta_vertice(Vertice * _nuevo){
@@ -179,7 +178,7 @@ void Grafo::inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_id){
 			_nueva->_ady=_i_destino;
 		}
 	}else{
-		std::cout << "no se crea arista por nulos" << std::endl;
+		std::cout << "no se crea arista por nulos Id: "<<_i_id << std::endl;
 	}
 
 }
@@ -207,18 +206,19 @@ void Grafo::grafo_anular(){
 	Vertice *_aux;
 
 	while(_h!=nullptr){
+		
 		_aux=_h;
-		grafo_eliminar_arista(_h,_h->_sig);
+		if(_h->_sig!=nullptr){
+			grafo_eliminar_arista(_h,_h->_sig);
+		}
 		
 		_h=_h->_sig;
-		//std::cout<< h->_id << std::endl;
 		delete _aux;
 	}
 }
 
 
 void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
-
 	bool _flag=false;
 
 	Arista *_actual, *_anterior;
@@ -229,6 +229,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 		}
 		else if(_actual->_ady==_i_destino){
 			_i_origen->_ady = _actual->_sig;
+			std::cout << "Se ha eliminado la arista" << _actual->_id << std::endl;
 			delete(_actual);
 			grafo_eliminar_arista(_i_destino,_i_origen);
 		}
@@ -254,7 +255,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 			}
 			if(!_flag)
 			{
-				std::cout << "Vertices no conectados" << std::endl;
+				std::cout << "Vertices no conectados Id_origen: " <<_i_origen->_id<<" Id_destino:" << _i_destino->_id<< std::endl;
 			}
 
 		}
@@ -344,11 +345,12 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	Vertice* vertice_origen;
 	Vertice* vertice_destino;
 	Arista* arista_aux;
+	
 	origen=grafo_get_id_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_id_vertice(_i_xdestino, _i_ydestino);
+	//verticeaux va a dar error en ese while
 	/*if(origen!=destino){
-		grafo_aux=grafo_get_vertice(origen)->_lod1->_h;
-		vertice_destino=grafo_get_vertice(origen)->_lod1->_h;
+		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
 		while(verticeaux!=nullptr && !flag){
 			aux=destino;
 			if(distancia>lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy)){
@@ -378,11 +380,13 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	}
 	}*/
 	
-	//se puede mirar (si la id es 1000 hacia la iquierda, 2000 derecha etc.), poner mas nodos 
-	//en las intersecciones con el pasillo de manera que cuando llegue al noco como nodo origen que haga el movimiento por la id
+	//se puede mirar (si la id es 1000 hacia la derecha, 2000 arriba etc.), poner mas nodos 
+	//en las intersecciones con el pasillo de manera que cuando llegue al nodo como nodo origen que haga el movimiento por la id
 
 	
 	verticeaux=grafo_get_vertice(origen)->_lod1->_h;
+	vertice_origen=verticeaux;
+	vertice_destino=verticeaux;
 	distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
 	distancia2=lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->_posx,verticeaux->_posy);
 	
@@ -407,11 +411,14 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		distancia=0;
 		arista_aux = vertice_origen->_ady;
 		while(arista_aux!= nullptr){std::cout << "while2"<< arista_aux->_ady->_id<<"  "<<vertice_origen->_id<<"   "<< distancia+arista_aux->_peso <<std::endl;
+			
 			if(arista_aux->_ady->_peso>=(distancia+arista_aux->_peso)){
+				
 				arista_aux->_ady->pathfinding(distancia, arista_aux, vertice_destino->_id);
 			}
 			arista_aux = arista_aux->_sig;
 		}
+		
 		vertice_origen->_peso=0;
 		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
 		//vuelta desde destino hacia origen
@@ -455,6 +462,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		}
 		std::cout<<"_id vertice final" <<verticeaux->_posx<<"   "<<verticeaux->_posy<<"   "<<_i_xorigen<<"  "<<_i_yorigen<<std::endl;
 		
+		//360 y 0 es lo mismo, derecha
 		angulo=abs(360-lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->_posx, verticeaux->_posy));
 		
 		

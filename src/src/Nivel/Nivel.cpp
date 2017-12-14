@@ -194,7 +194,7 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 */
 void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	int _id_o, _id_d, _i_peso, _id_a;
-
+	
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del origen
 	_id_o = std::atoi(_i_iteracion.c_str());
 
@@ -203,7 +203,7 @@ void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iter
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id de la arista
 	_id_a = std::atoi(_i_iteracion.c_str());
-
+	
 	_lod2->grafo_crea_arista(_id_o, _id_d, _id_a);
 	
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
@@ -220,6 +220,7 @@ void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_
 	_id_o = std::atoi(_i_iteracion.c_str());
 
 	Nodo* nodo=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_o));
+	
 	nodo->_blackboard->declarar_zonas_ady(tamano);
 	while(_i_iteracion!="-1"){
 		_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del adyacente
@@ -228,6 +229,7 @@ void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
 	std::cout<<_i_iteracion<<std::endl;
+	std::cout << "tamano"<< nodo->_blackboard->get_zonas_enemigas() << std::endl;
 }
 
 
@@ -279,7 +281,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 	while(_iteracion!="Fin"){//bucle de lectura del fichero
 		_next=mapping;
-		std::cout<<_iteracion<<std::endl;
+		//std::cout<<_iteracion<<std::endl;
 		while (_next->_nombre_objeto){
 			if(_iteracion==_next->_nombre_objeto){
 				(this->*_next->pmet)(_nivel_txt,_iteracion);

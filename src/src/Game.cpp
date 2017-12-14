@@ -73,7 +73,7 @@ void Game::crea_partida() {
 
 	//std::cout << _nivel1->nivel_pathfindinglod1(19,19,8,15)<<std::endl;
 
-	std::cout << _nivel1->nivel_pathfindinglod1(11,14,6,6)<<std::endl;
+	std::cout << _nivel1->nivel_pathfindinglod1(21,12.5,23.5,12.5)<<std::endl;
 	delete _nivel1;
 
 }
