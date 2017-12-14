@@ -46,7 +46,7 @@ void Vertice::set_lod(unsigned short _i_cont){
 	}
 }
 bool Vertice::pos2id(float _i_x, float _i_y){
-	std::cout<<_id<<"   "<<_posx <<"  "<<_i_x <<std::endl;
+	//std::cout<<_id<<"   "<<_posx <<"  "<<_i_x <<std::endl;
 	if(_posx<_i_x && (_posx+_ancho)>_i_x && _posy<_i_y && (_posy+_alto)>_i_y){
 		return true;
 	}else{
