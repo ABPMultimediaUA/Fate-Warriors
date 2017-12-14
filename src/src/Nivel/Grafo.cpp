@@ -336,6 +336,8 @@ std::stack<Vertice*> Grafo::grafo_camino_corto_l2(Vertice *_i_origen, Vertice *_
 	return _recorrido;
 }
 unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino){
+	
+	
 	//TO DO comprobacion de la colision a partir del "raytracing"
 	unsigned short angulo;
 	int origen,destino,id_aux, aux;
@@ -346,15 +348,27 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	Vertice* vertice_destino;
 	Arista* arista_aux;
 	
+	
 	origen=grafo_get_id_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_id_vertice(_i_xdestino, _i_ydestino);
-	
+	//comprobar que esta dentro del nivel
+	if(origen==0||destino==0){
+		float angulo=abs(360-lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino));
+		
+		return angulo;
+	}
+	std::cout << origen << " añslkdjf "<<destino<<std::endl;
 	//verticeaux va a dar error en ese while
 	if(origen!=destino){
+	std::cout<<"null pointer "<<std::endl;
 		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
+	std::cout<<"null pointer "<<std::endl;
 		vertice_origen=verticeaux;
+	std::cout<<"null pointer "<<std::endl;
 		vertice_destino=verticeaux;
+	std::cout<<"null pointer "<<std::endl;
 		distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
+		std::cout<<"null pointer "<<std::endl;
 		while(verticeaux!=nullptr){
 			aux=destino;//igualar cada vez a la id del pasillo/nodo adyacente para despues ir sumandole 1000 en 1000 para buscar el nodo
 			if(distancia>lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy)){
@@ -431,12 +445,12 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		}
 
 		//cout de pesos
-		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
+		/*verticeaux=grafo_get_vertice(origen)->_lod1->_h;
 		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
 		//std::cout << "while1" <<std::endl;
 			std::cout << verticeaux->_id <<  " ;id "<< "peso: " << verticeaux->_peso<<std::endl;
 			verticeaux=verticeaux->_sig;
-		}
+		}*/
 
 
 		vertice_origen->_peso=0;
@@ -447,11 +461,11 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		while(verticeaux->_id!=vertice_origen->_id){
 			arista_aux=verticeaux->_ady;
 			id_aux=arista_aux->_ady->_id;
-			distancia=arista_aux->_ady->_peso-1;
+			distancia=arista_aux->_ady->_peso;
 			while(arista_aux!= nullptr){//eleccion de la ariste a la cual ir
 				
 				if(arista_aux->_ady->_peso<distancia){
-					
+					std::cout<<"entrar en el if"<<std::endl;
 					id_aux=arista_aux->_ady->_id;
 					distancia=arista_aux->_ady->_peso;
 				}
