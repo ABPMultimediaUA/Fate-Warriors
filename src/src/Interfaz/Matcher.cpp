@@ -52,7 +52,7 @@ void Matcher::Mover(float x, float y, float z){
 
 //version especifica para el objeto personaje
 void Matcher::Mover(float x, float y, float z){
-    std::cout<<"matcher mover"<<std::endl;
+    //std::cout<<"matcher mover"<<std::endl;
     Vector3 vectorsito(x,y,z);
     Vector3 mov(0,0,0); 
     
@@ -66,6 +66,7 @@ void Matcher::Mover(float x, float y, float z){
     }
 
 }
+
 
 Matcher::~Matcher(){
 

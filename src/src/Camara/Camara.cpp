@@ -71,14 +71,14 @@ void Camara::Camara_Update() {
 	_direction += _changeX; //rotacion de la camara en horizontal xrot
 	_zdirection -= _changeY; //rotacion de la camara en vertical  yrot
 
-	_gradosRotacion = 55; 
+	_gradosRotacion = 35; 
 
-	if (_zdirection < -_gradosRotacion) {
-		_zdirection = -_gradosRotacion; 
+	if (_zdirection < -60) {
+		_zdirection = -60; 
 	}
 
-	else if (_zdirection > _gradosRotacion) {
-		_zdirection = _gradosRotacion; 
+	else if (_zdirection > -5) {
+		_zdirection = -5; 
 	}
 	_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
 	

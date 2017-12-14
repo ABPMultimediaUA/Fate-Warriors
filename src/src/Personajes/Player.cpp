@@ -87,7 +87,6 @@ void Player::update(){
         if(controles->estaPulsada(Input_key::Escape)){
             interface->Interfaz_Apagar();
         }
-        
         //setX(miX);
         //setZ(miZ);
         //interface->Interfaz_moverProta(miX, miZ);
@@ -95,9 +94,10 @@ void Player::update(){
             _matcher->Mover(desp_x,miY,desp_z);
         }
         else{
-            _matcher->Mover(0,0,0);    
+            //std::cout<<"-------BBBBBBBBBBBBBBBBBBBBBB-------------------------"<<std::endl;
+            _matcher->Mover(0,0,0);
         }
-        std::cout<<"-------------MOVING: "<<moving<<"----------------------"<<std::endl;
+            //std::cout<<"-------------MOVING: "<<moving<<"----------------------"<<std::endl;
         _tiempo_anterior = _otro_tiempo;
 
         

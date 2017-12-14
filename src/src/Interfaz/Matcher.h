@@ -10,7 +10,7 @@ class Matcher{
 public:
     Matcher(char* ruta, float x, float y, float z, int masa, bool isProta);
     Matcher(char* ruta, char* nombreModelado, float x, float y, float z, int masa, bool isProta);
-    void Mover(float x, float y, float z);
+    void Mover(float x, float y, float z); 
     ~Matcher();
 
 private:

@@ -69,11 +69,29 @@ Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
 	//Vector3 vectorsito(0,0,100);
 	
 	btTransform trans;
-	std::cout<<"moverX:  "<<vec._x<<"     moverZ:  "<<vec._z<<std::endl;
+	//std::cout<<"moverX:  "<<vec._x<<"     moverZ:  "<<vec._z<<std::endl;
 	btVector3 vectorBullet(vec._x, 0, vec._z);
+	//std::cout<<"vectorBulletX: "<<vectorBullet.x()<<std::endl;
+	//std::cout<<"vectorBulletY: "<<vectorBullet.y()<<std::endl;
+	//std::cout<<"vectorBulletZ: "<<vectorBullet.z()<<std::endl;
 	//std::cout<<"AQUI VA A PETAR YA VERAS"<<std::endl;
+	_VRigidBodys.at(id)->activate();
+	btVector3 fuck;
+	
 	_VRigidBodys.at(id)->setLinearVelocity(vectorBullet);
+	
+	if(vec._x==0&&vec._z==0){
+		_VRigidBodys.at(id)->setAngularVelocity(vectorBullet);
+	}
+
+
+	////fuck = _VRigidBodys.at(id)->getLinearVelocity();
+	//std::cout<<"fuckX: "<<fuck.x()<<std::endl;
+	//std::cout<<"fuckY: "<<fuck.y()<<std::endl;
+	//std::cout<<"fuckZ: "<<fuck.z()<<std::endl;
+	
 	_VRigidBodys.at(id)->applyGravity(); //justo despues de aplicar velocidad reactivamos la gravedad
+	
 	//std::cout<<"Como No Pete Me Rayo"<<std::endl;
 	//_VRigidBodys.at(id)->setWorldTransform(trans);
 	trans = _VRigidBodys.at(id)->getWorldTransform();
@@ -83,10 +101,11 @@ Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
 	adevolver._x = pos.getX(); 
 	adevolver._y = pos.getY();
 	adevolver._z = pos.getZ();
-	std::cout<<"adevolverX: "<<adevolver._x<<"adevolverY: "<<adevolver._y<<"adevolverZ: "<<adevolver._z<<std::endl;
+	//std::cout<<"adevolverX: "<<adevolver._x<<"adevolverY: "<<adevolver._y<<"adevolverZ: "<<adevolver._z<<std::endl;
 	
 	return(adevolver);
 }
+
 
 unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float z){
 	_fallMotionState 	= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
