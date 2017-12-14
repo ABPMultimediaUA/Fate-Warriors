@@ -225,11 +225,11 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 	if(_i_origen!=nullptr && _i_destino!=nullptr){
 		_actual = _i_origen->_ady;
 		if(_actual==nullptr){
-			std::cout << "Vertices no na" << std::endl;
+			//std::cout << "Vertices no na" << std::endl;
 		}
 		else if(_actual->_ady==_i_destino){
 			_i_origen->_ady = _actual->_sig;
-			std::cout << "Se ha eliminado la arista" << _actual->_id << std::endl;
+			//std::cout << "Se ha eliminado la arista" << _actual->_id << std::endl;
 			delete(_actual);
 			grafo_eliminar_arista(_i_destino,_i_origen);
 		}
@@ -240,7 +240,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 
 					_flag=true;
 					_anterior->_sig=_actual->_sig;
-					std::cout << "Se ha eliminado la arista" << _actual->_id << std::endl;
+					//std::cout << "Se ha eliminado la arista" << _actual->_id << std::endl;
 					delete(_actual);
 					
 					grafo_eliminar_arista(_i_destino,_i_origen);
@@ -255,7 +255,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 			}
 			if(!_flag)
 			{
-				std::cout << "Vertices no conectados Id_origen: " <<_i_origen->_id<<" Id_destino:" << _i_destino->_id<< std::endl;
+				//std::cout << "Vertices no conectados Id_origen: " <<_i_origen->_id<<" Id_destino:" << _i_destino->_id<< std::endl;
 			}
 
 		}
@@ -348,61 +348,74 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	
 	origen=grafo_get_id_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_id_vertice(_i_xdestino, _i_ydestino);
+	
 	//verticeaux va a dar error en ese while
-	/*if(origen!=destino){
+	if(origen!=destino){
 		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
-		while(verticeaux!=nullptr && !flag){
-			aux=destino;
+		vertice_origen=verticeaux;
+		vertice_destino=verticeaux;
+		distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
+		while(verticeaux!=nullptr){
+			aux=destino;//igualar cada vez a la id del pasillo/nodo adyacente para despues ir sumandole 1000 en 1000 para buscar el nodo
 			if(distancia>lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy)){
 				vertice_origen=verticeaux;
 				distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
 			}
-			while(aux<5000){
+			while(aux<4000){
+				aux+=1000;
 				if(aux==verticeaux->_id){
-					
+					std::cout<<"destino"<<verticeaux->_id<<std::endl;
 					vertice_destino=verticeaux;
 					flag=true;//cuando se activa el flag se terminan los bucles y no vuelve a buscar el vertice destino
 					break;
 				}
-				aux+=1000;
+				
+			}
+			verticeaux->_peso=10000;
+			verticeaux->_id_arista=0;
+			verticeaux=verticeaux->_sig;
+		}std::cout << origen <<"  o/d "<< destino<<std::endl;
+		std::cout<<vertice_destino->_id<<std::endl;
+		std::cout << origen <<"  o/d "<< destino<<std::endl;
+		std::cout << vertice_origen->_id<<std::endl;
+		std::cout << origen <<"  o/d "<< destino<<std::endl;
+		if(vertice_origen->_id==vertice_destino->_id){std::cout << origen <<"  o/d "<< destino<<std::endl;
+			aux-=1000;
+			int angulo=0;
+			while(aux>1000){
+				angulo+=90;
+
+				aux-=1000;
+			}
+			return angulo;
+		}
+		
+	}
+	
+	//se puede mirar (si la id es 1000 hacia la derecha, 2000 arriba etc.), poner mas nodos 
+	//en las intersecciones con el pasillo de manera que cuando llegue al nodo como nodo origen que haga el movimiento por la id
+
+	if(!flag){
+		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
+		vertice_origen=verticeaux;
+		vertice_destino=verticeaux;
+		distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
+		distancia2=lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->_posx,verticeaux->_posy);
+		
+		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
+		//std::cout << "while1" <<std::endl;
+			if(distancia>lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy)){
+				vertice_origen=verticeaux;
+				distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
+			}
+			if(distancia2>lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->_posx,verticeaux->_posy)){
+				vertice_destino=verticeaux;
+				distancia2=lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->_posx,verticeaux->_posy);
 			}
 			verticeaux->_peso=10000;
 			verticeaux->_id_arista=0;
 			verticeaux=verticeaux->_sig;
 		}
-		aux-=1000;
-		int res;
-		while(aux>1000){
-			res;
-
-			aux-=1000;
-		}
-	}
-	}*/
-	
-	//se puede mirar (si la id es 1000 hacia la derecha, 2000 arriba etc.), poner mas nodos 
-	//en las intersecciones con el pasillo de manera que cuando llegue al nodo como nodo origen que haga el movimiento por la id
-
-	
-	verticeaux=grafo_get_vertice(origen)->_lod1->_h;
-	vertice_origen=verticeaux;
-	vertice_destino=verticeaux;
-	distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
-	distancia2=lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->_posx,verticeaux->_posy);
-	
-	while(!flag && verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
-	//std::cout << "while1" <<std::endl;
-		if(distancia>lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy)){
-			vertice_origen=verticeaux;
-			distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
-		}
-		if(distancia2>lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->_posx,verticeaux->_posy)){
-			vertice_destino=verticeaux;
-			distancia2=lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->_posx,verticeaux->_posy);
-		}
-		verticeaux->_peso=10000;
-		verticeaux->_id_arista=0;
-		verticeaux=verticeaux->_sig;
 	}
 	if(vertice_origen->_id==vertice_destino->_id){//caso de que no se encuentren los nodos
 		return 361;
