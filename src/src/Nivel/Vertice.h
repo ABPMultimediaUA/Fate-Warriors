@@ -17,7 +17,7 @@ class Vertice
 	  float _posy;
 	  float _ancho;
 	  float _alto;
-	  int _peso;
+	  float _peso;
 	  int _id_arista;
 	  unsigned short _lod;
 	  unsigned short _n_enemigos;

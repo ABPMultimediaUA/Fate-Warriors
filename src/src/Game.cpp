@@ -69,13 +69,27 @@ void Game::crea_partida() {
 	std::cout <<_nivel1->nivel_get_nodo(7)->_blackboard->get_zonas_ady()[0] <<std::endl;
 	std::cout << _nivel1->nivel_get_id_vertice(67,27)<<std::endl;*/
 
-	//std::cout << _nivel1->nivel_pathfindinglod1(14,14,11,11)<<std::endl;
+	//std::cout << _nivel1->nivel_pathfindinglod1(6,6,14.5,25.5)<<std::endl;
 
-	//std::cout << _nivel1->nivel_pathfindinglod1(19,19,8,15)<<std::endl;
+	//std::cout << _nivel1->nivel_pathfindinglod1(10,8,14.5,25.5)<<std::endl;
 
-	//std::cout << _nivel1->nivel_pathfindinglod1(21,12.5,23.5,12.5)<<std::endl;
+	std::cout << _nivel1->nivel_pathfindinglod1(11,11,14.5,25.5)<<std::endl;
 
-	std::cout << _nivel1->nivel_pathfindinglod1(8,10,14.5,25.5)<<std::endl;
+	//std::cout << _nivel1->nivel_pathfindinglod1(14,11,14.5,25.5)<<std::endl;
+
+	//std::cout << _nivel1->nivel_pathfindinglod1(14,14,14.5,25.5)<<std::endl;
+
+	//std::cout << _nivel1->nivel_pathfindinglod1(15,17,14.5,25.5)<<std::endl;
+
+	//std::cout << _nivel1->nivel_pathfindinglod1(14.5,19,14.5,25.5)<<std::endl;
+
+	//std::cout << _nivel1->nivel_pathfindinglod1(14.5,21,14.5,25.5)<<std::endl;
+/*
+	std::cout << _nivel1->nivel_pathfindinglod1(11,11,14.5,25.5)<<std::endl;
+
+	std::cout << _nivel1->nivel_pathfindinglod1(12.5,12.5,14.5,25.5)<<std::endl;
+
+	std::cout << _nivel1->nivel_pathfindinglod1(8,10,14.5,25.5)<<std::endl;*/
 
 	delete _nivel1;
 

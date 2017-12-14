@@ -361,10 +361,11 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 				vertice_origen=verticeaux;
 				distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->_posx,verticeaux->_posy);
 			}
+			
 			while(aux<4000){
 				aux+=1000;
 				if(aux==verticeaux->_id){
-					std::cout<<"destino"<<verticeaux->_id<<std::endl;
+					
 					vertice_destino=verticeaux;
 					flag=true;//cuando se activa el flag se terminan los bucles y no vuelve a buscar el vertice destino
 					break;
@@ -374,12 +375,8 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 			verticeaux->_peso=10000;
 			verticeaux->_id_arista=0;
 			verticeaux=verticeaux->_sig;
-		}std::cout << origen <<"  o/d "<< destino<<std::endl;
-		std::cout<<vertice_destino->_id<<std::endl;
-		std::cout << origen <<"  o/d "<< destino<<std::endl;
-		std::cout << vertice_origen->_id<<std::endl;
-		std::cout << origen <<"  o/d "<< destino<<std::endl;
-		if(vertice_origen->_id==vertice_destino->_id){std::cout << origen <<"  o/d "<< destino<<std::endl;
+		}
+		if(vertice_origen->_id==vertice_destino->_id){
 			aux-=1000;
 			int angulo=0;
 			while(aux>1000){
@@ -420,29 +417,39 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	if(vertice_origen->_id==vertice_destino->_id){//caso de que no se encuentren los nodos
 		return 361;
 	}
-	else{//recorrido del grafo
+	else{
+		//recorrido del grafo
 		distancia=0;
 		arista_aux = vertice_origen->_ady;
-		while(arista_aux!= nullptr){std::cout << "while2"<< arista_aux->_ady->_id<<"  "<<vertice_origen->_id<<"   "<< distancia+arista_aux->_peso <<std::endl;
-			
+		while(arista_aux!= nullptr){
+
 			if(arista_aux->_ady->_peso>=(distancia+arista_aux->_peso)){
 				
 				arista_aux->_ady->pathfinding(distancia, arista_aux, vertice_destino->_id);
 			}
 			arista_aux = arista_aux->_sig;
 		}
-		
+
+		//cout de pesos
+		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
+		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
+		//std::cout << "while1" <<std::endl;
+			std::cout << verticeaux->_id <<  " ;id "<< "peso: " << verticeaux->_peso<<std::endl;
+			verticeaux=verticeaux->_sig;
+		}
+
+
 		vertice_origen->_peso=0;
 		verticeaux=grafo_get_vertice(origen)->_lod1->_h;
 		//vuelta desde destino hacia origen
 		verticeaux=vertice_destino;
 		id_aux=0;
-		while(verticeaux->_id!=vertice_origen->_id){std::cout << "while3    "<<verticeaux->_id <<std::endl;
+		while(verticeaux->_id!=vertice_origen->_id){
 			arista_aux=verticeaux->_ady;
 			id_aux=arista_aux->_ady->_id;
 			distancia=arista_aux->_ady->_peso-1;
 			while(arista_aux!= nullptr){//eleccion de la ariste a la cual ir
-				std::cout << "while4     "<<distancia<<"   "<<arista_aux->_ady->_id<< "   "  <<arista_aux->_ady->_peso<<std::endl;
+				
 				if(arista_aux->_ady->_peso<distancia){
 					
 					id_aux=arista_aux->_ady->_id;
@@ -453,8 +460,8 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 			arista_aux=verticeaux->_ady;
 			while(arista_aux!= nullptr){//este while es para evitar llamar a la fucion get_vertice la cual recorre todo el grafo
 			//se busca el vertice origen y se le da valor a la id_arista de ese vertice
-			std::cout << "while5" <<std::endl;
-				if(arista_aux->_ady->_id==id_aux){
+			
+			if(arista_aux->_ady->_id==id_aux){
 					verticeaux=arista_aux->_ady;
 					verticeaux->_id_arista=arista_aux->_id;
 					break;
@@ -465,19 +472,17 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		arista_aux=verticeaux->_ady;
 		while(arista_aux!= nullptr){//este while es para evitar llamar a la fucion get_vertice la cual recorre todo el grafo
 		//se busca el vertice al que debe ir desde el origen
-		std::cout<<arista_aux->_id<<"      " <<verticeaux->_id_arista<<std::endl;
 			if(arista_aux->_id==-verticeaux->_id_arista){
-				std::cout<<"_id vertice final" <<verticeaux->_id<<std::endl;
 				verticeaux=arista_aux->_ady;
 				break;
-			}std::cout << "while6" <<std::endl;
+			}
 			arista_aux = arista_aux->_sig;
 		}
-		std::cout<<"_id vertice final" <<verticeaux->_posx<<"   "<<verticeaux->_posy<<"   "<<_i_xorigen<<"  "<<_i_yorigen<<std::endl;
 		
-		//360 y 0 es lo mismo, derecha
+		//360 y 0 es lo mismo, derechas
+		//std::cout <<"angulo sin 36'"<<lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->_posx, verticeaux->_posy)<<std::endl;
 		angulo=abs(360-lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->_posx, verticeaux->_posy));
-		
+		std::cout<<"_id vertice final" <<verticeaux->_posx<<"   "<<verticeaux->_posy<<"   "<<_i_xorigen<<"  "<<_i_yorigen<<std::endl; 
 		
 		return angulo;
 		//return lib_math_angulo_2_puntos(verticeaux->_posx,verticeaux->_posy,_i_xorigen,_i_yorigen);
