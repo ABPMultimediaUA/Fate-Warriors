@@ -270,89 +270,11 @@ void Interfaz::Interfaz_Update() {
 
 void Interfaz::Interfaz_Apagar(){
 _device->closeDevice();
+
 }
 
 void Interfaz::Interfaz_collisionEnable() {
 
-
-	/*
-	
-	scene::ISceneNodeAnimator* anim;
-	for (int i = 0; i < _nodes.size(); i++) {
-
-		core::aabbox3d<f32> box = _nodes.at(i)->getBoundingBox();
-		core::vector3df radius = box.MaxEdge - box.getCenter();
-		anim = _smgr->createCollisionResponseAnimator(_selector, _nodes.at(i),
-				core::vector3df(radius.X, radius.Y, radius.Z), //------------------------------------
-				core::vector3df(0, -10, 0), core::vector3df(0, 0, 0));
-		_nodes.at(i)->addAnimator(anim);
-	}
-	anim->drop();
-	
-
-	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
-
-        btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-        btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-
-        btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
-
-        btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-
-        dynamicsWorld->setGravity(btVector3(0, -10, 0));
-
-
-        btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-
-        btCollisionShape* fallShape = new btSphereShape(1);
-
-
-        btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
-        btRigidBody::btRigidBodyConstructionInfo
-                groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
-        btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
-        dynamicsWorld->addRigidBody(groundRigidBody);
-
-
-        btDefaultMotionState* fallMotionState =
-                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, 0)));
-        btScalar mass = 1;
-        btVector3 fallInertia(0, 0, 0);
-        fallShape->calculateLocalInertia(mass, fallInertia);
-        btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
-        btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
-        dynamicsWorld->addRigidBody(fallRigidBody);
-
-
-        for (int i = 0; i < 300; i++) {
-                dynamicsWorld->stepSimulation(1 / 60.f, 10);
-
-                btTransform trans;
-                fallRigidBody->getMotionState()->getWorldTransform(trans);
-
-                std::cout << "sphere height: " << trans.getOrigin().getY() << std::endl;
-        }
-
-        dynamicsWorld->removeRigidBody(fallRigidBody);
-        delete fallRigidBody->getMotionState();
-        delete fallRigidBody;
-
-        dynamicsWorld->removeRigidBody(groundRigidBody);
-        delete groundRigidBody->getMotionState();
-        delete groundRigidBody;
-
-
-        delete fallShape;
-
-        delete groundShape;
-
-
-        delete dynamicsWorld;
-        delete solver;
-        delete collisionConfiguration;
-        delete dispatcher;
-        delete broadphase;
-        */
 }
 
 Camara* Interfaz::Interfaz_getCamara(){
@@ -390,5 +312,21 @@ IrrlichtDevice* Interfaz::Interfaz_getDevice() {
 }
 
 Interfaz::~Interfaz() {
-	_device->drop();
+	//_device->drop();
+	for(int cont=0; cont<_nodeCounter; cont++){
+		_nodes.at(cont)->drop();
+	}
+
+	for(int cont2=0; cont2<_meshCounter; cont2++){
+		_meshes.at(cont2)->drop();
+	}
+
+	
+	_mesh->drop();
+
+	//_smgr->drop();
+	_node->drop();
+	_driver->drop(); //driver de video (EDT_OPENGL)
+	std::cout<<"VOY A MATAR GENTE"<<std::endl;
+	
 }

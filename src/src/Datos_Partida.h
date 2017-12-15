@@ -4,6 +4,7 @@
 class NPC_Manager;
 class NPC;
 class Player;
+class Objeto_Estandar;
 
 class Datos_Partida {
 public:
@@ -16,7 +17,7 @@ public:
 
 private:
 	Player* _jugador;
-
+	Objeto_Estandar* _mapa;
 	NPC_Manager* _npc_manager;
 };
 

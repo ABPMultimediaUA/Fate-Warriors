@@ -6,6 +6,7 @@
 #include "Objeto_Estandar.h"
 #include "Personajes/NPC_Manager.h"
 
+
 Datos_Partida::Datos_Partida() {
 
 	_jugador = new Player(0,30,230,0);
@@ -18,8 +19,8 @@ Datos_Partida::Datos_Partida() {
 	//					0,0,0);
 	
 	//Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Gilipollas.zip", "ManuManco.obj"); 
-	Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Nivel1_t.zip", "Nivel1_t.obj"); 
-	Llave* llavecita = new Llave(0,0,10,230,0); 
+	Objeto_Estandar* _mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Nivel1_t.zip", "Nivel1_t.obj"); 
+	//Llave* llavecita = new Llave(0,0,10,230,0); 
 	//_interfaz_grafica->Interfaz_cargaModeloZip("Nodo1.zip","Nodo1.obj",false,0,0,0);
 
 
@@ -28,7 +29,8 @@ Datos_Partida::Datos_Partida() {
 
 Datos_Partida::~Datos_Partida() {
 	delete _jugador;
-
+	delete _mapa;
+	//delete llavecita;
 	delete _npc_manager;
 }
 

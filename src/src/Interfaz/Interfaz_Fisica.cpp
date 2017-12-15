@@ -125,25 +125,7 @@ unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float
 	_rigidBodyCounter++;
 	return(counter);
 }
-/*
-unsigned short Interfaz_Fisica::CargaRigidBodyProta(int mass, float x, float y, float z){
-	_fallMotionState 	= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
-	btScalar Mymass 	= mass;
-	btVector3 			fallInertia(0, 0, 0);
-	
-	_fallShape->calculateLocalInertia(mass, fallInertia);
 
-	btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, _fallMotionState,
-															_fallShape, fallInertia);
-				
-	btRigidBody* rigidBody 		= new btRigidBody(fallRigidBodyCI);	
-	_dynamicsWorld->addRigidBody(rigidBody);
-	_VRigidBodys.push_back(rigidBody);
-	unsigned short counter = _rigidBodyCounter;
-	_rigidBodyCounter++;
-	return(counter);
-}
-*/
 Interfaz_Fisica::~Interfaz_Fisica(){
 
 	delete _dynamicsWorld;
@@ -175,6 +157,12 @@ Interfaz_Fisica::~Interfaz_Fisica(){
 
 	delete _fallMotionState;		
 	_fallMotionState=nullptr;
-	//	delete _fallRigidBody;
-	//	_fallRigidBody=nullptr;
+
+	for(int cont = 0; cont<_VRigidBodys.size(); cont++){
+		delete _VRigidBodys.at(cont);
+	}
+
+	//std::cout<<"todo borrado"<<std::endl;
+
+	//delete _interfaz_graficos;
 }
