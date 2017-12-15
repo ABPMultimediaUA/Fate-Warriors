@@ -1,0 +1,47 @@
+#include "NPC.h"
+
+#include "../IA/Blackboard.h"
+#include "../Interfaz_Libs/Lib_Math.h"
+
+#include <iostream>
+
+NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad) : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad), _blackboard(nullptr) {
+
+}
+
+NPC::~NPC() {
+
+}
+
+
+void NPC::move(unsigned long _i_direccion) {
+    //std::cout << "Personaje se encuentra en la posicion (" << _x << "," << _z << ")" << std::endl;
+    float _desp_x = cos(_i_direccion*PI/180);
+    _desp_x = roundf(_desp_x * 100) / 100;
+    float _desp_z = sin(_i_direccion*PI/180);
+    _desp_z = roundf(_desp_z * 100) / 100;
+    //std::cout << "Personaje se mueve en la x " << _desp_x << std::endl;
+    //std::cout << "Personaje se mueve en la y " << _desp_y << std::endl;
+    _x = _x + _desp_x;
+    _z = _z + _desp_z;
+    //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
+
+    //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';
+}
+
+
+void NPC::update() {
+
+}
+
+void NPC::render() {
+
+}
+
+void NPC::set_blackboard(Blackboard* _i_blackboard) {
+    _blackboard = _i_blackboard;
+}
+
+Blackboard* NPC::get_blackboard() {
+    return _blackboard;
+}
