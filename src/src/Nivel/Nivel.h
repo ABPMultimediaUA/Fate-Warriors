@@ -14,6 +14,7 @@ class Grafo;
 
 class Nivel {
 public:
+	static Nivel* nivel_instancia();
 	Nivel(std::string &_i_fichero);
 	~Nivel();
 	void nivel_crear_pasillo(std::ifstream& _Nivel_txt, std::string& _iteracion);
@@ -65,6 +66,7 @@ public:
 	std::stack<Vertice*> nivel_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino);
 private:
 	//Vertice *_h;
+	static Nivel* instancia;
 	Grafo *_lod2;
 	void inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_peso);
 

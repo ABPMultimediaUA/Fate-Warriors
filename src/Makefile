@@ -67,7 +67,7 @@ $(OBJDIR): $(filter-out $(ODIR), $(OBJSUBDIRS))
 
 .PHONY: clean
 clean:
-	$(RM) -r $(DELOBJ)
+	$(RM) -r $(DELOBJ) && $(RM) $(TARGET)
 #	$(foreach VAR, $(OBJSUBDIRS), $(eval $(call BORRAR, $(VAR))))
 
 .PHONY: info

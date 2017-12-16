@@ -52,7 +52,7 @@ void Game::crea_partida() {
 
 	//cargar nivel 1
 	std::string nivel="txt/Nivel/Nivel1.txt";
-	Nivel* _nivel1=new Nivel(nivel);
+	Nivel* _nivel1=Nivel::nivel_instancia();
 
 	/*_nivel1->nivel_set_lod(3);
 

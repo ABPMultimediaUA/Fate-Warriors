@@ -7,6 +7,18 @@
 #include <list>
 
 
+Nivel* Nivel::instancia = 0;
+
+Nivel* Nivel::nivel_instancia(){
+	if(instancia == 0){
+		std::string nivel="txt/Nivel/Nivel1.txt";
+		instancia= new Nivel(nivel);
+	}
+
+	return instancia;
+}
+
+
 void Nivel::nivel_set_lod(int _i_id){
 	_lod2->grafo_set_lod(_i_id);
 }
