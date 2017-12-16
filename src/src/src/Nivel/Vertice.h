@@ -17,6 +17,8 @@ class Vertice
 	  float _posy;
 	  float _ancho;
 	  float _alto;
+	  float _peso;
+	  int _id_arista;
 	  unsigned short _lod;
 	  unsigned short _n_enemigos;
 
@@ -25,6 +27,7 @@ class Vertice
 	  float get_coord_x();
 	  float get_coord_y();
 	  void set_lod(unsigned short cont);
+	  void pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_destino);
 	  virtual ~Vertice();
 	  bool pos2id(float _i_x, float _i_y);
 };

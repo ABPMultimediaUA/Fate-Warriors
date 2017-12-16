@@ -7,14 +7,23 @@
 #include <list>
 
 
+Nivel* Nivel::instancia = 0;
+
+Nivel* Nivel::nivel_instancia(){
+	if(instancia == 0){
+		std::string nivel="txt/Nivel/Nivel1.txt";
+		instancia= new Nivel(nivel);
+	}
+
+	return instancia;
+}
+
+
 void Nivel::nivel_set_lod(int _i_id){
 	_lod2->grafo_set_lod(_i_id);
 }
 
-void Nivel::leer_nivel(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, float &_i_x, float &_i_y, float _i_ancho, float _i_alto, int &_i_id){
 
-	
-}
 
 /*Funcion de crear grafos
  * Crea todos los vertices y aristas correspondientes al grafo
@@ -36,15 +45,16 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 		_grafo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 		while(_iteracion!="Fin"){//bucle para crear todos los objetos del nodo
 			if(_iteracion=="VERTICE"){
+				
 				_grafo_txt >> _iteracion;//obtiene el valor de la x
 				_x = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-			
+
 				_grafo_txt>>_iteracion;//obtiene el valor de la y
 				_y = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 				_grafo_txt>>_iteracion;//obtiene el valor de la id
 				_id = std::atoi(_iteracion.c_str());
-
+				
 				Vertice* vertice= new Vertice(_x, _y, 0, 0, _id, nullptr);
 				_i_grafo->grafo_inserta_vertice(vertice);
 			}else if(_iteracion=="ARISTA"){
@@ -56,13 +66,13 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 				
 				_grafo_txt>>_iteracion;//obtiene el valor de la id
 				_id = std::atoi(_iteracion.c_str());
-				
-				_i_grafo->grafo_crea_arista(_x, _y, 10, _id);
+				_i_grafo->grafo_crea_arista(_x, _y, _id);
 				
 			}
 			
 			_grafo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
 		}
+		std::cout << "cierro el txt del lod1" << std::endl;
 		_grafo_txt.close();
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
@@ -196,7 +206,7 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 */
 void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	int _id_o, _id_d, _i_peso, _id_a;
-
+	
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del origen
 	_id_o = std::atoi(_i_iteracion.c_str());
 
@@ -205,10 +215,8 @@ void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iter
 
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id de la arista
 	_id_a = std::atoi(_i_iteracion.c_str());
-
-	_i_peso=10;
-
-	_lod2->grafo_crea_arista(_id_o, _id_d,  _i_peso, _id_a);
+	
+	_lod2->grafo_crea_arista(_id_o, _id_d, _id_a);
 	
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
 	
@@ -216,20 +224,24 @@ void Nivel::nivel_crear_arista(std::ifstream& _i_nivel_txt, std::string& _i_iter
 
 void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	int _id_o, _id_a;
+	int tamano;
 
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la cantidad de nodos adyacentes
+	tamano = std::atoi(_i_iteracion.c_str());
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del origen
 	_id_o = std::atoi(_i_iteracion.c_str());
 
 	Nodo* nodo=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_o));
-
+	
+	nodo->_blackboard->declarar_zonas_ady(tamano);
 	while(_i_iteracion!="-1"){
-		
 		_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del adyacente
 		_id_a = std::atoi(_i_iteracion.c_str());
 		nodo->_blackboard->anyadir_zona(_id_a);
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
-
+	std::cout<<_i_iteracion<<std::endl;
+	std::cout << "tamano"<< nodo->_blackboard->get_zonas_enemigas() << std::endl;
 }
 
 
@@ -281,7 +293,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 	while(_iteracion!="Fin"){//bucle de lectura del fichero
 		_next=mapping;
-		std::cout<<_iteracion<<std::endl;
+		//std::cout<<_iteracion<<std::endl;
 		while (_next->_nombre_objeto){
 			if(_iteracion==_next->_nombre_objeto){
 				(this->*_next->pmet)(_nivel_txt,_iteracion);
@@ -298,10 +310,11 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt.close();//cierre del fichero
 
 }
+unsigned short Nivel::nivel_pathfindinglod1(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino){
+	return _lod2->grafo_pathfindinglod1(_i_xorigen,_i_yorigen,xdestino,ydestino);
+}
 
 Nivel::~Nivel() {
-	// TODO Auto-generated destructor stub
-	//this->nivel_anular();
 	delete _lod2;
 }
 
@@ -310,34 +323,6 @@ Nivel::~Nivel() {
 //TO DO: funcion para dar el camino mas corto entre 2x y 2y (A*)
 //TO DO: funcion para encontrar el vertice mas cercano a partir de coordenadas
 
-
-
-/*Comprueba si el grafo esta vacio o no.
- * Input: ~
- * Output: booleana que devuelve cierto si esta vacio.
- * */
-/*bool Nivel::nivel_vacio(){
-	if(_h==NULL){
-		return true;
-	}
-	else{
-		return false;
-	}
-}*/
-/*Comprueba el tamano del grafo.
- * Input: ~
- * Output: numero de rooms y pasillos del nivel.
- * */
-/*unsigned short Nivel::nivel_tamano(){
-	unsigned short _cont=0;
-	Vertice *_aux;
-	_aux = _h;
-	while(_aux!=NULL){
-		_cont++;
-		_aux=_aux->_sig;
-	}
-	return _cont;
-}*/
 /*Da un vertice dependiendo de su nombre.
  * Input: Id del vertice.
  * Output: puntero del vertice.
@@ -373,132 +358,8 @@ int Nivel::nivel_get_id_vertice(float _i_x, float _i_y){
 		_aux->_sig=_i_vert;
 	}
 
-}*/
-/*Establece la conexcion bidireccional con dos nodos.
- * Input: nodo origen y nodo destino, y su peso.
- * Output: ~.
- * */
-/*void Nivel::nivel_inserta_arista_bi(Vertice *_i_origen, Vertice *_i_destino, int _i_peso){
-	inserta_arista(_i_origen,_i_destino,_i_peso);
-	inserta_arista(_i_destino,_i_origen,_i_peso);
-}*/
-/*Establece la conexcion con dos nodos.
- * Input: nodo origen y nodo destino, y su peso.
- * Output: ~.
- * */
-/*void Nivel::inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_peso){
-	Arista *_nueva = new Arista;
-
-	_nueva->_peso=_i_peso;
-	_nueva->_sig=NULL;
-	_nueva->_ady=NULL;
-
-	Arista *_aux;
-
-	_aux=_i_origen->_ady;
-
-	if(_aux==NULL){
-		_i_origen->_ady=_nueva;
-		_nueva->_ady=_i_destino;
-	}
-	else{
-		while(_aux->_sig!=NULL){
-			_aux= _aux->_sig;
-		}
-		_aux->_sig=_nueva;
-		_nueva->_ady=_i_destino;
-	}
-
-}*/
-/*Muestra la conexion entre un nodo y el resto sucesivamente.
- * Input: ~.
- * Output: ~.
- * */
-/*void Nivel::nivel_lista_adyacencia(){
-	Vertice *_VertAux;
-	Arista *_ArisAux;
-
-	_VertAux = _h;
-
-	while(_VertAux != NULL){
-		std::cout << _VertAux->_id << " -> ";
-		_ArisAux = _VertAux->_ady;
-		while(_ArisAux != NULL){
-			std::cout << _ArisAux->_ady->_id << " -> " ;
-			_ArisAux = _ArisAux->_sig;
-		}
-		_VertAux = _VertAux->_sig;
-		std::cout<<std::endl;
-	}
-}*/
-
-/*Vacia todo el grafo.
- * Input: ~.
- * Output: ~.
- * */
-/*void Nivel::nivel_anular(){
-
-	Vertice *_aux;
-
-	while(_h!=NULL){
-		_aux=_h;
-		nivel_eliminar_arista(_h,_h->_sig);
-		//std::cout<< aux->_id << std::endl;
-		_h=_h->_sig;
-		//std::cout<< h->_id << std::endl;
-		
-		delete(_aux);
-	}
-}*/
-
-/*Elimina una arista.
- * Input: el origen y el destino de la arista.
- * Output: ~.
- * */
-/*void Nivel::nivel_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
-
-	bool _flag=false;
-
-	Arista *_actual, *_anterior;
-
-	_actual = _i_origen->_ady;
-
-	if(_actual==NULL){
-		std::cout << "Vertices no na" << std::endl;
-	}
-	else if(_actual->_ady==_i_destino){
-		std::cout << "Vertices no naasdf" << std::endl;
-		_i_origen->_ady = _actual->_sig;
-		delete(_actual);
-		nivel_eliminar_arista(_i_destino,_i_origen);
-	}
-	else
-	{
-		while(_actual->_ady != NULL){
-			if(_actual->_ady==_i_destino){
-
-				_flag=true;
-				_anterior->_sig=_actual->_sig;
-				delete(_actual);
-				std::cout << "Se ha eliminado la arista" << std::endl;
-				nivel_eliminar_arista(_i_destino,_i_origen);
-				break;
-			}
-			if(_actual->_sig != NULL){
-				_anterior=_actual;
-				_actual=_actual->_sig;
-			}else{
-				break;
-			}
-		}
-		if(!_flag)
-		{
-			std::cout << "Vertices no conectados" << std::endl;
-		}
-
-	}
-
-}*/
+}
+*/
 /*Devuelve el mejor camino (LOD2) entre dos nodos dados.
  * Input: un origen y un destino.
  * Output: pila con el recorrido.

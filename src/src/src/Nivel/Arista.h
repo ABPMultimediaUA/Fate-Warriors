@@ -8,8 +8,8 @@ class Arista
 
 	  Arista *_sig;
 	  Vertice *_ady;
+	  float _peso;
 	  int _id;
-	  int _peso;
 	  Arista();
 	  ~Arista();
 };

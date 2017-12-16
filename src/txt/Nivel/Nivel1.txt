@@ -1,10 +1,10 @@
 NODO
 5 5 15 15 1
-null
+txt/Nivel/Nivel1/1nodo.txt
 aliado
 PASILLO
 13 20 8 7 2
-null
+txt/Nivel/Nivel1/2pasillo.txt
 NODO
 21 22 15 15 3
 null
@@ -18,7 +18,7 @@ null
 enemigo
 PASILLO
 20 11 7 3 6
-null
+txt/Nivel/Nivel1/6pasillo.txt
 NODO
 27 3 15 15 7
 null
@@ -178,5 +178,5 @@ ARISTA
 ARISTA
 31 32 66
 ADYACENTE
-7 3 -1
+2 7 3 10 -1
 Fin
