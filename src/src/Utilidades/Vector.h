@@ -68,7 +68,7 @@ struct Vector3{
 
 float Vector2DistanceSq(Vector2 v1, Vector2 v2);
 float Vector2Distance( Vector2 v1,  Vector2 v2);
-
+bool comprobar_colision_teniendo_tambien_radio(Vector2 v1, float radio1, Vector2 v2, float radio2);
 
 	/*---------Operaciones elementales---------*/
 	//Para floats

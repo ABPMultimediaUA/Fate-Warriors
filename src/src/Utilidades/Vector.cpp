@@ -1,5 +1,6 @@
 #include "Vector.h"
 #include <math.h>
+#include<iostream>
 //Para el vector 2D
 Vector2::Vector2(float _i_x, float _i_y): _x(_i_x), _y(_i_y){}
 
@@ -160,6 +161,13 @@ void Vector2::zero() {
      float xSeparation = v2._x - v1._x;
  
   return ySeparation*ySeparation + xSeparation*xSeparation;
+}
+
+bool comprobar_colision_teniendo_tambien_radio(Vector2 v1, float radio1, Vector2 v2, float radio2){
+    if(Vector2DistanceSq(v1, v2) < (radio1 + radio2)*(radio1 + radio2) ){
+        return true;
+    }
+    return false;
 }
 
 

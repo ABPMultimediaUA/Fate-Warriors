@@ -101,7 +101,7 @@ Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
 	adevolver._x = pos.getX(); 
 	adevolver._y = pos.getY();
 	adevolver._z = pos.getZ();
-	//std::cout<<"adevolverX: "<<adevolver._x<<"adevolverY: "<<adevolver._y<<"adevolverZ: "<<adevolver._z<<std::endl;
+
 	
 	return(adevolver);
 }
@@ -181,11 +181,12 @@ Interfaz_Fisica::~Interfaz_Fisica(){
 	delete _fallMotionState;		
 	_fallMotionState=nullptr;
 
+	//	delete _fallRigidBody;
+	//	_fallRigidBody=nullptr;
+
+
 	for(int cont = 0; cont<_VRigidBodys.size(); cont++){
 		delete _VRigidBodys.at(cont);
 	}
 
-	//std::cout<<"todo borrado"<<std::endl;
-
-	//delete _interfaz_graficos;
 }

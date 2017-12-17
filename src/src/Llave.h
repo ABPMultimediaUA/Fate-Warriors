@@ -10,7 +10,8 @@ public:
 	virtual ~Llave();
 	void update(){};
 	void render(){};
-
+    
+    short get_id_puerta();
 
 private:
 	short _id_puerta; // Puerta que puede abrir

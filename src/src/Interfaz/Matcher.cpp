@@ -61,7 +61,7 @@ Vector3 Matcher::getPosition(){
 
 //version especifica para el objeto personaje
 void Matcher::Mover(float x, float y, float z){
-    //std::cout<<"matcher mover"<<std::endl;
+
     Vector3 vectorsito(x,y,z);
     if(!_isProta){
         _posicion = _interfaz_fisicas->moverObjeto(vectorsito, _identificador_fisico);

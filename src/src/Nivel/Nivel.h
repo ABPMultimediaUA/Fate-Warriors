@@ -14,6 +14,7 @@ class Grafo;
 
 class Nivel {
 public:
+	static Nivel* nivel_instancia();
 	Nivel(std::string &_i_fichero);
 	~Nivel();
 	void nivel_crear_pasillo(std::ifstream& _Nivel_txt, std::string& _iteracion);
@@ -27,6 +28,7 @@ public:
 	Pasillo * nivel_get_pasillo(int _i_id);
 	void nivel_set_lod(int _i_id);
 	int nivel_get_id_vertice(float _i_x, float _i_y);
+	unsigned short nivel_pathfindinglod1(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino);
 	//unsigned short nivel_get_n_enemigos(int _i_id);
 	//void nivel_set_n_enemigos(int _i_id,unsigned short _i_n_enemigos);
 
@@ -64,8 +66,8 @@ public:
 	std::stack<Vertice*> nivel_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino);
 private:
 	//Vertice *_h;
+	static Nivel* instancia;
 	Grafo *_lod2;
-	void leer_nivel(std::ifstream& _i_nivel_txt, std::string& _i_iteracion, float &_i_x, float &_i_y, float _i_ancho, float _i_alto, int &_i_id);
 	void inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_peso);
 
 };
