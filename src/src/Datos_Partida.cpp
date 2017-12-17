@@ -9,9 +9,10 @@
 #include "Trampas/Trampas_manager.h"
 
 
-Datos_Partida::Datos_Partida() {
 
-	_jugador = new Player(0,30,230,0);
+Datos_Partida::Datos_Partida() {
+	float mult = 39.3701;
+	_jugador = new Player(0,-15*mult,100,15*mult);
 	_npc_manager = new NPC_Manager();
 
 	_consumibles_manager = new Consumible_manager();
@@ -24,10 +25,9 @@ Datos_Partida::Datos_Partida() {
 	//					"ManuManco.obj",false,					  //este es el nodo con el que los demás colisionaran
 	//					0,0,0);
 	
-	//Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Gilipollas.zip", "ManuManco.obj"); 
-	Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Nivel1_t.zip", "Nivel1_t.obj"); 
-	//_llave = new Llave(0,0,10,230,0); 
-	//_interfaz_grafica->Interfaz_cargaModeloZip("Nodo1.zip","Nodo1.obj",false,0,0,0);
+
+	 
+	Objeto_Estandar* _mapa = new Objeto_Estandar(1, -5*mult, 0, 5*mult, "models/Nodo2.zip", "Nodo1.obj");
 
 
 	_interfaz_grafica = nullptr;
@@ -36,10 +36,9 @@ Datos_Partida::Datos_Partida() {
 Datos_Partida::~Datos_Partida() {
 	delete _jugador;
 	delete _trampas_manager;
-
+	delete _mapa;
 	delete _npc_manager;
-    
-    delete _interactuable_manager;
+  delete _interactuable_manager;
 }
 
 Player* Datos_Partida::get_player(){

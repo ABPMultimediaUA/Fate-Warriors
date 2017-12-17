@@ -44,6 +44,8 @@ class Interfaz{
 		void Interfaz_moverProta(float x, float y, float z);
 		void Interfaz_rotarProta(float angulo);
 		
+		float getHeight();
+		float getWidth();
 		
 		float Interfaz_GetCamaraAngle();
 		float Interfaz_GetCamaraAngleRad();

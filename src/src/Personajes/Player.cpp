@@ -23,10 +23,12 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
     _tiempo_anterior = _tiempo->get_start();
   // _nodoId = _interface->Interfaz_crearProtaZip("models/Personaje.zip", "Personaje.obj",false,
   //                      _i_x,_i_y,_i_z);
- //  _interface_fisica->CargaRigidBodyProta(200,_i_x,_i_y,_i_z);
+  // _interface_fisica->CargaRigidBodyProta(200,_i_x,_i_y,_i_z);
 }
 
 Player::~Player(){
+    delete _matcher;
+    _matcher = nullptr;
 }
 
 void Player::update(){
@@ -37,11 +39,16 @@ void Player::update(){
     if(interface!=nullptr){    
         float angulo = interface->Interfaz_GetCamaraAngleRad();
    
-        float miX = interface->Interfaz_GetNode(_nodoId)->getPosition().X;
-        float miY = interface->Interfaz_GetNode(_nodoId)->getPosition().Y;
-        float miZ = interface->Interfaz_GetNode(_nodoId)->getPosition().Z;
+        float miX;
+        float miY;
+        float miZ;
 
-        float movX,movY,movZ;
+        Vector3  mov = _matcher->getPosition();
+
+        miX = mov._x;
+        miY = mov._y;
+        miZ = mov._z;
+//        float movX,movY,movZ;
 
         _otro_tiempo = _tiempo->get_current();
 
@@ -94,6 +101,11 @@ void Player::update(){
             
         }
 
+        if(controles->estaPulsada(Input_key::Space)){
+            _matcher->Saltar();
+            moving = true;
+        }
+
         if(controles->estaPulsada(Input_key::Escape)){
           
             interface->Interfaz_Apagar();
@@ -101,14 +113,16 @@ void Player::update(){
         
         setX(miX);
         setZ(miZ);
+
         //interface->Interfaz_moverProta(miX, miZ);
         if(moving){
             _matcher->Mover(desp_x,miY,desp_z);
         }
         else{
-            _matcher->Mover(0,0,0);    
+            //std::cout<<"-------BBBBBBBBBBBBBBBBBBBBBB-------------------------"<<std::endl;
+            _matcher->Mover(0,0,0);
         }
-        //std::cout<<"-------------MOVING: "<<moving<<"----------------------"<<std::endl;
+
         _tiempo_anterior = _otro_tiempo;
 
         

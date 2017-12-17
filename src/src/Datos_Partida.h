@@ -7,6 +7,8 @@ class Player;
 class Consumible_manager;
 class Trampas_manager;
 class Interactuable_Manager;
+class Objeto_Estandar;
+
 
 class Datos_Partida {
 public:
@@ -25,7 +27,7 @@ public:
 
 private:
 	Player* _jugador;
-
+	Objeto_Estandar* _mapa;
 	NPC_Manager* _npc_manager;
 		Trampas_manager *_trampas_manager;
 	Consumible_manager * _consumibles_manager;

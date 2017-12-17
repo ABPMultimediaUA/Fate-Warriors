@@ -101,10 +101,11 @@ void Game::crea_partida() {
 }
 
 void Game::fin_partida() {
-	
-	delete _datos;
+
+	//delete _datos;   ->da core dumped amigos
 	delete _decision_manager;
 	delete _action_manager;
+	
 	delete _interfaz_grafica;
 	delete _interfaz_fisica;
 	delete _consumibles_action;
@@ -133,6 +134,7 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	//_trampas_action->update();
 	_player = nullptr;
 	_interfaz_fisica->update();
+//std::cout<<"ALTURA:    "<<_interfaz_grafica->getHeight()<<std::endl;
 	_decision_manager->toma_decisiones();
 }
 
