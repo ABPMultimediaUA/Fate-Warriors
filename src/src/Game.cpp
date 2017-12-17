@@ -79,10 +79,11 @@ void Game::crea_partida() {
 }
 
 void Game::fin_partida() {
-	
-	delete _datos;
+
+	//delete _datos;   ->da core dumped amigos
 	delete _decision_manager;
 	delete _action_manager;
+	
 	delete _interfaz_grafica;
 	delete _interfaz_fisica;
 

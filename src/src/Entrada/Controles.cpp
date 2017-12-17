@@ -50,6 +50,12 @@ bool Controles::estaPulsada(Input_key key){
 				return true;
 			}
 			break;
+		
+		case 57: //SPACE
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+				return true;
+			}
+			break;
 
 	}
 	return false;

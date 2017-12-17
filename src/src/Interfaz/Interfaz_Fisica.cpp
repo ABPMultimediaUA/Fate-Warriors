@@ -126,8 +126,31 @@ unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float
 	return(counter);
 }
 
-Interfaz_Fisica::~Interfaz_Fisica(){
 
+Vector3 Interfaz_Fisica::Saltar(unsigned short id, unsigned short valor){
+	
+	btTransform trans;
+	Vector3 adevolver(0,0,0);
+	trans = _VRigidBodys.at(id)->getWorldTransform();
+	btVector3 pos = trans.getOrigin();
+	//float mX,mY,mZ;
+	//mX = pos.getX();
+	//mY = pos.getY();
+	//mZ = pos.getZ();
+	
+
+//	std::cout<<"adevolverY antes: "<<pos.getY()<<std::endl;
+	adevolver._x = pos.getX();
+	adevolver._y = pos.getY() + valor;
+	adevolver._z = pos.getZ();
+	btVector3 algo(adevolver._x, adevolver._y, adevolver._z);
+	trans.setOrigin(algo);
+	_VRigidBodys.at(id)->setWorldTransform(trans);
+	return(adevolver);
+}
+
+Interfaz_Fisica::~Interfaz_Fisica(){
+	
 	delete _dynamicsWorld;
 	_dynamicsWorld=nullptr;
 

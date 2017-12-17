@@ -36,11 +36,16 @@ void Player::update(){
     if(interface!=nullptr){    
         float angulo = interface->Interfaz_GetCamaraAngleRad();
    
-        float miX = interface->Interfaz_GetNode(_nodoId)->getPosition().X;
-        float miY = interface->Interfaz_GetNode(_nodoId)->getPosition().Y;
-        float miZ = interface->Interfaz_GetNode(_nodoId)->getPosition().Z;
+        float miX;
+        float miY;
+        float miZ;
 
-        float movX,movY,movZ;
+        Vector3  mov = _matcher->getPosition();
+
+        miX = mov._x;
+        miY = mov._y;
+        miZ = mov._z;
+//        float movX,movY,movZ;
 
         _otro_tiempo = _tiempo->get_current();
 
@@ -83,6 +88,11 @@ void Player::update(){
             interface->Interfaz_rotarProta(90);
             desp_z -= sin(angulo) * _velocidad * _time;
             desp_x += cos(angulo) * _velocidad * _time;
+            moving = true;
+        }
+
+        if(controles->estaPulsada(Input_key::Space)){
+            _matcher->Saltar();
             moving = true;
         }
 

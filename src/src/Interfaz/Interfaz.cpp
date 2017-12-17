@@ -313,6 +313,7 @@ IrrlichtDevice* Interfaz::Interfaz_getDevice() {
 
 Interfaz::~Interfaz() {
 	//_device->drop();
+	
 	for(int cont=0; cont<_nodeCounter; cont++){
 		_nodes.at(cont)->drop();
 	}

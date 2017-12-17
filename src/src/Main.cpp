@@ -20,7 +20,7 @@ int main(){
 	Time* _time = Time::Instance();
 
 	Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
-        
+    
 	//_time->updateAntes();
 	while(_interface->Interfaz_getDevice()->run()){
 		//evento para cerrar la ventana
@@ -42,13 +42,13 @@ int main(){
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();
 	}
-
+			
 	_juego->fin_partida();
 
 	delete _time;
 
 	delete _juego;
-	
+
 	return 0;
 
 }

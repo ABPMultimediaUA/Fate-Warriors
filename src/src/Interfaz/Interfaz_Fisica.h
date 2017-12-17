@@ -25,6 +25,7 @@ public:
 	unsigned short CargaRigidBody(int mass, float x, float y, float z);
 	Vector3 moverObjeto(Vector3 vec, unsigned short id);
 	void update();
+	Vector3 Saltar(unsigned short id, unsigned short valor);
 	~Interfaz_Fisica();
 	static Interfaz_Fisica* Interfaz_Fisica_GetInstance();
 
