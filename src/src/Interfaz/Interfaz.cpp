@@ -311,6 +311,26 @@ IrrlichtDevice* Interfaz::Interfaz_getDevice() {
 	return (_device);
 }
 
+float Interfaz::getHeight(){
+	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
+	boundingbox=_Prota->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	float res = (edges[1].Y - edges[0].Y);
+	//float algo = edges[1]-> - edges[0]; 
+	return res;
+}
+
+float Interfaz::getWidth(){
+	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
+	boundingbox=_Prota->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	float res = (edges[2].X - edges[0].X);
+	//float algo = edges[1]-> - edges[0]; 
+	return res;
+}
+
 Interfaz::~Interfaz() {
 	//_device->drop();
 	
@@ -328,6 +348,6 @@ Interfaz::~Interfaz() {
 	//_smgr->drop();
 	_node->drop();
 	_driver->drop(); //driver de video (EDT_OPENGL)
-	std::cout<<"VOY A MATAR GENTE"<<std::endl;
+	//std::cout<<"VOY A MATAR GENTE"<<std::endl;
 	
 }

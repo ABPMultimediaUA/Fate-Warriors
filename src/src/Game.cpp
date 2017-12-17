@@ -106,6 +106,7 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	_player->update();
 	_player = nullptr;
 	_interfaz_fisica->update();
+//std::cout<<"ALTURA:    "<<_interfaz_grafica->getHeight()<<std::endl;
 	_decision_manager->toma_decisiones();
 }
 

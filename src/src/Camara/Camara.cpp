@@ -18,19 +18,19 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 	_Cdevice = device; 
 	_Cdevice->getCursorControl()->setVisible(false); 
 	_inicial = core::vector3df(0,0,1);
-	 _Prota = 0; 
-	 _direction = 0; 
-	 _zdirection = 0; 
-	 _position = core::vector3df(0, 0, 0); 
-	 _target = core::vector3df(1, 1, 1); 
-	 _xf = 0; 
-	 _yf = 0; 
-	 _zf = 0; 
-	 _sensibilidadX = 256; 
-	 _sensibilidadY = 256; 
-	 _changeX = 0; 
-	 _changeY = 0; 			
-	 _dot = _det = _angle = _angleRad = 0;			
+	_Prota = 0; 
+	_direction = 0; 
+	_zdirection = 0; 
+	_position = core::vector3df(0, 0, 0); 
+	_target = core::vector3df(1, 1, 1); 
+	_xf = 0; 
+	_yf = 0; 
+	_zf = 0; 
+	_sensibilidadX = 256; 
+	_sensibilidadY = 256; 
+	_changeX = 0; 
+	_changeY = 0; 			
+	_dot = _det = _angle = _angleRad = 0;			
 }
 
 void Camara::Camara_setPosition(core::vector3df position) {
@@ -109,7 +109,7 @@ void Camara::Camara_Update() {
 			
 			this->Camara_setTarget(	
 					core::vector3df(_Prota-> getPosition().X + _ProtaBoundingCenter.X, 
-							_Prota-> getPosition().Y - _ProtaBoundingCenter.Y * 1.5f, 
+							_Prota-> getPosition().Y + _ProtaBoundingCenter.Y * 1.5f, 
 							_Prota-> getPosition().Z + _ProtaBoundingCenter.Z)); 
 				
 		}

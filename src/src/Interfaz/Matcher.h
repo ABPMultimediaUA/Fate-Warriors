@@ -25,6 +25,7 @@ private:
     Vector3        _posicion;
     bool           _jumping;
     bool           _isProta; //controla si se trata del objeto especial del protagonista
+    
 };
 
 #endif
