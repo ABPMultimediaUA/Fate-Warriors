@@ -22,6 +22,7 @@ public:
 	void render(float _i_interpolacion);
 	void run();
   	Datos_Partida* game_get_datos();
+    Action_Manager* game_get_action_manager();
 
 private:
 

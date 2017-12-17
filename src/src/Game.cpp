@@ -129,8 +129,8 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	
 	Player *_player = _datos->get_player();
 	_player->update();
-	_consumibles_action->comprobar_consumibles();
-	_trampas_action->update();
+	//_consumibles_action->comprobar_consumibles();
+	//_trampas_action->update();
 	_player = nullptr;
 	_interfaz_fisica->update();
 	_decision_manager->toma_decisiones();
@@ -143,4 +143,8 @@ void Game::render(float _i_interpolacion){
   
 Datos_Partida* Game::game_get_datos() {
 	return _datos;
+}
+
+Action_Manager* Game::game_get_action_manager() {
+	return _action_manager;
 }

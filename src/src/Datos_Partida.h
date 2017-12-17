@@ -6,6 +6,7 @@ class NPC;
 class Player;
 class Consumible_manager;
 class Trampas_manager;
+class Interactuable_Manager;
 
 class Datos_Partida {
 public:
@@ -19,7 +20,8 @@ public:
 	NPC_Manager* get_npc_manager();
 
 	Consumible_manager * get_consumible_manager();
-
+    
+    Interactuable_Manager* get_interactuable_manager();
 
 private:
 	Player* _jugador;
@@ -27,6 +29,7 @@ private:
 	NPC_Manager* _npc_manager;
 		Trampas_manager *_trampas_manager;
 	Consumible_manager * _consumibles_manager;
+    Interactuable_Manager * _interactuable_manager;
 
 };
 

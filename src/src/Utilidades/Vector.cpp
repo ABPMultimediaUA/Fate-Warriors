@@ -1,5 +1,6 @@
 #include "Vector.h"
 #include <math.h>
+#include<iostream>
 //Para el vector 2D
 Vector2::Vector2(float _i_x, float _i_y): _x(_i_x), _y(_i_y){}
 

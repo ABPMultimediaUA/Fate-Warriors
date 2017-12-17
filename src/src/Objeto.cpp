@@ -1,7 +1,7 @@
 #include "Objeto.h"
 #include "Interfaz/Matcher.h"
 
-Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _x(_i_x),_y(_i_y), _z(_i_z), _id(id), _borrar(false) {
+Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _x(_i_x),_y(_i_y), _z(_i_z), _id(id), _borrar(false), _visible(true) {
 	
 }
 
@@ -50,4 +50,16 @@ bool Objeto::get_borrar(){
 
 Vector2 Objeto::get_vector(){
 	return Vector2(_x, _z);
+}
+
+void Objeto::set_visible(bool _i_visible){
+    _visible = _i_visible;
+}
+
+bool Objeto::get_visible(){
+    return _visible;
+}
+
+short Objeto::get_id(){
+    return _id;
 }

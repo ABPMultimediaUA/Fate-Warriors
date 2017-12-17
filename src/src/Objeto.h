@@ -29,6 +29,9 @@ public:
 	void	set_borrar();
 	bool 	get_borrar();
 	Vector2	get_vector();
+    void set_visible(bool visible);
+    bool get_visible();
+    short get_id();
 
 protected:
 	short 	_id;
@@ -37,6 +40,7 @@ protected:
 	float 	_z;
 	bool 	_borrar;
 	Matcher* _matcher;
+    bool _visible;
 };
 
 #endif /* HEADERS_OBJETO_H_ */

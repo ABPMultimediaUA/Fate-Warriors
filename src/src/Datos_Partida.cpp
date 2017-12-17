@@ -1,6 +1,6 @@
 #include "Datos_Partida.h"
 
-#include "Llave.h"
+#include "Interactuable_Manager.h"
 #include "Interfaz/Interfaz.h"
 #include "Personajes/Player.h"
 #include "Objeto_Estandar.h"
@@ -16,6 +16,7 @@ Datos_Partida::Datos_Partida() {
 
 	_consumibles_manager = new Consumible_manager();
 	_trampas_manager	 = new Trampas_manager();
+    _interactuable_manager = new Interactuable_Manager();
 
 	//Crea y devuelve el id del mapa
 	Interfaz* _interfaz_grafica = Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
@@ -25,7 +26,7 @@ Datos_Partida::Datos_Partida() {
 	
 	//Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Gilipollas.zip", "ManuManco.obj"); 
 	Objeto_Estandar* mapa = new Objeto_Estandar(1, 0, 0, 0, "models/Nivel1_t.zip", "Nivel1_t.obj"); 
-	Llave* llavecita = new Llave(0,0,10,230,0); 
+	//_llave = new Llave(0,0,10,230,0); 
 	//_interfaz_grafica->Interfaz_cargaModeloZip("Nodo1.zip","Nodo1.obj",false,0,0,0);
 
 
@@ -37,6 +38,8 @@ Datos_Partida::~Datos_Partida() {
 	delete _trampas_manager;
 
 	delete _npc_manager;
+    
+    delete _interactuable_manager;
 }
 
 Player* Datos_Partida::get_player(){
@@ -53,4 +56,8 @@ Trampas_manager * Datos_Partida::get_trampas_manager(){
 
 Consumible_manager * Datos_Partida::get_consumible_manager(){
 	return _consumibles_manager;
+}
+
+Interactuable_Manager* Datos_Partida::get_interactuable_manager(){
+	return _interactuable_manager;
 }

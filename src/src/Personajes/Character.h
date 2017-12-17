@@ -4,6 +4,7 @@
 #include "../Objeto_Movil.h"
 
 class Interfaz;
+class Inventario;
 
 class Character : public Objeto_Movil{
 public:
@@ -13,10 +14,12 @@ public:
 	void modificar_vida_en(short _i_vida);
 	void poner_vida_a(short _i_vida);
 	short get_vida();
+    Inventario* get_inventario();
 	
 protected:
 	short _vida;
 	short _velocidad;
+    Inventario* _inventario;
 };
 
 #endif /* SRC_CHARACTER_H_ */
