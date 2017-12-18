@@ -32,9 +32,11 @@ void Consumible_action::comprobar_consumibles(){
 		Vector2 vec_mina	= (*_consumibles)[a]->get_vector();
 		
 		if(comprobar_colision_teniendo_tambien_radio(vec_player, 50, vec_mina, 20)){
-			_player->modificar_vida_en((*_consumibles)[a]->get_valor());
-			_consumibles_manager->borrar_consumible(a);
-			--tamanio;
+			if(_player->puede_subir_vida_((*_consumibles)[a]->get_valor())){
+				_player->modificar_vida_en((*_consumibles)[a]->get_valor());
+				_consumibles_manager->borrar_consumible(a);
+				--tamanio;
+			}
 		}
 	}
 }

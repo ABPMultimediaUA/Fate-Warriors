@@ -6,7 +6,6 @@
 #include <queue>
 #include <list>
 
-
 Nivel* Nivel::instancia = 0;
 
 Nivel* Nivel::nivel_instancia(){
@@ -46,11 +45,11 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 		while(_iteracion!="Fin"){//bucle para crear todos los objetos del nodo
 			if(_iteracion=="VERTICE"){
 				
-				_grafo_txt >> _iteracion;//obtiene el valor de la x
-				_x = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+				_grafo_txt >> _iteracion;//obtiene el valor de la y
+				_y = metro*std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
-				_grafo_txt>>_iteracion;//obtiene el valor de la y
-				_y = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+				_grafo_txt>>_iteracion;//obtiene el valor de la x
+				_x = metro*std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
 				_grafo_txt>>_iteracion;//obtiene el valor de la id
 				_id = std::atoi(_iteracion.c_str());
@@ -90,17 +89,17 @@ void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_ite
 	int _id;
 	Pasillo* _pasillo;
 	Grafo * _vacio = new Grafo();
-	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
-	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la y
+	_y = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
-	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la x
+	_x = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
-	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-	
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
-	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_alto = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
+	_ancho = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 	
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
 	_id = std::atoi(_i_iteracion.c_str());
@@ -125,17 +124,17 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
 	int _id;
 	Nodo* _nodo;
 	Grafo * _vacio = new Grafo();
-	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la x
-	_x = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la y
+	_y = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la y
-	_y = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la x
+	_x = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 
-	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
-	_ancho = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
-	
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de alto
-	_alto = std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	_alto = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+	
+	_i_nivel_txt>>_i_iteracion;//obtiene el valor de ancho
+	_ancho = metro*std::strtof(_i_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 	
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id
 	_id = std::atoi(_i_iteracion.c_str());
@@ -176,16 +175,16 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 		_nodo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 		while(_iteracion=="OBJETO"){//bucle para crear todos los objetos del nodo
 			_nodo_txt >> _iteracion;//obtiene el valor de la x
-			_x = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_x = metro*std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			
 			_nodo_txt>>_iteracion;//obtiene el valor de la y
-			_y = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_y = metro*std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			
 			_nodo_txt>>_iteracion;//obtiene el valor de ancho
-			_ancho = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_ancho = metro*std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			
 			_nodo_txt>>_iteracion;//obtiene el valor de alto
-			_alto = std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
+			_alto = metro*std::strtof(_iteracion.c_str(),0);//se convierte a const* char para convertirse en un float
 			
 			_nodo_txt>>_iteracion;//obtiene el valor de la id
 			_id = std::atoi(_iteracion.c_str());
@@ -311,6 +310,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 
 }
 unsigned short Nivel::nivel_pathfindinglod1(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino){
+	
 	return _lod2->grafo_pathfindinglod1(_i_xorigen,_i_yorigen,xdestino,ydestino);
 }
 

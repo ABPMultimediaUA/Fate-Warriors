@@ -9,6 +9,8 @@
 #ifndef HEADERS_NIVEL_H_
 #define HEADERS_NIVEL_H_
 
+const float metro=39.3701;
+
 class Vertice;
 class Grafo;
 
