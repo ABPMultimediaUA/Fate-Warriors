@@ -45,7 +45,6 @@ void Interfaz_Fisica::update(){
 	//_dynamicsWorld->debugDrawWorld();
 
 	for(int cont = 0; cont<_VRigidBodys.size(); cont++){
-		
 		_VRigidBodys.at(cont)->getMotionState()->getWorldTransform(transform);
 		btVector3 pos =	transform.getOrigin();
 		_interfaz_graficos->Interfaz_moverModelo(cont, pos.x(), pos.y(), pos.z());
@@ -68,8 +67,7 @@ void Interfaz_Fisica::update(){
 Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
 	//std::cout<<"--------------------------entra-------------------------"<<std::endl;
 	//Vector3 vectorsito(0,0,100);
-	btVector3 tsero(0,0,0);
-	_VRigidBodys.at(id)->setLinearVelocity(tsero);
+	
 	btTransform trans;
 	//std::cout<<"moverX:  "<<vec._x<<"     moverZ:  "<<vec._z<<std::endl;
 	btVector3 vectorBullet(vec._x, 0, vec._z);
