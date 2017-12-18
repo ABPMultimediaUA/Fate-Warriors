@@ -19,6 +19,8 @@ public:
     
     void comprobar_objetos_interactuables_cercanos(Character* _i_personaje);
 
+	void atacar(Character* _i_personaje);
+
 private:
 	Interfaz_Datos *_interfaz_decision; 	//Interfaz que permite la comunicacion entre toma de decision y datos
 	Path_Manager *_path_manager; 					//Path manager que busca el camino a seguir para el enemigo
