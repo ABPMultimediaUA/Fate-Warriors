@@ -118,7 +118,7 @@ void Grafo::grafo_inserta_vertice(Vertice * _nuevo){
 	
 	if(grafo_vacio()){
 		_h=_nuevo;
-		
+		std::cout << "Vertice insertado"<< _nuevo->_id << std::endl;
 	}
 	else{
 		
@@ -128,6 +128,7 @@ void Grafo::grafo_inserta_vertice(Vertice * _nuevo){
 			_aux = _aux->_sig;
 		}
 		_aux->_sig=_nuevo;
+		std::cout << "Vertice insertado"<< _nuevo->_id << std::endl;
 	}
 	
 
@@ -136,6 +137,7 @@ void Grafo::grafo_crea_arista(int _i_origen, int _i_destino, int _i_id){
 	Vertice* _origen=nullptr;
 	Vertice* _destino=nullptr;
 	Vertice* _aux=_h;
+	std::cout << "Arista"<< _i_origen <<"  "<< _i_destino <<"  "<< _i_id << std::endl;
 	while(_aux!=NULL){	
 			//bucle para recorrer todos los vertices del grafo
 		if(_aux->_id==_i_origen){//id del origen encontrada
@@ -337,7 +339,7 @@ std::stack<Vertice*> Grafo::grafo_camino_corto_l2(Vertice *_i_origen, Vertice *_
 }
 unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino){
 	
-	
+	//std::cout << "xorigen "<<_i_xorigen/39.3701<<" yorigen "<<_i_yorigen/39.3701<<" xdestino "<<_i_xdestino/39.3701<<" ydestino "<<_i_ydestino/39.3701<<std::endl;
 	//TO DO comprobacion de la colision a partir del "raytracing"
 	unsigned short angulo;
 	int origen,destino,id_aux, aux;
@@ -351,10 +353,11 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	
 	origen=grafo_get_id_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_id_vertice(_i_xdestino, _i_ydestino);
+	std::cout<<origen<<destino<<std::endl;
 	//comprobar que esta dentro del nivel
 	if(origen==0||destino==0){
-		
-		float angulo=abs(360-lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino));
+		//std::cout<<"algo"<<std::endl;
+		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
 		
 		return angulo;
 	}
@@ -397,7 +400,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 				angulo+=90;
 
 				aux-=1000;
-			}
+			}//std::cout<<"algo1"<<std::endl;
 			return angulo;
 		}
 		
@@ -429,7 +432,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		}
 	}
 	if(vertice_origen->_id==vertice_destino->_id){//caso de que no se encuentren los nodos
-		
+		//std::cout<<"algo2"<<std::endl;
 		return 361;
 	}
 	else{
@@ -496,16 +499,16 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		
 		//360 y 0 es lo mismo, derechas
 		//std::cout <<"angulo sin 36'"<<lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->_posx, verticeaux->_posy)<<std::endl;
-		angulo=abs(360-lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->_posx, verticeaux->_posy));
+		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->_posx, verticeaux->_posy);
 		//std::cout<<"_id vertice final" <<verticeaux->_posx<<"   "<<verticeaux->_posy<<"   "<<_i_xorigen<<"  "<<_i_yorigen<<std::endl; 
-		
+		//std::cout<<"3algo"<<verticeaux->_id<<std::endl;
 		return angulo;
 		//return lib_math_angulo_2_puntos(verticeaux->_posx,verticeaux->_posy,_i_xorigen,_i_yorigen);
 	}
 
 
 
-
+std::cout<<"algo4"<<std::endl;
 
 	return 361;
 }
