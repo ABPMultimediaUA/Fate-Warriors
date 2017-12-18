@@ -26,19 +26,22 @@ void Objeto::setY(float _i_y){
 void Objeto::setZ(float _i_z){
 	_z = _i_z; 
 }
-
+/*
 float Objeto::getX(){
+	_x = _matcher->getPosition()._x;
 	return _x;
 }
 
 float Objeto::getY(){
+	_y = _matcher->getPosition()._y;
 	return _y;
 }
 
 float Objeto::getZ(){
+	_z = _matcher->getPosition()._z;
 	return _z;
 }
-
+*/
 void Objeto::set_borrar(){
 	_borrar=true;
 }
