@@ -20,7 +20,6 @@ NPC::~NPC() {
 
 
 void NPC::move(unsigned long _i_direccion) {
-    //std::cout << "Enemigo se encuentra en la posicion (" << _x << "," << _z << ")" << std::endl;
     
     float _desp_x = cos(_i_direccion*PI/180);
     _desp_x = roundf(_desp_x * 100) / 100;
