@@ -12,14 +12,11 @@ public:
 	virtual ~Character();
 
 	void modificar_vida_en(short _i_vida);
-	bool puede_subir_vida_(short _i_vida);
 	void poner_vida_a(short _i_vida);
 	short get_vida();
     Inventario* get_inventario();
-	bool isDead();
 	
 protected:
-	short _vida_maxima;
 	short _vida;
 	short _velocidad;
     Inventario* _inventario;

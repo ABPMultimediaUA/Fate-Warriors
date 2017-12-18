@@ -13,9 +13,7 @@ public:
   	void update() override;
   	void render() override;
 	void move(unsigned long _i_direccion);
-	float getX() override;
-	float getY() override;
-	float getZ() override;
+
 	void set_blackboard(Blackboard* _i_blackboard);
 	Blackboard* get_blackboard();
 
