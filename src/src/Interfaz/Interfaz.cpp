@@ -8,7 +8,7 @@ Interfaz* Interfaz::_instancia=0;
 
 Interfaz* Interfaz::Interfaz_getInstance(){
 	if(_instancia==0){
-		_instancia= new Interfaz(false,1280,720);
+		_instancia= new Interfaz(false,800,600);
 	}
 	return _instancia;
 }
