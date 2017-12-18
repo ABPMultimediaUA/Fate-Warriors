@@ -6,6 +6,8 @@
 #include "IA/Path_Manager.h"
 
 #include "Personajes/NPC.h"
+#include "Personajes/Player.h"
+#include "Personajes/NPC_Manager.h"
 #include "Game.h"
 #include "Datos_Partida.h"
 #include "Interactuable_Manager.h"
@@ -70,7 +72,6 @@ void Action_Manager::comprobar_objetos_interactuables_cercanos(Character* _i_per
 	//Busca el objeto interactuable mas cercano e interactua con el (recogerlo, abrirlo, etc.)
     Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
     
-    
     Llave** _llaves = _int_man->get_llaves();
     Puerta** _puertas = _int_man->get_puertas();
     
@@ -100,29 +101,35 @@ void Action_Manager::comprobar_objetos_interactuables_cercanos(Character* _i_per
                     std::cout << "Puede abrirla"<< std::endl;
                 }
             }
-            
             //std::cout << "Puede intentar abrir puerta"<< std::endl;
         }
 	}
+}
     
-    /*
-    std::cout<<_llave->getX() <<std::endl;
-    //std::cout<< &_llave <<std::endl;
-    std::cout<<_i_personaje->getX() <<std::endl;
-    //std::cout<< &_i_personaje <<std::endl;
+void Action_Manager::atacar(Character* _i_personaje) {
+
+    if (NPC * npc = dynamic_cast<NPC *>(_i_personaje))
+    {
+        //std::cout << "ES NPCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC ATACANDOOOO"<< std::endl;
+    }
+    else if (Player * player = dynamic_cast<Player *>(_i_personaje))
+    {
+        NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
     
-    std::cout<<_llave->getZ() <<std::endl;
-     std::cout<<_i_personaje->getZ() <<std::endl;
+        NPC ** _npcs = _npc_manager->get_npcs();
+        unsigned long _cont;
      
-    if(comprobar_colision_teniendo_tambien_radio(_i_personaje->get_vector(), 50.0, _llave->get_vector(), 50.0) == true){
-        std::cout << "Puede coger"<< std::endl;
+        for(_cont = 0; _cont < _npc_manager->get_n_enemigos(); _cont++) {
+            if(comprobar_colision_teniendo_tambien_radio(_i_personaje->get_vector(), 10.0, _npcs[_cont]->get_vector(), 10.0) == true)
+            {
+               _npcs[_cont]->modificar_vida_en(-1);
+               std::cout << _npcs[_cont]->get_vida() << std::endl;
     }
-    else{
-        std::cout << "NO Puede coger"<< std::endl;
     }
-    */
+        std::cout << "--------------------------------------------"<< std::endl;
 }
 
+}
 
 
 Interfaz_Datos* Action_Manager::get_interfaz() {

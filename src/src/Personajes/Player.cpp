@@ -95,10 +95,7 @@ void Player::update(){
         }
         
         if(controles->estaPulsada(Input_key::E)){
-            Game *game = Game::game_instancia();
-            Action_Manager* action = game->game_get_action_manager();
-            action->comprobar_objetos_interactuables_cercanos(this);
-            
+            Game::game_instancia()->game_get_action_manager()->comprobar_objetos_interactuables_cercanos(this);  
         }
 
         if(controles->estaPulsada(Input_key::Space)){
@@ -110,6 +107,15 @@ void Player::update(){
           
             interface->Interfaz_Apagar();
         }
+
+        if(controles->estaPulsada(Input_key::MouseLeft)){
+            Game::game_instancia()->game_get_action_manager()->atacar(this);
+        }
+
+        if(controles->estaPulsada(Input_key::MouseRight)){
+            std::cout<< "MOUSER" <<std::endl;
+        }
+
         
         setX(miX);
         setZ(miZ);

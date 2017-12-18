@@ -18,11 +18,14 @@ public:
 
 	virtual void update() = 0;
 	virtual void render() = 0;
+	virtual float getX(){return _x;};
+	virtual float getY(){return _y;};
+	virtual float getZ(){return _z;};
 
 	void 	setPosition(float _i_x, float _i_y, float _i_z);
-	float	getX();
-	float 	getY();
-	float 	getZ();
+	//float	getX();
+	//float getY();
+	//float getZ();
 	void	setX(float _i_x);
 	void	setY(float _i_y);
 	void	setZ(float _i_z);
