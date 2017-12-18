@@ -353,7 +353,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	
 	origen=grafo_get_id_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_id_vertice(_i_xdestino, _i_ydestino);
-	std::cout<<origen<<destino<<std::endl;
+	//std::cout<<origen<<destino<<std::endl;
 	//comprobar que esta dentro del nivel
 	if(origen==0||destino==0){
 		//std::cout<<"algo"<<std::endl;
