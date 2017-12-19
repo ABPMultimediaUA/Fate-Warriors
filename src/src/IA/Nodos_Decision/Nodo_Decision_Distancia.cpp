@@ -1,6 +1,6 @@
 #include "Nodo_Decision_Distancia.h"
 
-#include "Blackboard.h"
+#include "../Blackboard.h"
 
 #include<iostream>
 

@@ -7,7 +7,7 @@ const unsigned short MAX_NODOS = 1;
 const unsigned short MAX_ARBOLES = 1;
 
 Arbol_Decision_Manager::Arbol_Decision_Manager() {
-	_n_nodos = 0;
+	_n_nodos = 1;
 	_n_arboles = 0;
 
 	//Creacion de las aciones
