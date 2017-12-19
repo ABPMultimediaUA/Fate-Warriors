@@ -1,7 +1,8 @@
 #ifndef SRC_ENUM_TIPO_ATAQUE_H_
 #define SRC_ENUM_TIPO_ATAQUE_H_
 
-enum Enum_Tipo_Enemigo{
+enum Enum_Tipo_Ataque{
+	Ninguno,	// NIngun ataque
 	Normal,		// Ataque normal
 	Fuerte,		// Ataque fuerte
 	Agarre,		// Agarre que lanza

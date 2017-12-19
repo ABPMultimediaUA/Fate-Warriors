@@ -101,6 +101,7 @@ private:
 	// Datos de accion y decision propio de cada enemigo
 	enum Enum_Decisiones _decision;			// Decision actual 			(Controlado por Pablo)
 	enum Enum_Acciones _accion;				// Accion actual   			(Controlado por Pablo)
+	enum Enum_Tipo_Ataque _ataque;			// Ataque actual 			(Controlado por Pablo)
 
 
 	// Datos de estado
@@ -109,13 +110,17 @@ private:
 
 
 	// Datos de inventario
-	bool* _tiene_arma_corta;					// Tiene un arma de corta distancia
+	bool* _tiene_arma_corta;				// Tiene un arma de corta distancia
 	unsigned short* _rango_arma_corta;		// Rango del arma corta
-	bool* _tiene_arma_larga;					// Tiene un arma de larga distancia
+	bool* _tiene_arma_larga;				// Tiene un arma de larga distancia
 	unsigned short* _rango_arma_larga;		// Rango del arma larga
 
+
 	// Blackboard del NPC contrario (PARA LOS ALIADOS PUEDEN SER DE CUALQUIER TIPO DE ENEMIGO Y PARA LOS ENEMIGOS DE TIPO ALIADO)
-	Blackboard* _npc_contrario;
+	Blackboard* _npc_contrario;						// Blackboard del enemigo
+	enum Enum_Decisiones _decision_contrario;		// Decision actual 	(VARIABLE DE REFERENCIA)
+	enum Enum_Acciones _accion_contrario;			// Accion actual 	(VARIABLE DE REFERENCIA)
+	enum Enum_Tipo_Ataque _ataque_contrario;		// Ataque actual 	(VARIABLE DE REFERENCIA)
 
 
 	// Datos de distancia y percepcion con elementos del entorno
@@ -123,6 +128,7 @@ private:
 		//Con el jugador
 	float _distancia_jugador;				// Distancia a la que se encuentra del jugador
 	enum Enum_Acciones _accion_jugador;		// Accion que realiza el jugador actualmente
+	enum Enum_Tipo_Ataque _ataque_jugador;		// Ataque actual del jugador
 	bool _se_acerca;						// Indica si el jugador se aleja o acerca con respecto a el ultimo instante de tiempo
 	bool _jugador_tiene_arma;				// Indica si el jugador tiene arma o no
 
