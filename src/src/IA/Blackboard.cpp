@@ -21,7 +21,7 @@ void Blackboard::actualiza_datos() {
 	_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
-	// AQUI SE HACEN CALCULOS SOBRE LAS VARIABLES QUE SE ACTUALIZAN AUTOMATICAMENTE
+	// AQUI SE HACEN CALCULOS SOBRE LAS VARIABLES QUE SE ACTUALIZAN AUTOMATICAMENTE (que van en punteros)
 	// P. EJ. _se_acerca ES ALGO QUE NO SE VA A ACTUALIZAR, SE DEBE CALCULAR EN CADA ACTUALIZA_DATOS
 }
 
@@ -69,21 +69,17 @@ enum Enum_Acciones Blackboard::get_accion() {
 
 
 int8_t Blackboard::get_level_of_detail() {
-	return _level_of_detail[0];
+	return (*_level_of_detail);
 }
 
 bool Blackboard::get_alertado() {
 	return _alertado;
 }
 
-bool Blackboard::get_hay_orden() {
-	return _hay_orden;
-}
-
 
 
 bool Blackboard::get_tiene_arma() {
-	return _tiene_arma;
+	return (_tiene_arma_corta || _tiene_arma_larga);
 }
 
 bool Blackboard::get_tiene_arma_corta() {

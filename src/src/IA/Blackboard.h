@@ -8,6 +8,7 @@
 
 #include "Enum_Acciones.h"
 
+#include "../Personajes/Enum_Tipo_Ataque.h"
 #include "../Personajes/Enum_Tipo_Enemigo.h"
 
 class Interfaz_Datos;
@@ -19,7 +20,7 @@ public:
 
 
 	//FUNCIONES DE REFRESCO Y OBTENCION DE DATOS
-	void actualiza_datos();									//Actualiza los datos del blackboard para ese instante
+	void actualiza_datos();									//Actualiza los datos del blackboard para cada iteracion
 
 
 	//FUNCIONES DE TOMA DE DECISION
@@ -41,7 +42,6 @@ public:
 
 	int8_t* get_level_of_detail();
 	bool get_alertado();
-	bool get_hay_orden();
 
 	bool get_tiene_arma();
 	bool get_tiene_arma_corta();
@@ -90,31 +90,33 @@ private:
 	unsigned short _n_npc;					// Numero del NPC
 	enum Enum_Tipo_Enemigo *_tipo_npc;		// Tipo de NPC que es
 
-	// Datos 
+	// Datos de estado
 	int16_t* _vida_actual;					// Vida actual
 	int16_t _vida_max;						// Vida maxima
-	float _porcentaje_vida;					// Porcentaje vida actual
+	float _porcentaje_vida;					// Porcentaje vida actual (Se calcula en cada iteracion)
 	uint8_t* _rango_ataque_normal;			// Rango de ataque normal
 	uint8_t* _rango_ataque_fuerte;			// Rango de ataque normal
 
 
 	// Datos de accion y decision propio de cada enemigo
-	enum Enum_Decisiones _decision;			// Decision actual
-	enum Enum_Acciones _accion;				// Accion actual
+	enum Enum_Decisiones _decision;			// Decision actual 			(Controlado por Pablo)
+	enum Enum_Acciones _accion;				// Accion actual   			(Controlado por Pablo)
 
 
 	// Datos de estado
-	int8_t* _level_of_detail;		// Level of detail que se aplica
-	bool _alertado;							// Esta alertado o no
-	bool _hay_orden;						// Hay orden o no
-	// orden - no definido
+	int8_t _level_of_detail;				// Level of detail que se aplica
+	bool _alertado;							// Esta alertado o no  (Controlado por Pablo)
+
 
 	// Datos de inventario
-	bool _tiene_arma;						// Tiene arma o no (de un tipo)
-	bool _tiene_arma_corta;					// Tiene un arma de corta distancia
-	unsigned short _rango_arma_corta;		// Rango del arma corta
-	bool _tiene_arma_larga;					// Tiene un arma de larga distancia
-	unsigned short _rango_arma_larga;		// Rango del arma larga
+	bool* _tiene_arma_corta;					// Tiene un arma de corta distancia
+	unsigned short* _rango_arma_corta;		// Rango del arma corta
+	bool* _tiene_arma_larga;					// Tiene un arma de larga distancia
+	unsigned short* _rango_arma_larga;		// Rango del arma larga
+
+	// Blackboard del NPC contrario (PARA LOS ALIADOS PUEDEN SER DE CUALQUIER TIPO DE ENEMIGO Y PARA LOS ENEMIGOS DE TIPO ALIADO)
+	Blackboard* _npc_contrario;
+
 
 	// Datos de distancia y percepcion con elementos del entorno
 
