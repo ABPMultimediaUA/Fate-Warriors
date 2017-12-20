@@ -13,7 +13,6 @@ public:
 	virtual ~Player();
 	void update() override;
 	void render() override;
-	short get_vida();
 	
 	//ckeyboardman* _KeyMan;
 private:

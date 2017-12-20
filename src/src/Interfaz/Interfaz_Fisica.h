@@ -23,6 +23,7 @@ class Interfaz_Fisica{
 public:
 	unsigned short CargaRigidBodyProta(int mass, float x, float y, float z);
 	unsigned short CargaRigidBody(int mass, float x, float y, float z);
+	unsigned short CargaRigidBodyCharacter(int mass, float x, float y, float z);
 	Vector3 moverObjeto(Vector3 vec, unsigned short id);
 	void update();
 	Vector3 Saltar(unsigned short id, unsigned short valor);

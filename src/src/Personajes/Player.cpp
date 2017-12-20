@@ -8,6 +8,9 @@
 #include "../Tiempo/Time.h"
 #include "../Interfaz/Matcher.h"
 #include "../Utilidades/Modelados.h"
+
+#include "../Game.h"
+#include "../Action_Manager.h"
                                                                                               //  vida_prota, velocidad
 Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 10000)
                                                                 {   
@@ -90,6 +93,10 @@ void Player::update(){
             desp_x += cos(angulo) * _velocidad * _time;
             moving = true;
         }
+        
+        if(controles->estaPulsada(Input_key::E)){
+            Game::game_instancia()->game_get_action_manager()->comprobar_objetos_interactuables_cercanos(this);  
+        }
 
         if(controles->estaPulsada(Input_key::Space)){
             _matcher->Saltar();
@@ -97,10 +104,22 @@ void Player::update(){
         }
 
         if(controles->estaPulsada(Input_key::Escape)){
+          
             interface->Interfaz_Apagar();
         }
-        //setX(miX);
-        //setZ(miZ);
+
+        if(controles->estaPulsada(Input_key::MouseLeft)){
+            Game::game_instancia()->game_get_action_manager()->atacar(this);
+        }
+
+        if(controles->estaPulsada(Input_key::MouseRight)){
+            std::cout<< "MOUSER" <<std::endl;
+        }
+
+        
+        setX(miX);
+        setZ(miZ);
+
         //interface->Interfaz_moverProta(miX, miZ);
         if(moving){
             _matcher->Mover(desp_x,miY,desp_z);
@@ -109,7 +128,7 @@ void Player::update(){
             //std::cout<<"-------BBBBBBBBBBBBBBBBBBBBBB-------------------------"<<std::endl;
             _matcher->Mover(0,0,0);
         }
-            //std::cout<<"-------------MOVING: "<<moving<<"----------------------"<<std::endl;
+
         _tiempo_anterior = _otro_tiempo;
 
         

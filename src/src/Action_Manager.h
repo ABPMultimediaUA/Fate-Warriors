@@ -16,6 +16,10 @@ public:
 	void mover(Character* _i_personaje, unsigned short _i_direccion);
 
 	Interfaz_Datos* get_interfaz();
+    
+    void comprobar_objetos_interactuables_cercanos(Character* _i_personaje);
+
+	void atacar(Character* _i_personaje);
 
 private:
 	Interfaz_Datos *_interfaz_decision; 	//Interfaz que permite la comunicacion entre toma de decision y datos

@@ -71,3 +71,11 @@ Objeto* Inventario::get_objeto_cerca(){
 Objeto* Inventario::get_objeto_distancia(){
 	return _objeto_distancia;
 }
+
+std::vector<Llave*> Inventario::get_llaves(){
+    return _llaves;
+}
+
+void Inventario::anadir_llave(Llave* _i_llave){
+    _llaves.push_back(_i_llave);
+}

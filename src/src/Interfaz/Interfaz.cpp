@@ -8,7 +8,7 @@ Interfaz* Interfaz::_instancia=0;
 
 Interfaz* Interfaz::Interfaz_getInstance(){
 	if(_instancia==0){
-		_instancia= new Interfaz(false,1280,720);
+		_instancia= new Interfaz(false,800,600);
 	}
 	return _instancia;
 }
@@ -120,7 +120,7 @@ unsigned short Interfaz::Interfaz_cargaModeloZip(char* rutaFile,
 	_nodes.push_back(_node);
 	_nodeCounter++;
 	_node->setPosition(core::vector3df(x, y, z));
-	//std::cout<<"----AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA--------"<<std::endl;
+
 	return (_nodeCounter);
 }
 
@@ -242,7 +242,7 @@ void Interfaz::Interfaz_moverModelo(unsigned short id, float x, float y,
 
 void Interfaz::Interfaz_moverProta(float x,
 		float z) {
-	//std::cout<<"-----------MOVIMIENTO GRAFICO----------"<<_Prota<<std::endl;
+
 	_Prota->setPosition(core::vector3df(x,_Prota->getPosition().Y,z));
 }
 

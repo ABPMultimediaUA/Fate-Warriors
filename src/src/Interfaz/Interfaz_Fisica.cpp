@@ -1,5 +1,7 @@
 #include "Interfaz_Fisica.h"
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
+#include <BulletDynamics/Character/btKinematicCharacterController.h>
 #include "../Utilidades/Vector.h"
 #include "Interfaz.h"
 
@@ -34,9 +36,7 @@ Interfaz_Fisica::Interfaz_Fisica():_interfaz_graficos(Interfaz::Interfaz_getInst
 	_rigidBodyCounter = 0;
 }
 
-void Interfaz_Fisica::update(){
-	
-	
+void Interfaz_Fisica::update(){	
 	btTransform transform;
 
 	_dynamicsWorld->stepSimulation(1 / 60.f, 10);
@@ -44,11 +44,14 @@ void Interfaz_Fisica::update(){
 	//_dynamicsWorld->getDebugDrawer()->setDebugMode( btIDebugDraw::DBG_DrawWireframe );
 	//_dynamicsWorld->debugDrawWorld();
 
+
 	for(int cont = 0; cont<_VRigidBodys.size(); cont++){
+		
 		_VRigidBodys.at(cont)->getMotionState()->getWorldTransform(transform);
 		btVector3 pos =	transform.getOrigin();
 		_interfaz_graficos->Interfaz_moverModelo(cont, pos.x(), pos.y(), pos.z());
 	}
+	
 	//this->Interfaz_collisionEnable();
 	
 	//_fallRigidBody->getMotionState()->getWorldTransform(trans);
@@ -67,7 +70,8 @@ void Interfaz_Fisica::update(){
 Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
 	//std::cout<<"--------------------------entra-------------------------"<<std::endl;
 	//Vector3 vectorsito(0,0,100);
-	
+	btVector3 tsero(0,0,0);
+	_VRigidBodys.at(id)->setLinearVelocity(tsero);
 	btTransform trans;
 	//std::cout<<"moverX:  "<<vec._x<<"     moverZ:  "<<vec._z<<std::endl;
 	btVector3 vectorBullet(vec._x, 0, vec._z);
@@ -101,7 +105,7 @@ Vector3 Interfaz_Fisica::moverObjeto(Vector3 vec, unsigned short id){
 	adevolver._x = pos.getX(); 
 	adevolver._y = pos.getY();
 	adevolver._z = pos.getZ();
-	//std::cout<<"adevolverX: "<<adevolver._x<<"adevolverY: "<<adevolver._y<<"adevolverZ: "<<adevolver._z<<std::endl;
+
 	
 	return(adevolver);
 }
@@ -113,7 +117,6 @@ unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float
 	btVector3 			fallInertia(0, 0, 0);
 	
 	_fallShape->calculateLocalInertia(mass, fallInertia);
-	//std::cout<<"MASA: "<<Mymass<<std::endl;
 	btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, _fallMotionState,
 															_fallShape, fallInertia);
 				
@@ -126,6 +129,41 @@ unsigned short Interfaz_Fisica::CargaRigidBody(int mass, float x, float y, float
 	return(counter);
 }
 
+
+unsigned short Interfaz_Fisica::CargaRigidBodyCharacter(int mass, float x, float y, float z){
+
+	btPairCachingGhostObject *ghostObject = new btPairCachingGhostObject();
+	btTransform transform (btQuaternion(0, 0, 0, 1), btVector3(x, y, z));
+	btVector3 algo(x,y,z);  
+	transform.setOrigin(algo);
+
+	ghostObject->setWorldTransform(transform);
+	btScalar characterHeight	= 80;
+	btScalar characterWidth  	= 30;
+	btConvexShape* capsule 		= new btCapsuleShape(characterWidth,characterHeight);
+	ghostObject->setCollisionShape (capsule);
+	ghostObject->setCollisionFlags (btCollisionObject::CF_CHARACTER_OBJECT);
+	btScalar stepHeight = btScalar(0.35);
+
+	btKinematicCharacterController* character = new btKinematicCharacterController(ghostObject,capsule,stepHeight);
+
+
+	_fallMotionState 	= new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar Mymass 	= mass;
+	btVector3 			fallInertia(0, 0, 0);
+	
+	btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, _fallMotionState,
+															capsule, fallInertia);
+				
+	btRigidBody* rigidBody 		= new btRigidBody(fallRigidBodyCI);	
+	_dynamicsWorld->addRigidBody(rigidBody);
+	
+	_VRigidBodys.push_back(rigidBody);
+	unsigned short counter = _rigidBodyCounter;
+	_rigidBodyCounter++;
+	return(counter);
+
+}
 
 Vector3 Interfaz_Fisica::Saltar(unsigned short id, unsigned short valor){
 	
@@ -181,11 +219,12 @@ Interfaz_Fisica::~Interfaz_Fisica(){
 	delete _fallMotionState;		
 	_fallMotionState=nullptr;
 
+	//	delete _fallRigidBody;
+	//	_fallRigidBody=nullptr;
+
+
 	for(int cont = 0; cont<_VRigidBodys.size(); cont++){
 		delete _VRigidBodys.at(cont);
 	}
 
-	//std::cout<<"todo borrado"<<std::endl;
-
-	//delete _interfaz_graficos;
 }

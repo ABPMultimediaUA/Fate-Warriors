@@ -9,6 +9,9 @@
 #include "Interfaz/Interfaz.h"
 #include "Interfaz/Interfaz_Fisica.h"
 #include "Nivel/Nivel.h"
+#include "Consumibles/Consumible_action.h"
+#include "Trampas/Trampas_action.h"
+
 
 #include <iostream>
 #include <stack>
@@ -21,9 +24,14 @@ Game* Game::game_instancia(){
 
 	return instancia;
 }
-Game::Game() : _datos(nullptr), _action_manager(nullptr), _decision_manager(nullptr), _interfaz_grafica(nullptr), _interfaz_fisica(nullptr){
-
-}
+Game::Game() : _datos(nullptr), 
+			   _action_manager(nullptr), 
+			   _decision_manager(nullptr), 
+			   _interfaz_grafica(nullptr), 
+			   _interfaz_fisica(nullptr),
+			   _consumibles_action(nullptr),
+			   _trampas_action(nullptr)
+			   {}
 
 Game::~Game(){
 
@@ -47,21 +55,35 @@ Game::~Game(){
 		delete _interfaz_fisica;
 		_interfaz_fisica = nullptr;
 	}
+
+	if(_consumibles_action != nullptr) {
+		delete _consumibles_action;
+		_consumibles_action = nullptr;
+	}
+
+	if(_trampas_action != nullptr) {
+		delete _consumibles_action;
+		_consumibles_action = nullptr;
+	}
 }
 
 
 void Game::crea_partida() {	
-	_interfaz_grafica = Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
-	_interfaz_fisica = Interfaz_Fisica::Interfaz_Fisica_GetInstance();
-	_datos = new Datos_Partida();
-	_action_manager = new Action_Manager();
-	_decision_manager = new Decision_Manager(_action_manager);
+	_interfaz_grafica 	= Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
+	_interfaz_fisica 	= Interfaz_Fisica::Interfaz_Fisica_GetInstance();
+	_datos 				= new Datos_Partida();
+	_action_manager 	= new Action_Manager();
+	_decision_manager 	= new Decision_Manager(_action_manager);
+	_consumibles_action = new Consumible_action();	
+	_trampas_action 	= new Trampas_action();	
+
 
 	//cargar nivel 1
+	/*
 	std::string nivel="txt/Nivel/Nivel1.txt";
-	Nivel* _nivel1=new Nivel(nivel);
+	Nivel* _nivel1=Nivel::nivel_instancia();
 
-	_nivel1->nivel_set_lod(3);
+	/*_nivel1->nivel_set_lod(3);
 
 	stack<Vertice*> algo2=_nivel1->nivel_camino_corto_l2(_nivel1->nivel_get_vertice(5),_nivel1->nivel_get_vertice(32));
 	Vertice *pv2;
@@ -74,7 +96,7 @@ void Game::crea_partida() {
                     }
                     std::cout<<std::endl;
 	std::cout <<_nivel1->nivel_get_nodo(7)->_blackboard->get_zonas_ady()[0] <<std::endl;
-	std::cout << _nivel1->nivel_get_id_vertice(67,27)<<std::endl;
+	std::cout << _nivel1->nivel_get_id_vertice(67,27)<<std::endl;*/
 
 }
 
@@ -86,13 +108,17 @@ void Game::fin_partida() {
 	
 	delete _interfaz_grafica;
 	delete _interfaz_fisica;
+	delete _consumibles_action;
+	delete _trampas_action;
 
 
-	_datos = nullptr;
-	_decision_manager = nullptr;
-	_action_manager = nullptr;
-	_interfaz_grafica = nullptr;
-	_interfaz_fisica = nullptr;
+	_datos 				= nullptr;
+	_decision_manager 	= nullptr;
+	_action_manager 	= nullptr;
+	_interfaz_grafica 	= nullptr;
+	_interfaz_fisica 	= nullptr;
+	_consumibles_action = nullptr;
+	_trampas_action 	= nullptr;
 }
 
 void Game::run(){
@@ -104,8 +130,14 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	
 	Player *_player = _datos->get_player();
 	_player->update();
+	//_consumibles_action->comprobar_consumibles();
+	//_trampas_action->update();
 	_player = nullptr;
+		                std::cout << "aqui no llega1" << std::endl;
+
 	_interfaz_fisica->update();
+		                std::cout << "aqui no llega2" << std::endl;
+
 //std::cout<<"ALTURA:    "<<_interfaz_grafica->getHeight()<<std::endl;
 	_decision_manager->toma_decisiones();
 }
@@ -117,4 +149,8 @@ void Game::render(float _i_interpolacion){
   
 Datos_Partida* Game::game_get_datos() {
 	return _datos;
+}
+
+Action_Manager* Game::game_get_action_manager() {
+	return _action_manager;
 }

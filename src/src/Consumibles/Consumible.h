@@ -8,7 +8,8 @@ public:
 	Consumible(short _id, float _i_x, float _i_y, float _i_z, short _i_valor);
 	virtual ~Consumible();
 	void render();
-	virtual bool usar() = 0;
+	void update() override{};
+	virtual bool usar(){};
 	short get_valor();
 
 protected:

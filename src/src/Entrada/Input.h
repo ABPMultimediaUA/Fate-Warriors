@@ -106,6 +106,9 @@ enum Input_key {
         F15,          ///< The F15 key
         Pause,        ///< The Pause key
 
+        MouseLeft,
+        MouseRight,
+
         KeyCount      ///< Keep last -- the total number of keyboard keys
 };
 

@@ -5,7 +5,7 @@
 
 class Consumible_carne : public Consumible{
 public:
-	Consumible_carne(short _id, float _i_x, float _i_y, float _i_z, short vida);
+	Consumible_carne(short _id, float _i_x, float _i_y, float _i_z);
 	virtual ~Consumible_carne();
 
 	bool usar() override;

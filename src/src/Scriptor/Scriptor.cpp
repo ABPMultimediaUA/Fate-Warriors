@@ -34,7 +34,6 @@ void Scriptor::crear(std::string _i_fichero){
     	std::cout<<itr->first<<"->"<<itr->second<<std::endl;//display the key/value pair
     	i++;
 	}
-	std::cout << i << "valores" << std::endl;
 }
 
 
