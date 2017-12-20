@@ -21,7 +21,7 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	_nodos_decision = new Nodo_Decision*[MAX_NODOS];
 
 	//Lectura de fichero y eso [COMING SOON]
-	_nodos_decision[0] = new Nodo_Decision_Distancia(*_acciones[Andar], *_acciones[Atacar], 2);
+	_nodos_decision[0] = new Nodo_Decision_Distancia(*_acciones[Atacar], *_acciones[Andar], 3);
 
 
 	//Asignacion de los arboles

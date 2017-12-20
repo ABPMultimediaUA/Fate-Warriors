@@ -13,7 +13,7 @@ Nodo_Decision_LOD::~Nodo_Decision_LOD() {
 }
 
 enum Enum_Acciones Nodo_Decision_LOD::toma_decision(Blackboard* _blackboard){
-	unsigned short _lod = _blackboard->get_level_of_detail();
+	int8_t _lod = _blackboard->get_level_of_detail();
 
 	if(_lod > _valor) {
 		return _nodo_izq->toma_decision(_blackboard);

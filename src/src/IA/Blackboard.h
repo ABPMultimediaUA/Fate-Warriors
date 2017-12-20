@@ -31,60 +31,133 @@ public:
 	void set_accion(enum Enum_Acciones _i_accion);			//Set la accion actual
 
 
-	//FUNCIONES DE DATOS EN PERSONAJE
-	unsigned short get_vida();
-
-
-	//FUNCIONES DE DATOS ALMACENADOS
+	// Datos de identidad del NPC
 	unsigned short get_n_enemigo();
 	enum Enum_Tipo_Enemigo get_tipo_enemigo();
-	unsigned short get_rango_ataque();
+	enum Enum_Tipo_Enemigo get_tipo_npc();
 
+	// Datos de estado
+	int16_t get_vida_actual();
+	int16_t get_vida_max();
+	float get_porcentaje_vida();
+	uint8_t get_rango_ataque_normal();
+	uint8_t get_rango_ataque_fuerte();
+
+
+	// Datos de accion y decision propio de cada enemigo
 	enum Enum_Decisiones get_decision();
 	enum Enum_Acciones get_accion();
+	enum Enum_Tipo_Ataque get_ataque();
 
-	int8_t* get_level_of_detail();
+
+	// Datos de estado
+	int8_t get_level_of_detail();
 	bool get_alertado();
 
+
+	// Datos de inventario
 	bool get_tiene_arma();
 	bool get_tiene_arma_corta();
-	unsigned short get_rango_arma_corta();
+	uint8_t get_rango_arma_corta();
 	bool get_tiene_arma_larga();
-	unsigned short get_rango_arma_larga();
+	uint8_t get_rango_arma_larga();
 
-	float get_distancia_jugador();
+
+	// Blackboard del NPC contrario (PARA LOS ALIADOS PUEDEN SER DE CUALQUIER TIPO DE ENEMIGO Y PARA LOS ENEMIGOS DE TIPO ALIADO)
+	enum Enum_Decisiones get_decision_contrario();
+	enum Enum_Acciones get_accion_contrario();
+	enum Enum_Tipo_Ataque get_ataque_contrario();
+	float get_x_contrario();
+	float get_z_contrario();
+	float get_distancia_contrario();
+	int16_t get_vida_actual_npc_contrario();
+	int16_t get_vida_max_npc_contrario();
+	float get_porcentaje_vida_contrario();
+	bool get_tiene_arma_contrario();
+	bool get_tiene_arma_corta_contrario();
+	bool get_tiene_arma_larga_contrario();
+	bool get_se_acerca_contrario();
+	
+
+	//Con el jugador
+	enum Enum_Decisiones get_decision_jugador();
 	enum Enum_Acciones get_accion_jugador();
+	enum Enum_Tipo_Ataque get_ataque_jugador();
+	float get_x_jugador();
+	float get_z_jugador();
+	float get_distancia_jugador();
+	int16_t get_vida_actual_jugador();
+	int16_t get_vida_max_jugador();
+	float get_porcentaje_vida_jugador();
+	bool get_tiene_arma_jugador();
+	bool get_tiene_arma_corta_jugador();
+	bool get_tiene_arma_larga_jugador();
 	bool get_se_acerca();
-	bool get_jugador_tiene_arma();
+	bool get_jugador_en_zona();
+	uint8_t get_distancia_jugador_puerta_cerca();
+	bool get_tiene_llave();
 
-	unsigned short get_n_aliados_zona();
 
-	float get_distancia_objeto();
-	bool get_jugador_entre_objeto();
+	//Con objetos
+	float get_distancia_objeto_cercano();
+	bool get_jugador_entre_objeto();	
 
-	unsigned short get_n_enemigos_zona();
+
+	//Con otros enemigos
 	float get_distancia_enemigo_cercano();
 	float get_distancia_enemigo_lejano();
 	bool get_enemigos_tienen_arma();
+	int16_t get_vida_actual_enemigo_cerca();
+	int16_t get_vida_maxima_enemigo_cerca();
+	float get_porcentaje_vida_enemigo_cerca();
+	uint8_t get_n_enemigos_cerca();
+	uint8_t get_n_enemigos_medio();
+	uint8_t get_n_enemigos_lejos();
+	bool get_enemigo_alertado_medio();
+	bool get_enemigo_alertado_lejos();
 
-	unsigned short get_n_pasillos();
-	unsigned short get_distancia_pasillos(unsigned short _i_n_pasillo);
-	unsigned short get_n_enemigos_min_pasillo();
-	unsigned short get_n_paredes_cerca();
-	unsigned short get_n_paredes_medio();
-	unsigned short get_n_paredes_lejos();
 
-	unsigned short get_zonas_adyacentes();
-	unsigned short get_zonas_enemigas();
-	unsigned short get_zonas_jugador();
+	//Con otros aliados
+	float get_distancia_aliado_cercano();
+	float get_distancia_aliado_lejano();
+	bool get_aliados_tienen_arma();
+	int16_t get_vida_actual_aliado_cerca();
+	int16_t get_vida_maxima_aliado_cerca();
+	float get_porcentaje_vida_aliado_cerca();
+	uint8_t get_n_aliados_cerca();
+	uint8_t get_n_aliados_medio();
+	uint8_t get_n_aliados_lejos();
 
-	bool get_interactuable_en_zona_adyacente();
-	unsigned short get_id_zona_interactuable();
+
+	//Con informacion de la zona
+	int8_t get_n_enemigos_zona();
+	int8_t get_n_aliados_zona();
+	float get_n_aliados_por_n_enemigos();
+
+	uint8_t get_n_pasillos();
+	uint8_t get_distancia_pasillos();
+	uint8_t get_n_enemigos_min_pasillo();
+	uint8_t get_n_paredes_cerca();
+	uint8_t get_n_paredes_medio();
+	uint8_t get_n_paredes_lejos();
+	bool get_jugador_entre_pasillo_y_yo();
+
+
+	//Con otras zonas
+	uint8_t get_zonas_adyacentes();
+	uint8_t get_zonas_enemigas();
+	uint8_t get_zonas_jugador();
+	enum Enum_zonas get_tipo_zona_cercana();
+	bool get_puedo_ir_zona_cercana();
+
+
+	//Con objetos interactuables
 	bool get_interruptor_en_zona();
 	bool get_interruptor_activado();
-	unsigned short get_dist_jug_interruptor();
+	bool get_soy_enemigo_mas_cerca_interruptor();
+	uint8_t get_dist_jug_interruptor();
 	bool get_powerup_zona_adyacente();
-	unsigned short get_id_zona_powerup();
+	uint8_t get_id_zona_powerup();
 
 private:
 	Interfaz_Datos* _interfaz;
@@ -142,7 +215,7 @@ private:
 	//float _x_jugador, _z_jugador;					// Posicion del jugador mas cercano (VARIABLE DE REFERENCIA)
 	float _distancia_jugador;						// Distancia del jugador mas cercano
 	//int16_t* _vida_actual_jugador;				// Vida actual jugador cercano 		(VARIABLE DE REFERENCIA)
-	//int16_t* _vida_max_jugador					// Vida maxima jugador cercano 		(VARIABLE DE REFERENCIA)
+	//int16_t* _vida_max_jugador;					// Vida maxima jugador cercano 		(VARIABLE DE REFERENCIA)
 	float _porcentaje_vida_jugador;					// Porcentaje vida actual jugador cercano (Se calcula en cada iteracion)
 	bool* _tiene_arma_corta_jugador;				// Tiene un arma de corta distancia
 	bool* _tiene_arma_larga_jugador;				// Tiene un arma de larga distancia
@@ -174,34 +247,34 @@ private:
 	//Con otros aliados
 	float _distancia_aliado_cercano;		// Distancia al aliado mas cercano
 	float _distancia_aliado_lejano;			// Distancia al aliado mas lejano de la zona
-	bool _enemigos_tienen_arma;				// Indica si algun aliado en la zona tiene arma
-	int16_t* _vida_actual_enemigo_cerca;	// Vida actual del enemigo cercano
-	int16_t _vida_maxima_enemigo_cerca;		// Vida maxima del enemigo cercano
-	float _porcentaje_vida_enemigo_cerca;	// Porcentaje vida actual del enemigo cercano (¿Se calcula en cada iteracion?)
+	bool _aliados_tienen_arma;				// Indica si algun aliado en la zona tiene arma
+	int16_t* _vida_actual_aliado_cerca;	// Vida actual del enemigo cercano
+	int16_t _vida_maxima_aliado_cerca;		// Vida maxima del enemigo cercano
+	float _porcentaje_vida_aliado_cerca;	// Porcentaje vida actual del enemigo cercano (¿Se calcula en cada iteracion?)
 	uint8_t _n_aliados_cerca;				// Nº de aliados a menos de 3 metros
 	uint8_t _n_aliados_medio;				// Nº de aliados a menos de 5 metros
 	uint8_t _n_aliados_lejos;				// Nº de aliados a menos de 7 metros
 
 
 	//Con informacion de la zona
-	Nodo_blackboard _zona;					// Blackbaord de la zona
+	Nodo_blackboard* _zona;					// Blackbaord de la zona
 	int8_t* _n_enemigos_zona;				// Nº de enemigos en la zona 	(PUNTERO A ZONA Y GET?)
 	int8_t* _n_aliados_zona;				// Nº de aliados en la zona 	(PUNTERO A ZONA Y GET?)
 	float _n_aliados_por_n_enemigos;		// Nº aliados / nº de enemigos
 
-	unsigned short _n_pasillos;				// Nº de pasillos de la zona
-	unsigned short* _distancia_pasillos;	// Distancia a los pasillos de menor a mayor (Eso o crear tantas variables como max de pasillos posible y si no hay pues vale ushortmax o algo asi)
-	unsigned short _n_enemigos_min_pasillo;	// Nº de enemigos entre yo y el pasillo mas cercano
-	unsigned short _n_paredes_cerca;		// Nº de paredes a menos de 3 metros
-	unsigned short _n_paredes_medio;		// Nº de paredes a menos de 5 metros
-	unsigned short _n_paredes_lejos;		// Nº de paredes a menos de 7 metros
+	uint8_t _n_pasillos;				// Nº de pasillos de la zona
+	uint8_t* _distancia_pasillos;	// Distancia a los pasillos de menor a mayor (Eso o crear tantas variables como max de pasillos posible y si no hay pues vale ushortmax o algo asi)
+	uint8_t _n_enemigos_min_pasillo;	// Nº de enemigos entre yo y el pasillo mas cercano
+	uint8_t _n_paredes_cerca;		// Nº de paredes a menos de 3 metros
+	uint8_t _n_paredes_medio;		// Nº de paredes a menos de 5 metros
+	uint8_t _n_paredes_lejos;		// Nº de paredes a menos de 7 metros
 	bool _jugador_entre_pasillo_y_yo;		// Indica si el jugador esta entre el pasillo mas cercano y yo
 
 
 	//Con otras zonas
-	unsigned short _zonas_adyacentes;		// Nº de zonas adyacentes
-	unsigned short _zonas_enemigas;			// Nº de zonas de los enemigos
-	unsigned short _zonas_jugador;			// Nº de zonas de los jugadores
+	uint8_t _zonas_adyacentes;		// Nº de zonas adyacentes
+	uint8_t _zonas_enemigas;			// Nº de zonas de los enemigos
+	uint8_t _zonas_jugador;			// Nº de zonas de los jugadores
 	enum Enum_zonas _tipo_zona_cercana;		// Tipo de la zona mas cercana
 	bool _puedo_ir_zona_cercana;			// Indica si se puede acceder a la zona cercana
 
@@ -210,9 +283,9 @@ private:
 	bool _interruptor_en_zona;				// Indica si hay un interruptor en la zona
 	bool _interruptor_activado;				// Indica si hay un interruptor activado
 	bool _soy_enemigo_mas_cerca_interruptor;// Indica si se es el enemigo mas cercano al interruptor
-	unsigned short _dist_jug_interruptor; 	// Distancia del jugador al interruptor
+	uint8_t _dist_jug_interruptor; 	// Distancia del jugador al interruptor
 	bool _powerup_zona_adyacente;			// Indica si hay una zona de powerup en una zona adyacente
-	unsigned short _id_zona_powerup;		// ID de la zona donde hay un powerup
+	uint8_t _id_zona_powerup;		// ID de la zona donde hay un powerup
 
 };
 

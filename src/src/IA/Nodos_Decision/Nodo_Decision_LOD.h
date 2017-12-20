@@ -1,6 +1,8 @@
 #ifndef SRC_NODO_DECISION_LOD_H_
 #define SRC_NODO_DECISION_LOD_H_
 
+#include <cstdint>
+
 #include "Nodo_Decision.h"
 
 class Nodo_Decision_LOD : public Nodo_Decision {
@@ -11,7 +13,7 @@ public:
 	enum Enum_Acciones toma_decision(Blackboard* _blackboard);
 
 private:
-	unsigned short _valor;
+	int8_t _valor;
 };
 
 #endif /* SRC_NODO_DECISION_LOD_H_ */
