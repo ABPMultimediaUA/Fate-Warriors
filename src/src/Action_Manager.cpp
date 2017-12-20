@@ -9,11 +9,6 @@
 #include "Personajes/Player.h"
 #include "Personajes/NPC_Manager.h"
 #include "Game.h"
-#include "Datos_Partida.h"
-#include "Interactuable_Manager.h"
-#include "Llave.h"
-#include "Puerta.h"
-#include "Inventario.h"
 
 #include<iostream>
 #include<vector>

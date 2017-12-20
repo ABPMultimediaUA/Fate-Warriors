@@ -24,6 +24,10 @@ public:
 	short get_danyo_ataque_fuerte();
 	void interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
+	void set_tiempo_inicio_bloqueado(double i_tiempo_inicio_bloqueado);
+	double get_tiempo_inicio_bloqueado();
+	void set_bloqueado(bool i_bloqueado);
+	bool get_bloqueado();
 	
 protected:
 	short _vida_maxima;
@@ -31,6 +35,8 @@ protected:
 	short _velocidad;
 	short _danyo_ataque_normal;
 	short _danyo_ataque_fuerte;
+	double _tiempo_inicio_bloqueado; // El tiempo cuando ha empezado a realizar el Tipo_Accion que bloquea los inputs
+	bool _bloqueado; // Si se encuentra bloqueado por el Tipo_Accion
     Inventario* _inventario;
 };
 

@@ -140,3 +140,18 @@ void Character::interactuar_con_objeto(){
 	}
 }
 
+void Character::set_tiempo_inicio_bloqueado(double i_tiempo_inicio_bloqueado){
+    _tiempo_inicio_bloqueado = i_tiempo_inicio_bloqueado;
+}
+
+double Character::get_tiempo_inicio_bloqueado(){
+    return _tiempo_inicio_bloqueado;
+}
+
+void Character::set_bloqueado(bool _i_bloqueado){
+    _bloqueado = _i_bloqueado;
+}
+
+bool Character::get_bloqueado(){
+    return _bloqueado;
+}

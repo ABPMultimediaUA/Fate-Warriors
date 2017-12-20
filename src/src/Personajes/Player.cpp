@@ -97,7 +97,26 @@ void Player::update(){
         }
         
         if(controles->estaPulsada(Input_key::E)){
-            this->interactuar_con_objeto();
+            std::cout<< "Pulsa E"<< std::endl;
+            
+            if(this->get_bloqueado() == true && this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 2000){
+                this->set_bloqueado(false);
+            }
+
+            if(this->get_bloqueado() == false){
+                this->interactuar_con_objeto();
+                this->set_tiempo_inicio_bloqueado(_tiempo->get_current());
+                this->set_bloqueado(true);
+                std::cout<< "SÍ INTERACTUA"<< std::endl;
+            }
+            else{
+                std::cout<< "No puede INTERACTUAR "<< std::endl;
+            }
+
+            
+            
+            //std::cout<< "Tiempo actual: "<< this->_tiempo->get_current() << std::endl;
+            //std::cout<< "Tiempo almacenado: "<< this->get_tiempo_inicio_bloqueado() << std::endl;
         }
 
         if(controles->estaPulsada(Input_key::Space)){
