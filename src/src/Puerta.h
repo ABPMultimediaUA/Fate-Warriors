@@ -11,6 +11,7 @@ public:
 	void render(){};
 
 	void set_abierta(bool _i_abierta);
+	bool get_abierta();
 
 private:
 	bool _abierta;

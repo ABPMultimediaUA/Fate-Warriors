@@ -23,6 +23,7 @@ public:
 	void cambiar_seleccionado();
     
     void anadir_llave(Llave* _i_llave);
+	void eliminar_llave(Llave* _i_llave);
 	
 	/*GET*/
 	Objeto* get_seleccionado();
