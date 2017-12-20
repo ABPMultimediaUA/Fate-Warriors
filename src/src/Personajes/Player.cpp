@@ -97,7 +97,7 @@ void Player::update(){
         }
         
         if(controles->estaPulsada(Input_key::E)){
-            Game::game_instancia()->game_get_action_manager()->comprobar_objetos_interactuables_cercanos(this);  
+            this->interactuar_con_objeto();
         }
 
         if(controles->estaPulsada(Input_key::Space)){
@@ -111,11 +111,12 @@ void Player::update(){
         }
 
         if(controles->estaPulsada(Input_key::MouseLeft)){
-            Game::game_instancia()->game_get_action_manager()->atacar(this, Ataque_Normal);
+            this->atacar(Ataque_Normal);
         }
 
         if(controles->estaPulsada(Input_key::MouseRight)){
             std::cout<< "MOUSER" <<std::endl;
+            this->atacar(Ataque_Fuerte);
         }
 
         

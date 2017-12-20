@@ -2,6 +2,7 @@
 #define SRC_CHARACTER_H_
 
 #include "../Objeto_Movil.h"
+#include "Enum_Tipo_Ataque.h"
 
 class Interfaz;
 class Inventario;
@@ -21,6 +22,8 @@ public:
 	bool isDead();
 	short get_danyo_ataque_normal();
 	short get_danyo_ataque_fuerte();
+	void interactuar_con_objeto();
+	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
 	
 protected:
 	short _vida_maxima;
