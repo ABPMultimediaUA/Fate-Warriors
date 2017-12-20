@@ -16,7 +16,7 @@ Matcher::Matcher(char* ruta, float x, float y, float z, int masa, bool isProta):
         _identificador_grafico = _interfaz_graficos->Interfaz_cargaModelo(ruta, false, x, y, z);     
     }
     else{
-        _identificador_fisico  = _interfaz_fisicas->CargaRigidBody(masa, x, y, z);
+        _identificador_fisico  = _interfaz_fisicas->CargaRigidBodyCharacter(masa, x, y, z);
         _identificador_grafico = _interfaz_graficos->Interfaz_crearProta(ruta, false, x, y, z);     
     }
 }
@@ -36,7 +36,7 @@ Matcher::Matcher(char* ruta, char* nombreModelado, float x, float y, float z, in
         _identificador_grafico = _interfaz_graficos->Interfaz_cargaModeloZip(ruta, nombreModelado, false, x, y, z);      
     }
     else{  
-        _identificador_fisico = _interfaz_fisicas->CargaRigidBody(masa, x, y, z);        
+        _identificador_fisico = _interfaz_fisicas->CargaRigidBodyCharacter(masa, x, y, z);        
         _identificador_grafico = _interfaz_graficos->Interfaz_crearProtaZip(ruta, nombreModelado, false, x, y, z);
     }
 }

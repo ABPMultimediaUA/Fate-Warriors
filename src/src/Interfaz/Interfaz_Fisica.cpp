@@ -138,8 +138,8 @@ unsigned short Interfaz_Fisica::CargaRigidBodyCharacter(int mass, float x, float
 	transform.setOrigin(algo);
 
 	ghostObject->setWorldTransform(transform);
-	btScalar characterHeight	= 80;
-	btScalar characterWidth  	= 30;
+	btScalar characterHeight	= 15;
+	btScalar characterWidth  	= 10;
 	btConvexShape* capsule 		= new btCapsuleShape(characterWidth,characterHeight);
 	ghostObject->setCollisionShape (capsule);
 	ghostObject->setCollisionFlags (btCollisionObject::CF_CHARACTER_OBJECT);
