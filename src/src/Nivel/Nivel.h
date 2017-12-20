@@ -30,6 +30,7 @@ public:
 	Pasillo * nivel_get_pasillo(int _i_id);
 	void nivel_set_lod(int _i_id);
 	int nivel_get_id_vertice(float _i_x, float _i_y);
+	Nodo_blackboard* nivel_get_blackboard(float _i_x, float _i_y);
 	unsigned short nivel_pathfindinglod1(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino);
 	//unsigned short nivel_get_n_enemigos(int _i_id);
 	//void nivel_set_n_enemigos(int _i_id,unsigned short _i_n_enemigos);
@@ -38,14 +39,14 @@ public:
 		return _lod2->grafo_get_vertice(_i_id)->_lod;
 	}
 
-	inline unsigned short nivel_get_n_enemigos(int _i_id){
+	/*inline unsigned short nivel_get_n_enemigos(int _i_id){
 		//buscar el vertice con la id
 		return _lod2->grafo_get_vertice(_i_id)->_n_enemigos;
-	}
-	inline void nivel_set_n_enemigos(int _i_id,unsigned short _i_n_enemigos){
+	}*/
+	/*inline void nivel_set_n_enemigos(int _i_id,unsigned short _i_n_enemigos){
 		//buscar el vertice con la id
 		_lod2->grafo_get_vertice(_i_id)->_n_enemigos=_i_n_enemigos;
-	}
+	}*/
 
 //metodos de grafo
 	/*bool nivel_vacio();

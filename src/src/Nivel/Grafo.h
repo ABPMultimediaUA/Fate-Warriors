@@ -6,6 +6,7 @@
 
 class Vertice;
 class Arista;
+class Nodo_blackboard;
 class Grafo
 {
 private:
@@ -20,7 +21,7 @@ public:
 
 	bool grafo_vacio();
 	int grafo_tamano();
-
+	Nodo_blackboard* grafo_get_blackboard(float _i_x, float _i_y);
 	Vertice * grafo_get_vertice(int _i_id);
 	Arista * grafo_get_arista(int _i_id);
 	void grafo_inserta_arista_bi(Vertice *_i_origen, Vertice *i_i_destino, int _i_id);	

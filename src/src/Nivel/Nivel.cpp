@@ -369,6 +369,9 @@ std::stack<Vertice*> Nivel::nivel_camino_corto_l2(Vertice *_i_origen, Vertice *_
 
 	return _lod2->grafo_camino_corto_l2(_i_origen, _i_destino);
 }
+Nodo_blackboard* Nivel::nivel_get_blackboard(float _i_x, float _i_y){
+	return _lod2->grafo_get_blackboard(_i_x, _i_y);
+}
 
 
 

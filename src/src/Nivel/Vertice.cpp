@@ -3,10 +3,11 @@
 #include "Nodo.h"
 #include "Grafo.h"
 #include <iostream>
+#include "Nodo_blackboard.h"
 
 Vertice::Vertice(float _i_posx, float _i_posy,float _i_ancho, float _i_alto, int _i_id, Grafo *_i_grafo_lod1):
 _id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1),_lod(4) , _sig(nullptr),
-_ady(nullptr),_n_enemigos(0), _ancho(_i_ancho), _alto(_i_alto){
+_ady(nullptr), _ancho(_i_ancho), _alto(_i_alto), _blackboard(nullptr){
 
 }
 
@@ -68,3 +69,17 @@ void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_dest
 		}
 	}
 }
+/*void Vertice::inserta_enemigo(NPC* _i_npc){
+	for(u_int8_t cont=0;cont<maximo_npc;++cont){
+		if(_NPC[cont]==nullptr){
+			_NPC[cont]=_i_npc;
+		}
+	}
+}
+void Vertice::elimina_enemigo(NPC* _i_npc){
+	for(u_int8_t cont=0;cont<maximo_npc;++cont){
+		if(_NPC[cont]==_i_npc){
+			_NPC[cont]=nullptr;
+		}
+	}
+}*/

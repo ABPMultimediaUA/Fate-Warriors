@@ -63,12 +63,12 @@ Objeto* Inventario::get_seleccionado(){
 }
 
 
-Objeto* Inventario::get_objeto_cerca(){
+Arma_cerca* Inventario::get_objeto_cerca(){
 	return _objeto_cerca;
 }
 
 
-Objeto* Inventario::get_objeto_distancia(){
+Arma_distancia* Inventario::get_objeto_distancia(){
 	return _objeto_distancia;
 }
 

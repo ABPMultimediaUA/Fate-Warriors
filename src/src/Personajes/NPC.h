@@ -1,6 +1,6 @@
 #ifndef SRC_NPC_H_
 #define SRC_NPC_H_
-
+#include "Enum_Tipo_Enemigo.h"
 #include "Character.h"
 
 class Blackboard;
@@ -18,9 +18,14 @@ public:
 	float getZ() override;
 	void set_blackboard(Blackboard* _i_blackboard);
 	Blackboard* get_blackboard();
+	inline enum Enum_Tipo_Enemigo* get_ref_Enum_Tipo_Enemigo(){
+		return &_tipo_npc;
+	}
+	
 
 private:
 	Blackboard* _blackboard; //Informacion de la memoria almacenada en el Blackboard
+	enum Enum_Tipo_Enemigo _tipo_npc;
 
 };
 

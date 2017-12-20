@@ -94,6 +94,18 @@ int Grafo::grafo_get_id_vertice(float _i_x, float _i_y){
 	}
 	return 0;
 }
+Nodo_blackboard* Grafo::grafo_get_blackboard(float _i_x, float _i_y){
+	Vertice *_aux;
+	_aux = _h;
+	while(_aux!=nullptr){
+		if(_aux->pos2id(_i_x,_i_y)){
+			return _aux->get_blackboard();
+		}
+		_aux=_aux->_sig;
+		
+	}
+	return 0;
+}
 
 //PENDIENTE DE PRUEBA
 Arista * Grafo::grafo_get_arista(int _i_id){

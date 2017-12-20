@@ -15,6 +15,26 @@ public:
 	bool puede_subir_vida_(short _i_vida);
 	void poner_vida_a(short _i_vida);
 	short get_vida();
+	inline int16_t get_vida_maxima(){
+		return _vida_maxima;
+	}
+	inline int16_t* get_ref_vida_actual(){
+		return &_vida;
+	}
+	inline bool* get_ref_tiene_arma_corta(){
+    	return &_tiene_arma_corta;
+	}
+	inline bool* get_ref_tiene_arma_larga(){
+    	return &_tiene_arma_larga;
+	}
+	inline float* get_ref_x(){
+		return &_x;
+	}
+	inline float* get_ref_z(){
+		return &_z;
+	}
+	uint8_t* get_ref_rango_arma_corta();
+	uint8_t* get_ref_rango_arma_larga();
     Inventario* get_inventario();
 	bool isDead();
 	
@@ -22,7 +42,11 @@ protected:
 	short _vida_maxima;
 	short _vida;
 	short _velocidad;
+	uint8_t _rango_arma_corta;
+	uint8_t _rango_arma_larga;
     Inventario* _inventario;
+	bool _tiene_arma_corta;
+	bool _tiene_arma_larga;
 };
 
 #endif /* SRC_CHARACTER_H_ */
