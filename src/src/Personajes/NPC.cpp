@@ -10,14 +10,16 @@
 
 
 
-NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad) : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad), _blackboard(nullptr) {
+NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
+    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
+    : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte),
+    _blackboard(nullptr) {
     _matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y, _i_z, 1, false);
 }
 
 NPC::~NPC() {
 
 }
-
 
 void NPC::move(unsigned long _i_direccion) {
     

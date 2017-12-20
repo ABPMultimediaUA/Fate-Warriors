@@ -9,7 +9,7 @@ NPC_Manager::NPC_Manager() {
 	_npc = new NPC*[_n_enemigos];
 
 	for(unsigned short _cont=0; _cont<_n_enemigos; _cont++) {
-		_npc[_cont] = new NPC(0,19,0,0,5,15);
+		_npc[_cont] = new NPC(0,19,0,0,5,15, 5, 10);
 	}
 }
 

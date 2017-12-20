@@ -12,7 +12,9 @@
 #include "../Game.h"
 #include "../Action_Manager.h"
                                                                                               //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 10000)
+Player::Player(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
+    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte)
+    : Character(_id,_i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte)
                                                                 {   
     //_matcher = new Matcher(LLAVE_R, LLAVE_M, _i_x, _i_y,  _i_z,  1,true);                                                                
     _matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y,  _i_z,  1,true); 
@@ -109,7 +111,7 @@ void Player::update(){
         }
 
         if(controles->estaPulsada(Input_key::MouseLeft)){
-            Game::game_instancia()->game_get_action_manager()->atacar(this);
+            Game::game_instancia()->game_get_action_manager()->atacar(this, Ataque_Normal);
         }
 
         if(controles->estaPulsada(Input_key::MouseRight)){

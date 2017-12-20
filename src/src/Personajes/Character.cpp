@@ -2,7 +2,11 @@
 #include "../Inventario.h"
 #include <iostream>
 
-Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad) : Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad) {
+Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
+    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
+    :Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
+    _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte) {
+
     _inventario = new Inventario();
 }
 
@@ -44,3 +48,12 @@ bool Character::puede_subir_vida_(short _i_vida){
     }
     return true;
 }
+
+short Character::get_danyo_ataque_normal(){
+	return _danyo_ataque_normal;
+}
+
+short Character::get_danyo_ataque_fuerte(){
+	return _danyo_ataque_fuerte;
+}
+

@@ -11,3 +11,4 @@ enum Enum_Tipo_Ataque{
 };
 
 #endif /* SRC_ENUM_TIPO_ATAQUE_H_ */
+
