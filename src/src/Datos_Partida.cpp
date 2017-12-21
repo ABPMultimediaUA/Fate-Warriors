@@ -36,6 +36,7 @@ Datos_Partida::Datos_Partida() {
 Datos_Partida::~Datos_Partida() {
 	delete _jugador;
 	delete _trampas_manager;
+	delete _consumibles_manager;
 	delete _mapa;
 	delete _npc_manager;
   delete _interactuable_manager;

@@ -63,11 +63,11 @@ unsigned short Blackboard::get_n_enemigo() {
 }
 
 enum Enum_Tipo_Enemigo Blackboard::get_tipo_enemigo() {
-	return _tipo_npc[0];
+	return (*_tipo_npc);
 }
 
 enum Enum_Tipo_Enemigo Blackboard::get_tipo_npc() {
-	return _tipo_npc[0];
+	return (*_tipo_npc);
 }
 
 

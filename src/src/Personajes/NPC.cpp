@@ -18,7 +18,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
 }
 
 NPC::~NPC() {
-
+    delete _matcher;
 }
 
 void NPC::move(unsigned long _i_direccion) {

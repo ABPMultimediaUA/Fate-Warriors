@@ -300,7 +300,7 @@ void Interfaz::Interfaz_ProtaCollisionEnable(){
 }
 
 void Interfaz::Interfaz_Render() {
-	//std::cout<<"tal cual"<<std::endl;
+	std::cout<<"tal cual"<<std::endl;
 	_driver->beginScene(true, true, 0);
 	_smgr->drawAll();
 	_device->getGUIEnvironment()->drawAll(); // draw the gui environment (the logo)
@@ -348,6 +348,7 @@ Interfaz::~Interfaz() {
 	//_smgr->drop();
 	_node->drop();
 	_driver->drop(); //driver de video (EDT_OPENGL)
+	delete _micamara;
 	//std::cout<<"VOY A MATAR GENTE"<<std::endl;
 	
 }
