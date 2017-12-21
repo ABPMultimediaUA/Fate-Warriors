@@ -2,10 +2,25 @@
 
 #include "Interfaz_Datos.h"
 
+#include "../Personajes/NPC.h"
+
+#include "../Interfaz_Libs/Lib_Math.h"
+
+#include "../Nivel/Nivel.h"
+
 Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo) {
 	_n_npc = _i_n_enemigo;
-	_tipo_npc[0] = Normal;
+	//NPC *npc_aux=_i_interfaz.get_enemigo(_n_npc);
 	_interfaz = &_i_interfaz;
+	_tipo_npc[0] = Normal; //linea a borrar
+	/*_tipo_npc=npc_aux->get_ref_Enum_Tipo_Enemigo();
+	_vida_actual=npc_aux->get_ref_vida_actual();
+	_vida_max=npc_aux->get_vida_maxima();
+	_rango_ataque_normal=npc_aux->get_ref_rango_arma_corta();
+	_rango_ataque_fuerte=npc_aux->get_ref_rango_arma_larga();
+	_x=npc_aux->get_ref_x();
+	_z=npc_aux->get_ref_z();*/
+
 	_distancia_jugador = 0;
 	_decision = Decision_Quieto;
 	_accion = Nada;
@@ -18,7 +33,11 @@ Blackboard::~Blackboard() {
 
 
 void Blackboard::actualiza_datos() {
-	_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);
+
+	/*_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);
+	_porcentaje_vida=100*(*_vida_actual)/_vida_max;
+	Nivel* nivel=Nivel::nivel_instancia();
+	_zona=nivel->nivel_get_blackboard((*_x),(*_z));*/
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
 	// AQUI SE HACEN CALCULOS SOBRE LAS VARIABLES QUE SE ACTUALIZAN AUTOMATICAMENTE (que van en punteros)
@@ -68,12 +87,12 @@ float Blackboard::get_porcentaje_vida() {
 }
 
 
-uint8_t Blackboard::get_rango_ataque_normal() {
+unsigned short Blackboard::get_rango_ataque_normal() {
 
 }
 
 
-uint8_t Blackboard::get_rango_ataque_fuerte() {
+unsigned short Blackboard::get_rango_ataque_fuerte() {
 
 }
 
@@ -116,7 +135,7 @@ bool Blackboard::get_tiene_arma_corta() {
 }
 
 
-uint8_t Blackboard::get_rango_arma_corta() {
+unsigned short Blackboard::get_rango_arma_corta() {
 
 }
 
@@ -126,7 +145,7 @@ bool Blackboard::get_tiene_arma_larga() {
 }
 
 
-uint8_t Blackboard::get_rango_arma_larga() {
+unsigned short Blackboard::get_rango_arma_larga() {
 
 }
 
@@ -270,7 +289,7 @@ bool Blackboard::get_jugador_en_zona() {
 }
 
 
-uint8_t Blackboard::get_distancia_jugador_puerta_cerca() {
+unsigned short Blackboard::get_distancia_jugador_puerta_cerca() {
 
 }
 
@@ -324,17 +343,17 @@ float Blackboard::get_porcentaje_vida_enemigo_cerca() {
 }
 
 
-uint8_t Blackboard::get_n_enemigos_cerca() {
+unsigned short Blackboard::get_n_enemigos_cerca() {
 
 }
 
 
-uint8_t Blackboard::get_n_enemigos_medio() {
+unsigned short Blackboard::get_n_enemigos_medio() {
 
 }
 
 
-uint8_t Blackboard::get_n_enemigos_lejos() {
+unsigned short Blackboard::get_n_enemigos_lejos() {
 
 }
 
@@ -381,17 +400,17 @@ float Blackboard::get_porcentaje_vida_aliado_cerca() {
 }
 
 
-uint8_t Blackboard::get_n_aliados_cerca() {
+unsigned short Blackboard::get_n_aliados_cerca() {
 
 }
 
 
-uint8_t Blackboard::get_n_aliados_medio() {
+unsigned short Blackboard::get_n_aliados_medio() {
 
 }
 
 
-uint8_t Blackboard::get_n_aliados_lejos() {
+unsigned short Blackboard::get_n_aliados_lejos() {
 
 }
 
@@ -414,32 +433,32 @@ float Blackboard::get_n_aliados_por_n_enemigos() {
 
 
 
-uint8_t Blackboard::get_n_pasillos() {
+unsigned short Blackboard::get_n_pasillos() {
 
 }
 
 
-uint8_t Blackboard::get_distancia_pasillos() {
+unsigned short Blackboard::get_distancia_pasillos() {
 
 }
 
 
-uint8_t Blackboard::get_n_enemigos_min_pasillo() {
+unsigned short Blackboard::get_n_enemigos_min_pasillo() {
 
 }
 
 
-uint8_t Blackboard::get_n_paredes_cerca() {
+unsigned short Blackboard::get_n_paredes_cerca() {
 
 }
 
 
-uint8_t Blackboard::get_n_paredes_medio() {
+unsigned short Blackboard::get_n_paredes_medio() {
 
 }
 
 
-uint8_t Blackboard::get_n_paredes_lejos() {
+unsigned short Blackboard::get_n_paredes_lejos() {
 
 }
 
@@ -451,17 +470,17 @@ bool Blackboard::get_jugador_entre_pasillo_y_yo() {
 
 
 //Con otras zonas
-uint8_t Blackboard::get_zonas_adyacentes() {
+unsigned short Blackboard::get_zonas_adyacentes() {
 
 }
 
 
-uint8_t Blackboard::get_zonas_enemigas() {
+unsigned short Blackboard::get_zonas_enemigas() {
 
 }
 
 
-uint8_t Blackboard::get_zonas_jugador() {
+unsigned short Blackboard::get_zonas_jugador() {
 
 }
 
@@ -493,7 +512,7 @@ bool Blackboard::get_soy_enemigo_mas_cerca_interruptor() {
 }
 
 
-uint8_t Blackboard::get_dist_jug_interruptor() {
+unsigned short Blackboard::get_dist_jug_interruptor() {
 
 }
 
@@ -503,6 +522,6 @@ bool Blackboard::get_powerup_zona_adyacente() {
 }
 
 
-uint8_t Blackboard::get_id_zona_powerup() {
+unsigned short Blackboard::get_id_zona_powerup() {
 
 }
