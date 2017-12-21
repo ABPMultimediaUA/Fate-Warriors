@@ -12,6 +12,7 @@ Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo)
 	_n_npc = _i_n_enemigo;
 	//NPC *npc_aux=_i_interfaz.get_enemigo(_n_npc);
 	_interfaz = &_i_interfaz;
+	_tipo_npc = new enum Enum_Tipo_Enemigo[1];
 	_tipo_npc[0] = Normal; //linea a borrar
 	/*_tipo_npc=npc_aux->get_ref_Enum_Tipo_Enemigo();
 	_vida_actual=npc_aux->get_ref_vida_actual();
