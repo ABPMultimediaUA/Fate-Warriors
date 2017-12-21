@@ -9,6 +9,4 @@ enum Enum_Tipo_Ataque{
 	Ataque_Especial,	// Ataque especial solo para el personaje
 	Ataque_Desconocido	// Usado para la IA
 };
-
 #endif /* SRC_ENUM_TIPO_ATAQUE_H_ */
-

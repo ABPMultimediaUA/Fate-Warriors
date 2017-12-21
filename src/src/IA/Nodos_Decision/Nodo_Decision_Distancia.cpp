@@ -1,6 +1,6 @@
 #include "Nodo_Decision_Distancia.h"
 
-#include "Blackboard.h"
+#include "../Blackboard.h"
 
 #include<iostream>
 
@@ -15,8 +15,8 @@ Nodo_Decision_Distancia::~Nodo_Decision_Distancia() {
 enum Enum_Acciones Nodo_Decision_Distancia::toma_decision(Blackboard* _blackboard){
 	float _distancia = _blackboard->get_distancia_jugador();
 
-	if(_distancia > _valor) {
-		return _nodo_izq->toma_decision(_blackboard);
+	if(_distancia >= _valor) {
+		return _nodo_der->toma_decision(_blackboard);
 	}
-	return _nodo_der->toma_decision(_blackboard);
+	return _nodo_izq->toma_decision(_blackboard);
 }

@@ -1,7 +1,7 @@
 #ifndef HEADERS_OBJETO_H_
 #define HEADERS_OBJETO_H_
 #include "Utilidades/Vector.h"
-
+#include <cstdint>
 enum NombreObjetos{
 
 };

@@ -1,14 +1,17 @@
 #include "Nodo_blackboard.h"
 #include <iostream>
+#include "../Personajes/NPC.h"
 
-Nodo_blackboard::Nodo_blackboard(int _i_zona_actual){
+Nodo_blackboard::Nodo_blackboard(int _i_zona_actual, u_int8_t _i_tamano){
     _zona_actual=static_cast<Enum_zonas>(_i_zona_actual);
     _zonas_ady=0;
+    _NPC =new NPC*[5];
 }
 
 Nodo_blackboard::~Nodo_blackboard(){
     _objetos.clear();
     delete[] _zonas_ady;
+    delete[] _NPC;
     _zonas_ady=nullptr;
 }
 Enum_zonas Nodo_blackboard::get_zona_actual(){

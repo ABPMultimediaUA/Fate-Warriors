@@ -1,16 +1,20 @@
 #include "Enum_zonas.h"
 #include "../IA/Enum_Acciones.h"
 #include <vector>
+#include <cstdlib>
 #ifndef NODO_BLACKBOARD_H
 #define NODO_BLACKBOARD_H
 
 class Objeto;
 class Nodo;
+class NPC;
 
 class Nodo_blackboard
 {
 
-      private:
+      private:	  
+      NPC** _NPC;
+	u_int8_t maximo_npc;
       Enum_zonas _zona_actual;//
       std::vector<Objeto*> _objetos;
       int* _zonas_ady;
@@ -34,7 +38,7 @@ class Nodo_blackboard
       void set_lod(int _i_lod);
       void anyadir_zona(int _i_zona);
 
-	  Nodo_blackboard(int _i_zona_actual);
+	  Nodo_blackboard(int _i_zona_actual, u_int8_t _i_tamano);
 	  ~Nodo_blackboard();
 };
 

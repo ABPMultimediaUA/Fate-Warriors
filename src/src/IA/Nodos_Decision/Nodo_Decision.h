@@ -1,7 +1,7 @@
 #ifndef SRC_NODO_DECISION_H_
 #define SRC_NODO_DECISION_H_
 
-#include "Enum_Acciones.h"
+#include "../Enum_Acciones.h"
 
 class Blackboard;
 

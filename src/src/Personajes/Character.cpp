@@ -1,4 +1,6 @@
 #include "Character.h"
+#include "../Armas/Arma_distancia.h"
+#include "../Armas/Arma_cerca.h"
 #include "../Inventario.h"
 #include "../Game.h"
 #include "../Datos_Partida.h"
@@ -55,6 +57,19 @@ bool Character::puede_subir_vida_(short _i_vida){
     }
     return true;
 }
+
+uint8_t* Character::get_ref_rango_arma_corta(){
+    if(_tiene_arma_corta){
+        _rango_arma_corta=_inventario->get_objeto_cerca()->get_rango();
+        return &_rango_arma_corta;
+    }
+		
+}
+uint8_t* Character::get_ref_rango_arma_larga(){
+	if(_tiene_arma_larga){
+        _rango_arma_larga=_inventario->get_objeto_distancia()->get_rango();
+        return &_rango_arma_larga;
+    }
 
 short Character::get_danyo_ataque_normal(){
 	return _danyo_ataque_normal;
