@@ -112,8 +112,6 @@ void Player::update(){
             else{
                 std::cout<< "No puede INTERACTUAR "<< std::endl;
             }
-
-            
             
             //std::cout<< "Tiempo actual: "<< this->_tiempo->get_current() << std::endl;
             //std::cout<< "Tiempo almacenado: "<< this->get_tiempo_inicio_bloqueado() << std::endl;

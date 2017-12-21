@@ -70,6 +70,7 @@ uint8_t* Character::get_ref_rango_arma_larga(){
         _rango_arma_larga=_inventario->get_objeto_distancia()->get_rango();
         return &_rango_arma_larga;
     }
+}
 
 short Character::get_danyo_ataque_normal(){
 	return _danyo_ataque_normal;
