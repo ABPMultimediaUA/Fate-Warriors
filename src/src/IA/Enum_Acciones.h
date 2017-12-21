@@ -12,7 +12,10 @@ enum Enum_Acciones{
 	Protegerse,		// Se cubre
 	Accionar,		// Acciona un interruptor
 	Dar_orden,		// Da una órden a los otros enemigos de la zona
-	n_acciones		//Nº de acciones
+	Recibir_danyo,	// Recibe danyo
+	Estar_derribado,// Cae al suelo
+	n_acciones,		// Nº de acciones
+	Error			// Control para la lectura de fichero
 };
 
 #endif /* SRC_ENUM_ACCIONES_H_ */
