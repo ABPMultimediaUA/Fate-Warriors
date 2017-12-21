@@ -28,15 +28,19 @@ short Character::get_vida(){
 }
 
 void Character::modificar_vida_en(short _i_vida){
+
 	if(_vida+_i_vida>_vida_maxima){
         _vida=_vida_maxima;
+    }
+    else if(_vida + _i_vida < 0){
+        this->morir();
     }
     else{
         _vida+=_i_vida;
     }
 }
 
-void Character::poner_vida_a(short _i_vida){
+void Character::set_vida(short _i_vida){
 	_vida=_i_vida;
 }
 
@@ -156,8 +160,9 @@ void Character::interactuar_con_objeto(){
 	}
 }
 
-void Character::set_tiempo_inicio_bloqueado(double i_tiempo_inicio_bloqueado){
+void Character::bloquear_movimiento(double i_tiempo_inicio_bloqueado){
     _tiempo_inicio_bloqueado = i_tiempo_inicio_bloqueado;
+    _bloqueado = true;
 }
 
 double Character::get_tiempo_inicio_bloqueado(){
@@ -170,4 +175,8 @@ void Character::set_bloqueado(bool _i_bloqueado){
 
 bool Character::get_bloqueado(){
     return _bloqueado;
+}
+
+void Character::morir(){
+    std::cout << "He muerto :("<< std::endl;
 }

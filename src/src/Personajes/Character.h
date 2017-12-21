@@ -16,7 +16,7 @@ public:
 
 	void modificar_vida_en(short _i_vida);
 	bool puede_subir_vida_(short _i_vida);
-	void poner_vida_a(short _i_vida);
+	void set_vida(short _i_vida);
 	short get_vida();
 	inline int16_t get_vida_maxima(){
 		return _vida_maxima;
@@ -44,10 +44,11 @@ public:
 	short get_danyo_ataque_fuerte();
 	void interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
-	void set_tiempo_inicio_bloqueado(double i_tiempo_inicio_bloqueado);
+	void bloquear_movimiento(double i_tiempo_inicio_bloqueado); //Cuando ha empezado a realizar el Tipo_Accion que bloquea los inputs
 	double get_tiempo_inicio_bloqueado();
 	void set_bloqueado(bool i_bloqueado);
 	bool get_bloqueado();
+	void morir();
 	
 protected:
 	short _vida_maxima;
