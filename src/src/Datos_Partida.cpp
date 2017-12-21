@@ -12,7 +12,7 @@
 
 Datos_Partida::Datos_Partida() {
 	float mult = 39.3701;
-	_jugador = new Player(0,-15*mult,100,15*mult);
+	_jugador = new Player(0,15*mult,100,15*mult, 100, 10000, 5, 10);
 	_npc_manager = new NPC_Manager();
 
 	_consumibles_manager = new Consumible_manager();
@@ -27,7 +27,7 @@ Datos_Partida::Datos_Partida() {
 	
 
 	 
-	Objeto_Estandar* _mapa = new Objeto_Estandar(1, -5*mult, 0, 5*mult, "models/Nodo2.zip", "Nodo1.obj");
+	Objeto_Estandar* _mapa = new Objeto_Estandar(1, 5*mult, 0, 5*mult, "models/NodoRotado.zip", "NodoRotado.obj");
 
 
 	_interfaz_grafica = nullptr;

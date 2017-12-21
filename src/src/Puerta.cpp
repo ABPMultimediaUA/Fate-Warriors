@@ -10,5 +10,9 @@ void Puerta::set_abierta(bool _i_abierta){
 	_abierta = _i_abierta;
 }
 
+bool Puerta::get_abierta(){
+    return _abierta;
+}
+
 Puerta::~Puerta() {
 }
