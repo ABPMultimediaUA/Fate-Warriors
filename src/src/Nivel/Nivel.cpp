@@ -39,7 +39,8 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 		_grafo_txt.open(_i_iteracion);//apertura del fichero
 		std::string _iteracion;
 		if(_grafo_txt.fail()){//comprobacion de la apertura del fichero
-			std::cout<<"Error al abrir el archivo del grafo"<<std::endl;
+			std::cout << "Error al abrir el archivo del grafo" << _i_iteracion << std::endl;
+			exit(0);
 		}
 		_grafo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 		while(_iteracion!="Fin"){//bucle para crear todos los objetos del nodo
@@ -170,7 +171,8 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 		_nodo_txt.open(_i_iteracion);//apertura del fichero
 		std::string _iteracion;
 		if(_nodo_txt.fail()){//comprobacion de la apertura del fichero
-			std::cout<<"Error al abrir el archivo de nodo"<<std::endl;
+			std::cout << "Error al abrir el archivo de nodo" << _i_iteracion << std::endl;
+			exit(0);
 		}
 		_nodo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 		while(_iteracion=="OBJETO"){//bucle para crear todos los objetos del nodo
@@ -287,7 +289,8 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt.open(_i_fichero);//apertura del fichero
 	std::string _iteracion;
 		if(_nivel_txt.fail()){//comprobacion de la apertura del fichero
-			std::cout<<"Error al abrir el archivo"<<std::endl;
+			std::cout<<"Error al abrir el archivo " << _i_fichero <<std::endl;
+			exit(0);
 		}
 	_nivel_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 	while(_iteracion!="Fin"){//bucle de lectura del fichero
