@@ -300,7 +300,6 @@ void Interfaz::Interfaz_ProtaCollisionEnable(){
 }
 
 void Interfaz::Interfaz_Render() {
-	std::cout<<"tal cual"<<std::endl;
 	_driver->beginScene(true, true, 0);
 	_smgr->drawAll();
 	_device->getGUIEnvironment()->drawAll(); // draw the gui environment (the logo)

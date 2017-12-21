@@ -21,7 +21,7 @@ int main(){
 	Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
     
 	//_time->updateAntes();
-	while(_interface->Interfaz_getDevice()->run()){std::cout<<"entor principio"<<std::endl;
+	while(_interface->Interfaz_getDevice()->run()){
 		//evento para cerrar la ventana
 
 		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj
@@ -36,8 +36,8 @@ int main(){
 		}
 
 		//render
-		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);std::cout<<"antes de render"<<std::endl;
-		_juego->render(_interpolacion);std::cout<<"entor salir"<<std::endl;
+		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);
+		_juego->render(_interpolacion);
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();
 	}
