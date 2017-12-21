@@ -34,8 +34,8 @@ Blackboard::~Blackboard() {
 
 void Blackboard::actualiza_datos() {
 
-	/*_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);
-	_porcentaje_vida=100*(*_vida_actual)/_vida_max;
+	_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);
+	/*_porcentaje_vida=100*(*_vida_actual)/_vida_max;
 	Nivel* nivel=Nivel::nivel_instancia();
 	_zona=nivel->nivel_get_blackboard((*_x),(*_z));*/
 	// AQUI NO PUEDEN IR GETS
