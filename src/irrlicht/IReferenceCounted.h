@@ -118,7 +118,7 @@ namespace irr
 			// someone is doing bad reference counting.
 			_IRR_DEBUG_BREAK_IF(ReferenceCounter <= 0)
 
-			--ReferenceCounter;
+			//--ReferenceCounter;
 			if (!ReferenceCounter)
 			{
 				delete this;

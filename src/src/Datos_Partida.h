@@ -29,6 +29,14 @@ private:
 	Player* _jugador;
 	Objeto_Estandar* _mapa;
 	Objeto_Estandar* _mapa1;
+	Objeto_Estandar* _mapa2;
+	Objeto_Estandar* _mapa3;
+	Objeto_Estandar* _mapa4;
+	Objeto_Estandar* _mapa5;
+	Objeto_Estandar* _mapa6;
+	Objeto_Estandar* _mapa7;
+	Objeto_Estandar* _mapa8;
+	Objeto_Estandar* _mapa9;
 	NPC_Manager* _npc_manager;
 		Trampas_manager *_trampas_manager;
 	Consumible_manager * _consumibles_manager;
