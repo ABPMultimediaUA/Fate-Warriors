@@ -10,7 +10,6 @@
 const std::string _fichero = "txt/Arbol_Decision.txt";
 
 Arbol_Decision_Manager::Arbol_Decision_Manager() {
-	_max_nodos = 3;
 	_max_arboles = 1;
 
 	_n_nodos = 0;
@@ -21,9 +20,6 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	for(unsigned short _cont = 0; _cont < n_acciones; _cont++) {
 		_acciones[_cont] = new Nodo_Decision_Final((Enum_Acciones)_cont);
 	}
-
-	//Creacion de los nodos
-	_nodos_decision = new Nodo_Decision*[_max_nodos];
 	
 	// Lectura del fichero del arbol y creacion dinamica
 	lee_fichero_y_crea_arbol(_fichero);
@@ -267,8 +263,6 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 		_nodos_decision[_i_id] = new Nodo_Decision_Distancia(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
-
-
 	}
 
 	void Arbol_Decision_Manager::crear_nodo_lod(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
@@ -293,6 +287,21 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 	}
 
+	void Arbol_Decision_Manager::crear_nodo_vida_actual_prcnt(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
+		//std::cout << std::endl << "NODO DISTANCIA" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atoi(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new Nodo_Decision_Vida_Actual_Prcnt(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+
 // ------------------------------------ FIN FUNCIONES CREACION CLASES NODOS  -----------------------------//
 
 
@@ -300,6 +309,7 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 
 //-------------------------------------- MAPEADOS PARA CREAR NODOS -------------------------//
+
 	// Funciones para guardar los datos
 	struct MapeadoClaseNodo{			// Declaracion de los parametros
 		const char* _nombre_objeto;
@@ -310,6 +320,7 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 			{"Distancia", &Arbol_Decision_Manager::crear_nodo_distancia},
 			{"LOD", &Arbol_Decision_Manager::crear_nodo_lod},
 			{"Rango_Ataque_Normal", &Arbol_Decision_Manager::crear_nodo_rango_ataque_normal},
+			{"Vida_Actual", &Arbol_Decision_Manager::crear_nodo_vida_actual_prcnt},
 			{0, 0}
 	};
 
@@ -336,7 +347,16 @@ void Arbol_Decision_Manager::lee_fichero_y_crea_arbol(const std::string &_i_fich
 		exit(0);
 	}
 
-	_arbol_txt >> _iteracion;				// Lectura especial del primer id de Nodo
+	// Lectura del numero de Nodos
+	_arbol_txt >> _iteracion;	
+	_max_nodos = std::atoi(_iteracion.c_str());
+		
+	//std::cout << "Nº de nodos " << _max_nodos;
+
+	//Creacion de los nodos
+	_nodos_decision = new Nodo_Decision*[_max_nodos];
+
+	_arbol_txt >> _iteracion;				// Lectura especial del primer caracter de la linea del Nodo
 	
 	while(_iteracion!="Fin"){
 		_izq = nullptr;

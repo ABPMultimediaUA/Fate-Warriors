@@ -26,6 +26,9 @@ Interfaz_Datos::~Interfaz_Datos() {
 float Interfaz_Datos::get_distancia_enemigo_personaje(unsigned short _i_n_enemigo) {
 	float _x_enemigo, _y_enemigo, _x_player, _y_player, _distancia_total;
 
+	// std::cout << "Enemigo (" << _x_enemigo << "," << _y_enemigo << ")\n";
+	// std::cout << "Player  (" << _x_player << "," << _y_player << ")\n";
+
 	get_pos_enemigo(_i_n_enemigo, _x_enemigo, _y_enemigo);
 	get_pos_player(_x_player, _y_player);
 
