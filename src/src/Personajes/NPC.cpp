@@ -14,7 +14,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
     : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte),
     _blackboard(nullptr) {
-    _matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y, _i_z, 1, false);
+    _matcher = new Matcher(ENEMIGO_R, ENEMIGO_M, _i_x, _i_y, _i_z, 1, false);
 }
 
 NPC::~NPC() {
