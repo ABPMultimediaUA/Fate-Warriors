@@ -15,6 +15,7 @@ public:
   	void update() override;
   	void render() override;
 	void move(unsigned long _i_direccion);
+	void stop();
 	float getX() override;
 	float getY() override;
 	float getZ() override;

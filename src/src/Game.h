@@ -9,6 +9,7 @@ class Interfaz;
 class Interfaz_Fisica;
 class Consumible_action;
 class Trampas_action;
+class Nivel;
 
 class Game{
 
@@ -28,6 +29,7 @@ private:
 
 	Game();
 	static Game* instancia;
+	Nivel* _nivel;
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;
 	Decision_Manager *_decision_manager; 	// Encargado de tomar las decisiones de los NPCs

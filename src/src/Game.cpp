@@ -76,12 +76,12 @@ void Game::crea_partida() {
 	_decision_manager 	= new Decision_Manager(_action_manager);
 	_consumibles_action = new Consumible_action();	
 	_trampas_action 	= new Trampas_action();	
+	_nivel=Nivel::nivel_instancia();
 
 
 	//cargar nivel 1
 	/*
 	std::string nivel="txt/Nivel/Nivel1.txt";
-	Nivel* _nivel1=Nivel::nivel_instancia();
 
 	/*_nivel1->nivel_set_lod(3);
 
@@ -110,6 +110,7 @@ void Game::fin_partida() {
 	delete _interfaz_fisica;
 	delete _consumibles_action;
 	delete _trampas_action;
+	delete _nivel;
 
 
 	_datos 				= nullptr;

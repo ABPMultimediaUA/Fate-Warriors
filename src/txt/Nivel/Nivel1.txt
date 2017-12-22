@@ -7,7 +7,7 @@ PASILLO
 txt/Nivel/Nivel1/2pasillo.txt
 NODO
 21 22 15 15 3
-null
+txt/Nivel/Nivel1/3nodo.txt
 enemigo
 PASILLO
 36 30 6 8 4
