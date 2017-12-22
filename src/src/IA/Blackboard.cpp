@@ -84,7 +84,7 @@ int16_t Blackboard::get_vida_max() {
 
 
 float Blackboard::get_porcentaje_vida() {
-
+	return ((*_vida_actual)/_vida_max)*100;
 }
 
 

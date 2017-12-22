@@ -1,0 +1,19 @@
+3
+
+- 0 Final Atacar Andar Distancia          30
+- 1 Final Saltar Nada  Distancia          500
+- 2 Medio 0      1     Distancia          200
+
+Fin
+
+# ID TIPO_NODO CATEGORIA NODOS (Final->Finales/Medio->ID) VALOR_CORTE
+# IF VALOR>=VALOR_CORTE -> DERECHA
+# IF VALOR< VALOR_CORTE -> IZQUIERDA
+
+# El primer digito es el id del nodo 
+# El segundo indica la situacion en el arbol (Si esta al final o a mitad de arbol)
+# Los 2 siguientes indican
+#    En caso de nodo Final -> Las acciones
+#    En caso de nodo Medio -> Los id de los nodos
+# El siguiente es el tipo de nodo (valores que pide al blackboard)
+# El ultimo valor es el valor de corte que decide para que nodo ir
