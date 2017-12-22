@@ -22,9 +22,9 @@ NPC::~NPC() {
 void NPC::move(unsigned long _i_direccion) {
     
     float _desp_x = cos(_i_direccion*PI/180);
-    _desp_x = roundf(_desp_x * 100) / 100;
+    _desp_x = roundf(_desp_x * 500) / 100;
     float _desp_z = sin(_i_direccion*PI/180);
-    _desp_z = roundf(_desp_z * 100) / 100;
+    _desp_z = roundf(_desp_z * 500) / 100;
     //std::cout << "Personaje se mueve en la x " << _desp_x << std::endl;
     //std::cout << "Personaje se mueve en la y " << _desp_y << std::endl;
     _x = _x + _desp_x;

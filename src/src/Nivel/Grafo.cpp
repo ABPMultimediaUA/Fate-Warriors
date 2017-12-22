@@ -115,7 +115,7 @@ void Grafo::grafo_inserta_vertice(Vertice * _nuevo){
 	
 	if(grafo_vacio()){
 		_h=_nuevo;
-		std::cout << "Vertice insertado"<< _nuevo->_id << std::endl;
+		//std::cout << "Vertice insertado"<< _nuevo->_id << std::endl;
 	}
 	else{
 		
@@ -125,7 +125,7 @@ void Grafo::grafo_inserta_vertice(Vertice * _nuevo){
 			_aux = _aux->_sig;
 		}
 		_aux->_sig=_nuevo;
-		std::cout << "Vertice insertado"<< _nuevo->_id << std::endl;
+		//std::cout << "Vertice insertado"<< _nuevo->_id << std::endl;
 	}
 	
 
@@ -134,7 +134,7 @@ void Grafo::grafo_crea_arista(int _i_origen, int _i_destino, int _i_id){
 	Vertice* _origen=nullptr;
 	Vertice* _destino=nullptr;
 	Vertice* _aux=_h;
-	std::cout << "Arista"<< _i_origen <<"  "<< _i_destino <<"  "<< _i_id << std::endl;
+	//std::cout << "Arista"<< _i_origen <<"  "<< _i_destino <<"  "<< _i_id << std::endl;
 	while(_aux!=NULL){	
 			//bucle para recorrer todos los vertices del grafo
 		if(_aux->_id==_i_origen){//id del origen encontrada
