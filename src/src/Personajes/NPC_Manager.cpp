@@ -3,14 +3,15 @@
 #include "NPC.h"
 
 NPC_Manager::NPC_Manager() {
-	_n_enemigos = 1;
+	_n_enemigos = 2;
 	_n_aliados = 0;
 
 	_npc = new NPC*[_n_enemigos];
 
-	for(unsigned short _cont=0; _cont<_n_enemigos; _cont++) {
-		_npc[_cont] = new NPC(0,6*39.3701,0,6*39.3701,50,15, 5, 10);
-	}
+	//for(unsigned short _cont=0; _cont<_n_enemigos; _cont++) {
+		_npc[0] = new NPC(0,18*39.3701,0,18*39.3701,50,15, 5, 10);
+		_npc[1] = new NPC(0,6*39.3701,0,6*39.3701,50,15, 5, 10);
+	//}
 }
 
 NPC_Manager::~NPC_Manager() {
