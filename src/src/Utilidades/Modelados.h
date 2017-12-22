@@ -12,3 +12,6 @@
 
 #define PERSONAJE_R "models/Personaje.zip"
 #define PERSONAJE_M "Personaje.obj"
+
+#define ENEMIGO_R "models/Enemigo.zip"
+#define ENEMIGO_M "Enemigo.obj"

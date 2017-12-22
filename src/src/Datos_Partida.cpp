@@ -27,7 +27,17 @@ Datos_Partida::Datos_Partida() {
 	
 
 	 
-	Objeto_Estandar* _mapa = new Objeto_Estandar(1, 5*mult, 0, 5*mult, "models/NodoRotado.zip", "NodoRotado.obj");
+	_mapa = new Objeto_Estandar(1, 5*mult, 0, 5*mult, "models/Nodo1.zip", "Nodo1.obj");
+
+	_mapa1 = new Objeto_Estandar(1, 11*mult, 0, 20*mult, "models/Pasillo6.zip", "Pasillo6.obj");
+	_mapa2 = new Objeto_Estandar(1, 22*mult, 0, 21*mult, "models/Nodo3.zip", "Nodo3.obj");
+	_mapa3 = new Objeto_Estandar(1, 20*mult, 0, 13*mult, "models/Pasillo2.zip", "Pasillo2.obj");
+	_mapa4 = new Objeto_Estandar(1, 18*mult, 0, 30*mult, "models/Pasillo8.zip", "Pasillo8.obj");
+	_mapa5 = new Objeto_Estandar(1, 30*mult, 0, 36*mult, "models/Pasillo4.zip", "Pasillo4.obj");
+	_mapa6 = new Objeto_Estandar(1, 9*mult, 0, 42*mult, "models/Pasillo9.zip", "Pasillo9.obj");
+	_mapa7 = new Objeto_Estandar(1, 3*mult, 0, 27*mult, "models/Nodo7.zip", "Nodo7.obj");
+	_mapa8 = new Objeto_Estandar(1, 3*mult, 0, 49*mult, "models/Nodo10.zip", "Nodo10.obj");
+	_mapa9 = new Objeto_Estandar(1, 38*mult, 0, 35*mult, "models/Nodo5.zip", "Nodo5.obj");
 
 
 	_interfaz_grafica = nullptr;
@@ -37,7 +47,16 @@ Datos_Partida::~Datos_Partida() {
 	delete _jugador;
 	delete _trampas_manager;
 	delete _consumibles_manager;
-	delete _mapa;
+	/*delete _mapa;
+	delete _mapa1;
+	delete _mapa2;
+	delete _mapa3;
+	delete _mapa4;
+	delete _mapa5;
+	delete _mapa6;
+	delete _mapa7;
+	delete _mapa8;
+	delete _mapa9;*/
 	delete _npc_manager;
   delete _interactuable_manager;
 }
