@@ -27,7 +27,9 @@ Datos_Partida::Datos_Partida() {
 	
 
 	 
-	Objeto_Estandar* _mapa = new Objeto_Estandar(1, 5*mult, 0, 5*mult, "models/NodoRotado.zip", "NodoRotado.obj");
+	Objeto_Estandar* _mapa = new Objeto_Estandar(1, 5*mult, 0, 5*mult, "models/Nodo1.zip", "Nodo1.obj");
+
+	//Objeto_Estandar* _mapa1 = new Objeto_Estandar(1, 11*mult, 0, 20*mult, "models/Pasillo6.zip", "Pasillo6.obj");
 
 
 	_interfaz_grafica = nullptr;
@@ -38,6 +40,7 @@ Datos_Partida::~Datos_Partida() {
 	delete _trampas_manager;
 	delete _consumibles_manager;
 	delete _mapa;
+	//delete _mapa1;
 	delete _npc_manager;
   delete _interactuable_manager;
 }
