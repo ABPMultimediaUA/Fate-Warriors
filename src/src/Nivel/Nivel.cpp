@@ -39,7 +39,7 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 		_grafo_txt.open(_i_iteracion);//apertura del fichero
 		std::string _iteracion;
 		if(_grafo_txt.fail()){//comprobacion de la apertura del fichero
-			std::cout<<"Error al abrir el archivo del grafo"<<std::endl;
+			std::cout<<"Error al abrir el archivo del grafo "<<_i_iteracion<<std::endl;
 		}
 		_grafo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 		while(_iteracion!="Fin"){//bucle para crear todos los objetos del nodo
@@ -71,7 +71,7 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 			
 			_grafo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
 		}
-		std::cout << "cierro el txt del lod1" << std::endl;
+		std::cout << "cierro el txt del lod1 " <<_i_iteracion<< std::endl;
 		_grafo_txt.close();
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
