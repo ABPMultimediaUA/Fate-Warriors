@@ -105,8 +105,7 @@ void Player::update(){
 
             if(this->get_bloqueado() == false){
                 this->interactuar_con_objeto();
-                this->set_tiempo_inicio_bloqueado(_tiempo->get_current());
-                this->set_bloqueado(true);
+                this->bloquear_movimiento(_tiempo->get_current());
                 std::cout<< "SÍ INTERACTUA"<< std::endl;
             }
             else{
