@@ -9,7 +9,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/gemma/Documents/Repositorio/Fate-Warriors/src/ejecutable",
+            "program": "${workspaceFolder}/ejecutable", 
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

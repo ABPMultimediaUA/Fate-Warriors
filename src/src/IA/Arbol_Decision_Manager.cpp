@@ -24,19 +24,14 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 
 	//Creacion de los nodos
 	_nodos_decision = new Nodo_Decision*[_max_nodos];
-
-	//Lectura de fichero y eso [COMING SOON]
-	_nodos_decision[0] = new Nodo_Decision_Distancia(*_acciones[Atacar], *_acciones[Andar], 3); _n_nodos++;
-	_nodos_decision[1] = new Nodo_Decision_Distancia(*_acciones[Atacar], *_acciones[Andar], 3); _n_nodos++;
-	_nodos_decision[2] = new Nodo_Decision_LOD(*_nodos_decision[0], *_nodos_decision[1], 1); _n_nodos++;
 	
-
+	// Lectura del fichero del arbol y creacion dinamica
 	lee_fichero_y_crea_arbol(_fichero);
 
 	//Asignacion de los arboles
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
-	_arboles_decision[0] = _nodos_decision[0];
+	_arboles_decision[0] = _nodos_decision[_n_nodos-1];
 
 }
 
@@ -70,11 +65,38 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 //-------------------------------------- FUNCIONES PARA ENUM DE ACCION -------------------------//
 
+	enum Enum_Acciones Arbol_Decision_Manager::get_nada(){
+		return Nada;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_decidir(){
+		return Decidir;
+	}
 	enum Enum_Acciones Arbol_Decision_Manager::get_andar(){
 		return Andar;
 	}
 	enum Enum_Acciones Arbol_Decision_Manager::get_atacar(){
 		return Atacar;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_coger_arma(){
+		return Coger_Arma;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_usar_arma(){
+		return Usar_Arma;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_saltar(){
+		return Saltar;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_protegerse(){
+		return Protegerse;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_accionar(){
+		return Accionar;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_recibir_danyo(){
+		return Recibir_danyo;
+	}
+	enum Enum_Acciones Arbol_Decision_Manager::get_estar_derribado(){
+		return Estar_derribado;
 	}
 	enum Enum_Acciones Arbol_Decision_Manager::get_error(){
 		return Error;
@@ -95,8 +117,17 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 	};
 
 	MapeadoAccion mapping_enum_acciones[] = {	// Definicion de los parametros
+			{"Nada", &Arbol_Decision_Manager::get_nada},
+			{"Decidir", &Arbol_Decision_Manager::get_decidir},
 			{"Andar", &Arbol_Decision_Manager::get_andar},
 			{"Atacar", &Arbol_Decision_Manager::get_atacar},
+			{"Coger_Arma", &Arbol_Decision_Manager::get_coger_arma},
+			{"Usar_Arma", &Arbol_Decision_Manager::get_usar_arma},
+			{"Saltar", &Arbol_Decision_Manager::get_saltar},
+			{"Protegerse", &Arbol_Decision_Manager::get_protegerse},
+			{"Accionar", &Arbol_Decision_Manager::get_accionar},
+			{"Recibir_danyo", &Arbol_Decision_Manager::get_recibir_danyo},
+			{"Estar_derribado", &Arbol_Decision_Manager::get_estar_derribado},
 			{0, &Arbol_Decision_Manager::get_error}
 	};
 
@@ -108,88 +139,114 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 // ------------------------------------- FUNCIONES DE TIPO NODOS -----------------------------//
 
+	void Arbol_Decision_Manager::crear_nodo_final(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
+		enum Enum_Acciones _accion_i_izq, _accion_i_der;
+		MapeadoAccion *_next_function;
 
-void Arbol_Decision_Manager::crear_nodo_final(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _izq, Nodo_Decision* _der, uint8_t _i_id) {
-	enum Enum_Acciones _accion_izq, _accion_der;
-	MapeadoAccion *_next_function;
+		// LECTURA DE NODO IZQUIERDO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo izuquierdo
 
-	// LECTURA DE NODO IZQUIERDO
-	_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo izuquierdo
+		// Get accion
+		_next_function = mapping_enum_acciones;
+		while(_next_function->_nombre_objeto){
+			if(_i_iteracion == _next_function->_nombre_objeto){
+				_accion_i_izq = (this->*_next_function->pmet)();
+			}
 
-	// Get accion
-	_next_function = mapping_enum_acciones;
-	while(_next_function->_nombre_objeto){
-		if(_i_iteracion == _next_function->_nombre_objeto){
-			_accion_izq = (this->*_next_function->pmet)();
+			++_next_function;
 		}
 
-		++_next_function;
-	}
+		// LECTURA DE NODO DERECHO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo derecho
 
-	// LECTURA DE NODO DERECHO
-	_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo derecho
+		// Get accion
+		_next_function = mapping_enum_acciones;
+		while(_next_function->_nombre_objeto){
+			if(_i_iteracion == _next_function->_nombre_objeto){
+				_accion_i_der = (this->*_next_function->pmet)();
+			}
 
-	// Get accion
-	_next_function = mapping_enum_acciones;
-	while(_next_function->_nombre_objeto){
-		if(_i_iteracion == _next_function->_nombre_objeto){
-			_accion_der = (this->*_next_function->pmet)();
+			++_next_function;
 		}
 
-		++_next_function;
+
+		// OBTENCION DE LAS ACCIONES
+		_i_izq = _acciones[_accion_i_izq];
+		_i_der = _acciones[_accion_i_der];
+
+		// CONTROL DE ERRORES
+		if(_i_izq == nullptr || _i_der == nullptr) {
+			std::cout << "\n\nError buscar los nodos finales del nodo con id = " << (int)_i_id << "\n";
+			if(_i_izq == nullptr) std::cout << "\nHubo un error con el nodo de accion izquierdo\n";
+			if(_i_der == nullptr) std::cout << "\nHubo un error con el nodo de accion derecho\n";
+
+			std::cout << std::endl;
+			exit(0);
+		}
 	}
 
+	void Arbol_Decision_Manager::crear_nodo_medio(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
+		uint8_t _id_i_izq, _id_i_der;
 
-	// OBTENCION DE LAS ACCIONES
-	_izq = _acciones[_accion_izq];
-	_der = _acciones[_accion_der];
+		// LECTURA DE NODO IZQUIERDO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo izuquierdo
 
-	// CONTROL DE ERRORES
-	if(_izq == nullptr || _der == nullptr) {
-		std::cout << "\n\nError buscar los nodos finales del nodo con id = " << (int)_i_id << "\n";
-		if(_izq == nullptr) std::cout << "\nHubo un error con el nodo izquierdo\n";
-		if(_der == nullptr) std::cout << "\nHubo un error con el nodo derecho\n";
+		// Get accion
+		_id_i_izq = std::atoi(_i_iteracion.c_str());
+		
 
+		// LECTURA DE NODO DERECHO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo derecho
+
+		// Get accion
+		_id_i_der = std::atoi(_i_iteracion.c_str());
+
+
+		// OBTENCION DE LAS ACCIONES (con control)
+		if(_id_i_izq < _n_nodos)
+			_i_izq = _nodos_decision[_id_i_izq];
+		if(_id_i_der < _n_nodos)
+			_i_der = _nodos_decision[_id_i_der];
+
+		// CONTROL DE ERRORES
+		if(_i_izq == nullptr || _i_der == nullptr) {
+			std::cout << "\n\nError buscar los nodos medios del nodo con id = " << (int)_i_id << "\n";
+			if(_i_izq == nullptr) std::cout << "\nHubo un error con el nodo izquierdo, que tiene de id = " << (int)_id_i_izq <<"\n";
+			if(_i_der == nullptr) std::cout << "\nHubo un error con el nodo derecho, que tiene de id = " << (int)_id_i_der <<"\n";
+
+			std::cout << std::endl;
+			exit(0);
+		}
+	}
+
+	void Arbol_Decision_Manager::crear_nodo_error(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
+		// CONTROL DE ERRORES
+		std::cout << "\n\nError al definir la situacion del nodo con id = " << (int)_i_id << "\n";
 		std::cout << std::endl;
 		exit(0);
 	}
-}
 
-void Arbol_Decision_Manager::crear_nodo_medio(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _izq, Nodo_Decision* _der, uint8_t _i_id) {
-	uint8_t _id_izq, _id_der;
-
-	// LECTURA DE NODO IZQUIERDO
-	_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo izuquierdo
-
-	// Get accion
-	_id_izq = std::atoi(_i_iteracion.c_str());
-	
-
-	// LECTURA DE NODO DERECHO
-	_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo derecho
-
-	// Get accion
-	_id_der = std::atoi(_i_iteracion.c_str());
+// ------------------------------------- FIN FUNCIONES TIPO NODOS -----------------------------//
 
 
-	// OBTENCION DE LAS ACCIONES (con control)
-	if(_id_izq < _n_nodos)
-		_izq = _nodos_decision[_id_izq];
-	if(_id_der < _n_nodos)
-		_der = _nodos_decision[_id_der];
 
-	// CONTROL DE ERRORES
-	if(_izq == nullptr || _der == nullptr) {
-		std::cout << "\n\nError buscar los nodos medios del nodo con id = " << (int)_i_id << "\n";
-		if(_izq == nullptr) std::cout << "\nHubo un error con el nodo izquierdo, que tiene de id = " << (int)_id_izq <<"\n";
-		if(_der == nullptr) std::cout << "\nHubo un error con el nodo derecho, que tiene de id = " << (int)_id_der <<"\n";
 
-		std::cout << std::endl;
-		exit(0);
-	}
-}
 
-// ------------------------------------ FIN FUNCIONES TIPO NODOS -----------------------------//
+//---------------------------------- MAPEADOS DE TIPO DE NODOS --------------------------//
+
+	// Funciones para guardar los datos
+	struct MapeadoNodo{			// Declaracion de los parametros
+		const char* _nombre_objeto;
+		void (Arbol_Decision_Manager::*pmet)(std::ifstream&, std::string&, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id);
+	};
+
+	MapeadoNodo mapping_tipo_nodo[] = {	// Definicion de los parametros
+			{"Final", &Arbol_Decision_Manager::crear_nodo_final},
+			{"Medio", &Arbol_Decision_Manager::crear_nodo_medio},
+			{0, &Arbol_Decision_Manager::crear_nodo_error}
+	};
+
+//-------------------------------- FIN MAPEADOS DE TIPO DE NODOS ------------------------//
 
 
 
@@ -197,18 +254,42 @@ void Arbol_Decision_Manager::crear_nodo_medio(std::ifstream& _i_arbol_txt, std::
 
 // ------------------------------------- FUNCIONES CREACION CLASES NODOS -----------------------------//
 
-	void Arbol_Decision_Manager::crear_nodo_distancia(std::ifstream& _i_arbol_txt, std::string& _i_iteracion) {
-		std::cout << std::endl << "NODO DISTANCIA" << std::endl;
+	void Arbol_Decision_Manager::crear_nodo_distancia(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
+		//std::cout << std::endl << "NODO DISTANCIA" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atoi(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new Nodo_Decision_Distancia(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+
 
 	}
 
-	void Arbol_Decision_Manager::crear_nodo_lod(std::ifstream& _i_arbol_txt, std::string& _i_iteracion) {
-		std::cout << std::endl << "NODO LOD" << std::endl;
+	void Arbol_Decision_Manager::crear_nodo_lod(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
+		//std::cout << std::endl << "NODO LOD" << std::endl;
+		uint8_t _valor;
 
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion << std::endl;
+		_valor = std::atoi(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new Nodo_Decision_Distancia(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
 	}
 
-	void Arbol_Decision_Manager::crear_nodo_rango_ataque_normal(std::ifstream& _i_arbol_txt, std::string& _i_iteracion) {
+	void Arbol_Decision_Manager::crear_nodo_rango_ataque_normal(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
 		std::cout << std::endl << "NODO RANGO NORMAL" << std::endl;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion << std::endl;
 
 	}
 
@@ -219,24 +300,10 @@ void Arbol_Decision_Manager::crear_nodo_medio(std::ifstream& _i_arbol_txt, std::
 
 
 //-------------------------------------- MAPEADOS PARA CREAR NODOS -------------------------//
-
-	// Funciones para guardar los datos
-	struct MapeadoNodo{			// Declaracion de los parametros
-		const char* _nombre_objeto;
-		void (Arbol_Decision_Manager::*pmet)(std::ifstream&, std::string&, Nodo_Decision* _izq, Nodo_Decision* _der, uint8_t _i_id);
-	};
-
-	MapeadoNodo mapping_tipo_nodo[] = {	// Definicion de los parametros
-			{"Final", &Arbol_Decision_Manager::crear_nodo_final},
-			{"Medio", &Arbol_Decision_Manager::crear_nodo_medio},
-			{0, 0}
-	};
-
-
 	// Funciones para guardar los datos
 	struct MapeadoClaseNodo{			// Declaracion de los parametros
 		const char* _nombre_objeto;
-		void (Arbol_Decision_Manager::*pmet)(std::ifstream&, std::string&);
+		void (Arbol_Decision_Manager::*pmet)(std::ifstream&, std::string&, Nodo_Decision* _izq, Nodo_Decision* _der, uint8_t _i_id);
 	};
 
 	MapeadoClaseNodo mapping_clase_nodo[] = {	// Definicion de los parametros
@@ -252,9 +319,7 @@ void Arbol_Decision_Manager::crear_nodo_medio(std::ifstream& _i_arbol_txt, std::
 
 
 
-
-
-//---------------------------------------- LECTURA Y TRATAMIENTO DE FICHERO ----------------------//
+//------------------------------------- LECTURA Y TRATAMIENTO DE FICHERO ----------------------//
 
 void Arbol_Decision_Manager::lee_fichero_y_crea_arbol(const std::string &_i_fichero) {
 	uint8_t _id;
@@ -279,12 +344,11 @@ void Arbol_Decision_Manager::lee_fichero_y_crea_arbol(const std::string &_i_fich
 
 		_arbol_txt >> _iteracion;			// Lectura id de Nodo FIN
 		_id = std::atoi(_iteracion.c_str());
-		std::cout << (int)_id << " ";
+		//std::cout << (int)_id << " ";
 
 
 		// LECTURA DE TIPO DE NODO (MAPPING)
 		_arbol_txt >> _iteracion;			// Lectura tipo de nodos hijos
-		std::cout << _iteracion << " ";
 
 		_next_function = mapping_tipo_nodo;
 		
@@ -295,29 +359,22 @@ void Arbol_Decision_Manager::lee_fichero_y_crea_arbol(const std::string &_i_fich
 
 			++_next_function;
 		}
-
 		
 		// LECTURA DE TIPO DE NODO A CREAR (MAPPING)
 		_arbol_txt >> _iteracion;			// Lectura tipo de Nodo a crear
-		std::cout << _iteracion << " ";
 
 		_mapeado_clase = mapping_clase_nodo;
 		
 		while(_mapeado_clase->_nombre_objeto){
 			if(_iteracion == _mapeado_clase->_nombre_objeto){
-				(this->*_mapeado_clase->pmet)(_arbol_txt,_iteracion);
+				(this->*_mapeado_clase->pmet)(_arbol_txt,_iteracion, _izq, _der, _id);
 			}
 
 			++_mapeado_clase;
 		}
 
-		// LECTURA DE VALOR DE CORTE
-		_arbol_txt >> _iteracion;			// Lectura valor de corte
-		std::cout << _iteracion << std::endl;
-
-
 		_arbol_txt >> _iteracion;			// Lectura valor de cambio de linea
 	}
 
-	exit(0);
+	//exit(0);
 }
