@@ -3,7 +3,6 @@
 
 class Arista;
 class Grafo;
-class NPC;
 class Nodo_blackboard;
 class Vertice
 {

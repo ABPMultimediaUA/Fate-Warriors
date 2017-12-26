@@ -18,10 +18,6 @@ Nivel* Nivel::nivel_instancia(){
 }
 
 
-void Nivel::nivel_set_lod(int _i_id){
-	_lod2->grafo_set_lod(_i_id);
-}
-
 
 
 /*Funcion de crear grafos
@@ -123,6 +119,7 @@ void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_ite
 void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	float _x,_y,_ancho,_alto;
 	int _id;
+	u_int8_t n_npc;
 	Nodo* _nodo;
 	Grafo * _vacio = new Grafo();
 	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la y
@@ -142,13 +139,17 @@ void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iterac
 
 	_i_nivel_txt >> _i_iteracion;//se guarda el nombre del fichero 
 
+	//cantidad maxima de npc por nodo
+	for(n_npc=0;n_npc<_ancho/metro;++n_npc){
 
+	}
+	n_npc-=3;
 	int zona;
 
 	nivel_crear_grafo( _i_nivel_txt, _i_iteracion, _vacio);//creacion de todos los nodos
 	
 	zona=std::atoi(_i_iteracion.c_str());
-	_nodo = new Nodo( _x, _y, _ancho, _alto, _id, _vacio, zona);//creacion del nuevo nodo
+	_nodo = new Nodo( _x, _y, _ancho, _alto, _id, _vacio, zona, n_npc);//creacion del nuevo nodo
 	
 	_i_nivel_txt>>_i_iteracion;//obtiene el valor del siguiente nombre
 	
@@ -312,10 +313,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt.close();//cierre del fichero
 
 }
-unsigned short Nivel::nivel_pathfindinglod1(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino){
-	
-	return _lod2->grafo_pathfindinglod1(_i_xorigen,_i_yorigen,xdestino,ydestino);
-}
+
 
 Nivel::~Nivel() {
 	delete _lod2;
@@ -330,18 +328,7 @@ Nivel::~Nivel() {
  * Input: Id del vertice.
  * Output: puntero del vertice.
  * */
-Vertice *Nivel::nivel_get_vertice(int _i_id){
-	return _lod2->grafo_get_vertice(_i_id);
-}
-Nodo* Nivel::nivel_get_nodo(int _i_id){
-	return static_cast<Nodo*>(_lod2->grafo_get_vertice(_i_id));
-}
-Pasillo * Nivel::nivel_get_pasillo(int _i_id){
-	return static_cast<Pasillo*>(_lod2->grafo_get_vertice(_i_id));
-}
-int Nivel::nivel_get_id_vertice(float _i_x, float _i_y){
-	return _lod2->grafo_get_id_vertice(_i_x, _i_y);
-}
+
 /*Inserta un nodo en el grafo.
  * Input: id del nodo.
  * Output: ~.
@@ -368,14 +355,10 @@ int Nivel::nivel_get_id_vertice(float _i_x, float _i_y){
  * Output: pila con el recorrido.
  * */
 
-std::stack<Vertice*> Nivel::nivel_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino){
 
-	return _lod2->grafo_camino_corto_l2(_i_origen, _i_destino);
+void Nivel::Update(){
+	_lod2->Update();
 }
-Nodo_blackboard* Nivel::nivel_get_blackboard(float _i_x, float _i_y){
-	return _lod2->grafo_get_blackboard(_i_x, _i_y);
-}
-
 
 
 
