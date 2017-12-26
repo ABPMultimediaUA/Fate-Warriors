@@ -1,5 +1,6 @@
 #ifndef SRC_BLACKBOARD_H_
 #define SRC_BLACKBOARD_H_
+
 #include <cstdlib>
 
 #include "Enum_Decisiones.h"

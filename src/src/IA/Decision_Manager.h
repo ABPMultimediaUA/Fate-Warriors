@@ -1,6 +1,8 @@
 #ifndef SRC_DECISION_MANAGER_H_
 #define SRC_DECISION_MANAGER_H_
 
+#include <cstdint>
+
 class Action_Manager;
 class Arbol_Decision_Manager;
 class Blackboard;
@@ -29,6 +31,11 @@ private:
 
 	//Puntero a la interfaz a datos para la toma de decision
 	Interfaz_Datos *_interfaz_decision;
+
+	//Control del LOD
+	uint32_t _a;
+	uint8_t* _iteraciones_lod;
+	uint8_t* _iteraciones_actuales_lod;
 };
 
 #endif /* SRC_ACTION_MANAGER_H_ */

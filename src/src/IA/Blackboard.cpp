@@ -21,6 +21,7 @@ Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo)
 	_rango_ataque_fuerte=npc_aux->get_ref_rango_arma_larga();
 	_x=npc_aux->get_ref_x();
 	_z=npc_aux->get_ref_z();*/
+	_level_of_detail = 1;
 
 	_distancia_jugador = 0;
 	_decision = Decision_Quieto;
