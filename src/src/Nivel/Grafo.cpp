@@ -2,8 +2,10 @@
 #include "Vertice.h"
 #include "Arista.h"
 #include "../Interfaz_Libs/Lib_Math.h"
-#include <queue>
-#include <list>
+#include "Nodo_blackboard.h"
+#include "../Personajes/NPC.h"
+#include <queue>//include para el pathfinding grande
+#include <list>//include para el pathfinding grande
 #include <iostream>
 Grafo::Grafo(){
 	_h = nullptr;
@@ -85,6 +87,18 @@ int Grafo::grafo_get_id_vertice(float _i_x, float _i_y){
 	while(_aux!=nullptr){
 		if(_aux->pos2id(_i_x,_i_y)){
 			return _aux->_id;
+		}
+		_aux=_aux->_sig;
+		
+	}
+	return 0;
+}
+Vertice* Grafo::grafo_get_vertice(float _i_x, float _i_y){
+	Vertice *_aux;
+	_aux = _h;
+	while(_aux!=nullptr){
+		if(_aux->pos2id(_i_x,_i_y)){
+			return _aux;
 		}
 		_aux=_aux->_sig;
 		
@@ -504,4 +518,33 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 
 
 	return 361;
+}
+void Grafo::actualiza_NPC(){
+	Vertice* ver_aux=_h;
+	Nodo_blackboard* black_aux;
+	u_int8_t cont=0;
+	NPC* npc_aux;
+	while(ver_aux!=nullptr){
+		black_aux=ver_aux->_blackboard;
+		cont= black_aux->get_maximo_npc();
+		while(cont){
+			--cont;
+			npc_aux=black_aux->get_NPC(cont);
+			if(npc_aux!=nullptr){
+				std::cout<<"id: "<<ver_aux->_id<<std::endl;
+				if(!ver_aux->pos2id(npc_aux->getX(),npc_aux->getY())){
+					black_aux->elimina_NPC(npc_aux);
+					grafo_inserta_NPC(npc_aux);
+				}
+			}
+		}
+		ver_aux=ver_aux->_sig;
+	}
+}
+void Grafo::grafo_inserta_NPC(NPC* _i_npc){
+	Nodo_blackboard* black_aux=grafo_get_vertice(_i_npc->getX(),_i_npc->getZ())->get_blackboard();
+	black_aux->inserta_NPC(_i_npc);
+}
+void Grafo::Update(){
+	actualiza_NPC();
 }

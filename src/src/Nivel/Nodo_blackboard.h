@@ -14,7 +14,7 @@ class Nodo_blackboard
 
       private:	  
       NPC** _NPC;
-	u_int8_t maximo_npc;
+	u_int8_t _maximo_npc;
       Enum_zonas _zona_actual;//
       std::vector<Objeto*> _objetos;
       int* _zonas_ady;
@@ -27,6 +27,9 @@ class Nodo_blackboard
 
 	public:
       Enum_zonas get_zona_actual();
+      inline u_int8_t get_maximo_npc(){
+            return _maximo_npc;
+      }
       int* get_zonas_ady();
       std::vector<Objeto*> get_objetos();
       int get_ultima_zona();
@@ -37,7 +40,9 @@ class Nodo_blackboard
 
       void set_lod(int _i_lod);
       void anyadir_zona(int _i_zona);
-
+      void inserta_NPC(NPC* _i_npc);
+      void elimina_NPC(NPC* _i_npc);
+      NPC* get_NPC(u_int8_t num);
 	  Nodo_blackboard(int _i_zona_actual, u_int8_t _i_tamano);
 	  ~Nodo_blackboard();
 };

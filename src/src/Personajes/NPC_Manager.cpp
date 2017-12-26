@@ -1,17 +1,18 @@
 #include "NPC_Manager.h"
-
+#include <iostream>
 #include "NPC.h"
+#include "../Nivel/Nivel.h"
 
 NPC_Manager::NPC_Manager() {
 	_n_enemigos = 2;
 	_n_aliados = 0;
+	Nivel* nivel=Nivel::nivel_instancia();
 
 	_npc = new NPC*[_n_enemigos];
-
-	//for(unsigned short _cont=0; _cont<_n_enemigos; _cont++) {
-		_npc[0] = new NPC(0,18*39.3701,0,18*39.3701,50,15, 5, 10);
-		_npc[1] = new NPC(0,6*39.3701,0,6*39.3701,50,15, 5, 10);
-	//}
+	_npc[0] = new NPC(0,18*metro,0,18*metro,50,15, 5, 10);
+	nivel->nivel_inserta_NPC(_npc[0]);
+	_npc[1] = new NPC(0,6*metro,0,6*metro,50,15, 5, 10);
+	nivel->nivel_inserta_NPC(_npc[1]);
 }
 
 NPC_Manager::~NPC_Manager() {

@@ -71,12 +71,13 @@ Game::~Game(){
 void Game::crea_partida() {	
 	_interfaz_grafica 	= Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
 	_interfaz_fisica 	= Interfaz_Fisica::Interfaz_Fisica_GetInstance();
+	_nivel=Nivel::nivel_instancia();
 	_datos 				= new Datos_Partida();
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
 	_consumibles_action = new Consumible_action();	
 	_trampas_action 	= new Trampas_action();	
-	_nivel=Nivel::nivel_instancia();
+	
 
 
 	//cargar nivel 1
@@ -131,6 +132,7 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	
 	Player *_player = _datos->get_player();
 	_player->update();
+	_nivel->Update();
 	//_consumibles_action->comprobar_consumibles();
 	//_trampas_action->update();
 	_player = nullptr;
