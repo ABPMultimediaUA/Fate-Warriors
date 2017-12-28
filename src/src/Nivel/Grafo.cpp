@@ -531,7 +531,7 @@ void Grafo::actualiza_NPC(){
 			--cont;
 			npc_aux=black_aux->get_NPC(cont);
 			if(npc_aux!=nullptr){
-				std::cout<<"id: "<<ver_aux->_id<<std::endl;
+				//std::cout<<"id: "<<ver_aux->_id<<std::endl;
 				if(!ver_aux->pos2id(npc_aux->getX(),npc_aux->getY())){
 					black_aux->elimina_NPC(npc_aux);
 					grafo_inserta_NPC(npc_aux);
