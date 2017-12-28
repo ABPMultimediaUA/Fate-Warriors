@@ -9,6 +9,7 @@ class Interfaz;
 class Interfaz_Fisica;
 class Consumible_action;
 class Trampas_action;
+class Motor;
 
 class Game{
 
@@ -31,8 +32,9 @@ private:
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;
 	Decision_Manager *_decision_manager; 	// Encargado de tomar las decisiones de los NPCs
-	Interfaz *_interfaz_grafica;
-	Interfaz_Fisica* _interfaz_fisica;
+	//Interfaz *_interfaz_grafica;
+	//Interfaz_Fisica* _interfaz_fisica;
+	Motor* _motor;
 	Consumible_action * _consumibles_action;
 	Trampas_action* _trampas_action;
 };

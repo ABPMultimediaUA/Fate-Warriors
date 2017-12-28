@@ -2,6 +2,7 @@
 #define PUERTA_H_
 
 #include "Objeto.h"
+class Motor;
 
 class Puerta : public Objeto{
 public:
@@ -14,6 +15,7 @@ public:
 
 private:
 	bool _abierta;
+	Motor* _motor;
 };
 
 #endif /* PUERTA_H_ */

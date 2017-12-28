@@ -3,7 +3,7 @@
 #include "../IA/Blackboard.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 
-#include "../Interfaz/Matcher.h"
+#include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
 
 #include <iostream>
@@ -11,7 +11,8 @@
 
 
 NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad) : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad), _blackboard(nullptr) {
-    _matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y, _i_z, 1, false);
+    //_matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y, _i_z, 1, false);
+    _motor = Motor::Motor_GetInstance();
 }
 
 NPC::~NPC() {
@@ -30,20 +31,23 @@ void NPC::move(unsigned long _i_direccion) {
     _x = _x + _desp_x;
     _z = _z + _desp_z;
     //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
-    _matcher->Mover(_desp_x*100, 0, _desp_z*100);
+    //_matcher->Mover(_desp_x*100, 0, _desp_z*100);
     //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';
 }
 
 float NPC::getX(){
-    return(_matcher->getPosition()._x);
+   // return(_matcher->getPosition()._x);
+    return(0);
 }
 
 float NPC::getY(){
-    return(_matcher->getPosition()._y);
+   // return(_matcher->getPosition()._y);
+    return 0;
 }
 
 float NPC::getZ(){
-    return(_matcher->getPosition()._z);
+   // return(_matcher->getPosition()._z);
+    return 0;
 }
 
 void NPC::update() {

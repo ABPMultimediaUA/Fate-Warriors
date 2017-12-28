@@ -1,7 +1,8 @@
 #include "Game.h"
-#include "Interfaz/Interfaz.h"
+#include "Interfaz/Motor.h"
 #include "Personajes/Player.h"
 #include "Tiempo/Time.h"
+#include "irrlicht/irrlicht.h"
 #include <iostream>
 //#include <btBulletDynamicsCommon.h>
 
@@ -19,10 +20,11 @@ int main(){
 
 	Time* _time = Time::Instance();
 
-	Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
-    
+	//Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
+    Motor* _motor = Motor::Motor_GetInstance();
+
 	//_time->updateAntes();
-	while(_interface->Interfaz_getDevice()->run()){
+	while(_motor->getIrrlichtDevice()->run()){
 		//evento para cerrar la ventana
 
 		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj

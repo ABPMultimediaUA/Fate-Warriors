@@ -1,3 +1,4 @@
+/*
 #include "Objeto_Estandar.h"
 #include "Interfaz/Matcher.h"
 
@@ -16,3 +17,4 @@ void Objeto_Estandar::render(){}
 Objeto_Estandar::~Objeto_Estandar(){
 
 }       
+*/

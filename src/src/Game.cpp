@@ -6,15 +6,17 @@
 #include "Entrada/Input.h"
 #include "IA/Decision_Manager.h"
 #include "Personajes/Player.h"
-#include "Interfaz/Interfaz.h"
-#include "Interfaz/Interfaz_Fisica.h"
+
 #include "Nivel/Nivel.h"
 #include "Consumibles/Consumible_action.h"
 #include "Trampas/Trampas_action.h"
-
+#include "Interfaz/Motor.h"
 
 #include <iostream>
 #include <stack>
+#include "SFML/Graphics.hpp"
+
+using namespace sf;
 
 Game* Game::instancia = 0;
 
@@ -27,8 +29,7 @@ Game* Game::game_instancia(){
 Game::Game() : _datos(nullptr), 
 			   _action_manager(nullptr), 
 			   _decision_manager(nullptr), 
-			   _interfaz_grafica(nullptr), 
-			   _interfaz_fisica(nullptr),
+			   _motor(nullptr),
 			   _consumibles_action(nullptr),
 			   _trampas_action(nullptr)
 			   {}
@@ -47,13 +48,18 @@ Game::~Game(){
 		delete _action_manager;
 		_action_manager = nullptr;
 	}
-	if(_interfaz_grafica != nullptr) {
-		delete _interfaz_grafica;
-		_interfaz_grafica = nullptr;
-	}
-	if(_interfaz_fisica != nullptr) {
-		delete _interfaz_fisica;
-		_interfaz_fisica = nullptr;
+	//if(_interfaz_grafica != nullptr) {
+	//	delete _interfaz_grafica;
+	//	_interfaz_grafica = nullptr;
+	//}
+	//if(_interfaz_fisica != nullptr) {
+	//	delete _interfaz_fisica;
+	//	_interfaz_fisica = nullptr;
+	//}
+
+	if(_motor != nullptr) {
+		delete _motor;
+		_motor = nullptr;
 	}
 
 	if(_consumibles_action != nullptr) {
@@ -69,8 +75,9 @@ Game::~Game(){
 
 
 void Game::crea_partida() {	
-	_interfaz_grafica 	= Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
-	_interfaz_fisica 	= Interfaz_Fisica::Interfaz_Fisica_GetInstance();
+	//_interfaz_grafica 	= Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
+	//_interfaz_fisica 	= Interfaz_Fisica::Interfaz_Fisica_GetInstance();
+	_motor = Motor::Motor_GetInstance();
 	_datos 				= new Datos_Partida();
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
@@ -106,8 +113,9 @@ void Game::fin_partida() {
 	delete _decision_manager;
 	delete _action_manager;
 	
-	delete _interfaz_grafica;
-	delete _interfaz_fisica;
+	//delete _interfaz_grafica;
+	//delete _interfaz_fisica;
+	delete _motor;
 	delete _consumibles_action;
 	delete _trampas_action;
 
@@ -115,8 +123,9 @@ void Game::fin_partida() {
 	_datos 				= nullptr;
 	_decision_manager 	= nullptr;
 	_action_manager 	= nullptr;
-	_interfaz_grafica 	= nullptr;
-	_interfaz_fisica 	= nullptr;
+	//_interfaz_grafica 	= nullptr;
+	//_interfaz_fisica 	= nullptr;
+	_motor 				= nullptr;
 	_consumibles_action = nullptr;
 	_trampas_action 	= nullptr;
 }
@@ -127,24 +136,25 @@ void Game::run(){
 
 
 void Game::update(double _i_tiempo_desde_ultimo_update){
-	
 	Player *_player = _datos->get_player();
 	_player->update();
 	//_consumibles_action->comprobar_consumibles();
 	//_trampas_action->update();
 	_player = nullptr;
-		                std::cout << "aqui no llega1" << std::endl;
 
-	_interfaz_fisica->update();
-		                std::cout << "aqui no llega2" << std::endl;
-
-//std::cout<<"ALTURA:    "<<_interfaz_grafica->getHeight()<<std::endl;
+	//_interfaz_fisica->update();
+	_motor->update(_i_tiempo_desde_ultimo_update);
+	//_motor->simulationUpdate();
 	_decision_manager->toma_decisiones();
+
+
 }
 
 void Game::render(float _i_interpolacion){
-	_interfaz_grafica->Interfaz_Update(); //Camara->update();
-	_interfaz_grafica->Interfaz_Render();
+	std::cout<<"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"<<std::endl;
+	//_interfaz_grafica->Interfaz_Update(); //Camara->update();
+	//_interfaz_grafica->Interfaz_Render();
+	_motor->render();
 }
   
 Datos_Partida* Game::game_get_datos() {

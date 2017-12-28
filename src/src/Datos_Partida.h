@@ -8,6 +8,7 @@ class Consumible_manager;
 class Trampas_manager;
 class Interactuable_Manager;
 class Objeto_Estandar;
+class Motor;
 
 
 class Datos_Partida {
@@ -32,6 +33,7 @@ private:
 		Trampas_manager *_trampas_manager;
 	Consumible_manager * _consumibles_manager;
     Interactuable_Manager * _interactuable_manager;
+	Motor* _motor;
 
 };
 

@@ -2,11 +2,11 @@
 #include <iostream>
 #include "../Entrada/Input.h"
 #include "../Entrada/Controles.h"
-#include "../Interfaz/Interfaz.h"
-#include "../Interfaz/Interfaz_Fisica.h"
+//#include "../Interfaz/Interfaz.h"
+//#include "../Interfaz/Interfaz_Fisica.h"
 #include "../Camara/Camara.h"
 #include "../Tiempo/Time.h"
-#include "../Interfaz/Matcher.h"
+#include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
 
 #include "../Game.h"
@@ -15,7 +15,9 @@
 Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 10000)
                                                                 {   
     //_matcher = new Matcher(LLAVE_R, LLAVE_M, _i_x, _i_y,  _i_z,  1,true);                                                                
-    _matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y,  _i_z,  1,true); 
+    //_matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y,  _i_z,  1,true); s
+    std::cout<<"esta entrando si quiera??"<<std::endl;
+    _motor = Motor::Motor_GetInstance();
     _tiempo = Time::Instance();
     //std::cout<<"eso: "<<_interface<<std::endl;
     //crear nodo de personaje del motor
@@ -24,15 +26,44 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
   // _nodoId = _interface->Interfaz_crearProtaZip("models/Personaje.zip", "Personaje.obj",false,
   //                      _i_x,_i_y,_i_z);
   // _interface_fisica->CargaRigidBodyProta(200,_i_x,_i_y,_i_z);
+    _motor->crearObjeto("models/Personaje.obj", _i_x,0,_i_z);
 }
 
 Player::~Player(){
-    delete _matcher;
-    _matcher = nullptr;
+    delete _motor;
+    _motor = nullptr;
 }
 
 void Player::update(){
+    //	std::cout<<"llego boiiiiiii"<<std::endl;
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
+    	std::cout<<"DEBERIA DE LLAMARSE A PARTIR DE AQUI FUCK"<<std::endl;
+        _motor->moverAdelante();
+    }
     
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
+        _motor->moverAtras();
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
+        _motor->moverIzquierda();
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
+        _motor->moverDerecha();
+    }
+    
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)){
+      //  Game::game_instancia()->game_get_action_manager()->comprobar_objetos_interactuables_cercanos(this);  
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
+        _motor->saltar();
+        //exit(0);
+	}
+
+    /*
     Controles* controles = Controles::Instance();
     Interfaz* interface = Interfaz::Interfaz_getInstance();
     bool moving = false;
@@ -133,6 +164,7 @@ void Player::update(){
 
         
   }
+  */
 }
 			
 void Player::render(){

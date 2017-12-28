@@ -1,3 +1,4 @@
+/*
 #ifndef Objeto_Estandar_H_
 #define Objeto_Estandar_H_
 
@@ -19,3 +20,4 @@ private:
 };
 
 #endif
+*/

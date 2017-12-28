@@ -5,7 +5,7 @@
 class Interfaz;
 class Interfaz_Fisica;
 class Time;
-class Matcher;
+class Motor;
 
 class Player : public Character{
 public:
@@ -22,7 +22,7 @@ private:
 	Time * _tiempo;
 	double _otro_tiempo;
 	double _tiempo_anterior;
-	Matcher* _matcher;
+	Motor* _motor;
 };
 
 #endif /* SRC_PLAYER_H_ */

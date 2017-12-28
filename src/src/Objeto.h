@@ -4,10 +4,8 @@
 
 enum NombreObjetos{
 
+
 };
-
-class Matcher;
-
 
 
 class Objeto {
@@ -42,7 +40,6 @@ protected:
 	float 	_y;
 	float 	_z;
 	bool 	_borrar;
-	Matcher* _matcher;
     bool _visible;
 };
 

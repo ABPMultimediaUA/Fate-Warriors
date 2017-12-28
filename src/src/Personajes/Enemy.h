@@ -4,6 +4,7 @@
 
 class Time;
 class Interfaz;
+class Motor;
 
 class Enemy : public Character{
 public:
@@ -19,6 +20,7 @@ private:
 	Interfaz* _interface;
 	Time * _tiempo;
 	unsigned short _variable_modelo;
+	Motor* _motor;
 };
 
 #endif /* SRC_Enemy_H_ */
