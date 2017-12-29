@@ -3,6 +3,7 @@
 #include "Arista.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "Nodo_blackboard.h"
+#include "../IA/Blackboard.h"
 #include "../Personajes/NPC.h"
 #include <queue>//include para el pathfinding grande
 #include <list>//include para el pathfinding grande
@@ -17,36 +18,40 @@ Grafo::~Grafo(){
 
 void Grafo::grafo_set_lod(int _i_id){
 	//TO DO
-	int cont=0;
-	/*Vertice * _aux;
-	_aux=_h->get_vertice(_i_id);
-	while(_aux->_sig!=nullptr){
-		_aux=_aux->_sig;
-	}*/
+	if(_i_id!=0){
+		int cont=0;
+		/*Vertice * _aux;
+		_aux=_h->get_vertice(_i_id);
+		while(_aux->_sig!=nullptr){
+			_aux=_aux->_sig;
+		}*/
 
-	Vertice *_VertAux;
-	Arista *_ArisAux;
+		Vertice *_VertAux;
+		Arista *_ArisAux;
 
-	_VertAux = _h;
+		_VertAux = _h;
 
-	while(_VertAux != nullptr){
-		_ArisAux = _VertAux->_ady;
-		while(_ArisAux != nullptr){
-			_ArisAux = _ArisAux->_sig;
+		while(_VertAux != nullptr){
+			_ArisAux = _VertAux->_ady;
+			while(_ArisAux != nullptr){
+				_ArisAux = _ArisAux->_sig;
+			}
+			_VertAux->_blackboard->set_lod(5);
+			_VertAux = _VertAux->_sig;
 		}
-		_VertAux->_lod=5;
-		_VertAux = _VertAux->_sig;
-	}
-	_VertAux=grafo_get_vertice(_i_id);
-	
-	_VertAux->set_lod(cont);
+		_VertAux=grafo_get_vertice(_i_id);
+		
+		_VertAux->set_lod(cont);
 
-	_VertAux->_lod=1;
-	//recorrer todos los nodos a partir del dado
-	//el pasado y 1 siguiente = 1
-	//uno mas al anterior = 2
-	//dos mas al siguiente del pasado = 3
-	//el resto 4
+		_VertAux->_blackboard->set_lod(1);
+		//recorrer todos los nodos a partir del dado
+		//el pasado y 1 siguiente = 1
+		//uno mas al anterior = 2
+		//dos mas al siguiente del pasado = 3
+		//el resto 4
+	}else{
+		std::cout<<"ERROR: esta fuera del nivel"<<std::endl;
+	}
 }
 
 bool Grafo::grafo_vacio(){
@@ -531,7 +536,6 @@ void Grafo::actualiza_NPC(){
 			--cont;
 			npc_aux=black_aux->get_NPC(cont);
 			if(npc_aux!=nullptr){
-				std::cout<<"id: "<<ver_aux->_id<<std::endl;
 				if(!ver_aux->pos2id(npc_aux->getX(),npc_aux->getY())){
 					black_aux->elimina_NPC(npc_aux);
 					grafo_inserta_NPC(npc_aux);
@@ -544,6 +548,7 @@ void Grafo::actualiza_NPC(){
 void Grafo::grafo_inserta_NPC(NPC* _i_npc){
 	Nodo_blackboard* black_aux=grafo_get_vertice(_i_npc->getX(),_i_npc->getZ())->get_blackboard();
 	black_aux->inserta_NPC(_i_npc);
+	_i_npc->get_blackboard()->set_nodo_blackboard(black_aux);
 }
 void Grafo::Update(){
 	actualiza_NPC();

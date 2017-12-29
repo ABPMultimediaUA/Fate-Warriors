@@ -51,8 +51,8 @@ public:
 	void morir();
 	
 protected:
-	short _vida_maxima;
-	short _vida;
+	int16_t _vida_maxima;
+	int16_t _vida;
 	short _velocidad;
 	uint8_t _rango_arma_corta;
 	uint8_t _rango_arma_larga;

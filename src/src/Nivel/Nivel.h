@@ -57,7 +57,7 @@ public:
 		return _lod2->grafo_pathfindinglod1(_i_xorigen,_i_yorigen,xdestino,ydestino);
 	}
 	inline unsigned short nivel_get_lod(int _i_id){
-		return _lod2->grafo_get_vertice(_i_id)->_lod;
+		return _lod2->grafo_get_vertice(_i_id)->_blackboard->get_lod();
 	}
 private:
 	static Nivel* instancia;

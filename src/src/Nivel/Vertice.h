@@ -18,7 +18,7 @@ class Vertice
 	  float _alto;
 	  float _peso;
 	  int _id_arista;
-	  unsigned short _lod;
+	  //unsigned short _lod;
 
 	  Vertice(float _i_posx, float _i_posy, float _i_ancho, float _i_alto, int _i_id, Grafo *_i_grafo_lod1);
 	  Grafo * get_lod1();

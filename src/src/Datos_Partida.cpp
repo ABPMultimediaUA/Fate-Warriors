@@ -80,3 +80,6 @@ Consumible_manager * Datos_Partida::get_consumible_manager(){
 Interactuable_Manager* Datos_Partida::get_interactuable_manager(){
 	return _interactuable_manager;
 }
+void Datos_Partida::inserta_npc_nivel(){
+	_npc_manager->inserta_npc_nivel();
+}
