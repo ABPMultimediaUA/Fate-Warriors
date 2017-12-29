@@ -151,7 +151,6 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 }
 
 void Game::render(float _i_interpolacion){
-	std::cout<<"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"<<std::endl;
 	//_interfaz_grafica->Interfaz_Update(); //Camara->update();
 	//_interfaz_grafica->Interfaz_Render();
 	_motor->render();

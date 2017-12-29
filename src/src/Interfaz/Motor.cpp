@@ -56,6 +56,10 @@ uint8_t Motor::crearObjeto(char* rutaObj,float x, float y, float z){
 	return _entidad->crear_objeto(rutaObj,x, y, z);
 }
 
+void Motor::moverDireccion(unsigned short _i_direccion){
+	_entidad->moverDireccion(_i_direccion);
+}
+
 IrrlichtDevice* Motor::getIrrlichtDevice(){
 	return _entidad->getDevice();
 }

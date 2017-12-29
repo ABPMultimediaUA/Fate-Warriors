@@ -116,6 +116,7 @@ public:
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void anyadir_camara();
     //movimiento del prota
+    void moverDireccion(unsigned short _i_direccion);
     void moverAdelante();
     void moverIzquierda();
     void moverDerecha();

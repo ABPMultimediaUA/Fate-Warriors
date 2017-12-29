@@ -289,70 +289,18 @@ void Entidad::update(double dt){
         float miY = origin.getY();
         float miZ = origin.getZ();
 
-//      float movX,movY,movZ;
-        
-
-		
-		
-      //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-      //      miZ += cos(angulo) * _velocidad * dt;
-      //      miX += sin(angulo) * _velocidad * dt;
-      //      desp_z += cos(angulo) * _velocidad * dt;
-      //      desp_x += sin(angulo) * _velocidad * dt;
-      //      //interface->Interfaz_rotarProta(0);
-      //      moving = true;
-      //      std::cout << "se mete" << std::endl;
-      //  }
-      //  
-      //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-      //      miZ -= cos(angulo) * _velocidad * dt;
-      //      miX -= sin(angulo) * _velocidad * dt;
-      //      //interface->Interfaz_rotarProta(180);    
-      //      desp_z -= cos(angulo) * _velocidad * dt;
-      //      desp_x -= sin(angulo) * _velocidad * dt;
-      //      moving = true;
-      //  }
-//
-      //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-      //      miZ += sin(angulo) * _velocidad * dt;
-      //      miX -= cos(angulo) * _velocidad * dt;
-      //      //interface->Interfaz_rotarProta(-90);
-      //      desp_z += sin(angulo) * _velocidad * dt;
-      //      desp_x -= cos(angulo) * _velocidad * dt;
-      //      moving = true;
-      //  }
-//
-      //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-      //      miZ -= sin(angulo) * _velocidad * dt;
-      //      miX += cos(angulo) * _velocidad * dt;
-      //      //interface->Interfaz_rotarProta(90);
-      //      desp_z -= sin(angulo) * _velocidad * dt;
-      //      desp_x += cos(angulo) * _velocidad * dt;
-      //      moving = true;
-      //  }
-      //  
-      //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)){
-      //    //  Game::game_instancia()->game_get_action_manager()->comprobar_objetos_interactuables_cercanos(this);  
-      //  }
-//
-      //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
-	//		if(std::abs (rigidbody[1]->getLinearVelocity()[1])<0.0001){
-	//			rigidbody[1]->applyCentralImpulse( btVector3( 0.f, 9000.f, 0.f ) );
-	//		}            
-      //  }
-//
     
             
 			camara->Camara_Update();
 			angulo = camara->Camara_getAngleRad();
-					std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss1S " << std::endl;
+				//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss1S " << std::endl;
             world->stepSimulation(dt * 0.001f);
 
 		//btVector3 vel(desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
 
         //desp_x = desp_z = 0;
        	 //rigidbody[1]->setLinearVelocity(vel);
-					std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss2 " << std::endl;
+				//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss2 " << std::endl;
 
 			for(short i=0; i<rigidbody.size(); i++){
 				// Actualiza el cuerpo dinamico de la caja
@@ -370,11 +318,20 @@ void Entidad::update(double dt){
        // device->drop();
 }
 
+void Entidad::moverDireccion(unsigned short _i_direccion){  // Direccion
+	//std::cout << "Angulo = " << (int)_i_direccion << std::endl;
+
+    desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
+    desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
+    moving = true;
+    Mover(1,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
+}
+
 void Entidad::moverAdelante(){  //W
 	//miZ += cos(angulo) * _velocidad * dt;
     //miX += sin(angulo) * _velocidad * dt;
-    desp_z += cos(angulo) * _velocidad * mdt;
-    desp_x += sin(angulo) * _velocidad * mdt;
+    desp_z += cos(angulo+(270*std::acos(-1)/180)) * _velocidad * mdt;
+    desp_x += sin(angulo+(270*std::acos(-1)/180)) * _velocidad * mdt;
 	//std::cout<<"-------------ANGULO: "<<angulo<<std::endl;
 	//std::cout<<"-------------velocidad: "<<_velocidad<<std::endl;
 	//std::cout<<"-------------dt: "<<dt<<std::endl;
@@ -464,13 +421,11 @@ void Entidad::moveKinematicObject(btCollisionObject *object, btVector3 traslatio
 	t.setOrigin(origin);
 	object->setWorldTransform(t);
 	node->setPosition(vector3df(origin.getX(), origin.getY(), origin.getZ()));
-	std::cout<<"hooola" << std::endl;
 }
 
 
 // TODO 2.a Comprueba si existe algun contacto en el mundo. Si al menos existe uno devuelve true, en caso contrario false
 bool Entidad::hasCollision(btDynamicsWorld *world) {
-	std::cout<<"hooola" << std::endl;
 
 	int numManifolds = world->getDispatcher()->getNumManifolds();
 	for (int i=0;i<numManifolds;i++)
@@ -492,7 +447,6 @@ bool Entidad::hasCollision(btDynamicsWorld *world) {
 }
 
 bool Entidad::hasCollision(btDynamicsWorld *world, btPairCachingGhostObject *ghostObject) {
-	std::cout<<"hooola" << std::endl;
 
 	// TODO 1.n Comprueba si existe algun contacto con el ghost object. Si al menos existe uno devuelve true, en caso contrario false
 	btManifoldArray manifoldArray;
@@ -524,7 +478,7 @@ bool Entidad::hasCollision(btDynamicsWorld *world, btPairCachingGhostObject *gho
 }
 
 void Entidad::Mover(uint8_t id, float x, float y, float z){
-	std::cout<<"-----------------X: "<< x <<"--Y: "<< y << "--Z: "<< z <<std::endl;
+	//std::cout<<"borrame -----------------X: "<< x <<"--Y: "<< y << "--Z: "<< z <<std::endl; 
 	btRigidBody* cuerpo;
 	cuerpo = rigidbody[id];
 	btVector3 mov(x,y,z);
@@ -539,7 +493,6 @@ IrrlichtDevice* Entidad::getDevice(){
 
 void Entidad::render(){
 
-	std::cout << "hola ";
 	driver->beginScene(true, true, SColor(255,100,101,140));
     smgr->drawAll();
     // Dibuja maya de depuracion

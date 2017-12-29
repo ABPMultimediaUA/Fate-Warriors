@@ -8,6 +8,7 @@
 #include "../Tiempo/Time.h"
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
+#include "../Interfaz_Libs/Lib_Math.h"
 
 #include "../Game.h"
 #include "../Action_Manager.h"
@@ -35,24 +36,61 @@ Player::~Player(){
 }
 
 void Player::update(){
-    //	std::cout<<"llego boiiiiiii"<<std::endl;
+    bool _w = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
+    bool _a = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
+    bool _s = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
+    bool _d = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
+    
+    if(_w){
+        if(_a){
+            _motor->moverDireccion(315);
+        }
+        else if(_d){
+            _motor->moverDireccion(45);
+        }
+        else {
+            _motor->moverDireccion(0);
+        }
+    }
+    else if(_s){
+        if(_a){
+            _motor->moverDireccion(225);
+        }
+        else if(_d){
+            _motor->moverDireccion(135);
+        }
+        else {
+            _motor->moverDireccion(180);
+        }
+    }
+    else if(_a){
+        _motor->moverDireccion(270);
+    }
+    else if(_d){
+        _motor->moverDireccion(90);
+    }
 
+    /*
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-    	std::cout<<"DEBERIA DE LLAMARSE A PARTIR DE AQUI FUCK"<<std::endl;
-        _motor->moverAdelante();
+        _motor->moverDireccion(0);
+        std::cout << "Entra a W \n";
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        _motor->moverAtras();
+        _motor->moverDireccion(180);
+        std::cout << "Entra a S \n";
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        _motor->moverIzquierda();
+        _motor->moverDireccion(270);
+        std::cout << "Entra a A \n";
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        _motor->moverDerecha();
+        _motor->moverDireccion(90);
+        std::cout << "Entra a D \n";
     }
+    */
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)){
       //  Game::game_instancia()->game_get_action_manager()->comprobar_objetos_interactuables_cercanos(this);  
@@ -62,6 +100,21 @@ void Player::update(){
         _motor->saltar();
         //exit(0);
 	}
+
+    // Deteccion del movimiento con mando
+    sf::Joystick::update();
+    if(sf::Joystick::isConnected(0)){
+        //std::cout << "En X" << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+        //std::cout << "En Y" << sf::Joystick::getAxisPosition(0, sf::Joystick::Y) << std::endl;
+        float _x = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
+        float _y = sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
+
+        // Minimo de movimiento de Joystick
+        if(std::abs(_x) > 20 || std::abs(_y) > 20) {
+            unsigned short _direccion = lib_math_angulo_2_puntos(_y, -_x, 0, 0);
+            _motor->moverDireccion(_direccion);
+        }
+    }
 
     /*
     Controles* controles = Controles::Instance();
