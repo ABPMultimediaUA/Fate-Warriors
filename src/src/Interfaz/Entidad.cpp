@@ -10,7 +10,7 @@ Entidad::Entidad(){
 	mult = 39.3701;
 
 	//importarEscenario("models/Nodo1.obj",  5,0, 5);
-	importarEscenario("models/Nodo3.obj",  mult * 22,0,mult * 21);
+	importarEscenario("models/Nivel1.obj",  0,0,0);
 	//importarEscenario("models/Nodo5.obj",  35,0,38);
 	//importarEscenario("models/Nodo7.obj",  27,0,3);
 	//importarEscenario("models/Nodo10.obj", 49,0,3);
@@ -22,11 +22,10 @@ Entidad::Entidad(){
 //
 
         desp_x = desp_z = 0;
-	anyadir_camara();
 	float x, y, z;
-	x=20;
+	x=0;
 	y=10;
-	z=20;
+	z=0;
 
 	moving = false;
 
@@ -36,12 +35,11 @@ Entidad::Entidad(){
 	//x=20;
 	//y=10;
 	//z=20;
-	crear_objeto("models/Personaje.obj",(x-6)*mult,y+50,z*mult);
+	crear_objeto("models/Personaje.obj",(x)*mult,y+50,z*mult);
 
 	angulo = 0;
-	_velocidad = 10;
+	_velocidad = 1;
 	//then = device->getTimer()->getTime();
-	
 }
 
 Entidad::~Entidad(){
@@ -117,7 +115,7 @@ void Entidad::configuracion_bullet(){
 	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadPhase, constraintSolver, collisionConfiguration);
 
 	fileLoader = new btBulletWorldImporter(world);
-	fileLoader->loadFile("Colisiones.blend.bullet");
+	fileLoader->loadFile("models/Colisiones.bullet");
 
     world->setGravity(btVector3(0,-9.8*20,0));
 	//btTransform trans;
@@ -140,19 +138,22 @@ void Entidad::configuracion_irlitch(){
 
 short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	// Creamos un cubo rojo
-	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
+	
+		IMeshSceneNode *cubeNode = smgr->addCubeSceneNode(1);
+
+	//ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
 	if(cubeNode){
 		cubeNode->setMaterialFlag(EMF_LIGHTING, false);
 	}
 
-	cubeNode->setPosition(vector3df(x, y, z));
+	cubeNode->setPosition(vector3df(0, 30, 0));
 	//smgr->getMeshManipulator()->setVertexColors(cubeNode->getMesh(), SColor(255,255,0,0));
-	camara->Camara_setProta(cubeNode);
+	
 
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
-	cubeTransform.setOrigin(btVector3(x,y,z));
+	cubeTransform.setOrigin(btVector3(0,30,0));
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
@@ -179,7 +180,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 
 
-	btCollisionShape *cubeShape = new btBoxShape(btVector3(anchura/2,altura/2,anchura/2)); // new btSphereShape(0.5);
+	btCollisionShape *cubeShape = new btBoxShape(btVector3(0.5,0.5,0.5)); // new btSphereShape(0.5);
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
@@ -247,8 +248,9 @@ void Entidad::crear_mesh(void* nodo, float x, float y, float z){
 }
 */
 
-void Entidad::anyadir_camara(){
-	//smgr->addCameraSceneNode(0, vector3df(0,0,-80), vector3df(0,2,0));
+void Entidad::poner_camara_a_entidad(unsigned short id){
+	ISceneNode *cubeNode = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+	camara->Camara_setProta(cubeNode);
 }
 
 
@@ -376,7 +378,7 @@ void Entidad::saltar(){		   //Space
 	std::cout<< rigidbody[1]->getLinearVelocity()[1] << std::endl;
 		
 	if(rigidbody[1]->getLinearVelocity()[1]==0){
-		rigidbody[1]->applyCentralImpulse( btVector3( 0.f, 9000.f, 0.f ) );
+		rigidbody[1]->applyCentralImpulse( btVector3( 0.f, 2000.f, 0.f ) );
 		//exit(0);
 	}
 }
@@ -483,7 +485,7 @@ void Entidad::Mover(uint8_t id, float x, float y, float z){
 	cuerpo = rigidbody[id];
 	btVector3 mov(x,y,z);
 	//this->moveKinematicBody(cuerpo,mov);
-    rigidbody[1]->setLinearVelocity(mov);
+    rigidbody[id]->setLinearVelocity(mov);
 	desp_x = desp_z = 0;
 }
 

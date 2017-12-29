@@ -23,6 +23,11 @@ void Motor::Mover(uint8_t id, float x, float y, float z){
 	_entidad->Mover(id,x,y,z);
 }
 
+void Motor::poner_camara_a_entidad(unsigned short id){
+	_entidad->poner_camara_a_entidad(id);
+}    //movimiento del prota
+
+
 void Motor::saltar(){
 	
 	_entidad->saltar();

@@ -114,8 +114,7 @@ public:
     void preparar_depuracion_mundo();
     short crear_objeto(char* ruta,float x, float y, float z);
     void importarEscenario(char* rutaObj, float x, float y, float z);
-    void anyadir_camara();
-    //movimiento del prota
+    void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
     void moverDireccion(unsigned short _i_direccion);
     void moverAdelante();
     void moverIzquierda();
