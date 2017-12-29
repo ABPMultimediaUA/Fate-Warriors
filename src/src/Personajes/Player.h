@@ -5,13 +5,11 @@
 class Interfaz;
 class Interfaz_Fisica;
 class Time;
-class Matcher;
+class Motor;
 
 class Player : public Character{
 public:
-	Player(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
-    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte);
-	
+	Player(short _id, float _i_x, float _i_y, float _i_z);
 	virtual ~Player();
 	void update() override;
 	void render() override;
@@ -24,7 +22,7 @@ private:
 	Time * _tiempo;
 	double _otro_tiempo;
 	double _tiempo_anterior;
-	Matcher* _matcher;
+	Motor* _motor;
 };
 
 #endif /* SRC_PLAYER_H_ */

@@ -30,6 +30,7 @@ public:
 	
 	
 	inline void nivel_inserta_NPC(NPC* _i_npc){
+		 
 		_lod2->grafo_inserta_NPC( _i_npc);
 	}
 	inline void nivel_set_lod(int _i_id){

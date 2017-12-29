@@ -3,7 +3,7 @@
 
 #include "../Objeto.h"
 #include "../Personajes/Character.h"
-#include "../Interfaz/Interfaz.h"
+#include "../Interfaz/Motor.h"
 
 class Time;
 

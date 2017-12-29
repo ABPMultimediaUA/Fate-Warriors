@@ -19,8 +19,8 @@ Decision_Manager::Decision_Manager(Action_Manager* _i_action_manager) {
 
 	_enemigos = _interfaz_decision->get_enemigos();
 
-	unsigned short _n_enemigos = _interfaz_decision->get_n_enemigos();
-
+	//unsigned short _n_enemigos = _interfaz_decision->get_n_enemigos();
+	unsigned short _n_enemigos = 0;
 	_blackboards = new Blackboard*[_n_enemigos];
 
 	for(uint8_t _cont = 0; _cont<_n_enemigos; _cont++) {
@@ -64,8 +64,8 @@ Decision_Manager::~Decision_Manager() {
 
 // Recorre todos los enemigos y les agrega una accion
 void Decision_Manager::toma_decisiones(){
-	unsigned short _n_enemigos = _interfaz_decision->get_n_enemigos();
-	
+	//unsigned short _n_enemigos = _interfaz_decision->get_n_enemigos();
+	unsigned short _n_enemigos = 0;	
 	// Control de las iteraciones del level of detail
 	for(uint8_t _cont = 1; _cont<_niveles_lod; _cont++) {
 		_iteraciones_actuales_lod[_cont]++;

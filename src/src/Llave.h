@@ -2,7 +2,7 @@
 #define LLAVE_H_
 
 #include "Objeto.h"
-
+class Motor;
 
 class Llave : public Objeto{
 public:
@@ -15,6 +15,7 @@ public:
 
 private:
 	short _id_puerta; // Puerta que puede abrir
+	Motor* _motor;
 };
 
 #endif /* LLAVE_H_ */
