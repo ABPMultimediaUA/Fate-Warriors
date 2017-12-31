@@ -542,7 +542,9 @@ void Grafo::actualiza_NPC(){
 	}
 }
 void Grafo::grafo_inserta_NPC(NPC* _i_npc){
+	 std::cout << "get position llega" << std::endl;
 	Nodo_blackboard* black_aux=grafo_get_vertice(_i_npc->getX(),_i_npc->getZ())->get_blackboard();
+	 std::cout << "get position llega" << std::endl;
 	black_aux->inserta_NPC(_i_npc);
 }
 void Grafo::Update(){

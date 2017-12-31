@@ -92,11 +92,11 @@ void Camara::Camara_Update() {
 					_Prota-> getPosition().Y - _ProtaBoundingCenter.Y, 
 					_Prota-> getPosition().Z); 
 		
-		float xf = playerPos.X - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * 128.0f; 
+		float xf = playerPos.X - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * 20.0f; 
 		
-		float yf = playerPos.Y - sin(_zdirection * M_PI / 180.0f) * 128.0f; 
+		float yf = playerPos.Y - sin(_zdirection * M_PI / 180.0f) * 20.0f; 
 
-		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * 128.0f; 
+		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * 20.0f; 
 		
 		if (_Prota-> getPosition().Y >= 0) {//calculos de la camara para una Y positiva
 			

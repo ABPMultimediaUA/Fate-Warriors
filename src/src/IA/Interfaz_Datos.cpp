@@ -51,7 +51,9 @@ NPC* Interfaz_Datos::get_enemigo(unsigned short _i_n_enemigo) {
 }
 
 unsigned short Interfaz_Datos::get_n_enemigos() {
-	return _npc_manager->get_n_enemigos();
+	unsigned short algo=_npc_manager->get_n_enemigos();
+	//return _npc_manager->get_n_enemigos();
+	return algo;
 }
 
 void Interfaz_Datos::get_pos_player(float& _i_x, float& _i_y) {
