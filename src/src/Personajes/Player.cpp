@@ -12,7 +12,7 @@
 
 #include "../Game.h"
 #include "../Action_Manager.h"
-                                                                                              //  vida_prota, velocidad
+//  vida_prota, velocidad
 Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 10000,10,15)
                                                                 {   
     //_matcher = new Matcher(LLAVE_R, LLAVE_M, _i_x, _i_y,  _i_z,  1,true);                                                                
@@ -37,6 +37,9 @@ Player::~Player(){
 }
 
 void Player::update(){
+
+    Controles* controles = Controles::Instance();
+
     bool _w = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
     bool _a = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
     bool _s = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
@@ -71,6 +74,41 @@ void Player::update(){
         _motor->moverDireccion(90);
     }
 
+    if(controles->estaPulsada(Input_key::E)){
+            std::cout<< "Pulsa E"<< std::endl;
+            
+            if(this->get_bloqueado() == true && this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 2000){
+                this->set_bloqueado(false);
+            }
+
+            if(this->get_bloqueado() == false){
+                this->interactuar_con_objeto();
+                this->bloquear_movimiento(_tiempo->get_current());
+                std::cout<< "SÍ INTERACTUA"<< std::endl;
+            }
+            else{
+                std::cout<< "No puede INTERACTUAR "<< std::endl;
+            }
+            
+            //std::cout<< "Tiempo actual: "<< this->_tiempo->get_current() << std::endl;
+            //std::cout<< "Tiempo almacenado: "<< this->get_tiempo_inicio_bloqueado() << std::endl;
+        }
+
+
+        if(controles->estaPulsada(Input_key::Escape)){
+          
+            //interface->Interfaz_Apagar();
+        }
+
+        if(controles->estaPulsada(Input_key::MouseLeft)){
+            this->atacar(Ataque_Normal);
+        }
+
+        if(controles->estaPulsada(Input_key::MouseRight)){
+            std::cout<< "MOUSER" <<std::endl;
+            this->atacar(Ataque_Fuerte);
+        }
+
     /*
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
         _motor->moverDireccion(0);
@@ -92,10 +130,7 @@ void Player::update(){
         std::cout << "Entra a D \n";
     }
     */
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)){
-      //  Game::game_instancia()->game_get_action_manager()->comprobar_objetos_interactuables_cercanos(this);  
-    }
+  
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
         _motor->saltar();
