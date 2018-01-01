@@ -268,6 +268,17 @@ void Entidad::poner_camara_a_entidad(unsigned short id){
 	camara->Camara_setProta(cubeNode);
 }
 
+btCollisionWorld::ClosestRayResultCallback Entidad::trazaRayo(btVector3 start, btVector3 end){
+	btCollisionWorld::ClosestRayResultCallback rayCallback(start, end);
+	world->rayTest(start, end, rayCallback);
+
+	//if(rayCallback.hasHit()){
+	//	btVector3 point = rayCallback.m_hitPointWorld;
+	//	btVector3 normal = rayCallback.m_hitNormalWorld;
+	//	btCollisionObject *object = rayCallback.m_collisionObject;
+	//}
+	return rayCallback;
+}
 
 void Entidad::importarEscenario(char* rutaObj, float x, float y, float z){
 /*
@@ -305,14 +316,25 @@ void Entidad::update(double dt){
         float miX = origin.getX();
         float miY = origin.getY();
         float miZ = origin.getZ();
+        
+		camara->Camara_Update();
 
-    
-            
-			camara->Camara_Update();
-			angulo = camara->Camara_getAngleRad();
-				//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss1S " << std::endl;
-            world->stepSimulation(dt * 0.001f);
+		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
+		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
+		
+		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(origin, camaraPos);
 
+		if(rayCallback.hasHit()){
+			btVector3 point = rayCallback.m_hitPointWorld;
+			btVector3 normal = rayCallback.m_hitNormalWorld;
+			const btCollisionObject *object = rayCallback.m_collisionObject;
+			camara->Camara_setPosition(core::vector3df(point[0],point[1],point[2]));	
+			//std::cout<<"point x:"<<point[0]<<"point y: "<<point[1]<<"point z: "<<point[2]<<std::endl;
+		}
+
+		angulo = camara->Camara_getAngleRad();
+			//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss1S " << std::endl;
+        world->stepSimulation(dt * 0.001f);
 		//btVector3 vel(desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
 
         //desp_x = desp_z = 0;
