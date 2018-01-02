@@ -559,7 +559,7 @@ void Grafo::actualiza_NPC(){
 void Grafo::grafo_inserta_NPC(NPC* _i_npc){
 	Nodo_blackboard* black_aux=grafo_get_vertice(_i_npc->getX(),_i_npc->getZ())->get_blackboard();
 	black_aux->inserta_NPC(_i_npc);
-	//_i_npc->get_blackboard()->set_nodo_blackboard(black_aux);
+	_i_npc->get_blackboard()->set_nodo_blackboard(black_aux);
 }
 void Grafo::Update(){
 	actualiza_NPC();
