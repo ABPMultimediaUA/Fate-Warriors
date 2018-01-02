@@ -19,7 +19,7 @@ class Nodo_blackboard
       std::vector<Objeto*> _objetos;
       int* _zonas_ady;
       int _ultima_zona;
-      unsigned short _lod;
+      u_int8_t _lod;
       Enum_Acciones _ultima_accion;
       int _n_zonas_ady_enemigas;
       int _n_zonas;//cantidad de zonas adyacentes(de todos los tipos)
@@ -33,7 +33,9 @@ class Nodo_blackboard
       int* get_zonas_ady();
       std::vector<Objeto*> get_objetos();
       int get_ultima_zona();
-      unsigned short get_lod();
+      inline u_int8_t get_lod(){
+            return _lod;
+      }
       Enum_Acciones get_ultima_accion();
       int get_zonas_enemigas();
       void declarar_zonas_ady(int _i_size);

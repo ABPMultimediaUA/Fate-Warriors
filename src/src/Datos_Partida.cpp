@@ -1,24 +1,22 @@
 #include "Datos_Partida.h"
 
 #include "Interactuable_Manager.h"
-#include "Interfaz/Interfaz.h"
+#include "Interfaz/Motor.h"
 #include "Personajes/Player.h"
-#include "Objeto_Estandar.h"
 #include "Personajes/NPC_Manager.h"
 #include "Consumibles/Consumible_manager.h"
 #include "Trampas/Trampas_manager.h"
-
+#include <iostream>
 
 
 Datos_Partida::Datos_Partida() {
 	float mult = 39.3701;
-	_jugador = new Player(0,15*mult,100,15*mult, 100, 10000, 5, 10);
+	_jugador = new Player(0,15*mult,100,15*mult);
 	_npc_manager = new NPC_Manager();
-
 	_consumibles_manager = new Consumible_manager();
 	_trampas_manager	 = new Trampas_manager();
     _interactuable_manager = new Interactuable_Manager();
-
+/*
 	//Crea y devuelve el id del mapa
 	Interfaz* _interfaz_grafica = Interfaz::Interfaz_getInstance(); //Moose Ninja || 1280 width || 720 height
     //_interfaz_grafica->Interfaz_cargaMapaZip("models/Gilipollas.zip", //llamamos a cargar mapa para así indicar que 
@@ -41,6 +39,7 @@ Datos_Partida::Datos_Partida() {
 
 
 	_interfaz_grafica = nullptr;
+	*/
 }
 
 Datos_Partida::~Datos_Partida() {

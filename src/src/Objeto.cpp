@@ -1,5 +1,5 @@
 #include "Objeto.h"
-#include "Interfaz/Matcher.h"
+//#include "Interfaz/Motor.h"
 
 Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _x(_i_x),_y(_i_y), _z(_i_z), _id(id), _borrar(false), _visible(true) {
 	

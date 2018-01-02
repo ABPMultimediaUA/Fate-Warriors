@@ -4,7 +4,7 @@
 #include "Character.h"
 
 class Blackboard;
-
+class Motor;
 
 class NPC : public Character {
 public:
@@ -29,7 +29,8 @@ public:
 private:
 	Blackboard* _blackboard; //Informacion de la memoria almacenada en el Blackboard
 	enum Enum_Tipo_Enemigo _tipo_npc;
-
+	Motor* _motor;
+	short _id;
 };
 
 #endif /* SRC_NPC_H_ */

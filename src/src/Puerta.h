@@ -3,6 +3,8 @@
 
 #include "Objeto.h"
 
+class Motor;
+
 class Puerta : public Objeto{
 public:
 	Puerta(short _i_id, float _i_x, float _i_y, float _i_z, bool _i_abierta);
@@ -15,6 +17,7 @@ public:
 
 private:
 	bool _abierta;
+	Motor* _motor;
 };
 
 #endif /* PUERTA_H_ */

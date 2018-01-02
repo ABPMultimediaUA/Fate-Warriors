@@ -17,17 +17,9 @@ Vertice::~Vertice(){
 	_ady = nullptr;
 	_lod1 = nullptr; //grafo level of detail
 }
-Grafo *Vertice::get_lod1(){
-	return _lod1;
-}
 
-float Vertice::get_coord_x(){
-	return _posx;
-}
 
-float Vertice::get_coord_y(){
-	return _posy;
-}
+
 void Vertice::set_lod(unsigned short _i_cont){
 	if(_i_cont>4){
 		_i_cont=4;
@@ -65,6 +57,9 @@ void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_dest
 			_i_arista_aux = _i_arista_aux->_sig;
 		}
 	}
+}
+u_int8_t Vertice::get_lod(){
+	return _blackboard->get_lod();
 }
 /*void Vertice::inserta_enemigo(NPC* _i_npc){
 	for(u_int8_t cont=0;cont<maximo_npc;++cont){

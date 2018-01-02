@@ -28,9 +28,6 @@ std::vector<Objeto*> Nodo_blackboard::get_objetos(){
     return _objetos;
 }
 
-unsigned short Nodo_blackboard::get_lod(){
-    return _lod;
-}
 
 int Nodo_blackboard::get_ultima_zona(){
     if(_zona_actual==Enum_zonas::Zona_enemiga){

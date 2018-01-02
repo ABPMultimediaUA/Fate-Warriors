@@ -6,7 +6,7 @@ enum NombreObjetos{
 
 };
 
-class Matcher;
+
 
 
 
@@ -42,7 +42,7 @@ protected:
 	float 	_y;
 	float 	_z;
 	bool 	_borrar;
-	Matcher* _matcher;
+	//Motor* _motor;
     bool _visible;
 };
 

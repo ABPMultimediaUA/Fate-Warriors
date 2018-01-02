@@ -9,6 +9,7 @@ NPC_Manager::NPC_Manager() {
 	
 
 	_npc = new NPC*[_n_enemigos+_n_aliados];
+
 	_npc[0] = new NPC(0,18*metro,0,18*metro,50,15, 5, 10);
 	_npc[1] = new NPC(0,6*metro,0,6*metro,50,15, 5, 10);
 }

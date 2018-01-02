@@ -35,6 +35,7 @@ public:
 	inline void nivel_set_lod(int _i_id){
 		_lod2->grafo_set_lod(_i_id);
 	}
+
 	inline Vertice *nivel_get_vertice(int _i_id){
 		return _lod2->grafo_get_vertice(_i_id);
 	}
@@ -47,17 +48,14 @@ public:
 	inline int nivel_get_id_vertice(float _i_x, float _i_y){
 		return _lod2->grafo_get_id_vertice(_i_x, _i_y);
 	}
-	inline std::stack<Vertice*> nivel_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino){
-		return _lod2->grafo_camino_corto_l2(_i_origen, _i_destino);
-	}
 	inline Nodo_blackboard* nivel_get_blackboard(float _i_x, float _i_y){
 		return _lod2->grafo_get_blackboard(_i_x, _i_y);
 	}
-	inline unsigned short nivel_pathfindinglod1(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino){
-		return _lod2->grafo_pathfindinglod1(_i_xorigen,_i_yorigen,xdestino,ydestino);
+	inline u_int8_t nivel_pathfinding(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino, float _i_xmov, float _i_ymov){
+		return _lod2->grafo_pathfinding( _i_xorigen, _i_yorigen, xdestino, ydestino, _i_xmov, _i_ymov);
 	}
 	inline unsigned short nivel_get_lod(int _i_id){
-		return _lod2->grafo_get_vertice(_i_id)->_blackboard->get_lod();
+		return _lod2->grafo_get_vertice(_i_id)->get_blackboard()->get_lod();
 	}
 private:
 	static Nivel* instancia;
