@@ -17,6 +17,9 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte) {
 
     _inventario = new Inventario();
+    _tiempo = Time::Instance();
+    _accion = Nada;
+    _tipo_ataque = Ataque_Ninguno;
 }
 
 Character::~Character() {
@@ -84,27 +87,61 @@ short Character::get_danyo_ataque_fuerte(){
 	return _danyo_ataque_fuerte;
 }
 
-void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
-    // Ataque de player y aliados
-    // Se ataca a enemigos
+void Character::bucle_ataque(){
 
-    NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
-    NPC ** _npcs = _npc_manager->get_npcs();
-    unsigned long _cont;
+    if(this->get_accion() == Accion_pre_atacar){
+        std::cout << "PRE-ATACANDO" << std::endl;
 
-    for(_cont = 0; _cont < _npc_manager->get_n_enemigos(); _cont++) {
-        if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
-            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 40.0, _npcs[_cont]->get_vector(), 40.0) == true)
-        {
-            if(_i_tipo_ataque == Ataque_Normal){
-               _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_normal);
-            }
-            else if(_i_tipo_ataque == Ataque_Fuerte){
-                _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_fuerte);
-            }  
-            std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+        if(this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 1000){
+            this->set_accion(Atacar);
+            this->bloquear_movimiento(_tiempo->get_current());
         }
     }
+    else if(this->get_accion() == Atacar){
+
+        NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
+        NPC ** _npcs = _npc_manager->get_npcs();
+        unsigned long _cont;
+
+        for(_cont = 0; _cont < _npc_manager->get_n_enemigos(); _cont++) {
+            if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
+                comprobar_colision_teniendo_tambien_radio(this->get_vector(), 40.0, _npcs[_cont]->get_vector(), 40.0) == true)
+            {
+                if(this->get_tipo_ataque() == Ataque_Normal){
+                _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_normal);
+                }
+                else if(this->get_tipo_ataque()  == Ataque_Fuerte){
+                    _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_fuerte);
+                }  
+                std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+            }
+        }
+        std::cout << "ATACANDO" << std::endl;
+
+        if(this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 1000){
+            this->set_accion(Accion_post_atacar);
+            this->bloquear_movimiento(_tiempo->get_current());
+        }
+    }
+    else if(this->get_accion() == Accion_post_atacar){
+        std::cout << "POST-ATACANDO" << std::endl;
+
+        if(this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 1000){
+            this->set_accion(Nada);
+            this->set_tipo_ataque(Ataque_Ninguno);
+        }
+    }
+}
+
+void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
+    // Ataque de player y aliados, sobrescrbir en Enemigo
+    // Se ataca a enemigos
+    if(this->get_tipo_ataque() == Ataque_Ninguno){
+        this->set_accion(Accion_pre_atacar);
+        this->set_tipo_ataque(_i_tipo_ataque);
+        this->bloquear_movimiento(_tiempo->get_current()); 
+    }
+    
 }
 
 void Character::interactuar_con_objeto(){
@@ -179,4 +216,20 @@ bool Character::get_bloqueado(){
 
 void Character::morir(){
     std::cout << "He muerto :("<< std::endl;
+}
+
+Enum_Acciones Character::get_accion(){
+    return _accion;
+}
+
+void Character::set_accion(Enum_Acciones _i_accion){
+    _accion = _i_accion;
+}
+
+Enum_Tipo_Ataque Character::get_tipo_ataque(){
+    return _tipo_ataque;
+}
+
+void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
+    _tipo_ataque = _i_tipo_ataque;
 }

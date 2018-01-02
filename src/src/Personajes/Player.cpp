@@ -19,7 +19,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
     //_matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y,  _i_z,  1,true); s
     _motor = Motor::Motor_GetInstance();
 
-    _tiempo = Time::Instance();
+    //_tiempo = Time::Instance();
     //std::cout<<"eso: "<<_interface<<std::endl;
     //crear nodo de personaje del motor
     _otro_tiempo = _tiempo->get_start();
@@ -37,6 +37,8 @@ Player::~Player(){
 }
 
 void Player::update(){
+
+    bucle_ataque();
 
     Controles* controles = Controles::Instance();
 

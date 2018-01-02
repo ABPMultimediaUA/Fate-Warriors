@@ -2,10 +2,12 @@
 #define SRC_CHARACTER_H_
 
 #include "../Objeto_Movil.h"
+#include "../IA/Enum_Acciones.h"
 #include "Enum_Tipo_Ataque.h"
 
 class Interfaz;
 class Inventario;
+class Time;
 
 class Character : public Objeto_Movil{
 public:
@@ -49,6 +51,11 @@ public:
 	void set_bloqueado(bool i_bloqueado);
 	bool get_bloqueado();
 	void morir();
+	Enum_Acciones get_accion();
+	void set_accion(Enum_Acciones _i_accion);
+	Enum_Tipo_Ataque get_tipo_ataque();
+	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
+	void bucle_ataque();
 	
 protected:
 	short _vida_maxima;
@@ -63,6 +70,9 @@ protected:
     Inventario* _inventario;
 	bool _tiene_arma_corta;
 	bool _tiene_arma_larga;
+	Enum_Acciones _accion;
+	Enum_Tipo_Ataque _tipo_ataque;
+	Time * _tiempo;
 };
 
 #endif /* SRC_CHARACTER_H_ */
