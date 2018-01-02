@@ -11,7 +11,7 @@
 
 Datos_Partida::Datos_Partida() {
 	float mult = 39.3701;
-	_jugador = new Player(0,15*mult,100,15*mult);
+	_jugador = new Player(0,1*mult,100,1*mult);
 	_npc_manager = new NPC_Manager();
 	_consumibles_manager = new Consumible_manager();
 	_trampas_manager	 = new Trampas_manager();

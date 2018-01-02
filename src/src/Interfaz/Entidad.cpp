@@ -7,10 +7,10 @@ Entidad::Entidad(){
     configuracion_bullet();
     preparar_depuracion_mundo();
 	//importarEscenario("hola", 69 ,9 ,69);
-	mult = 39.3701;
+	mult = 1;
 
 	//importarEscenario("models/Nodo1.obj",  5,0, 5);
-	importarEscenario("models/Nivel1.obj",  0,0,0);
+	importarEscenario("models/Colisiones.obj", 0,0,0);
 	//importarEscenario("models/Nodo5.obj",  35,0,38);
 	//importarEscenario("models/Nodo7.obj",  27,0,3);
 	//importarEscenario("models/Nodo10.obj", 49,0,3);
@@ -21,7 +21,7 @@ Entidad::Entidad(){
 	//importarEscenario("models/Pasillo9.obj", 42,0,9); 
 //
 
-        desp_x = desp_z = 0;
+    desp_x = desp_z = 0;
 	float x, y, z;
 	x=0;
 	y=10;
@@ -35,7 +35,7 @@ Entidad::Entidad(){
 	//x=20;
 	//y=10;
 	//z=20;
-	crear_objeto("models/Personaje.obj",(x)*mult,y+50,z*mult);
+	crear_objeto("models/Personaje.obj",x*mult,y,z*mult);
 
 	angulo = 0;
 	_velocidad = 1;
@@ -131,7 +131,7 @@ void Entidad::configuracion_bullet(){
 
 	fileLoader = new btBulletWorldImporter(world);
 	fileLoader->loadFile("models/Colisiones.bullet");
-
+	
     world->setGravity(btVector3(0,-9.8*20,0));
 	//btTransform trans;
 	//trans.setOrigin(24,0,33);
@@ -162,13 +162,13 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 		cubeNode->setMaterialFlag(EMF_LIGHTING, false);
 	}
 
-	cubeNode->setPosition(vector3df(0, 30, 0));
+	cubeNode->setPosition(vector3df(x,y,z));
 	//smgr->getMeshManipulator()->setVertexColors(cubeNode->getMesh(), SColor(255,255,0,0));
 	
 
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
-	cubeTransform.setOrigin(btVector3(0,30,0));
+	cubeTransform.setOrigin(btVector3(x,y,z));
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
@@ -313,6 +313,7 @@ void Entidad::update(double dt){
 	    rigidbody[1]->getMotionState()->setWorldTransform(t); //movimiento fisico
 	    node->setPosition(vector3df(origin.getX(), origin.getY(), origin.getZ())); //movimiento grafico
    
+		
         float miX = origin.getX();
         float miY = origin.getY();
         float miZ = origin.getZ();
@@ -328,8 +329,13 @@ void Entidad::update(double dt){
 			btVector3 point = rayCallback.m_hitPointWorld;
 			btVector3 normal = rayCallback.m_hitNormalWorld;
 			const btCollisionObject *object = rayCallback.m_collisionObject;
-			camara->Camara_setPosition(core::vector3df(point[0],point[1],point[2]));	
-			//std::cout<<"point x:"<<point[0]<<"point y: "<<point[1]<<"point z: "<<point[2]<<std::endl;
+			//std::cout<<"Rigidbody: "<<rigidbody[1]<<" Object: "<<object<<std::endl;
+			for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
+				if(fileLoader->getRigidBodyByIndex(i) == object){
+					camara->Camara_setPosition(core::vector3df(point[0],point[1],point[2]));	
+					//std::cout<<"Num: "<<i<<std::endl;
+				}
+			}
 		}
 
 		angulo = camara->Camara_getAngleRad();
@@ -340,10 +346,9 @@ void Entidad::update(double dt){
         //desp_x = desp_z = 0;
        	 //rigidbody[1]->setLinearVelocity(vel);
 				//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss2 " << std::endl;
-
-			for(short i=0; i<rigidbody.size(); i++){
+			short tamanio = rigidbody.size();
+			for(short i=0; i<tamanio; i++){
 				// Actualiza el cuerpo dinamico de la caja
-
             	updateDynamicBody(rigidbody[i]);
 			}
 
@@ -415,7 +420,7 @@ void Entidad::saltar(){		   //Space
 	std::cout<< rigidbody[1]->getLinearVelocity()[1] << std::endl;
 		
 	if(rigidbody[1]->getLinearVelocity()[1]==0){
-		rigidbody[1]->applyCentralImpulse( btVector3( 0.f, 2000.f, 0.f ) );
+		rigidbody[1]->applyCentralImpulse( btVector3( 0.f, 3000.f, 0.f ) );
 		//exit(0);
 	}
 }
@@ -547,4 +552,8 @@ void Entidad::render(){
 
 	//guienv->drawAll();
     driver->endScene();
+}
+
+void Entidad::apagar(){
+	//device->close();
 }

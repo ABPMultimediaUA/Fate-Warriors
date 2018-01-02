@@ -141,6 +141,8 @@ public:
     float getY(short id);
     float getZ(short id);
 
+    void apagar();
+
 private:
       float desp_x, desp_z;
       float mult;
