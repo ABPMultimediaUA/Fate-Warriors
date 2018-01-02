@@ -19,7 +19,7 @@ PRUEBA  := $(filter-out $(ODIR), $(OBJSUBDIRS))
 PRUEBA2 := $(MKDIR) $(PRUEBA)
 #PRUEBA3 := $(eval $(call MKOBJDIR, $(PRUEBA)))
 
-TARGET	:= ejecutable
+TARGET	:= juego_sin_librerias
 
 
 define COMPILAR
@@ -42,7 +42,7 @@ endef
 .PHONY: all
 
 all: $(ODIR) $(TARGET)
-
+	chmod +x ejecutable.sh
 
 $(TARGET): $(OBJFILES)
 	$(CC) -o $@ $^ $(INCLUDE) $(LIBS)
