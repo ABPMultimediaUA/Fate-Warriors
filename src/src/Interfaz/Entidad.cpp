@@ -101,18 +101,18 @@ Entidad::~Entidad(){
 }
 
 float Entidad::getX(short id){
-	//return nodes[id]->getPosition().X;
-	return 0;
+	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
+	return pos[0];
 }
 
 float Entidad::getY(short id){
-	//return nodes[id]->getPosition().Y;
-	return 0;
+	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
+	return pos[1];
 }
 
 float Entidad::getZ(short id){
-	//return nodes[id]->getPosition().Z;
-	return 0;
+	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
+	return pos[2];
 }
 
 void Entidad::preparar_depuracion_mundo(){
@@ -154,9 +154,9 @@ void Entidad::configuracion_irlitch(){
 short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	// Creamos un cubo rojo
 	
-		IMeshSceneNode *cubeNode = smgr->addCubeSceneNode(1);
+	//IMeshSceneNode *cubeNode = smgr->addCubeSceneNode(1);
 
-	//ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
+	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
 	if(cubeNode){
 		cubeNode->setMaterialFlag(EMF_LIGHTING, false);
@@ -168,7 +168,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
-	cubeTransform.setOrigin(btVector3(x,y,z));
+	cubeTransform.setOrigin(btVector3(x,y+50,z));
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
@@ -195,7 +195,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 
 
-	btCollisionShape *cubeShape = new btBoxShape(btVector3(0.5,0.5,0.5)); // new btSphereShape(0.5);
+	btCollisionShape *cubeShape = new btBoxShape(btVector3(anchura*0.5,altura*0.5,anchura*0.5)); // new btSphereShape(0.5);
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
@@ -214,6 +214,33 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 	return rigidbody.size()-1;
 }
+
+void Entidad::setPositionXZ(unsigned short id, float x, float z){
+
+
+	btTransform btt; 
+	rigidbody[id]->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(x,btt.getOrigin().getY(),z)); // move body to the scene node new position
+
+	rigidbody[id]->getMotionState()->setWorldTransform(btt);
+	rigidbody[id]->setCenterOfMassTransform(btt);
+
+
+	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
+		
+	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
+
+
+	const btQuaternion &quat = rigidbody[id]->getOrientation();
+	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+	vector3df euler;
+	q.toEuler(euler);
+	euler *= RADTODEG;
+	node->setRotation(euler);
+}
+
+
 
 /*
 

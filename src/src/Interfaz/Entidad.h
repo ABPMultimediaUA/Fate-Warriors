@@ -140,6 +140,7 @@ public:
     float getX(short id);
     float getY(short id);
     float getZ(short id);
+    void setPositionXZ(unsigned short id, float x, float z);
 
     void apagar();
 

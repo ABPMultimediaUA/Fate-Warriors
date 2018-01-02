@@ -39,6 +39,9 @@ void Motor::poner_camara_a_entidad(unsigned short id){
 	_entidad->poner_camara_a_entidad(id);
 }    //movimiento del prota
 
+void Motor::setPositionXZ(unsigned short id, float x, float z){
+	_entidad->setPositionXZ(id,x,z);
+}
 
 void Motor::saltar(){
 	
