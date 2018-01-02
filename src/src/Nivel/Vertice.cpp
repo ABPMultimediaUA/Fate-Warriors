@@ -26,13 +26,13 @@ void Vertice::set_lod(unsigned short _i_cont){
 	}
 	_blackboard->set_lod(_i_cont);
 	Arista* _ArisAux = _ady;
-	while(_ArisAux != nullptr){//recorrer nivel 1
-		if(_ArisAux->_ady->_blackboard->get_lod()>_i_cont){
+	while(_ArisAux != nullptr){
+		if(_ArisAux->get_ady()->get_blackboard()->get_lod()>_i_cont){
 			
-			_ArisAux->_ady->set_lod(_i_cont+1);
+			_ArisAux->get_ady()->set_lod(_i_cont+1);
 		}
 		
-		_ArisAux = _ArisAux->_sig;
+		_ArisAux = _ArisAux->get_sig();
 	}
 }
 bool Vertice::pos2id(float _i_x, float _i_y){
@@ -46,15 +46,15 @@ bool Vertice::pos2id(float _i_x, float _i_y){
 void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_destino){
 	//la arista final no se cuenta en las distancias
 	if(_id!=_i_destino){
-	_i_distancia+=_i_arista_aux->_peso;
+	_i_distancia+=_i_arista_aux->get_peso();
 	_peso=_i_distancia;
 	_i_arista_aux=_ady;//arista del vertice en el que estamos(para no recorrer la del vertice anterior)
 		while(_i_arista_aux!= nullptr){
 				//std::cout << _ArisAux->_ady->_id << " -> " ;
-			if(_i_arista_aux->_ady->_peso>=(_i_distancia+_i_arista_aux->_peso)){
-				_i_arista_aux->_ady->pathfinding(_i_distancia, _i_arista_aux, _i_destino);
+			if(_i_arista_aux->get_ady()->get_peso()>=(_i_distancia+_i_arista_aux->get_peso())){
+				_i_arista_aux->get_ady()->pathfinding(_i_distancia, _i_arista_aux, _i_destino);
 			}
-			_i_arista_aux = _i_arista_aux->_sig;
+			_i_arista_aux = _i_arista_aux->get_sig();
 		}
 	}
 }

@@ -9,7 +9,6 @@
 #ifndef HEADERS_NIVEL_H_
 #define HEADERS_NIVEL_H_
 
-const float metro=39.3701;
 
 class Vertice;
 class Grafo;
@@ -51,8 +50,8 @@ public:
 	inline Nodo_blackboard* nivel_get_blackboard(float _i_x, float _i_y){
 		return _lod2->grafo_get_blackboard(_i_x, _i_y);
 	}
-	inline u_int8_t nivel_pathfinding(float _i_xorigen, float _i_yorigen, float xdestino, float ydestino, float _i_xmov, float _i_ymov){
-		return _lod2->grafo_pathfinding( _i_xorigen, _i_yorigen, xdestino, ydestino, _i_xmov, _i_ymov);
+	inline u_int16_t nivel_pathfinding(float &_i_xorigen, float &_i_yorigen, float xdestino, float ydestino){
+		return _lod2->grafo_pathfinding( _i_xorigen, _i_yorigen, xdestino, ydestino);
 	}
 	inline unsigned short nivel_get_lod(int _i_id){
 		return _lod2->grafo_get_vertice(_i_id)->get_blackboard()->get_lod();

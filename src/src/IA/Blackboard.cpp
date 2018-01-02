@@ -29,7 +29,7 @@ Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo)
 }
 
 Blackboard::~Blackboard() {
-	delete _tipo_npc;
+	//delete _tipo_npc;
 }
 
 

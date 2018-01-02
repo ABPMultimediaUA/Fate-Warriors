@@ -5,8 +5,6 @@
 #include "Nodo_blackboard.h"
 #include "../IA/Blackboard.h"
 #include "../Personajes/NPC.h"
-#include <queue>//include para el pathfinding grande
-#include <list>//include para el pathfinding grande
 #include <iostream>
 Grafo::Grafo(){
 	_h = nullptr;
@@ -108,7 +106,7 @@ Vertice* Grafo::grafo_get_vertice(float _i_x, float _i_y){
 		_aux=_aux->get_sig();
 		
 	}
-	return 0;
+	return nullptr;
 }
 Nodo_blackboard* Grafo::grafo_get_blackboard(float _i_x, float _i_y){
 	Vertice *_aux;
@@ -295,83 +293,13 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 
 }
 
-//TO-DO: rehacerlo con posiciones x e y y ANCHO Y ALTO
-
-std::stack<Vertice*> Grafo::grafo_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino){
-
-	Vertice *_VerticeActual;
-	Vertice *_i_destinoActual;
-
-	Arista *_aux;
-
-	typedef std::pair<Vertice*, Vertice*> VerticeVertice;
-	std::queue<Vertice*> _cola;
-	std::stack<VerticeVertice> _pila;
-	std::stack<Vertice*> _recorrido;
-	std::list<Vertice*> _lista;
-	std::list<Vertice*>::iterator _i;
-
-	bool _band,_band2,_band3=false;
-
-	_cola.push(_i_origen);
-
-	while(!_cola.empty()){
-		_band=false;
-		_VerticeActual=_cola.front();
-		_cola.pop();
-		for(_i=_lista.begin();_i!=_lista.end();_i++){
-			if(_VerticeActual == *_i){
-				_band=true;
-			}
-		}
-		if(_band==false){
-			if(_VerticeActual==_i_destino){
-				_band3=true;
-				_i_destinoActual=_i_destino;
-				while(!_pila.empty()){
-					//pila que sera la que se devuelva
-					_recorrido.push(_i_destinoActual);
-					while(!_pila.empty() && _pila.top().second!=_i_destinoActual){
-						_pila.pop();
-					}
-					if(!_pila.empty()){
-						_i_destinoActual=_pila.top().first;
-					}
-				}
-			}
-			_lista.push_back(_VerticeActual);
-
-			_aux=_VerticeActual->get_ady();
-
-			while(_aux!=nullptr){
-				_band2=false;
-				for(_i=_lista.begin();_i!=_lista.end();_i++){
-					if(_aux->get_ady() == *_i){
-						_band2=true;
-					}
-				}
-				if(_band2==false){
-					_cola.push(_aux->get_ady());
-					_pila.push(VerticeVertice(_VerticeActual, _aux->get_ady()));
-				}
-				_aux=_aux->get_sig();
-			}
-
-		}
-	}
-
-	if(_band3==false){
-		std::cout << "no hay na entre esos dos " << std::endl;
-	}
-	return _recorrido;
-}
-u_int8_t Grafo::grafo_pathfinding(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino, float _i_xmov, float _i_ymov){
+u_int16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino){
 	Vertice* origen;
 	Vertice* destino;
 	origen=grafo_get_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_vertice(_i_xorigen, _i_yorigen);
 	//comprobar que esta dentro del nivel
-	if(origen->get_id()==0||destino->get_id()==0){
+	if(origen==nullptr||destino==nullptr||origen==destino){
 		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
 		
 		return angulo;
@@ -379,8 +307,73 @@ u_int8_t Grafo::grafo_pathfinding(float _i_xorigen, float _i_yorigen, float _i_x
 	if(origen->get_lod()<=2&&destino->get_lod()<=2){
 		return grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino->get_id());
 	}else{
-		//grafo pathfinding lod2
+		grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
+		return 362;
 	}
+}
+void Grafo::grafo_pathfindinglod2(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* vertice_origen, Vertice* vertice_destino){
+	Vertice* verticeaux=_h;
+	float distancia;
+	Arista* arista_aux;
+	int id_aux;
+		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
+			verticeaux->set_peso(10000);
+			verticeaux->set_id_arista(0);
+			verticeaux=verticeaux->get_sig();
+		}
+
+		distancia=0;
+		arista_aux = vertice_origen->get_ady();
+		while(arista_aux!= nullptr){
+
+			if(arista_aux->get_ady()->get_peso()>=(distancia+arista_aux->get_peso())){
+				
+				arista_aux->get_ady()->pathfinding(distancia, arista_aux, vertice_destino->get_id());
+			}
+			arista_aux = arista_aux->get_sig();
+		}
+		vertice_origen->set_peso(0);
+		//vuelta desde destino hacia origen
+		verticeaux=vertice_destino;
+		id_aux=0;
+		while(verticeaux->get_id()!=vertice_origen->get_id()){
+			arista_aux=verticeaux->get_ady();
+			id_aux=arista_aux->get_ady()->get_id();
+			distancia=arista_aux->get_ady()->get_peso();
+			while(arista_aux!= nullptr){//eleccion de la ariste a la cual ir
+				
+				if(arista_aux->get_ady()->get_peso()<distancia){
+					id_aux=arista_aux->get_ady()->get_id();
+					distancia=arista_aux->get_ady()->get_peso();
+				}
+				arista_aux = arista_aux->get_sig();
+			}
+			arista_aux=verticeaux->get_ady();
+			while(arista_aux!= nullptr){//este while es para evitar llamar a la fucion get_vertice la cual recorre todo el grafo
+			//se busca el vertice origen y se le da valor a la id_arista de ese vertice
+			
+			if(arista_aux->get_ady()->get_id()==id_aux){
+					verticeaux=arista_aux->get_ady();
+					verticeaux->set_id_arista(arista_aux->get_id());
+					break;
+				}
+				arista_aux = arista_aux->get_sig();
+			}
+		}
+		arista_aux=verticeaux->get_ady();
+		while(arista_aux!= nullptr){//este while es para evitar llamar a la fucion get_vertice la cual recorre todo el grafo
+		//se busca el vertice al que debe ir desde el origen
+			if(arista_aux->get_id()==-verticeaux->get_id_arista()){
+				verticeaux=arista_aux->get_ady();
+				break;
+			}
+			arista_aux = arista_aux->get_sig();
+		}
+		_i_xorigen=verticeaux->get_coord_x();
+		_i_yorigen=verticeaux->get_coord_y();
+	/*}/*else{
+		std::cout << "ERROR PATHFINDINGLOD2: no hay camino entre los dos vertices " << std::endl;
+	}*/
 }
 unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* origen, int destino){
 	
@@ -487,7 +480,6 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 
 
 		vertice_origen->set_peso(0);
-		verticeaux=origen->get_lod1()->get_h();
 		//vuelta desde destino hacia origen
 		verticeaux=vertice_destino;
 		id_aux=0;
@@ -556,10 +548,16 @@ void Grafo::actualiza_NPC(){
 		ver_aux=ver_aux->get_sig();
 	}
 }
-void Grafo::grafo_inserta_NPC(NPC* _i_npc){
-	Nodo_blackboard* black_aux=grafo_get_vertice(_i_npc->getX(),_i_npc->getZ())->get_blackboard();
-	black_aux->inserta_NPC(_i_npc);
-	_i_npc->get_blackboard()->set_nodo_blackboard(black_aux);
+void Grafo::grafo_inserta_NPC(NPC* _i_npc){//si el npc se sale del nivel se pierde
+	Vertice * vertice_aux=grafo_get_vertice(_i_npc->getX(),_i_npc->getZ());
+	if(vertice_aux!=nullptr){
+		Nodo_blackboard* black_aux=grafo_get_vertice(_i_npc->getX(),_i_npc->getZ())->get_blackboard();
+		black_aux->inserta_NPC(_i_npc);
+		_i_npc->get_blackboard()->set_nodo_blackboard(black_aux);
+	}else{
+		std::cout<<"ERROR NPC_POSICION: npc fuera del mapa"<<std::endl;
+		_i_npc->setPositionXZ(grafo_get_vertice(1)->get_coord_x()+1*metro,grafo_get_vertice(1)->get_coord_y()+1*metro);
+	}
 }
 void Grafo::Update(){
 	actualiza_NPC();
