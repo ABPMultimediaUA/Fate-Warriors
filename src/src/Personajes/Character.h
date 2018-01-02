@@ -46,17 +46,15 @@ public:
 	short get_danyo_ataque_fuerte();
 	void interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
-	void bloquear_movimiento(double i_tiempo_inicio_bloqueado); //Cuando ha empezado a realizar el Tipo_Accion que bloquea los inputs
-	double get_tiempo_inicio_bloqueado();
-	void set_bloqueado(bool i_bloqueado);
-	bool get_bloqueado();
+	void bloquear_input(double _i_duracion_bloqueo_actual); //Cuando ha empezado a realizar el Tipo_Accion que bloquea los inputs
 	void morir();
 	Enum_Acciones get_accion();
 	void set_accion(Enum_Acciones _i_accion);
 	Enum_Tipo_Ataque get_tipo_ataque();
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	void bucle_ataque();
-	
+	bool esta_bloqueado();
+
 protected:
 	int16_t _vida_maxima;
 	int16_t _vida;
@@ -66,13 +64,14 @@ protected:
 	short _danyo_ataque_normal;
 	short _danyo_ataque_fuerte;
 	double _tiempo_inicio_bloqueado; // El tiempo cuando ha empezado a realizar el Tipo_Accion que bloquea los inputs
-	bool _bloqueado; // Si se encuentra bloqueado por el Tipo_Accion
+	//bool _bloqueado; // Si se encuentra bloqueado por el Tipo_Accion
     Inventario* _inventario;
 	bool _tiene_arma_corta;
 	bool _tiene_arma_larga;
 	Enum_Acciones _accion;
 	Enum_Tipo_Ataque _tipo_ataque;
 	Time * _tiempo;
+	double _duracion_bloqueo_actual; // Duracion del bloqueo actual
 };
 
 #endif /* SRC_CHARACTER_H_ */

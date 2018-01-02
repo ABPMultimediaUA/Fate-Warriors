@@ -93,9 +93,9 @@ void Character::bucle_ataque(){
     if(this->get_accion() == Accion_pre_atacar){
         std::cout << "PRE-ATACANDO" << std::endl;
 
-        if(this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 1000){
+        if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            this->bloquear_movimiento(_tiempo->get_current());
+            
         }
     }
     else if(this->get_accion() == Atacar){
@@ -119,15 +119,14 @@ void Character::bucle_ataque(){
         }
         std::cout << "ATACANDO" << std::endl;
 
-        if(this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 1000){
+        if(esta_bloqueado() == false){
             this->set_accion(Accion_post_atacar);
-            this->bloquear_movimiento(_tiempo->get_current());
         }
     }
     else if(this->get_accion() == Accion_post_atacar){
         std::cout << "POST-ATACANDO" << std::endl;
 
-        if(this->_tiempo->get_current() - this->get_tiempo_inicio_bloqueado() > 1000){
+        if(esta_bloqueado() == false){
             this->set_accion(Nada);
             this->set_tipo_ataque(Ataque_Ninguno);
         }
@@ -137,10 +136,9 @@ void Character::bucle_ataque(){
 void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
     // Ataque de player y aliados, sobrescrbir en Enemigo
     // Se ataca a enemigos
-    if(this->get_tipo_ataque() == Ataque_Ninguno){
+    if(this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false){
         this->set_accion(Accion_pre_atacar);
         this->set_tipo_ataque(_i_tipo_ataque);
-        this->bloquear_movimiento(_tiempo->get_current()); 
     }
     
 }
@@ -198,21 +196,10 @@ void Character::interactuar_con_objeto(){
 	}
 }
 
-void Character::bloquear_movimiento(double i_tiempo_inicio_bloqueado){
-    _tiempo_inicio_bloqueado = i_tiempo_inicio_bloqueado;
-    _bloqueado = true;
-}
-
-double Character::get_tiempo_inicio_bloqueado(){
-    return _tiempo_inicio_bloqueado;
-}
-
-void Character::set_bloqueado(bool _i_bloqueado){
-    _bloqueado = _i_bloqueado;
-}
-
-bool Character::get_bloqueado(){
-    return _bloqueado;
+void Character::bloquear_input(double _i_duracion_bloqueo_actual){
+    _tiempo_inicio_bloqueado = _tiempo->get_current();
+    _duracion_bloqueo_actual = _i_duracion_bloqueo_actual;
+    //_bloqueado = true;
 }
 
 void Character::morir(){
@@ -225,6 +212,9 @@ Enum_Acciones Character::get_accion(){
 
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
+    if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
+        bloquear_input(1000); // hacer parametro dinamico
+    }   
 }
 
 Enum_Tipo_Ataque Character::get_tipo_ataque(){
@@ -233,4 +223,13 @@ Enum_Tipo_Ataque Character::get_tipo_ataque(){
 
 void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
     _tipo_ataque = _i_tipo_ataque;
+}
+
+bool Character::esta_bloqueado(){
+    if(_tiempo->get_current() - _tiempo_inicio_bloqueado < _duracion_bloqueo_actual){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
