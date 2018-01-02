@@ -6,7 +6,7 @@
 #include "Nodo_blackboard.h"
 
 Vertice::Vertice(float _i_posx, float _i_posy,float _i_ancho, float _i_alto, int _i_id, Grafo *_i_grafo_lod1):
-_id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1),_lod(4) , _sig(nullptr),
+_id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1) , _sig(nullptr),
 _ady(nullptr), _ancho(_i_ancho), _alto(_i_alto), _blackboard(nullptr){
 
 }
@@ -17,17 +17,9 @@ Vertice::~Vertice(){
 	_ady = nullptr;
 	_lod1 = nullptr; //grafo level of detail
 }
-Grafo *Vertice::get_lod1(){
-	return _lod1;
-}
 
-float Vertice::get_coord_x(){
-	return _posx;
-}
 
-float Vertice::get_coord_y(){
-	return _posy;
-}
+
 void Vertice::set_lod(unsigned short _i_cont){
 	if(_i_cont>4){
 		_i_cont=4;
@@ -68,6 +60,9 @@ void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_dest
 			_i_arista_aux = _i_arista_aux->_sig;
 		}
 	}
+}
+u_int8_t Vertice::get_lod(){
+	return _blackboard->get_lod();
 }
 /*void Vertice::inserta_enemigo(NPC* _i_npc){
 	for(u_int8_t cont=0;cont<maximo_npc;++cont){

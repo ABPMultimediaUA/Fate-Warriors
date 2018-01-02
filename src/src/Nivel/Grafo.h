@@ -20,7 +20,12 @@ public:
 	void Update();
 	bool grafo_vacio();
 	int grafo_tamano();
-
+	inline Vertice* get_h(){
+		return _h;
+	}
+	inline void set_h(Vertice* _i_h){
+		_h=_i_h;
+	}
 	Nodo_blackboard* grafo_get_blackboard(float _i_x, float _i_y);
 	Vertice * grafo_get_vertice(int _i_id);
 	Vertice * grafo_get_vertice(float _i_x, float _i_y);
