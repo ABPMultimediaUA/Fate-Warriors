@@ -68,6 +68,7 @@ void Game::crea_partida() {
 	_datos 				= new Datos_Partida();
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
+	_datos->inserta_npc_nivel();
 
 	
 	_consumibles_action = new Consumible_action();	

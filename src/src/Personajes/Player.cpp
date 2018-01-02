@@ -8,6 +8,9 @@
 #include "../Tiempo/Time.h"
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
+
+#include "../Nivel/Nivel.h"
+
 #include "../Interfaz_Libs/Lib_Math.h"
 
 #include "../Game.h"
@@ -155,6 +158,7 @@ void Player::update(){
     }
 
     /*
+
     Controles* controles = Controles::Instance();
     Interfaz* interface = Interfaz::Interfaz_getInstance();
     bool moving = false;
@@ -179,6 +183,7 @@ void Player::update(){
         float desp_x, desp_z;
 
         desp_x = desp_z = 0;
+
 
         if(controles->estaPulsada(Input_key::W)){
             miZ += cos(angulo) * _velocidad * _time;
@@ -253,6 +258,9 @@ void Player::update(){
 
         _tiempo_anterior = _otro_tiempo;
 
+        //set level of detail del nivel
+        Nivel* nivel=Nivel::nivel_instancia();
+        nivel->nivel_set_lod(nivel->nivel_get_id_vertice(miX,miZ));
         
   }
   */

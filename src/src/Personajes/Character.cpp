@@ -14,7 +14,8 @@
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
     :Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
-    _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte) {
+    _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
+    _tiene_arma_larga(false) {
 
     _inventario = new Inventario();
     _tiempo = Time::Instance();
@@ -26,7 +27,7 @@ Character::~Character() {
     delete _inventario;
 }
 
-short Character::get_vida(){
+int16_t Character::get_vida(){
 	return _vida;
 }
 
@@ -66,14 +67,14 @@ bool Character::puede_subir_vida_(short _i_vida){
 }
 
 uint8_t* Character::get_ref_rango_arma_corta(){
-    if(_tiene_arma_corta){
+    if(_tiene_arma_corta==true){
         _rango_arma_corta=_inventario->get_objeto_cerca()->get_rango();
         return &_rango_arma_corta;
     }
 		
 }
 uint8_t* Character::get_ref_rango_arma_larga(){
-	if(_tiene_arma_larga){
+	if(_tiene_arma_larga==true){
         _rango_arma_larga=_inventario->get_objeto_distancia()->get_rango();
         return &_rango_arma_larga;
     }

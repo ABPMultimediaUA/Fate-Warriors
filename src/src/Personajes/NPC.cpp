@@ -14,7 +14,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
     : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte),
     _blackboard(nullptr) {
-
+    _tipo_npc=Enum_Tipo_Enemigo::Normal;
     _motor = Motor::Motor_GetInstance();
     _id = _motor->crearObjeto("models/Enemigo.obj",_i_x,_i_y,_i_z);
 }
@@ -24,7 +24,6 @@ NPC::~NPC() {
 }
 
 void NPC::move(unsigned long _i_direccion) {
-    
     float _desp_x = cos(_i_direccion*PI/180);
     _desp_x = roundf(_desp_x * 200) / 100;
     float _desp_z = sin(_i_direccion*PI/180);
@@ -70,4 +69,7 @@ void NPC::set_blackboard(Blackboard* _i_blackboard) {
 
 Blackboard* NPC::get_blackboard() {
     return _blackboard;
+}
+void NPC::setPositionXZ(float _i_x, float _i_z){
+    _motor->setPositionXZ(_id,_i_x,_i_z);
 }

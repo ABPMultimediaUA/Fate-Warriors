@@ -10,18 +10,18 @@
 
 Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo) {
 	_n_npc = _i_n_enemigo;
-	//NPC *npc_aux=_i_interfaz.get_enemigo(_n_npc);
+	NPC *npc_aux=_i_interfaz.get_enemigo(_n_npc);
 	_interfaz = &_i_interfaz;
 	_tipo_npc = new enum Enum_Tipo_Enemigo[1];
-	_tipo_npc[0] = Normal; //linea a borrar
-	/*_tipo_npc=npc_aux->get_ref_Enum_Tipo_Enemigo();
+	//_tipo_npc[0] = Normal; //linea a borrar
+	_tipo_npc=npc_aux->get_ref_Enum_Tipo_Enemigo();
 	_vida_actual=npc_aux->get_ref_vida_actual();
 	_vida_max=npc_aux->get_vida_maxima();
 	_rango_ataque_normal=npc_aux->get_ref_rango_arma_corta();
 	_rango_ataque_fuerte=npc_aux->get_ref_rango_arma_larga();
 	_x=npc_aux->get_ref_x();
-	_z=npc_aux->get_ref_z();*/
-	_level_of_detail = 1;
+	_z=npc_aux->get_ref_z();
+	//_level_of_detail = 1;
 
 	_distancia_jugador = 0;
 	_decision = Decision_Quieto;
@@ -29,7 +29,7 @@ Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo)
 }
 
 Blackboard::~Blackboard() {
-
+	//delete _tipo_npc;
 }
 
 
@@ -37,8 +37,8 @@ Blackboard::~Blackboard() {
 void Blackboard::actualiza_datos() {
 
 	_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);
-	/*_porcentaje_vida=100*(*_vida_actual)/_vida_max;
-	Nivel* nivel=Nivel::nivel_instancia();
+	_porcentaje_vida=100*(*_vida_actual)/_vida_max;
+	/*Nivel* nivel=Nivel::nivel_instancia();
 	_zona=nivel->nivel_get_blackboard((*_x),(*_z));*/
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
@@ -64,6 +64,7 @@ unsigned short Blackboard::get_n_enemigo() {
 }
 
 enum Enum_Tipo_Enemigo Blackboard::get_tipo_enemigo() {
+	//std::cout<<(*_tipo_npc)<<std::endl;
 	return (*_tipo_npc);
 }
 
@@ -117,7 +118,7 @@ enum Enum_Tipo_Ataque Blackboard::get_ataque() {
 
 // Datos de estado
 int8_t Blackboard::get_level_of_detail() {
-	return _level_of_detail;
+	return _zona->get_lod();
 }
 
 

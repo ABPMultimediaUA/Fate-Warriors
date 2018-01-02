@@ -53,6 +53,9 @@ Arbol_Decision_Manager::~Arbol_Decision_Manager() {
 
 
 enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboard) {
+	_blackboard->get_tipo_enemigo();
+	Nodo_Decision* _arbol_aux=_arboles_decision[_blackboard->get_tipo_enemigo()];
+	Enum_Acciones aux=_arbol_aux->toma_decision(_blackboard);
 	return _arboles_decision[_blackboard->get_tipo_enemigo()]->toma_decision(_blackboard);
 }
 

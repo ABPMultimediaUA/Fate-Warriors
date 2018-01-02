@@ -80,3 +80,7 @@ void Motor::moverDireccion(unsigned short _i_direccion){
 IrrlichtDevice* Motor::getIrrlichtDevice(){
 	return _entidad->getDevice();
 }
+
+void Motor::setPositionXZ(unsigned short id, float x, float z){
+	_entidad->setPositionXZ(id, x, z);
+}

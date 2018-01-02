@@ -28,7 +28,7 @@ Action_Manager::~Action_Manager() {
 void Action_Manager::realiza_accion(NPC* _i_npc){
 	
 	Blackboard* _blackboard = _i_npc->get_blackboard();
-
+	float x,z;
 	enum Enum_Acciones _accion = _blackboard->get_accion();
 	unsigned short _n_enemigo = _blackboard->get_n_enemigo();
 
@@ -36,10 +36,14 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 	switch(_accion) {
 		case Andar:
 			unsigned short _direccion;
-
-			_direccion = _path_manager->get_direccion_movimiento(_n_enemigo);
-
-			_i_npc->move(_direccion);
+			x=_i_npc->getX();
+			z=_i_npc->getZ();
+			_direccion = _path_manager->get_direccion_movimiento(x,z);
+			if(_direccion!=362){
+				_i_npc->move(_direccion);
+			}else{
+				_i_npc->setPositionXZ(x,z);
+			}
 
 			break;
 
