@@ -20,21 +20,10 @@ This instance is started and if already playing, restarted.
 //#include "fmod.hpp"
 #include "fmod_errors.h"
 
-void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
-{
-    if (result != FMOD_OK)
-    {
-        std::cerr << file << "(" << line << "): FMOD error " << result << " - " << FMOD_ErrorString(result) << std::endl;
-        exit(-1);
-    }
-}
-
-
-#define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
 
 int main(int argv, char*args[])
 {
-    //char wavfile[] = "/Users/pierre/tmp/FMODStudio.wav";
+    char wavfile[] = "";//variable donde depositar el wav(en el caso de que se hiciera)
     //char** extraDriverData = &wavfile;
     //char banksPath[] = "Desktop/";
     //Common_Init(&extraDriverData);
@@ -58,7 +47,7 @@ int main(int argv, char*args[])
     		    ERRCHECK( lowLevelSystem->setOutput(FMOD_OUTPUTTYPE_WAVWRITER_NRT) );
     }*/
 
-    //ERRCHECK( system->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, &wavfile) );
+    ERRCHECK( system->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, &wavfile) );//inicializacion de fmod
 
     FMOD::Studio::Bank* masterBank = NULL;
     ERRCHECK( system->loadBankFile("Desktop/Master Bank.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank) );
@@ -83,7 +72,7 @@ int main(int argv, char*args[])
     ERRCHECK( loopingAmbienceDescription->getID(&guid));
     ERRCHECK( loopingAmbienceDescription->getPath(eventDescrPath,512,NULL));
     std::cout << "Ambience/Country guid: " << std::hex << guid.Data1 << "-" << guid.Data2 << "-" << guid.Data3 << std::endl;
-    std::cout << "Ambience/Country path: " << eventDescrPath << std::endl;
+    std::cout << "Ambience/Country path: " << eventDescrPath << std::endl; 
 
 
     FMOD::Studio::EventInstance* loopingAmbienceInstance = NULL;
