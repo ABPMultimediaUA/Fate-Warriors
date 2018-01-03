@@ -7,10 +7,10 @@ Entidad::Entidad(){
     configuracion_bullet();
     preparar_depuracion_mundo();
 	//importarEscenario("hola", 69 ,9 ,69);
-	mult = 39.3701;
+	//mult = 39.3701;
 
 	//importarEscenario("models/Nodo1.obj",  5,0, 5);
-	importarEscenario("models/Nivel1.obj",  0,0,0);
+	importarEscenario("models/Colisiones.obj", 0,0,0);
 	//importarEscenario("models/Nodo5.obj",  35,0,38);
 	//importarEscenario("models/Nodo7.obj",  27,0,3);
 	//importarEscenario("models/Nodo10.obj", 49,0,3);
@@ -21,11 +21,11 @@ Entidad::Entidad(){
 	//importarEscenario("models/Pasillo9.obj", 42,0,9); 
 //
 
-        desp_x = desp_z = 0;
+    desp_x = desp_z = 0;
 	float x, y, z;
-	x=0;
+	x=15;
 	y=10;
-	z=0;
+	z=15;
 
 	moving = false;
 
@@ -35,7 +35,7 @@ Entidad::Entidad(){
 	//x=20;
 	//y=10;
 	//z=20;
-	crear_objeto("models/Personaje.obj",(x)*mult,y+50,z*mult);
+	//crear_objeto("models/Personaje.obj",x*mult,y,z*mult);
 
 	angulo = 0;
 	_velocidad = 1;
@@ -131,7 +131,7 @@ void Entidad::configuracion_bullet(){
 
 	fileLoader = new btBulletWorldImporter(world);
 	fileLoader->loadFile("models/Colisiones.bullet");
-
+	
     world->setGravity(btVector3(0,-9.8*20,0));
 	//btTransform trans;
 	//trans.setOrigin(24,0,33);
@@ -154,13 +154,14 @@ void Entidad::configuracion_irlitch(){
 short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	// Creamos un cubo rojo
 	
-		IMeshSceneNode *cubeNode = smgr->addCubeSceneNode(1);
+	//IMeshSceneNode *cubeNode = smgr->addCubeSceneNode(1);
 
-	//ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
+	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
 	if(cubeNode){
 		cubeNode->setMaterialFlag(EMF_LIGHTING, false);
 	}
+
 
 	cubeNode->setPosition(vector3df(x, y, z));
 	//smgr->getMeshManipulator()->setVertexColors(cubeNode->getMesh(), SColor(255,255,0,0));
@@ -168,7 +169,9 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
-	cubeTransform.setOrigin(btVector3(x,y,z));
+
+	cubeTransform.setOrigin(btVector3(x,y+50,z));
+
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
@@ -195,7 +198,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 
 
-	btCollisionShape *cubeShape = new btBoxShape(btVector3(0.5,0.5,0.5)); // new btSphereShape(0.5);
+	btCollisionShape *cubeShape = new btBoxShape(btVector3(anchura*0.5,altura*0.5,anchura*0.5)); // new btSphereShape(0.5);
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
@@ -214,6 +217,33 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 	return rigidbody.size()-1;
 }
+
+void Entidad::setPositionXZ(unsigned short id, float x, float z){
+
+
+	btTransform btt; 
+	rigidbody[id]->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(x,btt.getOrigin().getY(),z)); // move body to the scene node new position
+
+	rigidbody[id]->getMotionState()->setWorldTransform(btt);
+	rigidbody[id]->setCenterOfMassTransform(btt);
+
+
+	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
+		
+	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
+
+
+	const btQuaternion &quat = rigidbody[id]->getOrientation();
+	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+	vector3df euler;
+	q.toEuler(euler);
+	euler *= RADTODEG;
+	node->setRotation(euler);
+}
+
+
 
 /*
 
@@ -268,6 +298,17 @@ void Entidad::poner_camara_a_entidad(unsigned short id){
 	camara->Camara_setProta(cubeNode);
 }
 
+btCollisionWorld::ClosestRayResultCallback Entidad::trazaRayo(btVector3 start, btVector3 end){
+	btCollisionWorld::ClosestRayResultCallback rayCallback(start, end);
+	world->rayTest(start, end, rayCallback);
+
+	//if(rayCallback.hasHit()){
+	//	btVector3 point = rayCallback.m_hitPointWorld;
+	//	btVector3 normal = rayCallback.m_hitNormalWorld;
+	//	btCollisionObject *object = rayCallback.m_collisionObject;
+	//}
+	return rayCallback;
+}
 
 void Entidad::importarEscenario(char* rutaObj, float x, float y, float z){
 /*
@@ -295,53 +336,64 @@ void Entidad::update(double dt){
 			//	
 			//}
 		btTransform t;
-		rigidbody[1]->getMotionState()->getWorldTransform(t);
-	    btVector3 origin = t.getOrigin();
-	    t.setOrigin(origin);
-		ISceneNode *node = static_cast<ISceneNode *>(rigidbody[1]->getUserPointer());
-	    rigidbody[1]->getMotionState()->setWorldTransform(t); //movimiento fisico
-	    node->setPosition(vector3df(origin.getX(), origin.getY(), origin.getZ())); //movimiento grafico
+		btVector3 pos = rigidbody[0]->getCenterOfMassPosition();
    
-        float miX = origin.getX();
-        float miY = origin.getY();
-        float miZ = origin.getZ();
+		
+        float miX = pos[0];
+        float miY = pos[1];
+        float miZ = pos[2];
+        
+		camara->Camara_Update();
 
-    
-            
-			camara->Camara_Update();
-			angulo = camara->Camara_getAngleRad();
-				//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss1S " << std::endl;
-            world->stepSimulation(dt * 0.001f);
+		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
+		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
 
+		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos);
+
+		if(rayCallback.hasHit()){
+			btVector3 point = rayCallback.m_hitPointWorld;
+			btVector3 normal = rayCallback.m_hitNormalWorld;
+			const btCollisionObject *object = rayCallback.m_collisionObject;
+			//std::cout<<"Rigidbody: "<<rigidbody[1]<<" Object: "<<object<<std::endl;
+			for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
+				if(fileLoader->getRigidBodyByIndex(i) == object){
+					camara->Camara_setPosition(core::vector3df(point[0],point[1],point[2]));	
+					//std::cout<<"Num: "<<i<<std::endl;
+				}
+			}
+		}
+
+		angulo = camara->Camara_getAngleRad();
+			//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss1S " << std::endl;
+        world->stepSimulation(dt * 0.001f);
 		//btVector3 vel(desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
 
         //desp_x = desp_z = 0;
        	 //rigidbody[1]->setLinearVelocity(vel);
 				//	std::cout << rigidbody[1]->getLinearVelocity()[0]<< "  velocidad en y  ->   " << rigidbody[1]->getLinearVelocity()[1]<< "   "<< rigidbody[1]->getLinearVelocity()[2]<< "sssssss2 " << std::endl;
-
-			for(short i=0; i<rigidbody.size(); i++){
+			short tamanio = rigidbody.size();
+			for(short i=0; i<tamanio; i++){
 				// Actualiza el cuerpo dinamico de la caja
-
-            	updateDynamicBody(rigidbody[i]);
+				updateDynamicBody(rigidbody[i]);
+				if(desp_x==0&&desp_z==0){
+					Mover(i,desp_x,rigidbody[i]->getLinearVelocity()[1],desp_z);
+				}
 			}
 
         } else {
             device->yield();
         }
-
-		if(desp_x==0&&desp_z==0){
-			Mover(1,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
-		}
+	
        // device->drop();
 }
 
-void Entidad::moverDireccion(unsigned short _i_direccion){  // Direccion
+void Entidad::moverDireccion(unsigned short id, unsigned short _i_direccion){  // Direccion
 	//std::cout << "Angulo = " << (int)_i_direccion << std::endl;
 
     desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
     desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
     moving = true;
-    Mover(1,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
+    Mover(0,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
 
 void Entidad::moverAdelante(){  //W
@@ -354,7 +406,7 @@ void Entidad::moverAdelante(){  //W
 	//std::cout<<"-------------dt: "<<dt<<std::endl;
     //interface->Interfaz_rotarProta(0);
     moving = true;
-    Mover(1,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
+    Mover(0,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
 }
 
 void Entidad::moverIzquierda(){ //A
@@ -390,10 +442,10 @@ void Entidad::moverAtras(){     //S
 void Entidad::saltar(){		   //Space
 
 	std::cout<<"entra" << std::endl;
-	std::cout<< rigidbody[1]->getLinearVelocity()[1] << std::endl;
+	std::cout<< rigidbody[0]->getLinearVelocity()[1] << std::endl;
 		
-	if(rigidbody[1]->getLinearVelocity()[1]==0){
-		rigidbody[1]->applyCentralImpulse( btVector3( 0.f, 2000.f, 0.f ) );
+	if(rigidbody[0]->getLinearVelocity()[1]==0){
+		rigidbody[0]->applyCentralImpulse( btVector3( 0.f, 3000.f, 0.f ) );
 		//exit(0);
 	}
 }
@@ -554,4 +606,8 @@ void Entidad::render(){
 
 	//guienv->drawAll();
     driver->endScene();
+}
+
+void Entidad::apagar(){
+	//device->close();
 }

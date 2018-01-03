@@ -115,7 +115,8 @@ public:
     short crear_objeto(char* ruta,float x, float y, float z);
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
-    void moverDireccion(unsigned short _i_direccion);
+    btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
+    void moverDireccion(unsigned short id, unsigned short _i_direccion);
     void moverAdelante();
     void moverIzquierda();
     void moverDerecha();
@@ -140,6 +141,9 @@ public:
     float getX(short id);
     float getY(short id);
     float getZ(short id);
+    void setPositionXZ(unsigned short id, float x, float z);
+
+    void apagar();
 
 private:
       float desp_x, desp_z;
