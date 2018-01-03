@@ -2,7 +2,7 @@
 #define TIME_H_
 #include <iostream>
 #include <cstdlib>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
 class Time {
 public:

@@ -1,5 +1,5 @@
 #include "Entidad.h"
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include <cmath>
 
 Entidad::Entidad(){

@@ -1,7 +1,7 @@
 #ifndef MENSAJES_CONEXION_H_
 #define MENSAJES_CONEXION_H_
 
-#include "Raknet/MessageIdentifiers.h"
+#include <Raknet/MessageIdentifiers>
 
 enum GameMessages { //New enums for more events
 	ID_PLAYER_JOIN = ID_USER_PACKET_ENUM + 1,
