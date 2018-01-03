@@ -2,7 +2,7 @@
 #define SRC_BLACKBOARD_H_
 
 #include <cstdlib>
-
+#include <iostream>
 #include "Enum_Decisiones.h"
 #include "Enum_Acciones.h"
 
@@ -12,9 +12,9 @@
 
 #include "../Personajes/Enum_Tipo_Ataque.h"
 #include "../Personajes/Enum_Tipo_Enemigo.h"
-
+#include "../Nivel/Nodo_blackboard.h"
 class Interfaz_Datos;
-class Nodo_blackboard;
+//class Nodo_blackboard;
 
 class Blackboard {
 public:
@@ -159,6 +159,11 @@ public:
 	bool get_powerup_zona_adyacente();
 	unsigned short get_id_zona_powerup();
 
+	//setters
+	inline void set_nodo_blackboard(Nodo_blackboard* _i_blackboard){
+		_zona=_i_blackboard;
+	}
+
 private:
 	Interfaz_Datos* _interfaz;		//DONE
 
@@ -170,8 +175,8 @@ private:
 	int16_t* _vida_actual;					// Vida actual	DONE
 	int16_t _vida_max;						// Vida maxima	DONE
 	float _porcentaje_vida;					// Porcentaje vida actual (Se calcula en cada iteracion) DONE
-	unsigned short* _rango_ataque_normal;			// Rango de ataque normal DONE
-	unsigned short* _rango_ataque_fuerte;			// Rango de ataque normal DONE
+	u_int8_t* _rango_ataque_normal;			// Rango de ataque normal DONE
+	u_int8_t* _rango_ataque_fuerte;			// Rango de ataque normal DONE
 	float *_x;								// Posicion x del NPC
 	float *_z;								// Posicion z del NPC
 
@@ -259,7 +264,7 @@ private:
 
 
 	//Con informacion de la zona
-	int8_t _level_of_detail;				// Level of detail que se aplica
+	//int8_t _level_of_detail;				// Level of detail que se aplica
 	Nodo_blackboard* _zona;					// Blackbaord de la zona
 	int8_t* _n_enemigos_zona;				// Nº de enemigos en la zona 	(PUNTERO A ZONA Y GET?)
 	int8_t* _n_aliados_zona;				// Nº de aliados en la zona 	(PUNTERO A ZONA Y GET?)

@@ -25,6 +25,7 @@ public:
     
     Interactuable_Manager* get_interactuable_manager();
 
+	void inserta_npc_nivel();
 private:
 	Player* _jugador;
 	Objeto_Estandar* _mapa;

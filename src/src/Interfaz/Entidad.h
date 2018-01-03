@@ -137,6 +137,7 @@ public:
     void moveKinematicObject(btCollisionObject *object, btVector3 traslation);
     bool hasCollision(btDynamicsWorld *world);
     bool hasCollision(btDynamicsWorld *world, btPairCachingGhostObject *ghostObject);
+    void setPositionXZ(unsigned short id, float x, float z);
     float getX(short id);
     float getY(short id);
     float getZ(short id);

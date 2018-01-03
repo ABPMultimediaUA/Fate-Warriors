@@ -235,15 +235,15 @@ void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_
 
 	Nodo* nodo=static_cast<Nodo*>(_lod2->grafo_get_vertice(_id_o));
 	
-	nodo->_blackboard->declarar_zonas_ady(tamano);
+	nodo->get_blackboard()->declarar_zonas_ady(tamano);
 	while(_i_iteracion!="-1"){
 		_i_nivel_txt>>_i_iteracion;//obtiene el valor de la id del adyacente
 		_id_a = std::atoi(_i_iteracion.c_str());
-		nodo->_blackboard->anyadir_zona(_id_a);
+		nodo->get_blackboard()->anyadir_zona(_id_a);
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
 	std::cout<<_i_iteracion<<std::endl;
-	std::cout << "tamano"<< nodo->_blackboard->get_zonas_enemigas() << std::endl;
+	std::cout << "tamano"<< nodo->get_blackboard()->get_zonas_enemigas() << std::endl;
 }
 
 

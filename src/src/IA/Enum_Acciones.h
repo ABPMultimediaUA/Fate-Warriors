@@ -5,6 +5,8 @@ enum Enum_Acciones{
 	Nada, 			// Quedarse quieto
 	Decidir,		// Accion terminada y debe decidir
 	Andar,			// Moverse
+	Accion_pre_atacar,
+	Accion_post_atacar,
 	Atacar,			// Usar ataque
 	Coger_Arma,		// Recoge un arma
 	Usar_Arma,		// Usa el arma equipado

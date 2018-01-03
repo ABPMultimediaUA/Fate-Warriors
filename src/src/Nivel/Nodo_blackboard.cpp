@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../Personajes/NPC.h"
 
-Nodo_blackboard::Nodo_blackboard(int _i_zona_actual, u_int8_t _i_n_npc){
+Nodo_blackboard::Nodo_blackboard(int _i_zona_actual, u_int8_t _i_n_npc):_lod(4){
     _zona_actual=static_cast<Enum_zonas>(_i_zona_actual);
     _zonas_ady=nullptr;
     _maximo_npc=_i_n_npc;
@@ -28,9 +28,6 @@ std::vector<Objeto*> Nodo_blackboard::get_objetos(){
     return _objetos;
 }
 
-unsigned short Nodo_blackboard::get_lod(){
-    return _lod;
-}
 
 int Nodo_blackboard::get_ultima_zona(){
     if(_zona_actual==Enum_zonas::Zona_enemiga){

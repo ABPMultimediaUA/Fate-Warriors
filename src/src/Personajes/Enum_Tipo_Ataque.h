@@ -7,6 +7,6 @@ enum Enum_Tipo_Ataque{
 	Ataque_Fuerte,		// Ataque fuerte
 	Ataque_Agarre,		// Agarre que lanza
 	Ataque_Especial,	// Ataque especial solo para el personaje
-	Ataque_Desconocido	// Usado para la IA
+	Ataque_Desconocido	// Eliminar, se gestiona con tipo accion
 };
 #endif /* SRC_ENUM_TIPO_ATAQUE_H_ */

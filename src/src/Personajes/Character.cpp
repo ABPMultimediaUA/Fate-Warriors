@@ -14,16 +14,20 @@
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
     :Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
-    _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte) {
+    _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
+    _tiene_arma_larga(false) {
 
     _inventario = new Inventario();
+    _tiempo = Time::Instance();
+    _accion = Nada;
+    _tipo_ataque = Ataque_Ninguno;
 }
 
 Character::~Character() {
     delete _inventario;
 }
 
-short Character::get_vida(){
+int16_t Character::get_vida(){
 	return _vida;
 }
 
@@ -63,14 +67,14 @@ bool Character::puede_subir_vida_(short _i_vida){
 }
 
 uint8_t* Character::get_ref_rango_arma_corta(){
-    if(_tiene_arma_corta){
+    if(_tiene_arma_corta==true){
         _rango_arma_corta=_inventario->get_objeto_cerca()->get_rango();
         return &_rango_arma_corta;
     }
 		
 }
 uint8_t* Character::get_ref_rango_arma_larga(){
-	if(_tiene_arma_larga){
+	if(_tiene_arma_larga==true){
         _rango_arma_larga=_inventario->get_objeto_distancia()->get_rango();
         return &_rango_arma_larga;
     }
@@ -84,27 +88,59 @@ short Character::get_danyo_ataque_fuerte(){
 	return _danyo_ataque_fuerte;
 }
 
-void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
-    // Ataque de player y aliados
-    // Se ataca a enemigos
+void Character::bucle_ataque(){
 
-    NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
-    NPC ** _npcs = _npc_manager->get_npcs();
-    unsigned long _cont;
+    if(this->get_accion() == Accion_pre_atacar){
+        std::cout << "PRE-ATACANDO" << std::endl;
 
-    for(_cont = 0; _cont < _npc_manager->get_n_enemigos(); _cont++) {
-        if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
-            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 40.0, _npcs[_cont]->get_vector(), 40.0) == true)
-        {
-            if(_i_tipo_ataque == Ataque_Normal){
-               _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_normal);
-            }
-            else if(_i_tipo_ataque == Ataque_Fuerte){
-                _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_fuerte);
-            }  
-            std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+        if(esta_bloqueado() == false){
+            this->set_accion(Atacar);
+            
         }
     }
+    else if(this->get_accion() == Atacar){
+
+        NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
+        NPC ** _npcs = _npc_manager->get_npcs();
+        unsigned long _cont;
+
+        for(_cont = 0; _cont < _npc_manager->get_n_enemigos(); _cont++) {
+            if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
+                comprobar_colision_teniendo_tambien_radio(this->get_vector(), 40.0, _npcs[_cont]->get_vector(), 40.0) == true)
+            {
+                if(this->get_tipo_ataque() == Ataque_Normal){
+                _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_normal);
+                }
+                else if(this->get_tipo_ataque()  == Ataque_Fuerte){
+                    _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_fuerte);
+                }  
+                std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+            }
+        }
+        std::cout << "ATACANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Accion_post_atacar);
+        }
+    }
+    else if(this->get_accion() == Accion_post_atacar){
+        std::cout << "POST-ATACANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+            this->set_tipo_ataque(Ataque_Ninguno);
+        }
+    }
+}
+
+void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
+    // Ataque de player y aliados, sobrescrbir en Enemigo
+    // Se ataca a enemigos
+    if(this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false){
+        this->set_accion(Accion_pre_atacar);
+        this->set_tipo_ataque(_i_tipo_ataque);
+    }
+    
 }
 
 void Character::interactuar_con_objeto(){
@@ -160,23 +196,40 @@ void Character::interactuar_con_objeto(){
 	}
 }
 
-void Character::bloquear_movimiento(double i_tiempo_inicio_bloqueado){
-    _tiempo_inicio_bloqueado = i_tiempo_inicio_bloqueado;
-    _bloqueado = true;
-}
-
-double Character::get_tiempo_inicio_bloqueado(){
-    return _tiempo_inicio_bloqueado;
-}
-
-void Character::set_bloqueado(bool _i_bloqueado){
-    _bloqueado = _i_bloqueado;
-}
-
-bool Character::get_bloqueado(){
-    return _bloqueado;
+void Character::bloquear_input(double _i_duracion_bloqueo_actual){
+    _tiempo_inicio_bloqueado = _tiempo->get_current();
+    _duracion_bloqueo_actual = _i_duracion_bloqueo_actual;
+    //_bloqueado = true;
 }
 
 void Character::morir(){
     std::cout << "He muerto :("<< std::endl;
+}
+
+Enum_Acciones Character::get_accion(){
+    return _accion;
+}
+
+void Character::set_accion(Enum_Acciones _i_accion){
+    _accion = _i_accion;
+    if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
+        bloquear_input(1000); // hacer parametro dinamico
+    }   
+}
+
+Enum_Tipo_Ataque Character::get_tipo_ataque(){
+    return _tipo_ataque;
+}
+
+void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
+    _tipo_ataque = _i_tipo_ataque;
+}
+
+bool Character::esta_bloqueado(){
+    if(_tiempo->get_current() - _tiempo_inicio_bloqueado < _duracion_bloqueo_actual){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

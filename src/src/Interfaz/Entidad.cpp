@@ -162,13 +162,16 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 		cubeNode->setMaterialFlag(EMF_LIGHTING, false);
 	}
 
-	cubeNode->setPosition(vector3df(x,y,z));
+
+	cubeNode->setPosition(vector3df(x, y, z));
 	//smgr->getMeshManipulator()->setVertexColors(cubeNode->getMesh(), SColor(255,255,0,0));
 	
 
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
+
 	cubeTransform.setOrigin(btVector3(x,y+50,z));
+
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
@@ -446,6 +449,35 @@ void Entidad::saltar(){		   //Space
 		//exit(0);
 	}
 }
+
+
+void Entidad::setPositionXZ(unsigned short id, float x, float z){
+
+
+	btTransform btt; 
+	rigidbody[id]->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(x,btt.getOrigin().getY(),z)); // move body to the scene node new position
+
+	rigidbody[id]->getMotionState()->setWorldTransform(btt);
+	rigidbody[id]->setCenterOfMassTransform(btt);
+
+
+	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
+		
+	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
+
+
+	const btQuaternion &quat = rigidbody[id]->getOrientation();
+	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+	vector3df euler;
+	q.toEuler(euler);
+	euler *= RADTODEG;
+	node->setRotation(euler);
+}
+
+
+
 
 void Entidad::updateDynamicBody(btRigidBody *body) {
 	// TODO 1.d Actualiza la posicion del cuerpo en el motor grafico

@@ -6,7 +6,7 @@
 #include "Nodo_blackboard.h"
 
 Vertice::Vertice(float _i_posx, float _i_posy,float _i_ancho, float _i_alto, int _i_id, Grafo *_i_grafo_lod1):
-_id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1),_lod(4) , _sig(nullptr),
+_id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1) , _sig(nullptr),
 _ady(nullptr), _ancho(_i_ancho), _alto(_i_alto), _blackboard(nullptr){
 
 }
@@ -17,33 +17,22 @@ Vertice::~Vertice(){
 	_ady = nullptr;
 	_lod1 = nullptr; //grafo level of detail
 }
-Grafo *Vertice::get_lod1(){
-	return _lod1;
-}
 
-float Vertice::get_coord_x(){
-	return _posx;
-}
 
-float Vertice::get_coord_y(){
-	return _posy;
-}
+
 void Vertice::set_lod(unsigned short _i_cont){
 	if(_i_cont>4){
 		_i_cont=4;
 	}
-	if(Nodo * n = dynamic_cast<Nodo*>(this)){
-		n->_blackboard->set_lod(_i_cont);
-	}
-	_lod=_i_cont;
+	_blackboard->set_lod(_i_cont);
 	Arista* _ArisAux = _ady;
-	while(_ArisAux != nullptr){//recorrer nivel 1
-		if(_ArisAux->_ady->_lod>_i_cont){
+	while(_ArisAux != nullptr){
+		if(_ArisAux->get_ady()->get_blackboard()->get_lod()>_i_cont){
 			
-			_ArisAux->_ady->set_lod(_i_cont+1);
+			_ArisAux->get_ady()->set_lod(_i_cont+1);
 		}
 		
-		_ArisAux = _ArisAux->_sig;
+		_ArisAux = _ArisAux->get_sig();
 	}
 }
 bool Vertice::pos2id(float _i_x, float _i_y){
@@ -57,17 +46,20 @@ bool Vertice::pos2id(float _i_x, float _i_y){
 void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_destino){
 	//la arista final no se cuenta en las distancias
 	if(_id!=_i_destino){
-	_i_distancia+=_i_arista_aux->_peso;
+	_i_distancia+=_i_arista_aux->get_peso();
 	_peso=_i_distancia;
 	_i_arista_aux=_ady;//arista del vertice en el que estamos(para no recorrer la del vertice anterior)
 		while(_i_arista_aux!= nullptr){
 				//std::cout << _ArisAux->_ady->_id << " -> " ;
-			if(_i_arista_aux->_ady->_peso>=(_i_distancia+_i_arista_aux->_peso)){
-				_i_arista_aux->_ady->pathfinding(_i_distancia, _i_arista_aux, _i_destino);
+			if(_i_arista_aux->get_ady()->get_peso()>=(_i_distancia+_i_arista_aux->get_peso())){
+				_i_arista_aux->get_ady()->pathfinding(_i_distancia, _i_arista_aux, _i_destino);
 			}
-			_i_arista_aux = _i_arista_aux->_sig;
+			_i_arista_aux = _i_arista_aux->get_sig();
 		}
 	}
+}
+u_int8_t Vertice::get_lod(){
+	return _blackboard->get_lod();
 }
 /*void Vertice::inserta_enemigo(NPC* _i_npc){
 	for(u_int8_t cont=0;cont<maximo_npc;++cont){
