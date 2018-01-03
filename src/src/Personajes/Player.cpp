@@ -106,8 +106,9 @@ void Player::update(){
         }
 
         if(controles->estaPulsada(Input_key::MouseRight)){
-            std::cout<< "MOUSER" <<std::endl;
-            this->atacar(Ataque_Fuerte);
+            //std::cout<< "MOUSER" <<std::endl;
+            //this->atacar(Ataque_Fuerte);
+            danyar(0);
         }
 
     /*

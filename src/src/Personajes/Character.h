@@ -16,7 +16,8 @@ public:
 	
 	virtual ~Character();
 
-	void modificar_vida_en(short _i_vida);
+	void modificar_vida_en(short _i_vida); // este metodo debe derivar en danyar y curar
+	void danyar(short _danyo); // el danyo es lo mismo que los puntos de vida que se le restan
 	bool puede_subir_vida_(short _i_vida);
 	void set_vida(short _i_vida);
 	short get_vida();
@@ -54,6 +55,7 @@ public:
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	void bucle_ataque();
 	bool esta_bloqueado();
+	void desbloquear_input();
 
 protected:
 	int16_t _vida_maxima;

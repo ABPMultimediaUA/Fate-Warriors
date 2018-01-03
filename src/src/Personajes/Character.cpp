@@ -37,10 +37,23 @@ void Character::modificar_vida_en(short _i_vida){
         _vida=_vida_maxima;
     }
     else if(_vida + _i_vida < 0){
-        this->morir();
+        morir();
     }
     else{
         _vida+=_i_vida;
+    }
+}
+
+void Character::danyar(short _danyo){
+    _vida = _vida - _danyo;
+
+    if(_accion == Accion_pre_atacar){
+        set_accion(Recibir_danyo);
+        std::cout << "Ataque cortado" << std::endl;
+    }
+
+    if(_vida < 0){
+        morir();
     }
 }
 
@@ -128,7 +141,6 @@ void Character::bucle_ataque(){
 
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            this->set_tipo_ataque(Ataque_Ninguno);
         }
     }
 }
@@ -137,6 +149,11 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
     // Ataque de player y aliados, sobrescrbir en Enemigo
     // Se ataca a enemigos
     if(this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false){
+        this->set_accion(Accion_pre_atacar);
+        this->set_tipo_ataque(_i_tipo_ataque);
+    }
+    else if(this->get_accion() == Accion_post_atacar){
+        std::cout << "ENLAZA ATAQUE" << std::endl;
         this->set_accion(Accion_pre_atacar);
         this->set_tipo_ataque(_i_tipo_ataque);
     }
@@ -202,6 +219,10 @@ void Character::bloquear_input(double _i_duracion_bloqueo_actual){
     //_bloqueado = true;
 }
 
+void Character::desbloquear_input(){
+    _duracion_bloqueo_actual = 0;
+}
+
 void Character::morir(){
     std::cout << "He muerto :("<< std::endl;
 }
@@ -214,7 +235,11 @@ void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
     if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
         bloquear_input(1000); // hacer parametro dinamico
-    }   
+    }  
+
+    if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
+        set_tipo_ataque(Ataque_Ninguno);
+    }
 }
 
 Enum_Tipo_Ataque Character::get_tipo_ataque(){
