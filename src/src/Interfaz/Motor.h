@@ -26,7 +26,7 @@ public:
       void setPositionXZ(unsigned short id, float x, float z);
       uint8_t crearObjeto(char* rutaObj,float x, float y, float z);
       void saltar();
-      
+
 private:
       static Motor* _Motor;
       Entidad * _entidad;

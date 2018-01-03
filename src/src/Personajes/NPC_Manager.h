@@ -10,6 +10,7 @@ public:
 
 	NPC** get_npcs();
 	unsigned short get_n_enemigos();
+	void inserta_npc_nivel();
 	
 private:
 	NPC** _npc;

@@ -24,6 +24,7 @@ public:
 	inline enum Enum_Tipo_Enemigo* get_ref_Enum_Tipo_Enemigo(){
 		return &_tipo_npc;
 	}
+	void setPositionXZ(float _i_x, float _i_z);
 	
 
 private:
