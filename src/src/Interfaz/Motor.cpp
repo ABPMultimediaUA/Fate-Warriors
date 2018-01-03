@@ -39,6 +39,9 @@ void Motor::poner_camara_a_entidad(unsigned short id){
 	_entidad->poner_camara_a_entidad(id);
 }    //movimiento del prota
 
+void Motor::setPositionXZ(unsigned short id, float x, float z){
+	_entidad->setPositionXZ(id,x,z);
+}
 
 void Motor::saltar(){
 	
@@ -73,14 +76,10 @@ uint8_t Motor::crearObjeto(char* rutaObj,float x, float y, float z){
 	return _entidad->crear_objeto(rutaObj,x, y, z);
 }
 
-void Motor::moverDireccion(unsigned short _i_direccion){
-	_entidad->moverDireccion(_i_direccion);
+void Motor::moverDireccion(unsigned short id, unsigned short _i_direccion){
+	_entidad->moverDireccion(id,_i_direccion);
 }
 
 IrrlichtDevice* Motor::getIrrlichtDevice(){
 	return _entidad->getDevice();
-}
-
-void Motor::setPositionXZ(unsigned short id, float x, float z){
-	_entidad->setPositionXZ(id, x, z);
 }

@@ -52,31 +52,31 @@ void Player::update(){
     
     if(_w){
         if(_a){
-            _motor->moverDireccion(315);
+            _motor->moverDireccion(_id,315);
         }
         else if(_d){
-            _motor->moverDireccion(45);
+            _motor->moverDireccion(_id,45);
         }
         else {
-            _motor->moverDireccion(0);
+            _motor->moverDireccion(_id,0);
         }
     }
     else if(_s){
         if(_a){
-            _motor->moverDireccion(225);
+            _motor->moverDireccion(_id,225);
         }
         else if(_d){
-            _motor->moverDireccion(135);
+            _motor->moverDireccion(_id,135);
         }
         else {
-            _motor->moverDireccion(180);
+            _motor->moverDireccion(_id,180);
         }
     }
     else if(_a){
-        _motor->moverDireccion(270);
+        _motor->moverDireccion(_id,270);
     }
     else if(_d){
-        _motor->moverDireccion(90);
+        _motor->moverDireccion(_id,90);
     }
 
     if(controles->estaPulsada(Input_key::E)){
@@ -150,7 +150,7 @@ void Player::update(){
         // Minimo de movimiento de Joystick
         if(std::abs(_x) > 20 || std::abs(_y) > 20) {
             unsigned short _direccion = lib_math_angulo_2_puntos(_y, -_x, 0, 0);
-            _motor->moverDireccion(_direccion);
+            _motor->moverDireccion(_id,_direccion);
         }
     }
 

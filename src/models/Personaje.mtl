@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 02.01.2018 18:31:50
+# File Created: 02.01.2018 17:40:49
 
-newmtl Material__7
+newmtl Material__6
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -12,4 +12,5 @@ newmtl Material__7
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Kd personaje.jpg
+	map_Ka player_3.png
+	map_Kd player_3.png

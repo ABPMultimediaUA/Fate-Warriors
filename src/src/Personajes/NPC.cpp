@@ -33,14 +33,15 @@ void NPC::move(unsigned long _i_direccion) {
     _x = _x + _desp_x;
     _z = _z + _desp_z;
     //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
-    _motor->Mover(_id,_desp_x*100, 0, _desp_z*100);
-    
+    _motor->Mover(_id, _desp_x*100,0,_desp_z*100);
+    //_motor->setPositionXZ(_id,_desp_x*100,_desp_z*100);
+    //_motor->moverXZ(_id,0,0);
     //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';
 }
 
 
 void NPC::stop() {
-    //_matcher->Mover(0, 0, 0);
+    _motor->Mover(_id,0, 0, 0);
 }
 
 float NPC::getX(){
