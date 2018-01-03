@@ -34,7 +34,7 @@ void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
 
 int main(int argv, char*args[])
 {
-    char wavfile[] = "/Users/pierre/tmp/FMODStudio.wav";
+    //char wavfile[] = "/Users/pierre/tmp/FMODStudio.wav";
     //char** extraDriverData = &wavfile;
     //char banksPath[] = "Desktop/";
     //Common_Init(&extraDriverData);
@@ -48,17 +48,17 @@ int main(int argv, char*args[])
     ERRCHECK( lowLevelSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_5POINT1, 0) );
 
     ERRCHECK( lowLevelSystem->setOutput(FMOD_OUTPUTTYPE_AUTODETECT) );
-    if (argv>1) {
+    /*if (argv>1) {
     	  char * output = args[1];
     	  /*if (strcmp(output,"AUTO")==0)
     		    ERRCHECK( lowLevelSystem->setOutput(FMOD_OUTPUTTYPE_AUTODETECT) );
     	  else if (strcmp(output, "WAV")==0)
   		    ERRCHECK( lowLevelSystem->setOutput(FMOD_OUTPUTTYPE_WAVWRITER) );
     	  else if (strcmp(output, "WAV_NRT")==0)
-    		    ERRCHECK( lowLevelSystem->setOutput(FMOD_OUTPUTTYPE_WAVWRITER_NRT) );*/
-    }
+    		    ERRCHECK( lowLevelSystem->setOutput(FMOD_OUTPUTTYPE_WAVWRITER_NRT) );
+    }*/
 
-    ERRCHECK( system->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, &wavfile) );
+    //ERRCHECK( system->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, &wavfile) );
 
     FMOD::Studio::Bank* masterBank = NULL;
     ERRCHECK( system->loadBankFile("Desktop/Master Bank.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank) );
