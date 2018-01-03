@@ -5,7 +5,7 @@
  *      Author: manu
  */
 
-#include "irrlicht/irrlicht.h"
+#include <irrlicht/irrlicht.h>
 using namespace irr;
 
 #ifndef SRC_CPP_CAMARA_H_

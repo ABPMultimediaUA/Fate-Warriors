@@ -9,7 +9,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/ejecutable",
+            "program": "${workspaceFolder}/juego_sin_librerias",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

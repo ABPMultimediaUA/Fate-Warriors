@@ -15,7 +15,7 @@ class InputKey;
 
 #include <vector>
 #include <iostream>
-#include "irrlicht/irrlicht.h"
+#include <irrlicht/irrlicht.h>
 
 
 using namespace irr;
