@@ -219,30 +219,6 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	return rigidbody.size()-1;
 }
 
-void Entidad::setPositionXZ(unsigned short id, float x, float z){
-
-
-	btTransform btt; 
-	rigidbody[id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(x,btt.getOrigin().getY(),z)); // move body to the scene node new position
-
-	rigidbody[id]->getMotionState()->setWorldTransform(btt);
-	rigidbody[id]->setCenterOfMassTransform(btt);
-
-
-	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
-		
-	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
-
-
-	const btQuaternion &quat = rigidbody[id]->getOrientation();
-	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
-	vector3df euler;
-	q.toEuler(euler);
-	euler *= RADTODEG;
-	node->setRotation(euler);
-}
 
 
 
