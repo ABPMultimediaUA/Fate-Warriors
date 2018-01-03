@@ -14,7 +14,7 @@ public:
       IrrlichtDevice* getIrrlichtDevice();
       void Mover(uint8_t id, float x, float y, float z);
       //personaje prota
-      void moverDireccion(unsigned short _i_direccion);
+      void moverDireccion(unsigned short id, unsigned short _i_direccion);
       void poner_camara_a_entidad(unsigned short _i_direccion);
       void moverAdelante();
       void moverIzquierda();

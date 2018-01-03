@@ -4,15 +4,15 @@
 #include "../Nivel/Nivel.h"
 
 NPC_Manager::NPC_Manager() {
-	_n_enemigos = 2;
+	_n_enemigos = 1;
 	_n_aliados = 0;
 	Nivel* nivel=Nivel::nivel_instancia();
-	
+	float metro = 39.3701;
 	_npc = new NPC*[_n_enemigos];
-//	_npc[0] = new NPC(0,18*metro,0,18*metro,50,15, 5, 10);
+	_npc[0] = new NPC(0,2*metro,0,2*metro,50,15, 5, 10);
 //	_npc[1] = new NPC(0,6*metro,0,6*metro,50,15, 5, 10);
-	_npc[0] = new NPC(0,40,50,40,50,15,5,10);
-	_npc[1] = new NPC(0,40,50,40,50,15,5,10);
+//	_npc[0] = new NPC(0,40,50,40,50,15,5,10);
+//	_npc[1] = new NPC(0,40,50,40,50,15,5,10);
 }
 
 NPC_Manager::~NPC_Manager() {
