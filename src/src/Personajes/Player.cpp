@@ -32,6 +32,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
     std::string str = "models/Personaje.obj";
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
+    
     _id_motor = _motor->crearObjeto(cstr, _i_x,0,_i_z);
     _motor->poner_camara_a_entidad(_id);
     std::cout<<"X player: "<<_motor->getX(_id_motor);
@@ -257,13 +258,13 @@ void Player::update(){
         }
 
         _tiempo_anterior = _otro_tiempo;
-
+    */
         //set level of detail del nivel
         Nivel* nivel=Nivel::nivel_instancia();
-        nivel->nivel_set_lod(nivel->nivel_get_id_vertice(miX,miZ));
+        nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
         
-  }
-  */
+  
+  
 }
 			
 void Player::render(){

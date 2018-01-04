@@ -298,11 +298,11 @@ u_int16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _
 	Vertice* destino;
 	origen=grafo_get_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_vertice(_i_xorigen, _i_yorigen);
+		std::cout<<"origen: "<<origen->get_id()<<"  destino: "<<destino->get_id()<<std::endl;
 	//comprobar que esta dentro del nivel
-	if(origen==nullptr||destino==nullptr||origen==destino){
+	if(origen==nullptr||destino==nullptr){
 		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
-		
-		return angulo;
+		return angulo;			//MANU WAS HERE BOIII
 	}
 	if(origen->get_lod()<=2&&destino->get_lod()<=2){
 		return grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino->get_id());
@@ -387,10 +387,8 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	Vertice* vertice_destino;
 	Arista* arista_aux;
 	
+
 	
-	
-	
-	//verticeaux va a dar error en ese while
 	if(origen->get_id()!=destino){
 		verticeaux=origen->get_lod1()->get_h();
 		vertice_origen=verticeaux;

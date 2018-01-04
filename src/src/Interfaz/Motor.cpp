@@ -44,7 +44,6 @@ void Motor::setPositionXZ(unsigned short id, float x, float z){
 }
 
 void Motor::saltar(){
-	
 	_entidad->saltar();
 }
 

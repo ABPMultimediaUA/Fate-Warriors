@@ -199,7 +199,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 
 
-	std::cout<<"altura: "<<altura<<" || anchura: "<<anchura<<std::endl;
+
 
 	btCollisionShape *cubeShape = new btBoxShape(btVector3(anchura*0.5,altura*0.5,anchura*0.5)); // new btSphereShape(0.5);
 	btVector3 cubeLocalInertia;
@@ -372,6 +372,7 @@ void Entidad::moverDireccion(unsigned short id, unsigned short _i_direccion){  /
     desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
     desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
     moving = true;
+	
     Mover(0,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
 
@@ -556,6 +557,11 @@ bool Entidad::hasCollision(btDynamicsWorld *world, btPairCachingGhostObject *gho
 
 void Entidad::Mover(uint8_t id, float x, float y, float z){
 	//std::cout<<"borrame -----------------X: "<< x <<"--Y: "<< y << "--Z: "<< z <<std::endl; 
+	if(id>6){
+		_velocidad=0.01;
+	}else{
+		_velocidad=1;
+	}
 	btRigidBody* cuerpo;
 	cuerpo = rigidbody[id];
 	btVector3 mov(x,y,z);
