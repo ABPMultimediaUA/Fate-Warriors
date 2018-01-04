@@ -48,21 +48,21 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 			break;
 
 		case Atacar:
-			_i_npc->stop();
+			//_i_npc->stop();
 		//	std::cout << "El enemigo " << _n_enemigo << " ataca" << std::endl;
 			//ATACAR
 			break;
 
 		case Decidir:
-			_i_npc->stop();
+			//_i_npc->stop();
 		//	std::cout << "El enemigo " << _n_enemigo << " decide" << std::endl;
 			break;
 		case Nada:
-			_i_npc->stop();
+			//_i_npc->stop();
 		//	std::cout << "El enemigo " << _n_enemigo << " hace nada" << std::endl;
 			break;
 		default:
-			_i_npc->stop();
+			//_i_npc->stop();
 			break;
 	}
 }
