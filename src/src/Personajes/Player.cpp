@@ -30,7 +30,10 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
   // _nodoId = _interface->Interfaz_crearProtaZip("models/Personaje.zip", "Personaje.obj",false,
   //                      _i_x,_i_y,_i_z);
   // _interface_fisica->CargaRigidBodyProta(200,_i_x,_i_y,_i_z);
-    _id = _motor->crearObjeto("models/Personaje.obj", _i_x,0,_i_z);
+    std::string str = "models/Personaje.obj";
+    char *cstr = new char[str.length() + 1];
+    strcpy(cstr, str.c_str());
+    _id = _motor->crearObjeto(cstr, _i_x,0,_i_z);
     _motor->poner_camara_a_entidad(_id);
     std::cout<<"X player: "<<_motor->getX(_id);
     std::cout<<"Z player: "<<_motor->getZ(_id)<<std::endl;

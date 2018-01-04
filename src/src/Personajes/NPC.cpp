@@ -16,7 +16,10 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     _blackboard(nullptr) {
     _tipo_npc=Enum_Tipo_Enemigo::Normal;
     _motor = Motor::Motor_GetInstance();
-    _id = _motor->crearObjeto("models/Enemigo.obj",_i_x,_i_y,_i_z);
+    std::string str = "models/Enemigo.obj";
+    char *cstr = new char[str.length() + 1];
+    strcpy(cstr, str.c_str());
+    _id = _motor->crearObjeto(cstr,_i_x,_i_y,_i_z);
 
 }
 

@@ -12,7 +12,8 @@ public:
 	virtual ~Player();
 	void update() override;
 	void render() override;
-	
+	float getX();
+	float getZ();
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
@@ -22,8 +23,6 @@ private:
 	double _otro_tiempo;
 	double _tiempo_anterior;
 	Motor* _motor;
-	float getX();
-	float getZ();
 };
 
 #endif /* SRC_PLAYER_H_ */

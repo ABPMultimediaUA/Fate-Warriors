@@ -10,7 +10,10 @@ Entidad::Entidad(){
 	//mult = 39.3701;
 
 	//importarEscenario("models/Nodo1.obj",  5,0, 5);
-	importarEscenario("models/Colisiones.obj", 0,0,0);
+	std::string str = "models/Colisiones.obj";
+    char *cstr = new char[str.length() + 1];
+    strcpy(cstr, str.c_str());
+	importarEscenario(cstr, 0,0,0);
 	//importarEscenario("models/Nodo5.obj",  35,0,38);
 	//importarEscenario("models/Nodo7.obj",  27,0,3);
 	//importarEscenario("models/Nodo10.obj", 49,0,3);
@@ -161,8 +164,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	if(cubeNode){
 		cubeNode->setMaterialFlag(EMF_LIGHTING, false);
 	}
-
-
+	
 	cubeNode->setPosition(vector3df(x, y, z));
 
 	//smgr->getMeshManipulator()->setVertexColors(cubeNode->getMesh(), SColor(255,255,0,0));
