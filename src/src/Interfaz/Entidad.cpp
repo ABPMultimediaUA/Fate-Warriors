@@ -144,7 +144,7 @@ void Entidad::configuracion_irlitch(){
 		createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
 			false, false, false);
 
-	device->setWindowCaption(L"Con Bullet");
+	device->setWindowCaption(L"Feito Güarriorusuu");
 
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
@@ -197,7 +197,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 
 
-
+	std::cout<<"altura: "<<altura<<" || anchura: "<<anchura<<std::endl;
 
 	btCollisionShape *cubeShape = new btBoxShape(btVector3(anchura*0.5,altura*0.5,anchura*0.5)); // new btSphereShape(0.5);
 	btVector3 cubeLocalInertia;
@@ -383,7 +383,7 @@ void Entidad::moverAdelante(){  //W
 	//std::cout<<"-------------dt: "<<dt<<std::endl;
     //interface->Interfaz_rotarProta(0);
     moving = true;
-    Mover(0,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
+    Mover(0,desp_x,rigidbody[0]->getLinearVelocity()[1],desp_z);
 }
 
 void Entidad::moverIzquierda(){ //A
@@ -393,7 +393,7 @@ void Entidad::moverIzquierda(){ //A
     desp_z += sin(angulo) * _velocidad * mdt;
     desp_x -= cos(angulo) * _velocidad * mdt;
     moving = true;
-    Mover(1,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
+    Mover(1,desp_x,rigidbody[0]->getLinearVelocity()[1],desp_z);
 }
 
 void Entidad::moverDerecha(){   //D
@@ -403,7 +403,7 @@ void Entidad::moverDerecha(){   //D
     desp_z -= sin(angulo) * _velocidad * mdt;
     desp_x += cos(angulo) * _velocidad * mdt;
     moving = true;
-    Mover(1,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
+    Mover(1,desp_x,rigidbody[0]->getLinearVelocity()[1],desp_z);
 }
 
 void Entidad::moverAtras(){     //S
@@ -413,7 +413,7 @@ void Entidad::moverAtras(){     //S
     desp_z -= cos(angulo) * _velocidad * mdt;
     desp_x -= sin(angulo) * _velocidad * mdt;
     moving = true;
-    Mover(1,desp_x,rigidbody[1]->getLinearVelocity()[1],desp_z);
+    Mover(1,desp_x,rigidbody[0]->getLinearVelocity()[1],desp_z);
 }
 
 void Entidad::saltar(){		   //Space

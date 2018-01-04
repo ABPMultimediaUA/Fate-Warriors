@@ -36,7 +36,7 @@ Blackboard::~Blackboard() {
 
 void Blackboard::actualiza_datos() {
 
-	_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);
+	_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);//distancia_jugador esta en metros
 	_porcentaje_vida=100*(*_vida_actual)/_vida_max;
 	/*Nivel* nivel=Nivel::nivel_instancia();
 	_zona=nivel->nivel_get_blackboard((*_x),(*_z));*/
@@ -118,6 +118,7 @@ enum Enum_Tipo_Ataque Blackboard::get_ataque() {
 
 // Datos de estado
 int8_t Blackboard::get_level_of_detail() {
+	std::cout<<"lvl of detail: "<<(int)_zona->get_lod()<<std::endl;
 	return _zona->get_lod();
 }
 

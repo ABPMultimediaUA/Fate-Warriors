@@ -220,7 +220,7 @@ private:
 	enum Enum_Acciones _accion_jugador;				// Accion actual jugador cercano 	(VARIABLE DE REFERENCIA)
 	enum Enum_Tipo_Ataque _ataque_jugador;			// Ataque actual jugador cercano 	(VARIABLE DE REFERENCIA)
 	//float _x_jugador, _z_jugador;					// Posicion del jugador mas cercano (VARIABLE DE REFERENCIA)
-	float _distancia_jugador;						// Distancia del jugador mas cercano
+	float _distancia_jugador;						// Distancia del jugador mas cercano , esta en metros DONE
 	//int16_t* _vida_actual_jugador;				// Vida actual jugador cercano 		(VARIABLE DE REFERENCIA)
 	//int16_t* _vida_max_jugador;					// Vida maxima jugador cercano 		(VARIABLE DE REFERENCIA)
 	float _porcentaje_vida_jugador;					// Porcentaje vida actual jugador cercano (Se calcula en cada iteracion)

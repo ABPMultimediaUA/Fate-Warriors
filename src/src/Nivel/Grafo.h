@@ -4,7 +4,7 @@
 #include <stack>
 #include <string>
 
-const float metro=39.3701;
+const float metro=4.9212625;
 class Vertice;
 class Arista;
 class Nodo_blackboard;

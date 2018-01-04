@@ -1,8 +1,8 @@
 3
 
-- 0 Final Atacar Andar Distancia          70
-- 1 Final Saltar Nada  Distancia          1200
-- 2 Medio 0      1     Distancia          700
+- 0 Final Atacar Andar Distancia          2
+- 1 Final Saltar Nada  Distancia          15
+- 2 Medio 0      1     Distancia          10
 
 Fin
 

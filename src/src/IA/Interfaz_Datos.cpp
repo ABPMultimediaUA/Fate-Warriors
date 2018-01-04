@@ -6,6 +6,7 @@
 #include "../Personajes/NPC.h"
 #include "../Personajes/NPC_Manager.h"
 #include "../Personajes/Player.h"
+#include "../Nivel/Nivel.h"
 
 #include<iostream>
 
@@ -33,8 +34,8 @@ float Interfaz_Datos::get_distancia_enemigo_personaje(unsigned short _i_n_enemig
 	get_pos_player(_x_player, _y_player);
 
 	_distancia_total = lib_math_distancia_2_puntos(_x_player, _y_player, _x_enemigo, _y_enemigo);
-
-	return _distancia_total;
+	std::cout<<"distancia: "<<_distancia_total/metro<<std::endl;
+	return _distancia_total/metro;
 }
 
 
