@@ -118,7 +118,7 @@ enum Enum_Tipo_Ataque Blackboard::get_ataque() {
 
 // Datos de estado
 int8_t Blackboard::get_level_of_detail() {
-	std::cout<<"lvl of detail: "<<(int)_zona->get_lod()<<std::endl;
+	//std::cout<<"lvl of detail: "<<(int)_zona->get_lod()<<std::endl;
 	return _zona->get_lod();
 }
 

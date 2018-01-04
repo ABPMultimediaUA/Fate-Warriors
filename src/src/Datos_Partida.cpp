@@ -6,12 +6,16 @@
 #include "Personajes/NPC_Manager.h"
 #include "Consumibles/Consumible_manager.h"
 #include "Trampas/Trampas_manager.h"
+#include "Llave.h"
+#include "Puerta.h"
 #include <iostream>
 
 
 Datos_Partida::Datos_Partida() {
 	float mult = 4.9212625;
 	_jugador = new Player(0,15*mult,50,15*mult);
+	Llave* _llave = new Llave(0,10*mult,1*mult,10*mult,1);
+	Puerta* _puerta = new Puerta(1,18*mult,1*mult,18*mult,false);
 	_npc_manager = new NPC_Manager();
 	_consumibles_manager = new Consumible_manager();
 	_trampas_manager	 = new Trampas_manager();

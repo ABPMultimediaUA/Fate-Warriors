@@ -28,7 +28,7 @@ NPC::~NPC() {
 }
 
 void NPC::move(unsigned long _i_direccion) {
-    std::cout<<"move direccion: "<<_i_direccion<<std::endl;
+    //std::cout<<"move direccion: "<<_i_direccion<<std::endl;
     float _desp_x = cos(_i_direccion*PI/180);
     _desp_x = roundf(_desp_x * 200) / 100;
     float _desp_z = sin(_i_direccion*PI/180);

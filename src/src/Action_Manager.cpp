@@ -31,7 +31,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 	float x,z;
 	enum Enum_Acciones _accion = _blackboard->get_accion();
 	unsigned short _n_enemigo = _blackboard->get_n_enemigo();
-std::cout<<"accion: "<<_accion<<std::endl;
+	//std::cout<<"accion: "<<_accion<<std::endl;
 
 	switch(_accion) {
 		case Andar:
