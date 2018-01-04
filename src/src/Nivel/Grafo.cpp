@@ -297,8 +297,8 @@ u_int16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _
 	Vertice* origen;
 	Vertice* destino;
 	origen=grafo_get_vertice(_i_xorigen, _i_yorigen);
-	destino=grafo_get_vertice(_i_xorigen, _i_yorigen);
-		std::cout<<"origen: "<<origen->get_id()<<"  destino: "<<destino->get_id()<<std::endl;
+	destino=grafo_get_vertice(_i_xdestino, _i_ydestino);
+	std::cout<<"origen: "<<origen->get_id()<<"  destino: "<<destino->get_id()<<std::endl;
 	//comprobar que esta dentro del nivel
 	if(origen==nullptr||destino==nullptr){
 		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
