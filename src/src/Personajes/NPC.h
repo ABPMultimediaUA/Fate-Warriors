@@ -16,9 +16,7 @@ public:
   	void render() override;
 	void move(unsigned long _i_direccion);
 	void stop();
-	float getX() override;
-	float getY() override;
-	float getZ() override;
+
 	void set_blackboard(Blackboard* _i_blackboard);
 	Blackboard* get_blackboard();
 	inline enum Enum_Tipo_Enemigo* get_ref_Enum_Tipo_Enemigo(){
@@ -30,8 +28,6 @@ public:
 private:
 	Blackboard* _blackboard; //Informacion de la memoria almacenada en el Blackboard
 	enum Enum_Tipo_Enemigo _tipo_npc;
-	Motor* _motor;
-	short _id;
 };
 
 #endif /* SRC_NPC_H_ */

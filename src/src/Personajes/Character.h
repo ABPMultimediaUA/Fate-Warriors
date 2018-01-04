@@ -8,6 +8,7 @@
 class Interfaz;
 class Inventario;
 class Time;
+class Motor;
 
 class Character : public Objeto_Movil{
 public:
@@ -57,7 +58,13 @@ public:
 	bool esta_bloqueado();
 	void desbloquear_input();
 
+	float getX() override;
+	float getY() override;
+	float getZ() override;
+
 protected:
+	Motor* _motor;
+	short _id_motor;
 	int16_t _vida_maxima;
 	int16_t _vida;
 	short _velocidad;

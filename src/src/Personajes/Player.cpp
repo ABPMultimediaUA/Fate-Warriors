@@ -20,7 +20,6 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
                                                                 {   
     //_matcher = new Matcher(LLAVE_R, LLAVE_M, _i_x, _i_y,  _i_z,  1,true);                                                                
     //_matcher = new Matcher(PERSONAJE_R, PERSONAJE_M, _i_x, _i_y,  _i_z,  1,true); s
-    _motor = Motor::Motor_GetInstance();
 
     //_tiempo = Time::Instance();
     //std::cout<<"eso: "<<_interface<<std::endl;
@@ -33,23 +32,14 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
     std::string str = "models/Personaje.obj";
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
-    _id = _motor->crearObjeto(cstr, _i_x,0,_i_z);
+    _id_motor = _motor->crearObjeto(cstr, _i_x,0,_i_z);
     _motor->poner_camara_a_entidad(_id);
-    std::cout<<"X player: "<<_motor->getX(_id);
-    std::cout<<"Z player: "<<_motor->getZ(_id)<<std::endl;
+    std::cout<<"X player: "<<_motor->getX(_id_motor);
+    std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
 }
 
 Player::~Player(){
-    delete _motor;
-    _motor = nullptr;
-}
 
-float Player::getX(){
-    return _motor->getX(_id);
-}
-
-float Player::getZ(){
-    return _motor->getZ(_id);
 }
 
 void Player::update(){
@@ -65,31 +55,31 @@ void Player::update(){
     
     if(_w){
         if(_a){
-            _motor->moverDireccion(_id,315);
+            _motor->moverDireccion(_id_motor,315);
         }
         else if(_d){
-            _motor->moverDireccion(_id,45);
+            _motor->moverDireccion(_id_motor,45);
         }
         else {
-            _motor->moverDireccion(_id,0);
+            _motor->moverDireccion(_id_motor,0);
         }
     }
     else if(_s){
         if(_a){
-            _motor->moverDireccion(_id,225);
+            _motor->moverDireccion(_id_motor,225);
         }
         else if(_d){
-            _motor->moverDireccion(_id,135);
+            _motor->moverDireccion(_id_motor,135);
         }
         else {
-            _motor->moverDireccion(_id,180);
+            _motor->moverDireccion(_id_motor,180);
         }
     }
     else if(_a){
-        _motor->moverDireccion(_id,270);
+        _motor->moverDireccion(_id_motor,270);
     }
     else if(_d){
-        _motor->moverDireccion(_id,90);
+        _motor->moverDireccion(_id_motor,90);
     }
 
     if(controles->estaPulsada(Input_key::E)){
@@ -163,7 +153,7 @@ void Player::update(){
         // Minimo de movimiento de Joystick
         if(std::abs(_x) > 20 || std::abs(_y) > 20) {
             unsigned short _direccion = lib_math_angulo_2_puntos(_y, -_x, 0, 0);
-            _motor->moverDireccion(_id,_direccion);
+            _motor->moverDireccion(_id_motor,_direccion);
         }
     }
 

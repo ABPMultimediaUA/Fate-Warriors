@@ -15,11 +15,11 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte),
     _blackboard(nullptr) {
     _tipo_npc=Enum_Tipo_Enemigo::Normal;
-    _motor = Motor::Motor_GetInstance();
+    
     std::string str = "models/Enemigo.obj";
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
-    _id = _motor->crearObjeto(cstr,_i_x,_i_y,_i_z);
+    _id_motor = _motor->crearObjeto(cstr,_i_x,_i_y,_i_z);
 
 }
 
@@ -38,7 +38,7 @@ void NPC::move(unsigned long _i_direccion) {
     _x = _x + _desp_x;
     _z = _z + _desp_z;
     //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
-    _motor->Mover(_id, _desp_x*100,0,_desp_z*100);
+    _motor->Mover(_id_motor, _desp_x*100,0,_desp_z*100);
     //_motor->setPositionXZ(_id,_desp_x*100,_desp_z*100);
     //_motor->moverXZ(_id,0,0);
     //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';
@@ -46,19 +46,7 @@ void NPC::move(unsigned long _i_direccion) {
 
 
 void NPC::stop() {
-    _motor->Mover(_id,0, 0, 0);
-}
-
-float NPC::getX(){
-    return(_motor->getX(_id));
-}
-
-float NPC::getY(){
-    return(_motor->getY(_id));
-}
-
-float NPC::getZ(){
-    return(_motor->getZ(_id));
+    _motor->Mover(_id_motor,0, 0, 0);
 }
 
 void NPC::update() {
@@ -77,5 +65,5 @@ Blackboard* NPC::get_blackboard() {
     return _blackboard;
 }
 void NPC::setPositionXZ(float _i_x, float _i_z){
-    _motor->setPositionXZ(_id,_i_x,_i_z);
+    _motor->setPositionXZ(_id_motor,_i_x,_i_z);
 }
