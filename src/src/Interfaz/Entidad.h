@@ -116,22 +116,20 @@ public:
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
-    void moverDireccion(unsigned short id, unsigned short _i_direccion);
-    void moverAdelante();
-    void moverIzquierda();
-    void moverDerecha();
-    void moverAtras();
+    void VelocidadDireccion(unsigned short id, unsigned short _i_direccion);
+
     //void simulationUpdate();
-    void saltar();
+    void saltar(unsigned short _i_id);
     void update(double dt);
 
     void update();
     void render();
 
-    void Mover(uint8_t id, float x, float y, float z);
+    void setVelocidad(uint8_t id, float x, float y, float z);
 
     IrrlichtDevice* getDevice();    
     
+    void updateCamaraColision();
     void updateDynamicBody(btRigidBody *body);
     void moveKinematicBody(btRigidBody *body, btVector3 traslation);
     void moveKinematicObject(btCollisionObject *object, btVector3 traslation);
@@ -141,6 +139,7 @@ public:
     float getX(short id);
     float getY(short id);
     float getZ(short id);
+    float getVelocidadY(short _i_id);
 
     void apagar();
 

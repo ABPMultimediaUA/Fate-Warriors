@@ -19,6 +19,39 @@ Motor::~Motor(){
 	_entidad = nullptr;
 } 
 
+uint8_t Motor::crearObjeto(char* rutaObj,float x, float y, float z){
+	return _entidad->crear_objeto(rutaObj,x, y, z);
+}
+
+void Motor::poner_camara_a_entidad(unsigned short id){
+	_entidad->poner_camara_a_entidad(id);
+}   
+
+void Motor::Mover(uint8_t id, float x, float y, float z){
+	_entidad->setVelocidad(id,x,y,z);
+}
+
+void Motor::setPositionXZ(unsigned short id, float x, float z){
+	_entidad->setPositionXZ(id,x,z);
+}
+
+void Motor::saltar(unsigned short _i_id){
+	_entidad->saltar(_i_id);
+}
+
+
+void Motor::update(double dt){
+	_entidad->update(dt);
+}
+
+void Motor::render(){
+	_entidad->render();
+}
+
+void Motor::VelocidadDireccion(unsigned short id, unsigned short _i_direccion){
+	_entidad->VelocidadDireccion(id,_i_direccion);
+}
+
 float Motor::getX(short id){
 	return _entidad->getX(id);
 }
@@ -31,52 +64,8 @@ float Motor::getZ(short id){
 	return _entidad->getZ(id);
 }
 
-void Motor::Mover(uint8_t id, float x, float y, float z){
-	_entidad->Mover(id,x,y,z);
-}
-
-void Motor::poner_camara_a_entidad(unsigned short id){
-	_entidad->poner_camara_a_entidad(id);
-}    //movimiento del prota
-
-void Motor::setPositionXZ(unsigned short id, float x, float z){
-	_entidad->setPositionXZ(id,x,z);
-}
-
-void Motor::saltar(){
-	_entidad->saltar();
-}
-
-void Motor::moverAdelante(){
-	_entidad->moverAdelante();
-}
-
-void Motor::moverIzquierda(){
-	_entidad->moverIzquierda();
-}
-
-void Motor::moverDerecha(){
-	_entidad->moverDerecha();
-}
-
-void Motor::moverAtras(){
-	_entidad->moverAtras();
-}
-
-void Motor::update(double dt){
-	_entidad->update(dt);
-}
-
-void Motor::render(){
-	_entidad->render();
-}
-
-uint8_t Motor::crearObjeto(char* rutaObj,float x, float y, float z){
-	return _entidad->crear_objeto(rutaObj,x, y, z);
-}
-
-void Motor::moverDireccion(unsigned short id, unsigned short _i_direccion){
-	_entidad->moverDireccion(id,_i_direccion);
+float Motor::getVelocidadY(short id){
+	return _entidad->getVelocidadY(id);
 }
 
 IrrlichtDevice* Motor::getIrrlichtDevice(){
