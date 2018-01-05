@@ -8,7 +8,6 @@
 class Interfaz;
 class Inventario;
 class Time;
-class Motor;
 
 class Character : public Objeto_Movil{
 public:
@@ -35,10 +34,10 @@ public:
     	return &_tiene_arma_larga;
 	}
 	inline float* get_ref_x(){
-		return &_x;
+		//return &_x; Tiene que coger la posicion del motor
 	}
 	inline float* get_ref_z(){
-		return &_z;
+		//return &_z; Tiene que coger la posicion del motor
 	}
 	uint8_t* get_ref_rango_arma_corta();
 	uint8_t* get_ref_rango_arma_larga();
@@ -58,13 +57,9 @@ public:
 	bool esta_bloqueado();
 	void desbloquear_input();
 
-	float getX() override;
-	float getY() override;
-	float getZ() override;
 
 protected:
-	Motor* _motor;
-	short _id_motor;
+	
 	int16_t _vida_maxima;
 	int16_t _vida;
 	short _velocidad;

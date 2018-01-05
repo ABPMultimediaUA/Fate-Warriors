@@ -18,8 +18,6 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
     _tiene_arma_larga(false) {
 
-    _motor = Motor::Motor_GetInstance();
-
     _inventario = new Inventario();
     _tiempo = Time::Instance();
     _accion = Nada;
@@ -28,9 +26,6 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
 
 Character::~Character() {
     delete _inventario;
-
-    delete _motor;
-    _motor = nullptr;
 }
 
 int16_t Character::get_vida(){
@@ -263,16 +258,4 @@ bool Character::esta_bloqueado(){
     else{
         return false;
     }
-}
-
-float Character::getX(){
-    return(_motor->getX(_id_motor));
-}
-
-float Character::getY(){
-    return(_motor->getY(_id_motor));
-}
-
-float Character::getZ(){
-    return(_motor->getZ(_id_motor));
 }

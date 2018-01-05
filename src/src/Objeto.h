@@ -2,12 +2,12 @@
 #define HEADERS_OBJETO_H_
 #include "Utilidades/Vector.h"
 #include <cstdint>
+
+class Motor;
+
 enum NombreObjetos{
 
 };
-
-
-
 
 
 class Objeto {
@@ -18,14 +18,11 @@ public:
 
 	virtual void update() = 0;
 	virtual void render() = 0;
-	virtual float getX(){return _x;};
-	virtual float getY(){return _y;};
-	virtual float getZ(){return _z;};
+	float getX();
+	float getY();
+	float getZ();
 
 	void 	setPosition(float _i_x, float _i_y, float _i_z);
-	//float	getX();
-	//float getY();
-	//float getZ();
 	void	setX(float _i_x);
 	void	setY(float _i_y);
 	void	setZ(float _i_z);
@@ -38,11 +35,9 @@ public:
 
 protected:
 	short 	_id;
-	float 	_x;
-	float 	_y;
-	float 	_z;
 	bool 	_borrar;
-	//Motor* _motor;
+	Motor* _motor;
+	short _id_motor;
     bool _visible;
 };
 

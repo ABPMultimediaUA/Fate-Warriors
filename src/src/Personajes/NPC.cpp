@@ -35,8 +35,8 @@ void NPC::move(unsigned long _i_direccion) {
     _desp_z = roundf(_desp_z * 200) / 100;
     //std::cout << "Personaje se mueve en la x " << _desp_x << std::endl;
     //std::cout << "Personaje se mueve en la y " << _desp_y << std::endl;
-    _x = _x + _desp_x;
-    _z = _z + _desp_z;
+    //_x = _x + _desp_x;
+    //_z = _z + _desp_z;
     //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
     _motor->Mover(_id_motor, _desp_x*25, _motor->getVelocidadY(_id_motor),_desp_z*25);
     //_motor->setPositionXZ(_id,_desp_x*100,_desp_z*100);
