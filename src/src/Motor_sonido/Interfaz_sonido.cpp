@@ -57,7 +57,23 @@ Interfaz_sonido::~Interfaz_sonido(){
     ERRCHECK( masterBank->unload() );
     ERRCHECK( system->release() );
 
-    /*Deletes*/
+    delete system;
+
+    delete lowLevelSystem;
+
+    delete masterBank ;
+    delete stringsBank ;
+    delete ambienceBank ;
+    delete menuBank ;
+    delete weaponsBank ;
+
+	delete loopingAmbienceDescription ;
+    delete loopingAmbienceInstance ;
+    delete cancelDescription ;
+    delete cancelInstance ;
+    delete explosionDescription ;
+
+	delete eventInstance ;
 }
 
 void Interfaz_sonido::CreateSound(){
@@ -128,9 +144,9 @@ int main(int argv, char*args[])
 
   sonido->CreateSound();
 
-  sonido->Disparar();  
+  sonido->Disparar();
 
-  //delete sonido;
+  delete sonido;
 
   return 0;
 }
