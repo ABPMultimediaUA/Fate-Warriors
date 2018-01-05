@@ -102,23 +102,6 @@ void Player::update(){
         //exit(0);
 	}
 
-
-    // En cuanto se agrege al Input se borrara de aqui
-    // Deteccion del movimiento con mando
-    /*
-    sf::Joystick::update();
-    if(sf::Joystick::isConnected(0)){
-        float _x = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
-        float _y = sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
-
-        // Minimo de movimiento de Joystick
-        if(std::abs(_x) > 20 || std::abs(_y) > 20) {
-            unsigned short _direccion = lib_math_angulo_2_puntos(_y, -_x, 0, 0);
-            _motor->VelocidadDireccion(_id_motor,_direccion);
-        }
-    }
-    */
-
    
     //set level of detail del nivel
     Nivel* nivel=Nivel::nivel_instancia();

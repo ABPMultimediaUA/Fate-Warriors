@@ -21,6 +21,9 @@ enum Enum_Inputs {
 	Input_Camara_Abajo,
 	Input_Camara_Izquierda,
 	Input_Camara_Derecha,
+	//Input_Usar_Arma,
+	//Input_Centrar_Camara,
+	//Input_Pausa,
 	N_Inputs,
 	Ninguno
 };
@@ -35,6 +38,7 @@ public:
 	void reiniciar_inputs();	// Reiniciar los inputs para volver a recibirlos 	->	Ejecutar 1 vez despues de usarlos
 
 	void asignar_teclas_predefinidas();
+	void asignar_teclas_mando();
 	void asignar_teclas_entrada();
 
 	void activa_camara_teclado();
@@ -51,7 +55,7 @@ public:
 
 
 private:
-	// Control de las teclas
+	// Control de las direcciones
 	bool _arriba;
 	bool _abajo;
 	bool _izquierda;
@@ -62,6 +66,8 @@ private:
 	bool _izquierda_camara;
 	bool _derecha_camara;
 
+
+	// Control de valores
 	bool _camara_con_teclado;	// Indica si se controla la camara con el teclado
 	bool _invertir_x;			// Invierte el eje X de la camara
 	bool _invertir_y;			// Invierte el eje Y de la camara
@@ -91,15 +97,32 @@ private:
 	enum sf::Mouse::Button* _raton;
 
 
+	// Control del mando
+	bool _hay_mando;
+	uint8_t _botones_mando;
+	uint8_t* _mando;
+	enum sf::Joystick::Axis* _ejes;
+	Vector2* _joystick_mover;
+	Vector2* _joystick_camara;
+
+
 	// Funciones de control
 	void procesa_direccion();
 
+	void recibir_inputs_mando();
+	void recibir_inputs_teclado_raton();
 	void recibir_inputs_camara();
 
+	void procesa_direccion_mando();
+	void procesa_direccion_teclado();
+
 	void procesa_camara();
+	void procesa_camara_mando();
 	void procesa_camara_raton();
 	void procesa_camara_teclado();
 
+
+	void actualiza_mando();
 
 	// Funciones de asignacion de teclas
 	void asigna_tecla(enum Enum_Inputs _tecla);

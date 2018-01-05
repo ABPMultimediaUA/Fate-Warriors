@@ -14,10 +14,21 @@ Input::Input() {
 	_invertir_x = false;
 	_invertir_y = false;
 
+	_joystick_mover = new Vector2(0,0);
+	_joystick_camara = new Vector2(0,0);
+
+	_mando = new uint8_t[N_Inputs];
+	_ejes = new sf::Joystick::Axis[N_Inputs];
+	actualiza_mando();
+
 	asignar_teclas_predefinidas();
 }
 
 Input::~Input() {
+	delete [] _ejes;
+	delete [] _mando;
+	delete _joystick_mover;
+	delete _joystick_camara;
 	delete _vector_camara;
 	delete _posicion_raton;
 	delete [] _raton;
@@ -68,6 +79,22 @@ void Input::asignar_teclas_predefinidas() {
 }
 
 
+void Input::asignar_teclas_mando() {
+	_mando[Input_Salto] = 0;			// A
+	_mando[Input_Dash] = 1;				// B
+	_mando[Input_Ataque_Normal] = 2;	// X
+	_mando[Input_Ataque_Fuerte] = 3;	// Y
+	//_mando[Input_Usar_Arma] = 4;		// LB
+	_mando[Input_Interact] = 5;			// RB
+	//_mando[Input_Pausa] = 7;			// Start
+	//_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
+
+	_ejes[Input_Derecha] = sf::Joystick::X;
+	_ejes[Input_Arriba] = sf::Joystick::Y;
+	_ejes[Input_Camara_Derecha] = sf::Joystick::U;
+	_ejes[Input_Camara_Arriba] = sf::Joystick::V;
+}
+
 // Activa la camara con teclado
 void Input::activa_camara_teclado() {
 	_camara_con_teclado = true;
@@ -93,6 +120,26 @@ void Input::invierte_eje_x() {
 void Input::invierte_eje_y() {
 
 	_invertir_y = !_invertir_y;
+}
+
+// Actualiza la informacion si hay o no mando
+void Input::actualiza_mando() {
+	sf::Joystick::update();
+
+	// Comprueba si hay mando y si se puede usar
+    if(sf::Joystick::isConnected(0)) {
+    	if(_hay_mando == false) {// Si no habia mando
+	    	_hay_mando = true;
+			_botones_mando = sf::Joystick::getButtonCount(0);
+			asignar_teclas_mando();
+		}
+		//std::cout << "Mando esta conectado, que tiene " << sf::Joystick::getButtonCount(0) << " botones\n";
+    }
+    else {
+    	_hay_mando = false;
+    	_botones_mando = 0;
+		//std::cout << "Mando no esta conectado\n";
+    }
 }
 
 
@@ -125,7 +172,33 @@ bool Input::get_atacar(bool& _normal, bool& _fuerte) {
 
 // Recoge los inputs y almacena los valores
 void Input::recibir_inputs() {
+	if(_hay_mando) 
+		recibir_inputs_mando();
+	else
+		recibir_inputs_teclado_raton();
+}
 
+// Recibe los inputs del mando
+void Input::recibir_inputs_mando() {
+	_saltar = sf::Joystick::isButtonPressed(0, _mando[Input_Salto]);
+	_dash = sf::Joystick::isButtonPressed(0, _mando[Input_Dash]);
+	_ataque_normal = sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Normal]);
+	_ataque_fuerte = sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Fuerte]);
+	_interactuar = sf::Joystick::isButtonPressed(0, _mando[Input_Interact]);
+
+	_joystick_mover->_x = sf::Joystick::getAxisPosition(0, _ejes[Input_Derecha]);
+	_joystick_mover->_y = sf::Joystick::getAxisPosition(0, _ejes[Input_Arriba]);
+
+	_joystick_camara->_x = sf::Joystick::getAxisPosition(0, _ejes[Input_Camara_Derecha]);
+	_joystick_camara->_y = sf::Joystick::getAxisPosition(0, _ejes[Input_Camara_Arriba]);
+
+	//_mando[Input_Usar_Arma] = 4;		// LB
+	//_mando[Input_Pausa] = 7;			// Start
+	//_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
+}
+
+// Recibe los inputs del teclado y el raton
+void Input::recibir_inputs_teclado_raton() {
 	if(_teclas[Input_Arriba] != sf::Keyboard::Unknown) 
 		_arriba = sf::Keyboard::isKeyPressed(_teclas[Input_Arriba]);
 	else 
@@ -224,6 +297,23 @@ void Input::procesar_inputs() {
 
 // Procesa los input de direccion para sacar la direccion de movimiento del jugador
 void Input::procesa_direccion() {
+	if(_hay_mando)
+		procesa_direccion_mando();
+	else
+		procesa_direccion_teclado();
+}
+
+void Input::procesa_direccion_mando() {
+	if(std::abs(_joystick_mover->_x) > 20 || std::abs(_joystick_mover->_y) > 20) {
+		_mover = true;
+        _direccion = lib_math_angulo_2_puntos(_joystick_mover->_y, -_joystick_mover->_x, 0, 0);
+    }
+    else {
+    	_mover = false;
+    }
+}
+
+void Input::procesa_direccion_teclado(){
 	if(_arriba || _abajo || _izquierda || _derecha) {
 		_mover = true;
 	
@@ -264,7 +354,9 @@ void Input::procesa_direccion() {
 
 // Procesa los input de camara para sacar la direccion de movimiento de camara
 void Input::procesa_camara() {
-	if(_camara_con_teclado) 
+	if(_hay_mando)
+		procesa_camara_mando();
+	else if(_camara_con_teclado) 
 		procesa_camara_teclado();
 	else
 		procesa_camara_raton();
@@ -277,8 +369,21 @@ void Input::procesa_camara() {
 		std::cout << "Angulo = " << _direccion_camara  << "\n";
 		std::cout << "Posicion del raton = (" << _posicion_raton->_x << "," << _posicion_raton->_y << ")\n";
 		std::cout << "Angulo de la camara = (" << _vector_camara->_x << "," << _vector_camara->_y << ")\n";
-	}
-	*/
+	}*/
+	
+}
+
+void Input::procesa_camara_mando() {
+	if(std::abs(_joystick_camara->_x) > 20 || std::abs(_joystick_camara->_y) > 20) {
+		_mover_camara = true;
+        _direccion_camara = lib_math_angulo_2_puntos(_joystick_camara->_y, -_joystick_camara->_x, 0, 0);
+
+		_vector_camara->_y = cos(_direccion_camara*std::acos(-1)/180);
+	    _vector_camara->_x = sin(_direccion_camara*std::acos(-1)/180);
+    }
+    else {
+    	_mover_camara = false;
+    }
 }
 
 void Input::procesa_camara_raton() {
@@ -375,6 +480,9 @@ void Input::reiniciar_inputs() {
     _ataque_fuerte = false;
 
     _mover_camara = false;
+
+
+	actualiza_mando();
 }
 
 
