@@ -4,11 +4,12 @@
 
 class Interfaz;
 class Interfaz_Fisica;
+class Input;
 class Motor;
 
 class Player : public Character{
 public:
-	Player(short _id, float _i_x, float _i_y, float _i_z);
+	Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input);
 	virtual ~Player();
 	void update() override;
 	void render() override;
@@ -20,6 +21,7 @@ private:
 	//Time * _tiempo;
 	double _otro_tiempo;
 	double _tiempo_anterior;
+	Input* _input;
 };
 
 #endif /* SRC_PLAYER_H_ */

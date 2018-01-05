@@ -23,7 +23,7 @@ int main(){
 	//_time->updateAntes();
 	while(_motor->getIrrlichtDevice()->run()){
 		//evento para cerrar la ventana
-
+		_juego->recibir_inputs();
 		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj
 		//std::cout << "Tiempo desde update " << time->get_tiempo_desde_ultimo_update() << std::endl;
 		//update

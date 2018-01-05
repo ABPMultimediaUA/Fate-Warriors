@@ -7,6 +7,7 @@ class Decision_Manager;
 class Datos_Partida;
 class Interfaz;
 class Interfaz_Fisica;
+class Input;
 class Consumible_action;
 class Trampas_action;
 class Nivel;
@@ -26,6 +27,8 @@ public:
   	Datos_Partida* game_get_datos();
     Action_Manager* game_get_action_manager();
 
+    void recibir_inputs();
+
 private:
 
 	Game();
@@ -37,6 +40,7 @@ private:
 	Motor* _motor;
 	Consumible_action * _consumibles_action;
 	Trampas_action* _trampas_action;
+	Input* _input_jugador;
 };
 
 

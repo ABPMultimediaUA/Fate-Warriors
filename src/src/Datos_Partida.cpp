@@ -11,9 +11,9 @@
 #include <iostream>
 
 
-Datos_Partida::Datos_Partida() {
+Datos_Partida::Datos_Partida(Input* _i_input) {
 	float mult = 4.9212625;
-	_jugador = new Player(0,15*mult,50,15*mult);
+	_jugador = new Player( 0, 15*mult, 50, 15*mult, _i_input);
 	Llave* _llave = new Llave(0,10*mult,1*mult,10*mult,1);
 	Puerta* _puerta = new Puerta(1,18*mult,1*mult,18*mult,false);
 	_npc_manager = new NPC_Manager();

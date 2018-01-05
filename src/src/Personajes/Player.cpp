@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include "../Entrada/Input.h"
+#include "../Input.h"
 #include "../Entrada/Controles.h"
 #include "../Camara/Camara.h"
 #include "../Tiempo/Time.h"
@@ -14,7 +15,7 @@
 #include "../Game.h"
 #include "../Action_Manager.h"
 //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i_x, _i_y, _i_z, 15, 10000,10,15)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id,_i_x, _i_y, _i_z, 15, 10000,10,15)
                                                                 {   
 
     //_tiempo = Time::Instance();
@@ -31,6 +32,8 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z) : Character(_id,_i
     
     std::cout<<"X player: "<<_motor->getX(_id_motor);
     std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
+
+    _input = _i_input;
 }
 
 Player::~Player(){
@@ -38,84 +41,71 @@ Player::~Player(){
 }
 
 void Player::update(){
+    // Procesa los inputs para poder utilizarlos
+    _input->procesar_inputs();
 
     bucle_ataque();
 
+    // Esto hay que borrarlo
     Controles* controles = Controles::Instance();
 
-    bool _w = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
-    bool _a = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
-    bool _s = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
-    bool _d = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
-    
-    if(_w){
-        if(_a){
-            _motor->VelocidadDireccion(_id_motor,315);
-        }
-        else if(_d){
-            _motor->VelocidadDireccion(_id_motor,45);
-        }
-        else {
-            _motor->VelocidadDireccion(_id_motor,0);
-        }
-    }
-    else if(_s){
-        if(_a){
-            _motor->VelocidadDireccion(_id_motor,225);
-        }
-        else if(_d){
-            _motor->VelocidadDireccion(_id_motor,135);
-        }
-        else {
-            _motor->VelocidadDireccion(_id_motor,180);
-        }
-    }
-    else if(_a){
-        _motor->VelocidadDireccion(_id_motor,270);
-    }
-    else if(_d){
-        _motor->VelocidadDireccion(_id_motor,90);
+
+    // Recoge si ha habido movimiento y la direccion de el mismo
+    uint16_t _direccion;
+
+    if(_input->get_mover(_direccion)) {
+        _motor->VelocidadDireccion(_id_motor,_direccion);
     }
 
-    if(controles->estaPulsada(Input_key::E)){
-            std::cout<< "Pulsa E"<< std::endl;
 
-            if(esta_bloqueado() == false){
-                this->interactuar_con_objeto();
-                this->bloquear_input(1000);
-                std::cout<< "SÍ INTERACTUA ----------------------------------"<< std::endl;
-            }
-            else{
-                std::cout<< "No puede INTERACTUAR "<< std::endl;
-            }
-            
-            //std::cout<< "Tiempo actual: "<< this->_tiempo->get_current() << std::endl;
-            //std::cout<< "Tiempo almacenado: "<< this->get_tiempo_inicio_bloqueado() << std::endl;
+    if(_input->get_interactuar()){
+        std::cout<< "Pulsa E"<< std::endl;
+
+        if(esta_bloqueado() == false){
+            this->interactuar_con_objeto();
+            this->bloquear_input(1000);
+            std::cout<< "SÍ INTERACTUA ----------------------------------"<< std::endl;
         }
-
-
-        if(controles->estaPulsada(Input_key::Escape)){
-          
-            //interface->Interfaz_Apagar();
+        else{
+            std::cout<< "No puede INTERACTUAR "<< std::endl;
         }
+        
+        //std::cout<< "Tiempo actual: "<< this->_tiempo->get_current() << std::endl;
+        //std::cout<< "Tiempo almacenado: "<< this->get_tiempo_inicio_bloqueado() << std::endl;
+    }
 
-        if(controles->estaPulsada(Input_key::MouseLeft)){
+
+    if(controles->estaPulsada(Input_key::Escape)){
+      
+        //interface->Interfaz_Apagar();
+    }
+
+
+    bool _atk_normal, _atk_fuerte;
+    bool _atacar = _input->get_atacar(_atk_normal, _atk_fuerte);
+
+    if(_atacar) {
+        if(_atk_normal){
             this->atacar(Ataque_Normal);
         }
 
-        if(controles->estaPulsada(Input_key::MouseRight)){
+        if(_atk_fuerte){
             //std::cout<< "MOUSER" <<std::endl;
             //this->atacar(Ataque_Fuerte);
             danyar(0);
         }
+    }
   
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
+    if(_input->get_saltar()){
         _motor->saltar(_id_motor);
         //exit(0);
 	}
 
+
+    // En cuanto se agrege al Input se borrara de aqui
     // Deteccion del movimiento con mando
+    /*
     sf::Joystick::update();
     if(sf::Joystick::isConnected(0)){
         float _x = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
@@ -127,14 +117,16 @@ void Player::update(){
             _motor->VelocidadDireccion(_id_motor,_direccion);
         }
     }
+    */
 
    
-        //set level of detail del nivel
-        Nivel* nivel=Nivel::nivel_instancia();
-        nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
+    //set level of detail del nivel
+    Nivel* nivel=Nivel::nivel_instancia();
+    nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
         
   
-  
+    // Reinicia el procesado y lectura de inputs
+    _input->reiniciar_inputs();
 }
 			
 void Player::render(){

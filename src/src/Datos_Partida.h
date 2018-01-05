@@ -8,11 +8,12 @@ class Consumible_manager;
 class Trampas_manager;
 class Interactuable_Manager;
 class Objeto_Estandar;
+class Input;
 
 
 class Datos_Partida {
 public:
-	Datos_Partida();
+	Datos_Partida(Input* _i_input);
 	virtual ~Datos_Partida();
 
 	Player* get_player();

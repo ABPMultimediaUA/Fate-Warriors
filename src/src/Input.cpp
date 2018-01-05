@@ -1,214 +1,555 @@
 #include "Input.h"
 
+#include "Interfaz_Libs/Lib_Math.h"
+
 #include <iostream>
 
 Input::Input() {
-	_teclas = new enum sf::Keyboard::Key[N_Teclas];
+	_teclas = new enum sf::Keyboard::Key[N_Inputs];
+	_raton = new enum sf::Mouse::Button[N_Inputs];
+	_posicion_raton = new Vector2(0,0);
+	_vector_camara = new Vector2(0,0);
+
+	_camara_con_teclado = false;
+	_invertir_x = false;
+	_invertir_y = false;
 
 	asignar_teclas_predefinidas();
 }
 
 Input::~Input() {
+	delete _vector_camara;
+	delete _posicion_raton;
+	delete [] _raton;
 	delete [] _teclas;
 }
 
 
-void Input::recibir_inputs() {
-	_arriba = sf::Keyboard::isKeyPressed(_teclas[Tecla_Arriba]);
-    _abajo = sf::Keyboard::isKeyPressed(_teclas[Tecla_Abajo]);
-    _izquierda = sf::Keyboard::isKeyPressed(_teclas[Tecla_Izquierda]);
-    _derecha = sf::Keyboard::isKeyPressed(_teclas[Tecla_Derecha]);
+// Asigna a los input las teclas predefinidas
+void Input::asignar_teclas_predefinidas() {
+	// ----------------- Inputs del teclado ---------------
+	_teclas[Input_Arriba] = sf::Keyboard::W;
+	_teclas[Input_Abajo] = sf::Keyboard::S;
+	_teclas[Input_Izquierda] = sf::Keyboard::A;
+	_teclas[Input_Derecha] = sf::Keyboard::D;
 
-    if(_arriba) std::cout << "Ha pulsado arriba\n";
-    if(_abajo) std::cout << "Ha pulsado abajo\n";
-    if(_izquierda) std::cout << "Ha pulsado izquierda\n";
-    if(_derecha) std::cout << "Ha pulsado derecha\n";
+	_teclas[Input_Salto] = sf::Keyboard::Space;
+	_teclas[Input_Interact] = sf::Keyboard::E;
+	_teclas[Input_Dash] = sf::Keyboard::LShift;
+
+	_teclas[Input_Ataque_Normal] = sf::Keyboard::Unknown;
+	_teclas[Input_Ataque_Fuerte] = sf::Keyboard::Unknown;
+
+
+	// ----------------- Inputs del raton ---------------
+	_raton[Input_Arriba] = sf::Mouse::ButtonCount;
+	_raton[Input_Abajo] = sf::Mouse::ButtonCount;
+	_raton[Input_Izquierda] = sf::Mouse::ButtonCount;
+	_raton[Input_Derecha] = sf::Mouse::ButtonCount;
+
+	_raton[Input_Salto] = sf::Mouse::ButtonCount;
+	_raton[Input_Interact] = sf::Mouse::ButtonCount;
+	_raton[Input_Dash] = sf::Mouse::ButtonCount;
+
+	_raton[Input_Ataque_Normal] = sf::Mouse::Left;
+	_raton[Input_Ataque_Fuerte] = sf::Mouse::Right;
+
+
+	// ----------------- Inputs de la camara ---------------
+	_teclas[Input_Camara_Arriba] = sf::Keyboard::Up;
+	_teclas[Input_Camara_Abajo] = sf::Keyboard::Down;
+	_teclas[Input_Camara_Izquierda] = sf::Keyboard::Left;
+	_teclas[Input_Camara_Derecha] = sf::Keyboard::Right;
+
+	_raton[Input_Camara_Arriba] = sf::Mouse::ButtonCount;
+	_raton[Input_Camara_Abajo] = sf::Mouse::ButtonCount;
+	_raton[Input_Camara_Izquierda] = sf::Mouse::ButtonCount;
+	_raton[Input_Camara_Derecha] = sf::Mouse::ButtonCount;
 }
 
 
+// Activa la camara con teclado
+void Input::activa_camara_teclado() {
+	_camara_con_teclado = true;
+	asignar_teclas_predefinidas();
+	_posicion_raton->_x = 0;
+	_posicion_raton->_y = 0;
+}
+
+// Desactiva la camara con teclado
+void Input::desactiva_camara_teclado() {
+	_camara_con_teclado = false;
+	asignar_teclas_predefinidas();
+}
+
+
+// Invierte el eje X del la camara
+void Input::invierte_eje_x() {
+
+	_invertir_x = !_invertir_x;
+}
+
+// Invierte el eje Y del la camara
+void Input::invierte_eje_y() {
+
+	_invertir_y = !_invertir_y;
+}
+
+
+// Devuelve si hay input de mover y los input de mover
+bool Input::get_mover(uint16_t& _i_direccion) {
+	_i_direccion = _direccion;
+
+	return _mover;
+}
+
+bool Input::get_saltar() {
+	return _saltar;
+}
+
+bool Input::get_interactuar() {
+	return _interactuar;
+}
+
+bool Input::get_dash() {
+	return _dash;
+}
+
+bool Input::get_atacar(bool& _normal, bool& _fuerte) {
+	_normal = _ataque_normal;
+	_fuerte = _ataque_fuerte;
+
+	return _ataque;
+}
+
+
+// Recoge los inputs y almacena los valores
+void Input::recibir_inputs() {
+
+	if(_teclas[Input_Arriba] != sf::Keyboard::Unknown) 
+		_arriba = sf::Keyboard::isKeyPressed(_teclas[Input_Arriba]);
+	else 
+		_arriba = sf::Mouse::isButtonPressed(_raton[Input_Arriba]);
+
+
+	if(_teclas[Input_Abajo] != sf::Keyboard::Unknown) 
+		_abajo = sf::Keyboard::isKeyPressed(_teclas[Input_Abajo]);
+	else 
+		_abajo = sf::Mouse::isButtonPressed(_raton[Input_Abajo]);
+
+
+	if(_teclas[Input_Izquierda] != sf::Keyboard::Unknown) 
+		_izquierda = sf::Keyboard::isKeyPressed(_teclas[Input_Izquierda]);
+	else 
+		_izquierda = sf::Mouse::isButtonPressed(_raton[Input_Izquierda]);
+
+
+	if(_teclas[Input_Derecha] != sf::Keyboard::Unknown) 
+		_derecha = sf::Keyboard::isKeyPressed(_teclas[Input_Derecha]);
+	else 
+		_derecha = sf::Mouse::isButtonPressed(_raton[Input_Derecha]);
+
+
+	if(_teclas[Input_Salto] != sf::Keyboard::Unknown) 
+		_saltar = sf::Keyboard::isKeyPressed(_teclas[Input_Salto]);
+	else 
+		_saltar = sf::Mouse::isButtonPressed(_raton[Input_Salto]);
+
+
+	if(_teclas[Input_Interact] != sf::Keyboard::Unknown) 
+		_interactuar = sf::Keyboard::isKeyPressed(_teclas[Input_Interact]);
+	else 
+		_interactuar = sf::Mouse::isButtonPressed(_raton[Input_Interact]);
+
+
+	if(_teclas[Input_Dash] != sf::Keyboard::Unknown) 
+		_dash = sf::Keyboard::isKeyPressed(_teclas[Input_Dash]);
+	else 
+		_dash = sf::Mouse::isButtonPressed(_raton[Input_Dash]);
+
+
+	if(_teclas[Input_Ataque_Normal] != sf::Keyboard::Unknown) 
+		_ataque_normal = sf::Keyboard::isKeyPressed(_teclas[Input_Ataque_Normal]);
+	else 
+		_ataque_normal = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Normal]);
+
+
+	if(_teclas[Input_Ataque_Fuerte] != sf::Keyboard::Unknown) 
+		_ataque_fuerte = sf::Keyboard::isKeyPressed(_teclas[Input_Ataque_Fuerte]);
+	else 
+		_ataque_fuerte = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Fuerte]);
+
+
+	if(_camara_con_teclado)
+		recibir_inputs_camara();
+}
+
+// Recibe y guarda los inputs de la camara
+void Input::recibir_inputs_camara() {
+	if(_teclas[Input_Camara_Arriba] != sf::Keyboard::Unknown) 
+		_arriba_camara = sf::Keyboard::isKeyPressed(_teclas[Input_Camara_Arriba]);
+	else 
+		_arriba_camara = sf::Mouse::isButtonPressed(_raton[Input_Camara_Arriba]);
+
+
+	if(_teclas[Input_Abajo] != sf::Keyboard::Unknown) 
+		_abajo_camara = sf::Keyboard::isKeyPressed(_teclas[Input_Camara_Abajo]);
+	else 
+		_abajo_camara = sf::Mouse::isButtonPressed(_raton[Input_Camara_Abajo]);
+
+
+	if(_teclas[Input_Camara_Izquierda] != sf::Keyboard::Unknown) 
+		_izquierda_camara = sf::Keyboard::isKeyPressed(_teclas[Input_Camara_Izquierda]);
+	else 
+		_izquierda_camara = sf::Mouse::isButtonPressed(_raton[Input_Camara_Izquierda]);
+
+
+	if(_teclas[Input_Camara_Derecha] != sf::Keyboard::Unknown) 
+		_derecha_camara = sf::Keyboard::isKeyPressed(_teclas[Input_Camara_Derecha]);
+	else 
+		_derecha_camara = sf::Mouse::isButtonPressed(_raton[Input_Camara_Derecha]);
+}
+
+
+// Procesa los inputs para darlos al jugador
 void Input::procesar_inputs() {
 	procesa_direccion();
+	procesa_camara();
 
-	if(_mover) std::cout << "Se mueve en la direccion " << _direccion << "\n";
+	if(_ataque_normal || _ataque_fuerte) _ataque = true;
 
-	reiniciar_inputs();
+	//pinta_couts_inputs();
 }
 
 
-void Input::asignar_teclas_predefinidas() {
-	_teclas[Tecla_Arriba] = sf::Keyboard::W;
-	_teclas[Tecla_Abajo] = sf::Keyboard::S;
-	_teclas[Tecla_Izquierda] = sf::Keyboard::A;
-	_teclas[Tecla_Derecha] = sf::Keyboard::D;
-}
-
-
-
-
+// Procesa los input de direccion para sacar la direccion de movimiento del jugador
 void Input::procesa_direccion() {
 	if(_arriba || _abajo || _izquierda || _derecha) {
 		_mover = true;
-	}
-
 	
-    if(_arriba){
-        if(_derecha){
-            _direccion = 45;
-        }
-        else if(_izquierda){
-            _direccion = 315;
-        }
-        else {
-            _direccion = 0;
-        }
-    }
+	    if(_arriba){
+	        if(_derecha){
+	            _direccion = 45;
+	        }
+	        else if(_izquierda){
+	            _direccion = 315;
+	        }
+	        else {
+	            _direccion = 0;
+	        }
+	    }
 
-    else if(_abajo){
-        if(_derecha){
-            _direccion = 135;
-        }
-        else if(_izquierda){
-            _direccion = 225;
-        }
-        else {
-            _direccion = 180;
-        }
-    } 
+	    else if(_abajo){
+	        if(_derecha){
+	            _direccion = 135;
+	        }
+	        else if(_izquierda){
+	            _direccion = 225;
+	        }
+	        else {
+	            _direccion = 180;
+	        }
+	    } 
 
-    else if(_derecha){
-        _direccion = 90;
-    }
+	    else if(_derecha){
+	        _direccion = 90;
+	    }
 
-    else if(_izquierda){
-        _direccion = 270;
-    }
+	    else if(_izquierda){
+	        _direccion = 270;
+	    }
+	}
 }
 
 
+// Procesa los input de camara para sacar la direccion de movimiento de camara
+void Input::procesa_camara() {
+	if(_camara_con_teclado) 
+		procesa_camara_teclado();
+	else
+		procesa_camara_raton();
+
+	if(_invertir_x && _vector_camara->_x != 0) _vector_camara->_x *= -1;
+	if(_invertir_y && _vector_camara->_y != 0) _vector_camara->_y *= -1;
+	
+	/*
+	if(_mover_camara) {
+		std::cout << "Angulo = " << _direccion_camara  << "\n";
+		std::cout << "Posicion del raton = (" << _posicion_raton->_x << "," << _posicion_raton->_y << ")\n";
+		std::cout << "Angulo de la camara = (" << _vector_camara->_x << "," << _vector_camara->_y << ")\n";
+	}
+	*/
+}
+
+void Input::procesa_camara_raton() {
+	sf::Vector2i _vector = sf::Mouse::getPosition();
+
+	if(_vector.x != _posicion_raton->_x || _vector.y != _posicion_raton->_y) {
+		_mover_camara = true;
+
+		_direccion_camara = lib_math_angulo_2_puntos(_vector.y, _posicion_raton->_x, _posicion_raton->_y, _vector.x);
+
+		_posicion_raton->_x = _vector.x;
+		_posicion_raton->_y = _vector.y;
+
+		_vector_camara->_y = cos(_direccion_camara*std::acos(-1)/180);
+	    _vector_camara->_x = sin(_direccion_camara*std::acos(-1)/180);
+
+		if(std::abs(_vector_camara->_x)<0.000001) _vector_camara->_x=0;
+		if(std::abs(_vector_camara->_y)<0.000001) _vector_camara->_y=0;
+	}
+}
+
+void Input::procesa_camara_teclado() {
+    float aux = sin(45*std::acos(-1)/180);
+
+	if(_arriba_camara || _abajo_camara || _izquierda_camara || _derecha_camara) {
+		_mover_camara = true;
+
+	    if(_arriba_camara){
+	        if(_derecha_camara){
+	            _direccion_camara = 45;
+	    		_vector_camara->_x = aux;
+	            _vector_camara->_y = aux;
+
+	        }
+	        else if(_izquierda_camara){
+	            _direccion_camara = 315;
+	    		_vector_camara->_x = -aux;
+	            _vector_camara->_y = aux;
+	        }
+	        else {
+	            _direccion_camara = 0;
+	    		_vector_camara->_x = 0;
+	            _vector_camara->_y = 1;
+	        }
+	    }
+
+	    else if(_abajo_camara){
+	        if(_derecha_camara){
+	            _direccion_camara = 135;
+	    		_vector_camara->_x = aux;
+	            _vector_camara->_y = -aux;
+	        }
+	        else if(_izquierda_camara){
+	            _direccion_camara = 225;
+	    		_vector_camara->_x = -aux;
+	            _vector_camara->_y = -aux;
+	        }
+	        else {
+	            _direccion_camara = 180;
+	    		_vector_camara->_x = 0;
+	            _vector_camara->_y = -1;
+	        }
+	    } 
+
+	    else if(_derecha_camara){
+	        _direccion_camara = 90;
+    		_vector_camara->_x = 1;
+            _vector_camara->_y = 0;
+	    }
+
+	    else if(_izquierda_camara){
+	        _direccion_camara = 270;
+    		_vector_camara->_x = -1;
+            _vector_camara->_y = 0;
+	    }
+	}
+}
+
+
+// Reinicia los inputs a su valor inicial
 void Input::reiniciar_inputs() {
 	_arriba = false;
     _abajo = false;
     _izquierda = false;
     _derecha = false;
     _mover = false;
-}
 
+    _saltar = false;
+    _interactuar = false;
+    _dash = false;
+
+    _ataque = false;
+    _ataque_normal = false;
+    _ataque_fuerte = false;
+
+    _mover_camara = false;
+}
 
 
 
 // CONTROL Y REASIGNACION DE TECLAS
 
 // Asigna todas las teclas de entrada
+// Seguramente se borre una vez se tenga un menu y forma de acceder a ello
+// Haciendo publico asigna_tecla() y llamando con los distintos enums
 void Input::asignar_teclas_entrada() {
 	
-	asigna_tecla(Tecla_Arriba);
+	asigna_tecla(Input_Arriba);
 }
 
 
 // Se le pasa por parametro la tecla a reasignar
 // Se recoge la nueva asignacion de la tecla
 // En caso de que otra tecla tuviera esa asignacion, se reasigna
-void Input::asigna_tecla(enum Enum_Teclas _tecla) {
-	enum sf::Keyboard::Key _tecla_aux = _teclas[_tecla];
+void Input::asigna_tecla(enum Enum_Inputs _input) {
+	enum sf::Keyboard::Key _tecla_aux;
+	enum sf::Mouse::Button _raton_aux;
+	enum sf::Keyboard::Key _tecla_antigua = _teclas[_input];
+	enum sf::Mouse::Button _raton_antiguo = _raton[_input];
 
-	_teclas[_tecla] = lee_tecla();	
+	//pinta_inputs();
 
-	if(_teclas[_tecla] != sf::Keyboard::Unknown) {
-		enum Enum_Teclas _tecla_aux_2;
-		//std::cout << "Se asigna la tecla " << _teclas[_tecla] << " a la tecla Arriba\n";
-		
-		_tecla_aux_2 = comprueba_tecla(_tecla);
+	bool _es_key = lee_asignacion_input(_tecla_aux, _raton_aux);
+
+	if(_es_key && _tecla_aux != sf::Keyboard::Unknown || _es_key == false) {
+		enum Enum_Inputs _input_aux;
+
+		_teclas[_input] = _tecla_aux;
+		_raton[_input] = _raton_aux;
+
+		if(_es_key)
+			_input_aux = comprueba_tecla(_input);
+		else
+			_input_aux = comprueba_raton(_input);
 
 		// Si esa tecla estaba asignada a otra, se cambia una por otra (Izq era A, Der era D, se pone D en Izq y A pasa a ser Der)
-		if(_tecla_aux_2 != Ninguna) {
-			_teclas[_tecla_aux_2] = _tecla_aux;
-			std::cout << "Se cambia la tecla " << _teclas[_tecla_aux_2] << " a la tecla " << _tecla_aux_2 << "\n";
+		if(_input_aux != Ninguno) {
+			_teclas[_input_aux] = _tecla_antigua;
+			_raton[_input_aux] = _raton_antiguo;
 		}
 	}
-	else{
-		_teclas[_tecla] = _tecla_aux;
-	}
+
+	//pinta_inputs();
 }
 
 
-// Comprueba si la asignacion de una tecla se encuentra asignada a otra tecla y la devuelve
-enum Enum_Teclas Input::comprueba_tecla(enum Enum_Teclas _tecla_a_comprobar) {
-	for(uint8_t _cont=0; _cont<N_Teclas; _cont++) {
+// Comprueba si la tecla de un input se encuentra asignado a otro input y lo devuelve
+enum Enum_Inputs Input::comprueba_tecla(enum Enum_Inputs _tecla_a_comprobar) {
+	for(uint8_t _cont=0; _cont<N_Inputs; _cont++) {
 		if(_teclas[_cont] == _teclas[_tecla_a_comprobar] && _cont!=_tecla_a_comprobar) {
-			return static_cast<Enum_Teclas>(_cont);
+			return static_cast<Enum_Inputs>(_cont);
 		}
 	}
-	return Ninguna;
+	return Ninguno;
+}
+
+// Comprueba si el boton del raton de un input se encuentra asignado a otro input y lo devuelve
+enum Enum_Inputs Input::comprueba_raton(enum Enum_Inputs _raton_a_comprobar) {
+	for(uint8_t _cont=0; _cont<N_Inputs; _cont++) {
+		if(_raton[_cont] == _raton[_raton_a_comprobar] && _cont!=_raton_a_comprobar) {
+			return static_cast<Enum_Inputs>(_cont);
+		}
+	}
+	return Ninguno;
 }
 
 
 // Lee constanemente del teclado hasta que se pulsa una tecla que se devuelve
 // Las teclas Esc y BackSpace (borrar) devuelven unknown para cancelar asignacion
-enum sf::Keyboard::Key Input::lee_tecla() {
+bool Input::lee_asignacion_input(enum sf::Keyboard::Key& _tecla, enum sf::Mouse::Button& _boton) {
 	while(true) {
 		// Salida de la asignacion
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) 	return sf::Keyboard::Unknown;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {_tecla = sf::Keyboard::Unknown; _boton = sf::Mouse::ButtonCount; return true; }
 
+		// -------------- KEYBOARD --------------
 		// Letras
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 		return sf::Keyboard::A;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::B)) 		return sf::Keyboard::B;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C)) 		return sf::Keyboard::C;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 		return sf::Keyboard::D;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::E)) 		return sf::Keyboard::E;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::F)) 		return sf::Keyboard::F;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)) 		return sf::Keyboard::G;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::H)) 		return sf::Keyboard::H;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)) 		return sf::Keyboard::I;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::J)) 		return sf::Keyboard::J;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::K)) 		return sf::Keyboard::K;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::L)) 		return sf::Keyboard::L;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)) 		return sf::Keyboard::M;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)) 		return sf::Keyboard::N;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)) 		return sf::Keyboard::O;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)) 		return sf::Keyboard::P;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) 		return sf::Keyboard::Q;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)) 		return sf::Keyboard::R;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 		return sf::Keyboard::S;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::T)) 		return sf::Keyboard::T;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::U)) 		return sf::Keyboard::U;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)) 		return sf::Keyboard::V;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 		return sf::Keyboard::W;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::X)) 		return sf::Keyboard::X;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) 		return sf::Keyboard::Y;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) 		return sf::Keyboard::Z;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {  			_tecla = sf::Keyboard::A; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {  			_tecla = sf::Keyboard::B; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {  			_tecla = sf::Keyboard::C; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {  			_tecla = sf::Keyboard::D; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {  			_tecla = sf::Keyboard::E; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {  			_tecla = sf::Keyboard::F; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {  			_tecla = sf::Keyboard::G; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {  			_tecla = sf::Keyboard::H; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {  			_tecla = sf::Keyboard::I; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::J)) {  			_tecla = sf::Keyboard::J; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::K)) {  			_tecla = sf::Keyboard::K; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {  			_tecla = sf::Keyboard::L; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {  			_tecla = sf::Keyboard::M; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)) {  			_tecla = sf::Keyboard::N; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {  			_tecla = sf::Keyboard::O; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {  			_tecla = sf::Keyboard::P; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {  			_tecla = sf::Keyboard::Q; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {  			_tecla = sf::Keyboard::R; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {  			_tecla = sf::Keyboard::S; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {  			_tecla = sf::Keyboard::T; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {  			_tecla = sf::Keyboard::U; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)) {  			_tecla = sf::Keyboard::V; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {  			_tecla = sf::Keyboard::W; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {  			_tecla = sf::Keyboard::X; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) {  			_tecla = sf::Keyboard::Y; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {  			_tecla = sf::Keyboard::Z; _boton = sf::Mouse::ButtonCount; return true; }
 
 		// Flechas
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) 		return sf::Keyboard::Left;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) 	return sf::Keyboard::Right;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) 		return sf::Keyboard::Up;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) 		return sf::Keyboard::Down;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {  		_tecla = sf::Keyboard::Left; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {  		_tecla = sf::Keyboard::Right; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {  		_tecla = sf::Keyboard::Up; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {  		_tecla = sf::Keyboard::Down; _boton = sf::Mouse::ButtonCount; return true; }
 
 		// Numeros superiores
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)) 		return sf::Keyboard::Num0;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) 		return sf::Keyboard::Num1;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) 		return sf::Keyboard::Num2;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) 		return sf::Keyboard::Num3;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) 		return sf::Keyboard::Num4;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) 		return sf::Keyboard::Num5;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) 		return sf::Keyboard::Num6;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) 		return sf::Keyboard::Num7;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) 		return sf::Keyboard::Num8;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)) 		return sf::Keyboard::Num9;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)) {  		_tecla = sf::Keyboard::Num0; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {  		_tecla = sf::Keyboard::Num1; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {  		_tecla = sf::Keyboard::Num2; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {  		_tecla = sf::Keyboard::Num3; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {  		_tecla = sf::Keyboard::Num4; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) {  		_tecla = sf::Keyboard::Num5; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) {  		_tecla = sf::Keyboard::Num6; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) {  		_tecla = sf::Keyboard::Num7; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) {  		_tecla = sf::Keyboard::Num8; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)) {  		_tecla = sf::Keyboard::Num9; _boton = sf::Mouse::ButtonCount; return true; }
 
 		// Numeros del pad derecho
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0)) 		return sf::Keyboard::Numpad0;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) 		return sf::Keyboard::Numpad1;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) 		return sf::Keyboard::Numpad2;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) 		return sf::Keyboard::Numpad3;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)) 		return sf::Keyboard::Numpad4;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5)) 		return sf::Keyboard::Numpad5;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)) 		return sf::Keyboard::Numpad6;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)) 		return sf::Keyboard::Numpad7;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)) 		return sf::Keyboard::Numpad8;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)) 		return sf::Keyboard::Numpad9;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0)) {  	_tecla = sf::Keyboard::Numpad0; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) {  	_tecla = sf::Keyboard::Numpad1; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) {  	_tecla = sf::Keyboard::Numpad2; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) {  	_tecla = sf::Keyboard::Numpad3; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)) {  	_tecla = sf::Keyboard::Numpad4; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5)) {  	_tecla = sf::Keyboard::Numpad5; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)) {  	_tecla = sf::Keyboard::Numpad6; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)) {  	_tecla = sf::Keyboard::Numpad7; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)) {  	_tecla = sf::Keyboard::Numpad8; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)) {  	_tecla = sf::Keyboard::Numpad9; _boton = sf::Mouse::ButtonCount; return true; }
 
 		// Otras teclas
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) 	return sf::Keyboard::Space;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) 	return sf::Keyboard::LShift;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {  		_tecla = sf::Keyboard::Space; _boton = sf::Mouse::ButtonCount; return true; }
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {  	_tecla = sf::Keyboard::LShift; _boton = sf::Mouse::ButtonCount; return true; }
+
+
+		
+		// -------------- MOUSE --------------
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {  			_boton = sf::Mouse::Left; _tecla = sf::Keyboard::Unknown; return false; }
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {  		_boton = sf::Mouse::Right; _tecla = sf::Keyboard::Unknown; return false; }
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Middle)) {  		_boton = sf::Mouse::Middle; _tecla = sf::Keyboard::Unknown; return false; }
+		if(sf::Mouse::isButtonPressed(sf::Mouse::XButton1)) {  		_boton = sf::Mouse::XButton1; _tecla = sf::Keyboard::Unknown; return false; }
+		if(sf::Mouse::isButtonPressed(sf::Mouse::XButton2)) {  		_boton = sf::Mouse::XButton2; _tecla = sf::Keyboard::Unknown; return false; }
 	}
+}
+
+
+
+// Pinta los couts de inputs recibidos
+void Input::pinta_couts_inputs() {
+	if(_mover) std::cout << "Se mueve en la direccion " << _direccion << "\n";
+	if(_saltar) std::cout << "Se realiza un salto\n";
+	if(_interactuar) std::cout << "Se interactua\n";
+	if(_dash) std::cout << "Se realiza un dash\n";
+	if(_ataque_normal) std::cout << "Se realiza un ataque normal\n";
+	if(_ataque_fuerte) std::cout << "Se realiza un ataque fuerte\n";
+
+	std::cout << "\n";
+}
+
+// Pinta las asignaciones de inputs
+void Input::pinta_inputs() {
+	std::cout << "\nTeclado:\n";
+	for(uint8_t _cont=0; _cont<N_Inputs; _cont++) {
+		std::cout << "[" << _teclas[_cont] << "]";
+	}
+	std::cout << "\nRaton:\n";
+	for(uint8_t _cont=0; _cont<N_Inputs; _cont++) {
+		std::cout << "[" << _raton[_cont] << "]";
+	}
+	std::cout << "\n\n";
 }

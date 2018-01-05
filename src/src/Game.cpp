@@ -2,6 +2,7 @@
 
 #include "Action_Manager.h"
 #include "Datos_Partida.h"
+#include "Input.h"
 
 #include "Entrada/Input.h"
 #include "IA/Decision_Manager.h"
@@ -29,9 +30,13 @@ Game::Game() : _datos(nullptr),
 			   _motor(nullptr),
 			   _consumibles_action(nullptr),
 			   _trampas_action(nullptr)
-			   {}
+			   {
+	_input_jugador = new Input();
+}
 
 Game::~Game(){
+
+	delete _input_jugador;
 
 	if(_datos != nullptr) {
 		delete _datos;
@@ -65,7 +70,7 @@ void Game::crea_partida() {
 
 	_motor = Motor::Motor_GetInstance();
 	_nivel=Nivel::nivel_instancia();
-	_datos 				= new Datos_Partida();
+	_datos 				= new Datos_Partida(_input_jugador);
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
 	_datos->inserta_npc_nivel();
@@ -130,4 +135,8 @@ Datos_Partida* Game::game_get_datos() {
 
 Action_Manager* Game::game_get_action_manager() {
 	return _action_manager;
+}
+
+void Game::recibir_inputs() {
+	_input_jugador->recibir_inputs();
 }
