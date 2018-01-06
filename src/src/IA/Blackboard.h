@@ -18,7 +18,7 @@ class Interfaz_Datos;
 
 class Blackboard {
 public:
-	Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo);
+	Blackboard(Interfaz_Datos& _i_interfaz, uint16_t _i_n_enemigo);
 	~Blackboard();
 
 
@@ -32,7 +32,7 @@ public:
 
 
 	// Datos de identidad del NPC
-	unsigned short get_n_enemigo();
+	uint16_t get_n_enemigo();
 	enum Enum_Tipo_Enemigo get_tipo_enemigo();
 	enum Enum_Tipo_Enemigo get_tipo_npc();
 

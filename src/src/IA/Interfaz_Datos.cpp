@@ -24,7 +24,7 @@ Interfaz_Datos::~Interfaz_Datos() {
 
 // Se trabaja con 2 ejes (X,Y)
 // Calcula la distancia absoluta entre el enemigo indicado y el personaje
-float Interfaz_Datos::get_distancia_enemigo_personaje(unsigned short _i_n_enemigo) {
+float Interfaz_Datos::get_distancia_enemigo_personaje(uint16_t _i_n_enemigo) {
 	float _x_enemigo, _y_enemigo, _x_player, _y_player, _distancia_total;
 
 	// std::cout << "Enemigo (" << _x_enemigo << "," << _y_enemigo << ")\n";
@@ -44,17 +44,15 @@ NPC** Interfaz_Datos::get_enemigos() {
 
 }
 
-NPC* Interfaz_Datos::get_enemigo(unsigned short _i_n_enemigo) {
+NPC* Interfaz_Datos::get_enemigo(uint16_t _i_n_enemigo) {
 	NPC** _enemigos = _npc_manager->get_npcs();
 	NPC* _enemigo = _enemigos[_i_n_enemigo];
 	_enemigos = nullptr;
 	return _enemigo;
 }
 
-unsigned short Interfaz_Datos::get_n_enemigos() {
-	unsigned short algo=_npc_manager->get_n_enemigos();
-	//return _npc_manager->get_n_enemigos();
-	return algo;
+uint16_t Interfaz_Datos::get_n_enemigos() {
+	return _npc_manager->get_n_enemigos();
 }
 
 void Interfaz_Datos::get_pos_player(float& _i_x, float& _i_y) {
@@ -65,7 +63,7 @@ void Interfaz_Datos::get_pos_player(float& _i_x, float& _i_y) {
 	_player = nullptr;
 }
 
-void Interfaz_Datos::get_pos_enemigo(unsigned short _i_n_enemigo, float& _i_x, float& _i_y) {
+void Interfaz_Datos::get_pos_enemigo(uint16_t _i_n_enemigo, float& _i_x, float& _i_y) {
 	NPC* _enemigo = get_enemigo(_i_n_enemigo);
 	_i_x = _enemigo->getX();
 	_i_y = _enemigo->getZ();

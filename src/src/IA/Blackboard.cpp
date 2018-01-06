@@ -8,7 +8,7 @@
 
 #include "../Nivel/Nivel.h"
 
-Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, unsigned short _i_n_enemigo) {
+Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, uint16_t _i_n_enemigo) {
 	_n_npc = _i_n_enemigo;
 	NPC *npc_aux=_i_interfaz.get_enemigo(_n_npc);
 	_interfaz = &_i_interfaz;
@@ -59,7 +59,7 @@ void Blackboard::set_accion(enum Enum_Acciones _i_accion) {
 
 
 // Datos de identidad del NPC
-unsigned short Blackboard::get_n_enemigo() {
+uint16_t Blackboard::get_n_enemigo() {
 	return _n_npc;
 }
 

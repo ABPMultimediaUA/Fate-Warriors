@@ -116,9 +116,10 @@ void Character::bucle_ataque(){
 
         NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
         NPC ** _npcs = _npc_manager->get_npcs();
-        unsigned long _cont;
+        uint16_t _cont, _n_npcs;
+        _n_npcs = _npc_manager->get_n_enemigos();
 
-        for(_cont = 0; _cont < _npc_manager->get_n_enemigos(); _cont++) {
+        for(_cont = 0; _cont < _n_npcs; _cont++) {
             if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
                 comprobar_colision_teniendo_tambien_radio(this->get_vector(), 40.0, _npcs[_cont]->get_vector(), 40.0) == true)
             {

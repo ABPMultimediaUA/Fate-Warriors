@@ -11,11 +11,13 @@
 
 
 NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
-    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
+    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Tipo_Enemigo _i_tipo_npc) 
     : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte),
     _blackboard(nullptr) {
-    _tipo_npc=Enum_Tipo_Enemigo::Normal;
+    _tipo_npc = _i_tipo_npc;
     
+    //std::cout << "Tipo NPC = " << _tipo_npc << "\n";
+
     std::string str = "models/Enemigo.obj";
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
