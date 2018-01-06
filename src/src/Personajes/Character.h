@@ -16,10 +16,10 @@ public:
 	
 	virtual ~Character();
 
-	void modificar_vida_en(short _i_vida); // este metodo debe derivar en danyar y curar
-	void danyar(short _danyo); // el danyo es lo mismo que los puntos de vida que se le restan
+	virtual void modificar_vida_en(short _i_vida); // este metodo debe derivar en danyar y curar
+	virtual void danyar(short _danyo); // el danyo es lo mismo que los puntos de vida que se le restan
 	bool puede_subir_vida_(short _i_vida);
-	void set_vida(short _i_vida);
+	virtual void set_vida(short _i_vida);
 	short get_vida();
 	inline int16_t get_vida_maxima(){
 		return _vida_maxima;

@@ -34,6 +34,8 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
 
     _input = _i_input;
+        _motor->set_text_vida(_vida);
+
 }
 
 Player::~Player(){
@@ -114,4 +116,39 @@ void Player::update(){
 			
 void Player::render(){
   
+}
+
+
+void Player::modificar_vida_en(short _i_vida){
+	if(_vida+_i_vida>_vida_maxima){
+        _vida=_vida_maxima;
+    }
+    else if(_vida + _i_vida < 0){
+        morir();
+    }
+    else{
+        _vida+=_i_vida;
+    }
+    _motor->set_text_vida(_vida);
+}
+
+void Player::danyar(short _danyo){
+    _vida = _vida - _danyo;
+
+    if(_accion == Accion_pre_atacar){
+        set_accion(Recibir_danyo);
+        std::cout << "Ataque cortado" << std::endl;
+    }
+
+    if(_vida < 0){
+        morir();
+    }
+        _motor->set_text_vida(_vida);
+
+}
+
+void Player::set_vida(short _i_vida){
+	_vida=_i_vida;
+    _motor->set_text_vida(_vida);
+
 }

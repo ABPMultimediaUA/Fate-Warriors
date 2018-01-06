@@ -13,6 +13,10 @@ public:
 	virtual ~Player();
 	void update() override;
 	void render() override;
+
+	void modificar_vida_en(short _i_vida)	override;
+	void danyar(short _danyo) 				override;
+	void set_vida(short _i_vida) 			override;
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor

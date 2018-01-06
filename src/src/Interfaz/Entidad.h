@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "../Camara/Camara.h"
+#include "GUI.h"
+
 
 
 #ifdef _IRR_WINDOWS_
@@ -39,6 +41,7 @@ public:
     void render();
 
     void setVelocidad(uint8_t id, float x, float y, float z);
+    void set_text_vida(int _i_vida);
 
     IrrlichtDevice* getDevice();    
     
@@ -90,7 +93,6 @@ private:
       IVideoDriver* driver;
 	ISceneManager* smgr;
       std::vector<ISceneNode*> nodes;
-	IGUIEnvironment* guienv;
-
+      GUI* _GUI;
 };
 

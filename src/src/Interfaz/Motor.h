@@ -21,6 +21,7 @@ public:
       void    VelocidadDireccion(unsigned short id, unsigned short _i_direccion);
       void    setPositionXZ(unsigned short id, float x, float z);
       void    saltar(unsigned short _i_id);
+      void    set_text_vida(int _vida);
 
       float   getX(short id);
       float   getY(short id);

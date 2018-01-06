@@ -52,6 +52,10 @@ void Motor::VelocidadDireccion(unsigned short id, unsigned short _i_direccion){
 	_entidad->VelocidadDireccion(id,_i_direccion);
 }
 
+void Motor::set_text_vida(int vida){
+	_entidad->set_text_vida(vida);
+}
+
 float Motor::getX(short id){
 	return _entidad->getX(id);
 }
@@ -71,3 +75,4 @@ float Motor::getVelocidadY(short id){
 IrrlichtDevice* Motor::getIrrlichtDevice(){
 	return _entidad->getDevice();
 }
+

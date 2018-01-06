@@ -45,6 +45,7 @@ Entidad::~Entidad(){
 	delete fileLoader; 
 
 	//Irrlitch
+	delete _GUI;
 	driver->drop();
 	device->drop();
 
@@ -92,7 +93,8 @@ void Entidad::configuracion_irlitch(){
 
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
-	guienv = device->getGUIEnvironment();
+	//guienv = device->getGUIEnvironment();
+	_GUI = new GUI(device);
 }
 
 short Entidad::crear_objeto(char* ruta,float x, float y, float z){
@@ -277,6 +279,7 @@ void Entidad::render(){
 	world->debugDrawWorld();
 
 	//guienv->drawAll();
+	_GUI->draw();
     driver->endScene();
 }
 
@@ -320,6 +323,10 @@ void Entidad::setPositionXZ(unsigned short id, float x, float z){
 	q.toEuler(euler);
 	euler *= RADTODEG;
 	node->setRotation(euler);
+}
+
+void Entidad::set_text_vida(int _i_vida){
+	_GUI->set_text_vida(_i_vida);
 }
 
 //Metodos get
