@@ -115,7 +115,7 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	_player->update();
 	_nivel->Update();
 	//_consumibles_action->comprobar_consumibles();
-	//_trampas_action->update();
+	_trampas_action->update();
 	_player = nullptr;
 
 	_motor->update(_i_tiempo_desde_ultimo_update);

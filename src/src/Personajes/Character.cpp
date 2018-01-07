@@ -177,7 +177,7 @@ void Character::interactuar_con_objeto(){
 
     for(_cont = 0; _cont < _int_man->get_n_llaves() && objeto_encontrado == false; _cont++) {
 		if( _llaves[_cont]->get_visible() == true && 
-            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 20.0, _llaves[_cont]->get_vector(), 20.0) == true)
+            comprobar_colision_teniendo_tambien_radio(get_vector(), 20.0, _llaves[_cont]->get_vector(), 20.0) == true)
         {
             // Recoge llave y la anyade al inventario
             
@@ -186,7 +186,7 @@ void Character::interactuar_con_objeto(){
 
             objeto_encontrado = true;
             std::cout << "Llave recogida"<< std::endl;
-            std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
+            std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
         }
 	}
 	
