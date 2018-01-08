@@ -121,7 +121,7 @@ void Character::bucle_ataque(){
 
         for(_cont = 0; _cont < _n_npcs; _cont++) {
             if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
-                comprobar_colision_teniendo_tambien_radio(this->get_vector(), 40.0, _npcs[_cont]->get_vector(), 40.0) == true)
+                comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
             {
                 if(this->get_tipo_ataque() == Ataque_Normal){
                 _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_normal);
@@ -177,7 +177,7 @@ void Character::interactuar_con_objeto(){
 
     for(_cont = 0; _cont < _int_man->get_n_llaves() && objeto_encontrado == false; _cont++) {
 		if( _llaves[_cont]->get_visible() == true && 
-            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 20.0, _llaves[_cont]->get_vector(), 20.0) == true)
+            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _llaves[_cont]->get_vector(), 3) == true)
         {
             // Recoge llave y la anyade al inventario
             
@@ -195,7 +195,7 @@ void Character::interactuar_con_objeto(){
 	for(_cont = 0; _cont < _int_man->get_n_puertas() && objeto_encontrado == false; _cont++) {
 		if( _puertas[_cont]->get_visible() == true && 
             _puertas[_cont]->get_abierta() == false && 
-            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 20.0, _puertas[_cont]->get_vector(), 20.0) == true)
+            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _puertas[_cont]->get_vector(), 3) == true)
         {
             std::vector<Llave*> _llaves_character = this->get_inventario()->get_llaves();
             
@@ -236,7 +236,7 @@ Enum_Acciones Character::get_accion(){
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
     if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
-        bloquear_input(1000); // hacer parametro dinamico
+        bloquear_input(50); // hacer parametro dinamico
     }  
 
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
