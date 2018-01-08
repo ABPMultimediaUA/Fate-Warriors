@@ -120,12 +120,12 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 
 	_motor->update(_i_tiempo_desde_ultimo_update);
 		
-//std::cout<<"ALTURA:    "<<_interfaz_grafica->getHeight()<<std::endl;
+ 	std::cout<<"ALTURA: "  <<std::endl;
 	_decision_manager->toma_decisiones();
 }
 
 void Game::render(float _i_interpolacion){
-	//std::cout << "YEEEEEEEEEE" << std::endl;
+	std::cout << "YEEEEEEEEEEs" << std::endl;
 	_motor->render();
 }
   
