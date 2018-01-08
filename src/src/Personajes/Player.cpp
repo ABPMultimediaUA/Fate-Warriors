@@ -55,7 +55,7 @@ void Player::update(){
     // Recoge si ha habido movimiento y la direccion de el mismo
     uint16_t _direccion;
 
-    if(_input->get_mover(_direccion)) {
+    if(_input->get_mover(_direccion) && esta_bloqueado() == false) {
         _motor->VelocidadDireccion(_id_motor,_direccion,_velocidad);
     }
 
@@ -64,19 +64,16 @@ void Player::update(){
     }
 
     if(_input->get_interactuar()){
-        std::cout<< "Pulsa E"<< std::endl;
-
+       
         if(esta_bloqueado() == false){
-            this->interactuar_con_objeto();
-            this->bloquear_input(1000);
-            std::cout<< "SÍ INTERACTUA ----------------------------------"<< std::endl;
+            std::cout<< "Pulsa E"<< std::endl;
+            interactuar_con_objeto();
+            //this->bloquear_input(1000);
+            //std::cout<< "Interactuando..."<< std::endl;
         }
         else{
-            std::cout<< "No puede INTERACTUAR "<< std::endl;
+           // std::cout<< "No puede INTERACTUAR "<< std::endl;
         }
-        
-        //std::cout<< "Tiempo actual: "<< this->_tiempo->get_current() << std::endl;
-        //std::cout<< "Tiempo almacenado: "<< this->get_tiempo_inicio_bloqueado() << std::endl;
     }
 
 
@@ -91,7 +88,7 @@ void Player::update(){
 
     if(_atacar) {
         if(_atk_normal){
-            this->atacar(Ataque_Normal);
+            atacar(Ataque_Normal);
         }
 
         if(_atk_fuerte){
@@ -104,7 +101,8 @@ void Player::update(){
   
 
     if(_input->get_saltar()){
-        _motor->saltar(_id_motor);
+        saltar();
+        //_motor->saltar(_id_motor);
         //exit(0);
 	}
 
