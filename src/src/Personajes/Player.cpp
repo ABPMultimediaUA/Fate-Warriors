@@ -46,7 +46,7 @@ void Player::update(){
     // Procesa los inputs para poder utilizarlos
     _input->procesar_inputs();
 
-    bucle_ataque();
+    gestion_acciones();
 
     // Esto hay que borrarlo
     Controles* controles = Controles::Instance();
@@ -94,7 +94,8 @@ void Player::update(){
         if(_atk_fuerte){
             //std::cout<< "MOUSER" <<std::endl;
             //this->atacar(Ataque_Fuerte);
-            danyar(1);
+            //danyar(1);
+            esquivar();
         }
     }
   

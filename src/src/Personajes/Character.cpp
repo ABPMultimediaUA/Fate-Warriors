@@ -102,7 +102,22 @@ short Character::get_danyo_ataque_fuerte(){
 	return _danyo_ataque_fuerte;
 }
 
-void Character::bucle_ataque(){
+void Character::gestion_acciones(){
+    gestion_ataque();
+    gestion_dash();
+}
+
+void Character::gestion_dash(){
+    if(get_accion() == Accion_Dash){
+        std::cout << "ESQUIVANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_ataque(){
 
     if(this->get_accion() == Accion_pre_atacar){
         std::cout << "PRE-ATACANDO" << std::endl;
@@ -158,6 +173,15 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         std::cout << "ENLAZA ATAQUE" << std::endl;
         this->set_accion(Accion_pre_atacar);
         this->set_tipo_ataque(_i_tipo_ataque);
+    }
+    
+}
+
+void Character::esquivar(){
+    // Ataque de player y aliados, sobrescrbir en Enemigo
+    // Se ataca a enemigos
+    if(esta_bloqueado() == false){
+        set_accion(Accion_Dash);
     }
     
 }
@@ -236,8 +260,8 @@ Enum_Acciones Character::get_accion(){
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
     if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
-        bloquear_input(50); // hacer parametro dinamico
-    }  
+        bloquear_input(500); // hacer parametro dinamico
+    }
 
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
         set_tipo_ataque(Ataque_Ninguno);

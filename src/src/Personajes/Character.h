@@ -52,8 +52,11 @@ public:
 	Enum_Acciones get_accion();
 	void set_accion(Enum_Acciones _i_accion);
 	Enum_Tipo_Ataque get_tipo_ataque();
+	void gestion_acciones();
+	void gestion_ataque();
+	void gestion_dash();
+	void esquivar();
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
-	void bucle_ataque();
 	bool esta_bloqueado();
 	void desbloquear_input();
 
