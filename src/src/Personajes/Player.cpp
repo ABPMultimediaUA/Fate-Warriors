@@ -15,7 +15,7 @@
 #include "../Game.h"
 #include "../Action_Manager.h"
 //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id,_i_x, _i_y, _i_z, 500, 10000,10,15)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id,_i_x, _i_y, _i_z, 500, 1,10,15)
                                                                 {   
 
     //_tiempo = Time::Instance();
@@ -56,7 +56,7 @@ void Player::update(){
     uint16_t _direccion;
 
     if(_input->get_mover(_direccion)) {
-        _motor->VelocidadDireccion(_id_motor,_direccion);
+        _motor->VelocidadDireccion(_id_motor,_direccion,_velocidad);
     }
 
     if(_input->get_dash()){

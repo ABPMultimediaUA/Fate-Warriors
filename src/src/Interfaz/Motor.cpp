@@ -51,8 +51,8 @@ void Motor::render(){
 	_entidad->render();
 }
 
-void Motor::VelocidadDireccion(unsigned short id, unsigned short _i_direccion){
-	_entidad->VelocidadDireccion(id,_i_direccion);
+void Motor::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){
+	_entidad->VelocidadDireccion(id,_i_direccion, _i_velocidad);
 }
 
 void Motor::set_text_vida(int vida){

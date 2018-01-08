@@ -18,7 +18,7 @@ public:
 
       void    Mover(uint8_t id, float x, float y, float z);
     
-      void    VelocidadDireccion(unsigned short id, unsigned short _i_direccion);
+      void    VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad);
       void    setPositionXZ(unsigned short id, float x, float z);
       void    saltar(unsigned short _i_id);
       void    set_text_vida(int _vida);

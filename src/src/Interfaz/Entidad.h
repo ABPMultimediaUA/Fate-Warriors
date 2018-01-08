@@ -31,7 +31,7 @@ public:
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
-    void VelocidadDireccion(unsigned short id, unsigned short _i_direccion);
+    void VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad);
 
     //void simulationUpdate();
     void saltar(unsigned short _i_id);

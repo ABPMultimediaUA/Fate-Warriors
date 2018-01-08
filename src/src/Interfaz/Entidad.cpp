@@ -289,9 +289,9 @@ void Entidad::apagar(){
 
 //Metodos set
 
-void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion){  // Direccion
-    desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
-    desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
+void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
+    desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
+    desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
     moving = true;
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
