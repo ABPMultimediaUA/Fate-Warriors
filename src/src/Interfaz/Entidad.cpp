@@ -142,7 +142,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 
 
 
-	btCollisionShape *cubeShape = new btBoxShape(btVector3(anchura*0.5,altura*0.5,anchura*0.5)); // new btSphereShape(0.5);
+	btCollisionShape *cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
