@@ -329,6 +329,14 @@ void Entidad::set_text_vida(int _i_vida){
 	_GUI->set_text_vida(_i_vida);
 }
 
+void Entidad::Dash(unsigned short _i_direccion, unsigned short id){
+	short potencia = 500;
+	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
+    desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
+	rigidbody[id]->applyCentralImpulse(btVector3(desp_x*potencia, 0.f, desp_z*potencia)); //se multiplica por 100 pa volaaaar
+	desp_z = desp_x = 0;
+}
+
 //Metodos get
 
 float Entidad::getX(short id){

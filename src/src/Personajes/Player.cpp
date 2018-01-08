@@ -59,6 +59,9 @@ void Player::update(){
         _motor->VelocidadDireccion(_id_motor,_direccion);
     }
 
+    if(_input->get_dash()){
+        _motor->Dash(_direccion,_id_motor);
+    }
 
     if(_input->get_interactuar()){
         std::cout<< "Pulsa E"<< std::endl;
