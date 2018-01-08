@@ -60,7 +60,7 @@ void Player::update(){
     }
 
     if(_input->get_dash()){
-        _motor->Dash(_direccion,_id_motor);
+        esquivar(_direccion);
     }
 
     if(_input->get_interactuar()){
@@ -97,8 +97,8 @@ void Player::update(){
         if(_atk_fuerte){
             //std::cout<< "MOUSER" <<std::endl;
             //this->atacar(Ataque_Fuerte);
-            //danyar(1);
-            esquivar();
+            danyar(1);
+            
         }
     }
   

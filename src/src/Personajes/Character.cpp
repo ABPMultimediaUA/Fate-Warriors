@@ -177,11 +177,12 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
     
 }
 
-void Character::esquivar(){
+void Character::esquivar(uint16_t _direccion){
     // Ataque de player y aliados, sobrescrbir en Enemigo
     // Se ataca a enemigos
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
+        _motor->Dash(_direccion,_id_motor);
     }
     
 }
@@ -257,10 +258,26 @@ Enum_Acciones Character::get_accion(){
     return _accion;
 }
 
+static int getTiempoAccion(Enum_Acciones _accion){
+    switch(_accion)
+    {
+        case Accion_pre_atacar:
+            return 500;
+        case Atacar:
+            return 1;
+        case Accion_post_atacar:
+            return 500;
+        case Accion_Dash:
+            return 500;
+        default:
+            return 500;
+    }
+}
+
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
     if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
-        bloquear_input(500); // hacer parametro dinamico
+        bloquear_input(getTiempoAccion(_i_accion)); // hacer parametro dinamico
     }
 
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){

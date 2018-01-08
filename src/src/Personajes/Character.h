@@ -55,7 +55,7 @@ public:
 	void gestion_acciones();
 	void gestion_ataque();
 	void gestion_dash();
-	void esquivar();
+	void esquivar(uint16_t _direccion);
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	bool esta_bloqueado();
 	void desbloquear_input();
