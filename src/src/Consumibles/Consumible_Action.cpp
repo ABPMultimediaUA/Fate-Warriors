@@ -34,6 +34,7 @@ void Consumible_Action::comprobar_consumibles(){
 		if(comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 2)){
 			if(_player->puede_subir_vida_((*_consumibles)[a]->get_valor())){
 				_player->modificar_vida_en((*_consumibles)[a]->get_valor());
+				(*_consumibles)[a]->setPositionXZ(9000,9000);
 				_consumibles_manager->borrar_consumible(a);
 				--tamanio;
 			}
