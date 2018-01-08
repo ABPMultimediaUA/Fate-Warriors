@@ -6,7 +6,7 @@ Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _id(id), _borrar(fa
 }
 
 Objeto::~Objeto() {
-	delete _motor;
+	//delete _motor;
     _motor = nullptr;
 }
 
