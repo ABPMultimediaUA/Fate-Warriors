@@ -39,6 +39,9 @@ void Motor::saltar(unsigned short _i_id){
 	_entidad->saltar(_i_id);
 }
 
+void Motor::Dash(unsigned short _i_direccion, unsigned short id){
+	_entidad->Dash(_i_direccion,id);
+}
 
 void Motor::update(double dt){
 	_entidad->update(dt);

@@ -53,7 +53,7 @@ public:
     float getY(short id);
     float getZ(short id);
     float getVelocidadY(short _i_id);
-
+    void Dash(unsigned short _i_direccion, unsigned short id);
     void apagar();
 
 private:

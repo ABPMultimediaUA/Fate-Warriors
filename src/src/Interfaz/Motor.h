@@ -22,7 +22,7 @@ public:
       void    setPositionXZ(unsigned short id, float x, float z);
       void    saltar(unsigned short _i_id);
       void    set_text_vida(int _vida);
-
+      void Dash(unsigned short _i_direccion, unsigned short id);
       float   getX(short id);
       float   getY(short id);
       float   getZ(short id);
