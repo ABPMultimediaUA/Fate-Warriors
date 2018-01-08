@@ -31,6 +31,10 @@ void Motor::Mover(uint8_t id, float x, float y, float z){
 	_entidad->setVelocidad(id,x,y,z);
 }
 
+void Motor::Mover(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
+	_entidad->setVelocidad(id,_i_direccion,x,y,z);
+}
+
 void Motor::setPositionXZ(unsigned short id, float x, float z){
 	_entidad->setPositionXZ(id,x,z);
 }

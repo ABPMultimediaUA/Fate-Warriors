@@ -41,6 +41,7 @@ public:
     void render();
 
     void setVelocidad(uint8_t id, float x, float y, float z);
+    void setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z);
     void set_text_vida(int _i_vida);
 
     IrrlichtDevice* getDevice();    

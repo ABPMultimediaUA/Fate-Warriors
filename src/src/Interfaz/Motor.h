@@ -17,7 +17,7 @@ public:
       void    render();  
 
       void    Mover(uint8_t id, float x, float y, float z);
-    
+      void    Mover(uint8_t id, unsigned short _i_direccion, float x, float y, float z); //mover con rotacion
       void    VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad);
       void    setPositionXZ(unsigned short id, float x, float z);
       void    saltar(unsigned short _i_id);
