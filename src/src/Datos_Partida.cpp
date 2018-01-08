@@ -4,7 +4,7 @@
 #include "Interfaz/Motor.h"
 #include "Personajes/Player.h"
 #include "Personajes/NPC_Manager.h"
-#include "Consumibles/Consumible_manager.h"
+#include "Consumibles/Consumible_Manager.h"
 #include "Trampas/Trampas_manager.h"
 #include "Llave.h"
 #include "Puerta.h"
@@ -17,7 +17,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 	//Llave* _llave = new Llave(0,10*mult,1*mult,10*mult,1);
 	//Puerta* _puerta = new Puerta(1,18*mult,1*mult,18*mult,false);
 	_npc_manager = new NPC_Manager();
-	_consumibles_manager = new Consumible_manager();
+	_consumibles_manager = new Consumible_Manager();
 	_trampas_manager	 = new Trampas_manager();
     _interactuable_manager = new Interactuable_Manager();
 /*
@@ -76,7 +76,7 @@ Trampas_manager * Datos_Partida::get_trampas_manager(){
 	return _trampas_manager;
 }
 
-Consumible_manager * Datos_Partida::get_consumible_manager(){
+Consumible_Manager * Datos_Partida::get_Consumible_Manager(){
 	return _consumibles_manager;
 }
 
