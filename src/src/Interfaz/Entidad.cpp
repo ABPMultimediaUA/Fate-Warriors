@@ -257,13 +257,14 @@ void Entidad::updateDynamicBody(btRigidBody *body) {
 	btVector3 pos = body->getCenterOfMassPosition();
 		
 	node->setPosition(vector3df(pos[0], pos[1], pos[2]));
-
+	/*
 	const btQuaternion &quat = body->getOrientation();
 	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
 	vector3df euler;
 	q.toEuler(euler);
 	euler *= RADTODEG;
 	node->setRotation(euler);
+	*/
 }
 
 void Entidad::render(){
@@ -290,7 +291,9 @@ void Entidad::apagar(){
 //Metodos set
 
 void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
-    desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
+	ISceneNode *prota = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+	prota->setRotation(core::vector3df(0,(_i_direccion*std::acos(-1)/180)+angulo,0));
+	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
     desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
     moving = true;
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
