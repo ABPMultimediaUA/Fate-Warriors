@@ -4,7 +4,7 @@
 class NPC_Manager;
 class NPC;
 class Player;
-class Consumible_manager;
+class Consumible_Manager;
 class Trampas_manager;
 class Interactuable_Manager;
 class Objeto_Estandar;
@@ -22,7 +22,7 @@ public:
 
 	NPC_Manager* get_npc_manager();
 
-	Consumible_manager * get_consumible_manager();
+	Consumible_Manager * get_Consumible_Manager();
     
     Interactuable_Manager* get_interactuable_manager();
 
@@ -41,7 +41,7 @@ private:
 	Objeto_Estandar* _mapa9;
 	NPC_Manager* _npc_manager;
 		Trampas_manager *_trampas_manager;
-	Consumible_manager * _consumibles_manager;
+	Consumible_Manager * _consumibles_manager;
     Interactuable_Manager * _interactuable_manager;
 
 };

@@ -3,10 +3,10 @@
 
 #include "Consumible.h"
 
-class Consumible_patata : public Consumible{
+class Consumible_Patata : public Consumible{
 public:
-	Consumible_patata(short _id, float _i_x, float _i_y, float _i_z);
-	virtual ~Consumible_patata();
+	Consumible_Patata(short _id, float _i_x, float _i_y, float _i_z);
+	virtual ~Consumible_Patata();
 
 	bool usar() override;
 	void render() override;

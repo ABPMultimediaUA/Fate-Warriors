@@ -9,7 +9,7 @@
 #include "Personajes/Player.h"
 #include "Interfaz/Motor.h"
 #include "Nivel/Nivel.h"
-#include "Consumibles/Consumible_action.h"
+#include "Consumibles/Consumible_Action.h"
 #include "Trampas/Trampas_action.h"
 
 
@@ -76,7 +76,7 @@ void Game::crea_partida() {
 	_datos->inserta_npc_nivel();
 
 	
-	_consumibles_action = new Consumible_action();	
+	_consumibles_action = new Consumible_Action();	
 	_trampas_action 	= new Trampas_action();	
 	
 
@@ -114,18 +114,18 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	Player *_player = _datos->get_player();
 	_player->update();
 	_nivel->Update();
-	//_consumibles_action->comprobar_consumibles();
+	_consumibles_action->comprobar_consumibles();
 	_trampas_action->update();
 	_player = nullptr;
 
 	_motor->update(_i_tiempo_desde_ultimo_update);
 		
- 	std::cout<<"ALTURA: "  <<std::endl;
+// 	std::cout<<"ALTURA: "  <<std::endl;
 	_decision_manager->toma_decisiones();
 }
 
 void Game::render(float _i_interpolacion){
-	std::cout << "YEEEEEEEEEEs" << std::endl;
+//	std::cout << "YEEEEEEEEEEs" << std::endl;
 	_motor->render();
 }
   
