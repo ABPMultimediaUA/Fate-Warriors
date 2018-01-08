@@ -53,7 +53,7 @@ void Character::danyar(short _danyo){
         std::cout << "Ataque cortado" << std::endl;
     }
 
-    if(_vida < 0){
+    if(_vida <= 0){
         morir();
     }
 }
@@ -139,10 +139,10 @@ void Character::gestion_ataque(){
                 comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
             {
                 if(this->get_tipo_ataque() == Ataque_Normal){
-                _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_normal);
+                _npcs[_cont]->danyar(_danyo_ataque_normal);
                 }
                 else if(this->get_tipo_ataque()  == Ataque_Fuerte){
-                    _npcs[_cont]->modificar_vida_en(-this->_danyo_ataque_fuerte);
+                    _npcs[_cont]->danyar(_danyo_ataque_fuerte);
                 }  
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
             }
@@ -252,6 +252,8 @@ void Character::desbloquear_input(){
 
 void Character::morir(){
     std::cout << "He muerto :("<< std::endl;
+    setPositionXZ(10000, 10000);
+
 }
 
 Enum_Acciones Character::get_accion(){
@@ -262,11 +264,11 @@ static int getTiempoAccion(Enum_Acciones _accion){
     switch(_accion)
     {
         case Accion_pre_atacar:
-            return 500;
+            return 200;
         case Atacar:
             return 1;
         case Accion_post_atacar:
-            return 500;
+            return 200;
         case Accion_Dash:
             return 500;
         default:

@@ -53,6 +53,10 @@ Vector2 Objeto::get_vector(){
 
 void Objeto::set_visible(bool _i_visible){
     _visible = _i_visible;
+
+	if(_i_visible == false){
+		setPositionXZ(10000, 10000);
+	}
 }
 
 bool Objeto::get_visible(){
