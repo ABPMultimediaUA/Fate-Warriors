@@ -9,6 +9,7 @@ enum Enum_Acciones{
 	Accion_post_atacar,
 	Atacar,			// Usar ataque
 	Accion_Dash,
+	Accion_Interactuar,
 	Coger_Arma,		// Recoge un arma
 	Usar_Arma,		// Usa el arma equipado
 	Saltar,			// Salta

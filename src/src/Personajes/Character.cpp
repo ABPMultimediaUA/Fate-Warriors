@@ -105,11 +105,33 @@ short Character::get_danyo_ataque_fuerte(){
 void Character::gestion_acciones(){
     gestion_ataque();
     gestion_dash();
+    gestion_interactuar();
+    gestion_saltar();
 }
 
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_saltar(){
+    if(get_accion() == Saltar){
+        std::cout << "SALTANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_interactuar(){
+    if(get_accion() == Accion_Interactuar){
+        std::cout << "Interactuando..." << std::endl;
 
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
@@ -178,13 +200,18 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
 }
 
 void Character::esquivar(uint16_t _direccion){
-    // Ataque de player y aliados, sobrescrbir en Enemigo
-    // Se ataca a enemigos
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
         _motor->Dash(_direccion,_id_motor);
     }
     
+}
+
+void Character::saltar(){
+    if(esta_bloqueado() == false){
+        set_accion(Saltar);
+        _motor->saltar(_id_motor);
+    }
 }
 
 void Character::interactuar_con_objeto(){
@@ -208,7 +235,7 @@ void Character::interactuar_con_objeto(){
             
             this->get_inventario()->anadir_llave(_llaves[_cont]);
             _llaves[_cont]->set_visible(false);
-
+            
             objeto_encontrado = true;
             std::cout << "Llave recogida"<< std::endl;
             std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
@@ -238,6 +265,10 @@ void Character::interactuar_con_objeto(){
             }
         }
 	}
+
+    if(objeto_encontrado == true){
+        set_accion(Accion_Interactuar);
+    }
 }
 
 void Character::bloquear_input(double _i_duracion_bloqueo_actual){
@@ -264,13 +295,17 @@ static int getTiempoAccion(Enum_Acciones _accion){
     switch(_accion)
     {
         case Accion_pre_atacar:
-            return 200;
+            return 500;
         case Atacar:
             return 1;
         case Accion_post_atacar:
-            return 200;
+            return 500;
         case Accion_Dash:
             return 500;
+        case Accion_Interactuar:
+            return 1000;
+        case Saltar:
+            return 200;
         default:
             return 500;
     }
@@ -279,7 +314,7 @@ static int getTiempoAccion(Enum_Acciones _accion){
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
     if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
-        bloquear_input(getTiempoAccion(_i_accion)); // hacer parametro dinamico
+        bloquear_input(getTiempoAccion(_i_accion));
     }
 
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
