@@ -94,7 +94,7 @@ void Player::update(){
         if(_atk_fuerte){
             //std::cout<< "MOUSER" <<std::endl;
             //this->atacar(Ataque_Fuerte);
-            danyar(0);
+            danyar(1);
         }
     }
   

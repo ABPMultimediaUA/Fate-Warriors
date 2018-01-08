@@ -9,8 +9,8 @@
 Interactuable_Manager::Interactuable_Manager() {
     // tener xml con la informacion de todos los objetos
     
-	_n_llaves = 2;
-	_n_puertas = 2;
+	_n_llaves = 1;
+	_n_puertas = 1;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -24,12 +24,14 @@ Interactuable_Manager::Interactuable_Manager() {
 	//for(_cont = 0; _cont < _n_puertas; _cont++) {
 		//_puertas[_cont] = new Puerta(25,0,10,-180,false);
 	//}
+
+	float mult = 4.9212625;
     
-    _llaves[0] = new Llave(456,0,10,230,127);
-    _llaves[1] = new Llave(786,-200,10,230,793);
+    _llaves[0] = new Llave(0,10*mult,1*mult,10*mult,1);
+    //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
     
-    _puertas[0] = new Puerta(793,0,10,-180,false);
-    _puertas[1] = new Puerta(127,-200,10,-180,false);
+    _puertas[0] = new Puerta(1,18*mult,1*mult,18*mult,false);
+    //_puertas[1] = new Puerta(127,-0,0,-180,false);
 }
 
 Interactuable_Manager::~Interactuable_Manager() {
