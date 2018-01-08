@@ -66,6 +66,3 @@ void NPC::set_blackboard(Blackboard* _i_blackboard) {
 Blackboard* NPC::get_blackboard() {
     return _blackboard;
 }
-void NPC::setPositionXZ(float _i_x, float _i_z){
-    _motor->setPositionXZ(_id_motor,_i_x,_i_z);
-}

@@ -10,10 +10,9 @@ Objeto::~Objeto() {
     _motor = nullptr;
 }
 
-void Objeto::setPosition(float _i_x, float _i_y, float _i_z){
-
+void Objeto::setPositionXZ(float _i_x, float _i_z){
+    _motor->setPositionXZ(_id_motor,_i_x,_i_z);
 }
-
 
 void Objeto::setX(float _i_x){
 

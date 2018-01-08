@@ -21,8 +21,8 @@ public:
 	float getX();
 	float getY();
 	float getZ();
-
-	void 	setPosition(float _i_x, float _i_y, float _i_z);
+	
+	void setPositionXZ(float _i_x, float _i_z);
 	void	setX(float _i_x);
 	void	setY(float _i_y);
 	void	setZ(float _i_z);
