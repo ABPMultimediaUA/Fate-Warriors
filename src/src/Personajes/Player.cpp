@@ -110,10 +110,6 @@ void Player::update(){
     //set level of detail del nivel
     Nivel* nivel=Nivel::nivel_instancia();
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
-        
-  
-    // Reinicia el procesado y lectura de inputs
-    _input->reiniciar_inputs();
 }
 			
 void Player::render(){

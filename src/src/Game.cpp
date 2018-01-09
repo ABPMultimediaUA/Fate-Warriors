@@ -69,6 +69,7 @@ Game::~Game(){
 void Game::crea_partida() {	
 
 	_motor = Motor::Motor_GetInstance();
+	_motor->asigna_input(_input_jugador);
 	_nivel=Nivel::nivel_instancia();
 	_datos 				= new Datos_Partida(_input_jugador);
 	_action_manager 	= new Action_Manager();
@@ -121,6 +122,10 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 	_motor->update(_i_tiempo_desde_ultimo_update);
 		
 	_decision_manager->toma_decisiones();
+
+
+    // Reinicia el procesado y lectura de inputs
+    _input_jugador->reiniciar_inputs();
 }
 
 void Game::render(float _i_interpolacion){

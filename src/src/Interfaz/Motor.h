@@ -2,6 +2,7 @@
 #include <cstdint>
 
 class Entidad;
+class Input;
 
 using namespace irr;
 
@@ -26,6 +27,8 @@ public:
       float   getX(short id);
       float   getY(short id);
       float   getZ(short id);
+
+      void    asigna_input(Input* _i_input_jugador);
 
       float   getVelocidadY(short id);
       IrrlichtDevice* getIrrlichtDevice();

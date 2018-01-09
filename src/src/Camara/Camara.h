@@ -1,15 +1,10 @@
-/*
- * camara.h
- *
- *  Created on: Nov 15, 2017
- *      Author: manu
- */
-
 #include "irrlicht/irrlicht.h"
 using namespace irr;
 
 #ifndef SRC_CPP_CAMARA_H_
 #define SRC_CPP_CAMARA_H_
+
+class Input;
 
 class Camara{
 
@@ -24,6 +19,7 @@ public:
 	float Camara_getAngle();
 	float Camara_getAngleRad();
 	void Camara_Update(); //updatea la Camara usando el device
+	void asigna_input(Input* _i_input_jugador);
 	~Camara();
 
 private:
@@ -50,6 +46,8 @@ private:
 	core::vector3df _camaraDir; //direccion hacia la que mira la camara que se actualiza en el update
 	core::position2d<f32> cursorPos;
 	unsigned short _gradosRotacion;
+
+	Input* _input; 	// Input del control de camara
 };
 
 

@@ -53,6 +53,9 @@ public:
 	bool get_dash();
 	bool get_atacar(bool& _normal, bool& _fuerte);
 
+ 	bool get_mover_camara();
+	Vector2* get_vector_camara();
+	bool get_posiciona_camara();
 
 private:
 	// Control de las direcciones

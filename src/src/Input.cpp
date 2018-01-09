@@ -12,7 +12,7 @@ Input::Input() {
 
 	_camara_con_teclado = false;
 	_invertir_x = false;
-	_invertir_y = false;
+	_invertir_y = true;
 
 	_joystick_mover = new Vector2(0,0);
 	_joystick_camara = new Vector2(0,0);
@@ -169,6 +169,17 @@ bool Input::get_atacar(bool& _normal, bool& _fuerte) {
 	return _ataque;
 }
 
+bool Input::get_mover_camara() {
+	return _mover_camara;
+}
+
+Vector2* Input::get_vector_camara() {
+	return _vector_camara;
+}
+
+bool Input::get_posiciona_camara() {
+	return !_hay_mando && !_camara_con_teclado;
+}
 
 // Recoge los inputs y almacena los valores
 void Input::recibir_inputs() {
@@ -361,25 +372,32 @@ void Input::procesa_camara() {
 	else
 		procesa_camara_raton();
 
+	if(std::abs(_vector_camara->_x)<0.000001) _vector_camara->_x=0;
+	if(std::abs(_vector_camara->_y)<0.000001) _vector_camara->_y=0;
+
 	if(_invertir_x && _vector_camara->_x != 0) _vector_camara->_x *= -1;
 	if(_invertir_y && _vector_camara->_y != 0) _vector_camara->_y *= -1;
 	
 	/*
 	if(_mover_camara) {
 		std::cout << "Angulo = " << _direccion_camara  << "\n";
-		std::cout << "Posicion del raton = (" << _posicion_raton->_x << "," << _posicion_raton->_y << ")\n";
+		if(!_hay_mando && !_camara_con_teclado)
+			std::cout << "Posicion del raton = (" << _posicion_raton->_x << "," << _posicion_raton->_y << ")\n";
 		std::cout << "Angulo de la camara = (" << _vector_camara->_x << "," << _vector_camara->_y << ")\n";
-	}*/
-	
+	}
+	*/
 }
 
 void Input::procesa_camara_mando() {
 	if(std::abs(_joystick_camara->_x) > 20 || std::abs(_joystick_camara->_y) > 20) {
 		_mover_camara = true;
-        _direccion_camara = lib_math_angulo_2_puntos(_joystick_camara->_y, -_joystick_camara->_x, 0, 0);
+        /*_direccion_camara = lib_math_angulo_2_puntos(_joystick_camara->_y, -_joystick_camara->_x, 0, 0);
 
 		_vector_camara->_y = cos(_direccion_camara*std::acos(-1)/180);
-	    _vector_camara->_x = sin(_direccion_camara*std::acos(-1)/180);
+	    _vector_camara->_x = sin(_direccion_camara*std::acos(-1)/180);*/
+
+	    _vector_camara->_x = _joystick_camara->_x/100;
+	    _vector_camara->_y = -_joystick_camara->_y/100;
     }
     else {
     	_mover_camara = false;
@@ -399,9 +417,6 @@ void Input::procesa_camara_raton() {
 
 		_vector_camara->_y = cos(_direccion_camara*std::acos(-1)/180);
 	    _vector_camara->_x = sin(_direccion_camara*std::acos(-1)/180);
-
-		if(std::abs(_vector_camara->_x)<0.000001) _vector_camara->_x=0;
-		if(std::abs(_vector_camara->_y)<0.000001) _vector_camara->_y=0;
 	}
 }
 

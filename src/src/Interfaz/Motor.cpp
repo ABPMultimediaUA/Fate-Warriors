@@ -1,5 +1,7 @@
 #include "Motor.h"
+
 #include "Entidad.h"
+#include "../Input.h"
 
 Motor* Motor::_Motor=0;
 
@@ -45,6 +47,10 @@ void Motor::saltar(unsigned short _i_id){
 
 void Motor::Dash(unsigned short _i_direccion, unsigned short id){
 	_entidad->Dash(_i_direccion,id);
+}
+
+void Motor::asigna_input(Input* _i_input_jugador) {
+	_entidad->asigna_input(_i_input_jugador);
 }
 
 void Motor::update(double dt){

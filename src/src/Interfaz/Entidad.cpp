@@ -312,9 +312,10 @@ void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion,
 	/*std::cout << "dir: "<<_i_direccion<<std::endl;
 	std::cout<< "angulo: "<<angulo<<std::endl;*/
 	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	//personaje->setRotation(core::vector3df(0,_i_direccion+angulo,0));
+	personaje->setRotation(core::vector3df(0,_i_direccion+angulo,0));
 	
 	angulo = camara->Camara_getAngleRad();
+	//std::cout << "Grados personaje = " << _i_direccion + camara->Camara_getAngle() << "\n";
 
 	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
     desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
@@ -328,15 +329,26 @@ void Entidad::setVelocidad(uint8_t id, float x, float y, float z){
 	desp_x = desp_z = 0;
 }
 
+void Entidad::asigna_input(Input* _i_input_jugador){
+	camara->asigna_input(_i_input_jugador);
+}
+
 void Entidad::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
+	float _cos, _sen;
+	_cos = sin(_i_direccion*std::acos(-1)/180);
+	_sen = cos(_i_direccion*std::acos(-1)/180);
+
+	float _nueva_direccion = atan2(_sen, _cos) /std::acos(-1) * 180;
+
 	/*angulo = camara->Camara_getAngle();
 	std::cout << "dir: "<<_i_direccion<<std::endl;
 	std::cout<< "angulo: "<<angulo<<std::endl;*/
 	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	//personaje->setRotation(core::vector3df(0,_i_direccion,0));
+	personaje->setRotation(core::vector3df(0,_nueva_direccion,0));
+	//std::cout << "Grados enemigo = " << _nueva_direccion << "\n";
 
-	desp_z += sin(_i_direccion*std::acos(-1)/180) * 1 * mdt;
-    desp_x += cos(_i_direccion*std::acos(-1)/180) * 1 * mdt;
+	desp_z += cos(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
+    desp_x += sin(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
 

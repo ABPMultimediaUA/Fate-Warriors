@@ -1,11 +1,8 @@
-/*
- * camara.cpp
- *
- *  Created on: Nov 15, 2017
- *      Author: manu
-*/
-
 #include "Camara.h"
+
+#include "../Input.h"
+#include "../Utilidades/Vector.h"
+
 #include <iostream> 
 
 Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
@@ -61,15 +58,40 @@ core::vector3df Camara::Camara_getDirection(){
 }
 
 void Camara::Camara_Update() {
-	//desactivamos el cursor del raton
+	// Desactivamos el cursor del raton
+	_changeX = 0;
+	_changeY = 0;
 	
-	//obtener la posicion del cursor
-	cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
-	_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
-	_changeY = (cursorPos.Y - 0.5) * _sensibilidadY; 
+	// Esto se hace hasta que se pueda usar el de Input sin que se choque con los bordes de pantalla y se quede atascado el raton
+	if(_input->get_posiciona_camara()) {
+		// Obtener la posicion del cursor
+		cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
 
-	_direction += _changeX; //rotacion de la camara en horizontal xrot
-	_zdirection -= _changeY; //rotacion de la camara en vertical  yrot
+		_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
+		_changeY = (cursorPos.Y - 0.5) * _sensibilidadY; 
+
+		_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
+
+		//std::cout << "Por Irrlicht\n";
+	}
+
+	else {
+		if(_input->get_mover_camara()) {
+			Vector2* _vector_movimiento = _input->get_vector_camara();
+			_changeX = 10 * (_vector_movimiento->_x * _vector_movimiento->_x);
+			_changeY = 10 * (_vector_movimiento->_y * _vector_movimiento->_y);
+
+			if(_vector_movimiento->_x < 0) _changeX *= -1;
+			if(_vector_movimiento->_y < 0) _changeY *= -1;
+
+			/*std::cout << "Vector X " << _vector_movimiento->_x << "\n";
+			std::cout << "Vector Y " << _vector_movimiento->_y << "\n";*/
+			//std::cout << "Por input de Pablo \n";
+		}
+	}
+
+	_direction += _changeX; 	// Rotacion de la camara en horizontal xrot
+	_zdirection -= _changeY; 	// Rotacion de la camara en vertical  yrot
 
 	_gradosRotacion = 35; 
 
@@ -80,13 +102,18 @@ void Camara::Camara_Update() {
 	else if (_zdirection > -5) {
 		_zdirection = -5; 
 	}
-	_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
+
+	if(_direction >= 360)
+		_direction -= 360;
+	if(_direction < 0)
+		_direction += 360;
 	
+	/*std::cout << "Direction  " << _direction << "\n";
+	std::cout << "Zdirection " << _zdirection << "\n";*/
 
-
-	//antes de nada nos aseguramos de que el prota ha sido inicializado 
+	// Antes de nada nos aseguramos de que el prota ha sido inicializado 
 	if (_Prota != nullptr) {
-		//posicion estándar del jugador que usaremos para el seguimiento de la camara
+		// Posicion estándar del jugador que usaremos para el seguimiento de la camara
 		core::vector3df playerPos = core::vector3df(
 					_Prota-> getPosition().X, 
 					_Prota-> getPosition().Y - _ProtaBoundingCenter.Y, 
@@ -98,7 +125,7 @@ void Camara::Camara_Update() {
 
 		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * 20.0f; 
 		
-		if (_Prota-> getPosition().Y >= 0) {//calculos de la camara para una Y positiva
+		if (_Prota-> getPosition().Y >= 0) {	// Calculos de la camara para una Y positiva
 			
 		//std::cout<<"llego loko"<<std::endl;
 			//std::cout << playerPos.Y << std::endl; 
@@ -114,7 +141,7 @@ void Camara::Camara_Update() {
 				
 		}
 
-		else {//calculos de la camara para una Y negativa
+		else {	// Calculos de la camara para una Y negativa
 			this->Camara_setPosition(
 					core::vector3df(xf, 
 							yf - _ProtaBoundingCenter.Y - _Prota->getPosition().Y, zf)); 
@@ -126,15 +153,15 @@ void Camara::Camara_Update() {
 		}
 
 		
-		//calculo de la direccion de la camara
+		// Calculo de la direccion de la camara
 		_camaraDir = this->Camara_getTarget() - this->Camara_getPosition();
 		_camaraDir = _camaraDir.normalize();
 
 		core::vector3df inicial(0,0,1); //v1
 
         
-		//angulo entre el vector inicial de referencia
-		//y el vector de direccion actual 
+		// Angulo entre el vector inicial de referencia
+		// y el vector de direccion actual 
         _dot = inicial.X * _camaraDir.X + inicial.Z*_camaraDir.Z;
         _det = inicial.X * _camaraDir.Z - inicial.Z*_camaraDir.X;
 
@@ -160,4 +187,8 @@ float Camara::Camara_getAngleRad(){
 
 Camara::~Camara() {
 
+}
+
+void Camara::asigna_input(Input* _i_input_jugador){
+	_input = _i_input_jugador;
 }
