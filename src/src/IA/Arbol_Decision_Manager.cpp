@@ -10,7 +10,7 @@
 const std::string _fichero = "txt/Arbol_Decision.txt";
 
 Arbol_Decision_Manager::Arbol_Decision_Manager() {
-	_max_arboles = 1;
+	_max_arboles = 7;
 
 	_n_nodos = 0;
 	_n_arboles = 0;
@@ -27,7 +27,14 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	//Asignacion de los arboles
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
-	_arboles_decision[0] = _nodos_decision[_n_nodos-1];
+	std::cout << "N nodos " << _n_nodos << "\n";
+	_arboles_decision[0] = _nodos_decision[2];
+	_arboles_decision[1] = _nodos_decision[_n_nodos-1];
+	_arboles_decision[2] = _nodos_decision[_n_nodos-1];
+	_arboles_decision[3] = _nodos_decision[_n_nodos-1];
+	_arboles_decision[4] = _nodos_decision[_n_nodos-1];
+	_arboles_decision[5] = _nodos_decision[_n_nodos-1];
+	_arboles_decision[6] = _nodos_decision[_n_nodos-1];
 
 }
 
@@ -54,11 +61,9 @@ Arbol_Decision_Manager::~Arbol_Decision_Manager() {
 
 enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboard) {
 	_blackboard->get_tipo_enemigo();
-	Nodo_Decision* _arbol_aux=_arboles_decision[0];
-	//Nodo_Decision* _arbol_aux=_arboles_decision[_blackboard->get_tipo_enemigo()];
+	Nodo_Decision* _arbol_aux=_arboles_decision[_blackboard->get_tipo_enemigo()];
 	Enum_Acciones aux=_arbol_aux->toma_decision(_blackboard);
-	return _arboles_decision[0]->toma_decision(_blackboard);
-	//return _arboles_decision[_blackboard->get_tipo_enemigo()]->toma_decision(_blackboard);
+	return _arboles_decision[_blackboard->get_tipo_enemigo()]->toma_decision(_blackboard);
 }
 
 
