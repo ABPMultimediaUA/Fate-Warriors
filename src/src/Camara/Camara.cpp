@@ -1,6 +1,7 @@
 #include "Camara.h"
 
 #include "../Input.h"
+#include "../Interfaz_Libs/Lib_Math.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Utilidades/Vector.h"
 
@@ -105,14 +106,15 @@ void Camara::Camara_Update() {
 	else {
 		if(_input->get_mover_camara()) {
 			Vector2* _vector_movimiento = _input->get_vector_camara();
-			_changeX = 10 * (_vector_movimiento->_x * _vector_movimiento->_x);
-			_changeY = 10 * (_vector_movimiento->_y * _vector_movimiento->_y);
-
-			if(_vector_movimiento->_x < 0) _changeX *= -1;
-			if(_vector_movimiento->_y < 0) _changeY *= -1;
+			_changeX = 10 * (_vector_movimiento->_x * _vector_movimiento->_x) * lib_math_sgn(_vector_movimiento->_x);
+			_changeY = 10 * (_vector_movimiento->_y * _vector_movimiento->_y) * lib_math_sgn(_vector_movimiento->_y);
 
 			/*std::cout << "Vector X " << _vector_movimiento->_x << "\n";
 			std::cout << "Vector Y " << _vector_movimiento->_y << "\n";*/
+
+			/*std::cout << "El signo de X es " << (int)lib_math_sgn(_vector_movimiento->_x) << "\n";
+			std::cout << "El signo de Y es " << (int)lib_math_sgn(_vector_movimiento->_y) << "\n";*/
+
 			//std::cout << "Por input de Pablo \n";
 		}
 	}
