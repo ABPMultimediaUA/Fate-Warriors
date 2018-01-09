@@ -24,18 +24,21 @@ int main(){
 	while(_motor->getIrrlichtDevice()->run()){
 		//evento para cerrar la ventana
 		_juego->recibir_inputs();
+
 		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj
 		//std::cout << "Tiempo desde update " << time->get_tiempo_desde_ultimo_update() << std::endl;
 		//update
                 
 		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
 			_h_ultimo_update=time->get_current();
-                        //std::cout << "pre update" << std::endl;
-                        _juego->update(time->get_tiempo_desde_ultimo_update());
-                        //std::cout << "post update" << std::endl;
+            //std::cout << "pre update" << std::endl;
+            //std::cout << "Tiempo update " << time->get_tiempo_desde_ultimo_update() << "\n";
+            _juego->update(time->get_tiempo_desde_ultimo_update());
+            time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);
+            //std::cout << "post update" << std::endl;
 		}
 
-		//render
+		//Render
 		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);
 		_juego->render(_interpolacion);
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;

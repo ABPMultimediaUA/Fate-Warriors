@@ -1,6 +1,8 @@
 #include "Entidad.h"
 #include "SFML/Graphics.hpp"
 #include <cmath>
+#include "../Utilidades/Vector.h"
+#include "../Personajes/Interpolacion.h"
 
 Entidad::Entidad(){
     configuracion_irlitch();
@@ -153,6 +155,8 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	cubeBody->setRestitution(0);
 	cubeBody->setFriction(500);
 	cubeBody->forceActivationState(DISABLE_DEACTIVATION );
+	Vector3 posicion(x,y,z);
+	_interpolaciones.push_back(new Interpolacion(posicion));
 
 	world->addRigidBody(cubeBody);
 	
@@ -198,6 +202,9 @@ void Entidad::update(double dt){
 				if(desp_x==0&&desp_z==0){
 					setVelocidad(i,desp_x,rigidbody[i]->getLinearVelocity()[1],desp_z);
 				}
+				btVector3 pos = rigidbody[i]->getCenterOfMassPosition();
+				Vector3 vector(pos[0], pos[1], pos[2]);
+				_interpolaciones[i]->actualiza_posicion(vector);
 			}
 
         } else {
@@ -207,6 +214,16 @@ void Entidad::update(double dt){
        // device->drop();
 }
 
+void Entidad::interpola_posiciones(float _i_interpolacion) {
+	short tamanio = rigidbody.size();
+	for(short i=0; i<tamanio; i++){
+		Vector3 _posicion_interpolada = _interpolaciones[i]->interpola_posicion(_i_interpolacion);
+
+		ISceneNode *node = static_cast<ISceneNode *>(rigidbody[i]->getUserPointer());
+		
+		node->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+	}
+}
 
 void Entidad::updateCamaraColision(){
 		btTransform t;
@@ -292,10 +309,10 @@ void Entidad::apagar(){
 
 void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
 	angulo = camara->Camara_getAngle();
-	std::cout << "dir: "<<_i_direccion<<std::endl;
-	std::cout<< "angulo: "<<angulo<<std::endl;
+	/*std::cout << "dir: "<<_i_direccion<<std::endl;
+	std::cout<< "angulo: "<<angulo<<std::endl;*/
 	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	personaje->setRotation(core::vector3df(0,_i_direccion+angulo,0));
+	//personaje->setRotation(core::vector3df(0,_i_direccion+angulo,0));
 	
 	angulo = camara->Camara_getAngleRad();
 
@@ -312,15 +329,15 @@ void Entidad::setVelocidad(uint8_t id, float x, float y, float z){
 }
 
 void Entidad::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
-	angulo = camara->Camara_getAngle();
+	/*angulo = camara->Camara_getAngle();
 	std::cout << "dir: "<<_i_direccion<<std::endl;
-	std::cout<< "angulo: "<<angulo<<std::endl;
+	std::cout<< "angulo: "<<angulo<<std::endl;*/
 	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	personaje->setRotation(core::vector3df(0,_i_direccion,0));
+	//personaje->setRotation(core::vector3df(0,_i_direccion,0));
 
-	btVector3 mov(x,y,z);
-    rigidbody[id]->setLinearVelocity(mov);
-	desp_x = desp_z = 0;
+	desp_z += sin(_i_direccion*std::acos(-1)/180) * 1 * mdt;
+    desp_x += cos(_i_direccion*std::acos(-1)/180) * 1 * mdt;
+    setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
 
 void Entidad::setPositionXZ(unsigned short id, float x, float z){
