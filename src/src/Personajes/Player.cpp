@@ -78,8 +78,7 @@ void Player::update(){
 
 
     if(controles->estaPulsada(Input_key::Escape)){
-      
-        //interface->Interfaz_Apagar();
+        _motor->apagar();
     }
 
 

@@ -18,6 +18,8 @@ Entidad::Entidad(){
 	camara = new Camara(smgr, device);
 	angulo = 0;
 	_velocidad = 1;
+	_debug = false;
+	_id_jugador = 0;
 }
 
 Entidad::~Entidad(){
@@ -62,6 +64,12 @@ Entidad::~Entidad(){
 	fileLoader = nullptr;
 
 }
+
+
+void Entidad::apagar(){
+	device->closeDevice();
+}
+
 
 
 void Entidad::preparar_depuracion_mundo(){
@@ -167,6 +175,7 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 void Entidad::poner_camara_a_entidad(unsigned short id){
 	ISceneNode *cubeNode = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
 	camara->Camara_setProta(cubeNode);
+	_id_jugador = id;
 }
 
 btCollisionWorld::ClosestRayResultCallback Entidad::trazaRayo(btVector3 start, btVector3 end){
@@ -188,41 +197,53 @@ void Entidad::importarEscenario(char* rutaObj, float x, float y, float z){
 
 void Entidad::update(double dt){
 
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
+		_debug = !_debug;
+	}
+
 	mdt = dt;
    	if(device->isWindowActive()) {
 
-		updateCamaraColision();
-
         world->stepSimulation(dt * 0.001f);
 
-			short tamanio = rigidbody.size();
-			for(short i=0; i<tamanio; i++){
-				// Actualiza el cuerpo dinamico de la caja
-				updateDynamicBody(rigidbody[i]);
-				if(desp_x==0&&desp_z==0){
-					setVelocidad(i,desp_x,rigidbody[i]->getLinearVelocity()[1],desp_z);
-				}
-				btVector3 pos = rigidbody[i]->getCenterOfMassPosition();
-				Vector3 vector(pos[0], pos[1], pos[2]);
-				_interpolaciones[i]->actualiza_posicion(vector);
+		short tamanio = rigidbody.size();
+		for(short i=0; i<tamanio; i++){
+			// Actualiza el cuerpo dinamico de la caja
+			updateDynamicBody(rigidbody[i]);
+			if(desp_x==0&&desp_z==0){
+				setVelocidad(i,desp_x,rigidbody[i]->getLinearVelocity()[1],desp_z);
 			}
+			btVector3 pos = rigidbody[i]->getCenterOfMassPosition();
+			Vector3 vector(pos[0], pos[1], pos[2]);
+			_interpolaciones[i]->actualiza_posicion(vector);
+		}
 
-        } else {
-            device->yield();
-        }
+		// Update de la posicion de la camara (despues de actualizar la del jugador)
+		updateCamaraColision();
+    } 
+
+    else {
+        device->yield();
+    }
 	
        // device->drop();
 }
 
 void Entidad::interpola_posiciones(float _i_interpolacion) {
-	short tamanio = rigidbody.size();
-	for(short i=0; i<tamanio; i++){
+
+	uint16_t _tam = rigidbody.size();
+	for(uint16_t i=0; i<_tam; i++){
 		Vector3 _posicion_interpolada = _interpolaciones[i]->interpola_posicion(_i_interpolacion);
 
 		ISceneNode *node = static_cast<ISceneNode *>(rigidbody[i]->getUserPointer());
 		
 		node->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+
+		if(i == _id_jugador) {
+			camara->interpola_target(_posicion_interpolada);
+		}	
 	}
+	camara->interpola_posicion(_i_interpolacion);
 }
 
 void Entidad::updateCamaraColision(){
@@ -246,7 +267,8 @@ void Entidad::updateCamaraColision(){
 			const btCollisionObject *object = rayCallback.m_collisionObject;
 			for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
 				if(fileLoader->getRigidBodyByIndex(i) == object){
-					camara->Camara_setPosition(core::vector3df(point[0],point[1],point[2]));	
+					// Set posicion colision
+					camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
 				}
 			}
 		}
@@ -293,16 +315,13 @@ void Entidad::render(){
     debugMat.Lighting = false;
     driver->setMaterial(debugMat);
     driver->setTransform(ETS_WORLD, IdentityMatrix);
-    
-	world->debugDrawWorld();
+    if(_debug){
+		world->debugDrawWorld();
+    }
 
 	//guienv->drawAll();
 	_GUI->draw();
     driver->endScene();
-}
-
-void Entidad::apagar(){
-	//device->close();
 }
 
 //Metodos set

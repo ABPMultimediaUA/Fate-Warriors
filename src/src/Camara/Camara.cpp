@@ -1,6 +1,7 @@
 #include "Camara.h"
 
 #include "../Input.h"
+#include "../Personajes/Interpolacion.h"
 #include "../Utilidades/Vector.h"
 
 #include <iostream> 
@@ -15,6 +16,8 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 	_Cdevice = device; 
 	_Cdevice->getCursorControl()->setVisible(false); 
 	_inicial = core::vector3df(0,0,1);
+	Vector3 _inicial_aux(_inicial.X,_inicial.Y,_inicial.Z);
+
 	_Prota = 0; 
 	_direction = 0; 
 	_zdirection = 0; 
@@ -27,10 +30,34 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 	_sensibilidadY = 256; 
 	_changeX = 0; 
 	_changeY = 0; 			
-	_dot = _det = _angle = _angleRad = 0;			
+	_dot = _det = _angle = _angleRad = 0;
+	_interpolacion = new Interpolacion(_inicial_aux);		
+	_interpolacion_colision = new Interpolacion(_inicial_aux);		
 }
 
 void Camara::Camara_setPosition(core::vector3df position) {
+	_position = position; 
+	_Camara->setPosition(_position);
+
+	Vector3 posicion(_position.X,_position.Y,_position.Z);
+	_interpolacion->actualiza_posicion(posicion);
+
+	if(!_hay_colision)
+		_interpolacion_colision->actualiza_posicion(posicion);
+
+	_hay_colision = false;
+}
+
+void Camara::Camara_setPositionColision(core::vector3df position) {
+	_hay_colision = true;
+	_position = position; 
+	_Camara->setPosition(_position);
+
+	Vector3 posicion(_position.X,_position.Y,_position.Z);
+	_interpolacion_colision->actualiza_posicion(posicion);
+}
+
+void Camara::set_position_interpolada(core::vector3df position) {
 	_position = position; 
 	_Camara->setPosition(_position);
 }
@@ -124,7 +151,7 @@ void Camara::Camara_Update() {
 		float yf = playerPos.Y - sin(_zdirection * M_PI / 180.0f) * 20.0f; 
 
 		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * 20.0f; 
-		
+
 		if (_Prota-> getPosition().Y >= 0) {	// Calculos de la camara para una Y positiva
 			
 		//std::cout<<"llego loko"<<std::endl;
@@ -186,9 +213,25 @@ float Camara::Camara_getAngleRad(){
 }
 
 Camara::~Camara() {
-
+	delete _interpolacion;
+	delete _interpolacion_colision;
 }
 
 void Camara::asigna_input(Input* _i_input_jugador){
 	_input = _i_input_jugador;
+}
+
+void Camara::interpola_posicion(float _i_interpolacion) {
+	if(!_hay_colision) {
+		Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
+		set_position_interpolada(core::vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+	}
+	else {
+		Vector3 _posicion_interpolada = _interpolacion_colision->interpola_posicion(_i_interpolacion);
+		set_position_interpolada(core::vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+	}
+}
+
+void Camara::interpola_target(Vector3 _i_posicion_interpolada) {
+	Camara_setTarget(core::vector3df(_i_posicion_interpolada._x, _i_posicion_interpolada._y, _i_posicion_interpolada._z));
 }

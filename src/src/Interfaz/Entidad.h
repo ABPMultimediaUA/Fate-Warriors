@@ -24,6 +24,8 @@ public:
     
    Entidad();
    ~Entidad();
+   
+    void apagar();
 
     void configuracion_irlitch();
     void configuracion_bullet();
@@ -58,7 +60,6 @@ public:
     float getZ(short id);
     float getVelocidadY(short _i_id);
     void Dash(unsigned short _i_direccion, unsigned short id);
-    void apagar();
 
 private:
       float desp_x, desp_z;
@@ -74,6 +75,7 @@ private:
       float x;
       float z;
       
+      bool _debug;
 
       //Camara
       Camara* camara;
@@ -82,22 +84,24 @@ private:
       DebugDraw* debugDraw;    
       
       //Bullet
-	btCollisionConfiguration *collisionConfiguration;
-	btBroadphaseInterface *broadPhase;
-	btDispatcher *collisionDispatcher;
-	btConstraintSolver *constraintSolver;
-	btDynamicsWorld *world;
-	btBulletWorldImporter* fileLoader;
+    	btCollisionConfiguration *collisionConfiguration;
+    	btBroadphaseInterface *broadPhase;
+    	btDispatcher *collisionDispatcher;
+    	btConstraintSolver *constraintSolver;
+    	btDynamicsWorld *world;
+    	btBulletWorldImporter* fileLoader;
       std::vector<btRigidBody*> rigidbody;
       Time* _tiempo;
       uint8_t _numcubos;
 
       //Irlitch
-	IrrlichtDevice *device;
+	 IrrlichtDevice *device;
       IVideoDriver* driver;
 	ISceneManager* smgr;
       std::vector<ISceneNode*> nodes;
       GUI* _GUI;
+
       std::vector<Interpolacion*> _interpolaciones;
+      uint16_t _id_jugador;
 };
 

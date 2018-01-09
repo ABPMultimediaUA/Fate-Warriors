@@ -27,6 +27,7 @@ public:
       float   getX(short id);
       float   getY(short id);
       float   getZ(short id);
+      void    apagar(); //poh eso
 
       void    asigna_input(Input* _i_input_jugador);
 

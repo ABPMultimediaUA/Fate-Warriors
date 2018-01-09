@@ -16,6 +16,10 @@ Motor::Motor(){
    _entidad = new Entidad();
 }
 
+void Motor::apagar(){
+	_entidad->apagar();
+}
+
 Motor::~Motor(){
 	delete _entidad;
 	_entidad = nullptr;
