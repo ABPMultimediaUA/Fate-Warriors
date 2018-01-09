@@ -51,7 +51,8 @@ void Motor::update(double dt){
 	_entidad->update(dt);
 }
 
-void Motor::render(){
+void Motor::render(float _i_interpolacion){
+	_entidad->interpola_posiciones(_i_interpolacion);
 	_entidad->render();
 }
 

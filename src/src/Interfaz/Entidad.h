@@ -16,7 +16,7 @@
 #endif
 
 
-
+class Interpolacion;
 class Time;
 class Entidad{
 public:
@@ -48,7 +48,7 @@ public:
     
     void updateCamaraColision();
     void updateDynamicBody(btRigidBody *body);
-
+    void interpola_posiciones(float _i_interpolacion);
     void setPositionXZ(unsigned short id, float x, float z);
     float getX(short id);
     float getY(short id);
@@ -95,5 +95,6 @@ private:
 	ISceneManager* smgr;
       std::vector<ISceneNode*> nodes;
       GUI* _GUI;
+      std::vector<Interpolacion*> _interpolaciones;
 };
 

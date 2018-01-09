@@ -14,7 +14,7 @@ public:
       void    poner_camara_a_entidad(unsigned short _i_direccion);
 
       void    update(double _i_dt);
-      void    render();  
+      void    render(float _i_interpolacion);  
 
       void    Mover(uint8_t id, float x, float y, float z);
       void    Mover(uint8_t id, unsigned short _i_direccion, float x, float y, float z); //mover con rotacion
@@ -22,7 +22,7 @@ public:
       void    setPositionXZ(unsigned short id, float x, float z);
       void    saltar(unsigned short _i_id);
       void    set_text_vida(int _vida);
-      void Dash(unsigned short _i_direccion, unsigned short id);
+      void    Dash(unsigned short _i_direccion, unsigned short id);
       float   getX(short id);
       float   getY(short id);
       float   getZ(short id);
