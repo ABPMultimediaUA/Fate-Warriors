@@ -1,6 +1,7 @@
 #ifndef VERTICE_H
 #define VERTICE_H
 #include <cstdlib>
+#include "Enum_vertices.h"
 class Arista;
 class Grafo;
 class Nodo_blackboard;
@@ -45,6 +46,9 @@ class Vertice
 	  inline int get_id_arista(){
 	  	  return _id_arista;
 	  }
+	  Enum_vertices get_tipo(){
+		return _tipo;
+	  }
 	  inline void set_sig(Vertice* _i_sig){
 		  _sig=_i_sig;
 	  }
@@ -57,6 +61,7 @@ class Vertice
 	  inline void set_peso(float _i_peso){
 		  _peso=_i_peso;
 	  }
+
 	  u_int8_t get_lod();
 
 	  void set_lod(unsigned short cont);
@@ -64,7 +69,7 @@ class Vertice
 	  
 	  bool pos2id(float _i_x, float _i_y);
 	 protected:
-
+	  Enum_vertices _tipo;
 	  Nodo_blackboard* _blackboard;
 	  Vertice *_sig;
 	  Arista *_ady;

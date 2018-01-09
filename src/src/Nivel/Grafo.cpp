@@ -5,6 +5,7 @@
 #include "Nodo_blackboard.h"
 #include "../IA/Blackboard.h"
 #include "../Personajes/NPC.h"
+
 #include <iostream>
 Grafo::Grafo(){
 	_h = nullptr;
@@ -554,6 +555,39 @@ void Grafo::grafo_inserta_NPC(NPC* _i_npc){//si el npc se sale del nivel se pier
 	}else{
 		std::cout<<"ERROR NPC_POSICION: npc fuera del mapa"<<std::endl;
 		_i_npc->setPositionXZ(grafo_get_vertice(1)->get_coord_x()+1*metro,grafo_get_vertice(1)->get_coord_y()+1*metro);
+	}
+}
+void Grafo::grafo_get_numero_posiciones_spawn_enemigos(u_int16_t &_i_n_posiciones){
+	Vertice* vert_aux=_h;
+	Vertice* vert_aux_interno=nullptr;
+	_i_n_posiciones=0;
+	while(vert_aux!=nullptr){
+		if(vert_aux->get_tipo()==Vertice_Nodo){
+			vert_aux_interno=vert_aux->get_lod1()->get_h();
+			while(vert_aux_interno!=nullptr){
+				++_i_n_posiciones;
+				vert_aux_interno=vert_aux_interno->get_sig();
+			}
+		}
+		vert_aux=vert_aux->get_sig();
+	}
+}
+void Grafo::grafo_get_posiciones_spawn_enemigos( float** _posiciones){
+	Vertice* vert_aux=_h;
+	Vertice* vert_aux_interno=nullptr;
+	u_int16_t cont=0;
+	while(vert_aux!=nullptr){
+		if(vert_aux->get_tipo()==Vertice_Nodo){
+			vert_aux_interno=vert_aux->get_lod1()->get_h();
+			while(vert_aux_interno!=nullptr){
+				//std::cout<<"_id grande: "<<vert_aux->get_id()<<" id: "<<vert_aux_interno->get_id()<<" X: "<<vert_aux_interno->get_coord_x()/metro<<" Y: "<<vert_aux_interno->get_coord_y()/metro<<std::endl;
+				_posiciones[cont][0]=vert_aux_interno->get_coord_x();
+				_posiciones[cont][1]=vert_aux_interno->get_coord_y();
+				vert_aux_interno=vert_aux_interno->get_sig();
+				++cont;
+			}
+		}
+		vert_aux=vert_aux->get_sig();
 	}
 }
 void Grafo::Update(){

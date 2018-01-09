@@ -7,8 +7,8 @@
 
 Vertice::Vertice(float _i_posx, float _i_posy,float _i_ancho, float _i_alto, int _i_id, Grafo *_i_grafo_lod1):
 _id(_i_id), _posx(_i_posx), _posy(_i_posy), _lod1(_i_grafo_lod1) , _sig(nullptr),
-_ady(nullptr), _ancho(_i_ancho), _alto(_i_alto), _blackboard(nullptr){
-
+_ady(nullptr), _ancho(_i_ancho), _alto(_i_alto), _blackboard(nullptr), _tipo(Vertice_Vertice){
+	
 }
 
 Vertice::~Vertice(){

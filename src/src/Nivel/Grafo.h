@@ -1,7 +1,6 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 
-#include <stack>
 #include <string>
 
 const float metro=4.9212625;
@@ -28,6 +27,8 @@ public:
 		_h=_i_h;
 	}
 	Nodo_blackboard* grafo_get_blackboard(float _i_x, float _i_y);
+	void grafo_get_numero_posiciones_spawn_enemigos(u_int16_t &_i_n_posiciones);
+	void grafo_get_posiciones_spawn_enemigos( float** _posiciones);
 	Vertice * grafo_get_vertice(int _i_id);
 	Vertice * grafo_get_vertice(float _i_x, float _i_y);
 	int grafo_get_id_vertice(float _i_x, float _i_y);
@@ -51,7 +52,6 @@ private:
 	void inserta_arista(Vertice *_i_origen, Vertice *_i_destino,  int _i_id);
 	void actualiza_NPC();
 	void grafo_anular();
-	std::stack<Vertice*> grafo_camino_corto_l2(Vertice *_i_origen, Vertice *_i_destino);
 	void grafo_pathfindinglod2(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* vertice_origen, Vertice* vertice_destino);
 	unsigned short grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* origen, int destino);
 };
