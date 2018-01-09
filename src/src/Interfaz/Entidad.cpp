@@ -309,10 +309,10 @@ void Entidad::apagar(){
 
 void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
 	angulo = camara->Camara_getAngle();
-	std::cout << "dir: "<<_i_direccion<<std::endl;
-	std::cout<< "angulo: "<<angulo<<std::endl;
+	/*std::cout << "dir: "<<_i_direccion<<std::endl;
+	std::cout<< "angulo: "<<angulo<<std::endl;*/
 	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	personaje->setRotation(core::vector3df(0,_i_direccion+angulo,0));
+	//personaje->setRotation(core::vector3df(0,_i_direccion+angulo,0));
 	
 	angulo = camara->Camara_getAngleRad();
 
@@ -329,14 +329,14 @@ void Entidad::setVelocidad(uint8_t id, float x, float y, float z){
 }
 
 void Entidad::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
-	angulo = camara->Camara_getAngle();
+	/*angulo = camara->Camara_getAngle();
 	std::cout << "dir: "<<_i_direccion<<std::endl;
-	std::cout<< "angulo: "<<angulo<<std::endl;
+	std::cout<< "angulo: "<<angulo<<std::endl;*/
 	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	personaje->setRotation(core::vector3df(0,_i_direccion,0));
+	//personaje->setRotation(core::vector3df(0,_i_direccion,0));
 
-	desp_z += cos(_i_direccion*std::acos(-1)/180) * -1 * mdt;
-    desp_x += sin(_i_direccion*std::acos(-1)/180) * -1 * mdt;
+	desp_z += sin(_i_direccion*std::acos(-1)/180) * 1 * mdt;
+    desp_x += cos(_i_direccion*std::acos(-1)/180) * 1 * mdt;
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
 
