@@ -35,69 +35,69 @@ txt/Nivel/Nivel1/10nodo.txt
 enemigo
 PASILLO
 64 5 18 3 11
-null
+txt/Nivel/Nivel1/11pasillo.txt
 NODO
 82 3 10 9 12
-null
+txt/Nivel/Nivel1/12nodo.txt
 neutro
 PASILLO
 92 5 18 6 13
-null
+txt/Nivel/Nivel1/13pasillo.txt
 NODO
 101 11 10 6 14
-null
+txt/Nivel/Nivel1/14nodo.txt
 neutro
 PASILLO
 64 13 11 9 15
-null
+txt/Nivel/Nivel1/15pasillo.txt
 NODO
 64 22 20 25 16
 null
 enemigo
 PASILLO
 54 24 10 6 17
-null
+txt/Nivel/Nivel1/17pasillo.txt
 NODO
 51 30 8 10 18
-null
+txt/Nivel/Nivel1/18nodo.txt
 neutro
 PASILLO
 56 40 8 7 19
-null
+txt/Nivel/Nivel1/19pasillo.txt
 PASILLO
 84 12 8 15 20
-null
+txt/Nivel/Nivel1/20pasillo.txt
 PASILLO
 84 40 13 3 21
-null
+txt/Nivel/Nivel1/21pasillo.txt
 NODO
 97 28 15 20 22
 null
 enemigo
 PASILLO
 103 48 3 6 23
-null
+txt/Nivel/Nivel1/23pasillo.txt
 NODO
 47 54 9 7 24
 null
 neutro
 PASILLO
 85 56 12 3 25
-null
+txt/Nivel/Nivel1/25pasillo.txt
 NODO
 70 54 15 15 26
 null
 enemigo
 PASILLO
 100 61 3 5 27
-null
+txt/Nivel/Nivel1/27pasillo.txt
 NODO
 89 66 20 15 28
 null
 enemigo
 PASILLO
 75 76 14 3 29
-null
+txt/Nivel/Nivel1/29pasillo.txt
 NODO
 67 75 8 6 30
 null
