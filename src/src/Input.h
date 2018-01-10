@@ -22,7 +22,7 @@ enum Enum_Inputs {
 	Input_Camara_Izquierda,
 	Input_Camara_Derecha,
 	//Input_Usar_Arma,
-	//Input_Centrar_Camara,
+	Input_Centrar_Camara,
 	//Input_Pausa,
 	N_Inputs,
 	Ninguno

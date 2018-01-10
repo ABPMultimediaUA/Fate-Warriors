@@ -27,6 +27,7 @@ public:
       float   getX(short id);
       float   getY(short id);
       float   getZ(short id);
+      void    resetear_camara();
       void    apagar(); //poh eso
 
       void    colorear_nodo(unsigned short id, short r,short g, short b);

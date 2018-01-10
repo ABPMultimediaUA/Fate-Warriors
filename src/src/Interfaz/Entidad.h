@@ -61,6 +61,7 @@ public:
     float getVelocidadY(short _i_id);
     void Dash(unsigned short _i_direccion, unsigned short id);
     void    colorear_nodo(unsigned short id, short r,short g, short b);
+    void resetear_camara();
 
 private:
       int _vida; //salud para la barra de salud

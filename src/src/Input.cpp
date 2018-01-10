@@ -205,7 +205,7 @@ void Input::recibir_inputs_mando() {
 
 	//_mando[Input_Usar_Arma] = 4;		// LB
 	//_mando[Input_Pausa] = 7;			// Start
-	//_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
+	_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
 }
 
 // Recibe los inputs del teclado y el raton

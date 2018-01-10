@@ -74,6 +74,10 @@ void Motor::set_text_vida(int vida){
 	_entidad->set_text_vida(vida);
 }
 
+void Motor::resetear_camara(){
+	_entidad->resetear_camara();
+}
+
 float Motor::getX(short id){
 	return _entidad->getX(id);
 }

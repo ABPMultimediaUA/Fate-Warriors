@@ -85,6 +85,11 @@ core::vector3df Camara::Camara_getDirection(){
 	return(_camaraDir);
 }
 
+void Camara::Camara_reset(short _i_direccion){
+	_direction = _i_direccion-90;
+	_zdirection = -20;
+}
+
 void Camara::Camara_Update() {
 	// Desactivamos el cursor del raton
 	_changeX = 0;
@@ -150,7 +155,7 @@ void Camara::Camara_Update() {
 		
 		float xf = playerPos.X - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * 20.0f; 
 		
-		float yf = playerPos.Y - sin(_zdirection * M_PI / 180.0f) * 20.0f; 
+		float yf = playerPos.Y - sin(_zdirection * irr::core::PI / 180.0f) * 20.0f; 
 
 		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * 20.0f; 
 

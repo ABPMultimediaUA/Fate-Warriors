@@ -307,7 +307,9 @@ void Entidad::saltar(unsigned short _i_id){		   //Space
 	}
 }
 
-
+void Entidad::resetear_camara(){
+	camara->Camara_reset(_interpolaciones[_id_jugador]->get_direccion_actual());
+}
 
 void Entidad::updateDynamicBody(btRigidBody *body) {
 	
@@ -334,7 +336,7 @@ void Entidad::render(){
     debugMat.Lighting = false;
     driver->setMaterial(debugMat);
     driver->setTransform(ETS_WORLD, IdentityMatrix);
-	
+
 	driver->draw2DImage( driver->getTexture( "media/barra_muerte.png" ), core::position2d<s32>( 50, 50 ), core::rect<s32>( 50, 50, 350, 80), 0 );
 	driver->draw2DImage( driver->getTexture( "media/barra_vida.png" ), core::position2d<s32>( 50, 50 ), core::rect<s32>( 50, 50, 50+_vida, 80), 0 );
 	
