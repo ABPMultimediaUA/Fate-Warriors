@@ -112,9 +112,10 @@ void Character::gestion_acciones(){
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
-
+        _motor->colorear_nodo(_id_motor,0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
+            _motor->colorear_nodo(_id_motor,255,255,255);
         }
     }
 }

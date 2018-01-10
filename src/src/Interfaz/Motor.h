@@ -29,6 +29,8 @@ public:
       float   getZ(short id);
       void    apagar(); //poh eso
 
+      void    colorear_nodo(unsigned short id, short r,short g, short b);
+
       void    asigna_input(Input* _i_input_jugador);
 
       float   getVelocidadY(short id);

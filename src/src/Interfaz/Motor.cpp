@@ -94,3 +94,6 @@ IrrlichtDevice* Motor::getIrrlichtDevice(){
 	return _entidad->getDevice();
 }
 
+void Motor::colorear_nodo(unsigned short id, short r, short g, short b){
+	_entidad->colorear_nodo(id,r,g,b);
+}

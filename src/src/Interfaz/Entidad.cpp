@@ -103,6 +103,7 @@ void Entidad::configuracion_irlitch(){
 
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
+	smgr->setAmbientLight(video::SColorf(1,1,1,1));
 	//guienv = device->getGUIEnvironment();
 	_GUI = new GUI(device);
 }
@@ -115,11 +116,14 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
 	if(cubeNode){
-		cubeNode->setMaterialFlag(EMF_LIGHTING, false);
+		cubeNode->setMaterialFlag(EMF_LIGHTING, true);
 	}
 	
 	cubeNode->setPosition(vector3df(x, y, z));
-
+	
+	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
+	//cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255);
+	
 	//smgr->getMeshManipulator()->setVertexColors(cubeNode->getMesh(), SColor(255,255,0,0));
 	
 
@@ -167,9 +171,13 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	_interpolaciones.push_back(new Interpolacion(posicion));
 
 	world->addRigidBody(cubeBody);
-	
+	nodes.push_back(cubeNode);
 	rigidbody.push_back(cubeBody);
 	return rigidbody.size()-1;
+}
+
+void Entidad::colorear_nodo(unsigned short id, short r,short g, short b){
+	nodes[id+1]->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
 }
 
 void Entidad::poner_camara_a_entidad(unsigned short id){

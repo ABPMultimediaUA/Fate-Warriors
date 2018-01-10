@@ -60,6 +60,7 @@ public:
     float getZ(short id);
     float getVelocidadY(short _i_id);
     void Dash(unsigned short _i_direccion, unsigned short id);
+    void    colorear_nodo(unsigned short id, short r,short g, short b);
 
 private:
       float desp_x, desp_z;
