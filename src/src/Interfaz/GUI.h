@@ -22,5 +22,7 @@ public:
 private:
       IGUIStaticText* _text;
       IGUIEnvironment* _guienv;
+      IGUISkin* _skin;
+      IGUIFont* _font;
 };
 

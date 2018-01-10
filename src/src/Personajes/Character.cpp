@@ -171,7 +171,6 @@ void Character::gestion_ataque(){
             }
         }
         std::cout << "ATACANDO" << std::endl;
-
         if(esta_bloqueado() == false){
             this->set_accion(Accion_post_atacar);
         }

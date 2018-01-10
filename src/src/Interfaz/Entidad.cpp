@@ -20,6 +20,9 @@ Entidad::Entidad(){
 	_velocidad = 1;
 	_debug = false;
 	_id_jugador = 0;
+	//esto no debe ir aqui y se cambia despues de la presentacion
+	_vida = 300;
+	_maxvida=300;
 }
 
 Entidad::~Entidad(){
@@ -96,7 +99,7 @@ void Entidad::configuracion_bullet(){
 void Entidad::configuracion_irlitch(){
 // Configuracion de Irrlicht
 	device =
-		createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
+		createDevice( video::EDT_OPENGL, dimension2d<u32>(1600, 900), 16,
 			false, false, false);
 
 	device->setWindowCaption(L"Feito Güarriorusuu");
@@ -104,8 +107,8 @@ void Entidad::configuracion_irlitch(){
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
 	smgr->setAmbientLight(video::SColorf(1,1,1,1));
-	//guienv = device->getGUIEnvironment();
 	_GUI = new GUI(device);
+	
 }
 
 short Entidad::crear_objeto(char* ruta,float x, float y, float z){
@@ -331,6 +334,11 @@ void Entidad::render(){
     debugMat.Lighting = false;
     driver->setMaterial(debugMat);
     driver->setTransform(ETS_WORLD, IdentityMatrix);
+	
+	driver->draw2DImage( driver->getTexture( "media/barra_muerte.png" ), core::position2d<s32>( 50, 50 ), core::rect<s32>( 50, 50, 350, 80), 0 );
+	driver->draw2DImage( driver->getTexture( "media/barra_vida.png" ), core::position2d<s32>( 50, 50 ), core::rect<s32>( 50, 50, 50+_vida, 80), 0 );
+	
+
     if(_debug){
 		world->debugDrawWorld();
     }
@@ -432,6 +440,7 @@ void Entidad::setPositionXZ(unsigned short id, float x, float z){
 
 void Entidad::set_text_vida(int _i_vida){
 	_GUI->set_text_vida(_i_vida);
+	_vida = (_i_vida*300)/500;
 }
 
 void Entidad::Dash(unsigned short _i_direccion, unsigned short id){

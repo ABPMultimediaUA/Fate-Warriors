@@ -4,7 +4,14 @@
 
 GUI::GUI(IrrlichtDevice *_i_device){
 	_guienv = _i_device->getGUIEnvironment();
-	_text = _guienv->addStaticText(L"", rect<s32>(35, 35, 200, 70), true, false, 0);
+	_skin = _guienv->getSkin();
+    _font = _guienv->getFont("media/fonthaettenschweiler.bmp");
+    
+	if (_font)
+        _skin->setFont(_font);
+
+    _skin->setFont(_guienv->getBuiltInFont(), EGDF_TOOLTIP);
+	_text = _guienv->addStaticText(L"", rect<s32>(35, 100, 100, 135), true, false, 0);
 }
 
 GUI::~GUI(){

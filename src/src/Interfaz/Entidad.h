@@ -63,6 +63,8 @@ public:
     void    colorear_nodo(unsigned short id, short r,short g, short b);
 
 private:
+      int _vida; //salud para la barra de salud
+      int _maxvida; //vida maxima (barra negra)
       float desp_x, desp_z;
       float mult;
       bool moving;
