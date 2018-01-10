@@ -96,7 +96,7 @@ void Camara::Camara_Update() {
 	_changeY = 0;
 	
 	// Esto se hace hasta que se pueda usar el de Input sin que se choque con los bordes de pantalla y se quede atascado el raton
-	if(_input->get_posiciona_camara()) {
+	if(_input->get_posiciona_camara() && _input->get_mover_camara()) {
 		// Obtener la posicion del cursor
 		cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
 
