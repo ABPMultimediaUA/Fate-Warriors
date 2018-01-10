@@ -216,6 +216,12 @@ void Entidad::update(double dt){
 			btVector3 pos = rigidbody[i]->getCenterOfMassPosition();
 			Vector3 vector(pos[0], pos[1], pos[2]);
 			_interpolaciones[i]->actualiza_posicion(vector);
+
+			if(!_interpolaciones[i]->get_cambio_direccion()) {
+				_interpolaciones[i]->actualiza_direccion(_interpolaciones[i]->get_direccion_actual());
+			}
+
+			_interpolaciones[i]->cambio_direccion(false);
 		}
 
 		// Update de la posicion de la camara (despues de actualizar la del jugador)
@@ -238,6 +244,8 @@ void Entidad::interpola_posiciones(float _i_interpolacion) {
 		ISceneNode *node = static_cast<ISceneNode *>(rigidbody[i]->getUserPointer());
 		
 		node->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+
+		node->setRotation(core::vector3df(0,_interpolaciones[i]->interpola_direccion(_i_interpolacion),0));
 
 		if(i == _id_jugador) {
 			camara->interpola_target(_posicion_interpolada);
@@ -326,18 +334,38 @@ void Entidad::render(){
 
 //Metodos set
 
-void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
-	angulo = camara->Camara_getAngle();
-	/*std::cout << "dir: "<<_i_direccion<<std::endl;
-	std::cout<< "angulo: "<<angulo<<std::endl;*/
-	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	personaje->setRotation(core::vector3df(0,_i_direccion+angulo,0));
-	
-	angulo = camara->Camara_getAngleRad();
-	//std::cout << "Grados personaje = " << _i_direccion + camara->Camara_getAngle() << "\n";
 
-	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
-    desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
+// Funcion de mover para el jugador
+void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
+	// Angulo de la camara
+	angulo = camara->Camara_getAngle();
+
+	/*
+	std::cout << "Direccion: " << _i_direccion << "\n";
+	std::cout << "Angulo: " << angulo << "\n";
+	*/
+
+	// Nodo del personaje
+	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+
+	// Direccion sumada de los movimientos
+	int16_t _direccion_buena = _i_direccion + angulo;
+
+	// Si la direccion es mayor de 360, se reduce al intervalo [0,360)
+	while(_direccion_buena >= 360) _direccion_buena -= 360;
+
+	// Actualiza la rotacion del personaje
+	_interpolaciones[id]->actualiza_direccion(_direccion_buena);
+
+	//std::cout << "Direccion " << _direccion_buena << "\n";
+
+	// Version antigua en caso de que no funcione bien
+	//angulo = camara->Camara_getAngleRad();
+	//desp_z += cos(_angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
+
+	// Agrega el desplazamiento del personaje
+	desp_z += cos(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
+    desp_x += sin(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
     moving = true;
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
@@ -348,24 +376,24 @@ void Entidad::setVelocidad(uint8_t id, float x, float y, float z){
 	desp_x = desp_z = 0;
 }
 
-void Entidad::asigna_input(Input* _i_input_jugador){
-	camara->asigna_input(_i_input_jugador);
-}
-
+// Funcion de mover para los NPC
 void Entidad::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
 	float _cos, _sen;
 	_cos = sin(_i_direccion*std::acos(-1)/180);
 	_sen = cos(_i_direccion*std::acos(-1)/180);
 
+	// Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
 	float _nueva_direccion = atan2(_sen, _cos) /std::acos(-1) * 180;
 
-	/*angulo = camara->Camara_getAngle();
-	std::cout << "dir: "<<_i_direccion<<std::endl;
-	std::cout<< "angulo: "<<angulo<<std::endl;*/
-	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	personaje->setRotation(core::vector3df(0,_nueva_direccion,0));
-	//std::cout << "Grados enemigo = " << _nueva_direccion << "\n";
+	//std::cout << "Direccion: " << _nueva_direccion << "\n";
 
+	// Nodo del personaje
+	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+
+	// Actualiza la rotacion del personaje
+	_interpolaciones[id]->actualiza_direccion(_nueva_direccion);
+
+	// Agrega el desplazamiento del personaje
 	desp_z += cos(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
     desp_x += sin(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
@@ -400,6 +428,7 @@ void Entidad::set_text_vida(int _i_vida){
 
 void Entidad::Dash(unsigned short _i_direccion, unsigned short id){
 	short potencia = 500;
+	angulo = camara->Camara_getAngleRad();
 	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
     desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
 	rigidbody[id]->applyCentralImpulse(btVector3(desp_x*potencia, 0.f, desp_z*potencia)); //se multiplica por 100 pa volaaaar

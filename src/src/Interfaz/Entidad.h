@@ -43,7 +43,7 @@ public:
     void update();
     void render();
 
-    void asigna_input(Input* _i_input_jugador);
+    inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
 
     void setVelocidad(uint8_t id, float x, float y, float z);
     void setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z);
