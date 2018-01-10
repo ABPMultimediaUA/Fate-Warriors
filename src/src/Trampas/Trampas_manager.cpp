@@ -6,33 +6,31 @@
 
 // CONSTRUCTOR
 
-// CONSTRUCTOR
- 
 Trampas_manager::Trampas_manager() {
-  _n_minas = 0;
+  _n_minas = 3;
   _minas   = new Minas*[_n_minas];
     float mult = 4.9212625;
  
-  /*for(unsigned short _cont=0; _cont<_n_minas; _cont++) {
+  for(unsigned short _cont=0; _cont<_n_minas; _cont++) {
     _minas[_cont] = new Minas(6,25,56,0);
-  }*/
+  }
   
-  /*_minas[0] = new Minas(6,15*mult, 0, 15*mult);
-  _minas[1] = new Minas(6,mult*25,mult*56,mult*56);
-  _minas[2] = new Minas(6,mult*96,mult*56,mult*0);*/
+  _minas[0] = new Minas(6,15*mult, 0, 15*mult);
+  _minas[1] = new Minas(6,mult*25,0,mult*56);
+  _minas[2] = new Minas(6,mult*96,0,mult*0);
  
   _n_charcos = 0;
   _charcos = new Charcos_electrificados*[_n_charcos];
  
   for(unsigned short _cont=0; _cont<_n_charcos; _cont++) {
-    _charcos[_cont] = new Charcos_electrificados(0,mult*19,mult*0,mult*0);
+    _charcos[_cont] = new Charcos_electrificados(0,mult*15,0,mult*15);
   }
  
-    _n_pinchos = 0;
+    _n_pinchos = 3;
   _pinchos = new Pinchos*[_n_pinchos];
  
   for(unsigned short _cont=0; _cont<_n_pinchos; _cont++) {
-    _pinchos[_cont] = new Pinchos(0,mult*19,mult*0,mult*0);
+    _pinchos[_cont] = new Pinchos(0,mult*15,0,mult*10);
   }            
 }
 

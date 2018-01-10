@@ -8,6 +8,8 @@
 #include "../Camara/Camara.h"
 #include "GUI.h"
 
+#include "EnumTiposBoundingBox.h"
+
 
 
 #ifdef _IRR_WINDOWS_
@@ -30,7 +32,7 @@ public:
     void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
-    short crear_objeto(char* ruta,float x, float y, float z);
+    short crear_objeto(BoundingBoxes tipo, char* ruta, float x, float y, float z);
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
@@ -62,6 +64,8 @@ public:
     void Dash(unsigned short _i_direccion, unsigned short id);
     void    colorear_nodo(unsigned short id, short r,short g, short b);
     void resetear_camara();
+    ISceneNode* crearModelado(char* ruta,float x, float y, float z);
+    void getDimensiones(ISceneNode* node, float &anchura, float &altura);
 
 private:
       int _vida; //salud para la barra de salud
@@ -95,6 +99,7 @@ private:
     	btDynamicsWorld *world;
     	btBulletWorldImporter* fileLoader;
       std::vector<btRigidBody*> rigidbody;
+      
       Time* _tiempo;
       uint8_t _numcubos;
 

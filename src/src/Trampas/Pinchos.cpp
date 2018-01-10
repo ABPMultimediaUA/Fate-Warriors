@@ -8,7 +8,7 @@ siguiente_tiempo_hace_danyo =_reloj->get_current();
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
     
-    _id=_id_motor = _motor->crearObjeto(cstr,_i_x, _i_y, _i_z);
+    _id=_id_motor = _motor->crearObjeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z);
 }
 
 Pinchos::~Pinchos(){}

@@ -3,6 +3,7 @@
 #include "Entidad.h"
 #include "../Input.h"
 
+
 Motor* Motor::_Motor=0;
 
 Motor* Motor::Motor_GetInstance(){
@@ -25,8 +26,8 @@ Motor::~Motor(){
 	_entidad = nullptr;
 } 
 
-uint8_t Motor::crearObjeto(char* rutaObj,float x, float y, float z){
-	return _entidad->crear_objeto(rutaObj,x, y, z);
+uint8_t Motor::crearObjeto(BoundingBoxes tipo, char* rutaObj,float x, float y, float z){
+	return _entidad->crear_objeto(tipo,rutaObj,x, y, z);
 }
 
 void Motor::poner_camara_a_entidad(unsigned short id){

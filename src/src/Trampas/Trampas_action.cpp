@@ -39,12 +39,12 @@ void Trampas_action::comprobar_trampas_mina(){
     if(comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 2)){
       if(!_minas[_cont]->get_estado()){
         _minas[_cont]->activar();
-      }
- 
-      else if(_minas[_cont]->explota()){
-        _player->danyar(_minas[_cont]->get_danyo());
-      }  
+      }     
     }
+
+     if(_minas[_cont]->explota() && comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 8)){
+        _player->danyar(_minas[_cont]->get_danyo());
+    } 
   }
   eliminar_trampas_mina();  
 }
@@ -62,7 +62,7 @@ Pinchos** Trampas_action::comprobar_trampas_pinchos(){
     Vector2 vec_player= _player->get_vector();
     
     if(_pinchos[_cont]->puede_quitar_vida()){
-      if(comprobar_colision_teniendo_tambien_radio(vec_player, 15, vec_pinchos, 12)){
+      if(comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_pinchos, 6)){
         _player->danyar(_pinchos[_cont]->get_danyo());
       }
     }
@@ -78,7 +78,7 @@ Charcos_electrificados** Trampas_action::comprobar_trampas_charco(){
     Vector2 vec_player= _player->get_vector();
  
     if(_pinchos[_cont]->puede_quitar_vida()){
-      if (comprobar_colision_teniendo_tambien_radio(vec_player, 15, vec_charcos, 12)){
+      if (comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_charcos, 12)){
         _player->danyar(_pinchos[_cont]->get_danyo());
       }
     }

@@ -1,6 +1,10 @@
 #include "irrlicht/irrlicht.h"
 #include <cstdint>
 
+#include "EnumTiposBoundingBox.h"
+
+
+
 class Entidad;
 class Input;
 
@@ -11,7 +15,7 @@ public:
       static Motor* Motor_GetInstance();
       ~Motor();
       
-      uint8_t crearObjeto(char* rutaObj,float x, float y, float z);
+      uint8_t crearObjeto(BoundingBoxes _i_tipo,char* rutaObj,float x, float y, float z);
       void    poner_camara_a_entidad(unsigned short _i_direccion);
 
       void    update(double _i_dt);

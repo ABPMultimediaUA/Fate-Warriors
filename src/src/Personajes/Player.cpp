@@ -27,7 +27,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
     
-    _id_motor = _motor->crearObjeto(cstr, _i_x,0,_i_z);
+    _id_motor = _motor->crearObjeto(E_BoundingCapsule, cstr, _i_x,0,_i_z);
     _motor->poner_camara_a_entidad(_id);
     
     std::cout<<"X player: "<<_motor->getX(_id_motor);

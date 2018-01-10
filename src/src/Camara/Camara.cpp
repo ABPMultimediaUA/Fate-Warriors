@@ -174,7 +174,7 @@ void Camara::Camara_Update() {
 							_Prota-> getPosition().Z + _ProtaBoundingCenter.Z)); 
 				
 		}
-
+		
 		else {	// Calculos de la camara para una Y negativa
 			this->Camara_setPosition(
 					core::vector3df(xf, 
@@ -185,7 +185,7 @@ void Camara::Camara_Update() {
 							(_ProtaBoundingCenter.Y * 0.5), 
 							_Prota-> getPosition().Z + _ProtaBoundingCenter.Z)); 
 		}
-
+		
 		
 		// Calculo de la direccion de la camara
 		_camaraDir = this->Camara_getTarget() - this->Camara_getPosition();

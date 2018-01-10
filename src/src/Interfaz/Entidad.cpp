@@ -111,11 +111,7 @@ void Entidad::configuracion_irlitch(){
 	
 }
 
-short Entidad::crear_objeto(char* ruta,float x, float y, float z){
-	// Creamos un cubo rojo
-	
-	//IMeshSceneNode *cubeNode = smgr->addCubeSceneNode(1);
-
+ISceneNode* Entidad::crearModelado(char* ruta,float x, float y, float z){
 	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
 	if(cubeNode){
@@ -125,41 +121,41 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	cubeNode->setPosition(vector3df(x, y, z));
 	
 	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
-	//cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255);
-	
-	//smgr->getMeshManipulator()->setVertexColors(cubeNode->getMesh(), SColor(255,255,0,0));
-	
+	nodes.push_back(cubeNode);
+	return cubeNode;
+}
 
+
+short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z){
+	ISceneNode *cubeNode=crearModelado(ruta,x,y,z);
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
-	cubeTransform.setOrigin(btVector3(x,y+50,z));
+	cubeTransform.setOrigin(btVector3(x,y,z));
 
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
 	float cubeMass = 70.0f;
 	
+	float altura,anchura;
+	btCollisionShape *cubeShape;
+	this->getDimensiones(cubeNode,anchura,altura);
+	switch(tipo){
+		case 0: 
+			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
 
+					break;
+		case 1:
+			cubeShape = new btBoxShape(btVector3(anchura*0.7,altura*0.5,anchura*0.7)); // new btSphereShape(0.5);
 
-	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
-	boundingbox=cubeNode->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	float altura = (edges[1].Y - edges[0].Y);
-	delete edges;
+					break;	
+		default:
+			cubeShape = new btBoxShape(btVector3(anchura*0.7,altura*0.5,anchura*0.7)); // new btSphereShape(0.5);
 
-
-	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	boundingbox=cubeNode->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	float anchura = (edges[2].Z - edges[0].Z);
-
-	delete edges;
-
-
-
-	btCollisionShape *cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
+					break;
+	}
+	//btCollisionShape *cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
@@ -174,9 +170,25 @@ short Entidad::crear_objeto(char* ruta,float x, float y, float z){
 	_interpolaciones.push_back(new Interpolacion(posicion));
 
 	world->addRigidBody(cubeBody);
-	nodes.push_back(cubeNode);
 	rigidbody.push_back(cubeBody);
 	return rigidbody.size()-1;
+}
+
+void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura){
+	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
+	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	altura = (edges[1].Y - edges[0].Y);
+	delete edges;
+
+
+	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	anchura = (edges[2].Z - edges[0].Z);
+
+	delete edges;
 }
 
 void Entidad::colorear_nodo(unsigned short id, short r,short g, short b){
