@@ -65,7 +65,7 @@ public:
     void    colorear_nodo(unsigned short id, short r,short g, short b);
     void resetear_camara();
     ISceneNode* crearModelado(char* ruta,float x, float y, float z);
-    void getDimensiones(ISceneNode* node, float &anchura, float &altura);
+    void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
 
 private:
       int _vida; //salud para la barra de salud

@@ -12,6 +12,7 @@ Puerta::Puerta(short _i_id, float _i_x, float _i_y, float _i_z, bool _i_abierta)
 
 void Puerta::set_abierta(bool _i_abierta){
 	_abierta = _i_abierta;
+    _motor->saltar(_id_motor);
 }
 
 bool Puerta::get_abierta(){

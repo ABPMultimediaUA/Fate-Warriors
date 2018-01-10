@@ -19,7 +19,7 @@ Trampas_manager::Trampas_manager() {
   _minas[1] = new Minas(6,mult*25,0,mult*56);
   _minas[2] = new Minas(6,mult*96,0,mult*0);
  
-  _n_charcos = 0;
+  _n_charcos = 1;
   _charcos = new Charcos_electrificados*[_n_charcos];
  
   for(unsigned short _cont=0; _cont<_n_charcos; _cont++) {

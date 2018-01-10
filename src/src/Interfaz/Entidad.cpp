@@ -138,20 +138,20 @@ short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, floa
 
 	float cubeMass = 70.0f;
 	
-	float altura,anchura;
+	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
-	this->getDimensiones(cubeNode,anchura,altura);
+	this->getDimensiones(cubeNode,anchura,altura,profundidad);
 	switch(tipo){
-		case 0: 
+		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
 
 					break;
-		case 1:
-			cubeShape = new btBoxShape(btVector3(anchura*0.7,altura*0.5,anchura*0.7)); // new btSphereShape(0.5);
+		case E_BoundingBox:
+			cubeShape = new btBoxShape(btVector3(profundidad*0.5,altura*0.5,anchura*0.5)); // new btSphereShape(0.5);
 
 					break;	
 		default:
-			cubeShape = new btBoxShape(btVector3(anchura*0.7,altura*0.5,anchura*0.7)); // new btSphereShape(0.5);
+			cubeShape = new btBoxShape(btVector3(profundidad*0.7,altura*0.5,anchura*0.7)); // new btSphereShape(0.5);
 
 					break;
 	}
@@ -174,7 +174,7 @@ short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, floa
 	return rigidbody.size()-1;
 }
 
-void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura){
+void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
 	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
 	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
@@ -187,6 +187,14 @@ void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura){
 	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
 	boundingbox.getEdges(edges);
 	anchura = (edges[2].Z - edges[0].Z);
+
+	delete edges;
+
+
+	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	profundidad = (edges[6].X - edges[2].X);
 
 	delete edges;
 }
