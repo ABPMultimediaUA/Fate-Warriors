@@ -17,6 +17,8 @@ Input::Input() {
 	_joystick_mover = new Vector2(0,0);
 	_joystick_camara = new Vector2(0,0);
 
+	_centrar_camara = false;
+
 	_mando = new uint8_t[N_Inputs];
 	_ejes = new sf::Joystick::Axis[N_Inputs];
 	actualiza_mando();
@@ -51,6 +53,8 @@ void Input::asignar_teclas_predefinidas() {
 	_teclas[Input_Ataque_Normal] = sf::Keyboard::Unknown;
 	_teclas[Input_Ataque_Fuerte] = sf::Keyboard::Unknown;
 
+	_teclas[Input_Centrar_Camara] = sf::Keyboard::Unknown;
+
 
 	// ----------------- Inputs del raton ---------------
 	_raton[Input_Arriba] = sf::Mouse::ButtonCount;
@@ -64,6 +68,8 @@ void Input::asignar_teclas_predefinidas() {
 
 	_raton[Input_Ataque_Normal] = sf::Mouse::Left;
 	_raton[Input_Ataque_Fuerte] = sf::Mouse::Right;
+
+	_raton[Input_Centrar_Camara] = sf::Mouse::Middle;
 
 
 	// ----------------- Inputs de la camara ---------------
@@ -87,7 +93,7 @@ void Input::asignar_teclas_mando() {
 	//_mando[Input_Usar_Arma] = 4;		// LB
 	_mando[Input_Interact] = 5;			// RB
 	//_mando[Input_Pausa] = 7;			// Start
-	//_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
+	_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
 
 	_ejes[Input_Derecha] = sf::Joystick::X;
 	_ejes[Input_Arriba] = sf::Joystick::Y;
@@ -205,7 +211,7 @@ void Input::recibir_inputs_mando() {
 
 	//_mando[Input_Usar_Arma] = 4;		// LB
 	//_mando[Input_Pausa] = 7;			// Start
-	_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
+	_centrar_camara = sf::Joystick::isButtonPressed(0, _mando[Input_Centrar_Camara]);
 }
 
 // Recibe los inputs del teclado y el raton
@@ -264,8 +270,16 @@ void Input::recibir_inputs_teclado_raton() {
 		_ataque_fuerte = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Fuerte]);
 
 
+
 	if(_camara_con_teclado)
 		recibir_inputs_camara();
+
+
+
+	if(_teclas[Input_Centrar_Camara] != sf::Keyboard::Unknown)
+		_centrar_camara = sf::Keyboard::isKeyPressed(_teclas[Input_Centrar_Camara]);
+	else
+		_centrar_camara = sf::Mouse::isButtonPressed(_raton[Input_Centrar_Camara]);
 }
 
 // Recibe y guarda los inputs de la camara
@@ -378,6 +392,10 @@ void Input::procesa_camara() {
 	if(_invertir_x && _vector_camara->_x != 0) _vector_camara->_x *= -1;
 	if(_invertir_y && _vector_camara->_y != 0) _vector_camara->_y *= -1;
 	
+	if(_centrar_camara) {
+		_mover_camara = false;
+	}
+
 	/*
 	if(_mover_camara) {
 		std::cout << "Angulo = " << _direccion_camara  << "\n";
@@ -495,6 +513,7 @@ void Input::reiniciar_inputs() {
     _ataque_fuerte = false;
 
     _mover_camara = false;
+    _centrar_camara = false;
 
 
 	actualiza_mando();

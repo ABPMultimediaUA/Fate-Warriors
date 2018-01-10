@@ -52,6 +52,7 @@ public:
 	bool get_interactuar();
 	bool get_dash();
 	bool get_atacar(bool& _normal, bool& _fuerte);
+	inline bool get_centrar_camara() { return _centrar_camara;}
 
  	bool get_mover_camara();
 	Vector2* get_vector_camara();
@@ -93,6 +94,7 @@ private:
 	bool _mover_camara;			// Indica si se mueve la camara o no
 	uint16_t _direccion_camara;	// Angulo de direccion de movimiento de la camara
 	Vector2* _vector_camara;	// Vector normalizado de direccion para el movimiento de la camara
+	bool _centrar_camara; 		// Indica si hay que centrar o no la camara
 
 
 	// Teclas de control

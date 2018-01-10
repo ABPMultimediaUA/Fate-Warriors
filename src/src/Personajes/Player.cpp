@@ -70,11 +70,14 @@ void Player::update(){
             interactuar_con_objeto();
             //this->bloquear_input(1000);
             //std::cout<< "Interactuando..."<< std::endl;
-            _motor->resetear_camara();
         }
         else{
            // std::cout<< "No puede INTERACTUAR "<< std::endl;
         }
+    }
+
+    if(_input->get_centrar_camara()) {
+            _motor->resetear_camara();
     }
 
 
