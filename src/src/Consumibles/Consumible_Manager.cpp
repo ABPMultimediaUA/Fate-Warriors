@@ -15,8 +15,8 @@ Consumible_Manager::Consumible_Manager() {
     _consumibles.push_back( new Consumible_Carne(5,mult * 19,mult * 0,mult * 15));
     _consumibles.push_back( new Consumible_Carne(5,mult * 19,mult * 50,mult * 15));
     _consumibles.push_back( new Consumible_Patata(5,mult * 19,mult * 50,mult * 15));
-    _consumibles.push_back( new Consumible_Patata(5,mult * 19,mult * 50,mult * 15));
     _consumibles.push_back( new Consumible_Patata(5,mult * 19,mult * 50,mult * 15));*/
+    _consumibles.push_back( new Consumible_Patata(5,mult * 19,mult * 0,mult * 15));
 }
 
 // DESTRUCTOR
