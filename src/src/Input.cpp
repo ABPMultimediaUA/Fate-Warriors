@@ -394,7 +394,6 @@ void Input::procesa_camara() {
 	
 	if(_centrar_camara) {
 		_mover_camara = false;
-		std::cout << "Hola\n";
 	}
 
 	/*
