@@ -327,6 +327,56 @@ void Entidad::saltar(unsigned short _i_id){		   //Space
 	}
 }
 
+void Entidad::saltar(unsigned short _i_id,int force){		   //Space
+
+	std::cout<<"entra" << std::endl;
+	std::cout<< rigidbody[_i_id]->getLinearVelocity()[1] << std::endl;
+		
+	if(std::abs (rigidbody[_i_id]->getLinearVelocity()[1])<0.01){
+		rigidbody[_i_id]->applyCentralImpulse( btVector3( 0.f, force, 0.f ) );
+		//exit(0);
+	}
+}
+
+void Entidad::abrir_puerta1(unsigned short _i_id){
+	
+	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
+	btTransform btt; 
+	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),7,btt.getOrigin().getZ())); // move body to the scene node new position
+
+	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
+	rigidbody[_i_id]->setCenterOfMassTransform(btt);
+
+
+	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[_i_id]->getUserPointer());
+	btVector3 pos = rigidbody[_i_id]->getCenterOfMassPosition();
+		
+	node->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+}
+
+void Entidad::abrir_puerta2(unsigned short _i_id){
+	
+	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
+	btTransform btt; 
+	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),15,btt.getOrigin().getZ())); // move body to the scene node new position
+
+	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
+	rigidbody[_i_id]->setCenterOfMassTransform(btt);
+
+
+	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[_i_id]->getUserPointer());
+	btVector3 pos = rigidbody[_i_id]->getCenterOfMassPosition();
+		
+	node->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+}
+
+void Entidad::abrir_puerta(unsigned short _i_id){
+	this->abrir_puerta1(_i_id);
+	this->abrir_puerta2(_i_id);
+}
+
 void Entidad::resetear_camara(){
 	camara->Camara_reset(_interpolaciones[_id_jugador]->get_direccion_actual());
 }

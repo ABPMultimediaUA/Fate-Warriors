@@ -50,6 +50,14 @@ void Motor::saltar(unsigned short _i_id){
 	_entidad->saltar(_i_id);
 }
 
+void Motor::saltar(unsigned short _i_id,int force){
+	_entidad->saltar(_i_id,force);
+}
+
+void Motor::abrir_puerta(unsigned short _i_id){
+	_entidad->abrir_puerta(_i_id);
+}
+
 void Motor::Dash(unsigned short _i_direccion, unsigned short id){
 	_entidad->Dash(_i_direccion,id);
 }

@@ -40,6 +40,10 @@ public:
 
     //void simulationUpdate();
     void saltar(unsigned short _i_id);
+    void saltar(unsigned short _i_id,int force);
+    void abrir_puerta(unsigned short _i_id);
+    void abrir_puerta1(unsigned short _i_id);
+    void abrir_puerta2(unsigned short _i_id);
     void update(double dt);
 
     void update();

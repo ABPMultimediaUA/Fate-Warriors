@@ -26,6 +26,8 @@ public:
       void    VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad);
       void    setPositionXZ(unsigned short id, float x, float z);
       void    saltar(unsigned short _i_id);
+      void    saltar(unsigned short _i_id,int force);
+      void    abrir_puerta(unsigned short _i_id);
       void    set_text_vida(int _vida);
       void    Dash(unsigned short _i_direccion, unsigned short id);
       float   getX(short id);
