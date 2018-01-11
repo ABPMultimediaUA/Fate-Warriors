@@ -16,6 +16,7 @@ public:
       ~Motor();
       
       uint8_t crearObjeto(BoundingBoxes _i_tipo,char* rutaObj,float x, float y, float z);
+      uint8_t crearObjetoPeso(BoundingBoxes _i_tipo,char* rutaObj,float x, float y, float z, float _i_peso);
       void    poner_camara_a_entidad(unsigned short _i_direccion);
 
       void    update(double _i_dt);

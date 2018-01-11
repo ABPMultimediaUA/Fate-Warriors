@@ -32,7 +32,7 @@ public:
     void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
-    short crear_objeto(BoundingBoxes tipo, char* ruta, float x, float y, float z);
+    short crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso);
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
