@@ -1,7 +1,7 @@
 6
  
 - 0 Final Huir   Atacar Vida_Actual       25
-- 1 Der   0      Andar  Distancia         2
+- 1 Der   0      Andar  Distancia         1.5
 - 2 Final Saltar Nada   Distancia         20
 - 3 Medio 1      2      Distancia         10
 

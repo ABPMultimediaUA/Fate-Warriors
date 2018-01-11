@@ -36,14 +36,16 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 	switch(_accion) {
 		case Andar:
-			unsigned short _direccion;
-			x=_i_npc->getX();
-			z=_i_npc->getZ();
-			_direccion = _path_manager->get_direccion_movimiento(x,z);
-			if(_direccion!=362){
-				_i_npc->move(_direccion);
-			}else{
-				_i_npc->setPositionXZ(x,z);
+			if(!_i_npc->esta_bloqueado()) {
+				unsigned short _direccion;
+				x=_i_npc->getX();
+				z=_i_npc->getZ();
+				_direccion = _path_manager->get_direccion_movimiento(x,z);
+				if(_direccion!=362){
+					_i_npc->move(_direccion);
+				}else{
+					_i_npc->setPositionXZ(x,z);
+				}
 			}
 
 			break;

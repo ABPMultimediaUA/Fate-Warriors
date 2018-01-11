@@ -310,10 +310,10 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 		// LECTURA DE VALOR DE CORTE
 		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
-		//std::cout << _i_iteracion << std::endl;
+		//std::cout << _i_iteracion.c_str() << std::endl;
 
 		// Almacenamiento y procesado del valor
-		_valor = std::atoi(_i_iteracion.c_str());
+		_valor = std::atof(_i_iteracion.c_str());
 
 		_nodos_decision[_i_id] = new Nodo_Decision_Distancia(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
