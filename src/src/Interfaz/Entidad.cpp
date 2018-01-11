@@ -98,9 +98,8 @@ void Entidad::configuracion_bullet(){
 
 void Entidad::configuracion_irlitch(){
 // Configuracion de Irrlicht
-	device =
-		createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
-			false, false, false);
+	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16, 
+    					  false, false, false); 
 
 	device->setWindowCaption(L"Feito Güarriorusuu");
 
@@ -518,7 +517,7 @@ void Entidad::set_text_vida(int _i_vida){
 }
 
 void Entidad::Dash(unsigned short _i_direccion, unsigned short id){
-	short potencia = 500;
+	short potencia = 1000;
 	angulo = camara->Camara_getAngleRad();
 	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
     desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
