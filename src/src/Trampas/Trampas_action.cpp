@@ -77,9 +77,9 @@ Charcos_electrificados** Trampas_action::comprobar_trampas_charco(){
     Vector2 vec_charcos= _charcos[_cont]->get_vector();
     Vector2 vec_player= _player->get_vector();
  
-    if(_pinchos[_cont]->puede_quitar_vida()){
+    if(_charcos[_cont]->puede_quitar_vida()){
       if (comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_charcos, 12)){
-        _player->danyar(_pinchos[_cont]->get_danyo());
+        _player->danyar(_charcos[_cont]->get_danyo());
       }
     }
   }
