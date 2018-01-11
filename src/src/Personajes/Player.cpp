@@ -27,14 +27,16 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
     
-    _id_motor = _motor->crearObjeto(E_BoundingCapsule, cstr, _i_x,0,_i_z);
+    _id_motor = _motor->crearObjeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z);
     _motor->poner_camara_a_entidad(_id);
     
-    std::cout<<"X player: "<<_motor->getX(_id_motor);
-    std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
+    //std::cout<<"X player: "<<_motor->getX(_id_motor);
+    //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
 
     _input = _i_input;
-        _motor->set_text_vida(_vida);
+    _motor->set_text_vida(_vida);
+
+    delete cstr;
 
 }
 
@@ -51,12 +53,11 @@ void Player::update(){
     // Esto hay que borrarlo
     Controles* controles = Controles::Instance();
 
-
     // Recoge si ha habido movimiento y la direccion de el mismo
     uint16_t _direccion;
 
     if(_input->get_mover(_direccion) && esta_bloqueado() == false) {
-        _motor->VelocidadDireccion(_id_motor,_direccion,_velocidad);
+        _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
     }
 
     if(_input->get_dash()){

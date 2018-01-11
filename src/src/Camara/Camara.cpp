@@ -21,7 +21,7 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 
 	_Prota = 0; 
 	_direction = 0; 
-	_zdirection = 0; 
+	_zdirection = -20;
 	_position = core::vector3df(0, 0, 0); 
 	_target = core::vector3df(1, 1, 1); 
 	_xf = 0; 
@@ -145,6 +145,11 @@ void Camara::Camara_Update() {
 	/*std::cout << "Direction  " << _direction << "\n";
 	std::cout << "Zdirection " << _zdirection << "\n";*/
 
+	update_position();
+}
+
+
+void Camara::update_position() {
 	// Antes de nada nos aseguramos de que el prota ha sido inicializado 
 	if (_Prota != nullptr) {
 		// Posicion estándar del jugador que usaremos para el seguimiento de la camara
@@ -208,8 +213,8 @@ void Camara::Camara_Update() {
         _angleRad = _angle * (M_PI/180);
 
 	}
-
 }
+
 
 float Camara::Camara_getAngle(){
 	return(_angle);
@@ -227,6 +232,14 @@ Camara::~Camara() {
 void Camara::asigna_input(Input* _i_input_jugador){
 	_input = _i_input_jugador;
 }
+
+void Camara::set_posicion_inicial(short _i_direccion) {
+	_direction = _i_direccion-90;
+	update_position();
+	Vector3* _posicion = _interpolacion->get_posicion_actual();
+	_interpolacion->actualiza_posicion(Vector3(_posicion->_x,_posicion->_y,_posicion->_z));
+}
+
 
 void Camara::interpola_posicion(float _i_interpolacion) {
 	if(!_hay_colision) {

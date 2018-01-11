@@ -79,15 +79,11 @@ void Game::crea_partida() {
 	
 	_consumibles_action = new Consumible_Action();	
 	_trampas_action 	= new Trampas_action();	
-	
-
-
-
 }
 
 void Game::fin_partida() {
 
-	//delete _datos;   ->da core dumped amigos
+	delete _datos;
 	delete _decision_manager;
 	delete _action_manager;
 	

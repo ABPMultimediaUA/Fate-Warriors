@@ -19,6 +19,8 @@ public:
 	void actualiza_direccion(int16_t _i_direccion_actual); // Hace la direccion anterior la antigua direccion actual y pone la nueva actual
 	int16_t interpola_direccion(float _i_interpolacion); 	// Devuelve la direccion interpolada para un % de render
 
+	inline Vector3* get_posicion_actual() {	return _posicion_actual;}
+
 	inline void cambio_direccion(bool _i_cambio) { _cambio_direccion = _i_cambio;}
 
 	inline int16_t get_direccion_actual() { return _direccion_actual; }

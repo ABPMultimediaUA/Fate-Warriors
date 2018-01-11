@@ -13,9 +13,7 @@
 
 Datos_Partida::Datos_Partida(Input* _i_input) {
 	float mult = 4.9212625;
-	_jugador = new Player( 0, 15*mult, 50, 15*mult, _i_input);
-	//Llave* _llave = new Llave(0,10*mult,1*mult,10*mult,1);
-	//Puerta* _puerta = new Puerta(1,18*mult,1*mult,18*mult,false);
+	_jugador = new Player( 0, 12.5*mult, 4.1, 9.5*mult, _i_input);
 	_npc_manager = new NPC_Manager();
 	_consumibles_manager = new Consumible_Manager();
 	_trampas_manager	 = new Trampas_manager();
@@ -61,7 +59,7 @@ Datos_Partida::~Datos_Partida() {
 	delete _mapa8;
 	delete _mapa9;*/
 	delete _npc_manager;
-  delete _interactuable_manager;
+  	delete _interactuable_manager;
 }
 
 Player* Datos_Partida::get_player(){

@@ -8,6 +8,8 @@ Charcos_electrificados::Charcos_electrificados(short _id, float _i_x, float _i_y
     strcpy(cstr, str.c_str());
     
     _id=_id_motor = _motor->crearObjetoPeso(E_BoundingBox,cstr,_i_x, _i_y, _i_z, 9999999);
+    
+    delete cstr;
 }
 
 Charcos_electrificados::~Charcos_electrificados(){

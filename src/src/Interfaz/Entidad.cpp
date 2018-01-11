@@ -26,9 +26,7 @@ Entidad::Entidad(){
 }
 
 Entidad::~Entidad(){
-
 	//Bullet
-	std::cout << "cuidado aqui 0" << std::endl;
 
 	for(short a=0; a<rigidbody.size(); a++){
 		delete rigidbody[a];
@@ -65,7 +63,6 @@ Entidad::~Entidad(){
 	collisionDispatcher = nullptr;
 	constraintSolver = nullptr;
 	fileLoader = nullptr;
-
 }
 
 
@@ -215,6 +212,8 @@ void Entidad::poner_camara_a_entidad(unsigned short id){
 	ISceneNode *cubeNode = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
 	camara->Camara_setProta(cubeNode);
 	_id_jugador = id;
+
+	camara->set_posicion_inicial(_interpolaciones[_id_jugador]->get_direccion_actual());
 }
 
 btCollisionWorld::ClosestRayResultCallback Entidad::trazaRayo(btVector3 start, btVector3 end){
