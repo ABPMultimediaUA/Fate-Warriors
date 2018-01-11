@@ -7,3 +7,7 @@ Enemy_Normal::Enemy_Normal(short _i_id, float _i_x, float _i_y, float _i_z, shor
 
 Enemy_Normal::~Enemy_Normal() {
 }
+
+void Enemy_Normal::danyar(short _danyo){
+    danyar_comun(_danyo);
+}

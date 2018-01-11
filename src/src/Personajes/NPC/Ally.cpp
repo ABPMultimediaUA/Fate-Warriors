@@ -7,3 +7,7 @@ Ally::Ally(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short
 
 Ally::~Ally() {
 }
+
+void Ally::danyar(short _danyo){
+    danyar_comun(_danyo);
+}

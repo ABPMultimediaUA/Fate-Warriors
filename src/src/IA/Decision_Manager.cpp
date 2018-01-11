@@ -78,7 +78,7 @@ void Decision_Manager::toma_decisiones(){
 
 		// Se actualizan los datos del blackboard
 		_blackboards[_cont]->actualiza_datos();
-
+		_enemigos[_cont]->gestion_acciones();
 		// Recoge el Level of Detail actual
 		int8_t _lod_npc = _blackboards[_cont]->get_level_of_detail();
 		//std::cout << "LoD del NPC " << _cont << " es " << (int)_lod_npc << "\n";

@@ -10,6 +10,8 @@ Minas::Minas(short _id, float _i_x, float _i_y,float _i_z) : Trampas(_id, _i_x, 
     
     _id=_id_motor = _motor->crearObjeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z);
     desactivar();
+    
+    delete cstr;
 }
 
 Minas::~Minas(){

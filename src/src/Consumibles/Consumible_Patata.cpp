@@ -11,6 +11,8 @@ Consumible_Patata::Consumible_Patata(short _id, float _i_x, float _i_y, float _i
     strcpy(cstr, str.c_str());
     
     _id=_id_motor = _motor->crearObjeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z);
+    
+    delete cstr;
 }
 
 Consumible_Patata::~Consumible_Patata(){

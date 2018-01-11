@@ -24,7 +24,10 @@ public:
 	float Camara_getAngle();
 	float Camara_getAngleRad();
 	void Camara_Update(); //updatea la Camara usando el device
+	void update_position();
 	void asigna_input(Input* _i_input_jugador);
+
+	void set_posicion_inicial(short _i_direccion); 	// Pone la posicion inicial de la camara
 
 	void interpola_posicion(float _i_interpolacion);
 	void interpola_target(Vector3 _i_posicion_interpolada);

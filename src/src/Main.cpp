@@ -1,28 +1,47 @@
 #include "Game.h"
 #include "Interfaz/Motor.h"
-#include "Personajes/Player.h"
 #include "Tiempo/Time.h"
+
 #include <iostream>
-//#include <btBulletDynamicsCommon.h>
 
 const float t_min_IA=(1000/15);
 
+
+// Función que da el nº de fps en el ultimo segundo
+void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uint32_t& _iteraciones) {
+	_frames++;
+	_tiempo_por_frame = _time->get_current() - _iteraciones*1000;
+	if(_tiempo_por_frame>=1000) {
+		_tiempo_por_frame-=1000;
+
+		std::clog << (int)_frames << " fps\n";
+
+		_frames=0;
+		_iteraciones++;
+	}
+}
+
+
+// Main del juego
 int main(){
 
 	Game* _juego = Game::game_instancia();
 	_juego->crea_partida();
 	Time* time=Time::Instance();
-	//double _tiempo_desde_ultimo_update=time->get_current();
+
 	double _h_ultimo_update=time->get_current();
 	double _interpolacion;
-	//_juego->crea_partida();
 	Time* _time = Time::Instance();
 
-	//Interfaz* _interface = Interfaz::Interfaz_getInstance(); //moose ninja || 1280 width || 720 height
     Motor* _motor = Motor::Motor_GetInstance();
-	//_time->updateAntes();
+
+    //uint8_t _frames = 0;
+    //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
+
 	while(_motor->getIrrlichtDevice()->run()){
-		//evento para cerrar la ventana
+		//Evento para cerrar la ventana
+
+		// Recoge inputs
 		_juego->recibir_inputs();
 
 		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj
@@ -41,6 +60,9 @@ int main(){
 		//Render
 		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);
 		_juego->render(_interpolacion);
+
+		//_imprime_fps(_time, _frames, _tiempo_por_frame, _iteraciones);
+
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();
 	}
@@ -52,5 +74,4 @@ int main(){
 	delete _juego;
 
 	return 0;
-
 }

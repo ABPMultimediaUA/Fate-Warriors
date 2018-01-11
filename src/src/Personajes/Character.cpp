@@ -45,13 +45,14 @@ void Character::modificar_vida_en(short _i_vida){
     }
 }
 
-void Character::danyar(short _danyo){
+void Character::danyar_comun(short _danyo){
     _vida = _vida - _danyo;
 
     if(_accion == Accion_pre_atacar){
-        set_accion(Recibir_danyo);
         std::cout << "Ataque cortado" << std::endl;
     }
+
+    set_accion(Recibir_danyo);
 
     if(_vida <= 0){
         morir();
@@ -107,6 +108,18 @@ void Character::gestion_acciones(){
     gestion_dash();
     gestion_interactuar();
     gestion_saltar();
+    gestion_recibir_danyado();
+}
+
+void Character::gestion_recibir_danyado(){
+    if(get_accion() == Recibir_danyo){
+        std::cout << "SIENDO DANYADO" << std::endl;
+        _motor->colorear_nodo(_id_motor,255,0,0);
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+            _motor->colorear_nodo(_id_motor,255,255,255);
+        }
+    }
 }
 
 void Character::gestion_dash(){
@@ -162,7 +175,7 @@ void Character::gestion_ataque(){
                 comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
             {
                 if(this->get_tipo_ataque() == Ataque_Normal){
-                _npcs[_cont]->danyar(_danyo_ataque_normal);
+                    _npcs[_cont]->danyar(_danyo_ataque_normal);
                 }
                 else if(this->get_tipo_ataque()  == Ataque_Fuerte){
                     _npcs[_cont]->danyar(_danyo_ataque_fuerte);
@@ -209,7 +222,7 @@ void Character::esquivar(uint16_t _direccion){
 
 void Character::saltar(){
     if(esta_bloqueado() == false){
-        set_accion(Saltar);
+        //set_accion(Saltar);
         _motor->saltar(_id_motor);
     }
 }

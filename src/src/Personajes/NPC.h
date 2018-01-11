@@ -17,6 +17,8 @@ public:
 	void move(unsigned long _i_direccion);
 	void stop();
 
+	void danyar(short _danyo) override;
+
 	void set_blackboard(Blackboard* _i_blackboard);
 	Blackboard* get_blackboard();
 	inline enum Enum_Tipo_Enemigo* get_ref_Enum_Tipo_Enemigo(){

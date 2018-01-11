@@ -23,10 +23,10 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     strcpy(cstr, str.c_str());
     _id_motor = _motor->crearObjeto(E_BoundingCapsule,cstr,_i_x,_i_y,_i_z);
 
+    delete cstr;
 }
 
 NPC::~NPC() {
-    delete _motor;
 }
 
 void NPC::move(unsigned long _i_direccion) {
@@ -57,6 +57,10 @@ void NPC::update() {
 
 void NPC::render() {
 
+}
+
+void NPC::danyar(short _danyo){
+    danyar_comun(_danyo);
 }
 
 void NPC::set_blackboard(Blackboard* _i_blackboard) {
