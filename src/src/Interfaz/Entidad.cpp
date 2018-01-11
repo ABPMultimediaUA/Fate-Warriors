@@ -99,8 +99,8 @@ void Entidad::configuracion_bullet(){
 void Entidad::configuracion_irlitch(){
 // Configuracion de Irrlicht
 	device =
-		createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
-			false, false, false);
+		createDevice( video::EDT_OPENGL, dimension2d<u32>(1366, 768), 16,
+			true, false, true);
 
 	device->setWindowCaption(L"Feito Güarriorusuu");
 
