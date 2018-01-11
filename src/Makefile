@@ -8,8 +8,9 @@ SOURCES := $(wildcard $(SDIR)/*.cpp)
 DELOBJ:= $(wildcard $(ODIR)/*)
 OBJECTS := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SOURCES))
 LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader 
-INCLUDE := -I. -I/usr/include/bullet
-CC      := g++ -g
+INCLUDE := -I. -I/usr/include/bullet. -Ibullet
+CC      := g++
+CCFLAGS := -g
 OBJS	:= $(patsubst %,$(ODIR)/%,$(OBJECTS))
 RM		:= rm -f
 MKDIR 	:= mkdir
@@ -24,7 +25,7 @@ TARGET	:= ejecutable
 
 define COMPILAR
 $(1): $(2)
-	$(CC) -o $(1) -c $(2) $(INCLUDE)
+	$(CC) -o $(1) -c $(2) $(INCLUDE) $(CCFLAGS)
 
 endef
 
@@ -41,11 +42,19 @@ endef
 
 .PHONY: all
 
-all: $(ODIR) $(TARGET)
 
+all: $(ODIR) $(TARGET) $(CCFLAGS)
+	chmod +x ejecutable
 
+.PHONY: release
+release: opt all
+
+opt:
+	$(eval CCFLAGS:=-O2)
+	$(info $(CCFLAGS))
+	
 $(TARGET): $(OBJFILES)
-	$(CC) -o $@ $^ $(INCLUDE) $(LIBS)
+	$(CC) -o $@ $^ $(INCLUDE) $(LIBS) $(CCFLAGS)
 
 ## CREATING SUBDIRS OF THE OBJDIR
 #dir:
