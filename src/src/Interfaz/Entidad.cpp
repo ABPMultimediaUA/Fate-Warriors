@@ -126,7 +126,7 @@ ISceneNode* Entidad::crearModelado(char* ruta,float x, float y, float z){
 }
 
 
-short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z){
+short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso){
 	ISceneNode *cubeNode=crearModelado(ruta,x,y,z);
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
@@ -136,7 +136,7 @@ short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, floa
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
-	float cubeMass = 70.0f;
+	float cubeMass = _i_peso;
 	
 	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
@@ -173,6 +173,8 @@ short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, floa
 	rigidbody.push_back(cubeBody);
 	return rigidbody.size()-1;
 }
+
+
 
 void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
@@ -343,7 +345,7 @@ void Entidad::abrir_puerta1(unsigned short _i_id){
 	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
 	btTransform btt; 
 	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),7,btt.getOrigin().getZ())); // move body to the scene node new position
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),10,btt.getOrigin().getZ())); // move body to the scene node new position
 
 	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
 	rigidbody[_i_id]->setCenterOfMassTransform(btt);
@@ -360,7 +362,7 @@ void Entidad::abrir_puerta2(unsigned short _i_id){
 	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
 	btTransform btt; 
 	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),15,btt.getOrigin().getZ())); // move body to the scene node new position
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),20,btt.getOrigin().getZ())); // move body to the scene node new position
 
 	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
 	rigidbody[_i_id]->setCenterOfMassTransform(btt);

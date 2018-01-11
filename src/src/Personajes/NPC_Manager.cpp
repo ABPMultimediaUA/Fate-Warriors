@@ -10,18 +10,15 @@
 #include <iostream>
 
 NPC_Manager::NPC_Manager() {
-	_n_enemigos = 0;
-	_n_aliados = 1;
+	_n_enemigos = 4;
+	_n_aliados = 0;
 
 
 	_npc = new NPC*[_n_enemigos];
-	//_npc[0] = new Enemy_Normal(0,18*metro,0,18*metro,50,15, 5, 10);
-	//_npc[1] = new Enemy_Normal(0,6*metro,0,6*metro,50,15, 5, 10);
-	//_npc[2] = new Ally(0,8*metro,0,13*metro,50,15, 5, 10);
-	//_npc[3] = new Ally(0,13*metro,0,8*metro,50,15, 5, 10);
-
-	/*_aliados = new Ally*[_n_aliados];
-	_aliados[0] = new Ally(0,10*metro,0,10*metro,50,15, 5, 10);*/
+	_npc[0] = new Enemy_Normal(0, 34*metro, 0, 34*metro, 50, 15, 5, 10);
+	_npc[1] = new Enemy_Normal(0, 32*metro, 0, 29*metro, 50, 15, 5, 10);
+	_npc[2] = new Enemy_Normal(0, 34*metro, 0, 24*metro, 50, 15, 5, 10);
+	_npc[3] = new Ally(0, 13*metro, 0, 8*metro, 50, 15, 5, 10);
 }
 
 NPC_Manager::~NPC_Manager() {

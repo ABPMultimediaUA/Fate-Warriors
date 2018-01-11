@@ -29,7 +29,7 @@ Trampas_manager::Trampas_manager() {
   }*/
 
 
-  _n_pinchos = 0;
+  _n_pinchos = 1;
   _pinchos = new Pinchos*[_n_pinchos];
   _pinchos[0] = new Pinchos(0,5*mult, 0, 60*mult);
  
