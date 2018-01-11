@@ -28,13 +28,13 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
 	std::cout << "N nodos " << _n_nodos << "\n";
-	_arboles_decision[0] = _nodos_decision[2];
+	_arboles_decision[0] = _nodos_decision[3];
 	_arboles_decision[1] = _nodos_decision[_n_nodos-1];
 	_arboles_decision[2] = _nodos_decision[_n_nodos-1];
 	_arboles_decision[3] = _nodos_decision[_n_nodos-1];
 	_arboles_decision[4] = _nodos_decision[_n_nodos-1];
 	_arboles_decision[5] = _nodos_decision[_n_nodos-1];
-	_arboles_decision[6] = _nodos_decision[_n_nodos-1];
+	_arboles_decision[6] = _nodos_decision[5];
 
 }
 
@@ -68,52 +68,6 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 
 
-
-//-------------------------------------- FUNCIONES PARA ENUM DE ACCION -------------------------//
-
-	enum Enum_Acciones Arbol_Decision_Manager::get_nada(){
-		return Nada;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_decidir(){
-		return Decidir;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_andar(){
-		return Andar;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_atacar(){
-		return Atacar;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_coger_arma(){
-		return Coger_Arma;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_usar_arma(){
-		return Usar_Arma;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_saltar(){
-		return Saltar;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_protegerse(){
-		return Protegerse;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_accionar(){
-		return Accionar;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_recibir_danyo(){
-		return Recibir_danyo;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_estar_derribado(){
-		return Estar_derribado;
-	}
-	enum Enum_Acciones Arbol_Decision_Manager::get_error(){
-		return Error;
-	}
-
-//------------------------------------ FIN FUNCIONES PARA ENUM DE ACCION -----------------------//
-
-
-
-
-
 //-------------------------------------- MAPEADOS PARA ENUM DE ACCION -------------------------//
 
 	// Funciones para guardar los datos
@@ -130,10 +84,10 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 			{"Coger_Arma", &Arbol_Decision_Manager::get_coger_arma},
 			{"Usar_Arma", &Arbol_Decision_Manager::get_usar_arma},
 			{"Saltar", &Arbol_Decision_Manager::get_saltar},
-			{"Protegerse", &Arbol_Decision_Manager::get_protegerse},
 			{"Accionar", &Arbol_Decision_Manager::get_accionar},
 			{"Recibir_danyo", &Arbol_Decision_Manager::get_recibir_danyo},
 			{"Estar_derribado", &Arbol_Decision_Manager::get_estar_derribado},
+			{"Huir",  &Arbol_Decision_Manager::get_huir},
 			{0, &Arbol_Decision_Manager::get_error}
 	};
 
@@ -145,6 +99,7 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 // ------------------------------------- FUNCIONES DE TIPO NODOS -----------------------------//
 
+	// Nodo con Nodos de Accion como nodos hijos izquierdo y derecho
 	void Arbol_Decision_Manager::crear_nodo_final(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
 		enum Enum_Acciones _accion_i_izq, _accion_i_der;
 		MapeadoAccion *_next_function;
@@ -182,15 +137,16 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 		// CONTROL DE ERRORES
 		if(_i_izq == nullptr || _i_der == nullptr) {
-			std::cout << "\n\nError buscar los nodos finales del nodo con id = " << (int)_i_id << "\n";
-			if(_i_izq == nullptr) std::cout << "\nHubo un error con el nodo de accion izquierdo\n";
-			if(_i_der == nullptr) std::cout << "\nHubo un error con el nodo de accion derecho\n";
+			std::cerr << "\n\nError buscar los nodos finales del nodo con id = " << (int)_i_id << "\n";
+			if(_i_izq == nullptr) std::cerr << "\nHubo un error con el nodo de accion izquierdo\n";
+			if(_i_der == nullptr) std::cerr << "\nHubo un error con el nodo de accion derecho\n";
 
-			std::cout << std::endl;
+			std::cerr << std::endl;
 			exit(0);
 		}
 	}
 
+	// Nodo de Decision sin Nodos de Accion como hijos
 	void Arbol_Decision_Manager::crear_nodo_medio(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
 		uint8_t _id_i_izq, _id_i_der;
 
@@ -216,19 +172,105 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 		// CONTROL DE ERRORES
 		if(_i_izq == nullptr || _i_der == nullptr) {
-			std::cout << "\n\nError buscar los nodos medios del nodo con id = " << (int)_i_id << "\n";
-			if(_i_izq == nullptr) std::cout << "\nHubo un error con el nodo izquierdo, que tiene de id = " << (int)_id_i_izq <<"\n";
-			if(_i_der == nullptr) std::cout << "\nHubo un error con el nodo derecho, que tiene de id = " << (int)_id_i_der <<"\n";
+			std::cerr << "\n\nError buscar los nodos medios del nodo con id = " << (int)_i_id << "\n";
+			if(_i_izq == nullptr) std::cerr << "\nHubo un error con el nodo izquierdo, que tiene de id = " << (int)_id_i_izq <<"\n";
+			if(_i_der == nullptr) std::cerr << "\nHubo un error con el nodo derecho, que tiene de id = " << (int)_id_i_der <<"\n";
 
-			std::cout << std::endl;
+			std::cerr << std::endl;
+			exit(0);
+		}
+	}
+
+	// Nodo de Decision con un Nodo de Accion como hijo izquierdo
+	void Arbol_Decision_Manager::crear_nodo_izquierda(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
+		enum Enum_Acciones _accion_i_izq;
+		uint8_t _id_i_der;
+		MapeadoAccion *_next_function;
+
+		// LECTURA DE NODO IZQUIERDO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo izuquierdo
+
+		// Get accion
+		_next_function = mapping_enum_acciones;
+		while(_next_function->_nombre_objeto){
+			if(_i_iteracion == _next_function->_nombre_objeto){
+				_accion_i_izq = (this->*_next_function->pmet)();
+			}
+
+			++_next_function;
+		}
+		
+
+		// LECTURA DE NODO DERECHO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo derecho
+
+		// Get accion
+		_id_i_der = std::atoi(_i_iteracion.c_str());
+
+
+		// OBTENCION DE LAS ACCIONES
+		_i_izq = _acciones[_accion_i_izq];
+		if(_id_i_der < _n_nodos)
+			_i_der = _nodos_decision[_id_i_der];
+
+		// CONTROL DE ERRORES
+		if(_i_izq == nullptr || _i_der == nullptr) {
+			std::cerr << "\n\nError buscar los nodos finales del nodo con id = " << (int)_i_id << "\n";
+			if(_i_izq == nullptr) std::cerr << "\nHubo un error con el nodo de accion izquierdo\n";
+			if(_i_der == nullptr) std::cerr << "\nHubo un error con el nodo derecho, que tiene de id = " << (int)_id_i_der <<"\n";
+
+			std::cerr << std::endl;
+			exit(0);
+		}
+	}
+
+	// Nodo de Decision con un Nodo de Accion como hijo derecho
+	void Arbol_Decision_Manager::crear_nodo_derecha(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
+		enum Enum_Acciones _accion_i_der;
+		uint8_t _id_i_izq;
+		MapeadoAccion *_next_function;
+
+		// LECTURA DE NODO IZQUIERDO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo izuquierdo
+
+		// Get accion
+		_id_i_izq = std::atoi(_i_iteracion.c_str());
+		
+
+		// LECTURA DE NODO DERECHO
+		_i_arbol_txt >> _i_iteracion;			// Lectura de la accion del nodo derecho
+
+		// Get accion
+		_next_function = mapping_enum_acciones;
+		while(_next_function->_nombre_objeto){
+			if(_i_iteracion == _next_function->_nombre_objeto){
+				_accion_i_der = (this->*_next_function->pmet)();
+			}
+
+			++_next_function;
+		}
+
+
+		// OBTENCION DE LAS ACCIONES (con control)
+		if(_id_i_izq < _n_nodos)
+			_i_izq = _nodos_decision[_id_i_izq];
+		_i_der = _acciones[_accion_i_der];
+
+		// CONTROL DE ERRORES
+		if(_i_izq == nullptr || _i_der == nullptr) {
+			std::cerr << "\n\nError buscar los nodos medios del nodo con id = " << (int)_i_id << "\n";
+			if(_i_izq == nullptr) std::cerr << "\nHubo un error con el nodo izquierdo, que tiene de id = " << (int)_id_i_izq <<"\n";
+			if(_i_der == nullptr) std::cerr << "\nHubo un error con el nodo de accion derecho\n";
+
+			std::cerr << std::endl;
 			exit(0);
 		}
 	}
 
 	void Arbol_Decision_Manager::crear_nodo_error(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id) {
 		// CONTROL DE ERRORES
-		std::cout << "\n\nError al definir la situacion del nodo con id = " << (int)_i_id << "\n";
-		std::cout << std::endl;
+		std::cerr << "\n\nError al definir la situacion del nodo con id = " << (int)_i_id << "\n";
+		std::cerr << std::endl;
 		exit(0);
 	}
 
@@ -249,6 +291,8 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 	MapeadoNodo mapping_tipo_nodo[] = {	// Definicion de los parametros
 			{"Final", &Arbol_Decision_Manager::crear_nodo_final},
 			{"Medio", &Arbol_Decision_Manager::crear_nodo_medio},
+			{"Izq", &Arbol_Decision_Manager::crear_nodo_izquierda},
+			{"Der", &Arbol_Decision_Manager::crear_nodo_derecha},
 			{0, &Arbol_Decision_Manager::crear_nodo_error}
 	};
 

@@ -6,6 +6,7 @@
 #include "IA/Path_Manager.h"
 
 #include "Personajes/NPC.h"
+#include "Personajes/NPC/Ally.h"
 #include "Personajes/Player.h"
 #include "Personajes/NPC_Manager.h"
 #include "Game.h"
@@ -48,6 +49,14 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 			break;
 
 		case Atacar:
+			if(dynamic_cast<Ally*>(_i_npc) == NULL) {
+				//std::cout << "No es un Aliado\n";
+				// Atacar al jugador/enemigo
+			}	
+			else {
+				//std::cout << "Es un Aliado\n";
+				// Atacar al enemigo
+			}
 			//_i_npc->stop();
 		//	std::cout << "El enemigo " << _n_enemigo << " ataca" << std::endl;
 			//ATACAR
@@ -60,6 +69,9 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 		case Nada:
 			//_i_npc->stop();
 		//	std::cout << "El enemigo " << _n_enemigo << " hace nada" << std::endl;
+			break;
+		case Huir:
+			//std::cout << "HUYO\n";
 			break;
 		default:
 			//_i_npc->stop();

@@ -19,6 +19,8 @@ public:
 
 	void crear_nodo_final(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id);
 	void crear_nodo_medio(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id);
+	void crear_nodo_izquierda(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id);
+	void crear_nodo_derecha(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id);
 	void crear_nodo_error(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision*& _i_izq, Nodo_Decision*& _i_der, uint8_t _i_id);
 
 	void crear_nodo_distancia(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id);
@@ -28,18 +30,18 @@ public:
 
 
 	
-	enum Enum_Acciones get_nada();
-	enum Enum_Acciones get_decidir();
-	enum Enum_Acciones get_andar();
-	enum Enum_Acciones get_atacar();
-	enum Enum_Acciones get_coger_arma();
-	enum Enum_Acciones get_usar_arma();
-	enum Enum_Acciones get_saltar();
-	enum Enum_Acciones get_protegerse();
-	enum Enum_Acciones get_accionar();
-	enum Enum_Acciones get_recibir_danyo();
-	enum Enum_Acciones get_estar_derribado();
-	enum Enum_Acciones get_error();
+	inline enum Enum_Acciones get_nada() { return Nada;}
+	inline enum Enum_Acciones get_decidir() { return Decidir;}
+	inline enum Enum_Acciones get_andar() { return Andar;}
+	inline enum Enum_Acciones get_atacar() { return Atacar;}
+	inline enum Enum_Acciones get_coger_arma() { return Coger_Arma;}
+	inline enum Enum_Acciones get_usar_arma() { return Usar_Arma;}
+	inline enum Enum_Acciones get_saltar() { return Saltar;}
+	inline enum Enum_Acciones get_accionar() { return Accionar;}
+	inline enum Enum_Acciones get_recibir_danyo() { return Recibir_danyo;}
+	inline enum Enum_Acciones get_estar_derribado() { return Estar_derribado;}
+	inline enum Enum_Acciones get_huir() { return Huir;}
+	inline enum Enum_Acciones get_error() { return Error;}
 
 	void lee_fichero_y_crea_arbol(const std::string &_i_fichero);
 

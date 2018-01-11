@@ -22,6 +22,8 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _tiempo = Time::Instance();
     _accion = Nada;
     _tipo_ataque = Ataque_Ninguno;
+    _tiempo_inicio_bloqueado = 0;
+    _duracion_bloqueo_actual = 0;
 }
 
 Character::~Character() {
