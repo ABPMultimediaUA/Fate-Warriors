@@ -7,6 +7,8 @@ class Enemy_Normal : public NPC {
 public:
 	Enemy_Normal(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad, short _i_danyo_ataque_normal, 
 	short _i_danyo_ataque_fuerte);
+
+	void danyar(short _danyo) override;
 	
 	virtual ~Enemy_Normal();
 };

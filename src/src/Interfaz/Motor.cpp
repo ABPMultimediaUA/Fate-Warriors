@@ -26,8 +26,12 @@ Motor::~Motor(){
 	_entidad = nullptr;
 } 
 
+uint8_t Motor::crearObjetoPeso(BoundingBoxes tipo, char* rutaObj,float x, float y, float z, float _i_peso){
+	return _entidad->crear_objeto(tipo,rutaObj,x, y, z, _i_peso);
+}
+
 uint8_t Motor::crearObjeto(BoundingBoxes tipo, char* rutaObj,float x, float y, float z){
-	return _entidad->crear_objeto(tipo,rutaObj,x, y, z);
+	return _entidad->crear_objeto(tipo,rutaObj,x, y, z, 70);
 }
 
 void Motor::poner_camara_a_entidad(unsigned short id){

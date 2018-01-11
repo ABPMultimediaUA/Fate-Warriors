@@ -310,6 +310,14 @@ Nivel::Nivel(std::string &_i_fichero) {
 			nivel_crear_pasillo(_nivel_txt, _iteracion);//llamada a la funcion de crear un nuevo pasillo
 		}*/
 	}
+		/*u_int16_t algo;
+	_lod2->grafo_get_numero_posiciones_spawn_enemigos(algo);
+	float** algo2;
+	algo2= new float*[algo];
+	for(int cont=0;cont<algo;cont++){
+		algo2[cont]=new float[2];
+	}
+	_lod2->grafo_get_posiciones_spawn_enemigos(algo2);*/
 	_nivel_txt.close();//cierre del fichero
 
 }

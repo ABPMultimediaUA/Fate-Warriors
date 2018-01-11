@@ -9,6 +9,7 @@
 #include <iostream>
 Grafo::Grafo(){
 	_h = nullptr;
+	
 }
 
 Grafo::~Grafo(){
@@ -591,5 +592,6 @@ void Grafo::grafo_get_posiciones_spawn_enemigos( float** _posiciones){
 	}
 }
 void Grafo::Update(){
+
 	actualiza_NPC();
 }

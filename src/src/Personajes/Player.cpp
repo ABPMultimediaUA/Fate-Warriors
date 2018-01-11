@@ -15,7 +15,11 @@
 #include "../Game.h"
 #include "../Action_Manager.h"
 //  vida_prota, velocidad
+<<<<<<< HEAD
 Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id,_i_x, _i_y, _i_z, 500, 2,10,15)
+=======
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 2, 10, 15)
+>>>>>>> master
                                                                 {   
 
     //_tiempo = Time::Instance();
@@ -134,18 +138,9 @@ void Player::modificar_vida_en(short _i_vida){
 }
 
 void Player::danyar(short _danyo){
-    _vida = _vida - _danyo;
-
-    if(_accion == Accion_pre_atacar){
-        set_accion(Recibir_danyo);
-        std::cout << "Ataque cortado" << std::endl;
-    }
-
-    if(_vida < 0){
-        morir();
-    }
-        _motor->set_text_vida(_vida);
-
+    danyar_comun(_danyo);
+    
+    _motor->set_text_vida(_vida);
 }
 
 void Player::set_vida(short _i_vida){

@@ -17,7 +17,8 @@ public:
 	virtual ~Character();
 
 	virtual void modificar_vida_en(short _i_vida); // este metodo debe derivar en danyar y curar
-	virtual void danyar(short _danyo); // el danyo es lo mismo que los puntos de vida que se le restan
+	void danyar_comun(short _danyo); // el danyo es lo mismo que los puntos de vida que se le restan
+	virtual void danyar(short _danyo) = 0;
 	bool puede_subir_vida_(short _i_vida);
 	virtual void set_vida(short _i_vida);
 	short get_vida();
@@ -57,6 +58,7 @@ public:
 	void gestion_dash();
 	void gestion_saltar();
 	void gestion_interactuar();
+	void gestion_recibir_danyado();
 	void saltar();
 	void esquivar(uint16_t _direccion);
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);

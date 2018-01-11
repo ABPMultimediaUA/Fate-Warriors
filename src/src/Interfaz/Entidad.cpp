@@ -98,9 +98,8 @@ void Entidad::configuracion_bullet(){
 
 void Entidad::configuracion_irlitch(){
 // Configuracion de Irrlicht
-	device =
-		createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
-			false, false, false);
+	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16, 
+    					  false, false, false); 
 
 	device->setWindowCaption(L"Feito Güarriorusuu");
 
@@ -126,7 +125,7 @@ ISceneNode* Entidad::crearModelado(char* ruta,float x, float y, float z){
 }
 
 
-short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z){
+short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso){
 	ISceneNode *cubeNode=crearModelado(ruta,x,y,z);
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
@@ -136,7 +135,7 @@ short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, floa
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
-	float cubeMass = 70.0f;
+	float cubeMass = _i_peso;
 	
 	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
@@ -173,6 +172,8 @@ short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, floa
 	rigidbody.push_back(cubeBody);
 	return rigidbody.size()-1;
 }
+
+
 
 void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
@@ -343,7 +344,7 @@ void Entidad::abrir_puerta1(unsigned short _i_id){
 	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
 	btTransform btt; 
 	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),7,btt.getOrigin().getZ())); // move body to the scene node new position
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),10,btt.getOrigin().getZ())); // move body to the scene node new position
 
 	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
 	rigidbody[_i_id]->setCenterOfMassTransform(btt);
@@ -360,7 +361,7 @@ void Entidad::abrir_puerta2(unsigned short _i_id){
 	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
 	btTransform btt; 
 	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),15,btt.getOrigin().getZ())); // move body to the scene node new position
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),20,btt.getOrigin().getZ())); // move body to the scene node new position
 
 	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
 	rigidbody[_i_id]->setCenterOfMassTransform(btt);
@@ -516,7 +517,7 @@ void Entidad::set_text_vida(int _i_vida){
 }
 
 void Entidad::Dash(unsigned short _i_direccion, unsigned short id){
-	short potencia = 500;
+	short potencia = 1000;
 	angulo = camara->Camara_getAngleRad();
 	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
     desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
