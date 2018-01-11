@@ -59,6 +59,10 @@ void NPC::render() {
 
 }
 
+void NPC::danyar(short _danyo){
+    danyar_comun(_danyo);
+}
+
 void NPC::set_blackboard(Blackboard* _i_blackboard) {
     _blackboard = _i_blackboard;
 }
