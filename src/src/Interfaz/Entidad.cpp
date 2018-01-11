@@ -106,6 +106,13 @@ void Entidad::configuracion_irlitch(){
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
 	smgr->setAmbientLight(video::SColorf(1,1,1,1));
+	smgr->addSkyBoxSceneNode(
+		driver->getTexture("media/irrlicht2_up.jpg"),
+		driver->getTexture("media/irrlicht2_dn.jpg"),
+		driver->getTexture("media/irrlicht2_lf.jpg"),
+		driver->getTexture("media/irrlicht2_rt.jpg"),
+		driver->getTexture("media/irrlicht2_ft.jpg"),
+		driver->getTexture("media/irrlicht2_bk.jpg"));
 	_GUI = new GUI(device);
 	
 }
