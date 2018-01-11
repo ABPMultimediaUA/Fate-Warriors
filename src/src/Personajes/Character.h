@@ -54,7 +54,7 @@ public:
 	void set_accion(Enum_Acciones _i_accion);
 	Enum_Tipo_Ataque get_tipo_ataque();
 	void gestion_acciones();
-	void gestion_ataque();
+	virtual void gestion_ataque();
 	void gestion_dash();
 	void gestion_saltar();
 	void gestion_interactuar();

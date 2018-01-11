@@ -9,6 +9,8 @@ public:
 	short _i_danyo_ataque_fuerte);
 
 	void danyar(short _danyo) override;
+
+	void gestion_ataque() override; // Solucion temporal, hay que estructurar mejor las variantes de ataque
 	
 	virtual ~Enemy_Normal();
 };
