@@ -35,6 +35,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
     _input = _i_input;
     _motor->set_text_vida(_vida);
+    _especial = 0;
 
     delete cstr;
 
@@ -143,5 +144,18 @@ void Player::danyar(short _danyo){
 void Player::set_vida(short _i_vida){
 	_vida=_i_vida;
     _motor->set_text_vida(_vida);
+}
 
+bool Player::puede_subir_especial(){
+    if(_especial+1<3)
+        return true;
+    return false;
+}
+
+void Player::aumentar_especial(){
+    _especial+=1;
+}
+
+void Player::disminuir_especial(){
+    _especial-=1;
 }
