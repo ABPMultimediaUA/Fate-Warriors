@@ -30,6 +30,7 @@ public:
 	void	setX(float _i_x);
 	void	setY(float _i_y);
 	void	setZ(float _i_z);
+	void	haz_desaparecer();
 	void	set_borrar();
 	bool 	get_borrar();
 	Vector2	get_vector();

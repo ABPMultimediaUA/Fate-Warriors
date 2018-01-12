@@ -68,8 +68,11 @@ void Player::update(){
     if(_input->get_interactuar()){
        
         if(esta_bloqueado() == false){
-            std::cout<< "Pulsa E"<< std::endl;
-            interactuar_con_objeto();
+            std::cout<< "Pulsa E\n";
+            if(!interactuar_con_objeto()){
+            std::cout<< "No encuentra objeto\n";
+                intentar_recoger_arma();
+            }
             //this->bloquear_input(1000);
             //std::cout<< "Interactuando..."<< std::endl;
         }

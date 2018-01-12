@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "../Armas/Arma_distancia.h"
 #include "../Armas/Arma_cerca.h"
+#include "../Armas/Armas_Manager.h"
 #include "../Inventario.h"
 #include "../Game.h"
 #include "../Datos_Partida.h"
@@ -229,7 +230,7 @@ void Character::saltar(){
     }
 }
 
-void Character::interactuar_con_objeto(){
+bool Character::interactuar_con_objeto(){
     //Busca el objeto interactuable mas cercano e interactua con el (recogerlo, abrirlo, etc.)
 
     Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
@@ -284,6 +285,8 @@ void Character::interactuar_con_objeto(){
     if(objeto_encontrado == true){
         set_accion(Accion_Interactuar);
     }
+
+    return objeto_encontrado;
 }
 
 void Character::bloquear_input(double _i_duracion_bloqueo_actual){
@@ -352,4 +355,37 @@ bool Character::esta_bloqueado(){
     else{
         return false;
     }
+}
+
+void Character::coger_arma(Arma* _arma){
+    if(dynamic_cast<Arma_cerca*>(_arma) == NULL) {
+        std::cout << "No es un arma cerca (es arma distancia)\n";
+        _inventario->cambiar_objeto_distancia(static_cast<Arma_distancia*>(_arma));
+    }	
+    else {
+        std::cout << "Es un arma cerca\n";
+         //_inventario->cambiar_objeto_cerca(_arma);
+        _inventario->cambiar_objeto_cerca(static_cast<Arma_cerca*>(_arma));
+    }
+}
+
+bool Character::intentar_recoger_arma() {
+    std::vector<Arma*>* _armas = Game::game_instancia()->game_get_datos()->get_armas_manager()->get_armas();
+   	Vector2 vec_player	= this->get_vector();
+    Vector2 vec_cons = vec_player;
+
+    uint8_t _size = (*_armas).size(); 
+    std::cout << "Nº armas = " << (int)_size << "\n";
+    for(uint8_t _i=0; _i<_size; _i++  ) {
+        vec_cons	= (*_armas)[_i]->get_vector();
+        if(comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_cons, 4)){
+            coger_arma((*_armas)[_i]);
+            
+          //  _motor->haz_desaparecer(_id_motor);
+            (*_armas)[_i]->haz_desaparecer();
+            return true;
+        }
+    }
+    
+    return false;
 }

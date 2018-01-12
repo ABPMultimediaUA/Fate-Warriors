@@ -8,6 +8,7 @@
 class Interfaz;
 class Inventario;
 class Time;
+class Arma;
 
 class Character : public Objeto_Movil{
 public:
@@ -46,7 +47,7 @@ public:
 	bool isDead();
 	short get_danyo_ataque_normal();
 	short get_danyo_ataque_fuerte();
-	void interactuar_con_objeto();
+	bool interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
 	void bloquear_input(double _i_duracion_bloqueo_actual); //Cuando ha empezado a realizar el Tipo_Accion que bloquea los inputs
 	void morir();
@@ -64,6 +65,9 @@ public:
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	bool esta_bloqueado();
 	void desbloquear_input();
+
+	bool intentar_recoger_arma();
+	void coger_arma(Arma* arma);
 
 
 protected:

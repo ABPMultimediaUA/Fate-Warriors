@@ -21,8 +21,8 @@ Consumible_Agua::~Consumible_Agua(){
 
 bool Consumible_Agua::usar(Character* _personaje){
 
-    Player *_player = static_cast<Player*>(_personaje);
     if(comprobar_colision(_personaje)){
+        Player *_player = static_cast<Player*>(_personaje);
         if(_player->puede_subir_especial()){
             _player->aumentar_especial();
             return true;

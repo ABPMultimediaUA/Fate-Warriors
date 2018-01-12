@@ -517,6 +517,16 @@ void Entidad::setPositionXZ(unsigned short id, float x, float z){
 	node->setRotation(euler);
 }
 
+void Entidad::haz_desaparecer(unsigned short _id){
+	btTransform btt; 
+	rigidbody[_id]->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(9999,-99999,9999)); // move body to the scene node new position
+
+	rigidbody[_id]->getMotionState()->setWorldTransform(btt);
+	rigidbody[_id]->setCenterOfMassTransform(btt);
+}
+
+
 void Entidad::set_text_vida(int _i_vida){
 	_GUI->set_text_vida(_i_vida);
 	_vida = (_i_vida*300)/500;
