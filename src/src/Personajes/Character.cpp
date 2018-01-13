@@ -106,100 +106,6 @@ short Character::get_danyo_ataque_fuerte(){
 	return _danyo_ataque_fuerte;
 }
 
-void Character::gestion_acciones(){
-    gestion_ataque();
-    gestion_dash();
-    gestion_interactuar();
-    gestion_saltar();
-    gestion_recibir_danyado();
-}
-
-void Character::gestion_recibir_danyado(){
-    if(get_accion() == Recibir_danyo){
-        std::cout << "SIENDO DANYADO" << std::endl;
-        _motor->colorear_nodo(_id_motor,255,0,0);
-        if(esta_bloqueado() == false){
-            this->set_accion(Nada);
-            _motor->colorear_nodo(_id_motor,255,255,255);
-        }
-    }
-}
-
-void Character::gestion_dash(){
-    if(get_accion() == Accion_Dash){
-        std::cout << "ESQUIVANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,0,255,0);
-        if(esta_bloqueado() == false){
-            this->set_accion(Nada);
-            _motor->colorear_nodo(_id_motor,255,255,255);
-        }
-    }
-}
-
-void Character::gestion_saltar(){
-    if(get_accion() == Saltar){
-        std::cout << "SALTANDO" << std::endl;
-
-        if(esta_bloqueado() == false){
-            this->set_accion(Nada);
-        }
-    }
-}
-
-void Character::gestion_interactuar(){
-    if(get_accion() == Accion_Interactuar){
-        std::cout << "Interactuando..." << std::endl;
-
-        if(esta_bloqueado() == false){
-            this->set_accion(Nada);
-        }
-    }
-}
-
-void Character::gestion_ataque(){
-
-    if(this->get_accion() == Accion_pre_atacar){
-        std::cout << "PRE-ATACANDO" << std::endl;
-
-        if(esta_bloqueado() == false){
-            this->set_accion(Atacar);
-            
-        }
-    }
-    else if(this->get_accion() == Atacar){
-
-        NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
-        NPC ** _npcs = _npc_manager->get_npcs();
-        uint16_t _cont, _n_npcs;
-        _n_npcs = _npc_manager->get_n_enemigos();
-
-        for(_cont = 0; _cont < _n_npcs; _cont++) {
-            if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
-                comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
-            {
-                if(this->get_tipo_ataque() == Ataque_Normal){
-                    _npcs[_cont]->danyar(_danyo_ataque_normal);
-                }
-                else if(this->get_tipo_ataque()  == Ataque_Fuerte){
-                    _npcs[_cont]->danyar(_danyo_ataque_fuerte);
-                }  
-                std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
-            }
-        }
-        std::cout << "ATACANDO" << std::endl;
-        if(esta_bloqueado() == false){
-            this->set_accion(Accion_post_atacar);
-        }
-    }
-    else if(this->get_accion() == Accion_post_atacar){
-        std::cout << "POST-ATACANDO" << std::endl;
-
-        if(esta_bloqueado() == false){
-            this->set_accion(Nada);
-        }
-    }
-}
-
 void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
     // Ataque de player y aliados, sobrescrbir en Enemigo
     // Se ataca a enemigos
@@ -309,43 +215,8 @@ Enum_Acciones Character::get_accion(){
     return _accion;
 }
 
-static int getTiempoAccion(Enum_Acciones _accion){
-    switch(_accion)
-    {
-        case Accion_pre_atacar:
-            return 500;
-        case Atacar:
-            return 1;
-        case Accion_post_atacar:
-            return 500;
-        case Accion_Dash:
-            return 500;
-        case Accion_Interactuar:
-            return 1000;
-        case Saltar:
-            return 200;
-        default:
-            return 500;
-    }
-}
-
-void Character::set_accion(Enum_Acciones _i_accion){
-    _accion = _i_accion;
-    if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
-        bloquear_input(getTiempoAccion(_i_accion));
-    }
-
-    if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
-        set_tipo_ataque(Ataque_Ninguno);
-    }
-}
-
 Enum_Tipo_Ataque Character::get_tipo_ataque(){
     return _tipo_ataque;
-}
-
-void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
-    _tipo_ataque = _i_tipo_ataque;
 }
 
 bool Character::esta_bloqueado(){
@@ -389,3 +260,136 @@ bool Character::intentar_recoger_arma() {
     
     return false;
 }
+
+///////////////////////////////////////////////////////// INICIO GESTION ACCIONES /////////////////////////////////////////////////////////
+
+void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
+    _tipo_ataque = _i_tipo_ataque;
+}
+
+static int getTiempoAccion(Enum_Acciones _accion){
+    switch(_accion)
+    {
+        case Accion_pre_atacar:
+            return 500;
+        case Atacar:
+            return 1;
+        case Accion_post_atacar:
+            return 500;
+        case Accion_Dash:
+            return 500;
+        case Accion_Interactuar:
+            return 1000;
+        case Saltar:
+            return 200;
+        default:
+            return 500;
+    }
+}
+
+void Character::set_accion(Enum_Acciones _i_accion){
+    _accion = _i_accion;
+    if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
+        bloquear_input(getTiempoAccion(_i_accion));
+    }
+
+    if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
+        set_tipo_ataque(Ataque_Ninguno);
+    }
+}
+
+void Character::gestion_acciones(){
+    gestion_ataque();
+    gestion_dash();
+    gestion_interactuar();
+    gestion_saltar();
+    gestion_recibir_danyado();
+}
+
+void Character::gestion_recibir_danyado(){
+    if(get_accion() == Recibir_danyo){
+        std::cout << "SIENDO DANYADO" << std::endl;
+        _motor->colorear_nodo(_id_motor,255,0,0);
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+            _motor->colorear_nodo(_id_motor,255,255,255);
+        }
+    }
+}
+
+void Character::gestion_dash(){
+    if(get_accion() == Accion_Dash){
+        std::cout << "ESQUIVANDO" << std::endl;
+        _motor->colorear_nodo(_id_motor,0,255,0);
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+            _motor->colorear_nodo(_id_motor,255,255,255);
+        }
+    }
+}
+
+void Character::gestion_saltar(){
+    if(get_accion() == Saltar){
+        std::cout << "SALTANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_interactuar(){
+    if(get_accion() == Accion_Interactuar){
+        std::cout << "Interactuando..." << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_ataque(){
+
+    if(this->get_accion() == Accion_pre_atacar){
+        std::cout << "PRE-ATACANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Atacar);
+            
+        }
+    }
+    else if(this->get_accion() == Atacar){
+
+        NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
+        NPC ** _npcs = _npc_manager->get_npcs();
+        uint16_t _cont, _n_npcs;
+        _n_npcs = _npc_manager->get_n_enemigos();
+
+        for(_cont = 0; _cont < _n_npcs; _cont++) {
+            if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
+                comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
+            {
+                if(this->get_tipo_ataque() == Ataque_Normal){
+                    _npcs[_cont]->danyar(_danyo_ataque_normal);
+                }
+                else if(this->get_tipo_ataque()  == Ataque_Fuerte){
+                    _npcs[_cont]->danyar(_danyo_ataque_fuerte);
+                }  
+                std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+            }
+        }
+        std::cout << "ATACANDO" << std::endl;
+        if(esta_bloqueado() == false){
+            this->set_accion(Accion_post_atacar);
+        }
+    }
+    else if(this->get_accion() == Accion_post_atacar){
+        std::cout << "POST-ATACANDO" << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+///////////////////////////////////////////////////////// FIN GESTION ACCIONES /////////////////////////////////////////////////////////

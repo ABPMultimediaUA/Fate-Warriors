@@ -52,23 +52,24 @@ public:
 	void bloquear_input(double _i_duracion_bloqueo_actual); //Cuando ha empezado a realizar el Tipo_Accion que bloquea los inputs
 	void morir();
 	Enum_Acciones get_accion();
-	void set_accion(Enum_Acciones _i_accion);
 	Enum_Tipo_Ataque get_tipo_ataque();
-	void gestion_acciones();
-	virtual void gestion_ataque();
-	void gestion_dash();
-	void gestion_saltar();
-	void gestion_interactuar();
-	void gestion_recibir_danyado();
 	void saltar();
 	void esquivar(uint16_t _direccion);
-	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	bool esta_bloqueado();
 	void desbloquear_input();
 
 	bool intentar_recoger_arma();
 	void coger_arma(Arma* arma);
 
+	// Gestion de acciones
+	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
+	void set_accion(Enum_Acciones _i_accion);
+	void gestion_acciones();
+	virtual void gestion_ataque();
+	void gestion_dash();
+	void gestion_saltar();
+	void gestion_interactuar();
+	void gestion_recibir_danyado();
 
 protected:
 	
