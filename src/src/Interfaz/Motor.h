@@ -23,7 +23,7 @@ public:
       void    render(float _i_interpolacion);  
 
       void    Mover(uint8_t id, float x, float y, float z);
-      void    Mover(uint8_t id, unsigned short _i_direccion, float x, float y, float z); //mover con rotacion
+      void    setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z); //mover con rotacion
       void    VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad);
       void    setPositionXZ(unsigned short id, float x, float z);
       void    haz_desaparecer(unsigned short _id);

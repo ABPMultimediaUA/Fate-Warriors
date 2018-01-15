@@ -32,7 +32,12 @@ public:
     void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
-    short crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso);
+    unsigned short crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso);
+
+    btRigidBody* crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
+    ISceneNode* crearModelado(char* ruta,float x, float y, float z);
+    Interpolacion* crear_interpolacion(float x, float y, float z);
+
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
@@ -48,6 +53,7 @@ public:
 
     void update();
     void render();
+    void render(float _i_interpolacion);
 
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
 
@@ -56,7 +62,7 @@ public:
     void set_text_vida(int _i_vida);
     void haz_desaparecer(unsigned short _id);
 
-    IrrlichtDevice* getDevice();    
+    IrrlichtDevice* getIrrlichtDevice();    
     
     void updateCamaraColision();
     void updateDynamicBody(btRigidBody *body);
@@ -69,7 +75,6 @@ public:
     void Dash(unsigned short _i_direccion, unsigned short id);
     void    colorear_nodo(unsigned short id, short r,short g, short b);
     void resetear_camara();
-    ISceneNode* crearModelado(char* ruta,float x, float y, float z);
     void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
 
 private:

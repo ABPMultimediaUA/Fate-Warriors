@@ -42,7 +42,7 @@ void Motor::Mover(uint8_t id, float x, float y, float z){
 	_entidad->setVelocidad(id,x,y,z);
 }
 
-void Motor::Mover(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
+void Motor::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
 	_entidad->setVelocidad(id,_i_direccion,x,y,z);
 }
 
@@ -111,7 +111,7 @@ float Motor::getVelocidadY(short id){
 }
 
 IrrlichtDevice* Motor::getIrrlichtDevice(){
-	return _entidad->getDevice();
+	return _entidad->getIrrlichtDevice();
 }
 
 void Motor::colorear_nodo(unsigned short id, short r, short g, short b){

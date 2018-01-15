@@ -114,6 +114,14 @@ void Entidad::configuracion_irlitch(){
 	
 }
 
+
+unsigned short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso){
+	ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
+	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
+	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
+	return rigidbody.size()-1;
+}
+
 ISceneNode* Entidad::crearModelado(char* ruta,float x, float y, float z){
 	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
@@ -129,8 +137,7 @@ ISceneNode* Entidad::crearModelado(char* ruta,float x, float y, float z){
 }
 
 
-short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso){
-	ISceneNode *cubeNode=crearModelado(ruta,x,y,z);
+btRigidBody* Entidad::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
@@ -169,14 +176,20 @@ short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, floa
 	cubeBody->setRestitution(0);
 	cubeBody->setFriction(500);
 	cubeBody->forceActivationState(DISABLE_DEACTIVATION );
-	Vector3 posicion(x,y,z);
-	_interpolaciones.push_back(new Interpolacion(posicion));
+
 
 	world->addRigidBody(cubeBody);
 	rigidbody.push_back(cubeBody);
-	return rigidbody.size()-1;
+	return cubeBody;
 }
 
+
+Interpolacion* Entidad::crear_interpolacion(float x, float y, float z){
+	Vector3 posicion(x,y,z);
+	Interpolacion* _interpolacion = new Interpolacion(posicion);
+	_interpolaciones.push_back(_interpolacion);
+	return _interpolacion;
+}
 
 
 void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
@@ -562,6 +575,11 @@ float Entidad::getVelocidadY(short _i_id){
 	return  rigidbody[_i_id]->getLinearVelocity()[1];
 }
 
-IrrlichtDevice* Entidad::getDevice(){
+IrrlichtDevice* Entidad::getIrrlichtDevice(){
 	return device;
+}
+
+void Entidad::render(float _i_interpolacion){
+	interpola_posiciones(_i_interpolacion);
+	render();
 }
