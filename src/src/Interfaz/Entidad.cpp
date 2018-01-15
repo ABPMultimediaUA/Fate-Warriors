@@ -9,7 +9,7 @@ Entidad::Entidad(){
     configuracion_bullet();
     preparar_depuracion_mundo();
 
-	std::string str = "models/Colisiones.obj";
+	std::string str = "models/MapaColision/ColisionesNivel1.obj";
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
 	importarEscenario(cstr, 0,0,0);
@@ -87,7 +87,7 @@ void Entidad::configuracion_bullet(){
 	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadPhase, constraintSolver, collisionConfiguration);
 
 	fileLoader = new btBulletWorldImporter(world);
-	fileLoader->loadFile("models/Colisiones.bullet");
+	fileLoader->loadFile("models/MapaColision/ColisionesNivel1.bullet");
 	
     world->setGravity(btVector3(0,-9.8*20,0));
 
