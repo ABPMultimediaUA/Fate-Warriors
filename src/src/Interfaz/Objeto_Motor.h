@@ -6,11 +6,6 @@
 #include "Motor.h"
 
 
-class ISceneNode;
-class Interpolacion;
-class btRigidBody;
-
-
 class Objeto_Motor{
 public:
       Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, float z);

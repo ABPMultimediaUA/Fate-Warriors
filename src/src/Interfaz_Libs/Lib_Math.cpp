@@ -6,9 +6,9 @@ unsigned short lib_math_angulo_2_puntos(float _i_x1, float _i_y1, float _i_x2, f
 
 	_angulo = atan2(_i_y2 - _i_y1, _i_x2 - _i_x1);
 
-	if(_angulo<0) _angulo = _angulo + 2*PI;
+	if(_angulo<0) _angulo = _angulo + 2*PIs;
 
-	_direccion = _angulo * 180 / PI;
+	_direccion = _angulo * 180 / PIs;
 
 	return _direccion;
 }

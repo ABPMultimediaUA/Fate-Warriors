@@ -1,7 +1,8 @@
+
+#ifndef GUI_H_
+#define GUI_H_
+
 #include "irrlicht/irrlicht.h"
-
-
-
 using namespace irr;
 
 using namespace core;
@@ -26,3 +27,4 @@ private:
       IGUIFont* _font;
 };
 
+#endif /* GUI_H_ */

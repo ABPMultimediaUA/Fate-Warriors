@@ -8,7 +8,7 @@ siguiente_tiempo_hace_danyo =_reloj->get_current();
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
     
-    _id=_id_motor = _motor->crearObjetoPeso(E_BoundingBox,cstr,_i_x, _i_y, _i_z, 9999999);
+    _id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z, 9999999);
     
     delete cstr;
 }

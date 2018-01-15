@@ -21,7 +21,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     std::string str = "models/Enemigo.obj";
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
-    _id_motor = _motor->crearObjeto(E_BoundingCapsule,cstr,_i_x,_i_y,_i_z);
+    _id_motor = _motor->crear_objeto(E_BoundingCapsule,cstr,_i_x,_i_y,_i_z,60);
 
     delete cstr;
 }
@@ -31,9 +31,9 @@ NPC::~NPC() {
 
 void NPC::move(unsigned long _i_direccion) {
     //std::cout<<"move direccion: "<<_i_direccion<<std::endl;
-    float _desp_x = cos(_i_direccion*PI/180);
+    float _desp_x = cos(_i_direccion*PIs/180);
     _desp_x = roundf(_desp_x * 200) / 100;
-    float _desp_z = sin(_i_direccion*PI/180);
+    float _desp_z = sin(_i_direccion*PIs/180);
     _desp_z = roundf(_desp_z * 200) / 100;
     //std::cout << "Personaje se mueve en la x " << _desp_x << std::endl;
     //std::cout << "Personaje se mueve en la y " << _desp_y << std::endl;
