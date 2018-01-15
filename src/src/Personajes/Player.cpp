@@ -20,8 +20,6 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
     //_tiempo = Time::Instance();
     //crear nodo de personaje del motor
-    _otro_tiempo = _tiempo->get_start();
-    _tiempo_anterior = _tiempo->get_start();
 
     std::string str = "models/Personaje.obj";
     char *cstr = new char[str.length() + 1];
@@ -118,6 +116,12 @@ void Player::update(){
     //set level of detail del nivel
     Nivel* nivel=Nivel::nivel_instancia();
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
+
+
+    if(_input->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 250) {
+        Game* _game = Game::game_instancia();
+        _game->cambio_a_update_pausa();
+    }
 }
 			
 void Player::render(){

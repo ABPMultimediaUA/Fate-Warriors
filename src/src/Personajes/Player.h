@@ -27,8 +27,6 @@ private:
 	Interfaz* _interface;
 	Interfaz_Fisica* _interface_fisica;
 	//Time * _tiempo;
-	double _otro_tiempo;
-	double _tiempo_anterior;
 	Input* _input;
 };
 

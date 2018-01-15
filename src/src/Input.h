@@ -23,7 +23,7 @@ enum Enum_Inputs {
 	Input_Camara_Derecha,
 	//Input_Usar_Arma,
 	Input_Centrar_Camara,
-	//Input_Pausa,
+	Input_Pausa,
 	N_Inputs,
 	Ninguno
 };
@@ -53,6 +53,7 @@ public:
 	bool get_dash();
 	bool get_atacar(bool& _normal, bool& _fuerte);
 	inline bool get_centrar_camara() { return _centrar_camara;}
+	inline bool get_pausa() { return _pausa;}
 
  	bool get_mover_camara();
 	Vector2* get_vector_camara();
@@ -95,6 +96,8 @@ private:
 	uint16_t _direccion_camara;	// Angulo de direccion de movimiento de la camara
 	Vector2* _vector_camara;	// Vector normalizado de direccion para el movimiento de la camara
 	bool _centrar_camara; 		// Indica si hay que centrar o no la camara
+
+	bool _pausa;				// Indica si se ha pulsado el boton de pausa
 
 
 	// Teclas de control

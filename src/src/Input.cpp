@@ -19,6 +19,8 @@ Input::Input() {
 
 	_centrar_camara = false;
 
+	_pausa = false;
+
 	_mando = new uint8_t[N_Inputs];
 	_ejes = new sf::Joystick::Axis[N_Inputs];
 	actualiza_mando();
@@ -55,6 +57,8 @@ void Input::asignar_teclas_predefinidas() {
 
 	_teclas[Input_Centrar_Camara] = sf::Keyboard::Unknown;
 
+	_teclas[Input_Pausa] = sf::Keyboard::P;
+
 
 	// ----------------- Inputs del raton ---------------
 	_raton[Input_Arriba] = sf::Mouse::ButtonCount;
@@ -70,6 +74,8 @@ void Input::asignar_teclas_predefinidas() {
 	_raton[Input_Ataque_Fuerte] = sf::Mouse::Right;
 
 	_raton[Input_Centrar_Camara] = sf::Mouse::Middle;
+
+	_raton[Input_Pausa] = sf::Mouse::ButtonCount;
 
 
 	// ----------------- Inputs de la camara ---------------
@@ -92,7 +98,7 @@ void Input::asignar_teclas_mando() {
 	_mando[Input_Ataque_Fuerte] = 3;	// Y
 	//_mando[Input_Usar_Arma] = 4;		// LB
 	_mando[Input_Interact] = 5;			// RB
-	//_mando[Input_Pausa] = 7;			// Start
+	_mando[Input_Pausa] = 7;			// Start
 	_mando[Input_Centrar_Camara] = 10;// Boton Joystick Derecho
 
 	_ejes[Input_Derecha] = sf::Joystick::X;
@@ -209,9 +215,9 @@ void Input::recibir_inputs_mando() {
 	_joystick_camara->_x = sf::Joystick::getAxisPosition(0, _ejes[Input_Camara_Derecha]);
 	_joystick_camara->_y = sf::Joystick::getAxisPosition(0, _ejes[Input_Camara_Arriba]);
 
-	//_mando[Input_Usar_Arma] = 4;		// LB
-	//_mando[Input_Pausa] = 7;			// Start
+	//_mando[Input_Usar_Arma] = 4;		// LB;
 	_centrar_camara = sf::Joystick::isButtonPressed(0, _mando[Input_Centrar_Camara]);
+	_pausa = sf::Joystick::isButtonPressed(0, _mando[Input_Pausa]);
 }
 
 // Recibe los inputs del teclado y el raton
@@ -280,6 +286,12 @@ void Input::recibir_inputs_teclado_raton() {
 		_centrar_camara = sf::Keyboard::isKeyPressed(_teclas[Input_Centrar_Camara]);
 	else
 		_centrar_camara = sf::Mouse::isButtonPressed(_raton[Input_Centrar_Camara]);
+
+
+	if(_teclas[Input_Pausa] != sf::Keyboard::Unknown)
+		_pausa = sf::Keyboard::isKeyPressed(_teclas[Input_Pausa]);
+	else
+		_pausa = sf::Mouse::isButtonPressed(_raton[Input_Pausa]);
 }
 
 // Recibe y guarda los inputs de la camara
@@ -515,6 +527,7 @@ void Input::reiniciar_inputs() {
     _mover_camara = false;
     _centrar_camara = false;
 
+	_pausa = false;
 
 	actualiza_mando();
 }

@@ -4,12 +4,13 @@
 #include "Datos_Partida.h"
 #include "Input.h"
 
-#include "Entrada/Input.h"
+#include "Entrada/Controles.h"
 #include "IA/Decision_Manager.h"
 #include "Personajes/Player.h"
 #include "Interfaz/Motor.h"
 #include "Nivel/Nivel.h"
 #include "Consumibles/Consumible_Action.h"
+#include "Tiempo/Time.h"
 #include "Trampas/Trampas_action.h"
 
 
@@ -79,6 +80,9 @@ void Game::crea_partida() {
 	
 	_consumibles_action = new Consumible_Action();	
 	_trampas_action 	= new Trampas_action();	
+
+	update_actual = &Game::update_partida;
+	render_actual = &Game::render_partida;
 }
 
 void Game::fin_partida() {
@@ -106,8 +110,14 @@ void Game::run(){
 }
 
 
+// Llama a la funcion update en el momento necesario
 void Game::update(double _i_tiempo_desde_ultimo_update){
-	//std::cout << "UPDATE" << std::endl;
+	(*this.*update_actual)(_i_tiempo_desde_ultimo_update);
+}
+
+
+void Game::update_partida(double _i_tiempo_desde_ultimo_update){
+	//std::cout << "Update Partida" << std::endl;
 	Player *_player = _datos->get_player();
 	_player->update();
 	_nivel->Update();
@@ -119,13 +129,32 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 		
 	_decision_manager->toma_decisiones();
 
-
     // Reinicia el procesado y lectura de inputs
     _input_jugador->reiniciar_inputs();
 }
 
+
+void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
+	//std::cout << "Update Pausa" << std::endl;
+    if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 250){
+    	cambio_a_update_partida();
+    }
+
+    if(update_actual == &Game::update_partida) {
+		update_partida(_i_tiempo_desde_ultimo_update);	
+    }
+}
+
 void Game::render(float _i_interpolacion){
+	(*this.*render_actual)(_i_interpolacion);
+}
+
+void Game::render_partida(float _i_interpolacion){
 	_motor->render(_i_interpolacion);
+}
+
+void Game::render_pausa(float _i_interpolacion){
+	_motor->render(1);
 }
   
 Datos_Partida* Game::game_get_datos() {
@@ -138,4 +167,17 @@ Action_Manager* Game::game_get_action_manager() {
 
 void Game::recibir_inputs() {
 	_input_jugador->recibir_inputs();
+}
+
+
+void Game::cambio_a_update_partida() {
+	update_actual = &Game::update_partida;
+	render_actual = &Game::render_partida;
+	Time::Instance()->reanudar_reloj();
+}
+
+void Game::cambio_a_update_pausa() {
+	update_actual = &Game::update_pausa;
+	render_actual = &Game::render_pausa;
+	Time::Instance()->pausar_reloj();
 }
