@@ -62,6 +62,7 @@ public:
 	void coger_arma(Arma* arma);
 
 	// Gestion de acciones
+	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	void set_accion(Enum_Acciones _i_accion);
 	void gestion_acciones();
