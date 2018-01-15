@@ -80,7 +80,8 @@ public:
     void    colorear_nodo(unsigned short id, short r,short g, short b);
     void resetear_camara();
     void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
-
+    unsigned short getId();
+    
 private:
 
       static Motor* _Motor;

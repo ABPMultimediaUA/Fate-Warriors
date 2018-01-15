@@ -2,7 +2,7 @@
 #define HEADERS_OBJETO_H_
 #include "Utilidades/Vector.h"
 #include "Interfaz/EnumTiposBoundingBox.h"
-
+#include "Interfaz/Objeto_Motor.h"
 
 #include <cstdint>
 

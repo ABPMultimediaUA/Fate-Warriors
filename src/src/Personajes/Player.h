@@ -7,6 +7,7 @@ class Interfaz_Fisica;
 class Input;
 class Motor;
 
+
 class Player : public Character{
 public:
 	Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input);
@@ -22,6 +23,7 @@ public:
 	void disminuir_especial();
 	//ckeyboardman* _KeyMan;
 private:
+	Objeto_Motor* _objeto;
 	short _nodoId; //ID del nodo del modelado del motor
 	uint8_t _especial;
 	Interfaz* _interface;

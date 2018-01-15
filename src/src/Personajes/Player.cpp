@@ -24,10 +24,13 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _tiempo_anterior = _tiempo->get_start();
 
     std::string str = "models/Personaje.obj";
-    char *cstr = new char[str.length() + 1];
+    char *cstr = new char[str.length()+1];
     strcpy(cstr, str.c_str());
     
-    _id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
+    _objeto = new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
+    _id_motor = _objeto->getId();
+    
+    //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_id);
     
     //std::cout<<"X player: "<<_motor->getX(_id_motor);
@@ -42,7 +45,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 }
 
 Player::~Player(){
-
+    delete _objeto;
 }
 
 void Player::update(){

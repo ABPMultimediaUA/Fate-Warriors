@@ -11,19 +11,19 @@
 
 
 
-Objeto_Motor::Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, float z){
+Objeto_Motor::Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, float z, short peso){
 	Motor* _motor = Motor::Motor_GetInstance();
-    /*
-   _nodo            = _motor->crearModelado(rutaObj,x,y,z);
-   _interpolacion   = _motor->crear_interpolacion(x,y,z);
-   _rigidbody       = _motor->crearRigidBody(tipo,rutaObj,x,y,z,666666,_nodo);
+
+   _nodo            = _motor->crearModelado(rutaObj, x, y, z);
+   _interpolacion   = _motor->crear_interpolacion(x, y, z);
+   _rigidbody       = _motor->crearRigidBody(tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
    _id              = _motor->getId();
-   */
+
 }
 
 Objeto_Motor::~Objeto_Motor(){
-    Motor* _motor = Motor::Motor_GetInstance();
-    //_motor->borrar_objeto(_nodo,_interpolacion,_rigidbody);
+   // Motor* _motor = Motor::Motor_GetInstance();
+   //_motor->borrar_objeto(_nodo, _interpolacion, _rigidbody);
 } 
 
 

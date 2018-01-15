@@ -67,7 +67,6 @@ Game::~Game(){
 
 
 void Game::crea_partida() {	
-
 	_motor = Motor::Motor_GetInstance();
 	_motor->asigna_input(_input_jugador);
 	_nivel=Nivel::nivel_instancia();
@@ -82,7 +81,6 @@ void Game::crea_partida() {
 }
 
 void Game::fin_partida() {
-
 	delete _datos;
 	delete _decision_manager;
 	delete _action_manager;

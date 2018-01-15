@@ -8,7 +8,7 @@
 
 class Objeto_Motor{
 public:
-      Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, float z);
+      Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, float z, short peso);
       ~Objeto_Motor();
       unsigned short getId();
 

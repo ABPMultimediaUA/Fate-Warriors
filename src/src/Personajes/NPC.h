@@ -29,6 +29,7 @@ public:
 protected:
 	Blackboard* _blackboard; //Informacion de la memoria almacenada en el Blackboard
 	enum Enum_Tipo_Enemigo _tipo_npc;
+	Objeto_Motor * _objeto;
 };
 
 #endif /* SRC_NPC_H_ */

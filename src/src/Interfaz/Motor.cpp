@@ -594,3 +594,7 @@ void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);
 	render();
 }
+
+unsigned short Motor::getId(){
+	return rigidbody.size()-1;
+}
