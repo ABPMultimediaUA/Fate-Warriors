@@ -329,7 +329,7 @@ void Entidad::saltar(unsigned short _i_id){		   //Space
 	std::cout<< rigidbody[_i_id]->getLinearVelocity()[1] << std::endl;
 		
 	if(std::abs (rigidbody[_i_id]->getLinearVelocity()[1])<0.01){
-		rigidbody[_i_id]->applyCentralImpulse( btVector3( 0.f, 30000.f, 0.f ) );
+		rigidbody[_i_id]->applyCentralImpulse( btVector3( 0.f, 3000.f, 0.f ) );
 		//exit(0);
 	}
 }
