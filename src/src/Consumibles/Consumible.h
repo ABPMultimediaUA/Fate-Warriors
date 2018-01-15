@@ -17,6 +17,7 @@ public:
 
 protected:
 	short _valor;
+	Objeto_Motor * _objeto;
 };
 
 #endif /* SRC_CONSUMIBLE_H_ */

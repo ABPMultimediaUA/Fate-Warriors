@@ -6,6 +6,7 @@ Consumible::Consumible(short _id, float _i_x, float _i_y, float _i_z, short _i_v
 }
 
 Consumible::~Consumible() {
+	delete _objeto;
 }
 
 bool Consumible::comprobar_colision(Character *_character){

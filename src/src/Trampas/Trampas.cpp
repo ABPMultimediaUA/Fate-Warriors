@@ -9,6 +9,7 @@ Trampas::Trampas(short _id, float _i_x, float _i_y,float _i_z, short _i_danyo) :
 {}
 
 Trampas::~Trampas() {
+    delete _objeto;
 }
 
 

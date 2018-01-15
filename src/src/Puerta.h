@@ -15,6 +15,7 @@ public:
 
 private:
 	bool _abierta;
+	Objeto_Motor* _objeto;
 };
 
 #endif /* PUERTA_H_ */

@@ -20,6 +20,7 @@ public:
 
 protected:
 	Time *  _reloj;
+	Objeto_Motor* _objeto;
 	short	_danyo;
 	bool	_activa;
 };
