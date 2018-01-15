@@ -1,4 +1,7 @@
 
+#ifndef MOTOR_H_
+#define MOTOR_H_
+
 #include "DebugDraw.h"
 #include <cstdlib>
 #include <cstdint>
@@ -21,11 +24,12 @@
 class Interpolacion;
 class Time;
 class Input;
-class Entidad{
+class Motor{
 public:
     
-   Entidad();
-   ~Entidad();
+    static Motor* Motor_GetInstance();
+
+   ~Motor();
    
     void apagar();
 
@@ -78,6 +82,10 @@ public:
     void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
 
 private:
+
+      static Motor* _Motor;
+      Motor();
+
       int _vida; //salud para la barra de salud
       int _maxvida; //vida maxima (barra negra)
       float desp_x, desp_z;
@@ -124,3 +132,5 @@ private:
       uint16_t _id_jugador;
 };
 
+
+#endif /* MOTOR_H_ */

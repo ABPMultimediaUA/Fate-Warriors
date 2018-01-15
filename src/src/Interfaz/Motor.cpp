@@ -1,10 +1,21 @@
-#include "Entidad.h"
+#include "Motor.h"
 #include "SFML/Graphics.hpp"
 #include <cmath>
 #include "../Utilidades/Vector.h"
 #include "../Personajes/Interpolacion.h"
 
-Entidad::Entidad(){
+Motor* Motor::_Motor=0;
+
+Motor* Motor::Motor_GetInstance(){
+	if(_Motor==0){
+		_Motor	=  new Motor();
+	}
+	return _Motor;
+}
+
+
+
+Motor::Motor(){
     configuracion_irlitch();
     configuracion_bullet();
     preparar_depuracion_mundo();
@@ -25,7 +36,7 @@ Entidad::Entidad(){
 	_maxvida=300;
 }
 
-Entidad::~Entidad(){
+Motor::~Motor(){
 	//Bullet
 
 	for(short a=0; a<rigidbody.size(); a++){
@@ -66,19 +77,19 @@ Entidad::~Entidad(){
 }
 
 
-void Entidad::apagar(){
+void Motor::apagar(){
 	device->closeDevice();
 }
 
 
 
-void Entidad::preparar_depuracion_mundo(){
+void Motor::preparar_depuracion_mundo(){
 	debugDraw = new DebugDraw(device);
 	debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	world->setDebugDrawer(debugDraw);
 }
 
-void Entidad::configuracion_bullet(){	
+void Motor::configuracion_bullet(){	
 	collisionConfiguration = new btDefaultCollisionConfiguration();
 	broadPhase = new btDbvtBroadphase(new btHashedOverlappingPairCache());
 	collisionDispatcher = new btCollisionDispatcher(collisionConfiguration);
@@ -93,7 +104,7 @@ void Entidad::configuracion_bullet(){
 
 }
 
-void Entidad::configuracion_irlitch(){
+void Motor::configuracion_irlitch(){
 // Configuracion de Irrlicht
 	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16, 
     					  false, false, false); 
@@ -115,14 +126,14 @@ void Entidad::configuracion_irlitch(){
 }
 
 
-unsigned short Entidad::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso){
+unsigned short Motor::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso){
 	ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
 	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
 	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
 	return rigidbody.size()-1;
 }
 
-ISceneNode* Entidad::crearModelado(char* ruta,float x, float y, float z){
+ISceneNode* Motor::crearModelado(char* ruta,float x, float y, float z){
 	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
 	if(cubeNode){
@@ -137,7 +148,7 @@ ISceneNode* Entidad::crearModelado(char* ruta,float x, float y, float z){
 }
 
 
-btRigidBody* Entidad::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
@@ -184,7 +195,7 @@ btRigidBody* Entidad::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, floa
 }
 
 
-Interpolacion* Entidad::crear_interpolacion(float x, float y, float z){
+Interpolacion* Motor::crear_interpolacion(float x, float y, float z){
 	Vector3 posicion(x,y,z);
 	Interpolacion* _interpolacion = new Interpolacion(posicion);
 	_interpolaciones.push_back(_interpolacion);
@@ -192,7 +203,7 @@ Interpolacion* Entidad::crear_interpolacion(float x, float y, float z){
 }
 
 
-void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
+void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
 	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
 	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
@@ -217,11 +228,11 @@ void Entidad::getDimensiones(ISceneNode* node, float &anchura, float &altura, fl
 	delete edges;
 }
 
-void Entidad::colorear_nodo(unsigned short id, short r,short g, short b){
+void Motor::colorear_nodo(unsigned short id, short r,short g, short b){
 	nodes[id+1]->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
 }
 
-void Entidad::poner_camara_a_entidad(unsigned short id){
+void Motor::poner_camara_a_entidad(unsigned short id){
 	ISceneNode *cubeNode = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
 	camara->Camara_setProta(cubeNode);
 	_id_jugador = id;
@@ -229,14 +240,14 @@ void Entidad::poner_camara_a_entidad(unsigned short id){
 	camara->set_posicion_inicial(_interpolaciones[_id_jugador]->get_direccion_actual());
 }
 
-btCollisionWorld::ClosestRayResultCallback Entidad::trazaRayo(btVector3 start, btVector3 end){
+btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btVector3 end){
 	btCollisionWorld::ClosestRayResultCallback rayCallback(start, end);
 	world->rayTest(start, end, rayCallback);
 
 	return rayCallback;
 }
 
-void Entidad::importarEscenario(char* rutaObj, float x, float y, float z){
+void Motor::importarEscenario(char* rutaObj, float x, float y, float z){
 
 	ISceneNode *windmillNode = smgr->addMeshSceneNode(smgr->getMesh(rutaObj));
 	if(windmillNode) {
@@ -246,7 +257,7 @@ void Entidad::importarEscenario(char* rutaObj, float x, float y, float z){
 	}
 }
 
-void Entidad::update(double dt){
+void Motor::update(double dt){
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
 		_debug = !_debug;
@@ -286,7 +297,7 @@ void Entidad::update(double dt){
        // device->drop();
 }
 
-void Entidad::interpola_posiciones(float _i_interpolacion) {
+void Motor::interpola_posiciones(float _i_interpolacion) {
 
 	uint16_t _tam = rigidbody.size();
 	for(uint16_t i=0; i<_tam; i++){
@@ -305,7 +316,7 @@ void Entidad::interpola_posiciones(float _i_interpolacion) {
 	camara->interpola_posicion(_i_interpolacion);
 }
 
-void Entidad::updateCamaraColision(){
+void Motor::updateCamaraColision(){
 		btTransform t;
 		btVector3 pos = rigidbody[0]->getCenterOfMassPosition();
 		
@@ -336,7 +347,7 @@ void Entidad::updateCamaraColision(){
 }
 
 
-void Entidad::saltar(unsigned short _i_id){		   //Space
+void Motor::saltar(unsigned short _i_id){		   //Space
 
 	std::cout<<"entra" << std::endl;
 	std::cout<< rigidbody[_i_id]->getLinearVelocity()[1] << std::endl;
@@ -347,7 +358,7 @@ void Entidad::saltar(unsigned short _i_id){		   //Space
 	}
 }
 
-void Entidad::saltar(unsigned short _i_id,int force){		   //Space
+void Motor::saltar(unsigned short _i_id,int force){		   //Space
 
 	std::cout<<"entra" << std::endl;
 	std::cout<< rigidbody[_i_id]->getLinearVelocity()[1] << std::endl;
@@ -358,7 +369,7 @@ void Entidad::saltar(unsigned short _i_id,int force){		   //Space
 	}
 }
 
-void Entidad::abrir_puerta1(unsigned short _i_id){
+void Motor::abrir_puerta1(unsigned short _i_id){
 	
 	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
 	btTransform btt; 
@@ -375,7 +386,7 @@ void Entidad::abrir_puerta1(unsigned short _i_id){
 	node->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
 }
 
-void Entidad::abrir_puerta2(unsigned short _i_id){
+void Motor::abrir_puerta2(unsigned short _i_id){
 	
 	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
 	btTransform btt; 
@@ -392,16 +403,16 @@ void Entidad::abrir_puerta2(unsigned short _i_id){
 	node->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
 }
 
-void Entidad::abrir_puerta(unsigned short _i_id){
+void Motor::abrir_puerta(unsigned short _i_id){
 	this->abrir_puerta1(_i_id);
 	this->abrir_puerta2(_i_id);
 }
 
-void Entidad::resetear_camara(){
+void Motor::resetear_camara(){
 	camara->Camara_reset(_interpolaciones[_id_jugador]->get_direccion_actual());
 }
 
-void Entidad::updateDynamicBody(btRigidBody *body) {
+void Motor::updateDynamicBody(btRigidBody *body) {
 	
 	ISceneNode *node = static_cast<ISceneNode *>(body->getUserPointer());
 	btVector3 pos = body->getCenterOfMassPosition();
@@ -417,7 +428,7 @@ void Entidad::updateDynamicBody(btRigidBody *body) {
 	*/
 }
 
-void Entidad::render(){
+void Motor::render(){
 
 	driver->beginScene(true, true, SColor(255,100,101,140));
     smgr->drawAll();
@@ -444,7 +455,7 @@ void Entidad::render(){
 
 
 // Funcion de mover para el jugador
-void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
+void Motor::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
 	// Angulo de la camara
 	angulo = camara->Camara_getAngle();
 
@@ -478,14 +489,14 @@ void Entidad::VelocidadDireccion(unsigned short id, unsigned short _i_direccion,
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
 
-void Entidad::setVelocidad(uint8_t id, float x, float y, float z){
+void Motor::setVelocidad(uint8_t id, float x, float y, float z){
 	btVector3 mov(x,y,z);
     rigidbody[id]->setLinearVelocity(mov);
 	desp_x = desp_z = 0;
 }
 
 // Funcion de mover para los NPC
-void Entidad::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
+void Motor::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
 	float _cos, _sen;
 	_cos = sin(_i_direccion*std::acos(-1)/180);
 	_sen = cos(_i_direccion*std::acos(-1)/180);
@@ -507,7 +518,7 @@ void Entidad::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, flo
     setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
 }
 
-void Entidad::setPositionXZ(unsigned short id, float x, float z){
+void Motor::setPositionXZ(unsigned short id, float x, float z){
 	btTransform btt; 
 	rigidbody[id]->getMotionState()->getWorldTransform(btt);
 	btt.setOrigin(btVector3(x,btt.getOrigin().getY(),z)); // move body to the scene node new position
@@ -530,7 +541,7 @@ void Entidad::setPositionXZ(unsigned short id, float x, float z){
 	node->setRotation(euler);
 }
 
-void Entidad::haz_desaparecer(unsigned short _id){
+void Motor::haz_desaparecer(unsigned short _id){
 	btTransform btt; 
 	rigidbody[_id]->getMotionState()->getWorldTransform(btt);
 	btt.setOrigin(btVector3(9999,-99999,9999)); // move body to the scene node new position
@@ -540,12 +551,12 @@ void Entidad::haz_desaparecer(unsigned short _id){
 }
 
 
-void Entidad::set_text_vida(int _i_vida){
+void Motor::set_text_vida(int _i_vida){
 	_GUI->set_text_vida(_i_vida);
 	_vida = (_i_vida*300)/500;
 }
 
-void Entidad::Dash(unsigned short _i_direccion, unsigned short id){
+void Motor::Dash(unsigned short _i_direccion, unsigned short id){
 	short potencia = 1000;
 	angulo = camara->Camara_getAngleRad();
 	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
@@ -556,30 +567,30 @@ void Entidad::Dash(unsigned short _i_direccion, unsigned short id){
 
 //Metodos get
 
-float Entidad::getX(short id){
+float Motor::getX(short id){
 	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
 	return pos[0];
 }
 
-float Entidad::getY(short id){
+float Motor::getY(short id){
 	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
 	return pos[1];
 }
 
-float Entidad::getZ(short id){
+float Motor::getZ(short id){
 	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
 	return pos[2];
 }
 
-float Entidad::getVelocidadY(short _i_id){
+float Motor::getVelocidadY(short _i_id){
 	return  rigidbody[_i_id]->getLinearVelocity()[1];
 }
 
-IrrlichtDevice* Entidad::getIrrlichtDevice(){
+IrrlichtDevice* Motor::getIrrlichtDevice(){
 	return device;
 }
 
-void Entidad::render(float _i_interpolacion){
+void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);
 	render();
 }
