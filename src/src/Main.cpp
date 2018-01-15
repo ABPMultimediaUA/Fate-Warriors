@@ -26,7 +26,7 @@ void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uin
 int main(){
 
 	Game* _juego = Game::game_instancia();
-	_juego->crea_partida();
+	//_juego->crea_partida();
 	Time* time=Time::Instance();
 
 	double _h_ultimo_update=time->get_current_sin_pausas();

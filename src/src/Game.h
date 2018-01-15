@@ -1,13 +1,14 @@
 #ifndef HEADER_GAME_H_
 #define HEADER_GAME_H_
 
+#include "Input.h"
+
 class Datos_Partida;
 class Action_Manager;
 class Decision_Manager;
 class Datos_Partida;
 class Interfaz;
 class Interfaz_Fisica;
-class Input;
 class Consumible_Action;
 class Trampas_action;
 class Nivel;
@@ -26,13 +27,13 @@ public:
 
 	void render(float _i_interpolacion);				// Render publico
 
-	void run();
-  	Datos_Partida* game_get_datos();
-    Action_Manager* game_get_action_manager();
+  	inline Datos_Partida* game_get_datos() { return _datos;}
+    inline Action_Manager* game_get_action_manager() { return _action_manager;}
 
-    void recibir_inputs();
+    void recibir_inputs() { _input_jugador->recibir_inputs();}
 
     // Funciones de cambio de Update
+    void cambio_a_update_menu();
     void cambio_a_update_partida();
     void cambio_a_update_pausa();
 
@@ -43,11 +44,13 @@ private:
 	void (Game::*update_actual)(double);
 	void (Game::*render_actual)(float);
 
+	void update_menu(double _i_tiempo_desde_ultimo_update);			// Update del menu
 	void update_partida(double _i_tiempo_desde_ultimo_update);		// Update de partida
 	void update_pausa(double _i_tiempo_desde_ultimo_update);		// Update de pausa
 
-	void render_partida(float _i_interpolacion);		// Render de partida
-	void render_pausa(float _i_interpolacion);		// Render de pausa
+	void render_menu(float _i_interpolacion);						// Render del menu
+	void render_partida(float _i_interpolacion);					// Render de partida
+	void render_pausa(float _i_interpolacion);						// Render de pausa
 
 	Nivel* _nivel;
 	Datos_Partida *_datos;

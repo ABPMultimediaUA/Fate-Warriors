@@ -2,7 +2,6 @@
 
 #include "Action_Manager.h"
 #include "Datos_Partida.h"
-#include "Input.h"
 
 #include "Entrada/Controles.h"
 #include "IA/Decision_Manager.h"
@@ -33,6 +32,8 @@ Game::Game() : _datos(nullptr),
 			   _trampas_action(nullptr)
 			   {
 	_input_jugador = new Input();
+	update_actual = &Game::update_menu;
+	render_actual = &Game::render_menu;
 }
 
 Game::~Game(){
@@ -105,14 +106,25 @@ void Game::fin_partida() {
 	_motor = nullptr;
 }
 
-void Game::run(){
-
-}
-
+// ------------------------------------ FUNCIONES DE UPDATE ------------------------------------
 
 // Llama a la funcion update en el momento necesario
 void Game::update(double _i_tiempo_desde_ultimo_update){
 	(*this.*update_actual)(_i_tiempo_desde_ultimo_update);
+}
+
+
+void Game::update_menu(double _i_tiempo_desde_ultimo_update){
+	//std::cout << "Update Pausa" << std::endl;
+    if(_input_jugador->get_saltar()){
+    	crea_partida();
+    	cambio_a_update_partida();
+    }
+
+    /*
+    if(update_actual == &Game::update_partida) {
+		update_partida(_i_tiempo_desde_ultimo_update);	
+    }*/
 }
 
 
@@ -145,8 +157,14 @@ void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
     }
 }
 
+
+// ------------------------------------ FUNCIONES DE RENDER ------------------------------------
+
 void Game::render(float _i_interpolacion){
 	(*this.*render_actual)(_i_interpolacion);
+}
+
+void Game::render_menu(float _i_interpolacion){
 }
 
 void Game::render_partida(float _i_interpolacion){
@@ -156,17 +174,13 @@ void Game::render_partida(float _i_interpolacion){
 void Game::render_pausa(float _i_interpolacion){
 	_motor->render(1);
 }
-  
-Datos_Partida* Game::game_get_datos() {
-	return _datos;
-}
 
-Action_Manager* Game::game_get_action_manager() {
-	return _action_manager;
-}
 
-void Game::recibir_inputs() {
-	_input_jugador->recibir_inputs();
+
+// ------------------------------------ FUNCIONES DE CAMBIO DE ESTADO ------------------------------------
+
+void Game::cambio_a_update_menu() {
+
 }
 
 
