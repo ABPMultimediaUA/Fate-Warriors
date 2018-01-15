@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "../Armas/Arma_distancia.h"
 #include "../Armas/Arma_cerca.h"
+#include "../Armas/Armas_Manager.h"
 #include "../Inventario.h"
 #include "../Game.h"
 #include "../Datos_Partida.h"
@@ -105,6 +106,198 @@ short Character::get_danyo_ataque_fuerte(){
 	return _danyo_ataque_fuerte;
 }
 
+void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
+    // Ataque de player y aliados, sobrescrbir en Enemigo
+    // Se ataca a enemigos
+    if(this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false){
+        this->set_accion(Accion_pre_atacar);
+        this->set_tipo_ataque(_i_tipo_ataque);
+    }
+    else if(this->get_accion() == Accion_post_atacar){
+        std::cout << "ENLAZA ATAQUE" << std::endl;
+        this->set_accion(Accion_pre_atacar);
+        this->set_tipo_ataque(_i_tipo_ataque);
+    }
+    
+}
+
+void Character::esquivar(uint16_t _direccion){
+    if(esta_bloqueado() == false){
+        set_accion(Accion_Dash);
+        _motor->Dash(_direccion,_id_motor);
+    }
+    
+}
+
+void Character::saltar(){
+    if(esta_bloqueado() == false){
+        //set_accion(Saltar);
+        _motor->saltar(_id_motor);
+    }
+}
+
+bool Character::interactuar_con_objeto(){
+    //Busca el objeto interactuable mas cercano e interactua con el (recogerlo, abrirlo, etc.)
+
+    Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
+    
+    Llave** _llaves = _int_man->get_llaves();
+    Puerta** _puertas = _int_man->get_puertas();
+    
+    unsigned short _cont;
+    bool objeto_encontrado = false;
+
+    // Busca llave y la coge
+
+    for(_cont = 0; _cont < _int_man->get_n_llaves() && objeto_encontrado == false; _cont++) {
+		if( _llaves[_cont]->get_visible() == true && 
+            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _llaves[_cont]->get_vector(), 3) == true)
+        {
+            // Recoge llave y la anyade al inventario
+            
+            this->get_inventario()->anadir_llave(_llaves[_cont]);
+            _llaves[_cont]->set_visible(false);
+            
+            objeto_encontrado = true;
+            std::cout << "Llave recogida"<< std::endl;
+            std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
+        }
+	}
+	
+    // Busca puerta y la abre
+
+	for(_cont = 0; _cont < _int_man->get_n_puertas() && objeto_encontrado == false; _cont++) {
+		if( _puertas[_cont]->get_visible() == true && 
+            _puertas[_cont]->get_abierta() == false && 
+            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _puertas[_cont]->get_vector(), 3) == true)
+        {
+            std::vector<Llave*> _llaves_character = this->get_inventario()->get_llaves();
+            
+            for (short i = 0; i < _llaves_character.size(); ++i) {
+                if(_llaves_character[i]->get_id_puerta() == _puertas[_cont]->get_id()){
+                    // Abre puerta y elimina la llave del inventario
+
+                    _puertas[_cont]->set_abierta(true);
+                    this->get_inventario()->eliminar_llave(_llaves_character[i]);
+                    objeto_encontrado = true;
+
+                    std::cout << "Puerta abierta"<< std::endl;
+                    std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
+                }
+            }
+        }
+	}
+
+    if(objeto_encontrado == true){
+        set_accion(Accion_Interactuar);
+    }
+
+    return objeto_encontrado;
+}
+
+void Character::bloquear_input(double _i_duracion_bloqueo_actual){
+    _tiempo_inicio_bloqueado = _tiempo->get_current();
+    _duracion_bloqueo_actual = _i_duracion_bloqueo_actual;
+    //_bloqueado = true;
+}
+
+void Character::desbloquear_input(){
+    _duracion_bloqueo_actual = 0;
+}
+
+void Character::morir(){
+    std::cout << "He muerto :("<< std::endl;
+    setPositionXZ(10000, 10000);
+
+}
+
+Enum_Acciones Character::get_accion(){
+    return _accion;
+}
+
+Enum_Tipo_Ataque Character::get_tipo_ataque(){
+    return _tipo_ataque;
+}
+
+bool Character::esta_bloqueado(){
+    if(_tiempo->get_current() - _tiempo_inicio_bloqueado < _duracion_bloqueo_actual){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void Character::coger_arma(Arma* _arma){
+    if(dynamic_cast<Arma_cerca*>(_arma) == NULL) {
+        std::cout << "No es un arma cerca (es arma distancia)\n";
+        _inventario->cambiar_objeto_distancia(static_cast<Arma_distancia*>(_arma));
+    }	
+    else {
+        std::cout << "Es un arma cerca\n";
+         //_inventario->cambiar_objeto_cerca(_arma);
+        _inventario->cambiar_objeto_cerca(static_cast<Arma_cerca*>(_arma));
+    }
+}
+
+bool Character::intentar_recoger_arma() {
+    std::vector<Arma*>* _armas = Game::game_instancia()->game_get_datos()->get_armas_manager()->get_armas();
+   	Vector2 vec_player	= this->get_vector();
+    Vector2 vec_cons = vec_player;
+
+    uint8_t _size = (*_armas).size(); 
+    std::cout << "Nº armas = " << (int)_size << "\n";
+    for(uint8_t _i=0; _i<_size; _i++  ) {
+        vec_cons	= (*_armas)[_i]->get_vector();
+        if(comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_cons, 4)){
+            coger_arma((*_armas)[_i]);
+            
+          //  _motor->haz_desaparecer(_id_motor);
+            (*_armas)[_i]->haz_desaparecer();
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+///////////////////////////////////////////////////////// INICIO GESTION ACCIONES /////////////////////////////////////////////////////////
+
+void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
+    _tipo_ataque = _i_tipo_ataque;
+}
+
+static int getTiempoAccion(Enum_Acciones _accion){
+    switch(_accion)
+    {
+        case Accion_pre_atacar:
+            return 500;
+        case Atacar:
+            return 1;
+        case Accion_post_atacar:
+            return 500;
+        case Accion_Dash:
+            return 500;
+        case Accion_Interactuar:
+            return 1000;
+        case Saltar:
+            return 200;
+        default:
+            return 500;
+    }
+}
+
+void Character::set_accion(Enum_Acciones _i_accion){
+    _accion = _i_accion;
+    if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
+        bloquear_input(getTiempoAccion(_i_accion));
+    }
+
+    if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
+        set_tipo_ataque(Ataque_Ninguno);
+    }
+}
+
 void Character::gestion_acciones(){
     gestion_ataque();
     gestion_dash();
@@ -199,157 +392,4 @@ void Character::gestion_ataque(){
     }
 }
 
-void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
-    // Ataque de player y aliados, sobrescrbir en Enemigo
-    // Se ataca a enemigos
-    if(this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false){
-        this->set_accion(Accion_pre_atacar);
-        this->set_tipo_ataque(_i_tipo_ataque);
-    }
-    else if(this->get_accion() == Accion_post_atacar){
-        std::cout << "ENLAZA ATAQUE" << std::endl;
-        this->set_accion(Accion_pre_atacar);
-        this->set_tipo_ataque(_i_tipo_ataque);
-    }
-    
-}
-
-void Character::esquivar(uint16_t _direccion){
-    if(esta_bloqueado() == false){
-        set_accion(Accion_Dash);
-        _motor->Dash(_direccion,_id_motor);
-    }
-    
-}
-
-void Character::saltar(){
-    if(esta_bloqueado() == false){
-        //set_accion(Saltar);
-        _motor->saltar(_id_motor);
-    }
-}
-
-void Character::interactuar_con_objeto(){
-    //Busca el objeto interactuable mas cercano e interactua con el (recogerlo, abrirlo, etc.)
-
-    Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
-    
-    Llave** _llaves = _int_man->get_llaves();
-    Puerta** _puertas = _int_man->get_puertas();
-    
-    unsigned short _cont;
-    bool objeto_encontrado = false;
-
-    // Busca llave y la coge
-
-    for(_cont = 0; _cont < _int_man->get_n_llaves() && objeto_encontrado == false; _cont++) {
-		if( _llaves[_cont]->get_visible() == true && 
-            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _llaves[_cont]->get_vector(), 3) == true)
-        {
-            // Recoge llave y la anyade al inventario
-            
-            this->get_inventario()->anadir_llave(_llaves[_cont]);
-            _llaves[_cont]->set_visible(false);
-            
-            objeto_encontrado = true;
-            std::cout << "Llave recogida"<< std::endl;
-            std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
-        }
-	}
-	
-    // Busca puerta y la abre
-
-	for(_cont = 0; _cont < _int_man->get_n_puertas() && objeto_encontrado == false; _cont++) {
-		if( _puertas[_cont]->get_visible() == true && 
-            _puertas[_cont]->get_abierta() == false && 
-            comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _puertas[_cont]->get_vector(), 3) == true)
-        {
-            std::vector<Llave*> _llaves_character = this->get_inventario()->get_llaves();
-            
-            for (short i = 0; i < _llaves_character.size(); ++i) {
-                if(_llaves_character[i]->get_id_puerta() == _puertas[_cont]->get_id()){
-                    // Abre puerta y elimina la llave del inventario
-
-                    _puertas[_cont]->set_abierta(true);
-                    this->get_inventario()->eliminar_llave(_llaves_character[i]);
-                    objeto_encontrado = true;
-
-                    std::cout << "Puerta abierta"<< std::endl;
-                    std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
-                }
-            }
-        }
-	}
-
-    if(objeto_encontrado == true){
-        set_accion(Accion_Interactuar);
-    }
-}
-
-void Character::bloquear_input(double _i_duracion_bloqueo_actual){
-    _tiempo_inicio_bloqueado = _tiempo->get_current();
-    _duracion_bloqueo_actual = _i_duracion_bloqueo_actual;
-    //_bloqueado = true;
-}
-
-void Character::desbloquear_input(){
-    _duracion_bloqueo_actual = 0;
-}
-
-void Character::morir(){
-    std::cout << "He muerto :("<< std::endl;
-    setPositionXZ(10000, 10000);
-
-}
-
-Enum_Acciones Character::get_accion(){
-    return _accion;
-}
-
-static int getTiempoAccion(Enum_Acciones _accion){
-    switch(_accion)
-    {
-        case Accion_pre_atacar:
-            return 500;
-        case Atacar:
-            return 1;
-        case Accion_post_atacar:
-            return 500;
-        case Accion_Dash:
-            return 500;
-        case Accion_Interactuar:
-            return 1000;
-        case Saltar:
-            return 200;
-        default:
-            return 500;
-    }
-}
-
-void Character::set_accion(Enum_Acciones _i_accion){
-    _accion = _i_accion;
-    if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
-        bloquear_input(getTiempoAccion(_i_accion));
-    }
-
-    if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
-        set_tipo_ataque(Ataque_Ninguno);
-    }
-}
-
-Enum_Tipo_Ataque Character::get_tipo_ataque(){
-    return _tipo_ataque;
-}
-
-void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
-    _tipo_ataque = _i_tipo_ataque;
-}
-
-bool Character::esta_bloqueado(){
-    if(_tiempo->get_current() - _tiempo_inicio_bloqueado < _duracion_bloqueo_actual){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
+///////////////////////////////////////////////////////// FIN GESTION ACCIONES /////////////////////////////////////////////////////////

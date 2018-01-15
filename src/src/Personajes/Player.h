@@ -17,9 +17,13 @@ public:
 	void modificar_vida_en(short _i_vida)	override;
 	void danyar(short _danyo) 				override;
 	void set_vida(short _i_vida) 			override;
+	bool puede_subir_especial();
+	void aumentar_especial();
+	void disminuir_especial();
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
+	uint8_t _especial;
 	Interfaz* _interface;
 	Interfaz_Fisica* _interface_fisica;
 	//Time * _tiempo;

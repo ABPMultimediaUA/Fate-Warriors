@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "../Personajes/Character.h"
 #include "../Interfaz/Motor.h"
 
 Consumible_Carne::Consumible_Carne(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 125){
@@ -18,8 +19,15 @@ Consumible_Carne::Consumible_Carne(short _id, float _i_x, float _i_y, float _i_z
 Consumible_Carne::~Consumible_Carne(){
 }
 
-bool Consumible_Carne::usar(){
-	return true;
+bool Consumible_Carne::usar(Character* _personaje){
+    
+    if(comprobar_colision(_personaje)){
+        if(_personaje->puede_subir_vida_(_valor)){
+			_personaje->modificar_vida_en(_valor);
+            return true;
+        }
+    }
+	return false;	
 }
 	
 void Consumible_Carne::render(){

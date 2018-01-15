@@ -1,12 +1,29 @@
 #include "AD_Ametralladora.h"
 #include <iostream>
 
-AD_Ametralladora::AD_Ametralladora(short _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango) : Arma_distancia(_id, _i_x, _i_y, _i_z, _i_tipo, _i_uses, _i_frecuencia, _i_rango){
+#include <stdio.h>
+#include <string.h>
+
+#include "../Interfaz/Motor.h"
+
+
+AD_Ametralladora::AD_Ametralladora(short _id, float _i_x, float _i_y, float _i_z) : Arma_distancia(_id, _i_x, _i_y, _i_z, 0, 60, 10, 20){
+    std::string str = "models/Armas/Ametralladora/Ametralladora.obj";
+    char *cstr = new char[str.length() + 1];
+    strcpy(cstr, str.c_str());
+    
+    _id=_id_motor = _motor->crearObjeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z);
+    
+    delete cstr;
 }
 
 AD_Ametralladora::~AD_Ametralladora(){
 	
 }
+
+void AD_Ametralladora::update(){
+}
+
 
 bool AD_Ametralladora::usar(float _i_x, float _i_y, float _i_z){
 	if(preparado_siguiente_ataque()){

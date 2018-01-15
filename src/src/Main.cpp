@@ -35,8 +35,8 @@ int main(){
 
     Motor* _motor = Motor::Motor_GetInstance();
 
-    //uint8_t _frames = 0;
-    //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
+    uint8_t _frames = 0;
+    uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
 
 	while(_motor->getIrrlichtDevice()->run()){
 		//Evento para cerrar la ventana
@@ -61,7 +61,7 @@ int main(){
 		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);
 		_juego->render(_interpolacion);
 
-		//_imprime_fps(_time, _frames, _tiempo_por_frame, _iteraciones);
+		_imprime_fps(_time, _frames, _tiempo_por_frame, _iteraciones);
 
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();

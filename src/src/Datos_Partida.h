@@ -7,7 +7,7 @@ class Player;
 class Consumible_Manager;
 class Trampas_manager;
 class Interactuable_Manager;
-class Objeto_Estandar;
+class Armas_Manager;
 class Input;
 
 
@@ -25,24 +25,20 @@ public:
 	Consumible_Manager * get_Consumible_Manager();
     
     Interactuable_Manager* get_interactuable_manager();
+	Armas_Manager* get_armas_manager();
+
 
 	void inserta_npc_nivel();
+
 private:
 	Player* _jugador;
-	Objeto_Estandar* _mapa;
-	Objeto_Estandar* _mapa1;
-	Objeto_Estandar* _mapa2;
-	Objeto_Estandar* _mapa3;
-	Objeto_Estandar* _mapa4;
-	Objeto_Estandar* _mapa5;
-	Objeto_Estandar* _mapa6;
-	Objeto_Estandar* _mapa7;
-	Objeto_Estandar* _mapa8;
-	Objeto_Estandar* _mapa9;
+
 	NPC_Manager* _npc_manager;
-		Trampas_manager *_trampas_manager;
+	Trampas_manager *_trampas_manager;
 	Consumible_Manager * _consumibles_manager;
     Interactuable_Manager * _interactuable_manager;
+	Armas_Manager * _armas_manager;
+
 
 };
 

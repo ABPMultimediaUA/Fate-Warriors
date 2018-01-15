@@ -20,7 +20,7 @@ PRUEBA  := $(filter-out $(ODIR), $(OBJSUBDIRS))
 PRUEBA2 := $(MKDIR) $(PRUEBA)
 #PRUEBA3 := $(eval $(call MKOBJDIR, $(PRUEBA)))
 
-TARGET	:= ejecutable
+TARGET	:= Fate_Warriors
 
 
 define COMPILAR
@@ -44,7 +44,7 @@ endef
 
 
 all: $(ODIR) $(TARGET) $(CCFLAGS)
-	chmod +x ejecutable
+	chmod +x $(TARGET)
 
 .PHONY: release
 release: opt all

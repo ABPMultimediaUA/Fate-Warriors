@@ -49,6 +49,9 @@ void Motor::Mover(uint8_t id, unsigned short _i_direccion, float x, float y, flo
 void Motor::setPositionXZ(unsigned short id, float x, float z){
 	_entidad->setPositionXZ(id,x,z);
 }
+void Motor::haz_desaparecer(unsigned short _id){
+	_entidad->haz_desaparecer(_id);
+}
 
 void Motor::saltar(unsigned short _i_id){
 	_entidad->saltar(_i_id);
