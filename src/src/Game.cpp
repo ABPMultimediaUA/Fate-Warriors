@@ -111,6 +111,9 @@ void Game::fin_partida() {
 // Llama a la funcion update en el momento necesario
 void Game::update(double _i_tiempo_desde_ultimo_update){
 	(*this.*update_actual)(_i_tiempo_desde_ultimo_update);
+
+    // Reinicia el procesado y lectura de inputs
+    _input_jugador->reiniciar_inputs();
 }
 
 
@@ -140,9 +143,6 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 	_motor->update(_i_tiempo_desde_ultimo_update);
 		
 	_decision_manager->toma_decisiones();
-
-    // Reinicia el procesado y lectura de inputs
-    _input_jugador->reiniciar_inputs();
 }
 
 
