@@ -14,6 +14,7 @@
 #include <iostream>
 #include "Player.h"
 #include "NPC/Ally.h"
+#include "../Interfaz_Libs/Lib_Math.h"
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
@@ -424,6 +425,11 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
                     _npcs[_cont]->danyar(_danyo_ataque_normal);
                 } 
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+
+                unsigned short direccion_ataque;
+                direccion_ataque = lib_math_angulo_2_puntos(_motor->getX(_id_motor), _motor->getZ(_id_motor),_motor->getX(_npcs[_cont]->get_id_motor()),_motor->getZ(_npcs[_cont]->get_id_motor()));
+                std::cout <<direccion_ataque<< std::endl;
+                _motor->Dash(direccion_ataque,_npcs[_cont]->get_id_motor());
             }
         }
         std::cout << "ATACANDO" << std::endl;
