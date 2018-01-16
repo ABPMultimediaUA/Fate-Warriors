@@ -19,6 +19,8 @@ Objeto_Motor::Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, f
    _rigidbody       = _motor->crearRigidBody(tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
    _id              = _motor->getId();
 
+   _motor->crear_ObjetoMotor(this);
+
 	desp_z = 0;
     desp_x = 0;
 }
@@ -56,12 +58,10 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	_rigidbody->getMotionState()->setWorldTransform(btt);
 	_rigidbody->setCenterOfMassTransform(btt);
 
-
 	ISceneNode *node = static_cast<ISceneNode *>(_rigidbody->getUserPointer());
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
 	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
-
 
 	const btQuaternion &quat = _rigidbody->getOrientation();
 	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
@@ -87,8 +87,8 @@ void Objeto_Motor::VelocidadDireccion(unsigned short _i_direccion, unsigned shor
 	// Actualiza la rotacion del personaje
 	_interpolacion->actualiza_direccion(_direccion_buena);
 
-	desp_z = cos(_direccion_buena*std::acos(-1)/180) * 1 * mdt;
-    desp_x = sin(_direccion_buena*std::acos(-1)/180) * 1 * mdt;
+	desp_z = cos(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
+    desp_x = sin(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
 
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }
@@ -117,7 +117,6 @@ unsigned short Objeto_Motor::getId(){
     return _id;
 }
 
-
 float Objeto_Motor::getX(){
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	return pos[0];
@@ -131,4 +130,49 @@ float Objeto_Motor::getY(){
 float Objeto_Motor::getZ(){
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	return pos[2];
+}
+
+void Objeto_Motor::colorear_nodo(short r,short g, short b){
+	_nodo->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
+}
+
+//Manu mira esta cosa.com
+
+void Objeto_Motor::abrir_puerta1(){
+	
+	_rigidbody->forceActivationState(DISABLE_SIMULATION);
+	btTransform btt; 
+	_rigidbody->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),10,btt.getOrigin().getZ())); // move body to the scene node new position
+
+	_rigidbody->getMotionState()->setWorldTransform(btt);
+	_rigidbody->setCenterOfMassTransform(btt);
+
+
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+	_nodo->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+}
+
+void Objeto_Motor::abrir_puerta2(){
+	
+	_rigidbody->forceActivationState(DISABLE_SIMULATION);
+	btTransform btt; 
+	_rigidbody->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),20,btt.getOrigin().getZ())); // move body to the scene node new position
+
+	_rigidbody->getMotionState()->setWorldTransform(btt);
+	_rigidbody->setCenterOfMassTransform(btt);
+
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+		
+	_nodo->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+}
+
+void Objeto_Motor::abrir_puerta(){
+	this->abrir_puerta1();
+	this->abrir_puerta2();
+}
+
+float Objeto_Motor::getVelocidadY(){
+	return  _rigidbody->getLinearVelocity()[1];
 }

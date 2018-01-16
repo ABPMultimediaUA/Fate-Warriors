@@ -310,10 +310,10 @@ void Character::gestion_acciones(){
 void Character::gestion_recibir_danyado(){
     if(get_accion() == Recibir_danyo){
         std::cout << "SIENDO DANYADO" << std::endl;
-        _motor->colorear_nodo(_id_motor,255,0,0);
+        _objeto->colorear_nodo(255,0,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            _motor->colorear_nodo(_id_motor,255,255,255);
+            _objeto->colorear_nodo(255,255,255);
         }
     }
 }
@@ -321,10 +321,10 @@ void Character::gestion_recibir_danyado(){
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,0,255,0);
+        _objeto->colorear_nodo(0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            _motor->colorear_nodo(_id_motor,255,255,255);
+            _objeto->colorear_nodo(255,255,255);
         }
     }
 }

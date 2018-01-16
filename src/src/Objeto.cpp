@@ -27,7 +27,7 @@ void Objeto::setZ(float _i_z){
 }
 
 void Objeto::haz_desaparecer(){
-	_motor->haz_desaparecer(_id_motor);
+//	_motor->haz_desaparecer(_id_motor);
 }
 
 float Objeto::getX(){

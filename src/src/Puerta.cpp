@@ -15,7 +15,7 @@ Puerta::Puerta(short _i_id, float _i_x, float _i_y, float _i_z, bool _i_abierta)
 
 void Puerta::set_abierta(bool _i_abierta){
 	_abierta = _i_abierta;
-    _motor->abrir_puerta(_id_motor);
+    _objeto->abrir_puerta();
 }
 
 bool Puerta::get_abierta(){

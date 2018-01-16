@@ -3,6 +3,7 @@
 #include <cmath>
 #include "../Utilidades/Vector.h"
 #include "../Personajes/Interpolacion.h"
+#include "Objeto_Motor.h"
 
 Motor* Motor::_Motor=0;
 
@@ -52,6 +53,9 @@ void Motor::borrar_objeto(ISceneNode* _nodo, Interpolacion* _interpolacion, btRi
         //delete _nodo;
     }
 
+	world->removeRigidBody(_rigidbody);
+	delete _rigidbody->getCollisionShape();
+
     std::vector<btRigidBody*>::iterator it;
     it = std::find(rigidbody.begin(), rigidbody.end(), _rigidbody);
     if ( it != rigidbody.end()){
@@ -68,8 +72,6 @@ void Motor::borrar_objeto(ISceneNode* _nodo, Interpolacion* _interpolacion, btRi
         nodes.erase(it);
         delete _nodo;
     }
-
-
 	*/
 }
 
@@ -78,6 +80,9 @@ Motor::~Motor(){
 	//Bullet
 
 	for(short a=0; a<rigidbody.size(); a++){
+		world->removeRigidBody(rigidbody[a]);
+	    delete rigidbody[a]->getCollisionShape();
+
 		delete rigidbody[a];
 		rigidbody[a] = nullptr;
 	}
@@ -185,6 +190,9 @@ ISceneNode* Motor::crearModelado(char* ruta,float x, float y, float z){
 	return cubeNode;
 }
 
+void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
+	_objetos_motor.push_back(_i_objeto_motor);
+}
 
 btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
 	btTransform cubeTransform;
@@ -213,7 +221,7 @@ btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float 
 
 					break;
 	}
-	//btCollisionShape *cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
+
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
@@ -261,10 +269,6 @@ void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, floa
 	profundidad = (edges[6].X - edges[2].X);
 
 	delete edges;
-}
-
-void Motor::colorear_nodo(unsigned short id, short r,short g, short b){
-	nodes[id+1]->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
 }
 
 void Motor::poner_camara_a_entidad(unsigned short id){
@@ -379,44 +383,7 @@ void Motor::updateCamaraColision(){
 		angulo = camara->Camara_getAngleRad();
 }
 
-void Motor::abrir_puerta1(unsigned short _i_id){
-	
-	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
-	btTransform btt; 
-	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),10,btt.getOrigin().getZ())); // move body to the scene node new position
 
-	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
-	rigidbody[_i_id]->setCenterOfMassTransform(btt);
-
-
-	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[_i_id]->getUserPointer());
-	btVector3 pos = rigidbody[_i_id]->getCenterOfMassPosition();
-		
-	node->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
-}
-
-void Motor::abrir_puerta2(unsigned short _i_id){
-	
-	rigidbody[_i_id]->forceActivationState(DISABLE_SIMULATION);
-	btTransform btt; 
-	rigidbody[_i_id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),20,btt.getOrigin().getZ())); // move body to the scene node new position
-
-	rigidbody[_i_id]->getMotionState()->setWorldTransform(btt);
-	rigidbody[_i_id]->setCenterOfMassTransform(btt);
-
-
-	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[_i_id]->getUserPointer());
-	btVector3 pos = rigidbody[_i_id]->getCenterOfMassPosition();
-		
-	node->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
-}
-
-void Motor::abrir_puerta(unsigned short _i_id){
-	this->abrir_puerta1(_i_id);
-	this->abrir_puerta2(_i_id);
-}
 
 void Motor::resetear_camara(){
 	camara->Camara_reset(_interpolaciones[_id_jugador]->get_direccion_actual());
@@ -486,9 +453,6 @@ void Motor::setVelocidad(uint8_t id, float x, float y, float z){
 	desp_x = desp_z = 0;
 }
 
-float Motor::getVelocidadY(short _i_id){
-	return  rigidbody[_i_id]->getLinearVelocity()[1];
-}
 
 IrrlichtDevice* Motor::getIrrlichtDevice(){
 	return device;
