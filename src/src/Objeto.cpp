@@ -7,10 +7,11 @@ Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _id(id), _borrar(fa
 
 Objeto::~Objeto() {
     _motor = nullptr;
+	delete _objeto;
 }
 
 void Objeto::setPositionXZ(float _i_x, float _i_z){
-    _motor->setPositionXZ(_id_motor,_i_x,_i_z);
+    _objeto->setPositionXZ(_i_x,_i_z);
 }
 
 void Objeto::setX(float _i_x){
@@ -30,15 +31,15 @@ void Objeto::haz_desaparecer(){
 }
 
 float Objeto::getX(){
-	return(_motor->getX(_id_motor));
+	return(_objeto->getX());
 }
 
 float Objeto::getY(){
-	return(_motor->getY(_id_motor));
+	return(_objeto->getY());
 }
 
 float Objeto::getZ(){
-	return(_motor->getZ(_id_motor));
+	return(_objeto->getZ());
 }
 
 void Objeto::set_borrar(){
@@ -51,7 +52,7 @@ bool Objeto::get_borrar(){
 }
 
 Vector2 Objeto::get_vector(){
-	return Vector2(_motor->getX(_id_motor), _motor->getZ(_id_motor)); 
+	return Vector2(_objeto->getX(), _objeto->getZ()); 
 }
 
 void Objeto::set_visible(bool _i_visible){

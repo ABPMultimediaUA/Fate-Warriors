@@ -14,7 +14,6 @@ public:
 
 private:
 	short _id_puerta; // Puerta que puede abrir
-	Objeto_Motor* _objeto;
 };
 
 #endif /* LLAVE_H_ */

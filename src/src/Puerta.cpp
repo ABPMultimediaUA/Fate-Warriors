@@ -23,5 +23,4 @@ bool Puerta::get_abierta(){
 }
 
 Puerta::~Puerta() {
-    delete _objeto;
 }

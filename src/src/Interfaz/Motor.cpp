@@ -36,6 +36,44 @@ Motor::Motor(){
 	_maxvida=300;
 }
 
+void Motor::borrar_objeto(ISceneNode* _nodo, Interpolacion* _interpolacion, btRigidBody* _rigidbody){
+	
+    auto ite = std::find(_interpolaciones.begin(), _interpolaciones.end(), _interpolacion);
+    if ( ite != _interpolaciones.end()){
+        _interpolaciones.erase(ite);
+        delete _interpolacion;
+    }
+
+
+	_nodo->remove();
+    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);
+    if ( ite2 != nodes.end()){
+        nodes.erase(ite2);
+        //delete _nodo;
+    }
+
+    std::vector<btRigidBody*>::iterator it;
+    it = std::find(rigidbody.begin(), rigidbody.end(), _rigidbody);
+    if ( it != rigidbody.end()){
+        rigidbody.erase(it);
+        delete _rigidbody;
+    }
+
+
+
+/*
+    std::vector<ISceneNode*>::iterator it;
+    it = std::find(nodes.begin(), nodes.end(), _nodo);
+    if ( it != nodes.end()){
+        nodes.erase(it);
+        delete _nodo;
+    }
+
+
+	*/
+}
+
+
 Motor::~Motor(){
 	//Bullet
 
@@ -154,7 +192,6 @@ btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float 
 
 	cubeTransform.setOrigin(btVector3(x,y,z));
 
-
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
 	float cubeMass = _i_peso;
@@ -194,14 +231,12 @@ btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float 
 	return cubeBody;
 }
 
-
 Interpolacion* Motor::crear_interpolacion(float x, float y, float z){
 	Vector3 posicion(x,y,z);
 	Interpolacion* _interpolacion = new Interpolacion(posicion);
 	_interpolaciones.push_back(_interpolacion);
 	return _interpolacion;
 }
-
 
 void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
@@ -272,9 +307,8 @@ void Motor::update(double dt){
 		for(short i=0; i<tamanio; i++){
 			// Actualiza el cuerpo dinamico de la caja
 			updateDynamicBody(rigidbody[i]);
-			if(desp_x==0&&desp_z==0){
-				setVelocidad(i,desp_x,rigidbody[i]->getLinearVelocity()[1],desp_z);
-			}
+			setVelocidad(i,desp_x,rigidbody[i]->getLinearVelocity()[1],desp_z);
+
 			btVector3 pos = rigidbody[i]->getCenterOfMassPosition();
 			Vector3 vector(pos[0], pos[1], pos[2]);
 			_interpolaciones[i]->actualiza_posicion(vector);
@@ -293,7 +327,6 @@ void Motor::update(double dt){
     else {
         device->yield();
     }
-	
        // device->drop();
 }
 
@@ -344,29 +377,6 @@ void Motor::updateCamaraColision(){
 		}
 
 		angulo = camara->Camara_getAngleRad();
-}
-
-
-void Motor::saltar(unsigned short _i_id){		   //Space
-
-	std::cout<<"entra" << std::endl;
-	std::cout<< rigidbody[_i_id]->getLinearVelocity()[1] << std::endl;
-		
-	if(std::abs (rigidbody[_i_id]->getLinearVelocity()[1])<0.01){
-		rigidbody[_i_id]->applyCentralImpulse( btVector3( 0.f, 3000.f, 0.f ) );
-		//exit(0);
-	}
-}
-
-void Motor::saltar(unsigned short _i_id,int force){		   //Space
-
-	std::cout<<"entra" << std::endl;
-	std::cout<< rigidbody[_i_id]->getLinearVelocity()[1] << std::endl;
-		
-	if(std::abs (rigidbody[_i_id]->getLinearVelocity()[1])<0.01){
-		rigidbody[_i_id]->applyCentralImpulse( btVector3( 0.f, force, 0.f ) );
-		//exit(0);
-	}
 }
 
 void Motor::abrir_puerta1(unsigned short _i_id){
@@ -453,94 +463,6 @@ void Motor::render(){
 
 //Metodos set
 
-
-// Funcion de mover para el jugador
-void Motor::VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad){  // Direccion
-	// Angulo de la camara
-	angulo = camara->Camara_getAngle();
-
-	/*
-	std::cout << "Direccion: " << _i_direccion << "\n";
-	std::cout << "Angulo: " << angulo << "\n";
-	*/
-
-	// Nodo del personaje
-	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-
-	// Direccion sumada de los movimientos
-	int16_t _direccion_buena = _i_direccion + angulo;
-
-	// Si la direccion es mayor de 360, se reduce al intervalo [0,360)
-	while(_direccion_buena >= 360) _direccion_buena -= 360;
-
-	// Actualiza la rotacion del personaje
-	_interpolaciones[id]->actualiza_direccion(_direccion_buena);
-
-	//std::cout << "Direccion " << _direccion_buena << "\n";
-
-	// Version antigua en caso de que no funcione bien
-	//angulo = camara->Camara_getAngleRad();
-	//desp_z += cos(_angulo+(_i_direccion*std::acos(-1)/180)) * _i_velocidad * mdt;
-
-	// Agrega el desplazamiento del personaje
-	desp_z += cos(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
-    desp_x += sin(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
-    moving = true;
-    setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
-}
-
-void Motor::setVelocidad(uint8_t id, float x, float y, float z){
-	btVector3 mov(x,y,z);
-    rigidbody[id]->setLinearVelocity(mov);
-	desp_x = desp_z = 0;
-}
-
-// Funcion de mover para los NPC
-void Motor::setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z){
-	float _cos, _sen;
-	_cos = sin(_i_direccion*std::acos(-1)/180);
-	_sen = cos(_i_direccion*std::acos(-1)/180);
-
-	// Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
-	float _nueva_direccion = atan2(_sen, _cos) /std::acos(-1) * 180;
-
-	//std::cout << "Direccion: " << _nueva_direccion << "\n";
-
-	// Nodo del personaje
-	ISceneNode *personaje = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-
-	// Actualiza la rotacion del personaje
-	_interpolaciones[id]->actualiza_direccion(_nueva_direccion);
-
-	// Agrega el desplazamiento del personaje
-	desp_z += cos(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
-    desp_x += sin(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
-    setVelocidad(id,desp_x,rigidbody[id]->getLinearVelocity()[1],desp_z);
-}
-
-void Motor::setPositionXZ(unsigned short id, float x, float z){
-	btTransform btt; 
-	rigidbody[id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(x,btt.getOrigin().getY(),z)); // move body to the scene node new position
-
-	rigidbody[id]->getMotionState()->setWorldTransform(btt);
-	rigidbody[id]->setCenterOfMassTransform(btt);
-
-
-	ISceneNode *node = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
-	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
-		
-	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
-
-
-	const btQuaternion &quat = rigidbody[id]->getOrientation();
-	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
-	vector3df euler;
-	q.toEuler(euler);
-	euler *= RADTODEG;
-	node->setRotation(euler);
-}
-
 void Motor::haz_desaparecer(unsigned short _id){
 	btTransform btt; 
 	rigidbody[_id]->getMotionState()->getWorldTransform(btt);
@@ -556,30 +478,12 @@ void Motor::set_text_vida(int _i_vida){
 	_vida = (_i_vida*300)/500;
 }
 
-void Motor::Dash(unsigned short _i_direccion, unsigned short id){
-	short potencia = 1000;
-	angulo = camara->Camara_getAngleRad();
-	desp_z += cos(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
-    desp_x += sin(angulo+(_i_direccion*std::acos(-1)/180)) * _velocidad * mdt;
-	rigidbody[id]->applyCentralImpulse(btVector3(desp_x*potencia, 0.f, desp_z*potencia)); //se multiplica por 100 pa volaaaar
-	desp_z = desp_x = 0;
-}
 
 //Metodos get
-
-float Motor::getX(short id){
-	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
-	return pos[0];
-}
-
-float Motor::getY(short id){
-	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
-	return pos[1];
-}
-
-float Motor::getZ(short id){
-	btVector3 pos = rigidbody[id]->getCenterOfMassPosition();
-	return pos[2];
+void Motor::setVelocidad(uint8_t id, float x, float y, float z){
+	btVector3 mov(x,y,z);
+    rigidbody[id]->setLinearVelocity(mov);
+	desp_x = desp_z = 0;
 }
 
 float Motor::getVelocidadY(short _i_id){
@@ -597,4 +501,13 @@ void Motor::render(float _i_interpolacion){
 
 unsigned short Motor::getId(){
 	return rigidbody.size()-1;
+}
+
+float Motor::angulo_camara(){
+	return camara->Camara_getAngle();
+}
+
+
+float Motor::angulo_camaraRAD(){
+	return camara->Camara_getAngleRad();
 }

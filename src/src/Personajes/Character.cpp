@@ -124,7 +124,8 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
 void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
-        _motor->Dash(_direccion,_id_motor);
+
+        _objeto->Dash(_direccion, _tiempo->get_tiempo_desde_ultimo_update());
     }
     
 }
@@ -132,7 +133,7 @@ void Character::esquivar(uint16_t _direccion){
 void Character::saltar(){
     if(esta_bloqueado() == false){
         //set_accion(Saltar);
-        _motor->saltar(_id_motor);
+        _objeto->saltar();
     }
 }
 

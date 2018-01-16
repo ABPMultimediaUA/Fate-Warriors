@@ -21,7 +21,6 @@ AD_Ametralladora::AD_Ametralladora(short _id, float _i_x, float _i_y, float _i_z
 }
 
 AD_Ametralladora::~AD_Ametralladora(){
-	delete _objeto;
 }
 
 void AD_Ametralladora::update(){

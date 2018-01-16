@@ -14,7 +14,6 @@ public:
 
 protected: 
 		//short Velocidad_bala;
-	Objeto_Motor* _objeto;
 };
 
 #endif /* AD_Ametralladora_H_ */

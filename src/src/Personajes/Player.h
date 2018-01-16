@@ -23,7 +23,6 @@ public:
 	void disminuir_especial();
 	//ckeyboardman* _KeyMan;
 private:
-	Objeto_Motor* _objeto;
 	short _nodoId; //ID del nodo del modelado del motor
 	uint8_t _especial;
 	Interfaz* _interface;

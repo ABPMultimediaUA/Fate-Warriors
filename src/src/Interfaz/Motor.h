@@ -36,6 +36,7 @@ public:
     void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
+  
     unsigned short crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso);
 
     btRigidBody* crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
@@ -45,11 +46,9 @@ public:
     void importarEscenario(char* rutaObj, float x, float y, float z);
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
-    void VelocidadDireccion(unsigned short id, unsigned short _i_direccion, unsigned short _i_velocidad);
 
     //void simulationUpdate();
-    void saltar(unsigned short _i_id);
-    void saltar(unsigned short _i_id,int force);
+
     void abrir_puerta(unsigned short _i_id);
     void abrir_puerta1(unsigned short _i_id);
     void abrir_puerta2(unsigned short _i_id);
@@ -60,9 +59,7 @@ public:
     void render(float _i_interpolacion);
 
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
-
-    void setVelocidad(uint8_t id, float x, float y, float z);
-    void setVelocidad(uint8_t id, unsigned short _i_direccion, float x, float y, float z);
+    
     void set_text_vida(int _i_vida);
     void haz_desaparecer(unsigned short _id);
 
@@ -71,16 +68,16 @@ public:
     void updateCamaraColision();
     void updateDynamicBody(btRigidBody *body);
     void interpola_posiciones(float _i_interpolacion);
-    void setPositionXZ(unsigned short id, float x, float z);
-    float getX(short id);
-    float getY(short id);
-    float getZ(short id);
+    void setVelocidad(uint8_t id, float x, float y, float z);
     float getVelocidadY(short _i_id);
-    void Dash(unsigned short _i_direccion, unsigned short id);
-    void    colorear_nodo(unsigned short id, short r,short g, short b);
+    void colorear_nodo(unsigned short id, short r,short g, short b);
     void resetear_camara();
     void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
     unsigned short getId();
+    void borrar_objeto(ISceneNode* _nodo, Interpolacion* _interpolacion, btRigidBody* _rigidbody);
+  
+    float angulo_camara();
+    float angulo_camaraRAD();
     
 private:
 

@@ -6,6 +6,8 @@
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
 
+#include "../Tiempo/Time.h"
+
 #include <iostream>
 
 
@@ -30,7 +32,6 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
 }
 
 NPC::~NPC() {
-    delete _objeto;
 }
 
 void NPC::move(unsigned long _i_direccion) {
@@ -44,7 +45,9 @@ void NPC::move(unsigned long _i_direccion) {
     //_x = _x + _desp_x;
     //_z = _z + _desp_z;
     //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
-    _motor->setVelocidad(_id_motor,_i_direccion, _desp_x*25, _motor->getVelocidadY(_id_motor),_desp_z*25);
+   // _motor->setVelocidad(_id_motor,_i_direccion, _desp_x*25, _motor->getVelocidadY(_id_motor),_desp_z*25);
+   
+    _objeto->setVelocidad(_i_direccion, _desp_x*25, _motor->getVelocidadY(_id_motor),_desp_z*25,_tiempo->get_tiempo_desde_ultimo_update());
     //_motor->setPositionXZ(_id,_desp_x*100,_desp_z*100);
     //_motor->moverXZ(_id,0,0);
     //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';

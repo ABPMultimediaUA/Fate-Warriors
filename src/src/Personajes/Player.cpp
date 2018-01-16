@@ -27,7 +27,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     char *cstr = new char[str.length()+1];
     strcpy(cstr, str.c_str());
     
-    _objeto = new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
+    _objeto = new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,150);
     _id_motor = _objeto->getId();
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
@@ -45,7 +45,6 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 }
 
 Player::~Player(){
-    delete _objeto;
 }
 
 void Player::update(){
@@ -61,7 +60,9 @@ void Player::update(){
     uint16_t _direccion;
 
     if(_input->get_mover(_direccion) && esta_bloqueado() == false) {
-        _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
+       // _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
+       
+       _objeto->VelocidadDireccion(_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
     }
 
     if(_input->get_dash()){
@@ -113,8 +114,7 @@ void Player::update(){
 
     if(_input->get_saltar()){
         saltar();
-        //_motor->saltar(_id_motor);
-        //exit(0);
+
 	}
 
    
