@@ -56,24 +56,6 @@ Interfaz_sonido::~Interfaz_sonido(){
     ERRCHECK( stringsBank->unload() );
     ERRCHECK( masterBank->unload() );
     ERRCHECK( system->release() );
-
-    delete system;
-
-    delete lowLevelSystem;
-
-    delete masterBank ;
-    delete stringsBank ;
-    delete ambienceBank ;
-    delete menuBank ;
-    delete weaponsBank ;
-
-	delete loopingAmbienceDescription ;
-    delete loopingAmbienceInstance ;
-    delete cancelDescription ;
-    delete cancelInstance ;
-    delete explosionDescription ;
-
-	delete eventInstance ;
 }
 
 void Interfaz_sonido::CreateSound(){
@@ -101,7 +83,7 @@ void Interfaz_sonido::CreateSound(){
 
     // Get the Single Explosion event
     //FMOD::Studio::EventDescription* explosionDescription = NULL;
-    ERRCHECK( system->getEvent("event:/Explosions/Single Explosion", &explosionDescription) );
+    ERRCHECK( system->getEvent("event:/Weapons/Single-Shot", &explosionDescription) );
 
     // Start loading explosion sample data and keep it in memory
     ERRCHECK( explosionDescription->loadSampleData() );
@@ -116,7 +98,9 @@ void Interfaz_sonido::Disparar(){
 
     // Release will clean up the instance when it completes
     ERRCHECK( eventInstance->release() );
+    std::cout << "Disparar2" << std::endl;
     Update();
+    std::cout << "Disparar3" << std::endl;
 }
 void Interfaz_sonido::Ambiente(){
     std::cout << "Ambiente" << std::endl;
@@ -138,7 +122,7 @@ void Interfaz_sonido::Update(){
     ERRCHECK( system->update() );
 }
 
-int main(int argv, char*args[])
+/*int main(int argv, char*args[])
 {
   Interfaz_sonido* sonido = new Interfaz_sonido();
 
@@ -146,7 +130,10 @@ int main(int argv, char*args[])
 
   sonido->Disparar();
 
+  char algo;
+  std::cin>>algo;
+  if(algo=='1'){
   delete sonido;
-
+  }
   return 0;
-}
+}*/
