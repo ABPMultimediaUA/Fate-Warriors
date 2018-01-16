@@ -2,7 +2,7 @@
 
 #include "Entidad.h"
 #include "../Input.h"
-
+#include "../Utilidades/Vector.h"
 
 Motor* Motor::_Motor=0;
 
@@ -24,6 +24,10 @@ void Motor::apagar(){
 Motor::~Motor(){
 	delete _entidad;
 	_entidad = nullptr;
+}
+
+bool Motor::colision_entre_dos_puntos(Vector3 inicio, Vector3 fin){
+	return _entidad->colision_entre_dos_puntos(inicio,fin);
 } 
 
 uint8_t Motor::crearObjetoPeso(BoundingBoxes tipo, char* rutaObj,float x, float y, float z, float _i_peso){

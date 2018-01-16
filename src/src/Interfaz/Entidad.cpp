@@ -78,6 +78,19 @@ void Entidad::preparar_depuracion_mundo(){
 	world->setDebugDrawer(debugDraw);
 }
 
+bool Entidad::colision_entre_dos_puntos(Vector3 inicio, Vector3 fin){
+	btVector3 btInicio(inicio._x,inicio._y,inicio._z);
+	btVector3 btFin(fin._x,fin._y,fin._z);
+
+	//std::cout << "iniciox:" << inicio._x << "inicioz:" << inicio._z << "finx:" << fin._x << "finz:" << fin._z << std::endl;
+
+	btCollisionWorld::ClosestRayResultCallback mycallback = this->trazaRayo(btInicio,btFin);
+	//std::cout << "Boolean:" << mycallback.hasHit() << std::endl;
+	btVector3 point = mycallback.m_hitPointWorld;
+	//std::cout <<"Colision X: "<<point.getX()<<" || Colision Y: "<<point.getY()<<" ||   Colision Z: "<<point.getZ()<<"  \n";
+	return mycallback.hasHit();
+}
+
 void Entidad::configuracion_bullet(){	
 	collisionConfiguration = new btDefaultCollisionConfiguration();
 	broadPhase = new btDbvtBroadphase(new btHashedOverlappingPairCache());

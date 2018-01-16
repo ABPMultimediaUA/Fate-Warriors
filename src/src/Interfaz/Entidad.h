@@ -48,7 +48,7 @@ public:
 
     void update();
     void render();
-
+    bool colision_entre_dos_puntos(Vector3 inicio, Vector3 fin); 
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
 
     void setVelocidad(uint8_t id, float x, float y, float z);

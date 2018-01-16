@@ -7,6 +7,7 @@
 
 class Entidad;
 class Input;
+struct Vector3;
 
 using namespace irr;
 
@@ -41,7 +42,7 @@ public:
       void    colorear_nodo(unsigned short id, short r,short g, short b);
 
       void    asigna_input(Input* _i_input_jugador);
-
+      bool    colision_entre_dos_puntos(Vector3 inicio, Vector3 fin);
       float   getVelocidadY(short id);
       IrrlichtDevice* getIrrlichtDevice();
 
