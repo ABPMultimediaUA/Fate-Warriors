@@ -86,14 +86,14 @@ PASILLO
 txt/Nivel/Nivel1/25pasillo.txt
 NODO
 70 54 15 15 26
-null
+txt/Nivel/Nivel1/26nodo.txt
 enemigo
 PASILLO
 100 61 3 5 27
 txt/Nivel/Nivel1/27pasillo.txt
 NODO
 89 66 20 15 28
-null
+txt/Nivel/Nivel1/28nodo.txt
 enemigo
 PASILLO
 75 76 14 3 29
@@ -107,7 +107,7 @@ PASILLO
 txt/Nivel/Nivel1/31pasillo.txt
 NODO
 27 59 35 35 32
-null
+txt/Nivel/Nivel1/32nodo.txt
 enemigo
 ARISTA
 1 6 33

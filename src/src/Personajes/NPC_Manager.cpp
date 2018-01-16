@@ -4,13 +4,14 @@
 
 #include "NPC/Ally.h"
 #include "NPC/Enemy_Normal.h"
+#include "NPC/Beast.h"
 
 #include "../Nivel/Nivel.h"
 
 #include <iostream>
 
 NPC_Manager::NPC_Manager() {
-	_n_enemigos = 4;
+	_n_enemigos = 5;
 	_n_aliados = 0;
 
 
@@ -19,6 +20,7 @@ NPC_Manager::NPC_Manager() {
 	_npc[1] = new Enemy_Normal(0, 32*metro, 0, 29*metro, 50, 15, 5, 10);
 	_npc[2] = new Enemy_Normal(0, 34*metro, 0, 24*metro, 50, 15, 5, 10);
 	_npc[3] = new Ally(0, 45*metro, 0, 40*metro, 50, 15, 5, 10);
+	_npc[4] = new Beast(0, 75*metro, 0, 40*metro, 50, 15, 5, 10);
 }
 
 NPC_Manager::~NPC_Manager() {
