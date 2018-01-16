@@ -3,6 +3,7 @@
 #include "../../Game.h"
 #include "../../Datos_Partida.h"
 #include "../Player.h"
+#include "../../Interfaz/Motor.h"
 
 Enemy_Normal::Enemy_Normal(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
@@ -20,7 +21,7 @@ void Enemy_Normal::gestion_ataque(){
 
     if(this->get_accion() == Accion_pre_atacar){
         std::cout << "PRE-ATACANDO" << std::endl;
-
+        _motor->colorear_nodo(_id_motor,255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
             
@@ -35,17 +36,30 @@ void Enemy_Normal::gestion_ataque(){
             }
             else if(this->get_tipo_ataque()  == Ataque_Fuerte){
                 _player->danyar(_danyo_ataque_fuerte);
-            }  
+            }   
+            else if(this->get_tipo_ataque()  == Ataque_Normal_Normal){
+                _player->danyar(_danyo_ataque_normal);
+            } 
+            else if(this->get_tipo_ataque()  == Ataque_Normal_Fuerte){
+                _player->danyar(_danyo_ataque_normal);
+            } 
+            else if(this->get_tipo_ataque()  == Ataque_Fuerte_Normal){
+                _player->danyar(_danyo_ataque_normal);
+            } 
+            else if(this->get_tipo_ataque()  == Ataque_Fuerte_Fuerte){
+                _player->danyar(_danyo_ataque_normal);
+            } 
         }
 
         std::cout << "ATACANDO" << std::endl;
+        _motor->colorear_nodo(_id_motor,0,0,255);
         if(esta_bloqueado() == false){
             this->set_accion(Accion_post_atacar);
         }
     }
     else if(this->get_accion() == Accion_post_atacar){
         std::cout << "POST-ATACANDO" << std::endl;
-
+        _motor->colorear_nodo(_id_motor,255,20,147);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
         }

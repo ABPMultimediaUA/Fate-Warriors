@@ -249,7 +249,7 @@ void Character::coger_arma(Arma* _arma){
     if(dynamic_cast<Arma_cerca*>(_arma) == NULL) {
         std::cout << "No es un arma cerca (es arma distancia)\n";
         _inventario->cambiar_objeto_distancia(static_cast<Arma_distancia*>(_arma));
-    }	
+    }
     else {
         std::cout << "Es un arma cerca\n";
          //_inventario->cambiar_objeto_cerca(_arma);
@@ -325,6 +325,9 @@ void Character::set_accion(Enum_Acciones _i_accion){
     if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
         bloquear_input(getTiempoAccion(_i_accion));
     }
+    else{
+        _motor->colorear_nodo(_id_motor,255,255,255);
+    }
 
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
         set_tipo_ataque(Ataque_Ninguno);
@@ -353,7 +356,7 @@ void Character::gestion_recibir_danyado(){
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,0,255,0);
+        //_motor->colorear_nodo(_id_motor,0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
             _motor->colorear_nodo(_id_motor,255,255,255);
@@ -381,11 +384,11 @@ void Character::gestion_interactuar(){
     }
 }
 
-void Character::gestion_ataque(){
+void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
 
     if(this->get_accion() == Accion_pre_atacar){
         std::cout << "PRE-ATACANDO" << std::endl;
-
+        _motor->colorear_nodo(_id_motor,255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
             
@@ -408,17 +411,30 @@ void Character::gestion_ataque(){
                 else if(this->get_tipo_ataque()  == Ataque_Fuerte){
                     _npcs[_cont]->danyar(_danyo_ataque_fuerte);
                 }  
+                else if(this->get_tipo_ataque()  == Ataque_Normal_Normal){
+                    _npcs[_cont]->danyar(_danyo_ataque_normal);
+                } 
+                else if(this->get_tipo_ataque()  == Ataque_Normal_Fuerte){
+                    _npcs[_cont]->danyar(_danyo_ataque_normal);
+                } 
+                else if(this->get_tipo_ataque()  == Ataque_Fuerte_Normal){
+                    _npcs[_cont]->danyar(_danyo_ataque_normal);
+                } 
+                else if(this->get_tipo_ataque()  == Ataque_Fuerte_Fuerte){
+                    _npcs[_cont]->danyar(_danyo_ataque_normal);
+                } 
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
             }
         }
         std::cout << "ATACANDO" << std::endl;
+        _motor->colorear_nodo(_id_motor,0,0,255);
         if(esta_bloqueado() == false){
             this->set_accion(Accion_post_atacar);
         }
     }
     else if(this->get_accion() == Accion_post_atacar){
         std::cout << "POST-ATACANDO" << std::endl;
-
+        _motor->colorear_nodo(_id_motor,255,20,147);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
         }
