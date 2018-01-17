@@ -27,7 +27,7 @@ Motor::Motor(){
     configuracion_bullet();
     preparar_depuracion_mundo();
 
-	const char* cstr = "models/Colisiones.obj";
+	const char* cstr = "models/MapaColision/ColisionesNivel1.obj";
 	importarEscenario(cstr, 0,0,0);
 
     desp_x = desp_z = 0;
@@ -180,7 +180,7 @@ void Motor::configuracion_bullet(){
 	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadPhase, constraintSolver, collisionConfiguration);
 
 	fileLoader = new btBulletWorldImporter(world);
-	fileLoader->loadFile("models/Colisiones.bullet");
+	fileLoader->loadFile("models/MapaColision/ColisionesNivel1.bullet");
 	
     world->setGravity(btVector3(0,-9.8,0));
 
