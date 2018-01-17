@@ -39,13 +39,13 @@ Interfaz_sonido::Interfaz_sonido(){
     ERRCHECK( system->loadBankFile("Banks/Master Bank.strings.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &stringsBank) );
 
     //FMOD::Studio::Bank* ambienceBank = NULL;
-    ERRCHECK( system->loadBankFile("Banks/Surround_Ambience.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &ambienceBank) );
+    /*ERRCHECK( system->loadBankFile("Banks/Surround_Ambience.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &ambienceBank) );
 
     //FMOD::Studio::Bank* menuBank = NULL;
     ERRCHECK( system->loadBankFile("Banks/UI_Menu.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &menuBank) );
 
     //FMOD::Studio::Bank* weaponsBank = NULL;
-    ERRCHECK( system->loadBankFile("Banks/Weapons.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &weaponsBank) );
+    ERRCHECK( system->loadBankFile("Banks/Weapons.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &weaponsBank) );*/
 
     //FMOD::Studio::Bank* pasosBank = NULL;
     ERRCHECK( system->loadBankFile("Banks/Pasos.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &pasosBank) );
@@ -53,10 +53,10 @@ Interfaz_sonido::Interfaz_sonido(){
 
 Interfaz_sonido::~Interfaz_sonido(){
 
-    ERRCHECK( weaponsBank->unload() );
+    /*ERRCHECK( weaponsBank->unload() );
     ERRCHECK( menuBank->unload() );
     ERRCHECK( ambienceBank->unload() );
-    ERRCHECK( stringsBank->unload() );
+    ERRCHECK( stringsBank->unload() );*/
     ERRCHECK( pasosBank->unload() );
     ERRCHECK( masterBank->unload() );
     ERRCHECK( system->release() );
@@ -87,24 +87,52 @@ void Interfaz_sonido::CreateSound(){
 
     // Get the Single Explosion event
     //FMOD::Studio::EventDescription* explosionDescription = NULL;
-    ERRCHECK( system->getEvent("event:/Pasos/Cadena", &explosionDescription) );
+    ERRCHECK( system->getEvent("event:/Pasos/Cadena", &pasosCadena) );
 
     // Start loading explosion sample data and keep it in memory
-    ERRCHECK( explosionDescription->loadSampleData() );
+    ERRCHECK( pasosCadena->loadSampleData() );
+
+    ERRCHECK( system->getEvent("event:/Pasos/Arena", &pasosArena) );
+
+    // Start loading explosion sample data and keep it in memory
+    ERRCHECK( pasosArena->loadSampleData() );
+
+    ERRCHECK( system->getEvent("event:/Pasos/Asfalto", &pasosAsfalto) );
+
+    // Start loading explosion sample data and keep it in memory
+    ERRCHECK( pasosAsfalto->loadSampleData() );
 
 }
 
-void Interfaz_sonido::Disparar(){
-    std::cout << "Disparar" << std::endl;
-    ERRCHECK( explosionDescription->createInstance(&eventInstance) );
+void Interfaz_sonido::PasosCadena(){
+    std::cout << "PasosCadena" << std::endl;
+    ERRCHECK( pasosCadena->createInstance(&eventInstance) );
 
     ERRCHECK( eventInstance->start() );
 
     // Release will clean up the instance when it completes
     ERRCHECK( eventInstance->release() );
-    std::cout << "Disparar2" << std::endl;
     Update();
-    std::cout << "Disparar3" << std::endl;
+}
+void Interfaz_sonido::PasosArena(){
+    std::cout << "PasosArena" << std::endl;
+    ERRCHECK( pasosArena->createInstance(&eventInstance) );
+
+    ERRCHECK( eventInstance->start() );
+
+    // Release will clean up the instance when it completes
+    ERRCHECK( eventInstance->release() );
+    Update();
+}
+void Interfaz_sonido::PasosAsfalto(){
+    std::cout << "PasosAsfalto" << std::endl;
+    ERRCHECK( pasosAsfalto->createInstance(&eventInstance) );
+
+    ERRCHECK( eventInstance->start() );
+
+    // Release will clean up the instance when it completes
+    ERRCHECK( eventInstance->release() );
+    Update();
 }
 /*void Interfaz_sonido::Ambiente(){
     std::cout << "Ambiente" << std::endl;
