@@ -9,10 +9,9 @@ public:
 	~Interfaz_sonido();
 
     void CreateSound();
-    void Disparar();
-    void Ambiente();
-    void Cancelar_ambiente();
-    void Cancelar();
+    void PasosCadena();
+    void PasosArena();
+    void PasosAsfalto();
     void Update();
 
 
@@ -32,9 +31,15 @@ private:
 
 	FMOD::Studio::EventDescription* loopingAmbienceDescription = NULL;
     FMOD::Studio::EventInstance* loopingAmbienceInstance = NULL;
+
     FMOD::Studio::EventDescription* cancelDescription = NULL;
     FMOD::Studio::EventInstance* cancelInstance = NULL;
-    FMOD::Studio::EventDescription* explosionDescription = NULL;
+
+    FMOD::Studio::EventDescription* pasosCadena = NULL;
+
+    FMOD::Studio::EventDescription* pasosArena = NULL;
+
+    FMOD::Studio::EventDescription* pasosAsfalto = NULL;
 
 	FMOD::Studio::EventInstance* eventInstance = NULL;
 	

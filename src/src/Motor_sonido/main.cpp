@@ -12,12 +12,20 @@ int main(int argv, char*args[])
 
   sonido->CreateSound();
 
-  sonido->Disparar();
+  
 
   char algo;
-  std::cin>>algo;
-  if(algo=='1'){
+  do{
+    std::cin>>algo;
+    switch(algo){
+      case '1': sonido->PasosCadena();
+      break;
+      case '2': sonido->PasosArena();
+      break;
+      case '3': sonido->PasosAsfalto();
+      break;
+    }
+  }while(algo!='0');
   delete sonido;
-  }
   return 0;
 }
