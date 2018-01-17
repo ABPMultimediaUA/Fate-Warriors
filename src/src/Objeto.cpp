@@ -1,11 +1,10 @@
 #include "Objeto.h"
 //#include "Interfaz/Objeto_Motor.h"
 
-//int Objeto::_next_id = 0;
+int Objeto::_next_id = 0;
 
 
-Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _id(id), _borrar(false), _visible(true) {
-
+Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _id(Objeto::_next_id++), _borrar(false), _visible(true) {
 }
 
 Objeto::~Objeto() {

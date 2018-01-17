@@ -35,9 +35,11 @@ public:
     void set_visible(bool visible);
     bool get_visible();
     short get_id();
-	//static int _next_id;
 
 protected:
+
+	static int _next_id;
+
 	short 	_id;
 	Objeto_Motor* _objeto_motor;
 	bool 	_borrar;
