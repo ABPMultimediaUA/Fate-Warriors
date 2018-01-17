@@ -41,10 +41,10 @@ public:
     void importarEscenario(char* rutaObj, float x, float y, float z);
 
   
-    unsigned short crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso);
+    unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
-    btRigidBody* crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
-    ISceneNode* crearModelado(char* ruta,float x, float y, float z);
+    btRigidBody* crearRigidBody(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
+    ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
 
     void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
@@ -124,7 +124,7 @@ private:
       std::vector<ISceneNode*> nodes;
       GUI* _GUI;
 
-      std::vector<Interpolacion*> _interpolaciones;
+
       uint16_t _id_jugador;
 
       std::vector<Objeto_Motor*> _objetos_motor;

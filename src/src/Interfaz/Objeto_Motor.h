@@ -2,14 +2,12 @@
 #ifndef OBJETO_MOTOR_H_
 #define OBJETO_MOTOR_H_
 
-
 #include "Motor.h"
-
 
 class Objeto_Motor{
 public:
 
-      Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, float z, short peso);
+      Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, short peso);
       ~Objeto_Motor();
     
       void setPositionXZ(float x, float z);
@@ -27,8 +25,6 @@ public:
       void abrir_puerta1();
       void abrir_puerta2();
 
-      unsigned short getId();
-
       float getX();
       float getY();
       float getZ();
@@ -39,7 +35,6 @@ private:
       ISceneNode*       _nodo;
       Interpolacion*    _interpolacion;
       btRigidBody*      _rigidbody;
-      unsigned short    _id;
       double desp_z;
       double desp_x;
 };

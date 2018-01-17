@@ -24,6 +24,7 @@ public:
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
+	Motor* _motor;
 	uint8_t _especial;
 	Interfaz* _interface;
 	Interfaz_Fisica* _interface_fisica;

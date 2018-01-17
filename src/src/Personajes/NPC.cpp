@@ -25,8 +25,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     strcpy(cstr, str.c_str());
    // _id_motor = _motor->crear_objeto(E_BoundingCapsule,cstr,_i_x,_i_y,_i_z,60);
     
-    _objeto = new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
-    _id_motor = _objeto->getId();
+    _objeto_motor =new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
 
     delete cstr;
 }
@@ -47,7 +46,7 @@ void NPC::move(unsigned long _i_direccion) {
     //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
    // _motor->setVelocidad(_id_motor,_i_direccion, _desp_x*25, _motor->getVelocidadY(_id_motor),_desp_z*25);
    
-    _objeto->setVelocidad(_i_direccion, _desp_x*25, _objeto->getVelocidadY(),_desp_z*25,_tiempo->get_tiempo_desde_ultimo_update());
+    _objeto_motor->setVelocidad(_i_direccion, _desp_x*25, _objeto_motor->getVelocidadY(),_desp_z*25,_tiempo->get_tiempo_desde_ultimo_update());
     //_motor->setPositionXZ(_id,_desp_x*100,_desp_z*100);
     //_motor->moverXZ(_id,0,0);
     //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';

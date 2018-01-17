@@ -143,7 +143,7 @@ void Motor::configuracion_bullet(){
 	fileLoader = new btBulletWorldImporter(world);
 	fileLoader->loadFile("models/Colisiones.bullet");
 	
-    world->setGravity(btVector3(0,-9.8*20,0));
+    world->setGravity(btVector3(0,-9.8,0));
 
 }
 
@@ -169,14 +169,14 @@ void Motor::configuracion_irlitch(){
 }
 
 
-unsigned short Motor::crear_objeto(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso){
+unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso){
 	ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
 	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
 	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
 	return rigidbody.size()-1;
 }
 
-ISceneNode* Motor::crearModelado(char* ruta,float x, float y, float z){
+ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
 	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
 	if(cubeNode){
@@ -194,7 +194,7 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 	_objetos_motor.push_back(_i_objeto_motor);
 }
 
-btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
@@ -230,7 +230,7 @@ btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,char* ruta,float x, float 
 	cubeBody->setAngularFactor(0);
 	cubeBody->setUserPointer(cubeNode);
 	cubeBody->setRestitution(0);
-	cubeBody->setFriction(500);
+	cubeBody->setFriction(1);
 	cubeBody->forceActivationState(DISABLE_DEACTIVATION );
 
 
@@ -305,7 +305,7 @@ void Motor::update(double dt){
 	mdt = dt;
    	if(device->isWindowActive()) {
 
-        world->stepSimulation(dt * 0.001f);
+        world->stepSimulation(dt * 0.001f, 5);
 
 		short tamanio = rigidbody.size();
 		for(short i=0; i<tamanio; i++){
@@ -449,7 +449,7 @@ void Motor::set_text_vida(int _i_vida){
 //Metodos get
 void Motor::setVelocidad(uint8_t id, float x, float y, float z){
 	btVector3 mov(x,y,z);
-    rigidbody[id]->setLinearVelocity(mov);
+    _objetos_motor[id]->setVelocidad(x,y,z);
 	desp_x = desp_z = 0;
 }
 

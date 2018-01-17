@@ -11,13 +11,11 @@
 #include "../Personajes/Interpolacion.h"
 
 
-Objeto_Motor::Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, float z, short peso){
-	Motor* _motor = Motor::Motor_GetInstance();
-
+Objeto_Motor::Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, short peso){
+   Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);
    _interpolacion   = _motor->crear_interpolacion(x, y, z);
    _rigidbody       = _motor->crearRigidBody(tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
-   _id              = _motor->getId();
 
    _motor->crear_ObjetoMotor(this);
 
@@ -26,7 +24,7 @@ Objeto_Motor::Objeto_Motor(BoundingBoxes tipo, char* rutaObj,float x, float y, f
 }
 
 Objeto_Motor::~Objeto_Motor(){
-    Motor* _motor = Motor::Motor_GetInstance();
+Motor* _motor = Motor::Motor_GetInstance();
    _motor->borrar_objeto(_nodo, _interpolacion, _rigidbody);
 } 
 
@@ -99,7 +97,7 @@ void Objeto_Motor::setVelocidad(float x, float y, float z){
 
 void Objeto_Motor::saltar(){		
 	if(std::abs (_rigidbody->getLinearVelocity()[1])<0.01){
-		_rigidbody->applyCentralImpulse(btVector3( 0.f, 3000.f, 0.f ) );
+		_rigidbody->applyCentralImpulse(btVector3( 0.f, 500.f, 0.f ) );
 	}
 }
 
@@ -111,10 +109,6 @@ void Objeto_Motor::Dash(unsigned short _i_direccion, double mdt){
 	desp_z = cos(angulo+(_i_direccion*std::acos(-1)/180)) * mdt;
     desp_x = sin(angulo+(_i_direccion*std::acos(-1)/180)) * mdt;
 	_rigidbody->applyCentralImpulse(btVector3(desp_x*potencia, 0.f, desp_z*potencia)); //se multiplica por 100 pa volaaaar
-}
-
-unsigned short Objeto_Motor::getId(){
-    return _id;
 }
 
 float Objeto_Motor::getX(){

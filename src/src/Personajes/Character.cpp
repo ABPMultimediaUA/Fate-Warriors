@@ -125,7 +125,7 @@ void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
 
-        _objeto->Dash(_direccion, _tiempo->get_tiempo_desde_ultimo_update());
+        _objeto_motor->Dash(_direccion, _tiempo->get_tiempo_desde_ultimo_update());
     }
     
 }
@@ -133,7 +133,7 @@ void Character::esquivar(uint16_t _direccion){
 void Character::saltar(){
     if(esta_bloqueado() == false){
         //set_accion(Saltar);
-        _objeto->saltar();
+        _objeto_motor->saltar();
     }
 }
 
@@ -310,10 +310,10 @@ void Character::gestion_acciones(){
 void Character::gestion_recibir_danyado(){
     if(get_accion() == Recibir_danyo){
         std::cout << "SIENDO DANYADO" << std::endl;
-        _objeto->colorear_nodo(255,0,0);
+        _objeto_motor->colorear_nodo(255,0,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            _objeto->colorear_nodo(255,255,255);
+            _objeto_motor->colorear_nodo(255,255,255);
         }
     }
 }
@@ -321,10 +321,10 @@ void Character::gestion_recibir_danyado(){
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
-        _objeto->colorear_nodo(0,255,0);
+        _objeto_motor->colorear_nodo(0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            _objeto->colorear_nodo(255,255,255);
+            _objeto_motor->colorear_nodo(255,255,255);
         }
     }
 }

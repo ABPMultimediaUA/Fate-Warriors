@@ -1,17 +1,14 @@
 #include "Objeto.h"
-#include "Interfaz/Motor.h"
 
 Objeto::Objeto(short id, float _i_x, float _i_y,float _i_z): _id(id), _borrar(false), _visible(true) {
-	 _motor = Motor::Motor_GetInstance();
 }
 
 Objeto::~Objeto() {
-    _motor = nullptr;
-	delete _objeto;
+	delete _objeto_motor;
 }
 
 void Objeto::setPositionXZ(float _i_x, float _i_z){
-    _objeto->setPositionXZ(_i_x,_i_z);
+    _objeto_motor->setPositionXZ(_i_x,_i_z);
 }
 
 void Objeto::setX(float _i_x){
@@ -31,15 +28,15 @@ void Objeto::haz_desaparecer(){
 }
 
 float Objeto::getX(){
-	return(_objeto->getX());
+	return(_objeto_motor->getX());
 }
 
 float Objeto::getY(){
-	return(_objeto->getY());
+	return(_objeto_motor->getY());
 }
 
 float Objeto::getZ(){
-	return(_objeto->getZ());
+	return(_objeto_motor->getZ());
 }
 
 void Objeto::set_borrar(){
@@ -52,7 +49,7 @@ bool Objeto::get_borrar(){
 }
 
 Vector2 Objeto::get_vector(){
-	return Vector2(_objeto->getX(), _objeto->getZ()); 
+	return Vector2(_objeto_motor->getX(), _objeto_motor->getZ()); 
 }
 
 void Objeto::set_visible(bool _i_visible){

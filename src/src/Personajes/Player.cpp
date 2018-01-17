@@ -11,13 +11,15 @@
 #include "../Nivel/Nivel.h"
 
 #include "../Interfaz_Libs/Lib_Math.h"
+#include "../Interfaz/Motor.h"
+
 
 #include "../Game.h"
 #include "../Action_Manager.h"
 //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 2, 10, 15)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 1, 10, 15)
                                                                 {   
-
+    _motor= Motor::Motor_GetInstance();
     //_tiempo = Time::Instance();
     //crear nodo de personaje del motor
     _otro_tiempo = _tiempo->get_start();
@@ -27,8 +29,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     char *cstr = new char[str.length()+1];
     strcpy(cstr, str.c_str());
     
-    _objeto = new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
-    _id_motor = _objeto->getId();
+    _objeto_motor =new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_id);
@@ -62,7 +63,7 @@ void Player::update(){
     if(_input->get_mover(_direccion) && esta_bloqueado() == false) {
        // _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
        
-       _objeto->VelocidadDireccion(_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
+       _objeto_motor->VelocidadDireccion(_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
     }
 
     if(_input->get_dash()){

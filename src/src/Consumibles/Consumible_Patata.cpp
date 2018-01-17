@@ -8,15 +8,15 @@
 #include "../Interfaz/Motor.h"
 
 Consumible_Patata::Consumible_Patata(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 50){
-    std::string str = "models/Consumibles/Patata/Patatas.obj";
+ /*   std::string str = "models/Consumibles/Patata/Patatas.obj";
     char *cstr = new char[str.length() + 1];
     strcpy(cstr, str.c_str());
-    
+   */ 
   //  _id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z,12);
-       _objeto = new Objeto_Motor(E_BoundingBox, cstr, _i_x,_i_y,_i_z,69);
-    _id_motor = _objeto->getId();
+  const char* cstr = "models/Consumibles/Patata/Patatas.obj";
+       _objeto_motor =new Objeto_Motor(E_BoundingBox, cstr, _i_x,_i_y,_i_z,69);
     
-    delete cstr;
+  //  delete cstr;
 }
 
 Consumible_Patata::~Consumible_Patata(){

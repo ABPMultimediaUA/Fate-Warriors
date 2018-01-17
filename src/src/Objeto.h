@@ -40,10 +40,8 @@ public:
 
 protected:
 	short 	_id;
-	Objeto_Motor * _objeto;
+	Objeto_Motor * _objeto_motor;
 	bool 	_borrar;
-	Motor* _motor;
-	short _id_motor;
     bool _visible;
 };
 
