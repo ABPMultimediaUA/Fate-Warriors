@@ -2,10 +2,8 @@
 #define HEADERS_OBJETO_H_
 #include "Utilidades/Vector.h"
 #include "Interfaz/EnumTiposBoundingBox.h"
-
-
 #include <cstdint>
-
+#include "Interfaz/Objeto_Motor.h"
 
 class Motor;
 
@@ -41,9 +39,8 @@ public:
 
 protected:
 	short 	_id;
+	Objeto_Motor* _objeto_motor;
 	bool 	_borrar;
-	Motor* _motor;
-	short _id_motor;
     bool _visible;
 };
 

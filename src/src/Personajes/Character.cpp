@@ -11,6 +11,7 @@
 #include "../Puerta.h"
 #include "../Interactuable_Manager.h"
 #include "../Interfaz/Motor.h"
+//#include "../Interfaz/Objeto_Motor.h"
 #include <iostream>
 #include "Player.h"
 #include "NPC/Ally.h"
@@ -142,7 +143,8 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
 void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
-        _motor->Dash(_direccion,_id_motor);
+
+        _objeto_motor->Dash(_direccion, _tiempo->get_tiempo_desde_ultimo_update());
     }
     
 }
@@ -150,7 +152,7 @@ void Character::esquivar(uint16_t _direccion){
 void Character::saltar(){
     if(esta_bloqueado() == false){
         //set_accion(Saltar);
-        _motor->saltar(_id_motor);
+        _objeto_motor->saltar();
     }
 }
 
@@ -346,10 +348,10 @@ void Character::gestion_acciones(){
 void Character::gestion_recibir_danyado(){
     if(get_accion() == Recibir_danyo){
         std::cout << "SIENDO DANYADO" << std::endl;
-        _motor->colorear_nodo(_id_motor,255,0,0);
+        _objeto_motor->colorear_nodo(255,0,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            _motor->colorear_nodo(_id_motor,255,255,255);
+            _objeto_motor->colorear_nodo(255,255,255);
         }
     }
 }
@@ -357,10 +359,11 @@ void Character::gestion_recibir_danyado(){
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
+        //_objeto_motor->colorear_nodo(0,255,0);
         //_motor->colorear_nodo(_id_motor,0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            _motor->colorear_nodo(_id_motor,255,255,255);
+            _objeto_motor->colorear_nodo(255,255,255);
         }
     }
 }
@@ -429,7 +432,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
                 unsigned short direccion_ataque;
                 direccion_ataque = lib_math_angulo_2_puntos(_motor->getX(_id_motor), _motor->getZ(_id_motor),_motor->getX(_npcs[_cont]->get_id_motor()),_motor->getZ(_npcs[_cont]->get_id_motor()));
                 std::cout <<direccion_ataque<< std::endl;
-                _motor->Dash(direccion_ataque,_npcs[_cont]->get_id_motor());
+                _objeto_motor->Dash(direccion_ataque,_npcs[_cont]->get_id_motor());
             }
         }
         std::cout << "ATACANDO" << std::endl;

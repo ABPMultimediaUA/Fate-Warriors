@@ -20,7 +20,6 @@ Time::~Time() {
 		delete _reloj;
 }
 
-
 double Time::getDeltaTime(double _i_ahora, double _i_antes){
 	return (_i_ahora-_i_antes);
 }

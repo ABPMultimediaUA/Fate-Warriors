@@ -1,4 +1,8 @@
- 
+
+#ifndef DEBUGDRAW_H_
+#define DEBUGDRAW_H_
+
+
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include "BulletWorldImporter/btBulletWorldImporter.h"
@@ -62,3 +66,5 @@ public:
    void setDebugMode(int mode) { this->mode = mode; }
    int getDebugMode() const { return this->mode; }
 };
+
+#endif /* DEBUGDRAW_H_ */
