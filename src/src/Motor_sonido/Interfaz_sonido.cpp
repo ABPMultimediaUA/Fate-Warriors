@@ -46,6 +46,9 @@ Interfaz_sonido::Interfaz_sonido(){
 
     //FMOD::Studio::Bank* weaponsBank = NULL;
     ERRCHECK( system->loadBankFile("Banks/Weapons.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &weaponsBank) );
+
+    //FMOD::Studio::Bank* pasosBank = NULL;
+    ERRCHECK( system->loadBankFile("Banks/Pasos.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &pasosBank) );
 }
 
 Interfaz_sonido::~Interfaz_sonido(){
@@ -54,6 +57,7 @@ Interfaz_sonido::~Interfaz_sonido(){
     ERRCHECK( menuBank->unload() );
     ERRCHECK( ambienceBank->unload() );
     ERRCHECK( stringsBank->unload() );
+    ERRCHECK( pasosBank->unload() );
     ERRCHECK( masterBank->unload() );
     ERRCHECK( system->release() );
 }
@@ -62,7 +66,7 @@ void Interfaz_sonido::CreateSound(){
 
     // Get the Looping Ambience event
     //FMOD::Studio::EventDescription* loopingAmbienceDescription = NULL;
-    ERRCHECK( system->getEvent("event:/Ambience/Country", &loopingAmbienceDescription) );
+    /*ERRCHECK( system->getEvent("event:/Ambience/Country", &loopingAmbienceDescription) );
     FMOD_GUID guid;
     char eventDescrPath[512];
     ERRCHECK( loopingAmbienceDescription->getID(&guid));
@@ -79,11 +83,11 @@ void Interfaz_sonido::CreateSound(){
     ERRCHECK( system->getEvent("event:/UI/Cancel", &cancelDescription) );
 
     //FMOD::Studio::EventInstance* cancelInstance = NULL;
-    ERRCHECK( cancelDescription->createInstance(&cancelInstance) );
+    ERRCHECK( cancelDescription->createInstance(&cancelInstance) );*/
 
     // Get the Single Explosion event
     //FMOD::Studio::EventDescription* explosionDescription = NULL;
-    ERRCHECK( system->getEvent("event:/Weapons/Single-Shot", &explosionDescription) );
+    ERRCHECK( system->getEvent("event:/Pasos/Cadena", &explosionDescription) );
 
     // Start loading explosion sample data and keep it in memory
     ERRCHECK( explosionDescription->loadSampleData() );
@@ -102,7 +106,7 @@ void Interfaz_sonido::Disparar(){
     Update();
     std::cout << "Disparar3" << std::endl;
 }
-void Interfaz_sonido::Ambiente(){
+/*void Interfaz_sonido::Ambiente(){
     std::cout << "Ambiente" << std::endl;
     ERRCHECK( loopingAmbienceInstance->start() );
     Update();
@@ -116,7 +120,7 @@ void Interfaz_sonido::Cancelar(){
     std::cout << "Cancelar" << std::endl;
     ERRCHECK( cancelInstance->start() );
     Update();
-}
+}*/
 
 void Interfaz_sonido::Update(){
     ERRCHECK( system->update() );
