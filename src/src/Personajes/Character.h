@@ -12,7 +12,7 @@ class Arma;
 
 class Character : public Objeto_Movil{
 public:
-	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad, short _i_danyo_ataque_normal, 
+	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
 	short _i_danyo_ataque_fuerte);
 	
 	virtual ~Character();
@@ -76,7 +76,7 @@ protected:
 	
 	int16_t _vida_maxima;
 	int16_t _vida;
-	short _velocidad;
+	float _velocidad;
 	uint8_t _rango_arma_corta;
 	uint8_t _rango_arma_larga;
 	short _danyo_ataque_normal;

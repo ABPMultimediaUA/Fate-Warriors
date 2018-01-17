@@ -7,16 +7,16 @@
 class Objeto_Motor{
 public:
 
-      Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, short peso);
+      Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
       ~Objeto_Motor();
     
       void setPositionXZ(float x, float z);
       
-      void VelocidadDireccion(unsigned short _i_direccion, unsigned short _i_velocidad, double dt);
+      void VelocidadDireccion(unsigned short _i_direccion, float _i_velocidad, double dt);
       void setVelocidad(float x, float y, float z);
       void setVelocidad(unsigned short _i_direccion, float x, float y, float z,double mdt);
 
-      void Dash(unsigned short _i_direccion, double mdt);
+      void Dash(unsigned short _i_direccion);
       void saltar();
 
       void colorear_nodo(short r,short g, short b);

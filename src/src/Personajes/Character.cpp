@@ -17,7 +17,7 @@
 #include "NPC/Ally.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 
-Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,
+Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
     :Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
@@ -144,7 +144,7 @@ void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
 
-        _objeto_motor->Dash(_direccion, _tiempo->get_tiempo_desde_ultimo_update());
+        _objeto_motor->Dash(_direccion);
     }
     
 }
@@ -430,9 +430,10 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
 
                 unsigned short direccion_ataque;
-                //direccion_ataque = lib_math_angulo_2_puntos(_motor->getX(), _motor->getZ(_id_motor),_motor->getX(_npcs[_cont]->get_id_motor()),_motor->getZ(_npcs[_cont]->get_id_motor()));
+                direccion_ataque = lib_math_angulo_2_puntos(getX(), getZ(),_npcs[_cont]->getX(),_npcs[_cont]->getZ());
                 std::cout <<direccion_ataque<< std::endl;
-                //_objeto_motor->Dash(direccion_ataque,_npcs[_cont]->get_id_motor());
+                
+                _objeto_motor->Dash(direccion_ataque);
             }
         }
         std::cout << "ATACANDO" << std::endl;

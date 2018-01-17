@@ -11,7 +11,7 @@
 #include "../Personajes/Interpolacion.h"
 
 
-Objeto_Motor::Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, short peso){
+Objeto_Motor::Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
    Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);
    _interpolacion   = _motor->crear_interpolacion(x, y, z);
@@ -71,7 +71,7 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 
 
 // Funcion de mover para el jugador
-void Objeto_Motor::VelocidadDireccion(unsigned short _i_direccion, unsigned short _i_velocidad, double mdt){  // Direccion
+void Objeto_Motor::VelocidadDireccion(unsigned short _i_direccion, float _i_velocidad, double mdt){  // Direccion
 	
     Motor* _motor = Motor::Motor_GetInstance();
     float angulo = _motor->angulo_camara();
@@ -101,13 +101,13 @@ void Objeto_Motor::saltar(){
 	}
 }
 
-void Objeto_Motor::Dash(unsigned short _i_direccion, double mdt){
+void Objeto_Motor::Dash(unsigned short _i_direccion){
 	short potencia = 300;
 	Motor* _motor = Motor::Motor_GetInstance();
     float angulo = _motor->angulo_camaraRAD();
 	
-	desp_z = cos(angulo+(_i_direccion*std::acos(-1)/180)) * mdt;
-    desp_x = sin(angulo+(_i_direccion*std::acos(-1)/180)) * mdt;
+	desp_z = cos(angulo+(_i_direccion*std::acos(-1)/180));
+    desp_x = sin(angulo+(_i_direccion*std::acos(-1)/180));
 	_rigidbody->applyCentralImpulse(btVector3(desp_x*potencia, 0.f, desp_z*potencia)); //se multiplica por 100 pa volaaaar
 }
 
