@@ -5,6 +5,12 @@
 #include "../Personajes/Interpolacion.h"
 #include "Objeto_Motor.h"
 
+/*
+#include "Entidad.h"
+#include "../Input.h"
+#include "../Utilidades/Vector.h"
+master*/
+
 Motor* Motor::_Motor=0;
 
 Motor* Motor::Motor_GetInstance(){
@@ -86,8 +92,13 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 	*/
 }
 
+/*bool Motor::colision_entre_dos_puntos(Vector3 inicio, Vector3 fin){
+	return _entidad->colision_entre_dos_puntos(inicio,fin);
+}*/ 
+
 
 Motor::~Motor(){
+
 	//Bullet
 /*
 	for(short a=0; a<rigidbody.size(); a++){
@@ -107,6 +118,8 @@ Motor::~Motor(){
 	nodes.clear();
  
  */
+
+
 
 	for(short a=0; a<_objetos_motor.size(); a++){
 		_objetos_motor[a]->getNodo()->remove();

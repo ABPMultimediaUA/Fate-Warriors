@@ -47,10 +47,15 @@ public:
     ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
 
+
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
 
     //void simulationUpdate();
+
+
+      //bool    colision_entre_dos_puntos(Vector3 inicio, Vector3 fin);
+
 
     void update(double dt);
     void render(float _i_interpolacion);

@@ -10,7 +10,7 @@ const float t_min_IA=(1000/15);
 // Función que da el nº de fps en el ultimo segundo
 void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uint32_t& _iteraciones) {
 	_frames++;
-	_tiempo_por_frame = _time->get_current() - _iteraciones*1000;
+	_tiempo_por_frame = _time->get_current_sin_pausas() - _iteraciones*1000;
 	if(_tiempo_por_frame>=1000) {
 		_tiempo_por_frame-=1000;
 
@@ -26,17 +26,17 @@ void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uin
 int main(){
 
 	Game* _juego = Game::game_instancia();
-	_juego->crea_partida();
+	//_juego->crea_partida();
 	Time* time=Time::Instance();
 
-	double _h_ultimo_update=time->get_current();
+	double _h_ultimo_update=time->get_current_sin_pausas();
 	double _interpolacion;
 	Time* _time = Time::Instance();
 
     Motor* _motor = Motor::Motor_GetInstance();
 
-    uint8_t _frames = 0;
-    uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
+    //uint8_t _frames = 0;
+    //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
 
 	while(_motor->getIrrlichtDevice()->run()){
 		//Evento para cerrar la ventana
@@ -44,24 +44,25 @@ int main(){
 		// Recoge inputs
 		_juego->recibir_inputs();
 
-		time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);//actualizacion del reloj
+		time->set_tiempo_desde_ultimo_update(time->get_current_sin_pausas() - _h_ultimo_update);//actualizacion del reloj
 		//std::cout << "Tiempo desde update " << time->get_tiempo_desde_ultimo_update() << std::endl;
 		//update
                 
 		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
-			_h_ultimo_update=time->get_current();
+			_h_ultimo_update=time->get_current_sin_pausas();
             //std::cout << "pre update" << std::endl;
             //std::cout << "Tiempo update " << time->get_tiempo_desde_ultimo_update() << "\n";
             _juego->update(time->get_tiempo_desde_ultimo_update());
-            time->set_tiempo_desde_ultimo_update(time->get_current() - _h_ultimo_update);
+            time->set_tiempo_desde_ultimo_update(time->get_current_sin_pausas() - _h_ultimo_update);
             //std::cout << "post update" << std::endl;
 		}
+
 
 		//Render
 		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);
 		_juego->render(_interpolacion);
 
-		_imprime_fps(_time, _frames, _tiempo_por_frame, _iteraciones);
+		//_imprime_fps(_time, _frames, _tiempo_por_frame, _iteraciones);
 
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();

@@ -69,3 +69,7 @@ bool Objeto::get_visible(){
 short Objeto::get_id(){
     return _id;
 }
+
+short Objeto::get_id_motor(){
+	return _id_motor;
+}
