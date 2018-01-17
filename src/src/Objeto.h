@@ -35,6 +35,7 @@ public:
     void set_visible(bool visible);
     bool get_visible();
     short get_id();
+	static int _next_id;
 
 protected:
 	short 	_id;
