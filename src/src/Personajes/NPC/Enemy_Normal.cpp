@@ -21,7 +21,7 @@ void Enemy_Normal::gestion_ataque(){
 
     if(this->get_accion() == Accion_pre_atacar){
         std::cout << "PRE-ATACANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,255,255,0);
+        _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
             
@@ -52,14 +52,14 @@ void Enemy_Normal::gestion_ataque(){
         }
 
         std::cout << "ATACANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,0,0,255);
+        _objeto_motor->colorear_nodo(0,0,255);
         if(esta_bloqueado() == false){
             this->set_accion(Accion_post_atacar);
         }
     }
     else if(this->get_accion() == Accion_post_atacar){
         std::cout << "POST-ATACANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,255,20,147);
+        _objeto_motor->colorear_nodo(255,20,147);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
         }

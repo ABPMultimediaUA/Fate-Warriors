@@ -329,7 +329,7 @@ void Character::set_accion(Enum_Acciones _i_accion){
         bloquear_input(getTiempoAccion(_i_accion));
     }
     else{
-        _motor->colorear_nodo(_id_motor,255,255,255);
+        _objeto_motor->colorear_nodo(255,255,255);
     }
 
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
@@ -359,8 +359,8 @@ void Character::gestion_recibir_danyado(){
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
+        //_objeto_objeto_motor->colorear_nodo(0,255,0);
         //_objeto_motor->colorear_nodo(0,255,0);
-        //_motor->colorear_nodo(_id_motor,0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
             _objeto_motor->colorear_nodo(255,255,255);
@@ -392,7 +392,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
 
     if(this->get_accion() == Accion_pre_atacar){
         std::cout << "PRE-ATACANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,255,255,0);
+        _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
             
@@ -430,20 +430,20 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
 
                 unsigned short direccion_ataque;
-                direccion_ataque = lib_math_angulo_2_puntos(_motor->getX(_id_motor), _motor->getZ(_id_motor),_motor->getX(_npcs[_cont]->get_id_motor()),_motor->getZ(_npcs[_cont]->get_id_motor()));
+                //direccion_ataque = lib_math_angulo_2_puntos(_motor->getX(), _motor->getZ(_id_motor),_motor->getX(_npcs[_cont]->get_id_motor()),_motor->getZ(_npcs[_cont]->get_id_motor()));
                 std::cout <<direccion_ataque<< std::endl;
-                _objeto_motor->Dash(direccion_ataque,_npcs[_cont]->get_id_motor());
+                //_objeto_motor->Dash(direccion_ataque,_npcs[_cont]->get_id_motor());
             }
         }
         std::cout << "ATACANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,0,0,255);
+        _objeto_motor->colorear_nodo(0,0,255);
         if(esta_bloqueado() == false){
             this->set_accion(Accion_post_atacar);
         }
     }
     else if(this->get_accion() == Accion_post_atacar){
         std::cout << "POST-ATACANDO" << std::endl;
-        _motor->colorear_nodo(_id_motor,255,20,147);
+        _objeto_motor->colorear_nodo(255,20,147);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
         }
