@@ -27,6 +27,8 @@ private:
     FMOD::Studio::Bank* ambienceBank = NULL;
     FMOD::Studio::Bank* menuBank = NULL;
     FMOD::Studio::Bank* weaponsBank = NULL;
+    FMOD::Studio::Bank* pasosBank = NULL;
+    
 
 	FMOD::Studio::EventDescription* loopingAmbienceDescription = NULL;
     FMOD::Studio::EventInstance* loopingAmbienceInstance = NULL;
