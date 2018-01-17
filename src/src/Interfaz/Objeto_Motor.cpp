@@ -56,17 +56,16 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	_rigidbody->getMotionState()->setWorldTransform(btt);
 	_rigidbody->setCenterOfMassTransform(btt);
 
-	ISceneNode *node = static_cast<ISceneNode *>(_rigidbody->getUserPointer());
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
-	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
+	_nodo->setPosition(vector3df(x,btt.getOrigin().getY(),z));
 
 	const btQuaternion &quat = _rigidbody->getOrientation();
 	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
 	vector3df euler;
 	q.toEuler(euler);
 	euler *= RADTODEG;
-	node->setRotation(euler);
+	_nodo->setRotation(euler);
 }
 
 
