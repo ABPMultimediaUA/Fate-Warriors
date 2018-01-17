@@ -25,7 +25,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
 
    // _id_motor = _motor->crear_objeto(E_BoundingCapsule,cstr,_i_x,_i_y,_i_z,60);
     
-    _objeto_motor =new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
+    _objeto_motor =new Objeto_Motor(this,E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
 
 }
 

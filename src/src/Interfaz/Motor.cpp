@@ -4,6 +4,7 @@
 #include "../Utilidades/Vector.h"
 #include "../Personajes/Interpolacion.h"
 #include "Objeto_Motor.h"
+#include "../Objeto.h"
 
 /*
 #include "Entidad.h"
@@ -209,9 +210,10 @@ void Motor::configuracion_irlitch(){
 
 
 unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso){
-	ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
+	/*ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
 	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
 	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
+	*/
 	return 1;
 }
 
@@ -232,7 +234,7 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 	_objetos_motor.push_back(_i_objeto_motor);
 }
 
-btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
@@ -266,7 +268,7 @@ btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,const char* ruta,float x, 
 	btRigidBody *cubeBody = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
 	
 	cubeBody->setAngularFactor(0);
-	cubeBody->setUserPointer(cubeNode);
+	cubeBody->setUserPointer(_i_objeto);
 	cubeBody->setRestitution(0);
 	cubeBody->setFriction(1);
 	cubeBody->forceActivationState(DISABLE_DEACTIVATION );

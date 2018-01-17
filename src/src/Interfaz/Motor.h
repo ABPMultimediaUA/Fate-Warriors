@@ -20,11 +20,12 @@
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
-
 class Objeto_Motor;
+class Objeto;
 class Interpolacion;
 class Time;
 class Input;
+class Objeto;
 class Motor{
 
 public:
@@ -42,8 +43,8 @@ public:
 
   
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
-    void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
-    btRigidBody* crearRigidBody(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
+    void crear_ObjetoMotor(Objeto* _i_objeto_motor);
+    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
     ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
 
