@@ -9,6 +9,7 @@
 #include "../Tiempo/Time.h"
 
 #include <iostream>
+//#include "../Interfaz/Objeto_Motor.h"
 
 
 
@@ -20,14 +21,12 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, short _
     
     //std::cout << "Tipo NPC = " << _tipo_npc << "\n";
 
-    std::string str = "models/Enemigo.obj";
-    char *cstr = new char[str.length() + 1];
-    strcpy(cstr, str.c_str());
+    const char* cstr  = "models/Enemigo.obj";
+
    // _id_motor = _motor->crear_objeto(E_BoundingCapsule,cstr,_i_x,_i_y,_i_z,60);
     
     _objeto_motor =new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
 
-    delete cstr;
 }
 
 NPC::~NPC() {

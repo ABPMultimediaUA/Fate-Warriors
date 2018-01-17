@@ -11,6 +11,7 @@
 #include "../Puerta.h"
 #include "../Interactuable_Manager.h"
 #include "../Interfaz/Motor.h"
+//#include "../Interfaz/Objeto_Motor.h"
 #include <iostream>
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, short _i_velocidad,

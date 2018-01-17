@@ -20,16 +20,23 @@ public:
       void saltar();
 
       void colorear_nodo(short r,short g, short b);
+      Vector3 interpola_posiciones(float _i_interpolacion);
 
       void abrir_puerta();
       void abrir_puerta1();
       void abrir_puerta2();
+      void updateDynamicBody();
 
       float getX();
       float getY();
       float getZ();
 
+      ISceneNode*    getNodo();
+      Interpolacion* getInterpolacion();
+      btRigidBody*   getRigidBody();
+
       float getVelocidadY();
+      
 
 private:
       ISceneNode*       _nodo;

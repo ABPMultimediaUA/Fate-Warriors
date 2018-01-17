@@ -21,9 +21,7 @@ Motor::Motor(){
     configuracion_bullet();
     preparar_depuracion_mundo();
 
-	std::string str = "models/Colisiones.obj";
-    char *cstr = new char[str.length() + 1];
-    strcpy(cstr, str.c_str());
+	const char* cstr = "models/Colisiones.obj";
 	importarEscenario(cstr, 0,0,0);
 
     desp_x = desp_z = 0;
@@ -37,8 +35,21 @@ Motor::Motor(){
 	_maxvida=300;
 }
 
-void Motor::borrar_objeto(ISceneNode* _nodo, Interpolacion* _interpolacion, btRigidBody* _rigidbody){
-	
+void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
+
+	_objeto_motor->getNodo()->remove();
+
+	world->removeRigidBody(_objeto_motor->getRigidBody());
+	delete _objeto_motor->getRigidBody()->getCollisionShape();
+
+	delete _objeto_motor->getInterpolacion();
+
+	auto ite2 = std::find(_objetos_motor.begin(), _objetos_motor.end(), _objeto_motor);
+    if ( ite2 != _objetos_motor.end()){
+        _objetos_motor.erase(ite2);
+    }
+
+	/*
     auto ite = std::find(_interpolaciones.begin(), _interpolaciones.end(), _interpolacion);
     if ( ite != _interpolaciones.end()){
         _interpolaciones.erase(ite);
@@ -78,7 +89,7 @@ void Motor::borrar_objeto(ISceneNode* _nodo, Interpolacion* _interpolacion, btRi
 
 Motor::~Motor(){
 	//Bullet
-
+/*
 	for(short a=0; a<rigidbody.size(); a++){
 		world->removeRigidBody(rigidbody[a]);
 	    delete rigidbody[a]->getCollisionShape();
@@ -88,12 +99,27 @@ Motor::~Motor(){
 	}
 	rigidbody.clear();
 
+
 	for(short a=0; a<nodes.size(); a++){
 		delete nodes[a];
 		nodes[a] = nullptr;
 	}
 	nodes.clear();
  
+ */
+
+	for(short a=0; a<_objetos_motor.size(); a++){
+		_objetos_motor[a]->getNodo()->remove();
+		world->removeRigidBody(_objetos_motor[a]->getRigidBody());
+		delete _objetos_motor[a]->getRigidBody()->getCollisionShape();
+		delete _objetos_motor[a]->getInterpolacion();
+	}
+	_objetos_motor.clear();
+
+	
+
+	delete mapa;
+	
 	delete world; 
 	delete camara; 
 	delete debugDraw; 
@@ -173,7 +199,7 @@ unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, 
 	ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
 	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
 	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
-	return rigidbody.size()-1;
+	return 1;
 }
 
 ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
@@ -186,7 +212,6 @@ ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
 	cubeNode->setPosition(vector3df(x, y, z));
 	
 	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
-	nodes.push_back(cubeNode);
 	return cubeNode;
 }
 
@@ -235,14 +260,12 @@ btRigidBody* Motor::crearRigidBody(BoundingBoxes tipo,const char* ruta,float x, 
 
 
 	world->addRigidBody(cubeBody);
-	rigidbody.push_back(cubeBody);
 	return cubeBody;
 }
 
 Interpolacion* Motor::crear_interpolacion(float x, float y, float z){
 	Vector3 posicion(x,y,z);
 	Interpolacion* _interpolacion = new Interpolacion(posicion);
-	_interpolaciones.push_back(_interpolacion);
 	return _interpolacion;
 }
 
@@ -271,12 +294,12 @@ void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, floa
 	delete edges;
 }
 
-void Motor::poner_camara_a_entidad(unsigned short id){
-	ISceneNode *cubeNode = static_cast<ISceneNode *>(rigidbody[id]->getUserPointer());
+void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
+	ISceneNode *cubeNode = _objeto_motor->getNodo();
 	camara->Camara_setProta(cubeNode);
-	_id_jugador = id;
+	_id_jugador = 0;
 
-	camara->set_posicion_inicial(_interpolaciones[_id_jugador]->get_direccion_actual());
+	camara->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
 }
 
 btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btVector3 end){
@@ -286,13 +309,12 @@ btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btV
 	return rayCallback;
 }
 
-void Motor::importarEscenario(char* rutaObj, float x, float y, float z){
+void Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
 
-	ISceneNode *windmillNode = smgr->addMeshSceneNode(smgr->getMesh(rutaObj));
-	if(windmillNode) {
-		windmillNode->setMaterialFlag(EMF_LIGHTING, false);
-		windmillNode->setPosition(core::vector3df(x,y,z));
-		nodes.push_back(windmillNode);
+	mapa = smgr->addMeshSceneNode(smgr->getMesh(rutaObj));
+	if(mapa) {
+		mapa->setMaterialFlag(EMF_LIGHTING, false);
+		mapa->setPosition(core::vector3df(x,y,z));
 	}
 }
 
@@ -305,23 +327,14 @@ void Motor::update(double dt){
 	mdt = dt;
    	if(device->isWindowActive()) {
 
-        world->stepSimulation(dt * 0.001f, 5);
+        world->stepSimulation(dt * 0.001f,5);
 
-		short tamanio = rigidbody.size();
+		short tamanio = _objetos_motor.size();
 		for(short i=0; i<tamanio; i++){
 			// Actualiza el cuerpo dinamico de la caja
-			updateDynamicBody(rigidbody[i]);
-			setVelocidad(i,desp_x,rigidbody[i]->getLinearVelocity()[1],desp_z);
-
-			btVector3 pos = rigidbody[i]->getCenterOfMassPosition();
-			Vector3 vector(pos[0], pos[1], pos[2]);
-			_interpolaciones[i]->actualiza_posicion(vector);
-
-			if(!_interpolaciones[i]->get_cambio_direccion()) {
-				_interpolaciones[i]->actualiza_direccion(_interpolaciones[i]->get_direccion_actual());
-			}
-
-			_interpolaciones[i]->cambio_direccion(false);
+			_objetos_motor[i]->updateDynamicBody();
+			_objetos_motor[i]->setVelocidad(0,_objetos_motor[i]->getVelocidadY(),0);
+		
 		}
 
 		// Update de la posicion de la camara (despues de actualizar la del jugador)
@@ -336,15 +349,10 @@ void Motor::update(double dt){
 
 void Motor::interpola_posiciones(float _i_interpolacion) {
 
-	uint16_t _tam = rigidbody.size();
+	uint16_t _tam = _objetos_motor.size();
 	for(uint16_t i=0; i<_tam; i++){
-		Vector3 _posicion_interpolada = _interpolaciones[i]->interpola_posicion(_i_interpolacion);
-
-		ISceneNode *node = static_cast<ISceneNode *>(rigidbody[i]->getUserPointer());
 		
-		node->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
-
-		node->setRotation(core::vector3df(0,_interpolaciones[i]->interpola_direccion(_i_interpolacion),0));
+		Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
 
 		if(i == _id_jugador) {
 			camara->interpola_target(_posicion_interpolada);
@@ -355,7 +363,7 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 
 void Motor::updateCamaraColision(){
 		btTransform t;
-		btVector3 pos = rigidbody[0]->getCenterOfMassPosition();
+		btVector3 pos = _objetos_motor[0]->getRigidBody()->getCenterOfMassPosition();
 		
         float miX = pos[0];
         float miY = pos[1];
@@ -386,24 +394,9 @@ void Motor::updateCamaraColision(){
 
 
 void Motor::resetear_camara(){
-	camara->Camara_reset(_interpolaciones[_id_jugador]->get_direccion_actual());
+	camara->Camara_reset(_objetos_motor[0]->getInterpolacion()->get_direccion_actual());
 }
 
-void Motor::updateDynamicBody(btRigidBody *body) {
-	
-	ISceneNode *node = static_cast<ISceneNode *>(body->getUserPointer());
-	btVector3 pos = body->getCenterOfMassPosition();
-		
-	node->setPosition(vector3df(pos[0], pos[1], pos[2]));
-	/*
-	const btQuaternion &quat = body->getOrientation();
-	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
-	vector3df euler;
-	q.toEuler(euler);
-	euler *= RADTODEG;
-	node->setRotation(euler);
-	*/
-}
 
 void Motor::render(){
 
@@ -430,27 +423,9 @@ void Motor::render(){
 
 //Metodos set
 
-void Motor::haz_desaparecer(unsigned short _id){
-	btTransform btt; 
-	rigidbody[_id]->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(9999,-99999,9999)); // move body to the scene node new position
-
-	rigidbody[_id]->getMotionState()->setWorldTransform(btt);
-	rigidbody[_id]->setCenterOfMassTransform(btt);
-}
-
-
 void Motor::set_text_vida(int _i_vida){
 	_GUI->set_text_vida(_i_vida);
 	_vida = (_i_vida*300)/500;
-}
-
-
-//Metodos get
-void Motor::setVelocidad(uint8_t id, float x, float y, float z){
-	btVector3 mov(x,y,z);
-    _objetos_motor[id]->setVelocidad(x,y,z);
-	desp_x = desp_z = 0;
 }
 
 
@@ -463,9 +438,7 @@ void Motor::render(float _i_interpolacion){
 	render();
 }
 
-unsigned short Motor::getId(){
-	return rigidbody.size()-1;
-}
+
 
 float Motor::angulo_camara(){
 	return camara->Camara_getAngle();

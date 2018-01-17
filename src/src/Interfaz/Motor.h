@@ -38,7 +38,7 @@ public:
     void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
-    void importarEscenario(char* rutaObj, float x, float y, float z);
+    void importarEscenario(const char* rutaObj, float x, float y, float z);
 
   
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
@@ -47,7 +47,7 @@ public:
     ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
 
-    void poner_camara_a_entidad(unsigned short id);    //movimiento del prota
+    void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
 
     //void simulationUpdate();
@@ -61,18 +61,16 @@ public:
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
-    void haz_desaparecer(unsigned short _id);
 
     IrrlichtDevice* getIrrlichtDevice();    
     
     void updateCamaraColision();
-    void updateDynamicBody(btRigidBody *body);
+
     void interpola_posiciones(float _i_interpolacion);
-    void setVelocidad(uint8_t id, float x, float y, float z);
     void resetear_camara();
     void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
-    unsigned short getId();
-    void borrar_objeto(ISceneNode* _nodo, Interpolacion* _interpolacion, btRigidBody* _rigidbody);
+
+    void borrar_objeto(Objeto_Motor* _objeto_motor);
   
     float angulo_camara();
     float angulo_camaraRAD();
@@ -112,24 +110,20 @@ private:
     	btConstraintSolver *constraintSolver;
     	btDynamicsWorld *world;
     	btBulletWorldImporter* fileLoader;
-      std::vector<btRigidBody*> rigidbody;
       
       Time* _tiempo;
       uint8_t _numcubos;
 
       //Irlitch
-	 IrrlichtDevice *device;
+      ISceneNode *mapa;
+	IrrlichtDevice *device;
       IVideoDriver* driver;
 	ISceneManager* smgr;
-      std::vector<ISceneNode*> nodes;
       GUI* _GUI;
-
 
       uint16_t _id_jugador;
 
       std::vector<Objeto_Motor*> _objetos_motor;
-
-
 };
 
 

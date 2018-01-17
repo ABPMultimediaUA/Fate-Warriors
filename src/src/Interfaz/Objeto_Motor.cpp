@@ -24,8 +24,8 @@ Objeto_Motor::Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float
 }
 
 Objeto_Motor::~Objeto_Motor(){
-Motor* _motor = Motor::Motor_GetInstance();
-   _motor->borrar_objeto(_nodo, _interpolacion, _rigidbody);
+	Motor* _motor = Motor::Motor_GetInstance();
+   _motor->borrar_objeto(this);
 } 
 
 // Funcion de mover para los NPC
@@ -169,4 +169,41 @@ void Objeto_Motor::abrir_puerta(){
 
 float Objeto_Motor::getVelocidadY(){
 	return  _rigidbody->getLinearVelocity()[1];
+}
+
+void Objeto_Motor::updateDynamicBody() {
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+	_nodo->setPosition(vector3df(pos[0], pos[1], pos[2]));
+
+	Vector3 vector(pos[0], pos[1], pos[2]);
+	_interpolacion->actualiza_posicion(vector);
+
+	if(!_interpolacion->get_cambio_direccion()) {
+		_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
+	}
+
+	_interpolacion->cambio_direccion(false);
+
+}
+
+Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
+	Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
+	
+	_nodo->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+
+	_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
+
+	return _posicion_interpolada;
+}
+
+ISceneNode* Objeto_Motor::getNodo(){
+	return _nodo;
+}
+
+Interpolacion* Objeto_Motor::getInterpolacion(){
+	return _interpolacion;
+}
+
+btRigidBody* Objeto_Motor::getRigidBody(){
+	return _rigidbody;
 }

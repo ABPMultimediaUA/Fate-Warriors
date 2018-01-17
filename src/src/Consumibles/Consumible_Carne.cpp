@@ -5,16 +5,15 @@
 
 #include "../Personajes/Character.h"
 #include "../Interfaz/Motor.h"
+//#include "../Interfaz/Objeto_Motor.h"
+
 
 Consumible_Carne::Consumible_Carne(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 125){
-    std::string str = "models/Consumibles/Carne/Carne.obj";
-    char *cstr = new char[str.length() + 1];
-    strcpy(cstr, str.c_str());
+    const char* cstr  = "models/Consumibles/Carne/Carne.obj";
     
     //_id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z,12);
     _objeto_motor =new Objeto_Motor(E_BoundingBox, cstr, _i_x,_i_y,_i_z,69);
-    
-    delete cstr;
+
 }
 
 Consumible_Carne::~Consumible_Carne(){

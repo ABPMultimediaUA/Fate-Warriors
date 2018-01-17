@@ -12,6 +12,7 @@
 
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Interfaz/Motor.h"
+//#include "../Interfaz/Objeto_Motor.h"
 
 
 #include "../Game.h"
@@ -25,14 +26,12 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _otro_tiempo = _tiempo->get_start();
     _tiempo_anterior = _tiempo->get_start();
 
-    std::string str = "models/Personaje.obj";
-    char *cstr = new char[str.length()+1];
-    strcpy(cstr, str.c_str());
-    
+    const char* cstr  = "models/Personaje.obj";
+
     _objeto_motor =new Objeto_Motor(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
-    _motor->poner_camara_a_entidad(_id);
+    _motor->poner_camara_a_entidad(_objeto_motor);
     
     //std::cout<<"X player: "<<_motor->getX(_id_motor);
     //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
@@ -40,8 +39,6 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _input = _i_input;
     _motor->set_text_vida(_vida);
     _especial = 0;
-
-    delete cstr;
 
 }
 
