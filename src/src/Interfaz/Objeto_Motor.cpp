@@ -11,11 +11,11 @@
 #include "../Personajes/Interpolacion.h"
 
 
-Objeto_Motor::Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
+Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
    Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);
    _interpolacion   = _motor->crear_interpolacion(x, y, z);
-   _rigidbody       = _motor->crearRigidBody(tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
+   _rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
 
    _motor->crear_ObjetoMotor(this);
 
@@ -56,17 +56,16 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	_rigidbody->getMotionState()->setWorldTransform(btt);
 	_rigidbody->setCenterOfMassTransform(btt);
 
-	ISceneNode *node = static_cast<ISceneNode *>(_rigidbody->getUserPointer());
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
-	node->setPosition(vector3df(x,btt.getOrigin().getY(),z));
+	_nodo->setPosition(vector3df(x,btt.getOrigin().getY(),z));
 
 	const btQuaternion &quat = _rigidbody->getOrientation();
 	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
 	vector3df euler;
 	q.toEuler(euler);
 	euler *= RADTODEG;
-	node->setRotation(euler);
+	_nodo->setRotation(euler);
 }
 
 

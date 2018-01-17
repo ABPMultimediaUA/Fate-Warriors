@@ -3,11 +3,12 @@
 #define OBJETO_MOTOR_H_
 
 #include "Motor.h"
+class Objeto;
 
 class Objeto_Motor{
 public:
 
-      Objeto_Motor(BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
+      Objeto_Motor(Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
       ~Objeto_Motor();
     
       void setPositionXZ(float x, float z);
