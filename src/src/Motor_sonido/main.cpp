@@ -8,7 +8,7 @@
 
 int main(int argv, char*args[])
 { 
-  Interfaz_sonido* sonido = new Interfaz_sonido();
+  Interfaz_sonido* sonido = new Interfaz_sonido("txt/sonidos.txt");
 
   sonido->CreateSound();
 
