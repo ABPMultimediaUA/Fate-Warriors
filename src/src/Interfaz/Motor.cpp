@@ -30,7 +30,6 @@ Motor::Motor(){
 
 	const char* cstr = "models/MapaColision/ColisionesNivel1.obj";
 	importarEscenario(cstr, 0,0,0);
-
     desp_x = desp_z = 0;
 	camara = new Camara(smgr, device);
 	angulo = 0;
@@ -39,7 +38,7 @@ Motor::Motor(){
 	_id_jugador = 0;
 	//esto no debe ir aqui y se cambia despues de la presentacion
 	_vida = 300;
-	_maxvida=300;
+	_maxvida = 300;
 }
 
 void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){

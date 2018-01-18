@@ -96,12 +96,12 @@ void Objeto_Motor::setVelocidad(float x, float y, float z){
 
 void Objeto_Motor::saltar(){		
 	if(std::abs (_rigidbody->getLinearVelocity()[1])<0.01){
-		_rigidbody->applyCentralImpulse(btVector3( 0.f, 500.f, 0.f ) );
+		_rigidbody->applyCentralImpulse(btVector3( 0.f, 750.f, 0.f ) );
 	}
 }
 
 void Objeto_Motor::Dash(unsigned short _i_direccion){
-	short potencia = 300;
+	short potencia = 24000;
 	Motor* _motor = Motor::Motor_GetInstance();
     float angulo = _motor->angulo_camaraRAD();
 	
