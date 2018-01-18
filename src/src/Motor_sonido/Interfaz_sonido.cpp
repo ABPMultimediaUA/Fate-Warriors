@@ -3,23 +3,37 @@
 #include "FMOD/fmod_errors.h"
 #include "Interfaz_sonido.h"
 
-void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
-{
-    if (result != FMOD_OK)
-    {
-        std::cerr << file << "(" << line << "): FMOD error " << result << " - " << FMOD_ErrorString(result) << std::endl;
-        exit(-1);
-    }
+
+/*enum Enum_Acciones Arbol_Decision_Manager::get_Ambiente(){
+	return Ambiente;
 }
+struct MapeadoAccion{			// Declaracion de los parametros
+	const char* _nombre_objeto;
+	enum Enum_Acciones (Intefaz_sonido::*pmet)();
+};
+
+MapeadoAccion mapping_enum_acciones[] = {	// Definicion de los parametros
+    {"Estar_derribado", &Intefaz_sonido::get_estar_derribado},
+	{0, 0}
+};*/
+
+struct Tinstance2func{//declaracion de los parametros
+	const char* _nombre_objeto;
+	void (Interfaz_sonido::*pmet)(std::ifstream&, std::string&);
+};
+
+Ttxt2func mapping[] = {//definicion de los parametros
+		{"PASILLO", &Interfaz_sonido::Interfaz_sonido_crear_pasillo},
+		{"NODO", &Interfaz_sonido::Interfaz_sonido_crear_nodo},
+		{"ARISTA", &Interfaz_sonido::Interfaz_sonido_crear_arista},
+		{"ADYACENTE", &Interfaz_sonido::Interfaz_sonido_crear_adyacentes},
+		{0, 0}
+};
 
 
-#define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
 
 
-Interfaz_sonido::Interfaz_sonido(){
-
-    char wavfile[] = "";//variable donde depositar el wav(en el caso de que se hiciera)
-
+Interfaz_sonido::Interfaz_sonido(std::string &_i_fichero){
     //FMOD::Studio::System* system = NULL;
     ERRCHECK( FMOD::Studio::System::create(&system) );
 
@@ -38,17 +52,39 @@ Interfaz_sonido::Interfaz_sonido(){
     //FMOD::Studio::Bank* stringsBank = NULL;
     ERRCHECK( system->loadBankFile("Banks/Master Bank.strings.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &stringsBank) );
 
-    //FMOD::Studio::Bank* ambienceBank = NULL;
-    /*ERRCHECK( system->loadBankFile("Banks/Surround_Ambience.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &ambienceBank) );
 
-    //FMOD::Studio::Bank* menuBank = NULL;
-    ERRCHECK( system->loadBankFile("Banks/UI_Menu.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &menuBank) );
 
-    //FMOD::Studio::Bank* weaponsBank = NULL;
-    ERRCHECK( system->loadBankFile("Banks/Weapons.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &weaponsBank) );*/
 
-    //FMOD::Studio::Bank* pasosBank = NULL;
-    ERRCHECK( system->loadBankFile("Banks/Pasos.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &pasosBank) );
+    std::ifstream _sonidos_txt;
+	Ttxt2func *_next;
+
+	_sonidos_txt.open(_i_fichero);//apertura del fichero
+	std::string _iteracion;
+		if(_sonidos_txt.fail()){//comprobacion de la apertura del fichero
+			std::cout<<"Error al abrir el archivo de sonido" << _i_fichero <<std::endl;
+			exit(0);
+		}
+	_sonidos_txt >> _iteracion;//primera lectura de nombre de clase a introducir
+	while(_iteracion!="Fin"){//bucle de lectura del fichero
+		_next=mapping;
+		//std::cout<<_iteracion<<std::endl;
+		while (_next->_nombre_objeto){
+			if(_iteracion==_next->_nombre_objeto){
+				(this->*_next->pmet)(_sonidos_txt,_iteracion);
+			}
+
+			++_next;
+		}
+		/*if(_iteracion=="NODO"){
+			sonidos_crear_nodo(_sonidos_txt, _iteracion);
+		}else if(_iteracion=="PASILLO"){
+			sonidos_crear_pasillo(_sonidos_txt, _iteracion);//llamada a la funcion de crear un nuevo pasillo
+		}*/
+    }
+    _sonidos_txt.close();//cierre del fichero
+    char wavfile[] = "";//variable donde depositar el wav(en el caso de que se hiciera)
+
+   
 }
 
 Interfaz_sonido::~Interfaz_sonido(){
