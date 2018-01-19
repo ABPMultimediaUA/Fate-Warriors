@@ -40,8 +40,8 @@ public:
     void configuracion_bullet();
     void preparar_depuracion_mundo();
     void importarEscenario(const char* rutaObj, float x, float y, float z);
-
-  
+      void comprobar_colision();
+      void crear_ghost();
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
@@ -116,6 +116,7 @@ private:
     	btConstraintSolver *constraintSolver;
     	btDynamicsWorld *world;
     	btBulletWorldImporter* fileLoader;
+          btPairCachingGhostObject *ghostObject;
       
       Time* _tiempo;
       uint8_t _numcubos;

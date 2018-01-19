@@ -182,8 +182,12 @@ void Motor::configuracion_bullet(){
 
 	fileLoader = new btBulletWorldImporter(world);
 	fileLoader->loadFile("models/MapaColision/ColisionesNivel1.bullet");
+
+	world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
 	
     world->setGravity(btVector3(0,-9.8,0));
+
+	crear_ghost();
 
 }
 
@@ -235,18 +239,13 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 }
 
 btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
-	btTransform cubeTransform;
-	cubeTransform.setIdentity();
-
-	cubeTransform.setOrigin(btVector3(x,y,z));
-
-	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
-
+	
 	float cubeMass = _i_peso;
 	
 	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
 	this->getDimensiones(cubeNode,anchura,altura,profundidad);
+
 	switch(tipo){
 		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
@@ -254,13 +253,19 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 					break;
 		case E_BoundingBox:
 			cubeShape = new btBoxShape(btVector3(profundidad*0.5,altura*0.5,anchura*0.5)); // new btSphereShape(0.5);
-
 					break;	
 		default:
 			cubeShape = new btBoxShape(btVector3(profundidad*0.7,altura*0.5,anchura*0.7)); // new btSphereShape(0.5);
 
 					break;
 	}
+
+	btTransform cubeTransform;
+	cubeTransform.setIdentity();
+
+	cubeTransform.setOrigin(btVector3(x,y,z));
+
+	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
@@ -272,11 +277,27 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	cubeBody->setRestitution(0);
 	cubeBody->setFriction(1);
 	cubeBody->forceActivationState(DISABLE_DEACTIVATION );
+	cubeBody->setCollisionFlags(cubeBody->getCollisionFlags() |
+    btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 
 
 	world->addRigidBody(cubeBody);
+
+	 
 	return cubeBody;
 }
+
+void Motor::crear_ghost(){
+	float mult = 4.9212625;
+
+	ghostObject = new btPairCachingGhostObject();
+	btCollisionShape *platformShape = new btBoxShape(btVector3(15*mult,12,15*mult));
+	ghostObject->setCollisionShape(platformShape);
+
+	ghostObject->setCollisionFlags(ghostObject->getCollisionFlags() |btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	world->addCollisionObject(ghostObject);
+}
+
 
 Interpolacion* Motor::crear_interpolacion(float x, float y, float z){
 	Vector3 posicion(x,y,z);
@@ -333,6 +354,58 @@ void Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
 	}
 }
 
+void Motor::comprobar_colision(){
+
+btManifoldArray manifoldArray;
+btBroadphasePairArray& pairArray =
+    ghostObject->getOverlappingPairCache()->getOverlappingPairArray();
+int numPairs = pairArray.size();
+
+for (int i = 0; i < numPairs; ++i)
+{
+    manifoldArray.clear();
+
+    const btBroadphasePair& pair = pairArray[i];
+
+    btBroadphasePair* collisionPair =
+        world->getPairCache()->findPair(
+            pair.m_pProxy0,pair.m_pProxy1);
+
+    if (!collisionPair) continue;
+
+    if (collisionPair->m_algorithm)
+        collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
+
+    for (int j = 0; j < manifoldArray.size(); j++)
+    {
+        btPersistentManifold* manifold = manifoldArray[j];
+
+        bool isFirstBody = manifold->getBody0() == ghostObject;
+
+        btScalar direction = isFirstBody ? btScalar(-1.0) : btScalar(1.0);
+
+        for (int p = 0; p < manifold->getNumContacts(); ++p)
+        {
+            const btManifoldPoint& pt = manifold->getContactPoint(p);
+			std::cout << "cont" << manifoldArray.size() << std::endl;
+            if (pt.getDistance() < 0.f)
+            {
+						
+                const btVector3& ptA = pt.getPositionWorldOnA();
+                const btVector3& ptB = pt.getPositionWorldOnB();
+                const btVector3& normalOnB = pt.m_normalWorldOnB;
+
+                // handle collisions here
+            }
+        }
+    }
+}
+
+}
+
+
+
+
 void Motor::update(double dt){
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
@@ -343,7 +416,7 @@ void Motor::update(double dt){
    	if(device->isWindowActive()) {
 
         world->stepSimulation(dt * 0.001f,5);
-
+		comprobar_colision();
 		short tamanio = _objetos_motor.size();
 		for(short i=0; i<tamanio; i++){
 			// Actualiza el cuerpo dinamico de la caja
