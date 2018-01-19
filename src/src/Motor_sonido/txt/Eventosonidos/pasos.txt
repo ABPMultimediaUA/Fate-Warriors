@@ -1,0 +1,5 @@
+event:/Pasos/Arena
+event:/Pasos/Asfalto
+event:/Pasos/Bestia
+event:/Pasos/Cadena
+Fin
