@@ -6,6 +6,8 @@
 #include "Objeto_Motor.h"
 #include "../Objeto.h"
 
+#include "../Personajes/Character.h"
+
 /*
 #include "Entidad.h"
 #include "../Input.h"
@@ -183,8 +185,6 @@ void Motor::configuracion_bullet(){
 	fileLoader = new btBulletWorldImporter(world);
 	fileLoader->loadFile("models/MapaColision/ColisionesNivel1.bullet");
 
-	world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
-	
     world->setGravity(btVector3(0,-9.8,0));
 
 	crear_ghost();
@@ -260,6 +260,8 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 					break;
 	}
 
+	cubeShape->setUserPointer(_i_objeto);
+
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
@@ -290,12 +292,24 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 void Motor::crear_ghost(){
 	float mult = 4.9212625;
 
+	btTransform ghostTransform;
+	ghostTransform.setIdentity();
+	ghostTransform.setOrigin(btVector3(15 * mult, 1 , 15 * mult));
+
+	btCollisionShape *platformShape = new btBoxShape(btVector3(1*mult,1,1*mult));
+	
 	ghostObject = new btPairCachingGhostObject();
-	btCollisionShape *platformShape = new btBoxShape(btVector3(15*mult,12,15*mult));
+
 	ghostObject->setCollisionShape(platformShape);
 
-	ghostObject->setCollisionFlags(ghostObject->getCollisionFlags() |btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	ghostObject->setWorldTransform(ghostTransform);
+
 	world->addCollisionObject(ghostObject);
+
+	ghostObject->setCollisionFlags(ghostObject->getCollisionFlags() |btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	
+	world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
+	
 }
 
 
@@ -357,6 +371,51 @@ void Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
 void Motor::comprobar_colision(){
 
 btManifoldArray manifoldArray;
+
+btBroadphasePairArray & pairs = ghostObject->getOverlappingPairCache()->getOverlappingPairArray();
+
+int numPairs = pairs.size();
+
+for (int i = 0; i < numPairs; i++)
+{
+	manifoldArray.clear();
+
+	const btBroadphasePair& pair = pairs[i];
+
+	btBroadphasePair* collisionPair = world->getPairCache()->findPair(pair.m_pProxy0,pair.m_pProxy1);
+
+	if (!collisionPair) continue;
+
+	if (collisionPair->m_algorithm)
+        collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
+
+	for (int j = 0; j < manifoldArray.size(); j++)
+    {
+		btPersistentManifold* manifold = manifoldArray[j];
+		
+		if(manifold->getNumContacts() > 0){
+			std::cout << "COLISIONAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+			const btCollisionObject * a = manifold->getBody0();//->getUserPointer();
+			a->getUserPointer();
+			const btCollisionObject * b =manifold->getBody1();//->getUserPointer();
+			b->getUserPointer();
+
+			//std::cout << a->getUserPointer() << std::endl;
+			//std::cout << b->getUserPointer() << std::endl;
+
+			Objeto *obj = static_cast<Objeto*>(b->getUserPointer());
+
+			if(dynamic_cast<Character*>(obj) != NULL) {
+				std::cout << "ES CHARACTER" << std::endl;
+			}
+
+			
+		}
+	}
+}
+
+/*
+btManifoldArray manifoldArray;
 btBroadphasePairArray& pairArray =
     ghostObject->getOverlappingPairCache()->getOverlappingPairArray();
 int numPairs = pairArray.size();
@@ -400,7 +459,7 @@ for (int i = 0; i < numPairs; ++i)
         }
     }
 }
-
+*/
 }
 
 
