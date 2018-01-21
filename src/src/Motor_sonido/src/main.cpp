@@ -11,20 +11,14 @@ int main(int argv, char*args[])
   Interfaz_sonido* sonido = new Interfaz_sonido("txt/bancosonidos.txt");
 
   
-  sonido->Play_pasos(0);
+  
+  sonido->Play_pasos(3);
+  sonido->set_volumen_sfx(0.1);
  char algo;
-  /*do{
-    std::cin>>algo;
-    switch(algo){
-      case '1': sonido->PasosCadena();
-      break;
-      case '2': sonido->PasosArena();
-      break;
-      case '3': sonido->PasosAsfalto();
-      break;
-    }
-  }while(algo!='0');*/
   std::cin>>algo;
+  /*sonido->pause();
+  algo;
+  std::cin>>algo;*/
   delete sonido;
   return 0;
 }

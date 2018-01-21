@@ -1,4 +1,3 @@
 INIT
-2
 txt/Eventosonidos/pasos.txt
 Fin

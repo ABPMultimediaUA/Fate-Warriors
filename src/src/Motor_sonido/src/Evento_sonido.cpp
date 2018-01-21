@@ -13,6 +13,7 @@ void Evento_sonido::ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
 Evento_sonido::Evento_sonido(std::string _i_ruta, FMOD::Studio::System *sys){
     _evento=NULL;
     _instancia=NULL;
+    std::cout<<_i_ruta<<std::endl;
     ERRCHECK( sys->getEvent(_i_ruta.c_str(), &_evento) );
 }
 Evento_sonido::~Evento_sonido(){
@@ -45,7 +46,7 @@ void Evento_sonido::set_volume(float _i_vol){
     ERRCHECK(_instancia -> setGain ( _i_gantz ));
 }*/
 void Evento_sonido::set_position(float _i_x, float _i_y, float _i_z){
-    FMOD_3D_ATTRIBUTES *attrib;
+    FMOD_3D_ATTRIBUTES *attrib=nullptr;
     ERRCHECK(_instancia -> get3DAttributes ( attrib ));;
     FMOD_VECTOR vec;
     vec.x=_i_x;
