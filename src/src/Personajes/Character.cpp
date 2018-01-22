@@ -452,3 +452,19 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
 }
 
 ///////////////////////////////////////////////////////// FIN GESTION ACCIONES /////////////////////////////////////////////////////////
+
+void Character::aumentar_danyo_ataque_fuerte(uint8_t _i_valor){
+    _danyo_ataque_fuerte+=_i_valor;
+}
+
+void Character::aumentar_danyo_ataque_normal(uint8_t _i_valor){
+    _danyo_ataque_normal+=_i_valor;
+}
+
+void Character::disminuir_danyo_ataque_fuerte(uint8_t _i_valor){
+    _danyo_ataque_fuerte-=_i_valor;
+}
+void Character::disminuir_danyo_ataque_normal(uint8_t _i_valor){
+    _danyo_ataque_normal-=_i_valor;
+}
+

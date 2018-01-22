@@ -4,6 +4,7 @@
 #include "Consumible_Patata.h"
 #include "Consumible_Carne.h"
 #include "Consumible_Agua.h"
+#include "Consumible_Fuerza.h"
 
 // CONSTRUCTOR
 
@@ -11,7 +12,7 @@ Consumible_Manager::Consumible_Manager() {
     
     float mult = 4.9212625;
 
-    _consumibles.push_back( new Consumible_Carne(5,mult*17, mult*0, mult*52));
+//    _consumibles.push_back( new Consumible_Carne(5,mult*17, mult*0, mult*52));
     _consumibles.push_back( new Consumible_Carne(5,mult*15, mult*0, mult*52));
     _consumibles.push_back( new Consumible_Carne(5,mult*17, mult*0, mult*50));
     _consumibles.push_back( new Consumible_Carne(5,mult*15, mult*0, mult*50));
@@ -21,10 +22,12 @@ Consumible_Manager::Consumible_Manager() {
     _consumibles.push_back( new Consumible_Patata(5,mult*6, mult*0, mult*50));
     _consumibles.push_back( new Consumible_Patata(5,mult*4, mult*0, mult*50));
 */
-    _consumibles.push_back( new Consumible_Agua(5,mult*6, mult*0, mult*52));
+   // _consumibles.push_back( new Consumible_Agua(5,mult*6, mult*0, mult*52));
     _consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*52));
     _consumibles.push_back( new Consumible_Agua(5,mult*6, mult*0, mult*50));
     _consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*50));
+
+    _consumibles.push_back( new Consumible_Fuerza(5,mult*6, mult*0, mult*52));
 }
 
 // DESTRUCTOR

@@ -71,6 +71,11 @@ public:
 	void gestion_saltar();
 	void gestion_interactuar();
 	void gestion_recibir_danyado();
+	
+	void aumentar_danyo_ataque_fuerte(uint8_t _i_valor);
+	void aumentar_danyo_ataque_normal(uint8_t _i_valor);
+	void disminuir_danyo_ataque_fuerte(uint8_t _i_valor);
+	void disminuir_danyo_ataque_normal(uint8_t _i_valor);
 
 protected:
 	
