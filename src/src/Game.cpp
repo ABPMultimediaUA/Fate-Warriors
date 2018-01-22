@@ -11,6 +11,7 @@
 #include "Consumibles/Consumible_Action.h"
 #include "Tiempo/Time.h"
 #include "Trampas/Trampas_action.h"
+#include "Motor_sonido/Interfaz_sonido.h"
 
 
 #include <iostream>
@@ -71,7 +72,8 @@ Game::~Game(){
 void Game::crea_partida() {	
 	_motor = Motor::Motor_GetInstance();
 	_motor->asigna_input(_input_jugador);
-	_nivel=Nivel::nivel_instancia();
+	_nivel = Nivel::nivel_instancia();
+	_sonido=Interfaz_sonido::GetInstancia();
 	_datos 				= new Datos_Partida(_input_jugador);
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);

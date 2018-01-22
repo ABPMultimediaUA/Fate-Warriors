@@ -1,0 +1,4 @@
+Banks/Menu.bank
+2
+event:/Menu/Aceptar
+event:/Menu/Mover

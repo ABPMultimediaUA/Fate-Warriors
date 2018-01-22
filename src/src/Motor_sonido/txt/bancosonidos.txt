@@ -1,3 +1,0 @@
-INIT
-txt/Eventosonidos/pasos.txt
-Fin

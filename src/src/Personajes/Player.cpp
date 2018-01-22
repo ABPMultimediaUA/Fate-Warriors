@@ -14,6 +14,8 @@
 #include "../Interfaz/Motor.h"
 //#include "../Interfaz/Objeto_Motor.h"
 
+#include "../Motor_sonido/Interfaz_sonido.h"
+
 
 #include "../Game.h"
 #include "../Action_Manager.h"
@@ -21,6 +23,7 @@
 Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.9, 10, 15)
                                                                 {   
     _motor= Motor::Motor_GetInstance();
+    _sonido= Interfaz_sonido::GetInstancia();
     //_tiempo = Time::Instance();
     //crear nodo de personaje del motor
 
@@ -59,6 +62,7 @@ void Player::update(){
        // _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
        
        _objeto_motor->VelocidadDireccion(_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
+       _sonido->Play_armas(5);
     }
 
     if(_input->get_dash()){

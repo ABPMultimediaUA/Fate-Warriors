@@ -7,10 +7,10 @@ OBJFILES:=$(patsubst $(SDIR)%, $(ODIR)%, $(SRCFILES:%.cpp=%.o))
 SOURCES := $(wildcard $(SDIR)/*.cpp)
 DELOBJ:= $(wildcard $(ODIR)/*)
 OBJECTS := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SOURCES))
-LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader 
-INCLUDE := -I. -I/usr/include/bullet
+LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader -lfmod -lfmodstudio -L./lib
+INCLUDE := -I. -I/usr/include/bullet -I$(CURDIR)/include/SFML 
 CC      := g++
-CCFLAGS := -g
+CCFLAGS := -g -Wall -std=c++11
 OBJS	:= $(patsubst %,$(ODIR)/%,$(OBJECTS))
 RM		:= rm -f
 MKDIR 	:= mkdir
@@ -26,6 +26,11 @@ TARGET	:= Fate_Warriors
 define COMPILAR
 $(1): $(2)
 	$(CC) -o $(1) -c $(2) $(INCLUDE) $(CCFLAGS)
+endef
+
+define COMPILARWIN
+$(1): $(2)
+	$(CC) -o $(1) -c $(2) $(INCLUDE) $(CCFLAGS)
 
 endef
 
@@ -37,22 +42,25 @@ endef
 define BORRAR
 $(1):
 	$(RM) -r $(1)
-
 endef
 
 .PHONY: all
-
-
-all: $(ODIR) $(TARGET) $(CCFLAGS)
+all: dir $(ODIR) $(TARGET) $(CCFLAGS)
 	chmod +x $(TARGET)
-
 .PHONY: release
 release: opt all
+comw:
+	$(eval CC:=/opt/mingw/bin/x86_64-w64-mingw32-g++)
+	$(info $(CC))
+
+.PHONY: windows
+windows: opt comw all
+
+
 
 opt:
 	$(eval CCFLAGS:=-O2)
 	$(info $(CCFLAGS))
-	
 $(TARGET): $(OBJFILES)
 	$(CC) -o $@ $^ $(INCLUDE) $(LIBS) $(CCFLAGS)
 

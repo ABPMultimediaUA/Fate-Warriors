@@ -1,0 +1,5 @@
+Banks/Consumibles.bank
+3
+event:/Consumibles/Agua
+event:/Consumibles/Carne
+event:/Consumibles/Patatas

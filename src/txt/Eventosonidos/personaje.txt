@@ -1,0 +1,7 @@
+Banks/Personaje.bank
+5
+event:/Personaje/Dash
+event:/Personaje/Golpe
+event:/Personaje/Powerup
+event:/Personaje/Salto
+event:/Personaje/Salud
