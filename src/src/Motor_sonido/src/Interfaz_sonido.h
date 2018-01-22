@@ -34,6 +34,15 @@ public:
     void Play_voces(u_int8_t _i_n);
     void Play_pasos(u_int8_t _i_n);
 
+    void Stop_pasos(u_int8_t _i_n);
+    void Stop_ambiente(u_int8_t _i_n);
+    void Stop_armas(u_int8_t _i_n);
+    void Stop_consumibles(u_int8_t _i_n);
+    void Stop_escenario(u_int8_t _i_n);
+    void Stop_menu(u_int8_t _i_n);
+    void Stop_personaje(u_int8_t _i_n);
+    void Stop_voces(u_int8_t _i_n);
+
     void set_volumen_musica(float _i_v);
     void set_volumen_voces(float _i_v);
     void set_volumen_sfx(float _i_v);

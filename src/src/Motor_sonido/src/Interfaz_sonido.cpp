@@ -132,6 +132,8 @@ void Interfaz_sonido::system_update(){
     ERRCHECK( system->update() );
 }
 
+/***************************************CREACION SONIDOS***********************************************/
+
 void Interfaz_sonido::crear_ambiente(std::string _i_iteracion){
 
 }
@@ -181,6 +183,8 @@ void Interfaz_sonido::crear_personaje(std::string _i_iteracion){
 void Interfaz_sonido::crear_voces(std::string _i_iteracion){
 
 }
+
+/***************************************PLAY SONIDOS***********************************************/
 
 void Interfaz_sonido::Play_ambiente(u_int8_t _i_n){
     if(_i_n>=_n_ambiente){
@@ -246,6 +250,77 @@ void Interfaz_sonido::Play_pasos(u_int8_t _i_n){
     _eventos_pasos[_i_n]->start();
     system_update();
 }
+
+
+/***************************************STOP SONIDOS***********************************************/
+
+void Interfaz_sonido::Stop_pasos(u_int8_t _i_n){
+    if(_i_n>=_n_pasos){
+        std::cout<<"ERROR SONIDO: paso solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_pasos[_i_n]->stop();
+    system_update();
+}
+void Interfaz_sonido::Stop_ambiente(u_int8_t _i_n){
+    if(_i_n>=_n_ambiente){
+        std::cout<<"ERROR SONIDO: ambiente solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_ambiente[_i_n]->stop();
+    system_update();
+}
+void Interfaz_sonido::Stop_armas(u_int8_t _i_n){
+    if(_i_n>=_n_armas){
+        std::cout<<"ERROR SONIDO: armas solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_armas[_i_n]->stop();
+    system_update();
+}
+void Interfaz_sonido::Stop_consumibles(u_int8_t _i_n){
+    if(_i_n>=_n_consumibles){
+        std::cout<<"ERROR SONIDO: consumible solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_consumibles[_i_n]->stop();
+    system_update();
+}
+void Interfaz_sonido::Stop_escenario(u_int8_t _i_n){
+    if(_i_n>=_n_escenario){
+        std::cout<<"ERROR SONIDO: escenario solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_escenario[_i_n]->stop();
+    system_update();
+}
+void Interfaz_sonido::Stop_menu(u_int8_t _i_n){
+    if(_i_n>=_n_menu){
+        std::cout<<"ERROR SONIDO: menu solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_menu[_i_n]->stop();
+    system_update();
+}
+void Interfaz_sonido::Stop_personaje(u_int8_t _i_n){
+    if(_i_n>=_n_personaje){
+        std::cout<<"ERROR SONIDO: personaje solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_personaje[_i_n]->stop();
+    system_update();
+}
+void Interfaz_sonido::Stop_voces(u_int8_t _i_n){
+    if(_i_n>=_n_voces){
+        std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_voces[_i_n]->stop();
+    system_update();
+}
+
+/***************************************VOLUMEN SONIDOS***********************************************/
+
 void Interfaz_sonido::set_volumen_musica(float _i_v){
     /*u_int8_t cont=_n_musica;
     while(cont){

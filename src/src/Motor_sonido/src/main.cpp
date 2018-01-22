@@ -12,13 +12,23 @@ int main(int argv, char*args[])
 
   
   
-  sonido->Play_pasos(3);
-  sonido->set_volumen_sfx(0.1);
- char algo;
-  std::cin>>algo;
-  /*sonido->pause();
-  algo;
-  std::cin>>algo;*/
+  //sonido->Play_pasos(0);
+  //sonido->set_volumen_sfx(0.1);
+  char algo;
+  //std::cin>>algo;
+  do{
+    std::cin>>algo;
+    switch(algo){
+      case '2':sonido->Play_pasos(0);
+      break;
+      case '3':sonido->Stop_pasos(0);
+      break;
+    }
+
+  }while(algo!='1');
+  //sonido->Stop_pasos(0);
+  //algo;
+  //std::cin>>algo;
   delete sonido;
   return 0;
 }
