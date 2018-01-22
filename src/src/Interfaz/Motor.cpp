@@ -21,15 +21,18 @@ enum tipo_colision {
     COL_JUGADOR = BIT(1), //<Colision con jugador
     COL_NPC = BIT(2), //<Colision con NPC
 	COL_RAY = BIT(3), //rayo del raytracing
-	COL_OTRO = BIT(4) //<Colision con Otro (trampas, recogibles)
+	COL_PUERTA = BIT(4), //las puertas 
+	COL_OTRO = BIT(5) //<Colision con Otro (trampas, recogibles)
 };
 
 //relaciones de colision 
-int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO;
-int npc_colisiona_con = 		COL_JUGADOR | COL_ESCENARIO | COL_NPC;
 int escenario_colisiona_con = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC;
-int otros_colisiona_con =		COL_NADA | COL_ESCENARIO;
+int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
+int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
 int ray_colisiona_con =			COL_NPC | COL_ESCENARIO;
+int puerta_colisiona_con = 		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
+int otros_colisiona_con =		COL_NADA | COL_ESCENARIO;
+
 
 Motor* Motor::_Motor=0;
 
@@ -213,7 +216,9 @@ void Motor::configuracion_bullet(){
 
 		escenario = fileLoader->getRigidBodyByIndex(i)->getCollisionShape();
 		cubeMotionState = new btDefaultMotionState(trans);
-		world->addRigidBody(new btRigidBody(0, cubeMotionState, escenario),COL_ESCENARIO, escenario_colisiona_con);
+		btRigidBody* _objeto_esceario = new btRigidBody(0, cubeMotionState, escenario);
+		_objeto_esceario->setFriction(0);
+		world->addRigidBody(_objeto_esceario,COL_ESCENARIO, escenario_colisiona_con);
 
 		//btBroadphaseProxy* proxy = esta_vez_si->getBroadphaseProxy();
 		//proxy->m_collisionFilterGroup = 4;
@@ -274,18 +279,20 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 }
 
 btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+		
+	float altura,anchura,profundidad;
+	btCollisionShape *cubeShape;
+	this->getDimensiones(cubeNode,anchura,altura,profundidad);
+	
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
-	cubeTransform.setOrigin(btVector3(x,y,z));
+	cubeTransform.setOrigin(btVector3(x,y+(altura/2),z));
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
 	float cubeMass = _i_peso;
-	
-	float altura,anchura,profundidad;
-	btCollisionShape *cubeShape;
-	this->getDimensiones(cubeNode,anchura,altura,profundidad);
+
 	switch(tipo){
 		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
@@ -304,7 +311,15 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
+	btRigidBody *cubeBody = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
 	
+	cubeBody->setAngularFactor(0);
+	cubeBody->setUserPointer(_i_objeto);
+	cubeBody->setRestitution(0);
+	cubeBody->setFriction(1);
+	cubeBody->forceActivationState(DISABLE_DEACTIVATION );
+
+
 	//CREACION DE MASCARA DE RIGIDBODY
 	int mascara_colision = COL_NADA;
 	int grupo_colision 	 = COL_NADA;
@@ -322,23 +337,18 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	}
 
 	else if(dynamic_cast<Puerta*>(_i_objeto)!=NULL){
-		grupo_colision   = COL_OTRO;
-		mascara_colision = otros_colisiona_con;
+		grupo_colision   = COL_PUERTA;
+		mascara_colision = puerta_colisiona_con;
 	}
 
 	//si es otra cosa
 	else{
-		grupo_colision   = COL_ESCENARIO;
-		mascara_colision = escenario_colisiona_con;
+		cubeBody->setCollisionFlags(cubeBody->getCollisionFlags() |
+        		btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		grupo_colision   = COL_OTRO;
+		mascara_colision = otros_colisiona_con;
+		//std::cout<<"HOLA!!! \n";
 	}
-
-	btRigidBody *cubeBody = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
-	
-	cubeBody->setAngularFactor(0);
-	cubeBody->setUserPointer(_i_objeto);
-	cubeBody->setRestitution(0);
-	cubeBody->setFriction(1);
-	cubeBody->forceActivationState(DISABLE_DEACTIVATION );
 
 	world->addRigidBody(cubeBody,grupo_colision,mascara_colision);
 
