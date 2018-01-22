@@ -380,3 +380,22 @@ void Interfaz_sonido::set_volumen_menu(float _i_v){
         _eventos_menu[cont]->set_volume(_i_v);
     }
 }
+
+
+/*******************************************PAUSA**************************************************/
+void Interfaz_sonido::Pausa(){
+    /*u_int8_t cont=_n_pasos;
+    while(cont){
+        --cont;
+        _eventos_pasos[cont]->pause();
+    }*/
+    _eventos_pasos[0]->pause();
+}
+void Interfaz_sonido::Quitar_pausa(){
+   /* u_int8_t cont=_n_pasos;
+    while(cont){
+        --cont;
+        _eventos_pasos[cont]->quit_pause();
+    }*/
+    _eventos_pasos[0]->quit_pause();
+}

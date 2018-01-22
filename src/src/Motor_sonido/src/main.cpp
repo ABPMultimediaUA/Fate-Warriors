@@ -23,6 +23,10 @@ int main(int argv, char*args[])
       break;
       case '3':sonido->Stop_pasos(0);
       break;
+      case '4':sonido->Pausa();
+      break;
+      case '5':sonido->Quitar_pausa();
+      break;
     }
 
   }while(algo!='1');
