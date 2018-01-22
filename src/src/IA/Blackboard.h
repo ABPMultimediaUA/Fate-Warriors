@@ -3,7 +3,7 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "Enum_Decisiones.h"
+#include "Enum_Decisiones/Enum_Decisiones.h"
 #include "Enum_Acciones.h"
 
 #include "Enum_Acciones.h"
