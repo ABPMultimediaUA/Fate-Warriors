@@ -46,9 +46,10 @@ void Trampas_action::comprobar_trampas_mina(){
         if (comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 8)){
             _player->danyar(_minas[_cont]->get_danyo());
         }
-      eliminar_trampas_mina();  
     } 
   }
+        eliminar_trampas_mina();  
+
 }
  
 void Trampas_action::eliminar_trampas_mina(){
