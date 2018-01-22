@@ -43,6 +43,9 @@ public:
     void Stop_personaje(u_int8_t _i_n);
     void Stop_voces(u_int8_t _i_n);
 
+    void Pausa();
+    void Quitar_pausa();
+
     void set_volumen_musica(float _i_v);
     void set_volumen_voces(float _i_v);
     void set_volumen_sfx(float _i_v);
