@@ -230,6 +230,7 @@ void Motor::configuracion_bullet(){
 	
     world->setGravity(btVector3(0,-9.8,0));
 
+	crear_ghost_ataque();
 }
 
 void Motor::configuracion_irlitch(){
@@ -363,6 +364,29 @@ Interpolacion* Motor::crear_interpolacion(float x, float y, float z){
 	return _interpolacion;
 }
 
+void Motor::crear_ghost_ataque(){
+	float mult = 4.9212625;
+
+	btTransform ghostTransform;
+	ghostTransform.setIdentity();
+	ghostTransform.setOrigin(btVector3(15 * mult, 1 , 15 * mult));
+
+	btCollisionShape *platformShape = new btBoxShape(btVector3(1*mult,1,1*mult));
+	
+	ghostObject_ataque = new btPairCachingGhostObject();
+
+	ghostObject_ataque->setCollisionShape(platformShape);
+
+	ghostObject_ataque->setWorldTransform(ghostTransform);
+
+	world->addCollisionObject(ghostObject_ataque);
+
+	ghostObject_ataque->setCollisionFlags(ghostObject_ataque->getCollisionFlags() |btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	
+	world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
+	
+}
+
 void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
 	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
@@ -488,7 +512,7 @@ bool Motor::x_ve_a_y(Vector3 x, Vector3 y){
 		}
 	}
 	*/
-	std::cout<<"colisiona: "<<rayCallback.hasHit()<<std::endl;
+	//std::cout<<"colisiona: "<<rayCallback.hasHit()<<std::endl;
 	return(rayCallback.hasHit());
 }
 
@@ -579,3 +603,82 @@ float Motor::angulo_camara(){
 float Motor::angulo_camaraRAD(){
 	return camara->Camara_getAngleRad();
 }
+
+bool Motor::comprobar_colision(btRigidBody *rb1, btRigidBody *rb2){
+
+	btManifoldArray manifoldArray;
+
+	manifoldArray.clear();
+
+	btBroadphasePair* collisionPair = world->getPairCache()->findPair(rb1->getBroadphaseProxy(), rb2->getBroadphaseProxy());
+
+	if (collisionPair){
+
+		if (collisionPair->m_algorithm)
+			collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
+
+		for (int j = 0; j < manifoldArray.size(); j++)
+		{
+			btPersistentManifold* manifold = manifoldArray[j];
+			
+			if(manifold->getNumContacts() > 0){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void Motor::posicionar_ghost_ataque(btRigidBody *rb){
+	btVector3 pos = rb->getCenterOfMassPosition();
+
+	btTransform ghostTransform;
+	ghostTransform.setIdentity();
+	ghostTransform.setOrigin(pos);
+
+	ghostObject_ataque->setWorldTransform(ghostTransform);
+}
+
+/*
+bool Motor::comprobar_colision_ataque(btRigidBody *, btRigidBody *character_atacado){
+
+	btManifoldArray manifoldArray;
+
+	manifoldArray.clear();
+
+	btBroadphasePair* collisionPair = world->getPairCache()->findPair(rb1->getBroadphaseProxy(), rb2->getBroadphaseProxy());
+
+	if (collisionPair){
+
+		if (collisionPair->m_algorithm)
+			collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
+
+		for (int j = 0; j < manifoldArray.size(); j++)
+		{
+			btPersistentManifold* manifold = manifoldArray[j];
+			
+			if(manifold->getNumContacts() > 0){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+*/
+//btBroadphasePair* collisionPair = world->getPairCache()->findPair(ghostObject->getOverlappingPairCache()->getOverlappingPairArray()[0].m_pProxy0,_objetos_motor[0]->getRigidBody()->getBroadphaseProxy());
+/*
+std::cout << "COLISIONAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+const btCollisionObject * a = manifold->getBody0();//->getUserPointer();
+a->getUserPointer();
+const btCollisionObject * b =manifold->getBody1();//->getUserPointer();
+b->getUserPointer();
+
+//std::cout << a->getUserPointer() << std::endl;
+//std::cout << b->getUserPointer() << std::endl;
+
+Objeto *obj = static_cast<Objeto*>(b->getUserPointer());
+
+if(dynamic_cast<Character*>(obj) != NULL) {
+	std::cout << "ES CHARACTER" << std::endl;
+}
+*/

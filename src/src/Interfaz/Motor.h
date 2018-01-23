@@ -29,7 +29,7 @@ class Objeto;
 class Motor{
 
 public:
-    
+
     static Motor* Motor_GetInstance();
 
    ~Motor();
@@ -47,6 +47,7 @@ public:
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
     ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
+    void crear_ghost_ataque();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
     void setCollisionGroup(int group, btRigidBody *_i_rigidbody );
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
@@ -84,7 +85,8 @@ public:
     float angulo_camara();
     float angulo_camaraRAD();
 
-
+      bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
+      void posicionar_ghost_ataque(btRigidBody *rb);
     
 private:
 
@@ -121,6 +123,7 @@ private:
     	btConstraintSolver *constraintSolver;
     	btDynamicsWorld *world;
     	btBulletWorldImporter* fileLoader;
+      btPairCachingGhostObject *ghostObject_ataque;
       
       Time* _tiempo;
       uint8_t _numcubos;
