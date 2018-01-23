@@ -26,10 +26,10 @@ enum tipo_colision {
 };
 
 //relaciones de colision 
-int escenario_colisiona_con = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC;
+int escenario_colisiona_con = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC | COL_RAY;
 int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
 int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
-int ray_colisiona_con =			COL_NPC | COL_ESCENARIO;
+int ray_colisiona_con =			COL_ESCENARIO;
 int puerta_colisiona_con = 		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
 int otros_colisiona_con =		COL_NADA | COL_ESCENARIO;
 
@@ -396,6 +396,8 @@ void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
 
 btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btVector3 end){
 	btCollisionWorld::ClosestRayResultCallback rayCallback(start, end);
+	rayCallback.m_collisionFilterMask  = ray_colisiona_con;
+	rayCallback.m_collisionFilterGroup = COL_RAY;
 	world->rayTest(start, end, rayCallback);
 
 	return rayCallback;
@@ -457,11 +459,12 @@ bool Motor::x_ve_a_y(Vector3 x, Vector3 y){
 	//conversion de vector3 a bullet vector3
 	btVector3 mX(x._x,x._y,x._z);
 	btVector3 mY(y._x,y._y,y._z);
-	
+
 	btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(mX, mY);
 
-	rayCallback.m_collisionFilterMask = ray_colisiona_con;
-    rayCallback.m_collisionFilterGroup = COL_RAY;
+	//if(dynamic_cast<Character*>(rayCallback)!=null){
+	//	std::cout<<"colisiona con personaje/npc  \n";
+	//}
 	//como no se quien es quito el control PD: HOLA FRAN :)
 	/*
 	if(rayCallback.hasHit()){
@@ -475,8 +478,8 @@ bool Motor::x_ve_a_y(Vector3 x, Vector3 y){
 		}
 	}
 	*/
-	std::cout<<"colisiona: "<<rayCallback.hasHit()<<std::endl;
-	return(rayCallback.hasHit());
+	//std::cout<<"colisiona: "<<rayCallback.hasHit()<<std::endl;
+	return(!rayCallback.hasHit());
 }
 
 void Motor::updateCamaraColision(){
