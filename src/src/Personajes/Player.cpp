@@ -55,10 +55,9 @@ void Player::update(){
     // Recoge si ha habido movimiento y la direccion de el mismo
     uint16_t _direccion;
 
-    if(_input->get_mover(_direccion) && esta_bloqueado() == false) {
+    if(_input->get_mover(_direccion)){
        // _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
-       
-       _objeto_motor->VelocidadDireccion(_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
+       mover(_direccion);
     }
 
     if(_input->get_dash()){
@@ -113,6 +112,10 @@ void Player::update(){
 
 	}
 
+    if(!_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
+        && !_atacar && !_input->get_saltar()){
+        set_accion(Nada);
+    }
    
     //set level of detail del nivel
     Nivel* nivel=Nivel::nivel_instancia();
