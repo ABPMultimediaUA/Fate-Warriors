@@ -3,9 +3,8 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "Enum_Decisiones/Enum_Decisiones.h"
-#include "Enum_Acciones.h"
 
+#include "Enums_Decisiones.h"
 #include "Enum_Acciones.h"
 
 #include "../Nivel/Enum_zonas.h"
@@ -13,6 +12,7 @@
 #include "../Personajes/Enum_Tipo_Ataque.h"
 #include "../Personajes/Enum_Tipo_Enemigo.h"
 #include "../Nivel/Nodo_blackboard.h"
+
 class Interfaz_Datos;
 //class Nodo_blackboard;
 
@@ -171,6 +171,27 @@ private:
 	unsigned short _n_npc;					// Numero del NPC DONE
 	enum Enum_Tipo_Enemigo *_tipo_npc;		// Tipo de NPC que es DONE
 
+
+
+	// Datos de accion y decision propio de cada enemigo
+	enum Enum_Acciones _accion;				// Accion actual   			(Controlado por Pablo)
+	enum Enum_Decisiones _decision;			// Decision actual 			(Controlado por Pablo)
+
+	enum Enum_Objetivos _objetivo;			// Objetivo actual
+	enum Enum_Tiempos_Espera _t_espera;		// Tiempo min de espera para siguiente accion
+
+	enum Enum_Tipo_Movimiento _tipo_mov;	// Tipo de movimiento hacia el objetivo
+
+	enum Enum_Tipo_Acercar _tipo_acercar;	// Tipo de acercamiento para atacar (movimiento antes de atacar)
+	enum Enum_Forma_Atacar _forma_ataque;	// Forma de atacar al objetivo
+	enum Enum_Tipo_Ataque _ataque;			// Ataque actual
+
+	enum Enum_Distancias_Cortas _d_corta;	// Limite para las distancias cortas (atacar)
+	enum Enum_Distancias_Largas _d_larga;	// Limite para las distancias largas (detectar)
+
+
+
+
 	// Datos de estado
 	int16_t* _vida_actual;					// Vida actual	DONE
 	int16_t _vida_max;						// Vida maxima	DONE
@@ -179,13 +200,6 @@ private:
 	u_int8_t* _rango_ataque_fuerte;			// Rango de ataque normal DONE
 	float *_x;								// Posicion x del NPC
 	float *_z;								// Posicion z del NPC
-
-
-	// Datos de accion y decision propio de cada enemigo
-	enum Enum_Decisiones _decision;			// Decision actual 			(Controlado por Pablo)
-	enum Enum_Acciones _accion;				// Accion actual   			(Controlado por Pablo)
-	enum Enum_Tipo_Ataque _ataque;			// Ataque actual 			(Controlado por Pablo)
-
 
 	// Datos de estado
 	
@@ -295,6 +309,7 @@ private:
 	bool _powerup_zona_adyacente;			// Indica si hay una zona de powerup en una zona adyacente
 	unsigned short _id_zona_powerup;		// ID de la zona donde hay un powerup
 
+	void inicia_enums();
 };
 
 #endif /* SRC_BLACKBOARD_H_ */

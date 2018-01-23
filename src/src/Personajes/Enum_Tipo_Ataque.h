@@ -2,7 +2,7 @@
 #define SRC_ENUM_TIPO_ATAQUE_H_
 
 enum Enum_Tipo_Ataque{
-	Ataque_Ninguno,	// NIngun ataque
+	Ataque_Ninguno,		// Ningun ataque
 	Ataque_Normal,		// Ataque normal
 	Ataque_Fuerte,		// Ataque fuerte
 	Ataque_Especial,	// Ataque especial solo para el personaje
