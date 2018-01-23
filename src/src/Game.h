@@ -36,6 +36,7 @@ public:
     void cambio_a_update_menu();
     void cambio_a_update_partida();
     void cambio_a_update_pausa();
+	Consumible_Action* get_consumibles_action();
 
 private:
 	static Game* instancia;

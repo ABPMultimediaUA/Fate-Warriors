@@ -32,9 +32,14 @@ void Consumible_Action::comprobar_consumibles(){
 		Vector2 vec_mina	= (*_consumibles)[a]->get_vector();
 		
 		if((*_consumibles)[a]->usar(_player)){
-				(*_consumibles)[a]->setPositionXZ(9000,9000);
+				//(*_consumibles)[a]->setPositionXZ(9000,9000);
 				_consumibles_manager->borrar_consumible(a);
 				--tamanio;
 			}
 		}
 	}
+
+
+void Consumible_Action::borrar_power_up(Consumible_Fuerza* _i_power_up){
+	_consumibles_manager->borrar_consumible(_i_power_up);
+}

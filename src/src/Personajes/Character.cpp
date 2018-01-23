@@ -10,6 +10,7 @@
 #include "../Llave.h"
 #include "../Puerta.h"
 #include "../Interactuable_Manager.h"
+#include "../Consumibles/Consumible_Action.h"
 #include "../Interfaz/Motor.h"
 //#include "../Interfaz/Objeto_Motor.h"
 #include <iostream>
@@ -34,6 +35,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
 
 Character::~Character() {
     delete _inventario;
+    Game::game_instancia()->get_consumibles_action()->borrar_power_up(_power_up);
 }
 
 int16_t Character::get_vida(){
@@ -42,8 +44,12 @@ int16_t Character::get_vida(){
 
 void Character::anyadir_power_up(Consumible_Fuerza* _i_power_up){
     if(_power_up!=nullptr){
-        
-    }
+        _power_up = _i_power_up;
+    }  
+}
+
+void Character::eliminar_power_up_puntero(){
+        _power_up=nullptr;
 }
 
 

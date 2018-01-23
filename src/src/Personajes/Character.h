@@ -63,6 +63,7 @@ public:
 	void coger_arma(Arma* arma);
 
 	void anyadir_power_up(Consumible_Fuerza* _i_power_up);
+	void eliminar_power_up_puntero();
 
 	// Gestion de acciones
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);

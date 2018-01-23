@@ -44,14 +44,16 @@ Consumible_Manager::~Consumible_Manager(){
 
 // METODOS BORRAR
 
-void Consumible_Manager::borrar_consumible(Consumible* objeto){
-
+void Consumible_Manager::borrar_consumible(Consumible_Fuerza* objeto){
     std::vector<Consumible*>::iterator it;
     it = std::find(_consumibles.begin(), _consumibles.end(), objeto);
+    
     if ( it != _consumibles.end()){
         _consumibles.erase(it);
         delete objeto;
     }
+    
+     
    
 }
 

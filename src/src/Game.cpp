@@ -193,3 +193,8 @@ void Game::cambio_a_update_pausa() {
 	render_actual = &Game::render_pausa;
 	Time::Instance()->pausar_reloj();
 }
+
+
+Consumible_Action* Game::get_consumibles_action(){
+	return _consumibles_action;
+}
