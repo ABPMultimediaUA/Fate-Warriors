@@ -117,7 +117,7 @@ void Player::update(){
     //set level of detail del nivel
     Nivel* nivel=Nivel::nivel_instancia();
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
-
+    //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
 
     if(_input->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 250) {
         Game* _game = Game::game_instancia();

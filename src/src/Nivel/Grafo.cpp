@@ -533,6 +533,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		
 		//360 y 0 es lo mismo, derechas
 		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->get_coord_x(), verticeaux->get_coord_y());
+		//std::cout<<"angulo:" << angulo << "x_o:"<< _i_xorigen/metro << "y_o:"<< _i_yorigen/metro << "x_aux:"<< verticeaux->get_coord_x()/metro << "y_aux:"<<  verticeaux->get_coord_y()/metro << std::endl;
 		return angulo;
 		//return lib_math_angulo_2_puntos(verticeaux->get_coord_x(),verticeaux->get_coord_y(),_i_xorigen,_i_yorigen);
 	}

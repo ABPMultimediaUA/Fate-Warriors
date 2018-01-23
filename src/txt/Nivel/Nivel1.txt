@@ -78,7 +78,7 @@ PASILLO
 103 48 3 6 23
 txt/Nivel/Nivel1/23pasillo.txt
 NODO
-47 54 9 7 24
+97 54 9 7 24
 txt/Nivel/Nivel1/24nodo.txt
 neutro
 PASILLO
