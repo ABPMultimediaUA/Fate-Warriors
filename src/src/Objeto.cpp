@@ -52,6 +52,10 @@ bool Objeto::get_borrar(){
 	return _borrar;
 }
 
+Objeto_Motor* Objeto::get_objeto_motor(){
+	return _objeto_motor;
+}
+
 Vector2 Objeto::get_vector(){
 	return Vector2(_objeto_motor->getX(), _objeto_motor->getZ()); 
 }

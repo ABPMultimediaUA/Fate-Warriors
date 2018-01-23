@@ -35,6 +35,7 @@ public:
     void set_visible(bool visible);
     bool get_visible();
     short get_id();
+	Objeto_Motor* get_objeto_motor();
 
 protected:
 

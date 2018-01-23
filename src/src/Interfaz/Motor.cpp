@@ -28,12 +28,12 @@ enum tipo_colision {
 
 //relaciones de colision 
 int escenario_colisiona_con = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC | COL_RAY;
-int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
+int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO;
 int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
 int ray_colisiona_con =			COL_ESCENARIO;
 int puerta_colisiona_con = 		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
 int ataque_colisiona_con =		COL_NPC | COL_JUGADOR;
-int otros_colisiona_con =		COL_NADA | COL_ESCENARIO;
+int otros_colisiona_con =		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
 
 
 Motor* Motor::_Motor=0;
@@ -346,11 +346,9 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 	//si es otra cosa
 	else{
-		cubeBody->setCollisionFlags(cubeBody->getCollisionFlags() |
-        		btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		cubeBody->setCollisionFlags(cubeBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 		grupo_colision   = COL_OTRO;
 		mascara_colision = otros_colisiona_con;
-		//std::cout<<"HOLA!!! \n";
 	}
 
 	world->addRigidBody(cubeBody,grupo_colision,mascara_colision);

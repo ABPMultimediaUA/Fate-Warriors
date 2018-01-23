@@ -17,7 +17,7 @@ void Pinchos::render(){}
 
 bool Pinchos::puede_quitar_vida(){ 
     if(_reloj->get_current() > siguiente_tiempo_hace_danyo){
-        siguiente_tiempo_hace_danyo = _reloj->get_current() + 1000;
+        siguiente_tiempo_hace_danyo = _reloj->get_current() + 600;
         return true;
     }
     
