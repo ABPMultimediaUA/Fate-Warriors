@@ -24,12 +24,28 @@ Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, uint16_t _i_n_enemigo) {
 	//_level_of_detail = 1;
 
 	_distancia_jugador = 0;
-	_decision = Decision_Quieto;
-	_accion = Nada;
+	inicia_enums();
 }
 
 Blackboard::~Blackboard() {
 	//delete _tipo_npc;
+}
+
+void Blackboard::inicia_enums() {
+	_decision = Decision_Quieto;
+	_accion = Nada;
+
+	_objetivo = Objetivo_Ninguno;
+	_t_espera = static_cast<Enum_Tiempos_Espera>(rand()%n_tiempos_espera);
+
+	_tipo_mov = static_cast<Enum_Tipo_Movimiento>(rand()%n_tipos_movimiento);
+
+	_tipo_acercar = static_cast<Enum_Tipo_Acercar>(rand()%n_tipos_acercar);
+	_forma_ataque = static_cast<Enum_Forma_Atacar>(rand()%n_formas_atacar);
+	_ataque = Ataque_Ninguno;
+
+	_d_corta = static_cast<Enum_Distancias_Cortas>(rand()%n_distancias_cortas);
+	_d_larga = static_cast<Enum_Distancias_Largas>(rand()%n_distancias_largas);
 }
 
 

@@ -30,9 +30,9 @@ Interactuable_Manager::Interactuable_Manager() {
     
     //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
     
-    _puertas[0] = new Puerta(1,18*mult,2*mult, 31.5*mult,false);
+    _puertas[0] = new Puerta(1,18*mult,0*mult, 31.5*mult,false);
 
-	_llaves[0] = new Llave(0, 5*mult, 1*mult, 37*mult,_puertas[0]->get_id());
+	_llaves[0] = new Llave(0, 5*mult, 0*mult, 37*mult,_puertas[0]->get_id());
     //_puertas[1] = new Puerta(127,-0,0,-180,false);
 }
 
