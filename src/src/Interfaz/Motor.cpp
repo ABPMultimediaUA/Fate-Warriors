@@ -5,12 +5,34 @@
 #include "../Personajes/Interpolacion.h"
 #include "Objeto_Motor.h"
 #include "../Objeto.h"
-
+#include "../Personajes/Player.h"
+#include "../Personajes/NPC.h"
+#include "../Puerta.h"
 /*
 #include "Entidad.h"
 #include "../Input.h"
 #include "../Utilidades/Vector.h"
 master*/
+
+#define BIT(x) (1<<(x))
+enum tipo_colision {
+    COL_NADA = 0, //<Colision con nada
+    COL_ESCENARIO = BIT(0), //<Colision con escenario
+    COL_JUGADOR = BIT(1), //<Colision con jugador
+    COL_NPC = BIT(2), //<Colision con NPC
+	COL_RAY = BIT(3), //rayo del raytracing
+	COL_PUERTA = BIT(4), //las puertas 
+	COL_OTRO = BIT(5) //<Colision con Otro (trampas, recogibles)
+};
+
+//relaciones de colision 
+int escenario_colisiona_con = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC;
+int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
+int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
+int ray_colisiona_con =			COL_NPC | COL_ESCENARIO;
+int puerta_colisiona_con = 		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
+int otros_colisiona_con =		COL_NADA | COL_ESCENARIO;
+
 
 Motor* Motor::_Motor=0;
 
@@ -47,7 +69,6 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 
 	world->removeRigidBody(_objeto_motor->getRigidBody());
 	delete _objeto_motor->getRigidBody()->getCollisionShape();
-
 	delete _objeto_motor->getInterpolacion();
 
 	auto ite2 = std::find(_objetos_motor.begin(), _objetos_motor.end(), _objeto_motor);
@@ -181,6 +202,29 @@ void Motor::configuracion_bullet(){
 
 	fileLoader = new btBulletWorldImporter(world);
 	fileLoader->loadFile("models/MapaColision/ColisionesNivel1.bullet");
+	btCollisionShape* escenario; 
+	btRigidBody* esta_vez_si;
+	int num = fileLoader->getNumRigidBodies();
+	
+	btTransform cubeTransform;
+	cubeTransform.setIdentity();
+	//cubeTransform.setOrigin(btVector3(x,y,z));
+	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
+	for(short i = 0; i<num;i++){
+
+		btTransform trans = fileLoader->getRigidBodyByIndex(i)->getWorldTransform();
+
+		escenario = fileLoader->getRigidBodyByIndex(i)->getCollisionShape();
+		cubeMotionState = new btDefaultMotionState(trans);
+		btRigidBody* _objeto_esceario = new btRigidBody(0, cubeMotionState, escenario);
+		_objeto_esceario->setFriction(0);
+		world->addRigidBody(_objeto_esceario,COL_ESCENARIO, escenario_colisiona_con);
+
+		//btBroadphaseProxy* proxy = esta_vez_si->getBroadphaseProxy();
+		//proxy->m_collisionFilterGroup = 4;
+		//proxy->m_collisionFilterMask = 4;
+	}	
+	
 	
     world->setGravity(btVector3(0,-9.8,0));
 
@@ -213,6 +257,7 @@ unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, 
 	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
 	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
 	*/
+
 	return 1;
 }
 
@@ -234,18 +279,20 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 }
 
 btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+		
+	float altura,anchura,profundidad;
+	btCollisionShape *cubeShape;
+	this->getDimensiones(cubeNode,anchura,altura,profundidad);
+	
 	btTransform cubeTransform;
 	cubeTransform.setIdentity();
 
-	cubeTransform.setOrigin(btVector3(x,y,z));
+	cubeTransform.setOrigin(btVector3(x,y+(altura/2),z));
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
 
 	float cubeMass = _i_peso;
-	
-	float altura,anchura,profundidad;
-	btCollisionShape *cubeShape;
-	this->getDimensiones(cubeNode,anchura,altura,profundidad);
+
 	switch(tipo){
 		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
@@ -273,7 +320,38 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	cubeBody->forceActivationState(DISABLE_DEACTIVATION );
 
 
-	world->addRigidBody(cubeBody);
+	//CREACION DE MASCARA DE RIGIDBODY
+	int mascara_colision = COL_NADA;
+	int grupo_colision 	 = COL_NADA;
+
+	//si es un personaje
+	if(dynamic_cast<Player*>(_i_objeto)!=NULL){
+		grupo_colision   = COL_JUGADOR;
+		mascara_colision = jugador_colisiona_con;
+	}
+
+	//si es un npc
+	else if(dynamic_cast<NPC*>(_i_objeto)!=NULL){
+		grupo_colision   = COL_NPC;
+		mascara_colision = npc_colisiona_con;
+	}
+
+	else if(dynamic_cast<Puerta*>(_i_objeto)!=NULL){
+		grupo_colision   = COL_PUERTA;
+		mascara_colision = puerta_colisiona_con;
+	}
+
+	//si es otra cosa
+	else{
+		cubeBody->setCollisionFlags(cubeBody->getCollisionFlags() |
+        		btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		grupo_colision   = COL_OTRO;
+		mascara_colision = otros_colisiona_con;
+		//std::cout<<"HOLA!!! \n";
+	}
+
+	world->addRigidBody(cubeBody,grupo_colision,mascara_colision);
+
 	return cubeBody;
 }
 
@@ -373,6 +451,32 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 		}	
 	}
 	camara->interpola_posicion(_i_interpolacion);
+}
+
+bool Motor::x_ve_a_y(Vector3 x, Vector3 y){
+	//conversion de vector3 a bullet vector3
+	btVector3 mX(x._x,x._y,x._z);
+	btVector3 mY(y._x,y._y,y._z);
+	
+	btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(mX, mY);
+
+	rayCallback.m_collisionFilterMask = ray_colisiona_con;
+    rayCallback.m_collisionFilterGroup = COL_RAY;
+	//como no se quien es quito el control PD: HOLA FRAN :)
+	/*
+	if(rayCallback.hasHit()){
+		btVector3 point = rayCallback.m_hitPointWorld;
+		btVector3 normal = rayCallback.m_hitNormalWorld;
+		const btCollisionObject *object = rayCallback.m_collisionObject;
+		for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
+			if(fileLoader->getRigidBodyByIndex(i) == object){
+				
+			}
+		}
+	}
+	*/
+	std::cout<<"colisiona: "<<rayCallback.hasHit()<<std::endl;
+	return(rayCallback.hasHit());
 }
 
 void Motor::updateCamaraColision(){

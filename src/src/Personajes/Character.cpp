@@ -27,8 +27,8 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _tiempo = Time::Instance();
     _accion = Nada;
     _tipo_ataque = Ataque_Ninguno;
-    _tiempo_inicio_bloqueado = 0;
-    _duracion_bloqueo_actual = 0;
+    _tiempo_inicio_accion = 0;
+    _duracion_accion_actual = 0;
 }
 
 Character::~Character() {
@@ -156,6 +156,25 @@ void Character::saltar(){
     }
 }
 
+void Character::mover(uint16_t _i_direccion){
+    if(esta_bloqueado() == false){
+            
+        if(this->get_accion() == Nada){
+            set_accion(Andar);
+        }
+        else if(this->get_accion() == Andar){
+            //std::cout << "Andando" << std::endl;
+            if(accion_en_curso() == false){
+                this->set_accion(Accion_Correr);
+            }
+        }
+        else if(this->get_accion() == Accion_Correr){
+            //std::cout << "CORRIENDO" << std::endl;
+        }
+        _objeto_motor->VelocidadDireccion(_i_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
+    }
+}
+
 bool Character::interactuar_con_objeto(){
     //Busca el objeto interactuable mas cercano e interactua con el (recogerlo, abrirlo, etc.)
 
@@ -215,16 +234,6 @@ bool Character::interactuar_con_objeto(){
     return objeto_encontrado;
 }
 
-void Character::bloquear_input(double _i_duracion_bloqueo_actual){
-    _tiempo_inicio_bloqueado = _tiempo->get_current();
-    _duracion_bloqueo_actual = _i_duracion_bloqueo_actual;
-    //_bloqueado = true;
-}
-
-void Character::desbloquear_input(){
-    _duracion_bloqueo_actual = 0;
-}
-
 void Character::morir(){
     std::cout << "He muerto :("<< std::endl;
     setPositionXZ(10000, 10000);
@@ -240,7 +249,16 @@ Enum_Tipo_Ataque Character::get_tipo_ataque(){
 }
 
 bool Character::esta_bloqueado(){
-    if(_tiempo->get_current() - _tiempo_inicio_bloqueado < _duracion_bloqueo_actual){
+    if((_tiempo->get_current() - _tiempo_inicio_accion < _duracion_accion_actual) && _bloqueado == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Character::accion_en_curso(){
+    if((_tiempo->get_current() - _tiempo_inicio_accion < _duracion_accion_actual)){
         return true;
     }
     else{
@@ -307,6 +325,28 @@ static int getTiempoAccion(Enum_Acciones _accion){
     }
 }
 
+static bool getSiAccionBloqueaInput(Enum_Acciones _accion){
+    switch(_accion)
+    {
+        case Accion_pre_atacar:
+            return true;
+        case Atacar:
+            return true;
+        case Accion_post_atacar:
+            return true;
+        case Accion_Dash:
+            return true;
+        case Accion_Interactuar:
+            return true;
+        case Saltar:
+            return true;
+        case Recibir_danyo:
+            return true;
+        default:
+            return false;
+    }
+}
+
 Enum_Tipo_Ataque Character::get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque){
     switch(_tipo_ataque) // ataque actual
     {
@@ -325,13 +365,16 @@ Enum_Tipo_Ataque Character::get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataq
 
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
-    if(_i_accion != Nada){ // Si es Nada no se bloquean inputs
-        bloquear_input(getTiempoAccion(_i_accion));
-    }
-    else{
+
+    _tiempo_inicio_accion = _tiempo->get_current();
+    _duracion_accion_actual = getTiempoAccion(_i_accion);
+
+    _bloqueado = getSiAccionBloqueaInput(_i_accion);
+    
+    if(_bloqueado == false){ // No se bloquean inputs
         _objeto_motor->colorear_nodo(255,255,255);
     }
-
+  
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
         set_tipo_ataque(Ataque_Ninguno);
     }
@@ -343,6 +386,7 @@ void Character::gestion_acciones(){
     gestion_interactuar();
     gestion_saltar();
     gestion_recibir_danyado();
+    //gestion_mover();
 }
 
 void Character::gestion_recibir_danyado(){
@@ -383,6 +427,23 @@ void Character::gestion_interactuar(){
         std::cout << "Interactuando..." << std::endl;
 
         if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_mover(){
+
+    if(this->get_accion() == Andar){
+        std::cout << "Andando" << std::endl;
+        if(accion_en_curso() == false){
+            this->set_accion(Accion_Correr);
+            
+        }
+    }
+    else if(this->get_accion() == Accion_Correr){
+        std::cout << "CORRIENDO" << std::endl;
+        if(accion_en_curso() == false){
             this->set_accion(Nada);
         }
     }

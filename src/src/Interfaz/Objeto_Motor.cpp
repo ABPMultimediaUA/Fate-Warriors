@@ -11,6 +11,9 @@
 #include "../Personajes/Interpolacion.h"
 
 
+
+
+
 Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
    Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);
@@ -29,7 +32,7 @@ Objeto_Motor::~Objeto_Motor(){
 } 
 
 // Funcion de mover para los NPC
-void Objeto_Motor::setVelocidad(unsigned short _i_direccion, float x, float y, float z, double mdt){
+void Objeto_Motor::setVelocidad(unsigned short _i_direccion, float x, float y, float z, double mdt, float _i_velocidad){
 	float _cos, _sen;
 	_cos = sin(_i_direccion*std::acos(-1)/180);
 	_sen = cos(_i_direccion*std::acos(-1)/180);
@@ -41,8 +44,8 @@ void Objeto_Motor::setVelocidad(unsigned short _i_direccion, float x, float y, f
 	_interpolacion->actualiza_direccion(_nueva_direccion);
 
 	// Agrega el desplazamiento del personaje
-	desp_z = cos(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
-    desp_x = sin(_nueva_direccion*std::acos(-1)/180) * 1 * mdt;
+	desp_z = cos(_nueva_direccion*std::acos(-1)/180) * 1 * mdt * _i_velocidad;
+    desp_x = sin(_nueva_direccion*std::acos(-1)/180) * 1 * mdt * _i_velocidad;
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
     	desp_z = 0;
     desp_x = 0;

@@ -393,7 +393,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		return angulo;
 	}
 */
-
+	motor->x_ve_a_y(inicio,fin);
 
 	int id_aux, aux;
 	float distancia,distancia2,direccion;

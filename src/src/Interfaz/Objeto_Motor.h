@@ -15,7 +15,7 @@ public:
       
       void VelocidadDireccion(unsigned short _i_direccion, float _i_velocidad, double dt);
       void setVelocidad(float x, float y, float z);
-      void setVelocidad(unsigned short _i_direccion, float x, float y, float z,double mdt);
+      void setVelocidad(unsigned short _i_direccion, float x, float y, float z,double mdt, float _i_velocidad);
 
       void Dash(unsigned short _i_direccion);
       void saltar();
