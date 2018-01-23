@@ -7,7 +7,7 @@ OBJFILES:=$(patsubst $(SDIR)%, $(ODIR)%, $(SRCFILES:%.cpp=%.o))
 SOURCES := $(wildcard $(SDIR)/*.cpp)
 DELOBJ:= $(wildcard $(ODIR)/*)
 OBJECTS := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SOURCES))
-LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader 
+LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader
 INCLUDE := -I. -I/usr/include/bullet -I$(CURDIR)/include/SFML
 CC      := g++
 CCFLAGS := -g -std=c++11
@@ -25,14 +25,9 @@ TARGET	:= Fate_Warriors
 
 define COMPILAR
 $(1): $(2)
-	$(CC) -o $(1) -c $(2) $(INCLUDE) $(CCFLAGS)
+	$(CC) -o $(1) -c $(2)  $(INCLUDE) $(CCFLAGS)
 endef
 
-define COMPILARWIN
-$(1): $(2)
-	$(CC) -o $(1) -c $(2) $(INCLUDE) $(CCFLAGS)
-
-endef
 
 define MKOBJDIR
 $(1):
@@ -45,7 +40,7 @@ $(1):
 endef
 
 .PHONY: all
-all: dir $(ODIR) $(TARGET) $(CCFLAGS)
+all: dir $(ODIR) $(TARGET)
 	chmod +x $(TARGET)
 .PHONY: release
 release: opt all
