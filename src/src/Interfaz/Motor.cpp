@@ -22,7 +22,8 @@ enum tipo_colision {
     COL_NPC = BIT(2), //<Colision con NPC
 	COL_RAY = BIT(3), //rayo del raytracing
 	COL_PUERTA = BIT(4), //las puertas 
-	COL_OTRO = BIT(5) //<Colision con Otro (trampas, recogibles)
+	COL_ATAQUE = BIT(5),
+	COL_OTRO = BIT(6) //<Colision con Otro (trampas, recogibles)
 };
 
 //relaciones de colision 
@@ -31,6 +32,7 @@ int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
 int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
 int ray_colisiona_con =			COL_NPC | COL_ESCENARIO;
 int puerta_colisiona_con = 		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
+int ataque_colisiona_con =		COL_NPC | COL_JUGADOR;
 int otros_colisiona_con =		COL_NADA | COL_ESCENARIO;
 
 
@@ -384,6 +386,17 @@ void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, floa
 	profundidad = (edges[6].X - edges[2].X);
 
 	delete edges;
+}
+
+void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
+	btBroadphaseProxy* proxy = _i_rigidbody->getBroadphaseProxy();
+	proxy->m_collisionFilterGroup = group;	
+}
+
+void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
+	btBroadphaseProxy* proxy = _i_rigidbody->getBroadphaseProxy();
+	proxy->m_collisionFilterMask = mask;
+
 }
 
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){

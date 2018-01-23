@@ -9,6 +9,7 @@ class Interfaz;
 class Inventario;
 class Time;
 class Arma;
+class Consumible_Fuerza;
 
 class Character : public Objeto_Movil{
 public:
@@ -61,6 +62,8 @@ public:
 	bool intentar_recoger_arma();
 	void coger_arma(Arma* arma);
 
+	void anyadir_power_up(Consumible_Fuerza* _i_power_up);
+
 	// Gestion de acciones
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
@@ -96,6 +99,7 @@ protected:
 	Enum_Tipo_Ataque _tipo_ataque;
 	Time * _tiempo;
 	double _duracion_accion_actual;
+	Consumible_Fuerza* _power_up;
 };
 
 #endif /* SRC_CHARACTER_H_ */

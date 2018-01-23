@@ -16,6 +16,7 @@
 #include "Player.h"
 #include "NPC/Ally.h"
 #include "../Interfaz_Libs/Lib_Math.h"
+#include "../Consumibles/Consumible_Fuerza.h"
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
@@ -38,6 +39,13 @@ Character::~Character() {
 int16_t Character::get_vida(){
 	return _vida;
 }
+
+void Character::anyadir_power_up(Consumible_Fuerza* _i_power_up){
+    if(_power_up!=nullptr){
+        
+    }
+}
+
 
 void Character::modificar_vida_en(short _i_vida){
 
