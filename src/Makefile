@@ -7,7 +7,7 @@ OBJFILES:=$(patsubst $(SDIR)%, $(ODIR)%, $(SRCFILES:%.cpp=%.o))
 SOURCES := $(wildcard $(SDIR)/*.cpp)
 DELOBJ:= $(wildcard $(ODIR)/*)
 OBJECTS := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SOURCES))
-LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader 
+LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader
 INCLUDE := -I. -I/usr/include/bullet -I$(CURDIR)/include/SFML
 CC      := g++
 CCFLAGS := -g -std=c++11
