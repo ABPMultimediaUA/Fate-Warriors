@@ -11,6 +11,9 @@
 #include "../Personajes/Interpolacion.h"
 
 
+
+
+
 Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
    Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);

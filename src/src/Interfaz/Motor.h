@@ -52,6 +52,9 @@ public:
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
 
+    bool x_ve_a_y(Vector3 x, Vector3 y); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
+                                         //teniendo en cuenta unicamente el escenario (no el resto de objetos)
+
     //void simulationUpdate();
 
 
@@ -80,6 +83,8 @@ public:
   
     float angulo_camara();
     float angulo_camaraRAD();
+
+
     
 private:
 
