@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "Interfaz/Motor.h"
 #include "Tiempo/Time.h"
-#include "Input/Input_Manager.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -27,8 +26,6 @@ void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uin
 
 // Main del juego
 int main(){
-	Input_Manager* _input = new Input_Manager();
-
 	srand((int)time(0)); // Inicia la semilla del rand
 
 	Game* _juego = Game::game_instancia();
@@ -45,8 +42,6 @@ int main(){
     //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
 
 	while(_motor->getIrrlichtDevice()->run()){
-		_input->recibe_input();
-
 		//Evento para cerrar la ventana
 
 		// Recoge inputs
