@@ -18,7 +18,7 @@
 #include "../Game.h"
 #include "../Action_Manager.h"
                                                                                                             //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.9, 10, 15)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.35, 10, 15)
                                                                 {   
     _motor= Motor::Motor_GetInstance();
     //_tiempo = Time::Instance();
