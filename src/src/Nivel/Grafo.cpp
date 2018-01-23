@@ -386,14 +386,13 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	Motor* motor = Motor::Motor_GetInstance();
 	Vector3 inicio(_i_xorigen,2,_i_yorigen);
 	Vector3 fin(_i_xdestino,2,_i_ydestino);
-	/*
-	if(!motor->colision_entre_dos_puntos(inicio,fin)){
+	
+	if(motor->x_ve_a_y(inicio,fin)){
 		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen,_i_xdestino,_i_ydestino);
-		//std::cout << "p:" << angulo << std::endl;
+		std::cout << "p:" << angulo << std::endl;
 		return angulo;
 	}
-*/
-	motor->x_ve_a_y(inicio,fin);
+	
 
 	int id_aux, aux;
 	float distancia,distancia2,direccion;
