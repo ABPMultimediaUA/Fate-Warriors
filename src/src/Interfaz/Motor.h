@@ -87,6 +87,7 @@ public:
 
       bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
       void posicionar_ghost_ataque(btRigidBody *rb);
+      bool comprobar_colision_ataque(btRigidBody *character_atacado);
     
 private:
 

@@ -48,7 +48,6 @@ void Player::update(){
     _input->procesar_inputs();
 
     gestion_acciones();
-    Motor::Motor_GetInstance()->posicionar_ghost_ataque(_objeto_motor->getRigidBody());
 
     // Esto hay que borrarlo
     Controles* controles = Controles::Instance();

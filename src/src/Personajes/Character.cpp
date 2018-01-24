@@ -475,13 +475,16 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
     }
     else if(this->get_accion() == Atacar){
 
+        Motor::Motor_GetInstance()->posicionar_ghost_ataque(_objeto_motor->getRigidBody());
+
         NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
         NPC ** _npcs = _npc_manager->get_npcs();
         uint16_t _cont, _n_npcs;
         _n_npcs = _npc_manager->get_n_enemigos();
 
         for(_cont = 0; _cont < _n_npcs; _cont++) {
-            if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado && 
+            if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
+                //Motor::Motor_GetInstance()->comprobar_colision_ataque(_npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
                 comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
             {
                 if(this->get_tipo_ataque() == Ataque_Normal){
@@ -508,7 +511,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
                 direccion_ataque = lib_math_angulo_2_puntos(getX(), getZ(),_npcs[_cont]->getX(),_npcs[_cont]->getZ());
                 std::cout <<direccion_ataque<< std::endl;
                 
-                _objeto_motor->Dash(direccion_ataque);
+                _npcs[_cont]->get_objeto_motor()->Dash(direccion_ataque);
             }
         }
         std::cout << "ATACANDO" << std::endl;

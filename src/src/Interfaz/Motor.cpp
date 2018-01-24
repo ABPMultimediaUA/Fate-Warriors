@@ -640,14 +640,17 @@ void Motor::posicionar_ghost_ataque(btRigidBody *rb){
 	ghostObject_ataque->setWorldTransform(ghostTransform);
 }
 
-/*
-bool Motor::comprobar_colision_ataque(btRigidBody *, btRigidBody *character_atacado){
+
+bool Motor::comprobar_colision_ataque(btRigidBody *character_atacado){
 
 	btManifoldArray manifoldArray;
 
 	manifoldArray.clear();
 
-	btBroadphasePair* collisionPair = world->getPairCache()->findPair(rb1->getBroadphaseProxy(), rb2->getBroadphaseProxy());
+	///ghostObject_ataque->getOverlappingPairCache()->getOverlappingPairArray()[0].m_pProxy0;
+	//character_atacado->getBroadphaseProxy();
+
+	btBroadphasePair* collisionPair = world->getPairCache()->findPair(ghostObject_ataque->getOverlappingPairCache()->getOverlappingPairArray()[0].m_pProxy0, character_atacado->getBroadphaseProxy());
 
 	if (collisionPair){
 
@@ -665,7 +668,7 @@ bool Motor::comprobar_colision_ataque(btRigidBody *, btRigidBody *character_atac
 	}
 	return false;
 }
-*/
+
 //btBroadphasePair* collisionPair = world->getPairCache()->findPair(ghostObject->getOverlappingPairCache()->getOverlappingPairArray()[0].m_pProxy0,_objetos_motor[0]->getRigidBody()->getBroadphaseProxy());
 /*
 std::cout << "COLISIONAAAAAAAAAAAAAAAAAAAAA" << std::endl;
