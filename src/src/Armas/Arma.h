@@ -4,6 +4,9 @@
 #include "../Objeto.h"
 #include "../Tiempo/Time.h"
 
+class Time;
+
+
 class Arma : public Objeto{
 
 public:	
@@ -23,6 +26,7 @@ public:
 
 protected:
 	
+	Time*  _reloj;
 	double 	_tiempo_siguiente_disponible;
 	short 	_tipo;
 	short 	_uses;
