@@ -8,6 +8,8 @@
 #include "../Personajes/Player.h"
 #include "../Personajes/NPC.h"
 #include "../Puerta.h"
+#include "DebugDraw.h"
+
 /*
 #include "Entidad.h"
 #include "../Input.h"

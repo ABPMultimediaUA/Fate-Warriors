@@ -1,6 +1,8 @@
 #include "Objeto_Motor.h"
 #include <cstdint>
 
+#include "Motor.h"
+
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include "BulletWorldImporter/btBulletWorldImporter.h"

@@ -2,8 +2,21 @@
 #ifndef OBJETO_MOTOR_H_
 #define OBJETO_MOTOR_H_
 
-#include "Motor.h"
+#include "irrlicht/irrlicht.h"
+#include "../Utilidades/Vector.h"
+#include "EnumTiposBoundingBox.h"
+
+using namespace irr;
+using namespace core;
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
+
 class Objeto;
+class Motor;
+class Interpolacion;
+class btRigidBody;
 
 class Objeto_Motor{
 public:
