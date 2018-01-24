@@ -2,7 +2,6 @@
 #ifndef MOTOR_H_
 #define MOTOR_H_
 
-#include "DebugDraw.h"
 #include <cstdlib>
 #include <cstdint>
 #include <iostream>
@@ -12,6 +11,7 @@
 #include "GUI.h"
 
 #include "EnumTiposBoundingBox.h"
+#include <btBulletCollisionCommon.h>
 
 
 
@@ -21,11 +21,24 @@
 #endif
 
 class Objeto_Motor;
-class Objeto;
 class Interpolacion;
 class Time;
 class Input;
 class Objeto;
+class DebugDraw;    
+      
+      //Bullet
+class btCollisionConfiguration;
+class btBroadphaseInterface;
+class btDispatcher;
+class btConstraintSolver;
+class btDynamicsWorld;
+class btBulletWorldImporter;
+class btPairCachingGhostObject;
+class btRigidBody;
+class btVector3;
+
+
 class Motor{
 
 public:
