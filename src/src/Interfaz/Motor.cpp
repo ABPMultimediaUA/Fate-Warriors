@@ -531,7 +531,8 @@ void Motor::updateCamaraColision(){
 		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
 
 		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos);
-
+		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
+		//->getUserPointer();
 		if(rayCallback.hasHit()){
 			btVector3 point = rayCallback.m_hitPointWorld;
 			btVector3 normal = rayCallback.m_hitNormalWorld;

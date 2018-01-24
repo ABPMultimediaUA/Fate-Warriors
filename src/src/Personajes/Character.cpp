@@ -31,6 +31,9 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _tipo_ataque = Ataque_Ninguno;
     _tiempo_inicio_accion = 0;
     _duracion_accion_actual = 0;
+    _velocidadAndar = _i_velocidad;
+    _velocidadCorrer = _i_velocidad * 2;
+    _velocidad = 0;
 }
 
 Character::~Character() {
@@ -175,15 +178,22 @@ void Character::mover(uint16_t _i_direccion){
             
         if(this->get_accion() == Nada){
             set_accion(Andar);
+            _velocidad = _velocidadAndar;
         }
         else if(this->get_accion() == Andar){
-            //std::cout << "Andando" << std::endl;
+            std::cout << "Andando" << std::endl;
+            if(_velocidad<_velocidadAndar){
+                _velocidad += 0.05;
+            }
             if(accion_en_curso() == false){
                 this->set_accion(Accion_Correr);
             }
         }
         else if(this->get_accion() == Accion_Correr){
-            //std::cout << "CORRIENDO" << std::endl;
+            std::cout << "CORRIENDO" << std::endl;
+            if(_velocidad<_velocidadCorrer){
+                _velocidad += 0.1;
+            }
         }
         _objeto_motor->VelocidadDireccion(_i_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
     }
@@ -441,23 +451,6 @@ void Character::gestion_interactuar(){
         std::cout << "Interactuando..." << std::endl;
 
         if(esta_bloqueado() == false){
-            this->set_accion(Nada);
-        }
-    }
-}
-
-void Character::gestion_mover(){
-
-    if(this->get_accion() == Andar){
-        std::cout << "Andando" << std::endl;
-        if(accion_en_curso() == false){
-            this->set_accion(Accion_Correr);
-            
-        }
-    }
-    else if(this->get_accion() == Accion_Correr){
-        std::cout << "CORRIENDO" << std::endl;
-        if(accion_en_curso() == false){
             this->set_accion(Nada);
         }
     }

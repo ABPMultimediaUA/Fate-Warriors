@@ -86,7 +86,9 @@ protected:
 	
 	int16_t _vida_maxima;
 	int16_t _vida;
+	float _velocidadAndar;		//velocidad al andar
 	float _velocidad;
+	float _velocidadCorrer;
 	uint8_t _rango_arma_corta;
 	uint8_t _rango_arma_larga;
 	short _danyo_ataque_normal;
