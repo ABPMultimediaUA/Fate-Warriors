@@ -56,12 +56,14 @@ void Player::update(){
     uint16_t _direccion;
 
     if(_input->get_mover(_direccion)){
-       // _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
-       mover(_direccion);
+        // Direccion buena con respecto de la camara
+        uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
+        while(_direccion_buena >= 360) _direccion_buena -= 360;
+        mover(_direccion_buena);
     }
 
     if(_input->get_dash()){
-        esquivar(_direccion);
+        esquivar(_direccion); // Habra que pasar la direccion buena
     }
 
     if(_input->get_interactuar()){

@@ -42,7 +42,16 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				z=_i_npc->getZ();
 				_direccion = _path_manager->get_direccion_movimiento(x,z);
 				if(_direccion!=362){
-					_i_npc->move(_direccion);
+					// Componenetes de la direccion mala
+					float _cos, _sen;
+					_cos = sin(_direccion*std::acos(-1)/180);
+					_sen = cos(_direccion*std::acos(-1)/180);
+
+					// Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
+					uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
+        			while(_nueva_direccion >= 360) _nueva_direccion -= 360;
+
+					_i_npc->mover(_nueva_direccion);
 				}else{
 					_i_npc->setPositionXZ(x,z);
 				}

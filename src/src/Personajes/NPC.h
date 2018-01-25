@@ -14,7 +14,6 @@ public:
 	virtual ~NPC();
   	void update() override;
   	void render() override;
-	void move(unsigned long _i_direccion);
 	void stop();
 
 	void danyar(short _danyo) override;
