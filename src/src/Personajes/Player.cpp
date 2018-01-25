@@ -113,7 +113,7 @@ void Player::update(){
 	}
 
     if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
-        && !_atacar && !_input->get_saltar()){
+        && !_atacar && !_input->get_saltar() && _accion != Atacar){
         set_accion(Nada);
     }
    
