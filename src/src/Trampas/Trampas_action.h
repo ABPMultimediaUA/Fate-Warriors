@@ -6,6 +6,7 @@ class Pinchos;
 class Charcos_electrificados;
 class Trampas_manager;
 class Player;
+class NPC_Manager;
 
 class Trampas_action{
 public:
@@ -25,6 +26,7 @@ private:
 	Pinchos ** _pinchos;
 	Trampas_manager* _trampas;
 	Player * _player;
+	NPC_Manager * _npc_manager;
 
 };
 

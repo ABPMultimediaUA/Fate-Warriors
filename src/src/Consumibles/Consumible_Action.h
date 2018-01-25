@@ -8,6 +8,7 @@ class Consumible_Carne;
 class Consumible_Patata;
 class Consumible_Manager;
 class Consumible_Fuerza;
+class NPC_Manager;
 class Player;
 
 class Consumible_Action{
@@ -22,6 +23,8 @@ private:
 	Player * _player;
 	std::vector<Consumible*>* _consumibles;
 	Consumible_Manager* _consumibles_manager;
+NPC_Manager * _npc_manager;
+
 	
 };
 

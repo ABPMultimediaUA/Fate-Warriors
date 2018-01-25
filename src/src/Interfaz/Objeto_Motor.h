@@ -17,6 +17,7 @@ class Objeto;
 class Motor;
 class Interpolacion;
 class btRigidBody;
+class btVector3;
 
 class Objeto_Motor{
 public:
@@ -50,7 +51,7 @@ public:
       btRigidBody*   getRigidBody();
 
       float getVelocidadY();
-      
+      btVector3 get_posicion_rb();
 
 private:
       ISceneNode*       _nodo;

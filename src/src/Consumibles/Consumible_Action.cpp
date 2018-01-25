@@ -7,11 +7,17 @@
 #include "../Datos_Partida.h"
 #include "Consumible_Manager.h"
 #include "../Personajes/Player.h"
+#include "../Personajes/NPC.h"
+#include "../Personajes/NPC_Manager.h"
+
 #include "../Utilidades/Vector.h"
+
 
 Consumible_Action::Consumible_Action() : _player(nullptr), _consumibles_manager(nullptr){
 	Game* punterito 		= Game::game_instancia();
 	Datos_Partida * datitos	= punterito->game_get_datos();
+
+	_npc_manager = datitos->get_npc_manager();
 
 	_player 				= datitos->get_player();
 	_consumibles_manager 	= datitos->get_Consumible_Manager();
@@ -25,18 +31,34 @@ Consumible_Action::~Consumible_Action(){
 
 void Consumible_Action::comprobar_consumibles(){
 
-	Vector2 vec_player	= _player->get_vector();
 	short tamanio =(*_consumibles).size();
+
+  	NPC** npc = _npc_manager->get_npcs();
+	uint16_t numnpc = _npc_manager->get_n_enemigos();
+	bool se_ha_borrado = false;
 	
 	for(short a=0; a<tamanio; a++){
-		Vector2 vec_mina	= (*_consumibles)[a]->get_vector();
-		
+
 		if((*_consumibles)[a]->usar(_player)){
+			//(*_consumibles)[a]->setPositionXZ(9000,9000);
+			_consumibles_manager->borrar_consumible(a);
+			--tamanio;
+			continue;
+		}
+
+		for (short i=0; i<numnpc && !se_ha_borrado; i++){
+          //NPC
+			if((*_consumibles)[a]->usar(npc[i])){
 				//(*_consumibles)[a]->setPositionXZ(9000,9000);
 				_consumibles_manager->borrar_consumible(a);
 				--tamanio;
+				se_ha_borrado=true;
 			}
-		}
+		 }
+		se_ha_borrado=false;
+	}
+
+		
 	}
 
 
