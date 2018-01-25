@@ -13,9 +13,6 @@
 #include "../Personajes/Interpolacion.h"
 
 
-
-
-
 Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
    Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);
@@ -210,4 +207,9 @@ Interpolacion* Objeto_Motor::getInterpolacion(){
 
 btRigidBody* Objeto_Motor::getRigidBody(){
 	return _rigidbody;
+}
+
+
+btVector3 Objeto_Motor::get_posicion_rb(){
+	return _rigidbody->getCenterOfMassPosition();
 }

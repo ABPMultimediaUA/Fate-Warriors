@@ -103,6 +103,7 @@ protected:
 	Time * _tiempo;
 	double _duracion_accion_actual;
 	Consumible_Fuerza* _power_up;
+	btRigidBody *_rb_ataque;
 };
 
 #endif /* SRC_CHARACTER_H_ */

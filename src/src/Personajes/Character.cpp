@@ -34,10 +34,12 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _velocidadAndar = _i_velocidad;
     _velocidadCorrer = _i_velocidad * 2;
     _velocidad = 0;
+    _rb_ataque = Motor::Motor_GetInstance()->crear_rb_ataque();
 }
 
 Character::~Character() {
     delete _inventario;
+    Motor::Motor_GetInstance()->borrar_rb(_rb_ataque);
     Game::game_instancia()->get_consumibles_action()->borrar_power_up(_power_up);
 }
 
@@ -456,14 +458,14 @@ void Character::gestion_interactuar(){
     }
 }
 
-void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
+void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVERRIDE
 
     if(this->get_accion() == Accion_pre_atacar){
         std::cout << "PRE-ATACANDO" << std::endl;
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_ghost_ataque(_objeto_motor->getRigidBody());
+            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, this->get_objeto_motor()->get_posicion_rb(), btVector3(1,1,1));
         }
     }
     else if(this->get_accion() == Atacar){
@@ -475,7 +477,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
 
         for(_cont = 0; _cont < _n_npcs; _cont++) {
             if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
-                Motor::Motor_GetInstance()->comprobar_colision_ataque(_npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
+                Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
                 //comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
             {
                 if(this->get_tipo_ataque() == Ataque_Normal){

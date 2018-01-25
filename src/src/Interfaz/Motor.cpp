@@ -74,6 +74,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 	world->removeRigidBody(_objeto_motor->getRigidBody());
 	delete _objeto_motor->getRigidBody()->getCollisionShape();
 	delete _objeto_motor->getInterpolacion();
+	delete _objeto_motor->getRigidBody();
 
 	auto ite2 = std::find(_objetos_motor.begin(), _objetos_motor.end(), _objeto_motor);
     if ( ite2 != _objetos_motor.end()){
@@ -120,6 +121,13 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 /*bool Motor::colision_entre_dos_puntos(Vector3 inicio, Vector3 fin){
 	return _entidad->colision_entre_dos_puntos(inicio,fin);
 }*/ 
+
+void Motor::borrar_rb(btRigidBody* rb){ // Mejorar
+
+	world->removeRigidBody(rb);
+	delete rb->getCollisionShape();
+	delete rb;
+}
 
 
 Motor::~Motor(){
@@ -231,8 +239,6 @@ void Motor::configuracion_bullet(){
 	
 	
     world->setGravity(btVector3(0,-9.8,0));
-
-	crear_ghost_ataque();
 }
 
 void Motor::configuracion_irlitch(){
@@ -364,7 +370,7 @@ Interpolacion* Motor::crear_interpolacion(float x, float y, float z){
 	return _interpolacion;
 }
 
-void Motor::crear_ghost_ataque(){
+btRigidBody* Motor::crear_rb_ataque(){
 	float mult = 4.9212625;
 
 	btTransform ghostTransform;
@@ -380,13 +386,15 @@ void Motor::crear_ghost_ataque(){
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
 
-	ghostObject_ataque = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
+	btRigidBody* rb_ataque = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
 	
-	ghostObject_ataque->setCollisionFlags(ghostObject_ataque->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	rb_ataque->setCollisionFlags(rb_ataque->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	int grupo_colision   = COL_OTRO;
 	int mascara_colision = otros_colisiona_con;
 	
-	world->addRigidBody(ghostObject_ataque,grupo_colision,mascara_colision);
+	world->addRigidBody(rb_ataque,grupo_colision,mascara_colision);
+
+	return rb_ataque;
 }
 
 void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
@@ -635,42 +643,15 @@ bool Motor::comprobar_colision(btRigidBody *rb1, btRigidBody *rb2){
 	return false;
 }
 
-void Motor::posicionar_ghost_ataque(btRigidBody *rb){
-	btVector3 pos = rb->getCenterOfMassPosition();
-
-	btTransform ghostTransform;
-	ghostTransform.setIdentity();
-	ghostTransform.setOrigin(pos);
-
+void Motor::posicionar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala){
+	//btVector3 rb_atacante = rb->getCenterOfMassPosition();
 	float mult = 4.9212625;
 
-	ghostObject_ataque->getCollisionShape()->setLocalScaling(btVector3(1,8,1));
+	btTransform rbTransform;
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(posicion);
 
-	ghostObject_ataque->setWorldTransform(ghostTransform);
-}
+	rb->getCollisionShape()->setLocalScaling(escala);
 
-
-bool Motor::comprobar_colision_ataque(btRigidBody *character_atacado){
-
-	btManifoldArray manifoldArray;
-
-	manifoldArray.clear();
-
-	btBroadphasePair* collisionPair = world->getPairCache()->findPair(ghostObject_ataque->getBroadphaseProxy(), character_atacado->getBroadphaseProxy());
-
-	if (collisionPair){
-
-		if (collisionPair->m_algorithm)
-			collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
-
-		for (int j = 0; j < manifoldArray.size(); j++)
-		{
-			btPersistentManifold* manifold = manifoldArray[j];
-			
-			if(manifold->getNumContacts() > 0){
-				return true;
-			}
-		}
-	}
-	return false;
+	rb->setWorldTransform(rbTransform);
 }

@@ -54,7 +54,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 			if(dynamic_cast<Ally*>(_i_npc) == NULL) {
 				//std::cout << "No es un Aliado\n";
 				// Atacar al jugador/enemigo
-				//_i_npc->atacar(Ataque_Normal);
+				_i_npc->atacar(Ataque_Normal);
 			}	
 			else {
 				//std::cout << "Es un Aliado\n";
