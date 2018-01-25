@@ -9,33 +9,14 @@
 #include "../Personajes/NPC.h"
 #include "../Puerta.h"
 #include "DebugDraw.h"
-
+#include "EnumTiposColision.h"
 /*
 #include "Entidad.h"
 #include "../Input.h"
 #include "../Utilidades/Vector.h"
 master*/
 
-#define BIT(x) (1<<(x))
-enum tipo_colision {
-    COL_NADA = 0, //<Colision con nada
-    COL_ESCENARIO = BIT(0), //<Colision con escenario
-    COL_JUGADOR = BIT(1), //<Colision con jugador
-    COL_NPC = BIT(2), //<Colision con NPC
-	COL_RAY = BIT(3), //rayo del raytracing
-	COL_PUERTA = BIT(4), //las puertas 
-	COL_ATAQUE = BIT(5),
-	COL_OTRO = BIT(6) //<Colision con Otro (trampas, recogibles)
-};
 
-//relaciones de colision 
-int escenario_colisiona_con = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC | COL_RAY;
-int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO;
-int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO;
-int ray_colisiona_con =			COL_ESCENARIO;
-int puerta_colisiona_con = 		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
-int ataque_colisiona_con =		COL_NPC | COL_JUGADOR;
-int otros_colisiona_con =		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
 
 
 Motor* Motor::_Motor=0;
@@ -238,7 +219,7 @@ void Motor::configuracion_bullet(){
 	}	
 	
 	
-    world->setGravity(btVector3(0,-9.8,0));
+    world->setGravity(btVector3(0,-9.8*18,0));
 }
 
 void Motor::configuracion_irlitch(){
@@ -441,9 +422,9 @@ void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
 	camara->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
 }
 
-btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btVector3 end){
+btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btVector3 end, int mascara_colision){
 	btCollisionWorld::ClosestRayResultCallback rayCallback(start, end);
-	rayCallback.m_collisionFilterMask  = ray_colisiona_con;
+	rayCallback.m_collisionFilterMask  = mascara_colision;
 	rayCallback.m_collisionFilterGroup = COL_RAY;
 	world->rayTest(start, end, rayCallback);
 
@@ -502,12 +483,12 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 	camara->interpola_posicion(_i_interpolacion);
 }
 
-bool Motor::x_ve_a_y(Vector3 x, Vector3 y){
+bool Motor::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
 	//conversion de vector3 a bullet vector3
 	btVector3 mX(x._x,x._y,x._z);
 	btVector3 mY(y._x,y._y,y._z);
 
-	btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(mX, mY);
+	btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(mX, mY,mascara_colision);
 
 	//if(dynamic_cast<Character*>(rayCallback)!=null){
 	//	std::cout<<"colisiona con personaje/npc  \n";
@@ -541,20 +522,21 @@ void Motor::updateCamaraColision(){
 
 		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
 		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
-
-		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos);
+		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con);
 		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
 		//->getUserPointer();
 		if(rayCallback.hasHit()){
 			btVector3 point = rayCallback.m_hitPointWorld;
 			btVector3 normal = rayCallback.m_hitNormalWorld;
 			const btCollisionObject *object = rayCallback.m_collisionObject;
-			for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
-				if(fileLoader->getRigidBodyByIndex(i) == object){
-					// Set posicion colision
-					camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
-				}
-			}
+			camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
+				
+			//for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
+			//	if(fileLoader->getRigidBodyByIndex(i) == object){
+			//		// Set posicion colision
+			//		//camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
+			//	}
+			//}
 		}
 
 		angulo = camara->Camara_getAngleRad();

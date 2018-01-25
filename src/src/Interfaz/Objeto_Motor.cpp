@@ -69,7 +69,7 @@ void Objeto_Motor::setVelocidad(float x, float y, float z){
 
 void Objeto_Motor::saltar(){		
 	if(std::abs (_rigidbody->getLinearVelocity()[1])<0.01){
-		_rigidbody->applyCentralImpulse(btVector3( 0.f, 750.f, 0.f ) );
+		_rigidbody->applyCentralImpulse(btVector3( 0.f, 4000.f, 0.f ) );
 	}
 }
 

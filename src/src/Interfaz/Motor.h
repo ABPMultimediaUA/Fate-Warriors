@@ -64,9 +64,9 @@ public:
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
     void setCollisionGroup(int group, btRigidBody *_i_rigidbody );
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
-    btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end);
+    btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end, int mascara_colision);
 
-    bool x_ve_a_y(Vector3 x, Vector3 y); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
+    bool x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
                                          //teniendo en cuenta unicamente el escenario (no el resto de objetos)
 
     //void simulationUpdate();
