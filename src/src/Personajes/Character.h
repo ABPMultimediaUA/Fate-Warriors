@@ -104,6 +104,7 @@ protected:
 	double _duracion_accion_actual;
 	Consumible_Fuerza* _power_up;
 	btRigidBody *_rb_ataque;
+	uint16_t _direccion_actual;
 };
 
 #endif /* SRC_CHARACTER_H_ */

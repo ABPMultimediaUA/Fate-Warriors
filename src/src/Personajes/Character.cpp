@@ -176,6 +176,11 @@ void Character::saltar(){
 
 void Character::mover(uint16_t _i_direccion){
     if(esta_bloqueado() == false){
+
+        _direccion_actual = _i_direccion + Motor::Motor_GetInstance()->angulo_camara();
+        while(_direccion_actual >= 360) _direccion_actual -= 360;
+        std::cout << "direccion actual: ";
+        std::cout << (int)_direccion_actual << std::endl;
             
         if(this->get_accion() == Nada){
             set_accion(Andar);
