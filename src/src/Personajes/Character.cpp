@@ -33,7 +33,6 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _duracion_accion_actual = 0;
     _velocidadAndar = _i_velocidad;
     _velocidadCorrer = _i_velocidad * 2;
-    _velocidad = 0;
 }
 
 Character::~Character() {
