@@ -32,26 +32,6 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
 NPC::~NPC() {
 }
 
-void NPC::move(unsigned long _i_direccion) {
-    //std::cout<<"move direccion: "<<_i_direccion<<std::endl;
-    float _desp_x = cos(_i_direccion*PIs/180);
-    _desp_x = roundf(_desp_x * 200) / 100;
-    float _desp_z = sin(_i_direccion*PIs/180);
-    _desp_z = roundf(_desp_z * 200) / 100;
-    //std::cout << "Personaje se mueve en la x " << _desp_x << std::endl;
-    //std::cout << "Personaje se mueve en la y " << _desp_y << std::endl;
-    //_x = _x + _desp_x;
-    //_z = _z + _desp_z;
-    //std::cout << "Personaje se ha movido a la posicion (" << _x << "," << _z << ")" << std::endl;
-   // _motor->setVelocidad(_id_motor,_i_direccion, _desp_x*25, _motor->getVelocidadY(_id_motor),_desp_z*25);
-   
-    _objeto_motor->setVelocidad(_i_direccion, _desp_x*25, _objeto_motor->getVelocidadY(),_desp_z*25,_tiempo->get_tiempo_desde_ultimo_update(), _velocidad);
-    //_motor->setPositionXZ(_id,_desp_x*100,_desp_z*100);
-    //_motor->moverXZ(_id,0,0);
-    //std::cout << "sin(direccion) = " << std::cos(_i_direccion*PI/180) << '\n';
-}
-
-
 void NPC::stop() {
     //_motor->Mover(_id_motor,0, 0, 0);
 }

@@ -28,26 +28,6 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
 Objeto_Motor::~Objeto_Motor(){
 	Motor* _motor = Motor::Motor_GetInstance();
    _motor->borrar_objeto(this);
-} 
-
-// Funcion de mover para los NPC
-void Objeto_Motor::setVelocidad(unsigned short _i_direccion, float x, float y, float z, double mdt, float _i_velocidad){
-	float _cos, _sen;
-	_cos = sin(_i_direccion*std::acos(-1)/180);
-	_sen = cos(_i_direccion*std::acos(-1)/180);
-
-	// Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
-	float _nueva_direccion = atan2(_sen, _cos) /std::acos(-1) * 180;
-
-	// Actualiza la rotacion del personaje
-	_interpolacion->actualiza_direccion(_nueva_direccion);
-
-	// Agrega el desplazamiento del personaje
-	desp_z = cos(_nueva_direccion*std::acos(-1)/180) * 1 * mdt * _i_velocidad;
-    desp_x = sin(_nueva_direccion*std::acos(-1)/180) * 1 * mdt * _i_velocidad;
-    setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
-    	desp_z = 0;
-    desp_x = 0;
 }
 
 void Objeto_Motor::setPositionXZ(float x, float z){
@@ -73,21 +53,12 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 
 // Funcion de mover para el jugador
 void Objeto_Motor::VelocidadDireccion(unsigned short _i_direccion, float _i_velocidad, double mdt){  // Direccion
-	
-    Motor* _motor = Motor::Motor_GetInstance();
-    float angulo = _motor->angulo_camara();
-
-	// Direccion sumada de los movimientos
-	int16_t _direccion_buena = _i_direccion + angulo;
-
-	// Si la direccion es mayor de 360, se reduce al intervalo [0,360)
-	while(_direccion_buena >= 360) _direccion_buena -= 360;
 
 	// Actualiza la rotacion del personaje
-	_interpolacion->actualiza_direccion(_direccion_buena);
+	_interpolacion->actualiza_direccion(_i_direccion);
 
-	desp_z = cos(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
-    desp_x = sin(_direccion_buena*std::acos(-1)/180) * _i_velocidad * mdt;
+	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
+    desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
 
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }

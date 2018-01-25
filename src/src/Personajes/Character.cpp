@@ -177,17 +177,14 @@ void Character::saltar(){
 void Character::mover(uint16_t _i_direccion){
     if(esta_bloqueado() == false){
 
-        _direccion_actual = _i_direccion + Motor::Motor_GetInstance()->angulo_camara();
-        while(_direccion_actual >= 360) _direccion_actual -= 360;
-        std::cout << "direccion actual: ";
-        std::cout << (int)_direccion_actual << std::endl;
+        _direccion_actual = _i_direccion;
             
         if(this->get_accion() == Nada){
             set_accion(Andar);
             _velocidad = _velocidadAndar;
         }
         else if(this->get_accion() == Andar){
-            std::cout << "Andando" << std::endl;
+            //std::cout << "Andando" << std::endl;
             if(_velocidad<_velocidadAndar){
                 _velocidad += 0.05;
             }
@@ -196,7 +193,7 @@ void Character::mover(uint16_t _i_direccion){
             }
         }
         else if(this->get_accion() == Accion_Correr){
-            std::cout << "CORRIENDO" << std::endl;
+            //std::cout << "CORRIENDO" << std::endl;
             if(_velocidad<_velocidadCorrer){
                 _velocidad += 0.1;
             }
