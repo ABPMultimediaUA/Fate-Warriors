@@ -5,5 +5,6 @@ class Evento_escenario: public Evento_sonido{
     public:
         Evento_escenario(std::string _i_ruta, FMOD::Studio::System *sys);
         ~Evento_escenario();
+        void start() override;
 };
 #endif 

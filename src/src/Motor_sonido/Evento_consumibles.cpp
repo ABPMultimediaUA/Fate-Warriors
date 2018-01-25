@@ -5,3 +5,6 @@ Evento_consumibles::Evento_consumibles(std::string _i_ruta, FMOD::Studio::System
 Evento_consumibles::~Evento_consumibles(){
 
 }
+void Evento_consumibles::start(){
+    Evento_sonido::start();
+}

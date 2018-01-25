@@ -14,6 +14,7 @@
 #include "Evento_menu.h"
 #include "Evento_personaje.h"
 #include "Evento_voces.h"
+#include "Evento_musica.h"
 
 /*ambiente:
 cuervos = 0
@@ -102,6 +103,8 @@ Ttxt2func mapping_sonido[] = {//definicion de los parametros
         {"txt/Eventosonidos/pasos.txt", &Interfaz_sonido::crear_pasos},
         {"txt/Eventosonidos/personaje.txt", &Interfaz_sonido::crear_personaje},
         {"txt/Eventosonidos/voces.txt", &Interfaz_sonido::crear_voces},
+        {"txt/Eventosonidos/musica.txt", &Interfaz_sonido::crear_musica},
+        {"txt/Eventosonidos/canales.txt", &Interfaz_sonido::crear_canales},
 		{0, 0}
 };
 
@@ -442,6 +445,33 @@ void Interfaz_sonido::crear_voces(std::string _i_iteracion){
 
     _voces_txt.close();
 }
+void Interfaz_sonido::crear_musica(std::string _i_iteracion){
+    u_int8_t cont=0;
+    std::ifstream _musica_txt;    
+    _musica_txt.open(_i_iteracion);//apertura del fichero
+	std::string _iteracion;
+    std::cout<<_i_iteracion<<std::endl;
+	if(_musica_txt.fail()){//comprobacion de la apertura del fichero
+		std::cout<<"Error al abrir el archivo de sonido/musica" << _i_iteracion <<std::endl;
+		exit(0);
+	}
+
+    _musica_txt>>_iteracion;
+    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &MusicaBank) );
+     _musica_txt>>_iteracion;//obtiene el valor de la id del origenre
+	_n_musica = std::atoi(_iteracion.c_str());
+
+    _eventos_musica= new Evento_musica*[_n_musica];
+
+    cont=0;
+    do{
+        _musica_txt >> _iteracion;
+        _eventos_musica[cont] = new Evento_musica(_iteracion, system);
+        ++cont;
+    }while(cont<_n_musica);
+
+    _musica_txt.close();
+}
 void Interfaz_sonido::crear_canales(std::string _i_iteracion){
     u_int8_t cont=0;
     std::ifstream _canales_txt;    
@@ -454,22 +484,25 @@ void Interfaz_sonido::crear_canales(std::string _i_iteracion){
 	}
 
     
-     _canales_txt>>_iteracion;//obtiene el valor de la id del origenre
-	_n_canales = std::atoi(_iteracion.c_str());
-    _canales= new FMOD::Studio::Bus*[_n_canales];
 
     
     
     //ERRCHECK(system->getBus(_iteracion.c_str(),_chanel_voces));
 
 
-    cont=0;
-    while(_iteracion!="Fin"){
-        _canales_txt >> _iteracion;
-        ERRCHECK(system->getBus(_iteracion.c_str(),&_canales[0]));
-        
-        cont++;
-    }
+    _canales_txt >> _iteracion;
+    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_musica));//carga de menu
+
+    _canales_txt >> _iteracion;
+    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_voces));//carga de sfx
+
+    _canales_txt >> _iteracion;
+    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_sfx));//carga de voces
+
+    _canales_txt >> _iteracion;
+    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_menu));//carga de voces
+
+    
 
     _canales_txt.close();
 }
@@ -543,15 +576,15 @@ void Interfaz_sonido::Play_pasos(u_int8_t _i_n){
 
 
 /***************************************STOP SONIDOS***********************************************/
-/*
-void Interfaz_sonido::Stop_pasos(u_int8_t _i_n){
+
+/*void Interfaz_sonido::Stop_pasos(u_int8_t _i_n){
     if(_i_n>=_n_pasos){
         std::cout<<"ERROR SONIDO: paso solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
     }
     _eventos_pasos[_i_n]->stop();
     system_update();
-}
+}*/
 void Interfaz_sonido::Stop_ambiente(u_int8_t _i_n){
     if(_i_n>=_n_ambiente){
         std::cout<<"ERROR SONIDO: ambiente solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -560,132 +593,39 @@ void Interfaz_sonido::Stop_ambiente(u_int8_t _i_n){
     _eventos_ambiente[_i_n]->stop();
     system_update();
 }
-void Interfaz_sonido::Stop_armas(u_int8_t _i_n){
-    if(_i_n>=_n_armas){
-        std::cout<<"ERROR SONIDO: armas solicitado no existente: "<<(int)_i_n<<std::endl;
+void Interfaz_sonido::Stop_musica(u_int8_t _i_n){
+    if(_i_n>=_n_musica){
+        std::cout<<"ERROR SONIDO: musica solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
     }
-    _eventos_armas[_i_n]->stop();
+    _eventos_musica[_i_n]->stop();
     system_update();
 }
-void Interfaz_sonido::Stop_consumibles(u_int8_t _i_n){
-    if(_i_n>=_n_consumibles){
-        std::cout<<"ERROR SONIDO: consumible solicitado no existente: "<<(int)_i_n<<std::endl;
-        exit(0);
-    }
-    _eventos_consumibles[_i_n]->stop();
-    system_update();
+void Interfaz_sonido::Stop_game(){
+    ERRCHECK(_bus_musica->stopAllEvents(FMOD_STUDIO_STOP_ALLOWFADEOUT));
+    ERRCHECK(_bus_voces->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE));
+    ERRCHECK(_bus_sfx->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE));
+    ERRCHECK(_bus_menu->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE));
 }
-void Interfaz_sonido::Stop_escenario(u_int8_t _i_n){
-    if(_i_n>=_n_escenario){
-        std::cout<<"ERROR SONIDO: escenario solicitado no existente: "<<(int)_i_n<<std::endl;
-        exit(0);
-    }
-    _eventos_escenario[_i_n]->stop();
-    system_update();
-}
-void Interfaz_sonido::Stop_menu(u_int8_t _i_n){
-    if(_i_n>=_n_menu){
-        std::cout<<"ERROR SONIDO: menu solicitado no existente: "<<(int)_i_n<<std::endl;
-        exit(0);
-    }
-    _eventos_menu[_i_n]->stop();
-    system_update();
-}
-void Interfaz_sonido::Stop_personaje(u_int8_t _i_n){
-    if(_i_n>=_n_personaje){
-        std::cout<<"ERROR SONIDO: personaje solicitado no existente: "<<(int)_i_n<<std::endl;
-        exit(0);
-    }
-    _eventos_personaje[_i_n]->stop();
-    system_update();
-}
-void Interfaz_sonido::Stop_voces(u_int8_t _i_n){
-    if(_i_n>=_n_voces){
-        std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
-        exit(0);
-    }
-    _eventos_voces[_i_n]->stop();
-    system_update();
-}
-*/
 /***************************************VOLUMEN SONIDOS***********************************************/
 
 void Interfaz_sonido::set_volumen_musica(float _i_v){
-    /*u_int8_t cont=_n_musica;
-    while(cont){
-        --cont;
-        _eventos_musica[cont]->set_volume(_i_v);
-    }*/
+    ERRCHECK(_bus_musica->setVolume(_i_v));
 }
 void Interfaz_sonido::set_volumen_voces(float _i_v){
-    u_int8_t cont=_n_voces;
-    while(cont){
-        --cont;
-        _eventos_voces[cont]->set_volume(_i_v);
-    }
+    ERRCHECK(_bus_voces->setVolume(_i_v));
 }
 void Interfaz_sonido::set_volumen_sfx(float _i_v){
-    //ERRCHECK(system->createChannelGroup("algo",&_canales[0]));
-    //FMOD::STUDIO::BUS::setVolume(_i_v);
-    FMOD::Studio::Bus busa;
-    FMOD::STUDIO::BUS busb;
-    busa.setVolume(_i_v);
-    busb.setVolume(_i_v);
-    ERRCHECK(_canales[2]->setVolume(_i_v));
-
-    /*while(cont){
-        --cont;
-        _eventos_ambiente[cont]->set_volume(_i_v);
-    }
-    cont=_n_personaje=0;
-    while(cont){
-        --cont;
-        _eventos_personaje[cont]->set_volume(_i_v);
-    }
-    cont=_n_pasos;
-    while(cont){
-        --cont;
-        _eventos_pasos[cont]->set_volume(_i_v);
-    }
-    cont=_n_armas=0;
-    while(cont){
-        --cont;
-        _eventos_armas[cont]->set_volume(_i_v);
-    }
-    cont=_n_consumibles=0;
-    while(cont){
-        --cont;
-        _eventos_consumibles[cont]->set_volume(_i_v);
-    }
-    cont=_n_escenario=0;
-    while(cont){
-        --cont;
-        _eventos_escenario[cont]->set_volume(_i_v);
-    }
-    cont=_n_pasos=0;
-    while(cont){
-        --cont;
-        _eventos_pasos[cont]->set_volume(_i_v);
-    }*/
+    ERRCHECK(_bus_sfx->setVolume(_i_v));
 }
 void Interfaz_sonido::set_volumen_menu(float _i_v){
-    u_int8_t cont=_n_menu;
-    while(cont){
-        --cont;
-        _eventos_menu[cont]->set_volume(_i_v);
-    }
+    ERRCHECK(_bus_menu->setVolume(_i_v));
 }
 
 
 /*******************************************PAUSA**************************************************/
 void Interfaz_sonido::Pausa(){
-    /*u_int8_t cont=_n_pasos;
-    while(cont){
-        --cont;
-        _eventos_pasos[cont]->pause();
-    }*/
-    //_eventos_pasos[0]->pause();
+    ERRCHECK(_bus_sfx->setPaused(true));
 }
 void Interfaz_sonido::Quitar_pausa(){
    /* u_int8_t cont=_n_pasos;

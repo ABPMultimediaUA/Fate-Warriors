@@ -39,12 +39,6 @@ void Evento_sonido::start(){
     }
 }
 
-void Evento_sonido::set_volume(float _i_vol){
-    ERRCHECK(_instancia -> setVolume ( _i_vol ));
-}
-/*void Evento_sonido::set_gain(float _i_gantz){
-    ERRCHECK(_instancia -> setGain ( _i_gantz ));
-}*/
 void Evento_sonido::set_position(float _i_x, float _i_y, float _i_z){
     FMOD_3D_ATTRIBUTES *attrib=nullptr;
     ERRCHECK(_instancia -> get3DAttributes ( attrib ));;
@@ -55,15 +49,4 @@ void Evento_sonido::set_position(float _i_x, float _i_y, float _i_z){
     attrib->position=vec;
     ERRCHECK(_instancia -> set3DAttributes ( attrib ));
 }
-bool Evento_sonido::is_playing(){
-    //bool *_i_play;
-    /*FMOD_STUDIO_PLAYBACK_STATE *state=nullptr;
-    _instance->getPlaybackState(state);
-    if(state==2){
-        return false;
-    }else{
-        return true;
-    }*/
-    //ERRCHECK(_instancia -> isPlaying (_i_play));
-    //return _i_play;
-}
+

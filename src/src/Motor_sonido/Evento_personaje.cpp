@@ -5,3 +5,6 @@ Evento_personaje::Evento_personaje(std::string _i_ruta, FMOD::Studio::System *sy
 Evento_personaje::~Evento_personaje(){
 
 }
+void Evento_personaje::start(){
+    Evento_sonido::start();
+}

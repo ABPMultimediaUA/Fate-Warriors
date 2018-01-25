@@ -62,15 +62,16 @@ void Player::update(){
        // _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
        
        _objeto_motor->VelocidadDireccion(_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
-       _sonido->Play_voces(6);
+       _sonido->Pausa();
     }
 
     if(_input->get_dash()){
+        
         esquivar(_direccion);
     }
 
     if(_input->get_interactuar()){
-       
+       _sonido->Play_ambiente(1);
         if(esta_bloqueado() == false){
             std::cout<< "Pulsa E\n";
             if(!interactuar_con_objeto()){

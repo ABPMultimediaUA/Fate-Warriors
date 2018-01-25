@@ -5,3 +5,6 @@ Evento_menu::Evento_menu(std::string _i_ruta, FMOD::Studio::System *sys): Evento
 Evento_menu::~Evento_menu(){
 
 }
+void Evento_menu::start(){
+    Evento_sonido::start();
+}
