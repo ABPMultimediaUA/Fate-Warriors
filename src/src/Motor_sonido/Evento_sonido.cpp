@@ -38,15 +38,7 @@ void Evento_sonido::start(){
     _instancia=nullptr;
     }
 }
-void Evento_sonido::stop(){
-    ERRCHECK(_instancia->stop(FMOD_STUDIO_STOP_ALLOWFADEOUT));
-}
-void Evento_sonido::pause(){
-    ERRCHECK(_instancia -> setPaused ( true ));
-}
-void Evento_sonido::quit_pause(){
-    ERRCHECK(_instancia -> setPaused ( false ));
-}
+
 void Evento_sonido::set_volume(float _i_vol){
     ERRCHECK(_instancia -> setVolume ( _i_vol ));
 }

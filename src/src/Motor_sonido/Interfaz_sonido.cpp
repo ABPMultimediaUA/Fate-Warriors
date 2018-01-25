@@ -478,7 +478,7 @@ void Interfaz_sonido::Play_pasos(u_int8_t _i_n){
 
 
 /***************************************STOP SONIDOS***********************************************/
-
+/*
 void Interfaz_sonido::Stop_pasos(u_int8_t _i_n){
     if(_i_n>=_n_pasos){
         std::cout<<"ERROR SONIDO: paso solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -543,7 +543,7 @@ void Interfaz_sonido::Stop_voces(u_int8_t _i_n){
     _eventos_voces[_i_n]->stop();
     system_update();
 }
-
+*/
 /***************************************VOLUMEN SONIDOS***********************************************/
 
 void Interfaz_sonido::set_volumen_musica(float _i_v){
@@ -614,7 +614,7 @@ void Interfaz_sonido::Pausa(){
         --cont;
         _eventos_pasos[cont]->pause();
     }*/
-    _eventos_pasos[0]->pause();
+    //_eventos_pasos[0]->pause();
 }
 void Interfaz_sonido::Quitar_pausa(){
    /* u_int8_t cont=_n_pasos;
@@ -622,5 +622,5 @@ void Interfaz_sonido::Quitar_pausa(){
         --cont;
         _eventos_pasos[cont]->quit_pause();
     }*/
-    _eventos_pasos[0]->quit_pause();
+    //_eventos_pasos[0]->quit_pause();
 }

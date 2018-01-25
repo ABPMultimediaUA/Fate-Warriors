@@ -5,5 +5,9 @@ class Evento_ambiente: public Evento_sonido{
     public:
         Evento_ambiente(std::string _i_ruta, FMOD::Studio::System *sys);
         ~Evento_ambiente();
+        void start() override;
+        void stop();
+        void pause();
+        void quit_pause();
 };
 #endif 

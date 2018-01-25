@@ -5,5 +5,6 @@ class Evento_armas: public Evento_sonido{
     public:
         Evento_armas(std::string _i_ruta, FMOD::Studio::System *sys);
         ~Evento_armas();
+        void start() override;
 };
 #endif 

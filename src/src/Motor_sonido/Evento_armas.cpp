@@ -3,5 +3,8 @@ Evento_armas::Evento_armas(std::string _i_ruta, FMOD::Studio::System *sys): Even
 
 }
 Evento_armas::~Evento_armas(){
-
+    
+}
+void Evento_armas::start(){
+    Evento_sonido::start();
 }

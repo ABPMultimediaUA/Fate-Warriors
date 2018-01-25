@@ -1,7 +1,7 @@
 #ifndef SRC_EVENTO_SONIDO_H_
 #define SRC_EVENTO_SONIDO_H_
 
-#include "FMOD/fmod_studio.hpp"
+#include "FMOD/fmod_studio.hpp"(VAR))))
 #include <string>
 
 #define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
@@ -9,10 +9,7 @@ class Evento_sonido{
     public:
         Evento_sonido(std::string _i_ruta, FMOD::Studio::System *sys);
         virtual ~Evento_sonido();
-        void start();
-        void stop();
-        void pause();
-        void quit_pause();
+        virtual void start();
         void set_volume(float _i_vol);
         void set_gain(float _i_gantz);
         void set_position(float _i_x, float _i_y, float _i_z);
