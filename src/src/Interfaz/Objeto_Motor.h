@@ -32,6 +32,7 @@ public:
       void setVelocidad(unsigned short _i_direccion, float x, float y, float z,double mdt, float _i_velocidad);
 
       void Dash(unsigned short _i_direccion);
+      void Impulso_explosion(Vector3 vector);
       void saltar();
 
       void colorear_nodo(short r,short g, short b);

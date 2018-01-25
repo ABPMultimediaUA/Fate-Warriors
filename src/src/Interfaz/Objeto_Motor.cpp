@@ -112,6 +112,10 @@ void Objeto_Motor::Dash(unsigned short _i_direccion){
 	_rigidbody->applyCentralImpulse(btVector3(desp_x*potencia, 0.f, desp_z*potencia)); //se multiplica por 100 pa volaaaar
 }
 
+void Objeto_Motor::Impulso_explosion(Vector3 vector){
+	_rigidbody->applyCentralImpulse(btVector3(vector._x,vector._y, vector._z)); //se multiplica por 100 pa volaaaar
+}
+
 float Objeto_Motor::getX(){
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	return pos[0];

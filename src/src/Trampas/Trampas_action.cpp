@@ -11,6 +11,8 @@
 #include "../Personajes/NPC_Manager.h"
 
 #include "../Utilidades/Vector.h"
+#include "../Interfaz_Libs/Lib_Math.h"
+
 #include "../Interfaz/Motor.h"
 
 Trampas_action::Trampas_action() {
@@ -41,15 +43,29 @@ void Trampas_action::comprobar_trampas_mina(){
 	uint16_t numnpc = _npc_manager->get_n_enemigos();
 
 
+   float x;
+   float z;
+
+  Vector2 vec_player= _player->get_vector();   
   
   for(unsigned short _cont=0; _cont<n_trampas; _cont++) {
     Vector2 vec_mina= _minas[_cont]->get_vector();
-    Vector2 vec_player= _player->get_vector();
  
-      //Character
+     //Character
       if(_minas[_cont]->explota()){ 
-          if (comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 8)){
+          if (comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 20)){
               _player->danyar(_minas[_cont]->get_danyo());
+                  x = vec_player._x - vec_mina._x;
+                  z = vec_player._y - vec_mina._y;
+
+                  Vector2 direccion_impulso(x,z);
+                  direccion_impulso.Normalize();
+
+                  float valor = lib_math_distancia_2_puntos(vec_player._x, vec_player._y, vec_mina._x, vec_mina._y);
+                
+                  Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
+                  _player->get_objeto_motor()->Impulso_explosion(a);
+              
           }
       }
 
@@ -60,14 +76,22 @@ void Trampas_action::comprobar_trampas_mina(){
       }
 
       //NPC
-
       for (short i=0; i<numnpc; i++){
         Vector2 vec_npc= npc[i]->get_vector();
     
-          //Character
           if(_minas[_cont]->explota()){ 
               if (comprobar_colision_teniendo_tambien_radio(vec_npc, 2, vec_mina, 8)){
                   npc[i]->danyar(_minas[_cont]->get_danyo());
+                  x = vec_npc._x - vec_mina._x;
+                  z = vec_npc._y - vec_mina._y;
+
+                  Vector2 direccion_impulso(x,z);
+                  direccion_impulso.Normalize();
+
+                  float valor = lib_math_distancia_2_puntos(vec_npc._x, vec_npc._y, vec_mina._x, vec_mina._y);
+                
+                  Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
+                  npc[i]->get_objeto_motor()->Impulso_explosion(a);
               }
           }
 
