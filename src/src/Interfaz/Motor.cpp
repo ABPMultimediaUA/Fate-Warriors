@@ -31,7 +31,7 @@ enum tipo_colision {
 //relaciones de colision 
 int escenario_colisiona_con = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC | COL_RAY;
 int jugador_colisiona_con = 	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO;
-int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
+int npc_colisiona_con = 		COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO;
 int ray_colisiona_con =			COL_ESCENARIO;
 int puerta_colisiona_con = 		COL_ESCENARIO | COL_JUGADOR | COL_NPC;
 int ataque_colisiona_con =		COL_NPC | COL_JUGADOR;
@@ -371,20 +371,22 @@ void Motor::crear_ghost_ataque(){
 	ghostTransform.setIdentity();
 	ghostTransform.setOrigin(btVector3(15 * mult, 1 , 15 * mult));
 
-	btCollisionShape *platformShape = new btBoxShape(btVector3(1*mult,1,1*mult));
+	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(ghostTransform);
+
+	float cubeMass = 0;
+
+	btBoxShape *cubeShape = new btBoxShape(btVector3(mult*1,1,mult*1));
+
+	btVector3 cubeLocalInertia;
+	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
+
+	ghostObject_ataque = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
 	
-	ghostObject_ataque = new btPairCachingGhostObject();
-
-	ghostObject_ataque->setCollisionShape(platformShape);
-
-	ghostObject_ataque->setWorldTransform(ghostTransform);
-
-	world->addCollisionObject(ghostObject_ataque);
-
-	ghostObject_ataque->setCollisionFlags(ghostObject_ataque->getCollisionFlags() |btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	ghostObject_ataque->setCollisionFlags(ghostObject_ataque->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	int grupo_colision   = COL_OTRO;
+	int mascara_colision = otros_colisiona_con;
 	
-	world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
-	
+	world->addRigidBody(ghostObject_ataque,grupo_colision,mascara_colision);
 }
 
 void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
@@ -640,6 +642,10 @@ void Motor::posicionar_ghost_ataque(btRigidBody *rb){
 	ghostTransform.setIdentity();
 	ghostTransform.setOrigin(pos);
 
+	float mult = 4.9212625;
+
+	ghostObject_ataque->getCollisionShape()->setLocalScaling(btVector3(1,8,1));
+
 	ghostObject_ataque->setWorldTransform(ghostTransform);
 }
 
@@ -650,10 +656,7 @@ bool Motor::comprobar_colision_ataque(btRigidBody *character_atacado){
 
 	manifoldArray.clear();
 
-	///ghostObject_ataque->getOverlappingPairCache()->getOverlappingPairArray()[0].m_pProxy0;
-	//character_atacado->getBroadphaseProxy();
-
-	btBroadphasePair* collisionPair = world->getPairCache()->findPair(ghostObject_ataque->getOverlappingPairCache()->getOverlappingPairArray()[0].m_pProxy0, character_atacado->getBroadphaseProxy());
+	btBroadphasePair* collisionPair = world->getPairCache()->findPair(ghostObject_ataque->getBroadphaseProxy(), character_atacado->getBroadphaseProxy());
 
 	if (collisionPair){
 
@@ -671,21 +674,3 @@ bool Motor::comprobar_colision_ataque(btRigidBody *character_atacado){
 	}
 	return false;
 }
-
-//btBroadphasePair* collisionPair = world->getPairCache()->findPair(ghostObject->getOverlappingPairCache()->getOverlappingPairArray()[0].m_pProxy0,_objetos_motor[0]->getRigidBody()->getBroadphaseProxy());
-/*
-std::cout << "COLISIONAAAAAAAAAAAAAAAAAAAAA" << std::endl;
-const btCollisionObject * a = manifold->getBody0();//->getUserPointer();
-a->getUserPointer();
-const btCollisionObject * b =manifold->getBody1();//->getUserPointer();
-b->getUserPointer();
-
-//std::cout << a->getUserPointer() << std::endl;
-//std::cout << b->getUserPointer() << std::endl;
-
-Objeto *obj = static_cast<Objeto*>(b->getUserPointer());
-
-if(dynamic_cast<Character*>(obj) != NULL) {
-	std::cout << "ES CHARACTER" << std::endl;
-}
-*/

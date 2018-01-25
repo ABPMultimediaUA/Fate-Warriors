@@ -137,7 +137,7 @@ private:
     	btConstraintSolver *constraintSolver;
     	btDynamicsWorld *world;
     	btBulletWorldImporter* fileLoader;
-      btPairCachingGhostObject *ghostObject_ataque;
+      btRigidBody *ghostObject_ataque;
       
       Time* _tiempo;
       uint8_t _numcubos;

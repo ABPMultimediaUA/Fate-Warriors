@@ -463,12 +463,10 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            
+            Motor::Motor_GetInstance()->posicionar_ghost_ataque(_objeto_motor->getRigidBody());
         }
     }
     else if(this->get_accion() == Atacar){
-
-        Motor::Motor_GetInstance()->posicionar_ghost_ataque(_objeto_motor->getRigidBody());
 
         NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
         NPC ** _npcs = _npc_manager->get_npcs();
@@ -477,8 +475,8 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO
 
         for(_cont = 0; _cont < _n_npcs; _cont++) {
             if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
-                //Motor::Motor_GetInstance()->comprobar_colision_ataque(_npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
-                comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
+                Motor::Motor_GetInstance()->comprobar_colision_ataque(_npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
+                //comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
             {
                 if(this->get_tipo_ataque() == Ataque_Normal){
                     _npcs[_cont]->danyar(_danyo_ataque_normal);
