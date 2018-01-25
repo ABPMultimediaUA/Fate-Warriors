@@ -62,7 +62,7 @@ void Player::update(){
        // _motor->VelocidadDireccion(_id_motor, _direccion,_velocidad);
        
        _objeto_motor->VelocidadDireccion(_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
-       _sonido->Play_ambiente(0);
+       _sonido->Play_voces(6);
     }
 
     if(_input->get_dash()){
