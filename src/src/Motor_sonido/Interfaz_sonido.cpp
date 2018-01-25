@@ -171,16 +171,50 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
 }
 
 Interfaz_sonido::~Interfaz_sonido(){
+    for(u_int8_t _cont = 0; _cont < _n_ambiente; _cont++) {
+		delete _eventos_ambiente[_cont];
+	}
+	delete [] _eventos_ambiente;
+    for(u_int8_t _cont = 0; _cont < _n_armas; _cont++) {
+		delete _eventos_armas[_cont];
+	}
+	delete [] _eventos_armas;
+    for(u_int8_t _cont = 0; _cont < _n_consumibles; _cont++) {
+		delete _eventos_consumibles[_cont];
+	}
+	delete [] _eventos_consumibles;
+    for(u_int8_t _cont = 0; _cont < _n_escenario; _cont++) {
+		delete _eventos_escenario[_cont];
+	}
+	delete [] _eventos_escenario;
+    for(u_int8_t _cont = 0; _cont < _n_menu; _cont++) {
+		delete _eventos_menu[_cont];
+	}
+	delete [] _eventos_menu;
     for(u_int8_t _cont = 0; _cont < _n_pasos; _cont++) {
 		delete _eventos_pasos[_cont];
 	}
 	delete [] _eventos_pasos;
-    /*ERRCHECK( weaponsBank->unload() );
-    ERRCHECK( menuBank->unload() );
-    ERRCHECK( ambienceBank->unload() );
-    ERRCHECK( stringsBank->unload() );*/
-    //ERRCHECK( pasosBank->unload() );
+    for(u_int8_t _cont = 0; _cont < _n_personaje; _cont++) {
+		delete _eventos_personaje[_cont];
+	}
+	delete [] _eventos_personaje;
+    for(u_int8_t _cont = 0; _cont < _n_voces; _cont++) {
+		delete _eventos_voces[_cont];
+	}
+	delete [] _eventos_voces;
+    ERRCHECK( AmbienteBank->unload() );
+    ERRCHECK( ArmasBank->unload() );
+    ERRCHECK( ConsumiblesBank->unload() );
+    ERRCHECK( EscenarioBank->unload() );
+    ERRCHECK( MenuBank->unload() );
+    ERRCHECK( PersonajeBank->unload() );
+    ERRCHECK( VocesBank->unload() );
+    ERRCHECK( PasosBank->unload() );
     ERRCHECK( masterBank->unload() );
+    /*ERRCHECK( _chanel_voces->unload() );
+    ERRCHECK( _chanel_efectos->unload() );
+    ERRCHECK( _chanel_sfx->unload() );*/
     ERRCHECK( system->release() );
 }
 
@@ -408,6 +442,37 @@ void Interfaz_sonido::crear_voces(std::string _i_iteracion){
 
     _voces_txt.close();
 }
+void Interfaz_sonido::crear_canales(std::string _i_iteracion){
+    u_int8_t cont=0;
+    std::ifstream _canales_txt;    
+    _canales_txt.open(_i_iteracion);//apertura del fichero
+	std::string _iteracion;
+    std::cout<<_i_iteracion<<std::endl;
+	if(_canales_txt.fail()){//comprobacion de la apertura del fichero
+		std::cout<<"Error al abrir el archivo de sonido/canales" << _i_iteracion <<std::endl;
+		exit(0);
+	}
+
+    
+     _canales_txt>>_iteracion;//obtiene el valor de la id del origenre
+	_n_canales = std::atoi(_iteracion.c_str());
+    _canales= new FMOD::Studio::Bus*[_n_canales];
+
+    
+    
+    //ERRCHECK(system->getBus(_iteracion.c_str(),_chanel_voces));
+
+
+    cont=0;
+    while(_iteracion!="Fin"){
+        _canales_txt >> _iteracion;
+        ERRCHECK(system->getBus(_iteracion.c_str(),&_canales[0]));
+        
+        cont++;
+    }
+
+    _canales_txt.close();
+}
 
 /***************************************PLAY SONIDOS***********************************************/
 
@@ -561,8 +626,14 @@ void Interfaz_sonido::set_volumen_voces(float _i_v){
     }
 }
 void Interfaz_sonido::set_volumen_sfx(float _i_v){
-    u_int8_t cont=_n_ambiente=0;
-    chanel_control->setVolume(_i_v);
+    //ERRCHECK(system->createChannelGroup("algo",&_canales[0]));
+    //FMOD::STUDIO::BUS::setVolume(_i_v);
+    FMOD::Studio::Bus busa;
+    FMOD::STUDIO::BUS busb;
+    busa.setVolume(_i_v);
+    busb.setVolume(_i_v);
+    ERRCHECK(_canales[2]->setVolume(_i_v));
+
     /*while(cont){
         --cont;
         _eventos_ambiente[cont]->set_volume(_i_v);

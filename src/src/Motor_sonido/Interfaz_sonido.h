@@ -24,6 +24,7 @@ public:
     void crear_pasos(std::string _i_iteracion);
     void crear_personaje(std::string _i_iteracion);
     void crear_voces(std::string _i_iteracion);
+    void crear_canales(std::string _i_iteracion);
 
 
     void Play_ambiente(u_int8_t _i_n);
@@ -57,8 +58,9 @@ public:
 private:
     static Interfaz_sonido* instancia;
 
-    int _n_ambiente,_n_armas,_n_consumibles,_n_escenario,_n_menu,_n_personaje,_n_voces,_n_pasos;
-    FMOD::ChannelControl *chanel_control;
+    int _n_canales,_n_ambiente,_n_armas,_n_consumibles,_n_escenario,_n_menu,_n_personaje,_n_voces,_n_pasos;
+    FMOD::Studio::Bus ** _canales;
+    //FMOD::ChannelGroup _canal;
     
     FMOD::Studio::System* system = NULL;
     FMOD::System* lowLevelSystem = NULL;
