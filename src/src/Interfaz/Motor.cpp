@@ -219,7 +219,7 @@ void Motor::configuracion_bullet(){
 	}	
 	
 	
-    world->setGravity(btVector3(0,-9.8,0));
+    world->setGravity(btVector3(0,-9.8*18,0));
 }
 
 void Motor::configuracion_irlitch(){
