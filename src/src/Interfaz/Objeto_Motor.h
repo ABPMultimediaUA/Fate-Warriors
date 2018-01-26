@@ -6,6 +6,8 @@
 #include "../Utilidades/Vector.h"
 #include "EnumTiposBoundingBox.h"
 
+#include <cstdint>
+
 using namespace irr;
 using namespace core;
 using namespace scene;
@@ -27,11 +29,11 @@ public:
     
       void setPositionXZ(float x, float z);
       
-      void VelocidadDireccion(unsigned short _i_direccion, float _i_velocidad, double dt);
+      void VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double dt);
       void setVelocidad(float x, float y, float z);
 
-      void disparar(unsigned short _i_direccion);
-      void Dash(unsigned short _i_direccion);
+      void disparar(uint16_t _i_direccion);
+      void Dash(uint16_t _i_direccion);
       void Impulso_explosion(Vector3 vector);
       void saltar();
 

@@ -13,6 +13,7 @@
 #include "../Personajes/Interpolacion.h"
 #include "EnumTiposColision.h"
 
+#include "../Interfaz_Libs/Lib_Math.h"
 
 Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
    Motor* _motor = Motor::Motor_GetInstance();
@@ -52,8 +53,8 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 }
 
 
-// Funcion de mover para el jugador
-void Objeto_Motor::VelocidadDireccion(unsigned short _i_direccion, float _i_velocidad, double mdt){  // Direccion
+// Funcion de mover para los personajes
+void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt){  // Direccion
 
 	// Actualiza la rotacion del personaje
 	_interpolacion->actualiza_direccion(_i_direccion);
@@ -64,22 +65,23 @@ void Objeto_Motor::VelocidadDireccion(unsigned short _i_direccion, float _i_velo
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }
 
-void Objeto_Motor::disparar(unsigned short _i_direccion){
+void Objeto_Motor::disparar(uint16_t _i_direccion){
 	desp_z = cos(_i_direccion*std::acos(-1)/180);
     desp_x = sin(_i_direccion*std::acos(-1)/180);
 	
-	btVector3 origen(this->getX(),this->getY(),this->getZ());
-	btVector3 destino(desp_x*1000,this->getY(),desp_z*1000);
+	btVector3 origen(this->getX(), this->getY(), this->getZ());
+	btVector3 destino(getX()+desp_x*20, this->getY(), getZ()+desp_z*20);
 
 	btCollisionWorld::AllHitsRayResultCallback rayResult = Motor::Motor_GetInstance()->trazaRayoAll(origen,destino,otros_colisiona_con);
 	std::cout<<"Hola: "<<rayResult.hasHit()<<"\n";
 	SColor newColor(255, 255.0, 255.0, 255.0);
-	Motor::Motor_GetInstance()->getDriver()->draw3DLine(
+	/*Motor::Motor_GetInstance()->getDriver()->draw3DLine(
          vector3df(this->getX(),this->getY(),this->getZ()),
          vector3df(desp_x*1000,this->getY(),desp_z*1000),
 		 newColor);
-	rayResult.m_collisionObjects[1]->getUserPointer();
-	std::cout <<rayResult.m_collisionObjects[1] << "\n";
+		 */
+	//rayResult.m_collisionObjects[1]->getUserPointer();
+	//std::cout <<rayResult.m_collisionObjects[0] << "\n";
 	
 }
 
@@ -93,7 +95,7 @@ void Objeto_Motor::saltar(){
 	}
 }
 
-void Objeto_Motor::Dash(unsigned short _i_direccion){
+void Objeto_Motor::Dash(uint16_t _i_direccion){
 	short potencia = 24000;
 	Motor* _motor = Motor::Motor_GetInstance();
     float angulo = _motor->angulo_camaraRAD();
