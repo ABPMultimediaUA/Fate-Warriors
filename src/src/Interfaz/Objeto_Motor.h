@@ -30,6 +30,7 @@ public:
       void VelocidadDireccion(unsigned short _i_direccion, float _i_velocidad, double dt);
       void setVelocidad(float x, float y, float z);
 
+      void disparar(unsigned short _i_direccion);
       void Dash(unsigned short _i_direccion);
       void Impulso_explosion(Vector3 vector);
       void saltar();

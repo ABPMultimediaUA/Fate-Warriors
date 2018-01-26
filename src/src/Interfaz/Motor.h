@@ -7,11 +7,14 @@
 #include <iostream>
 #include <vector>
 
+
 #include "../Camara/Camara.h"
 #include "GUI.h"
 
 #include "EnumTiposBoundingBox.h"
 #include <btBulletCollisionCommon.h>
+#include "../Utilidades/Vector.h"
+
 
 
 
@@ -64,8 +67,8 @@ public:
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
     void setCollisionGroup(int group, btRigidBody *_i_rigidbody );
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
-    btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end, int mascara_colision);
-
+    btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end, int mascara_colision); //devuelve solo la primera colision del rayo
+    btCollisionWorld::AllHitsRayResultCallback trazaRayoAll(btVector3 start, btVector3 end, int mascara_colision); //devuelve todas las colisiones del rayo
     bool x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
                                          //teniendo en cuenta unicamente el escenario (no el resto de objetos)
 
@@ -95,19 +98,22 @@ public:
 
     void borrar_objeto(Objeto_Motor* _objeto_motor);
     void borrar_rb(btRigidBody* rb); // Mejorar
-  
+    IVideoDriver* getDriver();
     float angulo_camara();
     float angulo_camaraRAD();
-
+    
       bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
       void posicionar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala);
       //bool comprobar_colision_ataque(btRigidBody *character_atacado);
+
     
+
 private:
 
       static Motor* _Motor;
       Motor();
-
+      Vector3* rayOrigen;
+      Vector3* rayDestino;
       int _vida; //salud para la barra de salud
       int _maxvida; //vida maxima (barra negra)
       float desp_x, desp_z;
@@ -148,6 +154,8 @@ private:
       IVideoDriver* driver;
 	ISceneManager* smgr;
       GUI* _GUI;
+
+       
 
       uint16_t _id_jugador;
 
