@@ -1,0 +1,6 @@
+Banks/Pasos.bank
+4
+event:/Pasos/Arena
+event:/Pasos/Asfalto
+event:/Pasos/Bestia
+event:/Pasos/Cadena

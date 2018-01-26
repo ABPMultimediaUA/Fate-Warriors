@@ -1,0 +1,11 @@
+Banks/Escenario.bank
+9
+event:/Escenario/AbrirPuerta
+event:/Escenario/CogerLlave
+event:/Escenario/GeneradorOff
+event:/Escenario/GeneradorOn
+event:/Escenario/Interruptor
+event:/Escenario/Pinchos
+event:/Escenario/PisarMina
+event:/Escenario/PuertaBestia
+event:/Escenario/ExplosionMina
