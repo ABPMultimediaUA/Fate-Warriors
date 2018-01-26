@@ -42,6 +42,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _especial = 0;
     //_sonido->Play_ambiente(2);
     
+    std::cout << this << "SOY EL PROTA \n";
 
 }
 

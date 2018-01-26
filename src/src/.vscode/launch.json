@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/../ejecutable",
+            "program": "${workspaceFolder}/Fate_Warriors",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

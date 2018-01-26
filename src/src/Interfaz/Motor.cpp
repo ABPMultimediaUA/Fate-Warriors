@@ -1,7 +1,6 @@
 #include "Motor.h"
 #include "SFML/Graphics.hpp"
 #include <cmath>
-#include "../Utilidades/Vector.h"
 #include "../Personajes/Interpolacion.h"
 #include "Objeto_Motor.h"
 #include "../Objeto.h"
@@ -38,11 +37,25 @@ Motor::Motor(){
 	const char* cstr = "models/MapaColision/ColisionesNivel1.obj";
 	importarEscenario(cstr, 0,0,0);
     desp_x = desp_z = 0;
+
 	camara = new Camara(smgr, device);
 	angulo = 0;
 	_velocidad = 1;
 	_debug = false;
 	_id_jugador = 0;
+		std::cout << "he llegado \n";
+
+	rayOrigen = new Vector3(0,0,0);
+	rayDestino = new Vector3(0,0,0);
+/*
+	rayOrigen._x = 0;
+	rayOrigen._y = 0;
+	rayOrigen._z = 0;
+
+	rayDestino._x = 0;
+	rayDestino._y = 0;
+	rayDestino._z = 0;
+	*/
 	//esto no debe ir aqui y se cambia despues de la presentacion
 	_vida = 300;
 	_maxvida = 300;
@@ -340,6 +353,8 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 		mascara_colision = otros_colisiona_con;
 	}
 
+	cubeShape->setUserPointer(_i_objeto);
+
 	world->addRigidBody(cubeBody,grupo_colision,mascara_colision);
 
 	return cubeBody;
@@ -356,13 +371,13 @@ btRigidBody* Motor::crear_rb_ataque(){
 
 	btTransform ghostTransform;
 	ghostTransform.setIdentity();
-	ghostTransform.setOrigin(btVector3(15 * mult, 1 , 15 * mult));
+	ghostTransform.setOrigin(btVector3(1, 1 ,1));
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(ghostTransform);
 
 	float cubeMass = 0;
 
-	btBoxShape *cubeShape = new btBoxShape(btVector3(mult*1,1,mult*1));
+	btBoxShape *cubeShape = new btBoxShape(btVector3(1,1,1));
 
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
@@ -429,6 +444,27 @@ btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btV
 	world->rayTest(start, end, rayCallback);
 
 	return rayCallback;
+}
+
+btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, btVector3 end, int mascara_colision){
+	btCollisionWorld::AllHitsRayResultCallback rayCallback(start, end);
+	rayOrigen->_x = start.getX();
+	rayOrigen->_y = start.getY();
+	rayOrigen->_z = start.getZ();
+
+	rayDestino->_x = end.getX();
+	rayDestino->_y = end.getY();
+	rayDestino->_z = end.getZ();
+	rayCallback.m_collisionFilterMask  = mascara_colision;
+	rayCallback.m_collisionFilterGroup = COL_RAY;
+	world->rayTest(start, end, rayCallback);
+
+
+	return rayCallback;
+}
+
+IVideoDriver* Motor::getDriver(){
+	return driver;
 }
 
 void Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
@@ -564,8 +600,14 @@ void Motor::render(){
 	
 
     if(_debug){
+		
 		world->debugDrawWorld();
-    }
+		float mult = 4.9212625;
+		btVector3 a(rayOrigen->_x,rayOrigen->_y,rayOrigen->_z);
+		btVector3 b(rayDestino->_x,rayDestino->_y,rayDestino->_z);
+		debugDraw->drawLine(a,b,btVector4(0,0,0,1));
+	
+	}
 
 	//guienv->drawAll();
 	_GUI->draw();

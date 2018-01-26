@@ -199,12 +199,16 @@ void Character::mover(uint16_t _i_direccion){
             }
         }
         _objeto_motor->VelocidadDireccion(_i_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
+        disparar(_i_direccion); //ESTO HAY QUE BORRARLO 
     }
+}
+
+void Character::disparar(uint16_t _direccion){
+    _objeto_motor->disparar(_direccion);
 }
 
 bool Character::interactuar_con_objeto(){
     //Busca el objeto interactuable mas cercano e interactua con el (recogerlo, abrirlo, etc.)
-
     Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
     
     Llave** _llaves = _int_man->get_llaves();
@@ -390,6 +394,24 @@ Enum_Tipo_Ataque Character::get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataq
     }
 }
 
+btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
+
+    float x_atacante = this->getX();
+    float y_atacante = this->getY();
+    float z_atacante = this->getZ();
+    float _cos, _sen;
+    _cos = cos(_direccion_actual*std::acos(-1)/180);
+    _sen = sin(_direccion_actual*std::acos(-1)/180);
+  
+    switch(_ataque)
+    {
+        case Ataque_Normal:
+            return btVector3(x_atacante, y_atacante, z_atacante);
+        default:
+            return btVector3(x_atacante + _sen * 3, y_atacante, z_atacante + _cos * 3);
+    }
+}
+
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
 
@@ -466,7 +488,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, this->get_objeto_motor()->get_posicion_rb(), btVector3(1,1,1));
+            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), btVector3(1,1,1));
         }
     }
     else if(this->get_accion() == Atacar){
@@ -501,11 +523,19 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 } 
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
 
-                unsigned short direccion_ataque;
-                direccion_ataque = lib_math_angulo_2_puntos(getX(), getZ(),_npcs[_cont]->getX(),_npcs[_cont]->getZ());
-                std::cout <<direccion_ataque<< std::endl;
-                
-                _npcs[_cont]->get_objeto_motor()->Dash(direccion_ataque);
+
+                // Impulsa al atacado
+
+                float x = _npcs[_cont]->getX() - this->getX();
+                float z = _npcs[_cont]->getZ() - this->getZ();
+
+                Vector2 direccion_impulso(x,z);
+                direccion_impulso.Normalize();
+
+                float valor = lib_math_distancia_2_puntos(_npcs[_cont]->getX(), _npcs[_cont]->getZ(), this->getX(), this->getZ());
+
+                Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
+                _npcs[_cont]->get_objeto_motor()->Impulso_explosion(a);
             }
         }
         std::cout << "ATACANDO" << std::endl;
