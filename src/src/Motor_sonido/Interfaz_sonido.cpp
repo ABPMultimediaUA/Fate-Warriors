@@ -215,6 +215,7 @@ Interfaz_sonido::~Interfaz_sonido(){
     ERRCHECK( VocesBank->unload() );
     ERRCHECK( PasosBank->unload() );
     ERRCHECK( masterBank->unload() );
+
     /*ERRCHECK( _chanel_voces->unload() );
     ERRCHECK( _chanel_efectos->unload() );
     ERRCHECK( _chanel_sfx->unload() );*/
@@ -502,7 +503,7 @@ void Interfaz_sonido::crear_canales(std::string _i_iteracion){
     _canales_txt >> _iteracion;
     ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_menu));//carga de voces
 
-    
+    _bus_sfx->lockChannelGroup();
 
     _canales_txt.close();
 }
@@ -602,10 +603,17 @@ void Interfaz_sonido::Stop_musica(u_int8_t _i_n){
     system_update();
 }
 void Interfaz_sonido::Stop_game(){
-    ERRCHECK(_bus_musica->stopAllEvents(FMOD_STUDIO_STOP_ALLOWFADEOUT));
-    ERRCHECK(_bus_voces->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE));
-    ERRCHECK(_bus_sfx->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE));
-    ERRCHECK(_bus_menu->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE));
+    u_int8_t cont=_n_ambiente;
+    while(cont){
+        --cont;
+        Stop_ambiente(cont);
+    }
+    cont=_n_musica;
+    while(cont){
+        --cont;
+        Stop_musica(cont);
+    }
+
 }
 /***************************************VOLUMEN SONIDOS***********************************************/
 
@@ -625,7 +633,12 @@ void Interfaz_sonido::set_volumen_menu(float _i_v){
 
 /*******************************************PAUSA**************************************************/
 void Interfaz_sonido::Pausa(){
+    ERRCHECK(_bus_musica->setPaused(true));
+    ERRCHECK(_bus_voces->setPaused(true));
     ERRCHECK(_bus_sfx->setPaused(true));
+    ERRCHECK(_bus_menu->setPaused(true));
+
+
 }
 void Interfaz_sonido::Quitar_pausa(){
    /* u_int8_t cont=_n_pasos;
