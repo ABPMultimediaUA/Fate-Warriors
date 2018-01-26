@@ -371,13 +371,13 @@ btRigidBody* Motor::crear_rb_ataque(){
 
 	btTransform ghostTransform;
 	ghostTransform.setIdentity();
-	ghostTransform.setOrigin(btVector3(15 * mult, 1 , 15 * mult));
+	ghostTransform.setOrigin(btVector3(1, 1 ,1));
 
 	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(ghostTransform);
 
 	float cubeMass = 0;
 
-	btBoxShape *cubeShape = new btBoxShape(btVector3(mult*1,1,mult*1));
+	btBoxShape *cubeShape = new btBoxShape(btVector3(1,1,1));
 
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);

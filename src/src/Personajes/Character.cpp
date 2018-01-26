@@ -394,6 +394,24 @@ Enum_Tipo_Ataque Character::get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataq
     }
 }
 
+btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
+
+    float x_atacante = this->getX();
+    float y_atacante = this->getY();
+    float z_atacante = this->getZ();
+    float _cos, _sen;
+    _cos = cos(_direccion_actual*std::acos(-1)/180);
+    _sen = sin(_direccion_actual*std::acos(-1)/180);
+  
+    switch(_ataque)
+    {
+        case Ataque_Normal:
+            return btVector3(x_atacante, y_atacante, z_atacante);
+        default:
+            return btVector3(x_atacante + _sen * 3, y_atacante, z_atacante + _cos * 3);
+    }
+}
+
 void Character::set_accion(Enum_Acciones _i_accion){
     _accion = _i_accion;
 
@@ -470,7 +488,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, this->get_objeto_motor()->get_posicion_rb(), btVector3(1,1,1));
+            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), btVector3(1,1,1));
         }
     }
     else if(this->get_accion() == Atacar){
