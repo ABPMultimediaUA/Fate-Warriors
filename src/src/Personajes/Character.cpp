@@ -501,11 +501,19 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 } 
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
 
-                unsigned short direccion_ataque;
-                direccion_ataque = lib_math_angulo_2_puntos(getX(), getZ(),_npcs[_cont]->getX(),_npcs[_cont]->getZ());
-                std::cout <<direccion_ataque<< std::endl;
-                
-                _npcs[_cont]->get_objeto_motor()->Dash(direccion_ataque);
+
+                // Impulsa al atacado
+
+                float x = _npcs[_cont]->getX() - this->getX();
+                float z = _npcs[_cont]->getZ() - this->getZ();
+
+                Vector2 direccion_impulso(x,z);
+                direccion_impulso.Normalize();
+
+                float valor = lib_math_distancia_2_puntos(_npcs[_cont]->getX(), _npcs[_cont]->getZ(), this->getX(), this->getZ());
+
+                Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
+                _npcs[_cont]->get_objeto_motor()->Impulso_explosion(a);
             }
         }
         std::cout << "ATACANDO" << std::endl;
