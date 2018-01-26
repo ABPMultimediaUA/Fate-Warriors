@@ -175,6 +175,7 @@ void Character::saltar(){
 }
 
 void Character::mover(uint16_t _i_direccion){
+    this->disparar(_i_direccion); //ESTO HAY QUE BORRARLO 
     if(esta_bloqueado() == false){
 
         _direccion_actual = _i_direccion;
@@ -202,9 +203,12 @@ void Character::mover(uint16_t _i_direccion){
     }
 }
 
+void Character::disparar(uint16_t _direccion){
+    _objeto_motor->disparar(_direccion);
+}
+
 bool Character::interactuar_con_objeto(){
     //Busca el objeto interactuable mas cercano e interactua con el (recogerlo, abrirlo, etc.)
-
     Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
     
     Llave** _llaves = _int_man->get_llaves();
