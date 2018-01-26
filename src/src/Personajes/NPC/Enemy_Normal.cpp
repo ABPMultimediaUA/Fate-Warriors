@@ -26,7 +26,7 @@ void Enemy_Normal::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta O
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, this->get_objeto_motor()->get_posicion_rb(), btVector3(1,1,1));
+            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, this->get_objeto_motor()->get_posicion_rb(), btVector3(5,1,5));
         }
     }
     else if(this->get_accion() == Atacar){

@@ -73,7 +73,7 @@ void Objeto_Motor::disparar(uint16_t _i_direccion){
 	btVector3 destino(getX()+desp_x*20, this->getY(), getZ()+desp_z*20);
 
 	btCollisionWorld::AllHitsRayResultCallback rayResult = Motor::Motor_GetInstance()->trazaRayoAll(origen,destino,otros_colisiona_con);
-	std::cout<<"Hola: "<<rayResult.hasHit()<<"\n";
+	//std::cout<<"Hola: "<<rayResult.hasHit()<<"\n";
 	SColor newColor(255, 255.0, 255.0, 255.0);
 	/*Motor::Motor_GetInstance()->getDriver()->draw3DLine(
          vector3df(this->getX(),this->getY(),this->getZ()),

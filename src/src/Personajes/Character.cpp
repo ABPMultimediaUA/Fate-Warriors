@@ -489,7 +489,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), btVector3(1,1,1));
+            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), btVector3(5,1,5));
         }
     }
     else if(this->get_accion() == Atacar){
