@@ -266,9 +266,10 @@ bool Character::interactuar_con_objeto(){
 }
 
 void Character::morir(){
+    float mult = 4.9212625;
     std::cout << "He muerto :("<< std::endl;
-    setPositionXZ(10000, 10000);
-
+    setPositionXZ(12.5*mult, 9.5*mult);
+    _vida=_vida_maxima;
 }
 
 Enum_Acciones Character::get_accion(){

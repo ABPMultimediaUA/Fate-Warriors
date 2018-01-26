@@ -16,7 +16,7 @@ enum tipo_colision {
 const int escenario_colisiona_con  = 	COL_NADA | COL_JUGADOR | COL_OTRO | COL_NPC | COL_RAY;
 const int jugador_colisiona_con    =    COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO;
 const int npc_colisiona_con        =    COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO;
-const int ray_colisiona_con        =	COL_ESCENARIO;
-const int puerta_colisiona_con     =	COL_ESCENARIO | COL_JUGADOR | COL_NPC;
+const int ray_colisiona_con        =	COL_ESCENARIO | COL_PUERTA;
+const int puerta_colisiona_con     =	COL_ESCENARIO | COL_JUGADOR | COL_NPC | COL_RAY;
 const int ataque_colisiona_con     =	COL_NPC | COL_JUGADOR;
 const int otros_colisiona_con      =    COL_ESCENARIO | COL_JUGADOR | COL_NPC;
