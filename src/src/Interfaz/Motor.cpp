@@ -456,7 +456,7 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 	rayDestino->_y = end.getY();
 	rayDestino->_z = end.getZ();
 	rayCallback.m_collisionFilterMask  = mascara_colision;
-	rayCallback.m_collisionFilterGroup = COL_OTRO;
+	rayCallback.m_collisionFilterGroup = COL_RAY;
 	world->rayTest(start, end, rayCallback);
 
 

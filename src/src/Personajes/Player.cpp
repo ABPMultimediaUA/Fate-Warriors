@@ -40,6 +40,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _input = _i_input;
     _motor->set_text_vida(_vida);
     _especial = 0;
+    std::cout << this << "SOY EL PROTA \n";
 
 }
 

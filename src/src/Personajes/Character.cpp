@@ -175,7 +175,6 @@ void Character::saltar(){
 }
 
 void Character::mover(uint16_t _i_direccion){
-    this->disparar(_i_direccion); //ESTO HAY QUE BORRARLO 
     if(esta_bloqueado() == false){
 
         _direccion_actual = _i_direccion;
@@ -200,6 +199,7 @@ void Character::mover(uint16_t _i_direccion){
             }
         }
         _objeto_motor->VelocidadDireccion(_i_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
+        disparar(_i_direccion); //ESTO HAY QUE BORRARLO 
     }
 }
 
