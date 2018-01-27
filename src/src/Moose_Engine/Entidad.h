@@ -3,11 +3,11 @@
 
 class Entidad {
 public:
-	Entidad();
-	virtual ~Entidad();
+	Entidad() {};
+	virtual ~Entidad() {};
 
-	virtual void beginDraw();
-	virtual void endDraw();
+	virtual void beginDraw() = 0;
+	virtual void endDraw() = 0;
 }
 
 #endif /* SRC_ENTIDAD_H_ */
