@@ -49,6 +49,9 @@ class Vertice
 	  Enum_vertices get_tipo(){
 		return _tipo;
 	  }
+		inline float get_peso_tactico(){
+			return _peso_tactico;
+		}
 	  inline void set_sig(Vertice* _i_sig){
 		  _sig=_i_sig;
 	  }
@@ -61,6 +64,9 @@ class Vertice
 	  inline void set_peso(float _i_peso){
 		  _peso=_i_peso;
 	  }
+		inline void set_peso_tactico(float _i_peso){
+			_peso_tactico=_i_peso;
+		}
 
 	  u_int8_t get_lod();
 
@@ -80,6 +86,7 @@ class Vertice
 	  float _ancho;
 	  float _alto;
 	  float _peso;
+		float _peso_tactico;
 	  int _id_arista;
 
 

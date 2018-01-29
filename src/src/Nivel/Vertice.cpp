@@ -46,7 +46,7 @@ void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_dest
 	//la arista final no se cuenta en las distancias
 	if(_id!=_i_destino){
 	_i_distancia+=_i_arista_aux->get_peso();
-	_peso=_i_distancia;
+	_peso=_i_distancia+_peso_tactico;
 	_i_arista_aux=_ady;//arista del vertice en el que estamos(para no recorrer la del vertice anterior)
 		while(_i_arista_aux!= nullptr){
 				//std::cout << _ArisAux->_ady->_id << " -> " ;

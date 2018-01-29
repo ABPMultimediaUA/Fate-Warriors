@@ -46,6 +46,9 @@ public:
 	
 	void grafo_inserta_NPC(NPC* _i_npc);
 
+	void set_peso_tactico_id(float _i_peso_tactico, int _i_id);
+	void set_peso_tactico_x_y(float _i_peso_tactico, float _i_x, float _i_y);
+
 private:
 	Vertice *_h;
 
