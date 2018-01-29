@@ -56,3 +56,15 @@ void TNodo::set_entidad(TEntidad* entidad){
 uint16_t TNodo::get_entidad_id(){
     return _entidadID;
 }
+
+void TNodo::draw(){
+        if(_visible){
+            if(get_entidad() != nullptr){
+                get_entidad()->beginDraw();
+                for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
+                    (*it)->draw();
+                }
+                get_entidad()->endDraw();
+            }
+        }
+}
