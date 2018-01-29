@@ -28,11 +28,17 @@ public:
 	void nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_iteracion);
 	void Update();
 	
-	inline void nivel_set_peso_tactico_id(float _i_peso_tactico,int _i_id){
-		_lod2->set_peso_tactico_id(_i_peso_tactico,_i_id);
+	inline void nivel_set_peso_tactico_id(float _i_peso_tactico,int _i_id, float _i_x, float _i_y){
+		_lod2->set_peso_tactico_id(_i_peso_tactico,_i_id, _i_x, _i_y);
 	}
 	inline void nivel_set_peso_tactico_x_y(float _i_peso_tactico, float _i_x, float _i_y){
 		_lod2->set_peso_tactico_x_y(_i_peso_tactico,_i_x,_i_y);
+	}
+	inline void nive_cerrar_pasillo(float _i_x, float _i_y){
+		_lod2->cerrar_pasillo(_i_x,_i_y);
+	}
+	inline void nive_abrir_pasillo(float _i_x, float _i_y){
+		_lod2->cerrar_pasillo(_i_x,_i_y);
 	}
 	inline void nivel_inserta_NPC(NPC* _i_npc){
 		_lod2->grafo_inserta_NPC( _i_npc);
