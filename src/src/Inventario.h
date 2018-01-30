@@ -9,7 +9,7 @@ class Arma_cerca;
 class Arma;
 class Llave;
 
-enum arma_Actual{
+enum Tipo_Arma{
 	cuerpo_a_cuerpo = 1,
 	distancia = 2,
 	cerca = 3
@@ -30,9 +30,9 @@ public:
 
 	void cambiar_arma_seleccionada_a_la_siguiente();
 	void cambiar_arma_seleccionada_a_la_anterior();
-	void seleccionar_arma_distancia();
-	void seleccionar_arma_cerca();
-	void seleccionar_cuerpo_a_cuerpo();
+	enum Tipo_Arma seleccionar_arma_distancia();
+	enum Tipo_Arma seleccionar_arma_cerca();
+	enum Tipo_Arma seleccionar_cuerpo_a_cuerpo();
     
     void anadir_llave(Llave* _i_llave);
 	void eliminar_llave(Llave* _i_llave);
@@ -46,7 +46,7 @@ public:
 
 
 private:
-	arma_Actual _arma;
+	Tipo_Arma _arma;
 	Arma_distancia *_objeto_distancia;
 	Arma_cerca *_objeto_cerca;
 	Arma *_seleccionado;

@@ -7,7 +7,7 @@
 #include "Llave.h"
 
 Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr){
-	_arma=cuerpo_a_cuerpo;
+	_arma = cuerpo_a_cuerpo;
 }
 
 Inventario::~Inventario(){
@@ -99,8 +99,8 @@ void Inventario::eliminar_llave(Llave* _i_llave){
 
 // Funciones para guardar los datos
 struct MapeadoArmas{			// Declaracion de los parametros
-	arma_Actual _nombre_objeto;
-	void (Inventario::*pmet)();
+	Tipo_Arma _nombre_objeto;
+	enum Tipo_Arma (Inventario::*pmet)();
 };
 
 MapeadoArmas mapping_armas_siguiente[] = {	// Definicion de los parametros
@@ -117,40 +117,47 @@ MapeadoArmas mapping_armas_anterior[] = {	// Definicion de los parametros
 
 
 void Inventario::cambiar_arma_seleccionada_a_la_siguiente(){
-	
+	enum Tipo_Arma _arma_aux;
 	MapeadoArmas *_mapeado_clase = mapping_armas_siguiente;
 
 	while(_mapeado_clase->_nombre_objeto){
 		if(_arma == _mapeado_clase->_nombre_objeto){
-			(this->*_mapeado_clase->pmet)();
+			_arma_aux = (this->*_mapeado_clase->pmet)();
 		}
 		++_mapeado_clase;
 	}
+
+	_arma = _arma_aux;
 }
 
 void Inventario::cambiar_arma_seleccionada_a_la_anterior(){
-	
+	enum Tipo_Arma _arma_aux;
 	MapeadoArmas *_mapeado_clase = mapping_armas_anterior;
 
 	while(_mapeado_clase->_nombre_objeto){
 		if(_arma == _mapeado_clase->_nombre_objeto){
-			(this->*_mapeado_clase->pmet)();
+			_arma_aux = (this->*_mapeado_clase->pmet)();
 		}
 		++_mapeado_clase;
 	}
+
+	_arma = _arma_aux;
 }
 
-void Inventario::seleccionar_arma_distancia(){
+enum Tipo_Arma Inventario::seleccionar_arma_distancia(){
 	_seleccionado = _objeto_distancia;
-	_arma = distancia;
+	//std::cout << "Ahora tengo arma distancia\n";
+	return distancia;
 }
 
-void Inventario::seleccionar_arma_cerca(){
+enum Tipo_Arma Inventario::seleccionar_arma_cerca(){
 	_seleccionado = _objeto_cerca;
-	_arma = cerca;
+	//std::cout << "Ahora tengo arma cerca\n";
+	return cerca;
 }
 
-void Inventario::seleccionar_cuerpo_a_cuerpo(){
+enum Tipo_Arma Inventario::seleccionar_cuerpo_a_cuerpo(){
 	_seleccionado = nullptr;
-	_arma = cuerpo_a_cuerpo;
+	//std::cout << "Ahora no tengo arma\n";
+	return cuerpo_a_cuerpo;
 }

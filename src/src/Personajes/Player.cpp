@@ -68,6 +68,7 @@ void Player::update(){
         mover(_direccion_buena);
         //s_sonido->Play_ambiente(2);
     }
+
     if(_input->get_dash()){
         _sonido->Play_ambiente(2);
         esquivar(_direccion); // Habra que pasar la direccion buena
@@ -98,6 +99,13 @@ void Player::update(){
         _motor->apagar();
     }
 
+    auto _cambio = _input->get_cambiar_arma();
+    if(std::get<0>(_cambio)) {
+        if(std::get<1>(_cambio))
+            cambiar_arma_seleccionada_a_la_anterior();
+        else
+            cambiar_arma_seleccionada_a_la_siguiente();
+    }
 
     bool _atk_normal, _atk_fuerte;
     bool _atacar = _input->get_atacar(_atk_normal, _atk_fuerte);

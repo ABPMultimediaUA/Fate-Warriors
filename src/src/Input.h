@@ -6,6 +6,7 @@
 #include "Utilidades/Vector.h"
 
 #include <cstdint>
+#include <tuple>
 
 enum Enum_Inputs {
 	Input_Arriba,
@@ -17,11 +18,12 @@ enum Enum_Inputs {
 	Input_Dash,
 	Input_Ataque_Normal,
 	Input_Ataque_Fuerte,
+	Input_Arma_Izquierda,
+	Input_Arma_Derecha,
 	Input_Camara_Arriba,
 	Input_Camara_Abajo,
 	Input_Camara_Izquierda,
 	Input_Camara_Derecha,
-	//Input_Usar_Arma,
 	Input_Centrar_Camara,
 	Input_Pausa,
 	N_Inputs,
@@ -52,6 +54,7 @@ public:
 	bool get_interactuar();
 	bool get_dash();
 	bool get_atacar(bool& _normal, bool& _fuerte);
+	std::tuple<bool, bool> get_cambiar_arma() { return std::make_tuple(_cambia_arma, _cambia_a_izquierda);}
 	inline bool get_centrar_camara() { return _centrar_camara;}
 	inline bool get_pausa() { return _pausa;}
 
@@ -90,6 +93,10 @@ private:
 	bool _ataque;				// Indica si se ha pulsado un input para realizar un ataque
 	bool _ataque_normal;		// Indica si se ha pulsado el input para realizar un ataque normal
 	bool _ataque_fuerte;		// Indica si se ha pulsado el input para realizar un ataque fuerte
+
+	bool _cambia_arma;			// Indica si se ha pulsado el input para cambiar de arma
+	bool _cambia_a_izquierda;	// Indica si se ha pulsado el input para cambiar de arma a la izquierda
+	bool _cambia_a_derecha;	// Indica si se ha pulsado el input para cambiar de arma a la derecha
 
 	Vector2* _posicion_raton;	// Posicion actual del raton en la pantalla
 	bool _mover_camara;			// Indica si se mueve la camara o no
