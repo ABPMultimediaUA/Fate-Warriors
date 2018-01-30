@@ -103,7 +103,7 @@ public:
     float angulo_camaraRAD();
     
       bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
-      void posicionar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala);
+      void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
       //bool comprobar_colision_ataque(btRigidBody *character_atacado);
 
     
