@@ -407,7 +407,7 @@ btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
     switch(_ataque)
     {
         case Ataque_Normal:
-            return btVector3(x_atacante, y_atacante, z_atacante);
+            return btVector3(x_atacante + _sen * 3, y_atacante, z_atacante + _cos * 3);
         default:
             return btVector3(x_atacante + _sen * 3, y_atacante, z_atacante + _cos * 3);
     }
@@ -489,7 +489,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), btVector3(5,1,5));
+            Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), btVector3(5,1,5), _direccion_actual);
         }
     }
     else if(this->get_accion() == Atacar){

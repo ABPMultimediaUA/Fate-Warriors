@@ -667,15 +667,21 @@ bool Motor::comprobar_colision(btRigidBody *rb1, btRigidBody *rb2){
 	return false;
 }
 
-void Motor::posicionar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala){
-	//btVector3 rb_atacante = rb->getCenterOfMassPosition();
+void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion){
 	float mult = 4.9212625;
-
+	btScalar gTilt = rotacion / 180.0f*SIMD_PI; 
 	btTransform rbTransform;
-	rbTransform.setIdentity();
-	rbTransform.setOrigin(posicion);
 
-	rb->getCollisionShape()->setLocalScaling(escala);
+	// Rotacion
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(rb->getCenterOfMassPosition());
+	btQuaternion incline;
+	incline.setRotation(btVector3(0, 1, 0), gTilt);
+	rbTransform.setRotation(incline);
+	std::cout << rotacion << std::endl;
+
+	// Traslacion
+	rbTransform.setOrigin(posicion);
 
 	rb->setWorldTransform(rbTransform);
 }
