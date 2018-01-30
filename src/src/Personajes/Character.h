@@ -9,7 +9,7 @@ class Interfaz;
 class Inventario;
 class Time;
 class Arma;
-class Consumible_Fuerza;
+class Consumible_Power_Up;
 
 class Character : public Objeto_Movil{
 public:
@@ -63,7 +63,7 @@ public:
 	bool intentar_recoger_arma();
 	void coger_arma(Arma* arma);
 
-	void anyadir_power_up(Consumible_Fuerza* _i_power_up);
+	void anyadir_power_up(Consumible_Power_Up* _i_power_up);
 	void eliminar_power_up_puntero();
 
 	// Gestion de acciones
@@ -83,6 +83,9 @@ public:
 	void aumentar_danyo_ataque_normal(uint8_t _i_valor);
 	void disminuir_danyo_ataque_fuerte(uint8_t _i_valor);
 	void disminuir_danyo_ataque_normal(uint8_t _i_valor);
+	
+	void activar_inmunidad_a_danyos();
+	void desactivar_inmunidad_a_danyos();
 
 protected:
 	
@@ -104,9 +107,10 @@ protected:
 	Enum_Tipo_Ataque _tipo_ataque;
 	Time * _tiempo;
 	double _duracion_accion_actual;
-	Consumible_Fuerza* _power_up;
+	Consumible_Power_Up* _power_up;
 	btRigidBody *_rb_ataque;
 	uint16_t _direccion_actual;
+	bool _inmortal;
 };
 
 #endif /* SRC_CHARACTER_H_ */
