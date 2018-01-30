@@ -20,23 +20,6 @@ Consumible_Power_Up::~Consumible_Power_Up(){
 }
 
 bool Consumible_Power_Up::usar(Character* _i_personaje){
-    if(_personaje!=nullptr){
-        if(comprobar_tiempo_power_up()){
-            _personaje->disminuir_danyo_ataque_fuerte(50);
-            _personaje->eliminar_power_up_puntero();
-            std::cout << "YO SOY EL " << this << std::endl;
-          return true;
-        }
-        std::cout << _personaje->get_danyo_ataque_fuerte()<< "pupa que hace\n";
-    }
-    else{
-        if(comprobar_colision(_i_personaje)){
-            activar_tiempo();
-            _personaje=_i_personaje;
-            _personaje->aumentar_danyo_ataque_fuerte(50);
-            _personaje->anyadir_power_up(this);
-        }
-    }
 	return false;	
 }
 	

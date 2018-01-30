@@ -7,7 +7,7 @@
 #include "Llave.h"
 
 Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr){
-
+	_arma=cuerpo_a_cuerpo;
 }
 
 Inventario::~Inventario(){
@@ -45,17 +45,17 @@ void Inventario::cambiar_objeto_distancia (Arma_distancia *_i_distancia){
 }
 
 void Inventario::cambiar_seleccionado(){
-	if(_seleccionado!=nullptr && _objeto_cerca!=nullptr && _objeto_distancia!=nullptr){
-		if (_seleccionado == _objeto_cerca){
-			_seleccionado = _objeto_distancia;
-		}
-		else {
-			_seleccionado = _objeto_cerca;
-		}
 
-		std::cout << _objeto_distancia << std::endl;
-		std::cout << _objeto_cerca << std::endl;
+	if (_seleccionado == _objeto_cerca){
+		_seleccionado = _objeto_distancia;
 	}
+	else {
+		_seleccionado = _objeto_cerca;
+	}
+
+	std::cout << _objeto_distancia << std::endl;
+	std::cout << _objeto_cerca << std::endl;
+
 }
 
 /*Metodos GET*/
@@ -91,4 +91,66 @@ void Inventario::eliminar_llave(Llave* _i_llave){
 			encontrado = true;
 		}
 	}
+}
+
+// CUerpo a cuerpo  = 1
+// Distancia 		= 2
+// Cerca			= 3
+
+// Funciones para guardar los datos
+struct MapeadoArmas{			// Declaracion de los parametros
+	arma_Actual _nombre_objeto;
+	void (Inventario::*pmet)();
+};
+
+MapeadoArmas mapping_armas_siguiente[] = {	// Definicion de los parametros
+		{cuerpo_a_cuerpo, &Inventario::seleccionar_arma_distancia},
+		{distancia, &Inventario::seleccionar_arma_cerca},
+		{cerca, &Inventario::seleccionar_cuerpo_a_cuerpo}
+};
+
+MapeadoArmas mapping_armas_anterior[] = {	// Definicion de los parametros
+		{cuerpo_a_cuerpo, &Inventario::seleccionar_arma_cerca},
+		{distancia, &Inventario::seleccionar_cuerpo_a_cuerpo},
+		{cerca, &Inventario::seleccionar_arma_distancia}
+};
+
+
+void Inventario::cambiar_arma_seleccionada_a_la_siguiente(){
+	
+	MapeadoArmas *_mapeado_clase = mapping_armas_siguiente;
+
+	while(_mapeado_clase->_nombre_objeto){
+		if(_arma == _mapeado_clase->_nombre_objeto){
+			(this->*_mapeado_clase->pmet)();
+		}
+		++_mapeado_clase;
+	}
+}
+
+void Inventario::cambiar_arma_seleccionada_a_la_anterior(){
+	
+	MapeadoArmas *_mapeado_clase = mapping_armas_anterior;
+
+	while(_mapeado_clase->_nombre_objeto){
+		if(_arma == _mapeado_clase->_nombre_objeto){
+			(this->*_mapeado_clase->pmet)();
+		}
+		++_mapeado_clase;
+	}
+}
+
+void Inventario::seleccionar_arma_distancia(){
+	_seleccionado = _objeto_distancia;
+	_arma = distancia;
+}
+
+void Inventario::seleccionar_arma_cerca(){
+	_seleccionado = _objeto_cerca;
+	_arma = cerca;
+}
+
+void Inventario::seleccionar_cuerpo_a_cuerpo(){
+	_seleccionado = nullptr;
+	_arma = cuerpo_a_cuerpo;
 }

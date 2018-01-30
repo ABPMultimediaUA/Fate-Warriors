@@ -62,6 +62,9 @@ public:
 
 	bool intentar_recoger_arma();
 	void coger_arma(Arma* arma);
+	void cambiar_arma_seleccionada_a_la_siguiente();
+	void cambiar_arma_seleccionada_a_la_anterior();
+
 
 	void anyadir_power_up(Consumible_Power_Up* _i_power_up);
 	void eliminar_power_up_puntero();

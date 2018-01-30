@@ -309,6 +309,10 @@ bool Character::accion_en_curso(){
     }
 }
 
+
+/////////////////////////////////////////////////// GESTION DE ARMAS ///////////////////////////////////////
+
+
 void Character::coger_arma(Arma* _arma){
     if(dynamic_cast<Arma_cerca*>(_arma) == NULL) {
         std::cout << "No es un arma cerca (es arma distancia)\n";
@@ -341,6 +345,16 @@ bool Character::intentar_recoger_arma() {
     
     return false;
 }
+
+void Character::cambiar_arma_seleccionada_a_la_anterior(){
+    _inventario->cambiar_arma_seleccionada_a_la_anterior();
+}
+
+void  Character::cambiar_arma_seleccionada_a_la_siguiente(){
+    _inventario->cambiar_arma_seleccionada_a_la_siguiente();
+}
+
+
 
 ///////////////////////////////////////////////////////// INICIO GESTION ACCIONES /////////////////////////////////////////////////////////
 
