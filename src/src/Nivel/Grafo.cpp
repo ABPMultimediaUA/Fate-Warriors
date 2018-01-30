@@ -315,6 +315,23 @@ u_int16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _
 		return 362;
 	}
 }
+
+void Grafo::set_peso_tactico_id(float _i_peso_tactico, int _i_id, float _i_x, float _i_y){
+	Vertice* verticeaux = grafo_get_vertice(_i_id)->get_lod1()->grafo_get_vertice(_i_x,_i_y);
+	verticeaux->set_peso_tactico(_i_peso_tactico);
+}
+void Grafo::set_peso_tactico_x_y(float _i_peso_tactico, float _i_x, float _i_y){
+	Vertice* verticeaux = grafo_get_vertice(_i_x,_i_y)->get_lod1()->grafo_get_vertice(_i_x,_i_y);
+	verticeaux->set_peso_tactico(_i_peso_tactico);
+}
+void Grafo::cerrar_pasillo(float _i_x, float _i_y){
+	Vertice* verticeaux = grafo_get_vertice(_i_x,_i_y);
+	verticeaux->set_peso_tactico(100000);
+}
+void Grafo::abrir_pasillo(float _i_x, float _i_y){
+	Vertice* verticeaux = grafo_get_vertice(_i_x,_i_y);
+	verticeaux->set_peso_tactico(0);
+}
 void Grafo::grafo_pathfindinglod2(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* vertice_origen, Vertice* vertice_destino){
 	Vertice* verticeaux=_h;
 	float distancia;

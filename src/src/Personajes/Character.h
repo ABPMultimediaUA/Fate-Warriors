@@ -56,6 +56,7 @@ public:
 	void saltar();
 	void esquivar(uint16_t _direccion);
 	void mover(uint16_t _direccion);
+	void disparar(uint16_t _direccion);
 	bool esta_bloqueado();
 	bool accion_en_curso();
 
@@ -69,6 +70,7 @@ public:
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	void set_accion(Enum_Acciones _i_accion);
+	btVector3 getPosicionRbAtaque(Enum_Tipo_Ataque _ataque);
 	void gestion_acciones();
 	virtual void gestion_ataque();
 	void gestion_dash();

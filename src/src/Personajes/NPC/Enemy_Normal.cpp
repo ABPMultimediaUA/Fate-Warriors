@@ -26,7 +26,7 @@ void Enemy_Normal::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta O
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, this->get_objeto_motor()->get_posicion_rb(), btVector3(1,1,1));
+            Motor::Motor_GetInstance()->posicionar_y_escalar_rb(_rb_ataque, this->get_objeto_motor()->get_posicion_rb(), btVector3(5,1,5));
         }
     }
     else if(this->get_accion() == Atacar){
@@ -56,11 +56,19 @@ void Enemy_Normal::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta O
             } 
             std::cout << "----- " << _player->get_vida() << "------" << std::endl;
 
-            unsigned short direccion_ataque;
-            direccion_ataque = lib_math_angulo_2_puntos(getX(), getZ(),_player->getX(),_player->getZ());
-            std::cout <<direccion_ataque<< std::endl;
-            
-            _player->get_objeto_motor()->Dash(direccion_ataque);
+
+            // Impulsa al atacado
+
+            float x = _player->getX() - this->getX();
+            float z = _player->getZ() - this->getZ();
+
+            Vector2 direccion_impulso(x,z);
+            direccion_impulso.Normalize();
+
+            float valor = lib_math_distancia_2_puntos(_player->getX(), _player->getZ(), this->getX(), this->getZ());
+
+            Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
+            _player->get_objeto_motor()->Impulso_explosion(a);
         }
         
         std::cout << "ATACANDO" << std::endl;

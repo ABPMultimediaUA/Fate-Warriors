@@ -13,6 +13,7 @@ class Consumible_Action;
 class Trampas_action;
 class Nivel;
 class Motor;
+class Interfaz_sonido;
 
 class Game{
 
@@ -58,6 +59,7 @@ private:
 	Action_Manager *_action_manager;
 	Decision_Manager *_decision_manager; 	// Encargado de tomar las decisiones de los NPCs
 	Motor* _motor;
+	Interfaz_sonido *_sonido;
 	Consumible_Action * _consumibles_action;
 	Trampas_action* _trampas_action;
 	Input* _input_jugador;

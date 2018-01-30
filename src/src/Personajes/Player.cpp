@@ -14,6 +14,8 @@
 #include "../Interfaz/Motor.h"
 //#include "../Interfaz/Objeto_Motor.h"
 
+#include "../Motor_sonido/Interfaz_sonido.h"
+
 
 #include "../Game.h"
 #include "../Action_Manager.h"
@@ -21,6 +23,7 @@
 Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.25, 10, 15)
                                                                 {   
     _motor= Motor::Motor_GetInstance();
+    _sonido= Interfaz_sonido::GetInstancia();
     //_tiempo = Time::Instance();
     //crear nodo de personaje del motor
 
@@ -37,6 +40,9 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _input = _i_input;
     _motor->set_text_vida(_vida);
     _especial = 0;
+    //_sonido->Play_ambiente(2);
+    
+    std::cout << this << "SOY EL PROTA \n";
 
 }
 
@@ -60,14 +66,15 @@ void Player::update(){
         uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
         while(_direccion_buena >= 360) _direccion_buena -= 360;
         mover(_direccion_buena);
+        //s_sonido->Play_ambiente(2);
     }
-
     if(_input->get_dash()){
+        _sonido->Play_ambiente(2);
         esquivar(_direccion); // Habra que pasar la direccion buena
     }
 
     if(_input->get_interactuar()){
-       
+       _sonido->Stop_game();
         if(esta_bloqueado() == false){
             std::cout<< "Pulsa E\n";
             if(!interactuar_con_objeto()){

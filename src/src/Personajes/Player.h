@@ -6,6 +6,7 @@ class Interfaz;
 class Interfaz_Fisica;
 class Input;
 class Motor;
+class Interfaz_sonido;
 
 
 class Player : public Character{
@@ -25,6 +26,7 @@ public:
 private:
 	short _nodoId; //ID del nodo del modelado del motor
 	Motor* _motor;
+	Interfaz_sonido* _sonido;
 	uint8_t _especial;
 	Interfaz* _interface;
 	Interfaz_Fisica* _interface_fisica;
