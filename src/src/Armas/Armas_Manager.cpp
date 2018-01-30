@@ -1,8 +1,10 @@
 #include "Armas_Manager.h"
 #include "../Tiempo/Time.h"
 #include "Arma.h"
+#include "Proyectil.h"
 
  #include "AD_Ametralladora.h"
+
 
 
 // CONSTRUCTOR
@@ -36,6 +38,20 @@ void Armas_Manager::borrar_arma(Arma* objeto){
         delete objeto;
     }
    
+}
+
+void Armas_Manager::anyadir_proyectil(Proyectil* _i_bala){
+    _balas.push_back(_i_bala);
+}
+
+void Armas_Manager::borrar_proyectil(Proyectil* objeto){
+
+    std::vector<Proyectil*>::iterator it;
+    it = std::find(_balas.begin(), _balas.end(), objeto);
+    if ( it != _balas.end()){
+        _balas.erase(it);
+        delete objeto;
+    }
 }
 
 void Armas_Manager::borrar_arma(short id){

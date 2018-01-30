@@ -17,7 +17,7 @@
 #include "Player.h"
 #include "NPC/Ally.h"
 #include "../Interfaz_Libs/Lib_Math.h"
-#include "../Consumibles/Consumible_Fuerza.h"
+#include "../Consumibles/Consumible_Power_Up.h"
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
@@ -25,6 +25,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
     _tiene_arma_larga(false) {
 
+    _inmortal = false;
     _inventario = new Inventario();
     _tiempo = Time::Instance();
     _accion = Nada;
@@ -46,7 +47,7 @@ int16_t Character::get_vida(){
 	return _vida;
 }
 
-void Character::anyadir_power_up(Consumible_Fuerza* _i_power_up){
+void Character::anyadir_power_up(Consumible_Power_Up* _i_power_up){
     if(_power_up!=nullptr){
         _power_up = _i_power_up;
     }  
@@ -56,6 +57,13 @@ void Character::eliminar_power_up_puntero(){
         _power_up=nullptr;
 }
 
+void Character::activar_inmunidad_a_danyos(){
+    _inmortal = true;
+}
+
+void Character::desactivar_inmunidad_a_danyos(){
+    _inmortal = false;
+}
 
 void Character::modificar_vida_en(short _i_vida){
 
@@ -71,16 +79,19 @@ void Character::modificar_vida_en(short _i_vida){
 }
 
 void Character::danyar_comun(short _danyo){
-    _vida = _vida - _danyo;
 
-    if(_accion == Accion_pre_atacar){
-        std::cout << "Ataque cortado" << std::endl;
-    }
+    if(!_inmortal){
+        _vida = _vida - _danyo;
 
-    set_accion(Recibir_danyo);
+        if(_accion == Accion_pre_atacar){
+            std::cout << "Ataque cortado" << std::endl;
+        }
 
-    if(_vida <= 0){
-        morir();
+        set_accion(Recibir_danyo);
+
+        if(_vida <= 0){
+            morir();
+        }
     }
 }
 
@@ -440,7 +451,7 @@ void Character::gestion_acciones(){
 }
 
 void Character::gestion_recibir_danyado(){
-    if(get_accion() == Recibir_danyo){
+    if(get_accion() == Recibir_danyo && !_inmortal){
         std::cout << "SIENDO DANYADO" << std::endl;
         _objeto_motor->colorear_nodo(255,0,0);
         if(esta_bloqueado() == false){

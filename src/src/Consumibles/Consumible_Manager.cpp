@@ -4,7 +4,11 @@
 #include "Consumible_Patata.h"
 #include "Consumible_Carne.h"
 #include "Consumible_Agua.h"
+
+#include "Consumible_Power_Up.h"
 #include "Consumible_Fuerza.h"
+#include "Consumible_Vida_Infinita.h"
+
 
 // CONSTRUCTOR
 
@@ -27,7 +31,8 @@ Consumible_Manager::Consumible_Manager() {
     _consumibles.push_back( new Consumible_Agua(5,mult*6, mult*0, mult*50));
     _consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*50));
 
-    _consumibles.push_back( new Consumible_Fuerza(5,mult*6, mult*0, mult*52));
+    _consumibles.push_back( new Consumible_Vida_Infinita(5,mult*6, mult*0, mult*52));
+
 }
 
 // DESTRUCTOR
@@ -44,7 +49,7 @@ Consumible_Manager::~Consumible_Manager(){
 
 // METODOS BORRAR
 
-void Consumible_Manager::borrar_consumible(Consumible_Fuerza* objeto){
+void Consumible_Manager::borrar_consumible(Consumible_Power_Up* objeto){
     std::vector<Consumible*>::iterator it;
     it = std::find(_consumibles.begin(), _consumibles.end(), objeto);
     
