@@ -1,4 +1,4 @@
-#include "Consumible_Fuerza.h"
+#include "Consumible_Power_Up.h"
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -8,7 +8,7 @@
 #include "../Tiempo/Time.h"
 
 
-Consumible_Fuerza::Consumible_Fuerza(short _id, float _i_x, float _i_y, float _i_z) : Consumible_Power_Up(_id,_i_x, _i_y, _i_z), _reloj(Time::Instance()){
+Consumible_Power_Up::Consumible_Power_Up(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 0), _reloj(Time::Instance()){
     const char* cstr  = "models/Consumibles/Carne/Carne.obj";
     
     _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
@@ -16,10 +16,10 @@ Consumible_Fuerza::Consumible_Fuerza(short _id, float _i_x, float _i_y, float _i
 
 }
 
-Consumible_Fuerza::~Consumible_Fuerza(){
+Consumible_Power_Up::~Consumible_Power_Up(){
 }
 
-bool Consumible_Fuerza::usar(Character* _i_personaje){
+bool Consumible_Power_Up::usar(Character* _i_personaje){
     if(_personaje!=nullptr){
         if(comprobar_tiempo_power_up()){
             _personaje->disminuir_danyo_ataque_fuerte(50);
@@ -40,15 +40,15 @@ bool Consumible_Fuerza::usar(Character* _i_personaje){
 	return false;	
 }
 	
-void Consumible_Fuerza::render(){
+void Consumible_Power_Up::render(){
 
 }
 
-void Consumible_Fuerza::activar_tiempo(){
+void Consumible_Power_Up::activar_tiempo(){
         _duracion_power_up = _reloj->get_current() + 5000;
 }
 
-bool Consumible_Fuerza::comprobar_tiempo_power_up(){
+bool Consumible_Power_Up::comprobar_tiempo_power_up(){
     if(_reloj->get_current() > _duracion_power_up){
         return true;
     }    

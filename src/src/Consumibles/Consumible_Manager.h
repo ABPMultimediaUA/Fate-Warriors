@@ -6,7 +6,7 @@
 class Consumible;
 class Consumible_Carne;
 class Consumible_Patata;
-class Consumible_Fuerza;
+class Consumible_Power_Up;
 
 
 class Consumible_Manager{
@@ -17,7 +17,7 @@ public:
 	std::vector<Consumible*>* get_consumibles();
 	std::vector<Consumible_Patata*> get_consumibles_patata();
 	std::vector<Consumible_Carne*> get_consumibles_carne();
-	void borrar_consumible(Consumible_Fuerza* objeto);
+	void borrar_consumible(Consumible_Power_Up* objeto);
 	void borrar_consumible(short id);
 
 private:
