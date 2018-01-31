@@ -70,10 +70,15 @@ public:
 	void eliminar_power_up_puntero();
 
 	// Gestion de acciones
+	void impulso_danyar(Character * atacante, Character * atacado, Enum_Tipo_Ataque tipo_ataque);
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);
+	uint8_t get_danyo_ataque(Enum_Tipo_Ataque tipo_ataque);
+	int get_impulso_danyar(Enum_Tipo_Ataque tipo_ataque);
 	void set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque);
 	void set_accion(Enum_Acciones _i_accion);
+	int getTiempoAccion(Enum_Acciones _accion);
 	btVector3 getPosicionRbAtaque(Enum_Tipo_Ataque _ataque);
+	btVector3 getEscalaRbAtaque(Enum_Tipo_Ataque _ataque);
 	void gestion_acciones();
 	virtual void gestion_ataque();
 	void gestion_dash();

@@ -680,6 +680,9 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	rbTransform.setRotation(incline);
 	std::cout << rotacion << std::endl;
 
+	// Escalado
+	rb->getCollisionShape()->setLocalScaling(escala);
+
 	// Traslacion
 	rbTransform.setOrigin(posicion);
 

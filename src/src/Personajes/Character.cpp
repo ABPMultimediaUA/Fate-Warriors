@@ -143,8 +143,8 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
     // Ataque de player y aliados, sobrescrbir en Enemigo
     // Se ataca a enemigos
     if(this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false){
-        this->set_accion(Accion_pre_atacar);
         this->set_tipo_ataque(_i_tipo_ataque);
+        this->set_accion(Accion_pre_atacar);
     }
     else if(this->get_accion() == Accion_post_atacar){
         Enum_Tipo_Ataque _ataque_combo;
@@ -362,23 +362,50 @@ void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
     _tipo_ataque = _i_tipo_ataque;
 }
 
-static int getTiempoAccion(Enum_Acciones _accion){
-    switch(_accion)
-    {
-        case Accion_pre_atacar:
-            return 500;
-        case Atacar:
-            return 1;
-        case Accion_post_atacar:
-            return 500;
-        case Accion_Dash:
-            return 500;
-        case Accion_Interactuar:
-            return 1000;
-        case Saltar:
-            return 200;
-        default:
-            return 500;
+void Character::impulso_danyar(Character * atacante, Character * atacado, Enum_Tipo_Ataque tipo_ataque){
+
+    float x = atacado->getX() - atacante->getX();
+    float z = atacado->getZ() - atacante->getZ();
+
+    Vector2 direccion_impulso(x,z);
+    direccion_impulso.Normalize();
+
+    float valor = lib_math_distancia_2_puntos(atacado->getX(), atacado->getZ(), atacante->getX(), atacante->getZ());
+
+    int impulso = get_impulso_danyar(tipo_ataque);
+    Vector3 a(direccion_impulso._x*(impulso/valor),0,direccion_impulso._y*(impulso/valor));
+    atacado->get_objeto_motor()->Impulso_explosion(a);
+
+}
+
+int Character::getTiempoAccion(Enum_Acciones _accion){
+
+    if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Normal){
+        return 150;
+    } 
+    else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Fuerte){
+        return 250;
+    }
+    else if(_accion == Atacar){
+        return 1;
+    }
+    else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Normal){
+        return 150;
+    }
+    else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Fuerte){
+        return 250;
+    }
+    else if(_accion == Accion_Dash){
+        return 500;
+    }
+    else if(_accion == Accion_Interactuar){
+        return 300;
+    }
+    else if(_accion == Saltar){
+        return 300;
+    }
+    else{
+        return 500;
     }
 }
 
@@ -420,6 +447,30 @@ Enum_Tipo_Ataque Character::get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataq
     }
 }
 
+uint8_t Character::get_danyo_ataque(Enum_Tipo_Ataque tipo_ataque){
+    switch(tipo_ataque) // ataque actual
+    {
+        case Ataque_Normal:
+            return _danyo_ataque_normal;
+        case Ataque_Fuerte:
+            return _danyo_ataque_fuerte;
+        default:
+            return _danyo_ataque_normal;
+    }
+}
+
+int Character::get_impulso_danyar(Enum_Tipo_Ataque tipo_ataque){
+    switch(tipo_ataque) // ataque actual
+    {
+        case Ataque_Normal:
+            return 15000;
+        case Ataque_Fuerte:
+            return 25000;
+        default:
+            return 25000;
+    }
+}
+
 btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
 
     float x_atacante = this->getX();
@@ -431,10 +482,24 @@ btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
   
     switch(_ataque)
     {
-        case Ataque_Normal:
-            return btVector3(x_atacante + _sen * 3, y_atacante, z_atacante + _cos * 3);
         default:
             return btVector3(x_atacante + _sen * 3, y_atacante, z_atacante + _cos * 3);
+    }
+}
+
+btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
+    // ancho, alto, largo
+    switch(_ataque)
+    {
+        case Ataque_Normal:
+            std::cout<< "normal" <<std::endl;
+            return btVector3(2,1,2);
+        case Ataque_Fuerte:
+            std::cout<< "fuerte" <<std::endl;
+            return btVector3(2.5,1,2);
+        default:
+            std::cout<< "default" <<std::endl;
+            return btVector3(5,1,5);
     }
 }
 
@@ -514,7 +579,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), btVector3(5,1,5), _direccion_actual);
+            Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), getEscalaRbAtaque(_tipo_ataque), _direccion_actual);
         }
     }
     else if(this->get_accion() == Atacar){
@@ -527,41 +592,13 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         for(_cont = 0; _cont < _n_npcs; _cont++) {
             if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
                 Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
-                //comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _npcs[_cont]->get_vector(), 3) == true)
             {
-                if(this->get_tipo_ataque() == Ataque_Normal){
-                    _npcs[_cont]->danyar(_danyo_ataque_normal);
-                }
-                else if(this->get_tipo_ataque()  == Ataque_Fuerte){
-                    _npcs[_cont]->danyar(_danyo_ataque_fuerte);
-                }  
-                else if(this->get_tipo_ataque()  == Ataque_Normal_Normal){
-                    _npcs[_cont]->danyar(_danyo_ataque_normal);
-                } 
-                else if(this->get_tipo_ataque()  == Ataque_Normal_Fuerte){
-                    _npcs[_cont]->danyar(_danyo_ataque_normal);
-                } 
-                else if(this->get_tipo_ataque()  == Ataque_Fuerte_Normal){
-                    _npcs[_cont]->danyar(_danyo_ataque_normal);
-                } 
-                else if(this->get_tipo_ataque()  == Ataque_Fuerte_Fuerte){
-                    _npcs[_cont]->danyar(_danyo_ataque_normal);
-                } 
+                _npcs[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
+          
                 std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
 
-
                 // Impulsa al atacado
-
-                float x = _npcs[_cont]->getX() - this->getX();
-                float z = _npcs[_cont]->getZ() - this->getZ();
-
-                Vector2 direccion_impulso(x,z);
-                direccion_impulso.Normalize();
-
-                float valor = lib_math_distancia_2_puntos(_npcs[_cont]->getX(), _npcs[_cont]->getZ(), this->getX(), this->getZ());
-
-                Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
-                _npcs[_cont]->get_objeto_motor()->Impulso_explosion(a);
+                impulso_danyar(this, _npcs[_cont], _tipo_ataque);
             }
         }
         std::cout << "ATACANDO" << std::endl;
