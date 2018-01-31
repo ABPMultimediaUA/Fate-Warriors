@@ -21,6 +21,7 @@ Input::Input() {
 
 	_pausa = false;
 
+	_hay_mando = false;
 	_mando = new uint8_t[N_Inputs];
 	_ejes = new sf::Joystick::Axis[N_Inputs];
 	actualiza_mando();

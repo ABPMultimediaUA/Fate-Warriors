@@ -86,7 +86,7 @@ class Vertice
 	  float _ancho;
 	  float _alto;
 	  float _peso;
-		float _peso_tactico;
+	  float _peso_tactico;
 	  int _id_arista;
 
 

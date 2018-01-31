@@ -78,7 +78,7 @@ void Game::crea_partida() {
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
 	_datos->inserta_npc_nivel();
-
+	_player = _datos->get_player();
 	
 	_consumibles_action = new Consumible_Action();	
 	_trampas_action 	= new Trampas_action();	
@@ -133,12 +133,10 @@ void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 
 void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Partida" << std::endl;
-	Player *_player = _datos->get_player();
 	_player->update();
 	_nivel->Update();
 	_consumibles_action->comprobar_consumibles();
 	_trampas_action->update();
-	_player = nullptr;
 
 	_motor->update(_i_tiempo_desde_ultimo_update);
 		

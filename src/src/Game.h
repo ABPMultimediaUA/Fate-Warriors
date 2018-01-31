@@ -13,6 +13,7 @@ class Consumible_Action;
 class Trampas_action;
 class Nivel;
 class Motor;
+class Player;
 class Interfaz_sonido;
 
 class Game{
@@ -53,6 +54,8 @@ private:
 	void render_menu(float _i_interpolacion);						// Render del menu
 	void render_partida(float _i_interpolacion);					// Render de partida
 	void render_pausa(float _i_interpolacion);						// Render de pausa
+
+	Player* _player;
 
 	Nivel* _nivel;
 	Datos_Partida *_datos;
