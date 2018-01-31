@@ -7,10 +7,10 @@
 class Bala;
 class Arma_distancia : public Arma{
 public:
-	Arma_distancia(short _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango);
+	Arma_distancia(uint16_t _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango);
 	virtual ~Arma_distancia();
 	void render() override; 
-	bool usar(float _i_x, float _i_y, float _i_z) override;
+	Character* usar(uint16_t _i_direccion) override;
 
 protected: 
 		//short Velocidad_bala;

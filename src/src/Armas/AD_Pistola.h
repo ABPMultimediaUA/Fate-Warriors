@@ -5,10 +5,10 @@
 
 class AD_Pistola : public Arma_distancia{
 public:
-	AD_Pistola(short _id, float _i_x, float _i_y, float _i_z);
+	AD_Pistola(uint16_t _id, float _i_x, float _i_y, float _i_z);
 	virtual ~AD_Pistola();
 	void render() override;
-	bool usar(float _i_x, float _i_y, float _i_z) override;
+	Character* usar(uint16_t _i_direccion) override;
 
 protected: 
 		//short Velocidad_bala;

@@ -1,7 +1,7 @@
 #include "Proyectil.h"
 #include <iostream>
 
-Proyectil::Proyectil(short _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter) 
+Proyectil::Proyectil(uint16_t _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter) 
 : Objeto_Movil(_id, _i_x, _i_y, _i_z), _impacted(false), _danyo(_i_danyo), _origenx(_i_x), _origeny(_i_y), _origenz(_i_z), _id_shooter(_i_id_shooter) {}
 
 Proyectil::~Proyectil(){}

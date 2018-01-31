@@ -1,6 +1,6 @@
 #include "Arma.h"
 
-Arma::Arma(short _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango) 
+Arma::Arma(uint16_t _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango) 
 : Objeto(_id, _i_x, _i_y, _i_z), 
 _uses(_i_uses) , 
 _tipo(_i_tipo), 

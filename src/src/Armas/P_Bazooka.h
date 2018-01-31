@@ -4,7 +4,7 @@
 #include "Proyectil.h"
 class P_Bazooka : public Proyectil{
 public:
-	P_Bazooka(short _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter);
+	P_Bazooka(uint16_t _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter);
 	virtual ~P_Bazooka();
 
 	void 	Update() override;

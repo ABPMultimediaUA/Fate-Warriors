@@ -11,9 +11,9 @@ class Arma : public Objeto{
 
 public:	
 	
-	Arma(short _id, float _i_x, float _i_y, float _i_z, short _tipo, short _i_uses, short _i_frecuencia, short _i_rango);
+	Arma(uint16_t _id, float _i_x, float _i_y, float _i_z, short _tipo, short _i_uses, short _i_frecuencia, short _i_rango);
 	virtual ~Arma();
-	virtual bool usar(float _i_x, float _i_y, float _i_z) = 0;
+	virtual Character* usar(uint16_t _i_direccion) = 0;
 
 	bool 	preparado_siguiente_ataque();
 	void 	actualizar_tiempo_siguiente_ataque();
@@ -28,10 +28,10 @@ protected:
 	
 	Time*  _reloj;
 	double 	_tiempo_siguiente_disponible;
-	short 	_tipo;
-	short 	_uses;
-	short 	_frecuencia;
-	short 	_rango;
+	uint8_t 	_tipo;
+	uint8_t 	_uses;
+	uint8_t 	_frecuencia;
+	uint8_t 	_rango;
 
 };
 

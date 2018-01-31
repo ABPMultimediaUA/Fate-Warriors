@@ -8,6 +8,7 @@ class Objeto;
 class Arma_cerca;
 class Arma;
 class Llave;
+class Character;
 
 enum Tipo_Arma{
 	cuerpo_a_cuerpo = 1,
@@ -21,7 +22,7 @@ public:
 	virtual ~Inventario();
 
 	void render();
-	bool usar();
+	Character* usar(uint16_t _i_direccion);
 	
 	/*SET*/
 	void cambiar_objeto_cerca(Arma_cerca *_i_cerca);

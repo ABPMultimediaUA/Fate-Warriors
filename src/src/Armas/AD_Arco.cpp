@@ -3,7 +3,7 @@
 #include "../Scriptor/Game_Scriptor.h"
 
 
-AD_Arco::AD_Arco(short _id, float _i_x, float _i_y, float _i_z) 
+AD_Arco::AD_Arco(uint16_t _id, float _i_x, float _i_y, float _i_z) 
 : Arma_distancia(_id, _i_x, _i_y, _i_z, 
 				script->Dame_valor_de("Arco_tipo"), 
 				script->Dame_valor_de("Arco_usos"), 
@@ -14,14 +14,16 @@ AD_Arco::~AD_Arco(){
 	
 }
 
-bool AD_Arco::usar(float _i_x, float _i_y, float _i_z){
+Character* AD_Arco::usar(uint16_t _i_direccion){
 	if(preparado_siguiente_ataque()){
 		//obtener_mundo->anyadirbaflecha(_i_x,_i_y,_i_z);
 		actualizar_tiempo_siguiente_ataque();
+		
+
 		//Anadir trigger sonido
-		return true;
+		return _objeto_motor->disparar(_i_direccion, _rango);
 	}
-	return false;
+	return 0;
 }
 
 

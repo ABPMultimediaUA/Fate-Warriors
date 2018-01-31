@@ -4,7 +4,7 @@
 #include "Proyectil.h"
 class P_Ametralladora : public Proyectil{
 public:
-	P_Ametralladora(short _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter);
+	P_Ametralladora(uint16_t _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter);
 	virtual ~P_Ametralladora();
 
 	void 	Update() override;
