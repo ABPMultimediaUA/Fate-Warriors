@@ -218,11 +218,25 @@ void Input::recibir_inputs_mando() {
 	_ataque_fuerte = sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Fuerte]);
 	_interactuar = sf::Joystick::isButtonPressed(0, _mando[Input_Interact]);
 
-	if(sf::Joystick::getAxisPosition(0, _ejes[Input_Arma_Izquierda]) > 20) // COMPROBAR ESTO CON MANDO
-		_cambia_a_izquierda = true;
+	if(sf::Joystick::getAxisPosition(0, _ejes[Input_Arma_Izquierda]) > 50) {
+		if(_ex_cambia_a_izquierda == false){
+			_cambia_a_izquierda = true;
+		}
+		_ex_cambia_a_izquierda = true;
+	}
+	else {
+		_ex_cambia_a_izquierda = false;
+	}
 
-	if(sf::Joystick::getAxisPosition(0, _ejes[Input_Arma_Derecha]) > 20)
-		_cambia_a_derecha = true;
+	if(sf::Joystick::getAxisPosition(0, _ejes[Input_Arma_Derecha]) > 50) {
+		if(_ex_cambia_a_derecha == false){
+			_cambia_a_derecha = true;
+		}
+		_ex_cambia_a_derecha = true;
+	}
+	else {
+		_ex_cambia_a_derecha = false;
+	}
 
 	_joystick_mover->_x = sf::Joystick::getAxisPosition(0, _ejes[Input_Derecha]);
 	_joystick_mover->_y = sf::Joystick::getAxisPosition(0, _ejes[Input_Arriba]);
@@ -237,6 +251,8 @@ void Input::recibir_inputs_mando() {
 
 // Recibe los inputs del teclado y el raton
 void Input::recibir_inputs_teclado_raton() {
+	bool _aux;
+
 	if(_teclas[Input_Arriba] != sf::Keyboard::Unknown) 
 		_arriba = sf::Keyboard::isKeyPressed(_teclas[Input_Arriba]);
 	else 
@@ -292,16 +308,35 @@ void Input::recibir_inputs_teclado_raton() {
 
 
 	if(_teclas[Input_Arma_Izquierda] != sf::Keyboard::Unknown) 
-		_cambia_a_izquierda = sf::Keyboard::isKeyPressed(_teclas[Input_Arma_Izquierda]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Arma_Izquierda]);
 	else 
-		_cambia_a_izquierda = sf::Mouse::isButtonPressed(_raton[Input_Arma_Izquierda]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Arma_Izquierda]);
+
+	if(_aux == true) {
+		if(_ex_cambia_a_izquierda == false){
+			_cambia_a_izquierda = true;
+		}
+		_ex_cambia_a_izquierda = true;
+	}
+	else {
+		_ex_cambia_a_izquierda = false;
+	}
 
 
 	if(_teclas[Input_Arma_Derecha] != sf::Keyboard::Unknown) 
-		_cambia_a_derecha = sf::Keyboard::isKeyPressed(_teclas[Input_Arma_Derecha]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Arma_Derecha]);
 	else 
-		_cambia_a_derecha = sf::Mouse::isButtonPressed(_raton[Input_Arma_Derecha]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Arma_Derecha]);
 
+	if(_aux == true) {
+		if(_ex_cambia_a_derecha == false){
+			_cambia_a_derecha = true;
+		}
+		_ex_cambia_a_derecha = true;
+	}
+	else {
+		_ex_cambia_a_derecha = false;
+	}
 
 	if(_camara_con_teclado)
 		recibir_inputs_camara();
@@ -723,8 +758,10 @@ void Input::pinta_couts_inputs() {
 	if(_dash) std::cout << "Se realiza un dash\n";
 	if(_ataque_normal) std::cout << "Se realiza un ataque normal\n";
 	if(_ataque_fuerte) std::cout << "Se realiza un ataque fuerte\n";
+	if(_cambia_a_derecha) std::cout << "Cambia a arma derecha\n";
+	if(_cambia_a_izquierda) std::cout << "Cambia a arma izquierda\n";
 
-	std::cout << "\n";
+	//std::cout << "\n";
 }
 
 // Pinta las asignaciones de inputs
@@ -737,7 +774,5 @@ void Input::pinta_inputs() {
 	for(uint8_t _cont=0; _cont<N_Inputs; _cont++) {
 		std::cout << "[" << _raton[_cont] << "]";
 	}
-	if(_cambia_a_derecha) std::cout << "Cambia a arma derecha\n";
-	if(_cambia_a_izquierda) std::cout << "Cambia a arma izquierda\n";
 	std::cout << "\n\n";
 }

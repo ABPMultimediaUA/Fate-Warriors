@@ -96,7 +96,9 @@ private:
 
 	bool _cambia_arma;			// Indica si se ha pulsado el input para cambiar de arma
 	bool _cambia_a_izquierda;	// Indica si se ha pulsado el input para cambiar de arma a la izquierda
+	bool _ex_cambia_a_izquierda;// Indica si se mantiene pulsado cambiar a izquierda
 	bool _cambia_a_derecha;	// Indica si se ha pulsado el input para cambiar de arma a la derecha
+	bool _ex_cambia_a_derecha;// Indica si se mantiene pulsado cambiar a derecha
 
 	Vector2* _posicion_raton;	// Posicion actual del raton en la pantalla
 	bool _mover_camara;			// Indica si se mueve la camara o no
