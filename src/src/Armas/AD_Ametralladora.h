@@ -5,12 +5,12 @@
 
 class AD_Ametralladora : public Arma_distancia{
 public:
-	AD_Ametralladora(short _id, float _i_x, float _i_y, float _i_z);
+	AD_Ametralladora(uint16_t _id, float _i_x, float _i_y, float _i_z);
 	virtual ~AD_Ametralladora();
 	void update() override;
 
 	void render() override;
-	bool usar(float _i_x, float _i_y, float _i_z) override;
+	Character* usar(uint16_t _i_direccion) override;
 
 protected: 
 		//short Velocidad_bala;

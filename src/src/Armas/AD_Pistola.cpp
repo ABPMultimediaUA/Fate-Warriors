@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../Scriptor/Game_Scriptor.h"
 
-AD_Pistola::AD_Pistola(short _id, float _i_x, float _i_y, float _i_z) 
+AD_Pistola::AD_Pistola(uint16_t _id, float _i_x, float _i_y, float _i_z) 
 : Arma_distancia(_id, _i_x, _i_y, _i_z, 
 				script->Dame_valor_de("Pistola_tipo"), 
 				script->Dame_valor_de("Pistola_usos"), 
@@ -13,14 +13,16 @@ AD_Pistola::~AD_Pistola(){
 	
 }
 
-bool AD_Pistola::usar(float _i_x, float _i_y, float _i_z){
+Character* AD_Pistola::usar(uint16_t _i_direccion){
 	if(preparado_siguiente_ataque()){
 		//obtener_mundo->anyadirbalapistola(_i_x,_i_y,_i_z);
 		actualizar_tiempo_siguiente_ataque();
+		
+
 		//Anadir trigger sonido
-		return true;
+		return _objeto_motor->disparar(_i_direccion, _rango);
 	}
-	return false;
+	return 0;
 }
 
 

@@ -55,6 +55,7 @@ void Input::asignar_teclas_predefinidas() {
 
 	_teclas[Input_Ataque_Normal] = sf::Keyboard::Unknown;
 	_teclas[Input_Ataque_Fuerte] = sf::Keyboard::Unknown;
+	_teclas[Input_Ataque_Especial] = sf::Keyboard::Q;
 
 	_teclas[Input_Arma_Izquierda] = sf::Keyboard::Num1;
 	_teclas[Input_Arma_Derecha] = sf::Keyboard::Num2;
@@ -76,6 +77,7 @@ void Input::asignar_teclas_predefinidas() {
 
 	_raton[Input_Ataque_Normal] = sf::Mouse::Left;
 	_raton[Input_Ataque_Fuerte] = sf::Mouse::Right;
+	_raton[Input_Ataque_Especial] = sf::Mouse::ButtonCount;
 
 	_raton[Input_Arma_Izquierda] = sf::Mouse::ButtonCount;
 	_raton[Input_Arma_Derecha] = sf::Mouse::ButtonCount;
@@ -103,6 +105,7 @@ void Input::asignar_teclas_mando() {
 	_mando[Input_Dash] = 1;				// B
 	_mando[Input_Ataque_Normal] = 2;	// X
 	_mando[Input_Ataque_Fuerte] = 3;	// Y
+	_mando[Input_Ataque_Especial] = 4;	// LB
 
 	_mando[Input_Interact] = 5;			// RB
 	_mando[Input_Pausa] = 7;			// Start
@@ -172,37 +175,6 @@ bool Input::get_mover(uint16_t& _i_direccion) {
 	return _mover;
 }
 
-bool Input::get_saltar() {
-	return _saltar;
-}
-
-bool Input::get_interactuar() {
-	return _interactuar;
-}
-
-bool Input::get_dash() {
-	return _dash;
-}
-
-bool Input::get_atacar(bool& _normal, bool& _fuerte) {
-	_normal = _ataque_normal;
-	_fuerte = _ataque_fuerte;
-
-	return _ataque;
-}
-
-bool Input::get_mover_camara() {
-	return _mover_camara;
-}
-
-Vector2* Input::get_vector_camara() {
-	return _vector_camara;
-}
-
-bool Input::get_posiciona_camara() {
-	return !_hay_mando && !_camara_con_teclado;
-}
-
 // Recoge los inputs y almacena los valores
 void Input::recibir_inputs() {
 	if(_hay_mando) 
@@ -213,11 +185,70 @@ void Input::recibir_inputs() {
 
 // Recibe los inputs del mando
 void Input::recibir_inputs_mando() {
-	_saltar = sf::Joystick::isButtonPressed(0, _mando[Input_Salto]);
-	_dash = sf::Joystick::isButtonPressed(0, _mando[Input_Dash]);
-	_ataque_normal = sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Normal]);
-	_ataque_fuerte = sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Fuerte]);
-	_interactuar = sf::Joystick::isButtonPressed(0, _mando[Input_Interact]);
+	if(sf::Joystick::isButtonPressed(0, _mando[Input_Salto]) == true) {
+		if(_ex_saltar == false){
+			_saltar = true;
+		}
+		_ex_saltar = true;
+	}
+	else {
+		_ex_saltar = false;
+	}
+	
+	if(sf::Joystick::isButtonPressed(0, _mando[Input_Dash]) == true) {
+		if(_ex_dash == false){
+			_dash = true;
+		}
+		_ex_dash = true;
+	}
+	else {
+		_ex_dash = false;
+	}
+
+	
+	if(sf::Joystick::isButtonPressed(0, _mando[Input_Interact]) == true) {
+		if(_ex_interactuar == false){
+			_interactuar = true;
+		}
+		_ex_interactuar = true;
+	}
+	else {
+		_ex_interactuar = false;
+	}
+
+	
+	if(sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Normal]) == true) {
+		if(_ex_ataque_normal == false){
+			_ataque_normal = true;
+		}
+		_ex_ataque_normal = true;
+	}
+	else {
+		_ex_ataque_normal = false;
+	}
+
+	
+	if(sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Fuerte]) == true) {
+		if(_ex_ataque_fuerte == false){
+			_ataque_fuerte = true;
+		}
+		_ex_ataque_fuerte = true;
+	}
+	else {
+		_ex_ataque_fuerte = false;
+	}
+
+
+	if(sf::Joystick::isButtonPressed(0, _mando[Input_Ataque_Especial]) == true) {
+		if(_ex_ataque_especial == false){
+			_ataque_especial = true;
+		}
+		_ex_ataque_especial = true;
+	}
+	else {
+		_ex_ataque_especial = false;
+	}
+
 
 	if(sf::Joystick::getAxisPosition(0, _ejes[Input_Arma_Izquierda]) > 50) {
 		if(_ex_cambia_a_izquierda == false){
@@ -229,6 +260,7 @@ void Input::recibir_inputs_mando() {
 		_ex_cambia_a_izquierda = false;
 	}
 
+
 	if(sf::Joystick::getAxisPosition(0, _ejes[Input_Arma_Derecha]) > 50) {
 		if(_ex_cambia_a_derecha == false){
 			_cambia_a_derecha = true;
@@ -238,6 +270,7 @@ void Input::recibir_inputs_mando() {
 	else {
 		_ex_cambia_a_derecha = false;
 	}
+
 
 	_joystick_mover->_x = sf::Joystick::getAxisPosition(0, _ejes[Input_Derecha]);
 	_joystick_mover->_y = sf::Joystick::getAxisPosition(0, _ejes[Input_Arriba]);
@@ -279,40 +312,99 @@ void Input::recibir_inputs_teclado_raton() {
 
 
 	if(_teclas[Input_Salto] != sf::Keyboard::Unknown) 
-		_saltar = sf::Keyboard::isKeyPressed(_teclas[Input_Salto]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Salto]);
 	else 
-		_saltar = sf::Mouse::isButtonPressed(_raton[Input_Salto]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Salto]);
+	if(_aux == true){
+		if(_ex_saltar == false){
+			_saltar = true;
+		}
+		_ex_saltar = true;
+	}
+	else {
+		_ex_saltar = false;
+	}
 
 
 	if(_teclas[Input_Interact] != sf::Keyboard::Unknown) 
-		_interactuar = sf::Keyboard::isKeyPressed(_teclas[Input_Interact]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Interact]);
 	else 
-		_interactuar = sf::Mouse::isButtonPressed(_raton[Input_Interact]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Interact]);
+	if(_aux == true){
+		if(_ex_interactuar == false){
+			_interactuar = true;
+		}
+		_ex_interactuar = true;
+	}
+	else {
+		_ex_interactuar = false;
+	}
 
 
 	if(_teclas[Input_Dash] != sf::Keyboard::Unknown) 
-		_dash = sf::Keyboard::isKeyPressed(_teclas[Input_Dash]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Dash]);
 	else 
-		_dash = sf::Mouse::isButtonPressed(_raton[Input_Dash]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Dash]);
+	if(_aux == true){
+		if(_ex_dash == false){
+			_dash = true;
+		}
+		_ex_dash = true;
+	}
+	else {
+		_ex_dash = false;
+	}
 
 
 	if(_teclas[Input_Ataque_Normal] != sf::Keyboard::Unknown) 
-		_ataque_normal = sf::Keyboard::isKeyPressed(_teclas[Input_Ataque_Normal]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Ataque_Normal]);
 	else 
-		_ataque_normal = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Normal]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Normal]);
+	if(_aux == true) {
+		if(_ex_ataque_normal == false){
+			_ataque_normal = true;
+		}
+		_ex_ataque_normal = true;
+	}
+	else {
+		_ex_ataque_normal = false;
+	}
 
 
 	if(_teclas[Input_Ataque_Fuerte] != sf::Keyboard::Unknown) 
-		_ataque_fuerte = sf::Keyboard::isKeyPressed(_teclas[Input_Ataque_Fuerte]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Ataque_Fuerte]);
 	else 
-		_ataque_fuerte = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Fuerte]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Fuerte]);
+	if(_aux == true) {
+		if(_ex_ataque_fuerte == false){
+			_ataque_fuerte = true;
+		}
+		_ex_ataque_fuerte = true;
+	}
+	else {
+		_ex_ataque_fuerte = false;
+	}
+
+
+	if(_teclas[Input_Ataque_Especial] != sf::Keyboard::Unknown) 
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Ataque_Especial]);
+	else 
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Ataque_Especial]);
+	if(_aux == true) {
+		if(_ex_ataque_especial == false){
+			_ataque_especial = true;
+		}
+		_ex_ataque_especial = true;
+	}
+	else {
+		_ex_ataque_especial = false;
+	}
 
 
 	if(_teclas[Input_Arma_Izquierda] != sf::Keyboard::Unknown) 
 		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Arma_Izquierda]);
 	else 
 		_aux = sf::Mouse::isButtonPressed(_raton[Input_Arma_Izquierda]);
-
 	if(_aux == true) {
 		if(_ex_cambia_a_izquierda == false){
 			_cambia_a_izquierda = true;
@@ -328,7 +420,6 @@ void Input::recibir_inputs_teclado_raton() {
 		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Arma_Derecha]);
 	else 
 		_aux = sf::Mouse::isButtonPressed(_raton[Input_Arma_Derecha]);
-
 	if(_aux == true) {
 		if(_ex_cambia_a_derecha == false){
 			_cambia_a_derecha = true;
@@ -343,17 +434,34 @@ void Input::recibir_inputs_teclado_raton() {
 		recibir_inputs_camara();
 
 
-
 	if(_teclas[Input_Centrar_Camara] != sf::Keyboard::Unknown)
-		_centrar_camara = sf::Keyboard::isKeyPressed(_teclas[Input_Centrar_Camara]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Centrar_Camara]);
 	else
-		_centrar_camara = sf::Mouse::isButtonPressed(_raton[Input_Centrar_Camara]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Centrar_Camara]);
+	if(_aux == true) {
+		if(_ex_centrar_camara == false){
+			_centrar_camara = true;
+		}
+		_ex_centrar_camara = true;
+	}
+	else {
+		_ex_centrar_camara = false;
+	}
 
 
 	if(_teclas[Input_Pausa] != sf::Keyboard::Unknown)
-		_pausa = sf::Keyboard::isKeyPressed(_teclas[Input_Pausa]);
+		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Pausa]);
 	else
-		_pausa = sf::Mouse::isButtonPressed(_raton[Input_Pausa]);
+		_aux = sf::Mouse::isButtonPressed(_raton[Input_Pausa]);
+	if(_aux == true) {
+		if(_ex_pausa == false){
+			_pausa = true;
+		}
+		_ex_pausa = true;
+	}
+	else {
+		_ex_pausa = false;
+	}
 }
 
 // Recibe y guarda los inputs de la camara
@@ -388,8 +496,8 @@ void Input::procesar_inputs() {
 	procesa_direccion();
 	procesa_camara();
 
-	if(_ataque_normal || _ataque_fuerte) _ataque = true;
-	if(_cambia_a_izquierda || _cambia_a_derecha) _cambia_arma = true;
+	_ataque = _ataque_normal || _ataque_fuerte || _ataque_especial;
+	_cambia_arma = _cambia_a_izquierda || _cambia_a_derecha;
 
 	//pinta_couts_inputs();
 }
@@ -586,6 +694,7 @@ void Input::reiniciar_inputs() {
     _ataque = false;
     _ataque_normal = false;
     _ataque_fuerte = false;
+    _ataque_especial = false;
 
     _cambia_arma = false;
     _cambia_a_izquierda = false;
@@ -757,8 +866,11 @@ void Input::pinta_couts_inputs() {
 	if(_saltar) std::cout << "Se realiza un salto\n";
 	if(_interactuar) std::cout << "Se interactua\n";
 	if(_dash) std::cout << "Se realiza un dash\n";
+	if(_ataque) std::cout << "Se realiza un ataque\n";
 	if(_ataque_normal) std::cout << "Se realiza un ataque normal\n";
 	if(_ataque_fuerte) std::cout << "Se realiza un ataque fuerte\n";
+	if(_ataque_especial) std::cout << "Se realiza un ataque especial\n";
+	if(_cambia_arma) std::cout << "Cambia de arma\n";
 	if(_cambia_a_derecha) std::cout << "Cambia a arma derecha\n";
 	if(_cambia_a_izquierda) std::cout << "Cambia a arma izquierda\n";
 

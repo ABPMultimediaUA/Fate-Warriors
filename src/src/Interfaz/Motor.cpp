@@ -312,6 +312,9 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 					break;
 	}
+	
+	cubeShape->setUserPointer(_i_objeto);
+
 
 	btVector3 cubeLocalInertia;
 	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);

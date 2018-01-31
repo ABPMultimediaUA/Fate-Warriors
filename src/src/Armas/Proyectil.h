@@ -4,7 +4,7 @@
 #include "../Objeto_Movil.h"
 class Proyectil : public Objeto_Movil{
 public:
-	Proyectil(short _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter);
+	Proyectil(uint16_t _id, float _i_x, float _i_y, float _i_z, short _i_danyo, short _i_id_shooter);
 	virtual ~Proyectil();
 
 	virtual void 	Update() = 0;

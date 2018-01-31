@@ -11,6 +11,8 @@
 #include "../Camara/Camara.h"
 #include "GUI.h"
 #include "../Personajes/Interpolacion.h"
+#include "../Personajes/Character.h"
+
 #include "EnumTiposColision.h"
 
 #include "../Interfaz_Libs/Lib_Math.h"
@@ -65,24 +67,29 @@ void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad,
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }
 
-void Objeto_Motor::disparar(uint16_t _i_direccion){
+/*Rango muy corto 20 normal 40 y largo 80*/
+Character* Objeto_Motor::disparar(uint16_t _i_direccion, uint8_t _i_rango_disparo){
 	desp_z = cos(_i_direccion*std::acos(-1)/180);
     desp_x = sin(_i_direccion*std::acos(-1)/180);
 	
 	btVector3 origen(this->getX(), this->getY(), this->getZ());
-	btVector3 destino(getX()+desp_x*20, this->getY(), getZ()+desp_z*20);
+	btVector3 destino(getX()+desp_x*_i_rango_disparo, this->getY(), getZ()+desp_z*_i_rango_disparo);
 
-	btCollisionWorld::AllHitsRayResultCallback rayResult = Motor::Motor_GetInstance()->trazaRayoAll(origen,destino,otros_colisiona_con);
-	//std::cout<<"Hola: "<<rayResult.hasHit()<<"\n";
+	btCollisionWorld::AllHitsRayResultCallback rayResult = Motor::Motor_GetInstance()->trazaRayoAll(origen,destino,escenario_colisiona_con);
 	SColor newColor(255, 255.0, 255.0, 255.0);
-	/*Motor::Motor_GetInstance()->getDriver()->draw3DLine(
-         vector3df(this->getX(),this->getY(),this->getZ()),
-         vector3df(desp_x*1000,this->getY(),desp_z*1000),
-		 newColor);
-		 */
-	//rayResult.m_collisionObjects[1]->getUserPointer();
-	//std::cout <<rayResult.m_collisionObjects[0] << "\n";
-	
+
+	if(rayResult.hasHit()) {
+	//	for(int i=0;i<rayResult.m_collisionObjects.size();i++){
+		//	std::cout << rayResult.m_collisionObjects[i]->getCollisionShape()->getUserPointer() << " tamanio -> " << rayResult.m_collisionObjects.size() << " i " << i <<std::endl;
+			if(rayResult.m_collisionObjects[0]->getCollisionShape()->getUserPointer()!=0)
+				return ((Character*)rayResult.m_collisionObjects[0]->getCollisionShape()->getUserPointer());
+			else {
+				return 0;
+			}
+			
+		//}
+	}
+	return 0;
 }
 
 void Objeto_Motor::setVelocidad(float x, float y, float z){

@@ -18,9 +18,8 @@ void Inventario::render(){
 
 }
 
-bool Inventario::usar(){
-	bool salida = _seleccionado->usar(15,15,15);
-	return salida;
+Character* Inventario::usar(uint16_t _i_direccion){
+	return _seleccionado->usar(_i_direccion);
 }
 
 /*Metodos SET*/

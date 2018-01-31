@@ -91,7 +91,7 @@ void Player::update(){
     }
 
     if(_input->get_centrar_camara()) {
-            _motor->resetear_camara();
+        _motor->resetear_camara();
     }
 
 
@@ -107,30 +107,30 @@ void Player::update(){
             cambiar_arma_seleccionada_a_la_siguiente();
     }
 
-    bool _atk_normal, _atk_fuerte;
-    bool _atacar = _input->get_atacar(_atk_normal, _atk_fuerte);
+    auto _ataques = _input->get_atacar();
 
-    if(_atacar) {
-        if(_atk_normal){
-            atacar(Ataque_Normal);
+    if(std::get<0>(_ataques)) {
+        if(std::get<1>(_ataques)) {    // Ataque especial
+            atacar(Ataque_Especial);
+            std::cout << "Ataque Especial\n";
         }
-
-        if(_atk_fuerte){
-            //std::cout<< "MOUSER" <<std::endl;
+        else if(std::get<2>(_ataques)){      // Ataque normal
+            atacar(Ataque_Normal);
+            std::cout << "Ataque Normal\n";
+        }
+        else {                          // Ataque fuerte
             this->atacar(Ataque_Fuerte);
-            //danyar(1);
-            
+            std::cout << "Ataque Fuerte\n";
         }
     }
   
 
     if(_input->get_saltar()){
         saltar();
-
 	}
 
     if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
-        && !_atacar && !_input->get_saltar() && _accion != Atacar){
+        && !std::get<0>(_ataques) && !_input->get_saltar() && _accion != Atacar){
         set_accion(Nada);
     }
    
