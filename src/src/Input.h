@@ -18,6 +18,7 @@ enum Enum_Inputs {
 	Input_Dash,
 	Input_Ataque_Normal,
 	Input_Ataque_Fuerte,
+	Input_Ataque_Especial,
 	Input_Arma_Izquierda,
 	Input_Arma_Derecha,
 	Input_Camara_Arriba,
@@ -50,17 +51,18 @@ public:
 	void invierte_eje_y();
 
 	bool get_mover(uint16_t& _i_direccion);
-	bool get_saltar();
-	bool get_interactuar();
-	bool get_dash();
-	bool get_atacar(bool& _normal, bool& _fuerte);
-	std::tuple<bool, bool> get_cambiar_arma() { return std::make_tuple(_cambia_arma, _cambia_a_izquierda);}
-	inline bool get_centrar_camara() { return _centrar_camara;}
-	inline bool get_pausa() { return _pausa;}
+	inline bool get_saltar() 					{ return _saltar;}
+	inline bool get_interactuar()				{ return _interactuar;}
+	inline bool get_dash()						{ return _dash;}
+	std::tuple<bool, bool, bool> get_atacar() 		{ return std::make_tuple(_ataque, _ataque_especial, _ataque_normal);}
+	inline bool get_ataque_especial() 			{ return _ataque_especial;}
+	std::tuple<bool, bool> get_cambiar_arma() 	{ return std::make_tuple(_cambia_arma, _cambia_a_izquierda);}
+	inline bool get_centrar_camara() 			{ return _centrar_camara;}
+	inline bool get_pausa() 					{ return _pausa;}
 
- 	bool get_mover_camara();
-	Vector2* get_vector_camara();
-	bool get_posiciona_camara();
+ 	inline bool get_mover_camara()				{return _mover_camara;}
+	inline Vector2* get_vector_camara()			{return _vector_camara;}
+	inline bool get_posiciona_camara()			{return !_hay_mando && !_camara_con_teclado;}
 
 private:
 	// Control de las direcciones
@@ -87,26 +89,35 @@ private:
 	uint16_t _direccion;		// Indica la direccion de movimiento que se ha recibido
 
 	bool _saltar;				// Indica si se ha pulsado el input para realizar un salto
+	bool _ex_saltar;			// Indica si se mantiene el input de realizar un salto
 	bool _interactuar;			// Indica si se ha pulsado el input para interactuar
+	bool _ex_interactuar;		// Indica si se mantiene el input de interactuar
 	bool _dash;					// Indica si se ha pulsado el input para realizar un dash
+	bool _ex_dash;				// Indica si se mantiene el input de realizar un dash
 
 	bool _ataque;				// Indica si se ha pulsado un input para realizar un ataque
 	bool _ataque_normal;		// Indica si se ha pulsado el input para realizar un ataque normal
+	bool _ex_ataque_normal;		// Indica si se mantiene el input de realizar un ataque normal
 	bool _ataque_fuerte;		// Indica si se ha pulsado el input para realizar un ataque fuerte
+	bool _ex_ataque_fuerte;		// Indica si se mantiene el input de realizar un ataque fuerte
+	bool _ataque_especial;		// Indica si se ha pulsado el input para realizar un ataque especial
+	bool _ex_ataque_especial;	// Indica si se mantiene el input de realizar un ataque especial
 
 	bool _cambia_arma;			// Indica si se ha pulsado el input para cambiar de arma
 	bool _cambia_a_izquierda;	// Indica si se ha pulsado el input para cambiar de arma a la izquierda
 	bool _ex_cambia_a_izquierda;// Indica si se mantiene pulsado cambiar a izquierda
-	bool _cambia_a_derecha;	// Indica si se ha pulsado el input para cambiar de arma a la derecha
-	bool _ex_cambia_a_derecha;// Indica si se mantiene pulsado cambiar a derecha
+	bool _cambia_a_derecha;		// Indica si se ha pulsado el input para cambiar de arma a la derecha
+	bool _ex_cambia_a_derecha;	// Indica si se mantiene pulsado cambiar a derecha
 
 	Vector2* _posicion_raton;	// Posicion actual del raton en la pantalla
 	bool _mover_camara;			// Indica si se mueve la camara o no
 	uint16_t _direccion_camara;	// Angulo de direccion de movimiento de la camara
 	Vector2* _vector_camara;	// Vector normalizado de direccion para el movimiento de la camara
 	bool _centrar_camara; 		// Indica si hay que centrar o no la camara
+	bool _ex_centrar_camara; 	// Indica si mantiene el boton de centrar camara
 
 	bool _pausa;				// Indica si se ha pulsado el boton de pausa
+	bool _ex_pausa;				// Indica si se mantiene el boton de pausa
 
 
 	// Teclas de control
