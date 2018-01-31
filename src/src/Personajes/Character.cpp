@@ -215,7 +215,7 @@ void Character::mover(uint16_t _i_direccion){
 }
 
 void Character::disparar(uint16_t _direccion){
-    _objeto_motor->disparar(_direccion);
+    _objeto_motor->disparar(_direccion, 40);
 }
 
 bool Character::interactuar_con_objeto(){
