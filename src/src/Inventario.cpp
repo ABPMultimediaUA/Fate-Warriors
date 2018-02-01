@@ -127,6 +127,9 @@ void Inventario::cambiar_arma_seleccionada_a_la_siguiente(){
 	}
 
 	_arma = _arma_aux;
+	if (_seleccionado==nullptr && _arma!=cuerpo_a_cuerpo){
+		cambiar_arma_seleccionada_a_la_siguiente();
+	}
 }
 
 void Inventario::cambiar_arma_seleccionada_a_la_anterior(){
@@ -141,22 +144,25 @@ void Inventario::cambiar_arma_seleccionada_a_la_anterior(){
 	}
 
 	_arma = _arma_aux;
+	if (_seleccionado==nullptr && _arma!=cuerpo_a_cuerpo){
+		cambiar_arma_seleccionada_a_la_anterior();
+	}
 }
 
 enum Tipo_Arma Inventario::seleccionar_arma_distancia(){
 	_seleccionado = _objeto_distancia;
-	//std::cout << "Ahora tengo arma distancia\n";
+//	std::cout << "Ahora tengo arma distancia\n";
 	return distancia;
 }
 
 enum Tipo_Arma Inventario::seleccionar_arma_cerca(){
 	_seleccionado = _objeto_cerca;
-	//std::cout << "Ahora tengo arma cerca\n";
+//	std::cout << "Ahora tengo arma cerca\n";
 	return cerca;
 }
 
 enum Tipo_Arma Inventario::seleccionar_cuerpo_a_cuerpo(){
 	_seleccionado = nullptr;
-	//std::cout << "Ahora no tengo arma\n";
+//	std::cout << "Ahora no tengo arma\n";
 	return cuerpo_a_cuerpo;
 }
