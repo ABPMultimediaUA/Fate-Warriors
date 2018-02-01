@@ -357,7 +357,7 @@ void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
     _tipo_ataque = _i_tipo_ataque;
 }
 
-void Character::impulso_danyar(Character * atacante, Character * atacado, Enum_Tipo_Ataque tipo_ataque){
+void Character::impulso_danyar(Character * atacante, Character * atacado, int impulso){
 
     float x = atacado->getX() - atacante->getX();
     float z = atacado->getZ() - atacante->getZ();
@@ -367,7 +367,6 @@ void Character::impulso_danyar(Character * atacante, Character * atacado, Enum_T
 
     float valor = lib_math_distancia_2_puntos(atacado->getX(), atacado->getZ(), atacante->getX(), atacante->getZ());
 
-    int impulso = get_impulso_danyar(tipo_ataque);
     Vector3 a(direccion_impulso._x*(impulso/valor),0,direccion_impulso._y*(impulso/valor));
     atacado->get_objeto_motor()->Impulso_explosion(a);
 
@@ -597,15 +596,18 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                     std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
 
                     // Impulsa al atacado
-                    impulso_danyar(this, _npcs[_cont], _tipo_ataque);
+                    impulso_danyar(this, _npcs[_cont], get_impulso_danyar(_tipo_ataque));
                 }
             }
         }
         else if(tipo_arma == Tipo_Arma_distancia){
-            Character * atacado = _objeto_motor->disparar(_direccion_actual, 40);
+            Character * atacado = _inventario->usar(_objeto_motor, _direccion_actual);
+            Arma_distancia* _arma_usada = _inventario->get_objeto_distancia();
+            
+
             if(atacado != 0){
-                atacado->danyar(get_danyo_ataque(this->get_tipo_ataque()));
-                impulso_danyar(this, atacado, _tipo_ataque);
+                atacado->danyar(_arma_usada->get_danyo());
+                impulso_danyar(this, atacado, _arma_usada->get_impulso());
             }
         }
 

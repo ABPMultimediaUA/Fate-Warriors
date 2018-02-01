@@ -10,7 +10,7 @@ public:
 	void update() override;
 
 	void render() override;
-	Character* usar(uint16_t _i_direccion) override;
+	Character* usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion) override;
 
 protected: 
 		//short Velocidad_bala;
