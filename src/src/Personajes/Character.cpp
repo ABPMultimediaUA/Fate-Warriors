@@ -458,7 +458,7 @@ int Character::get_impulso_danyar(Enum_Tipo_Ataque tipo_ataque){
     switch(tipo_ataque) // ataque actual
     {
         case Ataque_Normal:
-            return 15000;
+            return 50000;
         case Ataque_Fuerte:
             return 25000;
         default:
@@ -570,18 +570,21 @@ void Character::gestion_interactuar(){
 void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVERRIDE
 
     if(this->get_accion() == Accion_pre_atacar){
-        std::cout << "PRE-ATACANDO" << std::endl;
+        //std::cout << "PRE-ATACANDO" << std::endl;
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), getEscalaRbAtaque(_tipo_ataque), _direccion_actual);
+            Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
+            if(_tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
+                Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), getEscalaRbAtaque(_tipo_ataque), _direccion_actual);
+            }
         }
     }
     else if(this->get_accion() == Atacar){
 
         Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
 
-        if(tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
+        if(_tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
 
             NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
             NPC ** _npcs = _npc_manager->get_npcs();
@@ -609,15 +612,14 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
             }
         }
 
-
-        std::cout << "ATACANDO" << std::endl;
+        //std::cout << "ATACANDO" << std::endl;
         _objeto_motor->colorear_nodo(0,0,255);
         if(esta_bloqueado() == false){
             this->set_accion(Accion_post_atacar);
         }
     }
     else if(this->get_accion() == Accion_post_atacar){
-        std::cout << "POST-ATACANDO" << std::endl;
+        //std::cout << "POST-ATACANDO" << std::endl;
         _objeto_motor->colorear_nodo(255,20,147);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
