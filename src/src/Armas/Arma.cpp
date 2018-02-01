@@ -24,7 +24,8 @@ bool Arma::decrease_uses(){
 }
 
 bool Arma::preparado_siguiente_ataque(){
-	if(_reloj->get_current() > _tiempo_siguiente_disponible){
+	if(_reloj->get_current() > _tiempo_siguiente_disponible && _uses > 0){
+		_uses--;
 		return true;
 	}
 	return false;
