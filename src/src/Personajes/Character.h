@@ -69,7 +69,7 @@ public:
 	void eliminar_power_up_puntero();
 
 	// Gestion de acciones
-	void impulso_danyar(Character * atacante, Character * atacado, Enum_Tipo_Ataque tipo_ataque);
+	void impulso_danyar(Character * atacante, Character * atacado, int impulso);
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);
 	uint8_t get_danyo_ataque(Enum_Tipo_Ataque tipo_ataque);
 	int get_impulso_danyar(Enum_Tipo_Ataque tipo_ataque);

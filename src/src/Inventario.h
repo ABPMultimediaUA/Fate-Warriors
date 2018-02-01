@@ -9,6 +9,7 @@ class Objeto;
 class Arma_cerca;
 class Arma;
 class Llave;
+class Objeto_Motor;
 class Character;
 
 class Inventario{
@@ -17,7 +18,7 @@ public:
 	virtual ~Inventario();
 
 	void render();
-	Character* usar(uint16_t _i_direccion);
+	Character* usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion);
 	
 	/*SET*/
 	void cambiar_objeto_cerca(Arma_cerca *_i_cerca);
