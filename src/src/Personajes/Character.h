@@ -56,7 +56,6 @@ public:
 	void saltar();
 	void esquivar(uint16_t _direccion);
 	void mover(uint16_t _direccion);
-	void disparar(uint16_t _direccion);
 	bool esta_bloqueado();
 	bool accion_en_curso();
 

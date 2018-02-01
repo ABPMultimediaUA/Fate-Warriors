@@ -210,12 +210,7 @@ void Character::mover(uint16_t _i_direccion){
             }
         }
         _objeto_motor->VelocidadDireccion(_i_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
-        disparar(_i_direccion); //ESTO HAY QUE BORRARLO 
     }
-}
-
-void Character::disparar(uint16_t _direccion){
-    _objeto_motor->disparar(_direccion, 40);
 }
 
 bool Character::interactuar_con_objeto(){
@@ -584,23 +579,37 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
     }
     else if(this->get_accion() == Atacar){
 
-        NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
-        NPC ** _npcs = _npc_manager->get_npcs();
-        uint16_t _cont, _n_npcs;
-        _n_npcs = _npc_manager->get_n_enemigos();
+        Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
 
-        for(_cont = 0; _cont < _n_npcs; _cont++) {
-            if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
-                Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
-            {
-                _npcs[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
-          
-                std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+        if(tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
 
-                // Impulsa al atacado
-                impulso_danyar(this, _npcs[_cont], _tipo_ataque);
+            NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
+            NPC ** _npcs = _npc_manager->get_npcs();
+            uint16_t _cont, _n_npcs;
+            _n_npcs = _npc_manager->get_n_enemigos();
+
+            for(_cont = 0; _cont < _n_npcs; _cont++) {
+                if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
+                    Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
+                {
+                    _npcs[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
+            
+                    std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+
+                    // Impulsa al atacado
+                    impulso_danyar(this, _npcs[_cont], _tipo_ataque);
+                }
             }
         }
+        else if(tipo_arma == Tipo_Arma_distancia){
+            Character * atacado = _objeto_motor->disparar(_direccion_actual, 40);
+            if(atacado != 0){
+                atacado->danyar(get_danyo_ataque(this->get_tipo_ataque()));
+                impulso_danyar(this, atacado, _tipo_ataque);
+            }
+        }
+
+
         std::cout << "ATACANDO" << std::endl;
         _objeto_motor->colorear_nodo(0,0,255);
         if(esta_bloqueado() == false){

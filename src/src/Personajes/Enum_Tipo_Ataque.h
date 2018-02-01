@@ -12,4 +12,11 @@ enum Enum_Tipo_Ataque{
 	Ataque_Fuerte_Fuerte,
 	Ataque_Fuerte_Normal
 };
+
+enum Tipo_Arma{
+	Tipo_Arma_cuerpo_a_cuerpo = 1,
+	Tipo_Arma_distancia = 2,
+	Tipo_Arma_cerca = 3
+};
+
 #endif /* SRC_ENUM_TIPO_ATAQUE_H_ */

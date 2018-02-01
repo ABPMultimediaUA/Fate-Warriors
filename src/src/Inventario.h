@@ -2,6 +2,7 @@
 #define INVENTARIO_H_
 
 #include <vector>
+#include "Personajes/Enum_Tipo_Ataque.h"
 
 class Arma_distancia;
 class Objeto;
@@ -9,12 +10,6 @@ class Arma_cerca;
 class Arma;
 class Llave;
 class Character;
-
-enum Tipo_Arma{
-	cuerpo_a_cuerpo = 1,
-	distancia = 2,
-	cerca = 3
-};
 
 class Inventario{
 public:
@@ -34,6 +29,7 @@ public:
 	enum Tipo_Arma seleccionar_arma_distancia();
 	enum Tipo_Arma seleccionar_arma_cerca();
 	enum Tipo_Arma seleccionar_cuerpo_a_cuerpo();
+	enum Tipo_Arma get_tipo_arma();
     
     void anadir_llave(Llave* _i_llave);
 	void eliminar_llave(Llave* _i_llave);

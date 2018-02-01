@@ -7,7 +7,7 @@
 #include "Llave.h"
 
 Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr){
-	_arma = cuerpo_a_cuerpo;
+	_arma = Tipo_Arma_cuerpo_a_cuerpo;
 }
 
 Inventario::~Inventario(){
@@ -103,15 +103,15 @@ struct MapeadoArmas{			// Declaracion de los parametros
 };
 
 MapeadoArmas mapping_armas_siguiente[] = {	// Definicion de los parametros
-		{cuerpo_a_cuerpo, &Inventario::seleccionar_arma_distancia},
-		{distancia, &Inventario::seleccionar_arma_cerca},
-		{cerca, &Inventario::seleccionar_cuerpo_a_cuerpo}
+		{Tipo_Arma_cuerpo_a_cuerpo, &Inventario::seleccionar_arma_distancia},
+		{Tipo_Arma_distancia, &Inventario::seleccionar_arma_cerca},
+		{Tipo_Arma_cerca, &Inventario::seleccionar_cuerpo_a_cuerpo}
 };
 
 MapeadoArmas mapping_armas_anterior[] = {	// Definicion de los parametros
-		{cuerpo_a_cuerpo, &Inventario::seleccionar_arma_cerca},
-		{distancia, &Inventario::seleccionar_cuerpo_a_cuerpo},
-		{cerca, &Inventario::seleccionar_arma_distancia}
+		{Tipo_Arma_cuerpo_a_cuerpo, &Inventario::seleccionar_arma_cerca},
+		{Tipo_Arma_distancia, &Inventario::seleccionar_cuerpo_a_cuerpo},
+		{Tipo_Arma_cerca, &Inventario::seleccionar_arma_distancia}
 };
 
 
@@ -127,7 +127,7 @@ void Inventario::cambiar_arma_seleccionada_a_la_siguiente(){
 	}
 
 	_arma = _arma_aux;
-	if (_seleccionado==nullptr && _arma!=cuerpo_a_cuerpo){
+	if (_seleccionado==nullptr && _arma!=Tipo_Arma_cuerpo_a_cuerpo){
 		cambiar_arma_seleccionada_a_la_siguiente();
 	}
 }
@@ -144,25 +144,29 @@ void Inventario::cambiar_arma_seleccionada_a_la_anterior(){
 	}
 
 	_arma = _arma_aux;
-	if (_seleccionado==nullptr && _arma!=cuerpo_a_cuerpo){
+	if (_seleccionado==nullptr && _arma!=Tipo_Arma_cuerpo_a_cuerpo){
 		cambiar_arma_seleccionada_a_la_anterior();
 	}
 }
 
 enum Tipo_Arma Inventario::seleccionar_arma_distancia(){
 	_seleccionado = _objeto_distancia;
-//	std::cout << "Ahora tengo arma distancia\n";
-	return distancia;
+	std::cout << "Ahora tengo arma distancia\n";
+	return Tipo_Arma_distancia;
 }
 
 enum Tipo_Arma Inventario::seleccionar_arma_cerca(){
 	_seleccionado = _objeto_cerca;
-//	std::cout << "Ahora tengo arma cerca\n";
-	return cerca;
+	std::cout << "Ahora tengo arma cerca\n";
+	return Tipo_Arma_cerca;
 }
 
 enum Tipo_Arma Inventario::seleccionar_cuerpo_a_cuerpo(){
 	_seleccionado = nullptr;
-//	std::cout << "Ahora no tengo arma\n";
-	return cuerpo_a_cuerpo;
+	std::cout << "Ahora cuerpo a cuerpo\n";
+	return Tipo_Arma_cuerpo_a_cuerpo;
+}
+
+enum Tipo_Arma Inventario::get_tipo_arma(){
+	return _arma;
 }
