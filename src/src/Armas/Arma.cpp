@@ -1,15 +1,13 @@
 #include "Arma.h"
 
-Arma::Arma(uint16_t _id, float _i_x, float _i_y, float _i_z, uint8_t _i_tipo, uint8_t _i_uses, uint8_t _i_frecuencia, uint8_t _i_rango, uint8_t _i_danyo) 
+Arma::Arma(uint16_t _id, float _i_x, float _i_y, float _i_z, short _i_tipo, short _i_uses, short _i_frecuencia, short _i_rango) 
 : Objeto(_id, _i_x, _i_y, _i_z), 
 _uses(_i_uses) , 
 _tipo(_i_tipo), 
 _frecuencia(_i_frecuencia),
-_danyo(_i_danyo),
  _rango(_i_rango),
  _reloj(Time::Instance()){
  _tiempo_siguiente_disponible = 0;
- _impulso=15000;
 }
 
 Arma::~Arma() {
@@ -24,8 +22,7 @@ bool Arma::decrease_uses(){
 }
 
 bool Arma::preparado_siguiente_ataque(){
-	if(_reloj->get_current() > _tiempo_siguiente_disponible && _uses > 0){
-		_uses--;
+	if(_reloj->get_current() > _tiempo_siguiente_disponible){
 		return true;
 	}
 	return false;
@@ -35,26 +32,18 @@ void Arma::actualizar_tiempo_siguiente_ataque(){
 	_tiempo_siguiente_disponible = _reloj->get_current() + 1.0/_frecuencia;
 }
 
-uint8_t Arma::get_uses(){
+short Arma::get_uses(){
 	return _uses;
 }
 
-uint8_t Arma::get_tipo(){
+short Arma::get_tipo(){
 	return _tipo;
 }
 
-uint8_t Arma::get_frecuencia(){
+short Arma::get_frecuencia(){
 	return _frecuencia;
 }
 
-uint8_t Arma::get_rango(){
+short Arma::get_rango(){
 	return _rango;
-}
-
-uint8_t Arma::get_danyo(){
-	return _danyo;
-}
-
-uint16_t Arma::get_impulso(){
-	return _impulso;
 }

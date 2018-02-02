@@ -7,8 +7,8 @@ OBJFILES:=$(patsubst $(SDIR)%, $(ODIR)%, $(SRCFILES:%.cpp=%.o))
 SOURCES := $(wildcard $(SDIR)/*.cpp)
 DELOBJ:= $(wildcard $(ODIR)/*)
 OBJECTS := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SOURCES))
-LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader -lfmod -lfmodstudio 
-INCLUDE := -I. -I/usr/include/bullet 
+LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader -lfmod -lfmodstudio -ldl -lGL -lGLU -lGLEW -lglut -lglfw -lglfw3
+INCLUDE := -I. -I/usr/include/bullet -I.GL/gl3w
 CC      := g++
 CCFLAGS := -g -std=c++11
 OBJS	:= $(patsubst %,$(ODIR)/%,$(OBJECTS))
@@ -57,7 +57,7 @@ opt:
 	$(eval CCFLAGS:=-O2)
 	$(info $(CCFLAGS))
 $(TARGET): $(OBJFILES)
-	$(CC) -o $@ $^ $(INCLUDE) $(LIBS) $(CCFLAGS)
+	$(CC) -o $@ $^ glad.o GL/gl3w.o $(INCLUDE) $(LIBS) $(CCFLAGS)
 
 ## CREATING SUBDIRS OF THE OBJDIR
 #dir:

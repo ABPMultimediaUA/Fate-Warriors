@@ -18,8 +18,8 @@ void Inventario::render(){
 
 }
 
-Character* Inventario::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){
-	return _seleccionado->usar(_i_objeto_origen,_i_direccion);
+Character* Inventario::usar(uint16_t _i_direccion){
+	return _seleccionado->usar(_i_direccion);
 }
 
 /*Metodos SET*/

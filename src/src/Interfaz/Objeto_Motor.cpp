@@ -68,12 +68,12 @@ void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad,
 }
 
 /*Rango muy corto 20 normal 40 y largo 80*/
-Character* Objeto_Motor::disparar(Objeto_Motor* _i_objeto_origen,uint16_t _i_direccion, uint8_t _i_rango_disparo){
+Character* Objeto_Motor::disparar(uint16_t _i_direccion, uint8_t _i_rango_disparo){
 	desp_z = cos(_i_direccion*std::acos(-1)/180);
     desp_x = sin(_i_direccion*std::acos(-1)/180);
 	
-	btVector3 origen(_i_objeto_origen->getX(), _i_objeto_origen->getY(), _i_objeto_origen->getZ());
-	btVector3 destino(_i_objeto_origen->getX()+desp_x*_i_rango_disparo, _i_objeto_origen->getY(), _i_objeto_origen->getZ()+desp_z*_i_rango_disparo);
+	btVector3 origen(this->getX(), this->getY(), this->getZ());
+	btVector3 destino(getX()+desp_x*_i_rango_disparo, this->getY(), getZ()+desp_z*_i_rango_disparo);
 
 	btCollisionWorld::AllHitsRayResultCallback rayResult = Motor::Motor_GetInstance()->trazaRayoAll(origen,destino,escenario_colisiona_con);
 	SColor newColor(255, 255.0, 255.0, 255.0);

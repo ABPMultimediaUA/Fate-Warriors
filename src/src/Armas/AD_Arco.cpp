@@ -8,21 +8,20 @@ AD_Arco::AD_Arco(uint16_t _id, float _i_x, float _i_y, float _i_z)
 				script->Dame_valor_de("Arco_tipo"), 
 				script->Dame_valor_de("Arco_usos"), 
 				script->Dame_valor_de("Arco_frecuencia"), 
-				script->Dame_valor_de("Arco_rango"),
-				20){}
+				script->Dame_valor_de("Arco_rango")){}
 
 AD_Arco::~AD_Arco(){
 	
 }
 
-Character* AD_Arco::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){
+Character* AD_Arco::usar(uint16_t _i_direccion){
 	if(preparado_siguiente_ataque()){
 		//obtener_mundo->anyadirbaflecha(_i_x,_i_y,_i_z);
 		actualizar_tiempo_siguiente_ataque();
 		
 
 		//Anadir trigger sonido
-		return _objeto_motor->disparar(_i_objeto_origen,_i_direccion, _rango);
+		return _objeto_motor->disparar(_i_direccion, _rango);
 	}
 	return 0;
 }
