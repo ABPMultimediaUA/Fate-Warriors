@@ -105,8 +105,8 @@ int main(int, char**)
     glfwSetErrorCallback(error_callback);
     if (!glfwInit())
         return 1;
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     GLFWwindow* window = glfwCreateWindow(1280, 720, "ImGui OpenGL3 example", NULL, NULL);
     glfwMakeContextCurrent(window);
@@ -123,7 +123,7 @@ int main(int, char**)
 
     bool show_demo_window = true;
     bool show_another_window = false;
-    bool algo = true;
+    //bool algo = true;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // Main loop
@@ -143,14 +143,13 @@ int main(int, char**)
             ImGui::ColorEdit3("COLORINES", (float*)&clear_color); // Edit 3 floats representing a color
 
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our windows open/close state
-            ImGui::Checkbox("Booleanooooo", &algo);
             ImGui::Checkbox("Another Window", &show_another_window);
 
             if (ImGui::Button("Button"))                            // Buttons return true when clicked (NB: most widgets return true when edited/activated)
                 counter++;
             ImGui::SameLine();
             ImGui::Text("counter = %d", counter);
-            ImGui::Text("pues se ve que hay texto: %d", algo);
+            //ImGui::Text("pues se ve que hay texto: %d", algo);
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         }
 
@@ -192,7 +191,7 @@ int main(int, char**)
     }
 
     // Cleanup
-    //ImGui_ImplGlfwGL3_Shutdown();
+    ImGui_ImplGlfwGL3_Shutdown();
     glfwTerminate();
 
     return 0;
