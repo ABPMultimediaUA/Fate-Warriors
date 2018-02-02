@@ -12,6 +12,7 @@
 #include "Tiempo/Time.h"
 #include "Trampas/Trampas_action.h"
 #include "Motor_sonido/Interfaz_sonido.h"
+#include "Menus/Menu_Principal.h"
 
 
 #include <iostream>
@@ -21,7 +22,7 @@ Game* Game::instancia = 0;
 
 Game* Game::game_instancia(){
 	if(instancia == 0)
-		instancia= new Game();
+		instancia = new Game();
 
 	return instancia;
 }
@@ -35,10 +36,11 @@ Game::Game() : _datos(nullptr),
 	_input_jugador = new Input();
 	update_actual = &Game::update_menu;
 	render_actual = &Game::render_menu;
+	_menu_principal = new Menu_Principal();
 }
 
 Game::~Game(){
-
+	delete _menu_principal;
 	delete _input_jugador;
 
 	if(_datos != nullptr) {
@@ -119,15 +121,11 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 
 void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Pausa" << std::endl;
+	//_menu_principal->update(_i_tiempo_desde_ultimo_update);
     if(_input_jugador->get_saltar()){
     	crea_partida();
     	cambio_a_update_partida();
     }
-
-    /*
-    if(update_actual == &Game::update_partida) {
-		update_partida(_i_tiempo_desde_ultimo_update);	
-    }*/
 }
 
 

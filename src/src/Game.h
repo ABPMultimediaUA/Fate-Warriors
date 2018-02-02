@@ -16,6 +16,8 @@ class Motor;
 class Player;
 class Interfaz_sonido;
 
+class Menu_Principal;
+
 class Game{
 
 public:
@@ -66,6 +68,8 @@ private:
 	Consumible_Action * _consumibles_action;
 	Trampas_action* _trampas_action;
 	Input* _input_jugador;
+
+	Menu_Principal* _menu_principal;		// Menu Principal
 };
 
 
