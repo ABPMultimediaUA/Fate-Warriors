@@ -5,18 +5,35 @@
 #include <glad/glad.h>    // This example is using gl3w to access OpenGL functions (because it is small). You may use glew/glad/glLoadGen/etc. whatever already works for you.
 #include <GLFW/glfw3.h>
 #include <cstdint>
+#include <iostream>
 
+UI* UI::_instancia = 0;
 
+UI* UI::ui_instancia(uint16_t ancho_ventana, uint16_t alto_ventana){
+	if(_instancia == 0)
+		_instancia= new UI(ancho_ventana, alto_ventana);
+	return _instancia;
+}
+static void error_callback(int error, const char* description)
+{
+    fprintf(stderr, "Error %d: %s\n", error, description);
+}
 
 UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
+    _cierratePuto = false;
+    
     // Setup window
-    //glfwSetErrorCallback(error_callback);
-    //if (!glfwInit())
-    //    return 1;
+    glfwSetErrorCallback(error_callback);
+    if (!glfwInit()){
+    std::cout<<"algo nbo va bien"<<std::endl;
+    }
+    _ancho_ventana = ancho_ventana;
+    _alto_ventana = alto_ventana;
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    _window = glfwCreateWindow(1280, 720, "ImGui OpenGL3 example", NULL, NULL);
+    _window = glfwCreateWindow(ancho_ventana, alto_ventana, "POR QUE NO VA ESTA BASURA", NULL, NULL);
     glfwMakeContextCurrent(_window);
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     glfwSwapInterval(1); // Enable vsync
@@ -31,8 +48,15 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     _clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 }
 
-void UI::update(){
+UI::~UI(){
+    ImGui_ImplGlfwGL3_Shutdown();
+    glfwTerminate();
+}
 
+void UI::update(){
+    if(glfwWindowShouldClose(_window)){
+        _cierratePuto = true;
+    }
     glfwPollEvents();
     ImGui_ImplGlfwGL3_NewFrame();
     // 1. Show a simple window.
@@ -75,4 +99,8 @@ void UI::render(){
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui::Render();
     glfwSwapBuffers(_window);
+}
+
+bool UI::get_cerrar(){
+    return _cierratePuto;
 }

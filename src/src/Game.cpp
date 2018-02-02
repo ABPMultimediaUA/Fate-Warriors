@@ -12,7 +12,7 @@
 #include "Tiempo/Time.h"
 #include "Trampas/Trampas_action.h"
 #include "Motor_sonido/Interfaz_sonido.h"
-
+#include "gui/UI.h"
 
 #include <iostream>
 #include <stack>
@@ -119,7 +119,9 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 
 void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Pausa" << std::endl;
-    if(_input_jugador->get_saltar()){
+    UI* _ui =  UI::ui_instancia(1280,720);
+	_ui->update();
+	if(_input_jugador->get_saltar()){
     	crea_partida();
     	cambio_a_update_partida();
     }
@@ -163,6 +165,8 @@ void Game::render(float _i_interpolacion){
 }
 
 void Game::render_menu(float _i_interpolacion){
+	UI* _ui = UI::ui_instancia(1280,720);
+	_ui->render();
 }
 
 void Game::render_partida(float _i_interpolacion){

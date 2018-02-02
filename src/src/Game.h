@@ -15,6 +15,7 @@ class Nivel;
 class Motor;
 class Player;
 class Interfaz_sonido;
+class UI;
 
 class Game{
 
@@ -56,7 +57,7 @@ private:
 	void render_pausa(float _i_interpolacion);						// Render de pausa
 
 	Player* _player;
-
+	UI* _ui;
 	Nivel* _nivel;
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;

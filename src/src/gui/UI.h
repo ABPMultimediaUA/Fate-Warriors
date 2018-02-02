@@ -7,17 +7,19 @@
 
 class UI{
     public: 
+        static UI* ui_instancia(uint16_t ancho_ventana, uint16_t alto_ventana);
         UI(uint16_t ancho_ventana, uint16_t alto_ventana);
         ~UI();
         void update();
         void render();
-
+        bool get_cerrar();
     private:
         //static void error_callback(int error, const char* description);
-
+        static UI* _instancia;
         uint16_t _ancho_ventana;
         uint16_t _alto_ventana;
         bool _show_demo_window;
         ImVec4 _clear_color;
         GLFWwindow* _window;
+        bool _cierratePuto;
 };
