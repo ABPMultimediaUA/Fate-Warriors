@@ -146,14 +146,21 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         this->set_tipo_ataque(_i_tipo_ataque);
         this->set_accion(Accion_pre_atacar);
     }
-    else if(this->get_accion() == Accion_post_atacar){
+    else if(
+            _accion == Accion_post_atacar && _tipo_ataque != Ataque_Especial &&
+                (
+                (_inventario->get_tipo_arma() != Tipo_Arma_distancia) ||
+                (_accion == Accion_post_atacar && _inventario->get_tipo_arma() == Tipo_Arma_distancia && _i_tipo_ataque != Ataque_Normal)
+                )
+            ) {
+                
         Enum_Tipo_Ataque _ataque_combo;
         _ataque_combo = get_tipo_ataque_combo(_i_tipo_ataque);
 
         set_accion(Accion_pre_atacar);
         set_tipo_ataque(_ataque_combo);
 
-         std::cout << "ENLAZA ATAQUE: ";
+        std::cout << "ENLAZA ATAQUE: ";
 
         if(_ataque_combo == Ataque_Normal_Normal)
             std::cout << "Ataque NORMAL - NORMAL";
@@ -179,8 +186,8 @@ void Character::esquivar(uint16_t _direccion){
 }
 
 void Character::saltar(){
-    if(esta_bloqueado() == false){
-        //set_accion(Saltar);
+    if(esta_bloqueado() == false && _accion != Saltar){
+        set_accion(Saltar);
         _objeto_motor->saltar();
     }
 }
@@ -203,7 +210,7 @@ void Character::mover(uint16_t _i_direccion){
                 this->set_accion(Accion_Correr);
             }
         }
-        else if(this->get_accion() == Accion_Correr){
+        else if(_accion == Accion_Correr){
             //std::cout << "CORRIENDO" << std::endl;
             if(_velocidad<_velocidadCorrer){
                 _velocidad += 0.1;
@@ -373,14 +380,22 @@ void Character::impulso_danyar(Character * atacante, Character * atacado, int im
 }
 
 int Character::getTiempoAccion(Enum_Acciones _accion){
+    Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
 
-    if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Normal){
+    if(_accion == Accion_pre_atacar && tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
+        return 1;
+    }
+    else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Normal){
         return 150;
     } 
     else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Fuerte){
         return 250;
     }
+    
     else if(_accion == Atacar){
+        return 1;
+    }
+    else if(_accion == Accion_post_atacar && tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
         return 1;
     }
     else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Normal){
@@ -396,7 +411,7 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
         return 300;
     }
     else if(_accion == Saltar){
-        return 300;
+        return 600;
     }
     else{
         return 500;
@@ -417,7 +432,7 @@ static bool getSiAccionBloqueaInput(Enum_Acciones _accion){
         case Accion_Interactuar:
             return true;
         case Saltar:
-            return true;
+            return false;
         case Recibir_danyo:
             return true;
         default:
@@ -550,7 +565,8 @@ void Character::gestion_saltar(){
     if(get_accion() == Saltar){
         std::cout << "SALTANDO" << std::endl;
 
-        if(esta_bloqueado() == false){
+        if(accion_en_curso() == false){
+            std::cout << "FIN SALTO" << std::endl;
             this->set_accion(Nada);
         }
     }
@@ -574,7 +590,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
             Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
-            if(_tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
+            if(_tipo_ataque == Ataque_Especial || _tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
                 Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), getEscalaRbAtaque(_tipo_ataque), _direccion_actual);
             }
         }
@@ -583,7 +599,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
 
         Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
 
-        if(_tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
+        if(_tipo_ataque == Ataque_Especial || _tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
 
             NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
             NPC ** _npcs = _npc_manager->get_npcs();
@@ -607,7 +623,6 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
             Character * atacado = _inventario->usar(_objeto_motor, _direccion_actual);
             Arma_distancia* _arma_usada = _inventario->get_objeto_distancia();
             
-
             if(atacado != 0){
                 atacado->danyar(_arma_usada->get_danyo());
                 impulso_danyar(this, atacado, _arma_usada->get_impulso());
