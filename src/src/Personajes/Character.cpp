@@ -180,7 +180,7 @@ void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
 
-        _objeto_motor->Dash(_direccion);
+        //_objeto_motor->Dash(_direccion);
     }
     
 }
@@ -405,10 +405,10 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
         return 250;
     }
     else if(_accion == Accion_Dash){
-        return 500;
+        return 200;
     }
     else if(_accion == Accion_Interactuar){
-        return 300;
+        return 25;
     }
     else if(_accion == Saltar){
         return 600;
@@ -552,10 +552,11 @@ void Character::gestion_recibir_danyado(){
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
         std::cout << "ESQUIVANDO" << std::endl;
+        _objeto_motor->Dash(_direccion_actual);
         //_objeto_objeto_motor->colorear_nodo(0,255,0);
         //_objeto_motor->colorear_nodo(0,255,0);
         if(esta_bloqueado() == false){
-            this->set_accion(Nada);
+            this->set_accion(Accion_Correr);
             _objeto_motor->colorear_nodo(255,255,255);
         }
     }
@@ -567,7 +568,7 @@ void Character::gestion_saltar(){
 
         if(accion_en_curso() == false){
             std::cout << "FIN SALTO" << std::endl;
-            this->set_accion(Nada);
+            this->set_accion(Accion_Correr);
         }
     }
 }

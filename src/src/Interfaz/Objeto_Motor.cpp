@@ -103,12 +103,12 @@ void Objeto_Motor::saltar(){
 }
 
 void Objeto_Motor::Dash(uint16_t _i_direccion){
-	short potencia = 24000;
+	short potencia = 6000;
 	Motor* _motor = Motor::Motor_GetInstance();
-    float angulo = _motor->angulo_camaraRAD();
+    //float angulo = _motor->angulo_camaraRAD();
 	
-	desp_z = cos(angulo+(_i_direccion*std::acos(-1)/180));
-    desp_x = sin(angulo+(_i_direccion*std::acos(-1)/180));
+	desp_z = cos((_i_direccion*std::acos(-1)/180));
+    desp_x = sin((_i_direccion*std::acos(-1)/180));
 	_rigidbody->applyCentralImpulse(btVector3(desp_x*potencia, 0.f, desp_z*potencia)); //se multiplica por 100 pa volaaaar
 }
 
