@@ -41,6 +41,8 @@ Game::Game() : _datos(nullptr),
 
 	update_actual = &Game::update_menu;
 	render_actual = &Game::render_menu;
+
+	_input_jugador->asignar_teclas_menu();
 }
 
 Game::~Game(){
@@ -72,6 +74,8 @@ void Game::crea_partida() {
 
 	update_actual = &Game::update_partida;
 	render_actual = &Game::render_partida;
+
+	_input_jugador->asignar_teclas_partida();
 }
 
 void Game::fin_partida() {
@@ -84,6 +88,8 @@ void Game::fin_partida() {
 	delete _consumibles_action;
 
 	delete _trampas_action;
+
+	_input_jugador->asignar_teclas_menu();
 }
 
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------
@@ -109,14 +115,19 @@ void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 
 void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Partida" << std::endl;
-	_player->update();
-	_nivel->Update();
-	_consumibles_action->comprobar_consumibles();
-	_trampas_action->update();
+	if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200) {
+    	cambio_a_update_pausa();
+    }
+    else {
+		_player->update();
+		_nivel->Update();
+		_consumibles_action->comprobar_consumibles();
+		_trampas_action->update();
 
-	_motor->update(_i_tiempo_desde_ultimo_update);
-		
-	_decision_manager->toma_decisiones();
+		_motor->update(_i_tiempo_desde_ultimo_update);
+			
+		_decision_manager->toma_decisiones();
+    }
 }
 
 
@@ -162,12 +173,14 @@ void Game::cambio_a_update_partida() {
 	update_actual = &Game::update_partida;
 	render_actual = &Game::render_partida;
 	Time::Instance()->reanudar_reloj();
+	_input_jugador->asignar_teclas_partida();
 }
 
 void Game::cambio_a_update_pausa() {
 	update_actual = &Game::update_pausa;
 	render_actual = &Game::render_pausa;
 	_menu_pausa->set_tiempo_pausa();
+	_input_jugador->asignar_teclas_menu();
 }
 
 

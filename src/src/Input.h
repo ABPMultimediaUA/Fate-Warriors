@@ -40,7 +40,8 @@ public:
 	void procesar_inputs();		// Procesa los inputs recibidos						->	Ejecutar 1 vez antes de que player pueda usarlos
 	void reiniciar_inputs();	// Reiniciar los inputs para volver a recibirlos 	->	Ejecutar 1 vez despues de usarlos
 
-	void asignar_teclas_predefinidas();
+	void asignar_teclas_partida();
+	void asignar_teclas_menu();
 	void asignar_teclas_mando();
 	void asignar_teclas_entrada();
 
