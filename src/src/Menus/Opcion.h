@@ -3,26 +3,36 @@
 
 class Input;
 
+#include <cstdint>
+
+// Opcion seleccionable en los menus
+// Tiene su propio update, desde el que se puede llamar al cambio de estados de Game
+
 class Opcion {
 public:
 	Opcion(Input* _i_input);
 	virtual ~Opcion();
 
-	Opcion* update(double _i_tiempo, Opcion* _this);
+	Opcion* update(double _i_tiempo, Opcion* _this);								// Update publico
+	Opcion* comprueba_cambio_opcion(Opcion* _this);									// Comprueba si hay que pasar a la opcion siguiente
 
-	virtual Opcion* update_opcion(double _i_tiempo, Opcion* _this) = 0;
-
-	void set_opciones(Opcion* _i_opcion_anterior, Opcion* _i_opcion_siguiente);
+	void set_opciones(Opcion* _i_opcion_anterior, Opcion* _i_opcion_siguiente);		// Agrega las opciones anterior y siguiente
+	void set_tiempo(double _t);	// Pone el tiempo de cambio a cierto tiempo
 
 protected:
-	Opcion *_opcion_anterior;
-	Opcion *_opcion_siguiente;
+	Opcion *_opcion_anterior;		// Opcion anterior (arriba) en el menu
+	Opcion *_opcion_siguiente;		// Opcion siguiente (debajo) en el menu1
 
-	Input *_input;
+	Input *_input;					// Input para recoger los inputs
+
+	virtual Opcion* update_opcion(double _i_tiempo, Opcion* _this) = 0;	// Funcion virtual pura de update propio de cada opcion
+
 
 private: 
-	void set_opcion_anterior(Opcion* _i_opcion);
-	void set_opcion_siguiente(Opcion* _i_opcion);
+	void set_opcion_anterior(Opcion* _i_opcion);		// Set opcion anterior
+	void set_opcion_siguiente(Opcion* _i_opcion);		// Set opcion siguiente
+
+	static uint32_t _tiempo_cambio;						// Tiempo (momento) en el que se cambio entre opcinoes
 };
 
 #endif /* SRC_OPCION_H_ */

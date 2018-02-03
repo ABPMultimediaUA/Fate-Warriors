@@ -29,7 +29,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
     const char* cstr  = "models/Personaje.obj";
 
-    _objeto_motor =new Objeto_Motor(this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
+    _objeto_motor = new Objeto_Motor(this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_objeto_motor);
@@ -41,18 +41,12 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _motor->set_text_vida(_vida);
     _especial = 0;
     //_sonido->Play_ambiente(2);
-    
-    std::cout << this << "SOY EL PROTA \n";
-
 }
 
 Player::~Player(){
 }
 
 void Player::update(){
-    // Procesa los inputs para poder utilizarlos
-    _input->procesar_inputs();
-
     gestion_acciones();
 
     // Esto hay que borrarlo
@@ -94,10 +88,6 @@ void Player::update(){
         _motor->resetear_camara();
     }
 
-
-    if(controles->estaPulsada(Input_key::Escape)){
-        _motor->apagar();
-    }
 
     auto _cambio = _input->get_cambiar_arma();
     if(std::get<0>(_cambio)) {

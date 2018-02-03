@@ -54,15 +54,19 @@ public:
 	inline bool get_saltar() 					{ return _saltar;}
 	inline bool get_interactuar()				{ return _interactuar;}
 	inline bool get_dash()						{ return _dash;}
-	std::tuple<bool, bool, bool> get_atacar() 		{ return std::make_tuple(_ataque, _ataque_especial, _ataque_normal);}
+	std::tuple<bool, bool, bool> get_atacar() 	{ return std::make_tuple(_ataque, _ataque_especial, _ataque_normal);}
 	inline bool get_ataque_especial() 			{ return _ataque_especial;}
 	std::tuple<bool, bool> get_cambiar_arma() 	{ return std::make_tuple(_cambia_arma, _cambia_a_izquierda);}
 	inline bool get_centrar_camara() 			{ return _centrar_camara;}
 	inline bool get_pausa() 					{ return _pausa;}
 
+	inline std::tuple <bool,uint16_t> get_direccion() { return std::make_tuple(_mover, _direccion);}
+
  	inline bool get_mover_camara()				{return _mover_camara;}
 	inline Vector2* get_vector_camara()			{return _vector_camara;}
 	inline bool get_posiciona_camara()			{return !_hay_mando && !_camara_con_teclado;}
+
+	inline void quita_saltar() 					{ _saltar = false;}
 
 private:
 	// Control de las direcciones

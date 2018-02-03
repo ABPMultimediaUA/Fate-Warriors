@@ -17,6 +17,7 @@ class Player;
 class Interfaz_sonido;
 
 class Menu_Principal;
+class Menu_Pausa;
 
 class Game{
 
@@ -71,6 +72,7 @@ private:
 	Input* _input_jugador;
 
 	Menu_Principal* _menu_principal;		// Menu Principal
+	Menu_Pausa* _menu_pausa;				// Menu Pausa
 };
 
 

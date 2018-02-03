@@ -69,9 +69,7 @@ int main(){
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();
 	}
-			
-	_juego->fin_partida();
-
+	
 	delete _time;
 
 	delete _juego;

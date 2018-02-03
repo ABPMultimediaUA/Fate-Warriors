@@ -1,5 +1,5 @@
-#ifndef SRC_MENU_PRINCIPAL_H_
-#define SRC_MENU_PRINCIPAL_H_
+#ifndef SRC_MENU_PAUSA_H_
+#define SRC_MENU_PAUSA_H_
 
 class Opcion;
 class Input;
@@ -7,14 +7,16 @@ class Input;
 #include <cstdint>
 
 // 3 opciones en este menu
-const uint8_t _n_opciones_principal = 3;
+const uint8_t _n_opciones_pausa = 3;
 
-class Menu_Principal {
+class Menu_Pausa {
 public:
-	Menu_Principal(Input* _i_input);
-	~Menu_Principal();
+	Menu_Pausa(Input* _i_input);
+	~Menu_Pausa();
 
 	void update(double _i_tiempo);
+
+	void set_tiempo_pausa();
 
 private: 
 	Opcion** _opciones;
@@ -25,4 +27,4 @@ private:
 	void pinta_estado();
 };
 
-#endif /* SRC_MENU_PRINCIPAL_H_ */
+#endif /* SRC_MENU_PAUSA_H_ */

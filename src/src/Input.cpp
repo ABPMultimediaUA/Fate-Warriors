@@ -62,7 +62,7 @@ void Input::asignar_teclas_predefinidas() {
 
 	_teclas[Input_Centrar_Camara] = sf::Keyboard::Unknown;
 
-	_teclas[Input_Pausa] = sf::Keyboard::P;
+	_teclas[Input_Pausa] = sf::Keyboard::Escape;
 
 
 	// ----------------- Inputs del raton ---------------
