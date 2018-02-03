@@ -33,6 +33,7 @@ public:
 
   	inline Datos_Partida* game_get_datos() { return _datos;}
     inline Action_Manager* game_get_action_manager() { return _action_manager;}
+    inline Input* get_input() { return _input_jugador;}
 
     void recibir_inputs() { _input_jugador->recibir_inputs();}
 

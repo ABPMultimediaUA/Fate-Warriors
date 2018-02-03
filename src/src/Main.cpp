@@ -29,7 +29,6 @@ int main(){
 	srand((int)time(0)); // Inicia la semilla del rand
 
 	Game* _juego = Game::game_instancia();
-	//_juego->crea_partida();
 	Time* time=Time::Instance();
 
 	double _h_ultimo_update=time->get_current_sin_pausas();

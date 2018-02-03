@@ -5,10 +5,10 @@
 
 class Opcion_Jugar : public Opcion{
 public:
-	Opcion_Jugar();
+	Opcion_Jugar(Input* _i_input);
 	~Opcion_Jugar();
 
-	Opcion* update_opcion(double _i_tiempo);
+	Opcion* update_opcion(double _i_tiempo, Opcion* _this);
 };
 
 #endif /* SRC_OPCION_JUGAR_H_ */

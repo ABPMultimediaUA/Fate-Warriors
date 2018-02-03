@@ -36,7 +36,7 @@ Game::Game() : _datos(nullptr),
 	_input_jugador = new Input();
 	update_actual = &Game::update_menu;
 	render_actual = &Game::render_menu;
-	_menu_principal = new Menu_Principal();
+	_menu_principal = new Menu_Principal(_input_jugador);
 }
 
 Game::~Game(){
@@ -120,12 +120,8 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 
 
 void Game::update_menu(double _i_tiempo_desde_ultimo_update){
-	//std::cout << "Update Pausa" << std::endl;
-	//_menu_principal->update(_i_tiempo_desde_ultimo_update);
-    if(_input_jugador->get_saltar()){
-    	crea_partida();
-    	cambio_a_update_partida();
-    }
+	//std::cout << "Update Menu" << std::endl;
+	_menu_principal->update(_i_tiempo_desde_ultimo_update);
 }
 
 
