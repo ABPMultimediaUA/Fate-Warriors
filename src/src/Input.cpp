@@ -97,6 +97,8 @@ void Input::asignar_teclas_partida() {
 	_raton[Input_Camara_Abajo] = sf::Mouse::ButtonCount;
 	_raton[Input_Camara_Izquierda] = sf::Mouse::ButtonCount;
 	_raton[Input_Camara_Derecha] = sf::Mouse::ButtonCount;
+
+	asignar_teclas_mando();
 }
 
 // Asigna las teclas del menu
@@ -107,6 +109,9 @@ void Input::asignar_teclas_menu() {
 	_teclas[Input_Derecha] = sf::Keyboard::Right;
 
 	_teclas[Input_Salto] = sf::Keyboard::Return;
+
+	_ejes[Input_Derecha] = sf::Joystick::PovX;
+	_ejes[Input_Arriba] = sf::Joystick::PovY;
 }
 
 
