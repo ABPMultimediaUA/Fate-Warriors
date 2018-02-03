@@ -53,7 +53,7 @@ Game::~Game(){
 
 	// Delete de singletons
 	delete _sonido;
-	delete _nivel;
+
 	delete _motor;
 }
 
@@ -66,8 +66,8 @@ void Game::crea_partida() {
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
 
-	_datos->inserta_npc_nivel();
 	_player = _datos->get_player();
+	_datos->inserta_npc_nivel();
 	
 	_consumibles_action = new Consumible_Action();	
 	_trampas_action 	= new Trampas_action();	
@@ -89,7 +89,9 @@ void Game::fin_partida() {
 
 	delete _trampas_action;
 
+	delete _nivel;
 	_input_jugador->asignar_teclas_menu();
+	_motor->vaciar_motor();
 }
 
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------

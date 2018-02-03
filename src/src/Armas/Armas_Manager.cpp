@@ -19,7 +19,7 @@ Armas_Manager::Armas_Manager() {
 
 Armas_Manager::~Armas_Manager(){
     
- for (short i = 0; i < _armas.size(); ++i) {
+ for (short i = 0; i < _armas.size(); i++) {
     delete _armas[i];
   }
   _armas.clear();

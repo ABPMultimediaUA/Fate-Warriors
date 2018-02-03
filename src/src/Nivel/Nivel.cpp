@@ -324,6 +324,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 
 
 Nivel::~Nivel() {
+	instancia = 0;
 	delete _lod2;
 }
 

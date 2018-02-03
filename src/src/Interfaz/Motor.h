@@ -49,6 +49,7 @@ public:
     static Motor* Motor_GetInstance();
 
    ~Motor();
+   void vaciar_motor();
    
     void apagar();
 
