@@ -91,7 +91,7 @@ void Game::fin_partida() {
 
 	delete _nivel;
 	_input_jugador->asignar_teclas_menu();
-	_motor->vaciar_motor();
+//	_motor->vaciar_motor();
 }
 
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------

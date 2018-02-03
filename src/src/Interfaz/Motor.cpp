@@ -43,7 +43,6 @@ Motor::Motor(){
 	_velocidad = 1;
 	_debug = false;
 	_id_jugador = 0;
-		std::cout << "he llegado \n";
 
 	rayOrigen = new Vector3(0,0,0);
 	rayDestino = new Vector3(0,0,0);
@@ -61,6 +60,8 @@ Motor::Motor(){
 	_maxvida = 300;
 }
 
+//void Motor::crear_partida(){}
+
 void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 
 	_objeto_motor->getNodo()->remove();
@@ -75,7 +76,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
         _objetos_motor.erase(ite2);
     }
 
-//	std::cout << "cantidad de elementos en el motor" << _objetos_motor.size() << std::endl;
+	std::cout << "cantidad de elementos en el motor" << _objetos_motor.size() << std::endl;
 	
 
 	/*

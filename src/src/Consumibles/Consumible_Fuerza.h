@@ -16,10 +16,6 @@ public:
 	void render() override;
 	void activar_tiempo();
 	bool comprobar_tiempo_power_up();
-private:
-	Character* _personaje;
-	Time* _reloj;
-	double _duracion_power_up;
 };
 
 #endif /* SRC_CONSUMIBLE_FUERZA_H_ */
