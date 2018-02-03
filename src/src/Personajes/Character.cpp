@@ -142,15 +142,27 @@ short Character::get_danyo_ataque_fuerte(){
 void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
     // Ataque de player y aliados, sobrescrbir en Enemigo
     // Se ataca a enemigos
-    if(this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false){
+    if(_accion == Saltar && (_i_tipo_ataque == Ataque_Normal || _i_tipo_ataque == Ataque_Fuerte)){
+        _i_tipo_ataque = Ataque_Salto;
+        std::cout << "ATAQUE CON SALTO"<< std::endl;
+    }
+
+    if(
+        this->get_tipo_ataque() == Ataque_Ninguno && esta_bloqueado() == false && 
+        (
+            _accion != Saltar ||
+            _accion == Saltar && _i_tipo_ataque == Ataque_Salto
+        )
+        ){
+
         this->set_tipo_ataque(_i_tipo_ataque);
         this->set_accion(Accion_pre_atacar);
     }
     else if(
             _accion == Accion_post_atacar && _tipo_ataque != Ataque_Especial &&
                 (
-                (_inventario->get_tipo_arma() != Tipo_Arma_distancia) ||
-                (_accion == Accion_post_atacar && _inventario->get_tipo_arma() == Tipo_Arma_distancia && _i_tipo_ataque != Ataque_Normal)
+                    (_inventario->get_tipo_arma() != Tipo_Arma_distancia) ||
+                    (_inventario->get_tipo_arma() == Tipo_Arma_distancia && _i_tipo_ataque != Ataque_Normal)
                 )
             ) {
                 
@@ -391,7 +403,9 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
     else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Fuerte){
         return 250;
     }
-    
+    else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Salto){
+        return 400;
+    }
     else if(_accion == Atacar){
         return 1;
     }
