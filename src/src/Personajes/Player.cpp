@@ -47,6 +47,7 @@ Player::~Player(){
 }
 
 void Player::update(){
+    //std::cout<< "ACCION_ACTUAL: "<< _accion << "\n";
     gestion_acciones();
 
     // Esto hay que borrarlo
@@ -102,15 +103,15 @@ void Player::update(){
     if(std::get<0>(_ataques)) {
         if(std::get<1>(_ataques)) {    // Ataque especial
             atacar(Ataque_Especial);
-            std::cout << "Ataque Especial\n";
+            //std::cout << "Ataque Especial\n";
         }
         else if(std::get<2>(_ataques)){      // Ataque normal
             atacar(Ataque_Normal);
-            std::cout << "Ataque Normal\n";
+            //std::cout << "Ataque Normal\n";
         }
         else {                          // Ataque fuerte
             this->atacar(Ataque_Fuerte);
-            std::cout << "Ataque Fuerte\n";
+            //std::cout << "Ataque Fuerte\n";
         }
     }
   
@@ -120,7 +121,7 @@ void Player::update(){
 	}
 
     if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
-        && !std::get<0>(_ataques) && !_input->get_saltar() && _accion != Atacar){
+        && !std::get<0>(_ataques) && !_input->get_saltar() && _accion != Atacar && _accion != Saltar){
         set_accion(Nada);
     }
    

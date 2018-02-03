@@ -10,7 +10,8 @@ enum Enum_Tipo_Ataque{
 	Ataque_Normal_Normal,
 	Ataque_Normal_Fuerte,
 	Ataque_Fuerte_Fuerte,
-	Ataque_Fuerte_Normal
+	Ataque_Fuerte_Normal,
+	Ataque_Salto
 };
 
 enum Tipo_Arma{
