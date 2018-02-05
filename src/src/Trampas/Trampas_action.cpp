@@ -42,6 +42,9 @@ void Trampas_action::comprobar_trampas_mina(){
   NPC** npc = _npc_manager->get_npcs();
 	uint16_t numnpc = _npc_manager->get_n_enemigos();
 
+  Objeto_Motor* _objeto_motor_player = _player->get_objeto_motor();
+  Objeto_Motor* _objeto_motor_mina;
+  Motor* putero_a_motor              = Motor::Motor_GetInstance();
 
    float x;
    float z;
@@ -49,7 +52,9 @@ void Trampas_action::comprobar_trampas_mina(){
   Vector2 vec_player= _player->get_vector();   
   
   for(unsigned short _cont=0; _cont<n_trampas; _cont++) {
-    Vector2 vec_mina= _minas[_cont]->get_vector();
+    _objeto_motor_mina = _minas[_cont]->get_objeto_motor();
+
+     Vector2 vec_mina= _minas[_cont]->get_vector();
  
      //Character
       if(_minas[_cont]->explota()){ 
@@ -69,7 +74,7 @@ void Trampas_action::comprobar_trampas_mina(){
           }
       }
 
-      else if(comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 2)){
+      else if(putero_a_motor->comprobar_colision(_objeto_motor_mina->getRigidBody(),_objeto_motor_player->getRigidBody())){
         if(!_minas[_cont]->get_estado()){
           _minas[_cont]->activar();
         }     
@@ -95,7 +100,7 @@ void Trampas_action::comprobar_trampas_mina(){
               }
           }
 
-          else if(comprobar_colision_teniendo_tambien_radio(vec_npc, 2, vec_mina, 2)){
+          else if(putero_a_motor->comprobar_colision(_objeto_motor_mina->getRigidBody(), npc[i]->get_objeto_motor()->getRigidBody())){
             if(!_minas[_cont]->get_estado()){
               _minas[_cont]->activar();
             }     
