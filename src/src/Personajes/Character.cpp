@@ -159,7 +159,8 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         this->set_accion(Accion_pre_atacar);
     }
     else if(
-            _accion == Accion_post_atacar && _tipo_ataque != Ataque_Especial &&
+            _accion == Accion_post_atacar && _tipo_ataque != Ataque_Especial && _tipo_ataque != Ataque_Normal_Normal 
+            && _tipo_ataque != Ataque_Normal_Fuerte && _tipo_ataque != Ataque_Fuerte_Normal && _tipo_ataque != Ataque_Fuerte_Fuerte &&
                 (
                     (_inventario->get_tipo_arma() != Tipo_Arma_distancia) ||
                     (_inventario->get_tipo_arma() == Tipo_Arma_distancia && _i_tipo_ataque != Ataque_Normal)
@@ -399,12 +400,12 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
     }
     else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Normal){
         return 150;
-    } 
+    }
     else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Fuerte){
         return 250;
     }
     else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Salto){
-        return 400;
+        return 200;
     }
     else if(_accion == Atacar){
         return 1;
@@ -417,6 +418,9 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
     }
     else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Fuerte){
         return 250;
+    }
+    else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Salto){
+        return 200;
     }
     else if(_accion == Accion_Dash){
         return 200;
@@ -486,9 +490,9 @@ int Character::get_impulso_danyar(Enum_Tipo_Ataque tipo_ataque){
     switch(tipo_ataque) // ataque actual
     {
         case Ataque_Normal:
-            return 50000;
+            return 15000;
         case Ataque_Fuerte:
-            return 25000;
+            return 30000;
         default:
             return 25000;
     }
