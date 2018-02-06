@@ -2,6 +2,7 @@
 #define GRAFO_H
 
 #include <string>
+#include "Enum_zonas.h"
 
 const float metro=4.9212625;
 class Vertice;
@@ -26,6 +27,9 @@ public:
 	inline void set_h(Vertice* _i_h){
 		_h=_i_h;
 	}
+	void set_tipo_zona(u_int8_t _id, Enum_zonas _i_zona);
+	Enum_zonas get_tipo_zona(u_int8_t _id, Enum_zonas _i_tipo);
+
 	Nodo_blackboard* grafo_get_blackboard(float _i_x, float _i_y);
 	void grafo_get_numero_posiciones_spawn_enemigos(u_int16_t &_i_n_posiciones);
 	void grafo_get_posiciones_spawn_enemigos( float** _posiciones);

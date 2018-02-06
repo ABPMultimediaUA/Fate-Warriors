@@ -596,7 +596,7 @@ void Grafo::grafo_get_numero_posiciones_spawn_enemigos(u_int16_t &_i_n_posicione
 	Vertice* vert_aux_interno=nullptr;
 	_i_n_posiciones=0;
 	while(vert_aux!=nullptr){
-		if(vert_aux->get_tipo()==Vertice_Nodo){
+		if(vert_aux->get_tipo_vertice()==Vertice_Nodo){
 			vert_aux_interno=vert_aux->get_lod1()->get_h();
 			while(vert_aux_interno!=nullptr){
 				++_i_n_posiciones;
@@ -611,7 +611,7 @@ void Grafo::grafo_get_posiciones_spawn_enemigos( float** _posiciones){
 	Vertice* vert_aux_interno=nullptr;
 	u_int16_t cont=0;
 	while(vert_aux!=nullptr){
-		if(vert_aux->get_tipo()==Vertice_Nodo){
+		if(vert_aux->get_tipo_vertice()==Vertice_Nodo){
 			vert_aux_interno=vert_aux->get_lod1()->get_h();
 			while(vert_aux_interno!=nullptr){
 				//std::cout<<"_id grande: "<<vert_aux->get_id()<<" id: "<<vert_aux_interno->get_id()<<" X: "<<vert_aux_interno->get_coord_x()/metro<<" Y: "<<vert_aux_interno->get_coord_y()/metro<<std::endl;
@@ -627,4 +627,12 @@ void Grafo::grafo_get_posiciones_spawn_enemigos( float** _posiciones){
 void Grafo::Update(){
 
 	actualiza_NPC();
+}
+void Grafo::set_tipo_zona(u_int8_t _id, Enum_zonas _i_zona){
+	Vertice* vert_aux=grafo_get_vertice(_id);
+	vert_aux->set_tipo(_i_zona);
+}
+Enum_zonas Grafo::get_tipo_zona(u_int8_t _id, Enum_zonas _i_zona){
+	Vertice* vert_aux=grafo_get_vertice(_id);
+	return vert_aux->get_tipo();
 }

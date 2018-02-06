@@ -73,6 +73,12 @@ public:
 	inline unsigned short nivel_get_lod(int _i_id){
 		return _lod2->grafo_get_vertice(_i_id)->get_blackboard()->get_lod();
 	}
+	void nivel_set_tipo_zona(u_int8_t _id, Enum_zonas _i_zona){
+		_lod2->set_tipo_zona(_id, _i_zona);
+	}
+	Enum_zonas nivel_get_tipo_zona(u_int8_t _id, Enum_zonas _i_tipo){
+		return _lod2->get_tipo_zona(_id, _i_tipo);
+	}
 
 private:
 	static Nivel* instancia;
