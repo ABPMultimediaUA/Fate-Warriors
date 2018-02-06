@@ -25,7 +25,7 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     // Setup window
     glfwSetErrorCallback(error_callback);
     if (!glfwInit()){
-    std::cout<<"algo nbo va bien"<<std::endl;
+    //std::cout<<"algo nbo va bien"<<std::endl;
     }
     _ancho_ventana = ancho_ventana;
     _alto_ventana = alto_ventana;
@@ -33,7 +33,7 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    _window = glfwCreateWindow(ancho_ventana, alto_ventana, "POR QUE NO VA ESTA BASURA", NULL, NULL);
+    _window = glfwCreateWindow(ancho_ventana, alto_ventana, "GUI TEST", NULL, NULL);
     glfwMakeContextCurrent(_window);
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     glfwSwapInterval(1); // Enable vsync
@@ -46,6 +46,14 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     ImGui::StyleColorsClassic();
     _show_demo_window = true;
     _clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+    
+    ImGuiIO& io = ImGui::GetIO();
+    ImFont* pFont = io.Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 14.0f);
+    //io.FontDefault = pFont;
+    //unsigned char* pixels;
+    //int width, height;
+    //io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 }
 
 UI::~UI(){
@@ -57,37 +65,57 @@ void UI::update(){
     if(glfwWindowShouldClose(_window)){
         _cierratePuto = true;
     }
+
     glfwPollEvents();
     ImGui_ImplGlfwGL3_NewFrame();
     // 1. Show a simple window.
     // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets automatically appears in a window called "Debug".
+    
+   
+    ImGuiStyle& style = ImGui::GetStyle();
+
+    
+    //style.WindowRounding = 5.3f;
+    //style.FrameRounding = 2.3f;
+    style.ScrollbarRounding = 0;
+    //style.ColumnsMinSpacing = 200.0f;
+    style.ItemSpacing = ImVec2(0, 20);
+    style.Colors[ImGuiCol_Text]                  = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+    //style.Colors[ImGuiCol_TextDisabled]          = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+   // style.Colors[ImGuiCol_WindowBg]              = ImVec4(0.09f, 0.09f, 0.15f, 0.00f);
+    style.Colors[ImGuiCol_Button] = ImVec4(0.85f, 0.0f, 0.00f, 1.f);
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.85f, 0.3f, 0.3f, 1.f);
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.0f, 0.00f, 0.00f, 1.f);
+    
+   // ImFont* fuente = ImGui::GetIO().Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 14);
+    
+    //ImGui::GetIO().Fonts->Clear();
+    //fuente = ImGui::GetIO().Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 14);
+
+
+        
     {
-        static float f = 0.0f;
-        static int counter = 0;
-        ImGui::Text("Hello, world!");                           // Display some text (you can use a format string too)
-        ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
-        ImGui::ColorEdit3("COLORINES", (float*)&_clear_color); // Edit 3 floats representing a color
-        ImGui::Checkbox("Demo Window", &_show_demo_window);      // Edit bools storing our windows open/close state
-        if (ImGui::Button("Button"))                            // Buttons return true when clicked (NB: most widgets return true when edited/activated)
-            counter++;
-        ImGui::SameLine();
-        ImGui::Text("counter = %d", counter);
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    }
-    {
-        ImGui::Begin("VENTANA WAPA");
-        ImGui::Text("POS SA QUEDAO BUENA VENTANA");
-        static float yee = 0.0f;
-        ImGui::SliderFloat("lel", &yee,1.0f,0.5f);
-                
+        ImGui::Begin("Menu principal",0,ImGuiWindowFlags_NoTitleBar|
+                                        ImGuiWindowFlags_NoResize|
+                                        ImGuiWindowFlags_AlwaysAutoResize|
+                                        ImGuiWindowFlags_NoMove);
+
+        ImGui::Button("Jugar", ImVec2(300,100));
+        ImGui::Button("Configuración", ImVec2(300,100));
+        ImGui::Button("Salir", ImVec2(300,100));
+        
+        //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        
         ImGui::End();
     }
+    
     // 3. Show the ImGui demo window. Most of the sample code is in ImGui::ShowDemoWindow(). Read its code to learn more about Dear ImGui!
-    if (_show_demo_window)
-    {
-        ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver); // Normally user code doesn't need/want to call this because positions are saved in .ini file anyway. Here we just want to make the demo initial state a bit more friendly!
-        ImGui::ShowDemoWindow(&_show_demo_window);
-    }
+    //if (_show_demo_window)
+    //{
+    //    ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver); // Normally user code doesn't need/want to call this because positions are saved in .ini file anyway. Here we just want to make the demo initial state a bit more friendly!
+    //    ImGui::ShowDemoWindow(&_show_demo_window);
+    //}
+    
 }
 
 void UI::render(){
