@@ -54,13 +54,37 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     //unsigned char* pixels;
     //int width, height;
     //io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+
+
+    Tresolution2func* _next=UI_mapping;
+	//std::cout<<_iteracion<<std::endl;
+	while (_next->_nombre_objeto){
+		if(_iteracion==_next->_nombre_objeto){
+			(this->*_next->pmet)();
+		}
+		++_next;
+	}
 }
 
 UI::~UI(){
     ImGui_ImplGlfwGL3_Shutdown();
     glfwTerminate();
 }
+/*Funciones para guardar los datos
+ * */
+struct Tinstance2func{//declaracion de los parametros
+	const char* _nombre_objeto;
+	void (UI::*pmet)();
+};
 
+Tresolution2func UI_mapping[] = {//definicion de los parametros
+		{1920, &UI::cargar_res_1920},
+		{0, 0}
+};
+void UI::cargar_res_1920(){
+    _boton_ancho=300;
+    _boton_alto=100;
+}
 void UI::update(){
     if(glfwWindowShouldClose(_window)){
         _cierratePuto = true;
@@ -95,14 +119,15 @@ void UI::update(){
 
         
     {
+
         ImGui::Begin("Menu principal",0,ImGuiWindowFlags_NoTitleBar|
                                         ImGuiWindowFlags_NoResize|
                                         ImGuiWindowFlags_AlwaysAutoResize|
                                         ImGuiWindowFlags_NoMove);
 
-        ImGui::Button("Jugar", ImVec2(300,100));
-        ImGui::Button("Configuración", ImVec2(300,100));
-        ImGui::Button("Salir", ImVec2(300,100));
+        ImGui::Button("Jugar", ImVec2(_boton_ancho,_boton_alto));
+        ImGui::Button("Configuración", ImVec2(_boton_ancho,_boton_alto));
+        ImGui::Button("Salir", ImVec2(_boton_ancho,_boton_alto));
         
         //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         

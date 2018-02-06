@@ -13,6 +13,7 @@ class UI{
         void update();
         void render();
         bool get_cerrar();
+        void cargar_res_1920();
     private:
         //static void error_callback(int error, const char* description);
         static UI* _instancia;
@@ -22,4 +23,6 @@ class UI{
         ImVec4 _clear_color;
         GLFWwindow* _window;
         bool _cierratePuto;
+        int _boton_ancho;
+        int _boton_alto;
 };
