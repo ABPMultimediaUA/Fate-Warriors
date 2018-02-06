@@ -27,7 +27,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     //_tiempo = Time::Instance();
     //crear nodo de personaje del motor
 
-    const char* cstr  = "models/Personaje.obj";
+    const char* cstr  = "models/Personajes/Jugador/Personaje.obj";
 
     _objeto_motor = new Objeto_Motor(this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
     
