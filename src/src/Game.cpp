@@ -53,7 +53,6 @@ Game::~Game(){
 
 	// Delete de singletons
 	delete _sonido;
-
 	delete _motor;
 }
 
@@ -90,8 +89,10 @@ void Game::fin_partida() {
 	delete _trampas_action;
 
 	delete _nivel;
+
 	_input_jugador->asignar_teclas_menu();
-//	_motor->vaciar_motor();
+
+	//_motor->vaciar_motor();
 }
 
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------

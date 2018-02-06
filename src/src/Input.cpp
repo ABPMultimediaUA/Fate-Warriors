@@ -10,6 +10,9 @@ Input::Input() {
 	_posicion_raton = new Vector2(0,0);
 	_vector_camara = new Vector2(0,0);
 
+	_saltar = false;
+	_ex_saltar = false;
+
 	_camara_con_teclado = false;
 	_invertir_x = false;
 	_invertir_y = true;
@@ -339,7 +342,7 @@ void Input::recibir_inputs_teclado_raton() {
 	else {
 		_ex_saltar = false;
 	}
-
+	
 
 	if(_teclas[Input_Interact] != sf::Keyboard::Unknown) 
 		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Interact]);
