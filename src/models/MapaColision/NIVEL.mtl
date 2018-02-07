@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 06.02.2018 15:50:56
+# File Created: 07.02.2018 17:49:08
 
 newmtl Material__22
 	Ns 10.0000
@@ -12,5 +12,5 @@ newmtl Material__22
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Unwrap_helper.jpg
-	map_Kd Unwrap_helper.jpg
+	map_Ka m7QiQ.png
+	map_Kd m7QiQ.png
