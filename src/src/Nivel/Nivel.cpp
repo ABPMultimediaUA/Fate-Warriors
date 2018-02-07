@@ -119,7 +119,7 @@ void Nivel::nivel_crear_pasillo(std::ifstream& _i_nivel_txt, std::string& _i_ite
 void Nivel::nivel_crear_nodo(std::ifstream& _i_nivel_txt, std::string& _i_iteracion){
 	float _x,_y,_ancho,_alto;
 	int _id;
-	u_int8_t n_npc;
+	uint8_t n_npc;
 	Nodo* _nodo;
 	Grafo * _vacio = new Grafo();
 	_i_nivel_txt >> _i_iteracion;//obtiene el valor de la y
@@ -310,7 +310,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 			nivel_crear_pasillo(_nivel_txt, _iteracion);//llamada a la funcion de crear un nuevo pasillo
 		}*/
 	}
-		/*u_int16_t algo;
+		/*uint16_t algo;
 	_lod2->grafo_get_numero_posiciones_spawn_enemigos(algo);
 	float** algo2;
 	algo2= new float*[algo];

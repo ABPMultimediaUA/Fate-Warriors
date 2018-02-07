@@ -174,35 +174,35 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
 }
 
 Interfaz_sonido::~Interfaz_sonido(){
-    for(u_int8_t _cont = 0; _cont < _n_ambiente; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_ambiente; _cont++) {
 		delete _eventos_ambiente[_cont];
 	}
 	delete [] _eventos_ambiente;
-    for(u_int8_t _cont = 0; _cont < _n_armas; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_armas; _cont++) {
 		delete _eventos_armas[_cont];
 	}
 	delete [] _eventos_armas;
-    for(u_int8_t _cont = 0; _cont < _n_consumibles; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_consumibles; _cont++) {
 		delete _eventos_consumibles[_cont];
 	}
 	delete [] _eventos_consumibles;
-    for(u_int8_t _cont = 0; _cont < _n_escenario; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_escenario; _cont++) {
 		delete _eventos_escenario[_cont];
 	}
 	delete [] _eventos_escenario;
-    for(u_int8_t _cont = 0; _cont < _n_menu; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_menu; _cont++) {
 		delete _eventos_menu[_cont];
 	}
 	delete [] _eventos_menu;
-    for(u_int8_t _cont = 0; _cont < _n_pasos; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_pasos; _cont++) {
 		delete _eventos_pasos[_cont];
 	}
 	delete [] _eventos_pasos;
-    for(u_int8_t _cont = 0; _cont < _n_personaje; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_personaje; _cont++) {
 		delete _eventos_personaje[_cont];
 	}
 	delete [] _eventos_personaje;
-    for(u_int8_t _cont = 0; _cont < _n_voces; _cont++) {
+    for(uint8_t _cont = 0; _cont < _n_voces; _cont++) {
 		delete _eventos_voces[_cont];
 	}
 	delete [] _eventos_voces;
@@ -230,7 +230,7 @@ void Interfaz_sonido::system_update(){
 /***************************************CREACION SONIDOS***********************************************/
 
 void Interfaz_sonido::crear_ambiente(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _ambiente_txt;    
     _ambiente_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -257,7 +257,7 @@ void Interfaz_sonido::crear_ambiente(std::string _i_iteracion){
     _ambiente_txt.close();
 }
 void Interfaz_sonido::crear_armas(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _armas_txt;    
     _armas_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -284,7 +284,7 @@ void Interfaz_sonido::crear_armas(std::string _i_iteracion){
     _armas_txt.close();
 }
 void Interfaz_sonido::crear_consumibles(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _consumibles_txt;    
     _consumibles_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -311,7 +311,7 @@ void Interfaz_sonido::crear_consumibles(std::string _i_iteracion){
     _consumibles_txt.close();
 }
 void Interfaz_sonido::crear_escenario(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _escenario_txt;    
     _escenario_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -338,7 +338,7 @@ void Interfaz_sonido::crear_escenario(std::string _i_iteracion){
     _escenario_txt.close();
 }
 void Interfaz_sonido::crear_menu(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _menu_txt;    
     _menu_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -366,7 +366,7 @@ void Interfaz_sonido::crear_menu(std::string _i_iteracion){
 }
 void Interfaz_sonido::crear_pasos(std::string _i_iteracion){
    
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _pasos_txt;    
     _pasos_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -393,7 +393,7 @@ void Interfaz_sonido::crear_pasos(std::string _i_iteracion){
     _pasos_txt.close();
 }
 void Interfaz_sonido::crear_personaje(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _personaje_txt;    
     _personaje_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -420,7 +420,7 @@ void Interfaz_sonido::crear_personaje(std::string _i_iteracion){
     _personaje_txt.close();
 }
 void Interfaz_sonido::crear_voces(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _voces_txt;    
     _voces_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -447,7 +447,7 @@ void Interfaz_sonido::crear_voces(std::string _i_iteracion){
     _voces_txt.close();
 }
 void Interfaz_sonido::crear_musica(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _musica_txt;    
     _musica_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -474,7 +474,7 @@ void Interfaz_sonido::crear_musica(std::string _i_iteracion){
     _musica_txt.close();
 }
 void Interfaz_sonido::crear_canales(std::string _i_iteracion){
-    u_int8_t cont=0;
+    uint8_t cont=0;
     std::ifstream _canales_txt;    
     _canales_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
@@ -510,7 +510,7 @@ void Interfaz_sonido::crear_canales(std::string _i_iteracion){
 
 /***************************************PLAY SONIDOS***********************************************/
 
-void Interfaz_sonido::Play_ambiente(u_int8_t _i_n){
+void Interfaz_sonido::Play_ambiente(uint8_t _i_n){
     if(_i_n>=_n_ambiente){
         std::cout<<"ERROR SONIDO: ambiente solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -518,7 +518,7 @@ void Interfaz_sonido::Play_ambiente(u_int8_t _i_n){
     _eventos_ambiente[_i_n]->start();
     system_update();
 }
-void Interfaz_sonido::Play_armas(u_int8_t _i_n){
+void Interfaz_sonido::Play_armas(uint8_t _i_n){
     if(_i_n>=_n_armas){
         std::cout<<"ERROR SONIDO: armas solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -526,7 +526,7 @@ void Interfaz_sonido::Play_armas(u_int8_t _i_n){
     _eventos_armas[_i_n]->start();
     system_update();
 }
-void Interfaz_sonido::Play_consumibles(u_int8_t _i_n){
+void Interfaz_sonido::Play_consumibles(uint8_t _i_n){
     if(_i_n>=_n_consumibles){
         std::cout<<"ERROR SONIDO: consumible solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -534,7 +534,7 @@ void Interfaz_sonido::Play_consumibles(u_int8_t _i_n){
     _eventos_consumibles[_i_n]->start();
     system_update();
 }
-void Interfaz_sonido::Play_escenario(u_int8_t _i_n){
+void Interfaz_sonido::Play_escenario(uint8_t _i_n){
     if(_i_n>=_n_escenario){
         std::cout<<"ERROR SONIDO: escenario solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -542,7 +542,7 @@ void Interfaz_sonido::Play_escenario(u_int8_t _i_n){
     _eventos_escenario[_i_n]->start();
     system_update();
 }
-void Interfaz_sonido::Play_menu(u_int8_t _i_n){
+void Interfaz_sonido::Play_menu(uint8_t _i_n){
     if(_i_n>=_n_menu){
         std::cout<<"ERROR SONIDO: menu solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -550,7 +550,7 @@ void Interfaz_sonido::Play_menu(u_int8_t _i_n){
     _eventos_menu[_i_n]->start();
     system_update();
 }
-void Interfaz_sonido::Play_personaje(u_int8_t _i_n){
+void Interfaz_sonido::Play_personaje(uint8_t _i_n){
     if(_i_n>=_n_personaje){
         std::cout<<"ERROR SONIDO: personaje solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -558,7 +558,7 @@ void Interfaz_sonido::Play_personaje(u_int8_t _i_n){
     _eventos_personaje[_i_n]->start();
     system_update();
 }
-void Interfaz_sonido::Play_voces(u_int8_t _i_n){
+void Interfaz_sonido::Play_voces(uint8_t _i_n){
     if(_i_n>=_n_voces){
         std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -566,7 +566,7 @@ void Interfaz_sonido::Play_voces(u_int8_t _i_n){
     _eventos_voces[_i_n]->start();
     system_update();
 }
-void Interfaz_sonido::Play_pasos(u_int8_t _i_n){
+void Interfaz_sonido::Play_pasos(uint8_t _i_n){
     if(_i_n>=_n_pasos){
         std::cout<<"ERROR SONIDO: paso solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -578,7 +578,7 @@ void Interfaz_sonido::Play_pasos(u_int8_t _i_n){
 
 /***************************************STOP SONIDOS***********************************************/
 
-/*void Interfaz_sonido::Stop_pasos(u_int8_t _i_n){
+/*void Interfaz_sonido::Stop_pasos(uint8_t _i_n){
     if(_i_n>=_n_pasos){
         std::cout<<"ERROR SONIDO: paso solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -586,7 +586,7 @@ void Interfaz_sonido::Play_pasos(u_int8_t _i_n){
     _eventos_pasos[_i_n]->stop();
     system_update();
 }*/
-void Interfaz_sonido::Stop_ambiente(u_int8_t _i_n){
+void Interfaz_sonido::Stop_ambiente(uint8_t _i_n){
     if(_i_n>=_n_ambiente){
         std::cout<<"ERROR SONIDO: ambiente solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -594,7 +594,7 @@ void Interfaz_sonido::Stop_ambiente(u_int8_t _i_n){
     _eventos_ambiente[_i_n]->stop();
     system_update();
 }
-void Interfaz_sonido::Stop_musica(u_int8_t _i_n){
+void Interfaz_sonido::Stop_musica(uint8_t _i_n){
     if(_i_n>=_n_musica){
         std::cout<<"ERROR SONIDO: musica solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
@@ -603,7 +603,7 @@ void Interfaz_sonido::Stop_musica(u_int8_t _i_n){
     system_update();
 }
 void Interfaz_sonido::Stop_game(){
-    u_int8_t cont=_n_ambiente;
+    uint8_t cont=_n_ambiente;
     while(cont){
         --cont;
         Stop_ambiente(cont);
@@ -641,7 +641,7 @@ void Interfaz_sonido::Pausa(){
 
 }
 void Interfaz_sonido::Quitar_pausa(){
-   /* u_int8_t cont=_n_pasos;
+   /* uint8_t cont=_n_pasos;
     while(cont){
         --cont;
         _eventos_pasos[cont]->quit_pause();

@@ -44,7 +44,7 @@ uint16_t NPC_Manager::get_n_enemigos(){
 }
 void NPC_Manager::inserta_npc_nivel(){
 	Nivel* nivel=Nivel::nivel_instancia();
-	for(u_int8_t cont=0;cont<(_n_enemigos);++cont){
+	for(uint8_t cont=0;cont<(_n_enemigos);++cont){
 		nivel->nivel_inserta_NPC(_npc[cont]);
 	}
 }

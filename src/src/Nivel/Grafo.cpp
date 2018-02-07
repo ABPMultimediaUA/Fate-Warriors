@@ -298,7 +298,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 
 }
 
-u_int16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino){
+uint16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino){
 	Vertice* origen;
 	Vertice* destino;
 	origen=grafo_get_vertice(_i_xorigen, _i_yorigen);
@@ -562,7 +562,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 void Grafo::actualiza_NPC(){
 	Vertice* ver_aux=_h;
 	Nodo_blackboard* black_aux;
-	u_int8_t cont=0;
+	uint8_t cont=0;
 	NPC* npc_aux;
 	while(ver_aux!=nullptr){
 		black_aux=ver_aux->get_blackboard();
@@ -591,7 +591,7 @@ void Grafo::grafo_inserta_NPC(NPC* _i_npc){//si el npc se sale del nivel se pier
 		_i_npc->setPositionXZ(grafo_get_vertice(1)->get_coord_x()+1*metro,grafo_get_vertice(1)->get_coord_y()+1*metro);
 	}
 }
-void Grafo::grafo_get_numero_posiciones_spawn_enemigos(u_int16_t &_i_n_posiciones){
+void Grafo::grafo_get_numero_posiciones_spawn_enemigos(uint16_t &_i_n_posiciones){
 	Vertice* vert_aux=_h;
 	Vertice* vert_aux_interno=nullptr;
 	_i_n_posiciones=0;
@@ -609,7 +609,7 @@ void Grafo::grafo_get_numero_posiciones_spawn_enemigos(u_int16_t &_i_n_posicione
 void Grafo::grafo_get_posiciones_spawn_enemigos( float** _posiciones){
 	Vertice* vert_aux=_h;
 	Vertice* vert_aux_interno=nullptr;
-	u_int16_t cont=0;
+	uint16_t cont=0;
 	while(vert_aux!=nullptr){
 		if(vert_aux->get_tipo_vertice()==Vertice_Nodo){
 			vert_aux_interno=vert_aux->get_lod1()->get_h();
@@ -628,11 +628,27 @@ void Grafo::Update(){
 
 	actualiza_NPC();
 }
-void Grafo::set_tipo_zona(u_int8_t _id, Enum_zonas _i_zona){
-	Vertice* vert_aux=grafo_get_vertice(_id);
+void Grafo::set_tipo_zona(uint8_t _id, Enum_zonas _i_zona){
+	Vertice* vert_aux=nullptr;
+	vert_aux=grafo_get_vertice(_id);
+	if(vert_aux==nullptr){
+		std::cout<<"No existe vertice para poner el tipo de zona"<<std::endl;
+	}
 	vert_aux->set_tipo(_i_zona);
 }
-Enum_zonas Grafo::get_tipo_zona(u_int8_t _id, Enum_zonas _i_zona){
-	Vertice* vert_aux=grafo_get_vertice(_id);
+Enum_zonas Grafo::get_tipo_zona(uint8_t _id, Enum_zonas _i_zona){
+	Vertice* vert_aux=nullptr;
+	vert_aux=grafo_get_vertice(_id);
+	if(vert_aux==nullptr){
+		std::cout<<"No existe vertice para coger el tipo de zona"<<std::endl;
+	}
 	return vert_aux->get_tipo();
+}
+NPC** Grafo::get_array_NPC(uint8_t _id){
+	Vertice* vert_aux=nullptr;
+	vert_aux=grafo_get_vertice(_id);
+	if(vert_aux==nullptr){
+		std::cout<<"No existe vertice para coger el array de NPC"<<std::endl;
+	}
+	return vert_aux->get_blackboard()->get_array_NPC();
 }
