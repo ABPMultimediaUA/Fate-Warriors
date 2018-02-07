@@ -56,18 +56,18 @@ void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_dest
 		}
 	}
 }
-u_int8_t Vertice::get_lod(){
+uint8_t Vertice::get_lod(){
 	return _blackboard->get_lod();
 }
 /*void Vertice::inserta_enemigo(NPC* _i_npc){
-	for(u_int8_t cont=0;cont<maximo_npc;++cont){
+	for(uint8_t cont=0;cont<maximo_npc;++cont){
 		if(_NPC[cont]==nullptr){
 			_NPC[cont]=_i_npc;
 		}
 	}
 }
 void Vertice::elimina_enemigo(NPC* _i_npc){
-	for(u_int8_t cont=0;cont<maximo_npc;++cont){
+	for(uint8_t cont=0;cont<maximo_npc;++cont){
 		if(_NPC[cont]==_i_npc){
 			_NPC[cont]=nullptr;
 		}

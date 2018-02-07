@@ -1,6 +1,6 @@
 #ifndef VERTICE_H
 #define VERTICE_H
-#include <cstdlib>
+#include <cstdint>
 #include "Enum_zonas.h"
 #include "Enum_vertices.h"
 class Arista;
@@ -75,7 +75,7 @@ class Vertice
 			_tipo=_i_zona;
 		}
 
-	  u_int8_t get_lod();
+	  uint8_t get_lod();
 
 	  void set_lod(unsigned short cont);
 	  void pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_destino);

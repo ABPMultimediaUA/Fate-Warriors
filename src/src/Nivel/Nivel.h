@@ -46,7 +46,7 @@ public:
 	inline void nivel_set_lod(int _i_id){
 		_lod2->grafo_set_lod(_i_id);
 	}
-	inline void nivel_get_numero_posiciones_spawn_enemigos(u_int16_t &_i_n_posiciones){
+	inline void nivel_get_numero_posiciones_spawn_enemigos(uint16_t &_i_n_posiciones){
 		_lod2->grafo_get_numero_posiciones_spawn_enemigos(_i_n_posiciones);
 	}
 	inline void nivel_get_posiciones_spawn_enemigos( float** _posiciones){
@@ -67,16 +67,19 @@ public:
 	inline Nodo_blackboard* nivel_get_blackboard(float _i_x, float _i_y){
 		return _lod2->grafo_get_blackboard(_i_x, _i_y);
 	}
-	inline u_int16_t nivel_pathfinding(float &_i_xorigen, float &_i_yorigen, float xdestino, float ydestino){
+	inline NPC** nivel_get_array_NPC(int _i_id){
+		return _lod2->get_array_NPC(_i_id);
+	}
+	inline uint16_t nivel_pathfinding(float &_i_xorigen, float &_i_yorigen, float xdestino, float ydestino){
 		return _lod2->grafo_pathfinding( _i_xorigen, _i_yorigen, xdestino, ydestino);
 	}
 	inline unsigned short nivel_get_lod(int _i_id){
 		return _lod2->grafo_get_vertice(_i_id)->get_blackboard()->get_lod();
 	}
-	void nivel_set_tipo_zona(u_int8_t _id, Enum_zonas _i_zona){
+	inline void nivel_set_tipo_zona(uint8_t _id, Enum_zonas _i_zona){
 		_lod2->set_tipo_zona(_id, _i_zona);
 	}
-	Enum_zonas nivel_get_tipo_zona(u_int8_t _id, Enum_zonas _i_tipo){
+	inline Enum_zonas nivel_get_tipo_zona(uint8_t _id, Enum_zonas _i_tipo){
 		return _lod2->get_tipo_zona(_id, _i_tipo);
 	}
 

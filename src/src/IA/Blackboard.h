@@ -196,8 +196,8 @@ private:
 	int16_t* _vida_actual;					// Vida actual	DONE
 	int16_t _vida_max;						// Vida maxima	DONE
 	float _porcentaje_vida;					// Porcentaje vida actual (Se calcula en cada iteracion) DONE
-	u_int8_t* _rango_ataque_normal;			// Rango de ataque normal DONE
-	u_int8_t* _rango_ataque_fuerte;			// Rango de ataque normal DONE
+	uint8_t* _rango_ataque_normal;			// Rango de ataque normal DONE
+	uint8_t* _rango_ataque_fuerte;			// Rango de ataque normal DONE
 	float *_x;								// Posicion x del NPC
 	float *_z;								// Posicion z del NPC
 
