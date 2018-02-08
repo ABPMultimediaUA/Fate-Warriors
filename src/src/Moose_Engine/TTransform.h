@@ -5,6 +5,7 @@
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <stack>
 #include "TNodo.h"
 
 class TTransform : public TEntidad{
@@ -23,7 +24,7 @@ class TTransform : public TEntidad{
         void endDraw();
     
     private:
-        glm::mat4 matriz;
+        static glm::mat4 matriz;
 
 };
 

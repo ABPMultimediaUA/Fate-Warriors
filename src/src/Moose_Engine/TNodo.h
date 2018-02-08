@@ -24,6 +24,9 @@ class TNodo{
 
         TEntidad* get_entidad();
         void set_entidad(TEntidad* entidad);
+        inline TNodo* get_padre(){
+            return _padre; 
+        }
 
         uint16_t get_entidad_id();
 
