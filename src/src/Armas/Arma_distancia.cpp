@@ -10,10 +10,6 @@ Arma_distancia::~Arma_distancia(){
 }
 
 Character* Arma_distancia::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){
-	if (decrease_uses()){
-		return 0;
-	}
-
 	return 0;
 }
 

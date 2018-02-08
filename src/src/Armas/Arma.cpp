@@ -15,20 +15,15 @@ _danyo(_i_danyo),
 Arma::~Arma() {
 }
 
-bool Arma::decrease_uses(){
-	if(_uses>0){
-		_uses--;
+bool Arma::preparado_siguiente_ataque(){
+	if(_reloj->get_current() > _tiempo_siguiente_disponible){
 		return true;
 	}
 	return false;
 }
 
-bool Arma::preparado_siguiente_ataque(){
-	if(_reloj->get_current() > _tiempo_siguiente_disponible && _uses > 0){
-		_uses--;
-		return true;
-	}
-	return false;
+void Arma::decrementar_usos(){
+	_uses--;
 }
 
 void Arma::actualizar_tiempo_siguiente_ataque(){

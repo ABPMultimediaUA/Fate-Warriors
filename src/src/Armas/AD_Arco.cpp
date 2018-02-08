@@ -19,7 +19,7 @@ Character* AD_Arco::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){
 	if(preparado_siguiente_ataque()){
 		//obtener_mundo->anyadirbaflecha(_i_x,_i_y,_i_z);
 		actualizar_tiempo_siguiente_ataque();
-		
+		decrementar_usos();
 
 		//Anadir trigger sonido
 		return _objeto_motor->disparar(_i_objeto_origen,_i_direccion, _rango);

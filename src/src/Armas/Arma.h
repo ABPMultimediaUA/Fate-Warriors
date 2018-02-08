@@ -18,7 +18,7 @@ public:
 
 	bool 	preparado_siguiente_ataque();
 	void 	actualizar_tiempo_siguiente_ataque();
-	bool 	decrease_uses();
+	void  	decrementar_usos();
 	
 	uint8_t 	get_tipo();
 	uint8_t 	get_uses();

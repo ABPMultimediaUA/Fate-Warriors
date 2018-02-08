@@ -22,6 +22,7 @@ void AD_Ametralladora::update(){
 
 Character* AD_Ametralladora::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){
 	if(preparado_siguiente_ataque()){
+		decrementar_usos();
 		//obtener_mundo->anyadirbalametralladora(_i_x,_i_y,_i_z);
 		actualizar_tiempo_siguiente_ataque();
 			

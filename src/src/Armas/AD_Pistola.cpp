@@ -18,7 +18,7 @@ Character* AD_Pistola::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccio
 	if(preparado_siguiente_ataque()){
 		//obtener_mundo->anyadirbalapistola(_i_x,_i_y,_i_z);
 		actualizar_tiempo_siguiente_ataque();
-		
+		decrementar_usos();
 
 		//Anadir trigger sonido
 		return _objeto_motor->disparar(_i_objeto_origen,_i_direccion, _rango);

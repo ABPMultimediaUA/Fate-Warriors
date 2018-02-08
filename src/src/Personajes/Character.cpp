@@ -351,7 +351,7 @@ bool Character::intentar_recoger_arma() {
         vec_cons	= (*_armas)[_i]->get_vector();
         if(comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_cons, 4)){
             coger_arma((*_armas)[_i]);
-            
+            (*_armas)[_i]->get_objeto_motor()->setPositionXZ(99999,9999);
           //  _motor->haz_desaparecer(_id_motor);
             (*_armas)[_i]->haz_desaparecer();
             return true;
