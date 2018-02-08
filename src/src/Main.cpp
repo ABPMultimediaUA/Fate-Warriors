@@ -26,7 +26,7 @@ void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uin
 
 // Main del juego
 int main(){ //1 minuto de silencio por el main
-    UI* _ui = UI::ui_instancia(1280,720);
+    UI* _ui = UI::ui_instancia(1920,1080);
     while(!_ui->get_cerrar()){
         _ui->update();
         _ui->render();

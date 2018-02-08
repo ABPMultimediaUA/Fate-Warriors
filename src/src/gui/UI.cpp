@@ -18,7 +18,23 @@ static void error_callback(int error, const char* description)
 {
     fprintf(stderr, "Error %d: %s\n", error, description);
 }
+/*Funciones para guardar los datos
+ * */
+struct Tresolution2func{//declaracion de los parametros
+	int _n_res;
+	void (UI::*pmet)();
+};
 
+Tresolution2func UI_mapping[] = {//definicion de los parametros
+		{1920, &UI::cargar_res_1920}  
+        {1600, &UI::cargar_res_1600}
+        {1366, &UI::cargar_res_1366}
+        {1280, &UI::cargar_res_1280}
+        {1024, &UI::cargar_res_1024}
+        {800, &UI::cargar_res_800}
+        {640, &UI::cargar_res_640}
+		{, &UI::cargar_res_default}
+};
 UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     _cierratePuto = false;
     
@@ -49,7 +65,7 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
 
     
     ImGuiIO& io = ImGui::GetIO();
-    ImFont* pFont = io.Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 14.0f);
+    ImFont* pFont = io.Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 30.0f);
     //io.FontDefault = pFont;
     //unsigned char* pixels;
     //int width, height;
@@ -58,33 +74,28 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
 
     Tresolution2func* _next=UI_mapping;
 	//std::cout<<_iteracion<<std::endl;
-	while (_next->_nombre_objeto){
-		if(_iteracion==_next->_nombre_objeto){
+	while (_next->_n_res){
+		if(ancho_ventana==_next->_n_res){
 			(this->*_next->pmet)();
+            break;
 		}
 		++_next;
 	}
+    if (! _next->_n_res){
+        (*_next->pmet)();
+    }
 }
 
 UI::~UI(){
     ImGui_ImplGlfwGL3_Shutdown();
     glfwTerminate();
 }
-/*Funciones para guardar los datos
- * */
-struct Tinstance2func{//declaracion de los parametros
-	const char* _nombre_objeto;
-	void (UI::*pmet)();
-};
 
-Tresolution2func UI_mapping[] = {//definicion de los parametros
-		{1920, &UI::cargar_res_1920},
-		{0, 0}
-};
 void UI::cargar_res_1920(){
     _boton_ancho=300;
     _boton_alto=100;
 }
+
 void UI::update(){
     if(glfwWindowShouldClose(_window)){
         _cierratePuto = true;
@@ -119,14 +130,14 @@ void UI::update(){
 
         
     {
-
+        ImGui::SetNextWindowPos(ImVec2(100,500));
         ImGui::Begin("Menu principal",0,ImGuiWindowFlags_NoTitleBar|
                                         ImGuiWindowFlags_NoResize|
                                         ImGuiWindowFlags_AlwaysAutoResize|
                                         ImGuiWindowFlags_NoMove);
 
         ImGui::Button("Jugar", ImVec2(_boton_ancho,_boton_alto));
-        ImGui::Button("Configuración", ImVec2(_boton_ancho,_boton_alto));
+        ImGui::Button("Ajustes", ImVec2(_boton_ancho,_boton_alto));
         ImGui::Button("Salir", ImVec2(_boton_ancho,_boton_alto));
         
         //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
