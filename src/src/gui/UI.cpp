@@ -26,14 +26,14 @@ struct Tresolution2func{//declaracion de los parametros
 };
 
 Tresolution2func UI_mapping[] = {//definicion de los parametros
-		{1920, &UI::cargar_res_1920}  
-        {1600, &UI::cargar_res_1600}
-        {1366, &UI::cargar_res_1366}
-        {1280, &UI::cargar_res_1280}
-        {1024, &UI::cargar_res_1024}
-        {800, &UI::cargar_res_800}
-        {640, &UI::cargar_res_640}
-		{, &UI::cargar_res_default}
+		{1920, &UI::cargar_res_1920}
+       /* {1600, &UI::cargar_res_1600},
+        {1366, &UI::cargar_res_1366},
+        {1280, &UI::cargar_res_1280},
+        {1024, &UI::cargar_res_1024},
+        {800, &UI::cargar_res_800},
+        {640, &UI::cargar_res_640},
+		{0, &UI::cargar_res_default}*/
 };
 UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     _cierratePuto = false;
@@ -82,7 +82,7 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
 		++_next;
 	}
     if (! _next->_n_res){
-        (*_next->pmet)();
+        (this->*_next->pmet)();
     }
 }
 

@@ -1,6 +1,8 @@
 #ifndef SRC_TENTIDAD_H_
 #define SRC_TENTIDAD_H_
 #include <cstdint>
+#include <glm/ext.hpp>
+#include <stack>
 class TNodo;
 
 class TEntidad {
@@ -20,6 +22,9 @@ public:
 private:
 	uint16_t _ID;
 	TNodo* _nodo;
+protected:
+    static glm::mat4 matriz;
+    static std::stack<glm::mat4> pila_matrices;
 };
 
 #endif /* SRC_TENTIDAD_H_ */
