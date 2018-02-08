@@ -159,7 +159,7 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         this->set_accion(Accion_pre_atacar);
     }
     else if(
-            _accion == Accion_post_atacar && _tipo_ataque != Ataque_Especial && _tipo_ataque != Ataque_Normal_Normal 
+            _accion == Accion_post_atacar && _tipo_ataque != Ataque_Salto && _tipo_ataque != Ataque_Especial && _tipo_ataque != Ataque_Normal_Normal 
             && _tipo_ataque != Ataque_Normal_Fuerte && _tipo_ataque != Ataque_Fuerte_Normal && _tipo_ataque != Ataque_Fuerte_Fuerte &&
                 (
                     (_inventario->get_tipo_arma() != Tipo_Arma_distancia) ||
@@ -393,34 +393,103 @@ void Character::impulso_danyar(Character * atacante, Character * atacado, int im
 }
 
 int Character::getTiempoAccion(Enum_Acciones _accion){
-    Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
 
-    if(_accion == Accion_pre_atacar && tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
-        return 1;
+    Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
+    Enum_Nombre_Arma nombre_arma = _inventario->get_nombre_arma();
+
+    if(_accion == Accion_pre_atacar){
+
+        if(tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
+            return 1;
+        }
+        else if(tipo_arma == Tipo_Arma_cerca){
+
+            if(nombre_arma == Nombre_Arma_Katana){
+
+                if(_tipo_ataque == Ataque_Normal){
+                    return 150;
+                }
+                else if(_tipo_ataque == Ataque_Fuerte){
+                    return 250;
+                }
+                else if(_tipo_ataque == Ataque_Salto){
+                    return 200;
+                }
+                else if(_tipo_ataque == Ataque_Especial){
+                    return 200;
+                }
+                else{
+                    std::cout<< "No debe entrar 1 \n";
+                    return 200;
+                }   
+            }
+
+        }
+        else if(_tipo_ataque == Ataque_Normal){
+            return 150;
+        }
+        else if(_tipo_ataque == Ataque_Fuerte){
+            return 250;
+        }
+        else if(_tipo_ataque == Ataque_Salto){
+            return 200;
+        }
+        else if(_tipo_ataque == Ataque_Especial){
+            return 200;
+        }
+        else{
+            std::cout<< "No debe entrar 2 \n";
+            return 200;
+        }
+            
     }
-    else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Normal){
-        return 150;
-    }
-    else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Fuerte){
-        return 250;
-    }
-    else if(_accion == Accion_pre_atacar && _tipo_ataque == Ataque_Salto){
-        return 200;
-    }
+    
     else if(_accion == Atacar){
         return 1;
     }
-    else if(_accion == Accion_post_atacar && tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
-        return 1;
-    }
-    else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Normal){
-        return 150;
-    }
-    else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Fuerte){
-        return 250;
-    }
-    else if(_accion == Accion_post_atacar && _tipo_ataque == Ataque_Salto){
-        return 200;
+
+    else if(_accion == Accion_post_atacar){
+
+        if(tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
+            return 1;
+        }
+        else if(tipo_arma == Tipo_Arma_cerca){
+
+            if(nombre_arma == Nombre_Arma_Katana){
+
+                if(_tipo_ataque == Ataque_Normal){
+                    return 150;
+                }
+                else if(_tipo_ataque == Ataque_Fuerte){
+                    return 250;
+                }
+                else if(_tipo_ataque == Ataque_Salto){
+                    return 200;
+                }
+                else if(_tipo_ataque == Ataque_Especial){
+                    return 200;
+                }
+                else{
+                    std::cout<< "No debe entrar 3 \n";
+                    return 200;
+                }
+                    
+            }
+        }
+        else if(_tipo_ataque == Ataque_Normal){
+            return 150;
+        }
+        else if(_tipo_ataque == Ataque_Fuerte){
+            return 250;
+        }
+        else if(_tipo_ataque == Ataque_Salto){
+            return 200;
+        }
+        else if(_tipo_ataque == Ataque_Especial){
+            return 200;
+        }
+        else
+            return 500;
     }
     else if(_accion == Accion_Dash){
         return 200;
@@ -466,11 +535,19 @@ Enum_Tipo_Ataque Character::get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataq
                 return Ataque_Normal_Normal;
             else if(new_tipo_ataque == Ataque_Fuerte)
                 return Ataque_Normal_Fuerte;
+            else
+                std::cout<< "No debe entrar 4.0 \n";
+            
         case Ataque_Fuerte:
             if(new_tipo_ataque == Ataque_Normal)
                 return Ataque_Fuerte_Normal;
             else if(new_tipo_ataque == Ataque_Fuerte)
                 return Ataque_Fuerte_Fuerte;
+            else
+                std::cout<< "No debe entrar 4.1 \n";
+        default:
+            std::cout<< "No debe entrar 4.2 \n";
+            return Ataque_Fuerte_Fuerte;
     }
 }
 
@@ -516,17 +593,58 @@ btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
 
 btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
     // ancho, alto, largo
-    switch(_ataque)
-    {
-        case Ataque_Normal:
-            std::cout<< "normal" <<std::endl;
+    Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
+    Enum_Nombre_Arma nombre_arma = _inventario->get_nombre_arma();
+
+
+    if(tipo_arma == Tipo_Arma_cuerpo_a_cuerpo){
+
+        if(_tipo_ataque == Ataque_Normal){
+            std::cout<< "cuerpo a cuerpo normal" <<std::endl;
             return btVector3(2,1,2);
-        case Ataque_Fuerte:
-            std::cout<< "fuerte" <<std::endl;
+        }
+        else if(_tipo_ataque == Ataque_Fuerte){
+            std::cout<< "cuerpo a cuerpo  fuerte" <<std::endl;
             return btVector3(2.5,1,2);
-        default:
-            std::cout<< "default" <<std::endl;
-            return btVector3(5,1,5);
+        }
+        else if(_tipo_ataque == Ataque_Salto){
+            std::cout<< "cuerpo a cuerpo salto" <<std::endl;
+            return btVector3(2,1,2);
+        }
+        else if(_tipo_ataque == Ataque_Especial){
+            std::cout<< "cuerpo a cuerpo Especial" <<std::endl;
+            return btVector3(2,1,2);
+        }
+        else
+            return btVector3(2,1,2);
+    }
+    else if(tipo_arma == Tipo_Arma_cerca){
+
+        if(nombre_arma == Nombre_Arma_Katana){
+
+            if(_tipo_ataque == Ataque_Normal){
+                std::cout<< "KATANA normal" <<std::endl;
+                return btVector3(2,1,2);
+            }
+            else if(_tipo_ataque == Ataque_Fuerte){
+                std::cout<< "KATANA fuerte" <<std::endl;
+                return btVector3(2.5,1,2);
+            }
+            else if(_tipo_ataque == Ataque_Salto){
+                std::cout<< "KATANA salto" <<std::endl;
+                return btVector3(2,1,2);
+            }
+            else if(_tipo_ataque == Ataque_Especial){
+                std::cout<< "KATANA especial" <<std::endl;
+                return btVector3(2,1,2);
+            }
+            else
+                return btVector3(2,1,2);
+        }
+    }
+    else{
+        std::cout<< "Escala RB ATAQUE default" <<std::endl;
+        return btVector3(5,1,5);
     }
 }
 
@@ -625,6 +743,8 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
             uint16_t _cont, _n_npcs;
             _n_npcs = _npc_manager->get_n_enemigos();
 
+            bool golpea = false;
+
             for(_cont = 0; _cont < _n_npcs; _cont++) {
                 if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
                     Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
@@ -635,7 +755,13 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
 
                     // Impulsa al atacado
                     impulso_danyar(this, _npcs[_cont], get_impulso_danyar(_tipo_ataque));
+
+                    golpea = true;
                 }
+            }
+
+            if(golpea == true && _tipo_arma = Tipo_Arma_cerca){
+                //_inventario->get_arma
             }
         }
         else if(tipo_arma == Tipo_Arma_distancia){
