@@ -191,3 +191,10 @@ enum Tipo_Arma Inventario::seleccionar_cuerpo_a_cuerpo(){
 enum Tipo_Arma Inventario::get_tipo_arma(){
 	return _arma;
 }
+
+Enum_Nombre_Arma Inventario::get_nombre_arma(){
+	if(_seleccionado==nullptr){
+		return Nombre_Arma_Nada;
+	}
+	return _seleccionado->get_nombre();
+}

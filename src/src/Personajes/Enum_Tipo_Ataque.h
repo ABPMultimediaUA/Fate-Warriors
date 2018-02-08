@@ -20,4 +20,14 @@ enum Tipo_Arma{
 	Tipo_Arma_cerca = 3
 };
 
+enum Enum_Nombre_Arma{
+	Nombre_Arma_Katana,		
+	Nombre_Arma_Ametralladora,		
+	Nombre_Arma_Arco,		
+	Nombre_Arma_Bazooka,
+	Nombre_Arma_Pistola,
+	Nombre_Arma_Nada
+};
+
+
 #endif /* SRC_ENUM_TIPO_ATAQUE_H_ */
