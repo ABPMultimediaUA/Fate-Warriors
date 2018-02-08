@@ -43,6 +43,7 @@ void Consumible_Action::comprobar_consumibles(){
 			//(*_consumibles)[a]->setPositionXZ(9000,9000);
 			_consumibles_manager->borrar_consumible(a);
 			--tamanio;
+			std::cout << tamanio<< "tamaaaaño" <<std::endl;
 			continue;
 		}
 
@@ -52,6 +53,7 @@ void Consumible_Action::comprobar_consumibles(){
 				//(*_consumibles)[a]->setPositionXZ(9000,9000);
 				_consumibles_manager->borrar_consumible(a);
 				--tamanio;
+				std::cout << tamanio<< "tamaaaaño" <<std::endl;
 				se_ha_borrado=true;
 			}
 		 }

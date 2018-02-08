@@ -29,25 +29,25 @@ public:
     void crear_musica(std::string _i_iteracion);
 
 
-    void Play_ambiente(u_int8_t _i_n);
-    void Play_armas(u_int8_t _i_n);
-    void Play_consumibles(u_int8_t _i_n);
-    void Play_escenario(u_int8_t _i_n);
-    void Play_menu(u_int8_t _i_n);
-    void Play_personaje(u_int8_t _i_n);
-    void Play_voces(u_int8_t _i_n);
-    void Play_pasos(u_int8_t _i_n);
+    void Play_ambiente(uint8_t _i_n);
+    void Play_armas(uint8_t _i_n);
+    void Play_consumibles(uint8_t _i_n);
+    void Play_escenario(uint8_t _i_n);
+    void Play_menu(uint8_t _i_n);
+    void Play_personaje(uint8_t _i_n);
+    void Play_voces(uint8_t _i_n);
+    void Play_pasos(uint8_t _i_n);
 
-    void Stop_pasos(u_int8_t _i_n);
-    void Stop_ambiente(u_int8_t _i_n);
-    void Stop_musica(u_int8_t _i_n);
+    void Stop_pasos(uint8_t _i_n);
+    void Stop_ambiente(uint8_t _i_n);
+    void Stop_musica(uint8_t _i_n);
     void Stop_game();
-    /*void Stop_armas(u_int8_t _i_n);
-    void Stop_consumibles(u_int8_t _i_n);
-    void Stop_escenario(u_int8_t _i_n);
-    void Stop_menu(u_int8_t _i_n);
-    void Stop_personaje(u_int8_t _i_n);
-    void Stop_voces(u_int8_t _i_n);*/
+    /*void Stop_armas(uint8_t _i_n);
+    void Stop_consumibles(uint8_t _i_n);
+    void Stop_escenario(uint8_t _i_n);
+    void Stop_menu(uint8_t _i_n);
+    void Stop_personaje(uint8_t _i_n);
+    void Stop_voces(uint8_t _i_n);*/
 
     void Pausa();
     void Quitar_pausa();

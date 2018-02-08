@@ -21,6 +21,11 @@ NPC_Manager::NPC_Manager() {
 	_npc[2] = new Enemy_Normal(0, 34*metro, 0, 24*metro, 50, .15, 5, 10);
 	_npc[3] = new Ally(0, 45*metro, 0, 40*metro, 50, .15, 5, 10);
 	_npc[4] = new Beast(0, 75*metro, 0, 40*metro, 50, .15, 5, 10);
+	std::cout << _npc[0] << "creado enemigo" << std::endl;
+	std::cout << _npc[1] << "creado enemigo" << std::endl;
+	std::cout << _npc[2] << "creado enemigo" << std::endl;
+	std::cout << _npc[3] << "creado enemigo" << std::endl;
+	std::cout << _npc[4] << "creado enemigo" << std::endl;
 }
 
 NPC_Manager::~NPC_Manager() {
@@ -39,7 +44,7 @@ uint16_t NPC_Manager::get_n_enemigos(){
 }
 void NPC_Manager::inserta_npc_nivel(){
 	Nivel* nivel=Nivel::nivel_instancia();
-	for(u_int8_t cont=0;cont<(_n_enemigos);++cont){
+	for(uint8_t cont=0;cont<(_n_enemigos);++cont){
 		nivel->nivel_inserta_NPC(_npc[cont]);
 	}
 }

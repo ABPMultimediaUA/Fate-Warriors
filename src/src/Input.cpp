@@ -10,6 +10,9 @@ Input::Input() {
 	_posicion_raton = new Vector2(0,0);
 	_vector_camara = new Vector2(0,0);
 
+	_saltar = false;
+	_ex_saltar = false;
+
 	_camara_con_teclado = false;
 	_invertir_x = false;
 	_invertir_y = true;
@@ -26,7 +29,7 @@ Input::Input() {
 	_ejes = new sf::Joystick::Axis[N_Inputs];
 	actualiza_mando();
 
-	asignar_teclas_predefinidas();
+	asignar_teclas_partida();
 }
 
 Input::~Input() {
@@ -42,7 +45,7 @@ Input::~Input() {
 
 
 // Asigna a los input las teclas predefinidas
-void Input::asignar_teclas_predefinidas() {
+void Input::asignar_teclas_partida() {
 	// ----------------- Inputs del teclado ---------------
 	_teclas[Input_Arriba] = sf::Keyboard::W;
 	_teclas[Input_Abajo] = sf::Keyboard::S;
@@ -62,7 +65,7 @@ void Input::asignar_teclas_predefinidas() {
 
 	_teclas[Input_Centrar_Camara] = sf::Keyboard::Unknown;
 
-	_teclas[Input_Pausa] = sf::Keyboard::P;
+	_teclas[Input_Pausa] = sf::Keyboard::Escape;
 
 
 	// ----------------- Inputs del raton ---------------
@@ -97,6 +100,21 @@ void Input::asignar_teclas_predefinidas() {
 	_raton[Input_Camara_Abajo] = sf::Mouse::ButtonCount;
 	_raton[Input_Camara_Izquierda] = sf::Mouse::ButtonCount;
 	_raton[Input_Camara_Derecha] = sf::Mouse::ButtonCount;
+
+	asignar_teclas_mando();
+}
+
+// Asigna las teclas del menu
+void Input::asignar_teclas_menu() {
+	_teclas[Input_Arriba] = sf::Keyboard::Up;
+	_teclas[Input_Abajo] = sf::Keyboard::Down;
+	_teclas[Input_Izquierda] = sf::Keyboard::Left;
+	_teclas[Input_Derecha] = sf::Keyboard::Right;
+
+	_teclas[Input_Salto] = sf::Keyboard::Return;
+
+	_ejes[Input_Derecha] = sf::Joystick::PovX;
+	_ejes[Input_Arriba] = sf::Joystick::PovY;
 }
 
 
@@ -123,7 +141,7 @@ void Input::asignar_teclas_mando() {
 // Activa la camara con teclado
 void Input::activa_camara_teclado() {
 	_camara_con_teclado = true;
-	asignar_teclas_predefinidas();
+	asignar_teclas_partida();
 	_posicion_raton->_x = 0;
 	_posicion_raton->_y = 0;
 }
@@ -131,7 +149,7 @@ void Input::activa_camara_teclado() {
 // Desactiva la camara con teclado
 void Input::desactiva_camara_teclado() {
 	_camara_con_teclado = false;
-	asignar_teclas_predefinidas();
+	asignar_teclas_partida();
 }
 
 
@@ -324,7 +342,7 @@ void Input::recibir_inputs_teclado_raton() {
 	else {
 		_ex_saltar = false;
 	}
-
+	
 
 	if(_teclas[Input_Interact] != sf::Keyboard::Unknown) 
 		_aux = sf::Keyboard::isKeyPressed(_teclas[Input_Interact]);

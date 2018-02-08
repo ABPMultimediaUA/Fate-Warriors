@@ -27,6 +27,7 @@ Datos_Partida::~Datos_Partida() {
 	delete _jugador;
 	delete _trampas_manager;
 	delete _consumibles_manager;
+	delete _armas_manager;
 
 	delete _npc_manager;
   	delete _interactuable_manager;

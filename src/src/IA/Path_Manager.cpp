@@ -16,8 +16,8 @@ Path_Manager::~Path_Manager() {
 }
 
 
-u_int16_t Path_Manager::get_direccion_movimiento(float& _x_enemigo,float& _y_enemigo) {
-	u_int16_t _direccion;
+uint16_t Path_Manager::get_direccion_movimiento(float& _x_enemigo,float& _y_enemigo) {
+	uint16_t _direccion;
 	float  _x_player, _y_player;
 	Nivel* nivel=Nivel::nivel_instancia();
 	_interfaz_decision->get_pos_player(_x_player, _y_player);

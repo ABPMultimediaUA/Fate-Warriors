@@ -4,7 +4,7 @@
 #include "Proyectil.h"
 
  #include "AD_Ametralladora.h"
-
+ #include "AC_Katana.h"
 
 
 // CONSTRUCTOR
@@ -13,13 +13,15 @@ Armas_Manager::Armas_Manager() {
     
     float mult = 4.9212625;
 	_armas.push_back(new AD_Ametralladora(5,mult*18, mult*0, mult*15));
+    
+    _armas.push_back(new AC_Katana(5,mult*10, mult*0, mult*10));
 }
 
 // DESTRUCTOR
 
 Armas_Manager::~Armas_Manager(){
     
- for (short i = 0; i < _armas.size(); ++i) {
+ for (short i = 0; i < _armas.size(); i++) {
     delete _armas[i];
   }
   _armas.clear();

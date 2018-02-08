@@ -1,9 +1,12 @@
 
-/*Ojo cuidado con los core dumpeds, si se elimina el objeto sin decirle al _seleccionado que ese objeto se ha eliminado al intentar usarlo dara core dumped */
 #include <iostream>
 #include "Inventario.h"
 #include "Armas/Arma_distancia.h"
 #include "Armas/Arma_cerca.h"
+#include "Armas/Armas_Manager.h"
+#include "Datos_Partida.h"
+#include "Game.h"
+
 #include "Llave.h"
 
 Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr){
@@ -18,8 +21,28 @@ void Inventario::render(){
 
 }
 
-Character* Inventario::usar(uint16_t _i_direccion){
-	return _seleccionado->usar(_i_direccion);
+
+Character* Inventario::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){
+	Character* personaje = _seleccionado->usar(_i_objeto_origen,_i_direccion);
+	
+	if(_seleccionado->get_uses()==0){
+		Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
+		_armas_manager->borrar_arma(_seleccionado);
+
+		if(_arma = Tipo_Arma_distancia){
+			_objeto_distancia = nullptr;
+		}
+
+		if(_arma = Tipo_Arma_cerca){
+			_objeto_cerca = nullptr;
+		}
+
+		cambiar_arma_seleccionada_a_la_siguiente();
+		return 0;
+	}
+	
+	return personaje;
+
 }
 
 /*Metodos SET*/
@@ -169,4 +192,11 @@ enum Tipo_Arma Inventario::seleccionar_cuerpo_a_cuerpo(){
 
 enum Tipo_Arma Inventario::get_tipo_arma(){
 	return _arma;
+}
+
+Enum_Nombre_Arma Inventario::get_nombre_arma(){
+	if(_seleccionado==nullptr){
+		return Nombre_Arma_Nada;
+	}
+	return _seleccionado->get_nombre();
 }

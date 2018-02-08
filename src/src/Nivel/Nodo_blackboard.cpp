@@ -2,12 +2,12 @@
 #include <iostream>
 #include "../Personajes/NPC.h"
 
-Nodo_blackboard::Nodo_blackboard(int _i_zona_actual, u_int8_t _i_n_npc):_lod(4){
+Nodo_blackboard::Nodo_blackboard(int _i_zona_actual, uint8_t _i_n_npc):_lod(4){
     _zona_actual=static_cast<Enum_zonas>(_i_zona_actual);
     _zonas_ady=nullptr;
     _maximo_npc=_i_n_npc;
     _NPC =new NPC*[_i_n_npc];
-    for(u_int8_t cont=0;cont<_i_n_npc;++cont){
+    for(uint8_t cont=0;cont<_i_n_npc;++cont){
         _NPC[cont]=nullptr;
     }
 }
@@ -67,7 +67,7 @@ void Nodo_blackboard::anyadir_zona(int _i_zona){
     }
 }
 void Nodo_blackboard::inserta_NPC(NPC* _i_npc){
-    for(u_int8_t cont=0;cont<_maximo_npc;++cont){
+    for(uint8_t cont=0;cont<_maximo_npc;++cont){
         if(_NPC[cont]==nullptr){
             _NPC[cont]=_i_npc;
             break;
@@ -75,14 +75,14 @@ void Nodo_blackboard::inserta_NPC(NPC* _i_npc){
     }
 }
 void Nodo_blackboard::elimina_NPC(NPC* _i_npc){
-    for(u_int8_t cont=0;cont<_maximo_npc;++cont){
+    for(uint8_t cont=0;cont<_maximo_npc;++cont){
         if(_NPC[cont]==_i_npc){
             _NPC[cont]=nullptr;
             break;
         }
     }
 }
-NPC* Nodo_blackboard::get_NPC(u_int8_t num){
+NPC* Nodo_blackboard::get_NPC(uint8_t num){
     if(num<_maximo_npc && num>=0){
         return _NPC[num];
     }else{

@@ -4,7 +4,7 @@
 
 AD_Pistola::AD_Pistola(uint16_t _id, float _i_x, float _i_y, float _i_z) 
 : Arma_distancia(_id, _i_x, _i_y, _i_z, 
-				script->Dame_valor_de("Pistola_tipo"), 
+				Nombre_Arma_Pistola,
 				script->Dame_valor_de("Pistola_usos"), 
 				script->Dame_valor_de("Pistola_frecuencia"), 
 				script->Dame_valor_de("Pistola_rango")){}
@@ -17,7 +17,7 @@ Character* AD_Pistola::usar(uint16_t _i_direccion){
 	if(preparado_siguiente_ataque()){
 		//obtener_mundo->anyadirbalapistola(_i_x,_i_y,_i_z);
 		actualizar_tiempo_siguiente_ataque();
-		
+		decrementar_usos();
 
 		//Anadir trigger sonido
 		return _objeto_motor->disparar(_i_direccion, _rango);

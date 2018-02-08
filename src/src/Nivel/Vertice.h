@@ -1,6 +1,7 @@
 #ifndef VERTICE_H
 #define VERTICE_H
-#include <cstdlib>
+#include <cstdint>
+#include "Enum_zonas.h"
 #include "Enum_vertices.h"
 class Arista;
 class Grafo;
@@ -46,11 +47,14 @@ class Vertice
 	  inline int get_id_arista(){
 	  	  return _id_arista;
 	  }
-	  Enum_vertices get_tipo(){
-		return _tipo;
+	  Enum_zonas get_tipo(){
+			return _tipo;
 	  }
 		inline float get_peso_tactico(){
 			return _peso_tactico;
+		}
+		inline Enum_vertices get_tipo_vertice(){
+			return _tipo_vertice;
 		}
 	  inline void set_sig(Vertice* _i_sig){
 		  _sig=_i_sig;
@@ -67,15 +71,19 @@ class Vertice
 		inline void set_peso_tactico(float _i_peso){
 			_peso_tactico=_i_peso;
 		}
+		inline void set_tipo(Enum_zonas _i_zona){
+			_tipo=_i_zona;
+		}
 
-	  u_int8_t get_lod();
+	  uint8_t get_lod();
 
 	  void set_lod(unsigned short cont);
 	  void pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_destino);
 	  
 	  bool pos2id(float _i_x, float _i_y);
 	 protected:
-	  Enum_vertices _tipo;
+	  Enum_zonas _tipo;
+		Enum_vertices _tipo_vertice;
 	  Nodo_blackboard* _blackboard;
 	  Vertice *_sig;
 	  Arista *_ady;

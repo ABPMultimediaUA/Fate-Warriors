@@ -8,12 +8,8 @@
 #include "../Tiempo/Time.h"
 
 
-Consumible_Power_Up::Consumible_Power_Up(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 0), _reloj(Time::Instance()){
-    const char* cstr  = "models/Consumibles/Carne/Carne.obj";
-    
-    _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
-    _personaje = nullptr;
-
+Consumible_Power_Up::Consumible_Power_Up(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 0){
+    _reloj = Time::Instance();
 }
 
 Consumible_Power_Up::~Consumible_Power_Up(){

@@ -39,6 +39,7 @@ public:
 	Arma_distancia* get_objeto_distancia();
 	Arma_cerca* get_objeto_cerca();
     std::vector<Llave*> get_llaves();
+	Enum_Nombre_Arma get_nombre_arma();
 
 
 

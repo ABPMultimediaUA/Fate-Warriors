@@ -35,7 +35,6 @@ int main(){ //1 minuto de silencio por el main
     srand((int)time(0)); // Inicia la semilla del rand
 
 	Game* _juego = Game::game_instancia();
-	//_juego->crea_partida();
 	Time* time=Time::Instance();
 
 	double _h_ultimo_update=time->get_current_sin_pausas();
@@ -78,9 +77,7 @@ int main(){ //1 minuto de silencio por el main
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();
 	}
-			
-	_juego->fin_partida();
-
+	
 	delete _time;
 
 	delete _juego;

@@ -21,7 +21,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
     
     //std::cout << "Tipo NPC = " << _tipo_npc << "\n";
 
-    const char* cstr  = "models/Enemigo.obj";
+    const char* cstr  = "models/Personajes/Enemigos/Enemigo.obj";
 
    // _id_motor = _motor->crear_objeto(E_BoundingCapsule,cstr,_i_x,_i_y,_i_z,60);
     

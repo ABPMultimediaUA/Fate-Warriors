@@ -17,6 +17,9 @@ class Player;
 class Interfaz_sonido;
 class UI;
 
+class Menu_Principal;
+class Menu_Pausa;
+
 class Game{
 
 public:
@@ -32,6 +35,7 @@ public:
 
   	inline Datos_Partida* game_get_datos() { return _datos;}
     inline Action_Manager* game_get_action_manager() { return _action_manager;}
+    inline Input* get_input() { return _input_jugador;}
 
     void recibir_inputs() { _input_jugador->recibir_inputs();}
 
@@ -67,6 +71,9 @@ private:
 	Consumible_Action * _consumibles_action;
 	Trampas_action* _trampas_action;
 	Input* _input_jugador;
+
+	Menu_Principal* _menu_principal;		// Menu Principal
+	Menu_Pausa* _menu_pausa;				// Menu Pausa
 };
 
 
