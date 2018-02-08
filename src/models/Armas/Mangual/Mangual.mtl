@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 09.01.2018 16:29:51
+# File Created: 07.02.2018 11:26:27
 
-newmtl Material__12
+newmtl Material__23
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -12,5 +12,5 @@ newmtl Material__12
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka pistola.png
-	map_Kd pistola.png
+	map_Ka Mangual_textura.png
+	map_Kd Mangual_textura.png

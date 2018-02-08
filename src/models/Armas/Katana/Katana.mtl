@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 09.01.2018 16:30:06
+# File Created: 07.02.2018 11:23:30
 
 newmtl Material__14
 	Ns 10.0000
@@ -12,5 +12,5 @@ newmtl Material__14
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka katana.jpg
-	map_Kd katana.jpg
+	map_Ka Katana_textura.png
+	map_Kd Katana_textura.png

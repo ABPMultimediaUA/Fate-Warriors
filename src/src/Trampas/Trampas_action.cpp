@@ -59,7 +59,6 @@ void Trampas_action::comprobar_trampas_mina(){
      //Character
       if(_minas[_cont]->explota()){ 
           if (comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_mina, 20)){
-              _player->danyar(_minas[_cont]->get_danyo());
                   x = vec_player._x - vec_mina._x;
                   z = vec_player._y - vec_mina._y;
 
@@ -67,9 +66,14 @@ void Trampas_action::comprobar_trampas_mina(){
                   direccion_impulso.Normalize();
 
                   float valor = lib_math_distancia_2_puntos(vec_player._x, vec_player._y, vec_mina._x, vec_mina._y);
-                
+                  _player->danyar(_minas[_cont]->get_danyo()*(1/valor));
+
+                  if(valor<1.5){valor=1.5;}
+
                   Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
                   _player->get_objeto_motor()->Impulso_explosion(a);
+                  
+
               
           }
       }
@@ -86,7 +90,6 @@ void Trampas_action::comprobar_trampas_mina(){
     
           if(_minas[_cont]->explota()){ 
               if (comprobar_colision_teniendo_tambien_radio(vec_npc, 2, vec_mina, 8)){
-                  npc[i]->danyar(_minas[_cont]->get_danyo());
                   x = vec_npc._x - vec_mina._x;
                   z = vec_npc._y - vec_mina._y;
 
@@ -94,6 +97,9 @@ void Trampas_action::comprobar_trampas_mina(){
                   direccion_impulso.Normalize();
 
                   float valor = lib_math_distancia_2_puntos(vec_npc._x, vec_npc._y, vec_mina._x, vec_mina._y);
+                  npc[i]->danyar(_minas[_cont]->get_danyo()*(1/valor));
+                  
+                  if(valor<1.5){valor=1.5;}
                 
                   Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
                   npc[i]->get_objeto_motor()->Impulso_explosion(a);
@@ -105,11 +111,7 @@ void Trampas_action::comprobar_trampas_mina(){
               _minas[_cont]->activar();
             }     
           }
-      }
-
-
-
-      
+      }      
   }
         eliminar_trampas_mina();  
 }
