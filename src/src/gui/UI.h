@@ -23,6 +23,8 @@ class UI{
         ImVec4 _clear_color;
         GLFWwindow* _window;
         bool _cierratePuto;
-        int _boton_ancho;
-        int _boton_alto;
+        uint16_t _boton_ancho;
+        uint16_t _boton_alto;
+        uint16_t _posicion_menu_std_X;   //posicion para el menu principal
+        uint16_t _posicion_menu_std_Y; 
 };

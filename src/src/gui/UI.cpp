@@ -94,6 +94,8 @@ UI::~UI(){
 void UI::cargar_res_1920(){
     _boton_ancho=300;
     _boton_alto=100;
+    _posicion_menu_std_X = (_ancho_ventana/2)-(_boton_ancho/2);
+    _posicion_menu_std_Y = (_alto_ventana/2)-(_boton_alto*3/2)-(30*3/2);
 }
 
 void UI::update(){
@@ -115,7 +117,7 @@ void UI::update(){
     style.ScrollbarRounding = 0;
     //style.ColumnsMinSpacing = 200.0f;
     style.ItemSpacing = ImVec2(0, 20);
-    style.Colors[ImGuiCol_Text]                  = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+    style.Colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
     //style.Colors[ImGuiCol_TextDisabled]          = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
    // style.Colors[ImGuiCol_WindowBg]              = ImVec4(0.09f, 0.09f, 0.15f, 0.00f);
     style.Colors[ImGuiCol_Button] = ImVec4(0.85f, 0.0f, 0.00f, 1.f);
@@ -130,7 +132,7 @@ void UI::update(){
 
         
     {
-        ImGui::SetNextWindowPos(ImVec2(100,500));
+        ImGui::SetNextWindowPos(ImVec2(_posicion_menu_std_X,_posicion_menu_std_Y));
         ImGui::Begin("Menu principal",0,ImGuiWindowFlags_NoTitleBar|
                                         ImGuiWindowFlags_NoResize|
                                         ImGuiWindowFlags_AlwaysAutoResize|
