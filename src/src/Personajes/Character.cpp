@@ -761,7 +761,9 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
             }
 
             if(golpea == true && tipo_arma == Tipo_Arma_cerca){
-                //_inventario->get_arma
+                Arma_cerca * arma = _inventario->get_objeto_cerca();
+                arma->decrementar_usos();
+                _inventario->borrar_si_se_puede(arma);
             }
         }
         else if(tipo_arma == Tipo_Arma_distancia){

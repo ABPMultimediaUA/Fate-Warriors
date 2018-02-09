@@ -21,26 +21,33 @@ void Inventario::render(){
 
 }
 
-Character* Inventario::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){
+Character* Inventario::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){ 
 	Character* personaje = _seleccionado->usar(_i_objeto_origen,_i_direccion);
-	
-	if(_seleccionado->get_uses()==0){
-		Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
-		_armas_manager->borrar_arma(_seleccionado);
 
-		if(_arma = Tipo_Arma_distancia){
+	if(borrar_si_se_puede(_seleccionado) == true)
+		return 0;
+
+	return personaje;
+}
+
+bool Inventario::borrar_si_se_puede(Arma * seleccionado_in){
+
+	if(seleccionado_in->get_uses()==0){
+		Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
+		_armas_manager->borrar_arma(seleccionado_in);
+
+		if(_arma == Tipo_Arma_distancia){
 			_objeto_distancia = nullptr;
 		}
 
-		if(_arma = Tipo_Arma_cerca){
+		if(_arma == Tipo_Arma_cerca){
 			_objeto_cerca = nullptr;
 		}
 
 		cambiar_arma_seleccionada_a_la_siguiente();
-		return 0;
+		return true;
 	}
-	
-	return personaje;
+	return false;
 }
 
 /*Metodos SET*/

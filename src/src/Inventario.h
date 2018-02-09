@@ -19,6 +19,7 @@ public:
 
 	void render();
 	Character* usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion);
+	bool borrar_si_se_puede(Arma * seleccionado_in);
 	
 	/*SET*/
 	void cambiar_objeto_cerca(Arma_cerca *_i_cerca);
