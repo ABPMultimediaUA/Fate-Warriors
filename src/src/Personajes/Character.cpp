@@ -760,7 +760,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 }
             }
 
-            if(golpea == true && _tipo_arma = Tipo_Arma_cerca){
+            if(golpea == true && tipo_arma == Tipo_Arma_cerca){
                 //_inventario->get_arma
             }
         }
