@@ -2,7 +2,7 @@
 #define SRC_TCAMARA_H_
 #include "TEntidad.h"
 
-class TCamara : TEntidad{
+class TCamara : public TEntidad{
     public:
         TCamara();
         ~TCamara();
