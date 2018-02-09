@@ -2,7 +2,10 @@
 #define SRC_TNODO_H_
 
 #include "TEntidad.h"
-
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 #include <cstdint>
 
@@ -24,6 +27,9 @@ class TNodo{
 
         TEntidad* get_entidad();
         void set_entidad(TEntidad* entidad);
+        inline TNodo* get_padre(){
+            return _padre; 
+        }
 
         uint16_t get_entidad_id();
 

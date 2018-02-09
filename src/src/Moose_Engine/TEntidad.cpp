@@ -1,6 +1,9 @@
 #include "TEntidad.h"
 #include "TNodo.h"
 
+glm::mat4 TEntidad::matriz;
+std::stack<glm::mat4> TEntidad::pila_matrices;
+
 TEntidad::TEntidad() : _nodo(nullptr){
 
 }

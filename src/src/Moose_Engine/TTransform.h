@@ -1,10 +1,7 @@
 #ifndef SRC_TTRANSFORM_H_
 #define SRC_TTRANSFORM_H_
 #include "TEntidad.h"
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+
 #include "TNodo.h"
 
 class TTransform : public TEntidad{
@@ -23,7 +20,7 @@ class TTransform : public TEntidad{
         void endDraw();
     
     private:
-        glm::mat4 matriz;
+        glm::mat4 _t_matriz;
 
 };
 
