@@ -9,6 +9,7 @@ class Trampas_manager;
 class Interactuable_Manager;
 class Armas_Manager;
 class Input;
+class Zonas_Manager;
 
 
 class Datos_Partida {
@@ -27,6 +28,7 @@ public:
     Interactuable_Manager* get_interactuable_manager();
 	Armas_Manager* get_armas_manager();
 
+	Zonas_Manager* get_zonas_manager();
 
 	void inserta_npc_nivel();
 
@@ -38,8 +40,7 @@ private:
 	Consumible_Manager * _consumibles_manager;
     Interactuable_Manager * _interactuable_manager;
 	Armas_Manager * _armas_manager;
-
-
+	Zonas_Manager * _zonas_manager;
 };
 
 #endif /* SRC_DATOS_PARTIDA_H_ */

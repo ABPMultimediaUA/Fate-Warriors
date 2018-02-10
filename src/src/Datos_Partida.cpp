@@ -9,6 +9,7 @@
 #include "Trampas/Trampas_manager.h"
 #include "Llave.h"
 #include "Puerta.h"
+#include "Zonas_Manager.h"
 #include <iostream>
 
 
@@ -20,6 +21,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 	_trampas_manager	 	= 	new Trampas_manager();
     _interactuable_manager 	= 	new Interactuable_Manager();
 	_armas_manager 			=	new Armas_Manager();
+	_zonas_manager 			=	new Zonas_Manager();
 
 }
 
@@ -31,6 +33,7 @@ Datos_Partida::~Datos_Partida() {
 
 	delete _npc_manager;
   	delete _interactuable_manager;
+	delete _zonas_manager;
 }
 
 Player* Datos_Partida::get_player(){
@@ -55,6 +58,10 @@ Interactuable_Manager* Datos_Partida::get_interactuable_manager(){
 
 Armas_Manager* Datos_Partida::get_armas_manager(){
 	return _armas_manager;
+}
+
+Zonas_Manager* Datos_Partida::get_zonas_manager(){
+	return _zonas_manager;
 }
 
 void Datos_Partida::inserta_npc_nivel(){
