@@ -40,7 +40,7 @@ void Trampas_action::comprobar_trampas_mina(){
   unsigned short n_trampas = _trampas->get_n_trampas_mina();
 
   NPC** npc = _npc_manager->get_npcs();
-	uint16_t numnpc = _npc_manager->get_n_enemigos();
+	uint16_t numnpc = _npc_manager->get_n_npc();
 
   Objeto_Motor* _objeto_motor_player = _player->get_objeto_motor();
   Objeto_Motor* _objeto_motor_mina;
@@ -127,7 +127,7 @@ Pinchos** Trampas_action::comprobar_trampas_pinchos(){
   Motor* putero_a_motor              = Motor::Motor_GetInstance();
 
   NPC** npc = _npc_manager->get_npcs();
-	uint16_t numnpc = _npc_manager->get_n_enemigos();
+	uint16_t numnpc = _npc_manager->get_n_npc();
 
   for(unsigned short _cont=0; _cont<n_trampas; _cont++) {
     
@@ -160,7 +160,7 @@ Charcos_electrificados** Trampas_action::comprobar_trampas_charco(){
 
 
   NPC** npc = _npc_manager->get_npcs();
-	uint16_t numnpc = _npc_manager->get_n_enemigos();
+	uint16_t numnpc = _npc_manager->get_n_npc();
   
   for(unsigned short _cont=0; _cont<n_charcos; _cont++){
  

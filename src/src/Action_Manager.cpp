@@ -2,11 +2,9 @@
 
 #include "IA/Blackboard.h"
 #include "IA/Enum_Acciones.h"
-#include "IA/Interfaz_Datos.h"
 #include "IA/Path_Manager.h"
 
 #include "Personajes/NPC.h"
-#include "Personajes/NPC/Ally.h"
 #include "Personajes/Player.h"
 #include "Personajes/NPC_Manager.h"
 #include "Game.h"
@@ -15,24 +13,18 @@
 #include<vector>
 
 Action_Manager::Action_Manager() {
-	_interfaz_decision = new Interfaz_Datos();
-
-	_path_manager = new Path_Manager(*_interfaz_decision);
+	_path_manager = new Path_Manager();
 }
 
 Action_Manager::~Action_Manager() {
 	delete _path_manager;
-
-	delete _interfaz_decision;
 }
 
 void Action_Manager::realiza_accion(NPC* _i_npc){
 	
 	Blackboard* _blackboard = _i_npc->get_blackboard();
 	float x,z;
-	enum Enum_Acciones _accion = _blackboard->get_accion();
-	uint16_t _n_enemigo = _blackboard->get_n_enemigo();
-	//std::cout<<"accion: "<<_accion<<std::endl;
+	enum Enum_Acciones _accion = _i_npc->get_accion();
 
 	switch(_accion) {
 		case Andar:
@@ -60,15 +52,15 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 			break;
 
 		case Atacar:
-			if(dynamic_cast<Ally*>(_i_npc) == NULL) {
+			//if(dynamic_cast<Ally*>(_i_npc) == NULL) {
 				//std::cout << "No es un Aliado\n";
 				// Atacar al jugador/enemigo
 				//_i_npc->atacar(Ataque_Normal);
-			}	
-			else {
+			//}	
+			//else {
 				//std::cout << "Es un Aliado\n";
 				// Atacar al enemigo
-			}
+			//}
 			//_i_npc->stop();
 		//	std::cout << "El enemigo " << _n_enemigo << " ataca" << std::endl;
 			//ATACAR
@@ -95,9 +87,4 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 void Action_Manager::mover(Character* _i_personaje, unsigned short _i_direccion) {
 	//Comprobar que se puede mover
 	//_i_personaje->move(_direccion);
-}
-
-
-Interfaz_Datos* Action_Manager::get_interfaz() {
-	return _interfaz_decision;
 }

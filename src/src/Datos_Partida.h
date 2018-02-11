@@ -1,9 +1,12 @@
 #ifndef SRC_DATOS_PARTIDA_H_
 #define SRC_DATOS_PARTIDA_H_
 
+#include <cstdint>
+
 class NPC_Manager;
 class NPC;
 class Player;
+class Character;
 class Consumible_Manager;
 class Trampas_manager;
 class Interactuable_Manager;
@@ -34,7 +37,8 @@ public:
 
 private:
 	Player* _jugador;
-
+	Character ** _characters;
+	uint16_t _num_characters;
 	NPC_Manager* _npc_manager;
 	Trampas_manager *_trampas_manager;
 	Consumible_Manager * _consumibles_manager;

@@ -6,7 +6,6 @@
 class Action_Manager;
 class Arbol_Decision_Manager;
 class Blackboard;
-class Interfaz_Datos;
 class NPC;
 
 class Decision_Manager {
@@ -27,10 +26,7 @@ private:
 	Action_Manager* _action_manager;
 
 	//Puntero a los enemigos
-	NPC** _enemigos;
-
-	//Puntero a la interfaz a datos para la toma de decision
-	Interfaz_Datos *_interfaz_decision;
+	NPC** _npcs;
 
 	//Control del LOD
 	uint32_t _a;

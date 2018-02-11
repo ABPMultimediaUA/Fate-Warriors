@@ -2,10 +2,11 @@
 #define ZONA_H_
 
 #include "Objeto.h"
+#include "Personajes/Enum_Tipo_Ataque.h"
 
 class Zona{
 public:
-	Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y);
+	Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo);
     ~Zona();
 
     //void actualizar_characters();
@@ -14,6 +15,7 @@ public:
 
 private:
     btRigidBody *_rb;
+    Enum_Equipo _equipo;
     //Character ** _characters;
     //int _num_characters;
 };

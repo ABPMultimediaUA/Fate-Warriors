@@ -16,11 +16,10 @@
 
 #include "../Motor_sonido/Interfaz_sonido.h"
 
-
 #include "../Game.h"
 #include "../Action_Manager.h"
                                                                                                             //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.25, 10, 15)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.25, 10, 15, Enum_Equipo_A)
                                                                 {   
     _motor= Motor::Motor_GetInstance();
     _sonido= Interfaz_sonido::GetInstancia();

@@ -34,7 +34,7 @@ void Consumible_Action::comprobar_consumibles(){
 	short tamanio =(*_consumibles).size();
 
   	NPC** npc = _npc_manager->get_npcs();
-	uint16_t numnpc = _npc_manager->get_n_enemigos();
+	uint16_t numnpc = _npc_manager->get_n_npc();
 	bool se_ha_borrado = false;
 	
 	for(short a=0; a<tamanio; a++){

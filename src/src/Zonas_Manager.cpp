@@ -9,7 +9,7 @@ Zonas_Manager::Zonas_Manager() {
 
     unsigned short _cont;
 	float mult = 4.9212625;
-	_zonas[0] = new Zona(5*mult, 0*mult, 37*mult,20,20);
+	_zonas[0] = new Zona(5*mult, 0*mult, 37*mult,20,20, Enum_Equipo_A);
 
 }
 
