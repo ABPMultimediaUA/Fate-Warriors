@@ -1,6 +1,6 @@
 3
 
-- 0 Final Atacar Andar   ND_Distancia_Objetivo 5
+- 0 Final Atacar Andar   ND_Distancia_Objetivo 6
 - 1 Final Nada Nada      ND_Distancia_Objetivo 1
 - 2 Medio 0      1       ND_Set_Objetivo_Personaje_Enemigo_Cerca  30
 
