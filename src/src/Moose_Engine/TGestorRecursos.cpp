@@ -3,31 +3,22 @@
 #include "TRecursoMalla.h"
 #include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
-/*
+
 TRecurso* TGestorRecursos::getRecurso(char* nombre){
     TRecurso* rec;
-    
-    for(uint16_t i=0; i<_recursos.size();i++){
-        if(nombre==_recursos[i]->GetNombre()){
-            rec = _recursos[i];
-        }
-    }
-
-    if(rec==nullptr){
-        
-    }
-
-}*/
-
-TRecurso* TGestorRecursos::getRecursoMalla(char* nombre){
-    TRecurso* rec;
-    TRecursoMalla* rec_aux;
     for(uint16_t i=0; i<_recursos.size();i++){
         if(nombre==_recursos[i]->GetNombre()){
             rec = _recursos[i];
             return rec;
         }
     }
+    return nullptr;
+}
+
+TRecurso* TGestorRecursos::getRecursoMalla(char* nombre){
+    TRecurso* rec;
+    TRecursoMalla* rec_aux;
+    rec=getRecurso(nombre);
 
     if(rec==nullptr){
         rec_aux = new TRecursoMalla();
@@ -40,12 +31,7 @@ TRecurso* TGestorRecursos::getRecursoMalla(char* nombre){
 TRecurso* TGestorRecursos::getRecursoTextura(char* nombre){
     TRecurso* rec;
     TRecursoTextura* rec_aux;
-    for(uint16_t i=0; i<_recursos.size();i++){
-        if(nombre=_recursos[i]->GetNombre()){
-            rec = _recursos[i];
-            return rec;
-        }
-    }
+    rec=getRecurso(nombre);
 
     if(rec_aux==nullptr){
         rec_aux = new TRecursoTextura();
@@ -59,12 +45,7 @@ TRecurso* TGestorRecursos::getRecursoTextura(char* nombre){
 TRecurso* TGestorRecursos::getRecursoMaterial(char* nombre){
     TRecurso* rec;
     TRecursoMaterial* rec_aux;
-    for(uint16_t i=0; i<_recursos.size();i++){
-        if(nombre=_recursos[i]->GetNombre()){
-            rec = _recursos[i];
-            return rec;
-        }
-    }
+    rec=getRecurso(nombre);
 
     if(rec_aux==nullptr){
         rec_aux = new TRecursoMaterial();

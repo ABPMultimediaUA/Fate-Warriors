@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "Interfaz/Motor.h"
 #include "Tiempo/Time.h"
+#include "Moose_Engine/TTransform.h"
+#include "Moose_Engine/TMooseEngine.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -23,9 +25,16 @@ void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uin
 	}
 }
 
-
-// Main del juego
 int main(){
+	TMooseEngine* motor=new TMooseEngine();
+	TTransform* trans1=motor->crearTransform();
+	TTransform* trans2=motor->crearTransform();
+	TTransform* trans3=motor->crearTransform();
+	TLuz* luz =motor->crearLuz();
+	TCamara* camara=motor->crearCamara();
+}
+// Main del juego
+int maindeverdad(){
 	srand((int)time(0)); // Inicia la semilla del rand
 
 	Game* _juego = Game::game_instancia();
