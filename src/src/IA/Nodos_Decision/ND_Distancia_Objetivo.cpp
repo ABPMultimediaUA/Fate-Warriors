@@ -1,18 +1,18 @@
-#include "Nodo_Decision_Distancia.h"
+#include "ND_Distancia_Objetivo.h"
 
 #include "../Blackboard.h"
 
 #include<iostream>
 
-Nodo_Decision_Distancia::Nodo_Decision_Distancia(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
+ND_Distancia_Objetivo::ND_Distancia_Objetivo(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;
 }
 
-Nodo_Decision_Distancia::~Nodo_Decision_Distancia() {
+ND_Distancia_Objetivo::~ND_Distancia_Objetivo() {
 
 }
 
-enum Enum_Acciones Nodo_Decision_Distancia::toma_decision(Blackboard* _blackboard){
+enum Enum_Acciones ND_Distancia_Objetivo::toma_decision(Blackboard* _blackboard){
 	float _distancia = _blackboard->get_distancia_objetivo();
 	//std::cout << "distancia= " << _distancia << " y el valor es " << _valor << "\n";
 	if(_distancia >= _valor) {

@@ -35,6 +35,11 @@ public:
 
 	void inserta_npc_nivel();
 
+	Character** get_characters();
+	inline uint16_t get_num_characters(){
+		return _num_characters;
+	}
+
 private:
 	Player* _jugador;
 	Character ** _characters;

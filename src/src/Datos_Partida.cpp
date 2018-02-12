@@ -84,3 +84,7 @@ Zonas_Manager* Datos_Partida::get_zonas_manager(){
 void Datos_Partida::inserta_npc_nivel(){
 	_npc_manager->inserta_npc_nivel();
 }
+
+Character** Datos_Partida::get_characters(){
+	return _characters;
+}

@@ -29,7 +29,7 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
 	std::cout << "N nodos " << _n_nodos << "\n";
-	_arboles_decision[0] = _nodos_decision[3];
+	_arboles_decision[0] = _nodos_decision[2]; // Padre del arbol
 
 }
 
@@ -294,7 +294,25 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 // ------------------------------------- FUNCIONES CREACION CLASES NODOS -----------------------------//
 
-	void Arbol_Decision_Manager::crear_nodo_distancia(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
+
+	void Arbol_Decision_Manager::crear_nodo_set_objetivo_personaje_enemigo_cerca(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Set_Objetivo_Personaje_Enemigo_Cerca(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	
+
+
+	void Arbol_Decision_Manager::crear_nodo_distancia_objetivo(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
 		//std::cout << std::endl << "NODO DISTANCIA" << std::endl;
 		float _valor;
 
@@ -305,7 +323,7 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new Nodo_Decision_Distancia(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_Distancia_Objetivo(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
 
@@ -318,7 +336,7 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		//std::cout << _i_iteracion << std::endl;
 		_valor = std::atoi(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new Nodo_Decision_Distancia(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new Nodo_Decision_LOD(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
 
@@ -352,7 +370,8 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 	};
 
 	MapeadoClaseNodo mapping_clase_nodo[] = {	// Definicion de los parametros
-			{"Distancia", &Arbol_Decision_Manager::crear_nodo_distancia},
+			{"ND_Distancia_Objetivo", &Arbol_Decision_Manager::crear_nodo_distancia_objetivo},
+			{"ND_Set_Objetivo_Personaje_Enemigo_Cerca", &Arbol_Decision_Manager::crear_nodo_set_objetivo_personaje_enemigo_cerca},
 			{"LOD", &Arbol_Decision_Manager::crear_nodo_lod},
 			{"Vida_Actual", &Arbol_Decision_Manager::crear_nodo_vida_actual_prcnt},
 			{0, 0}

@@ -49,5 +49,5 @@ int8_t Blackboard::get_level_of_detail() {
 }
 
 float Blackboard::get_distancia_objetivo(){
-	return 1;
+	return lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), _objetivo->getX(), _objetivo->getZ());
 }

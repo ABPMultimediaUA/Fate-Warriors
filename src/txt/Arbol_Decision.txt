@@ -1,12 +1,8 @@
-6
- 
-- 0 Final Huir   Atacar Vida_Actual       25
-- 1 Der   0      Andar  Distancia         1.5
-- 2 Final Saltar Nada   Distancia         20
-- 3 Medio 1      2      Distancia         10
+3
 
-- 4 Final Nada   Andar  Distancia         3
-- 5 Der   4      Nada   Distancia         8
+- 0 Final Atacar Andar   ND_Distancia_Objetivo 5
+- 1 Final Nada Nada      ND_Distancia_Objetivo 1
+- 2 Medio 0      1       ND_Set_Objetivo_Personaje_Enemigo_Cerca  30
 
 Fin
 

@@ -71,6 +71,8 @@ public:
 	void anyadir_power_up(Consumible_Power_Up* _i_power_up);
 	void eliminar_power_up_puntero();
 
+	Enum_Equipo get_equipo();
+
 	// Gestion de acciones
 	void impulso_danyar(Character * atacante, Character * atacado, int impulso);
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);

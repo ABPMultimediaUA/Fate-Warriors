@@ -30,6 +30,9 @@ public:
 	inline void set_nodo_blackboard(Nodo_blackboard* _i_blackboard){
 		_zona = _i_blackboard;
 	}
+	inline void set_objetivo(Objeto* i_objetivo){
+		_objetivo = i_objetivo;
+	}
 
 	//getters
 	float get_distancia_objetivo();

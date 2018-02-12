@@ -53,6 +53,10 @@ void Character::anyadir_power_up(Consumible_Power_Up* _i_power_up){
     }  
 }
 
+Enum_Equipo Character::get_equipo(){
+    return _equipo;
+}
+
 void Character::eliminar_power_up_puntero(){
         _power_up=nullptr;
 }
