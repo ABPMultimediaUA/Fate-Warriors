@@ -78,7 +78,7 @@ void Respawn_Points::anyadir_nuevo_punto(Vector2 posicion){
 	};
 	
 void Respawn_Points::anyadir_power_up(){
-    std::cout << "CREA UN POWER UP";
+    std::cout << "CREA UN POWER UP  \n";
 
     Game* punterito 		= Game::game_instancia();
 	Datos_Partida * datitos	= punterito->game_get_datos();
@@ -119,14 +119,13 @@ void Respawn_Points::anyadir_power_up(){
 			{Nombre_Arma_Ametralladora, &Respawn_Points::crear_ametralladora},
 			{Nombre_Arma_Arco, &Respawn_Points::crear_pistola},
 			{Nombre_Arma_Bazooka, &Respawn_Points::crear_pistola},
+			{Nombre_Arma_Pistola, &Respawn_Points::crear_pistola},
 			{Nombre_Arma_Nada, &Respawn_Points::crear_pistola}
 	};
 
 
-
-
 void Respawn_Points::anyadir_arma(){
-    std::cout << " CREA UN ARMA ";
+    std::cout << " CREA UN ARMA \n" ;
     
     Game* punterito 		= Game::game_instancia();
 	Datos_Partida * datitos	= punterito->game_get_datos();
