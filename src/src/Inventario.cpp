@@ -52,20 +52,21 @@ bool Inventario::borrar_si_se_puede(Arma * seleccionado_in){
 
 /*Metodos SET*/
 void Inventario::cambiar_objeto_cerca(Arma_cerca *_i_cerca){
-/*	if(_objeto_cerca!=nullptr){
+	if(_objeto_cerca!=nullptr){
 		//_objeto_cerca->set_borrar_true();
-		_objeto_cerca = nullptr;
-	}*/
+		Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
+		_armas_manager->borrar_arma(_objeto_cerca);
+	}
 
 	_objeto_cerca = _i_cerca;
 	_seleccionado = _objeto_cerca;
 }
 
 void Inventario::cambiar_objeto_distancia (Arma_distancia *_i_distancia){
-	/*	if(_objeto_distancia!=nullptr){
-		//_objeto_distancia->set_borrar_true();
-		_objeto_distancia = nullptr;
-	}*/
+	if(_objeto_distancia!=nullptr){
+		Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
+		_armas_manager->borrar_arma(_objeto_distancia);
+	}
 
 	_objeto_distancia = _i_distancia;
 	_seleccionado = _objeto_distancia;
