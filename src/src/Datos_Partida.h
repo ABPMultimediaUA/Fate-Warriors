@@ -14,6 +14,7 @@ class Armas_Manager;
 class Respawn_Points;
 class Input;
 class Zonas_Manager;
+class Respawn_Points; 
 
 
 class Datos_Partida {
