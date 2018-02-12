@@ -10,6 +10,7 @@
 #include "Llave.h"
 #include "Puerta.h"
 #include <iostream>
+#include "Consumibles/Respawn_Points.h"
 
 
 Datos_Partida::Datos_Partida(Input* _i_input) {
@@ -20,6 +21,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 	_trampas_manager	 	= 	new Trampas_manager();
     _interactuable_manager 	= 	new Interactuable_Manager();
 	_armas_manager 			=	new Armas_Manager();
+	_respawn_Points			=	new Respawn_Points();
 
 }
 
@@ -31,6 +33,7 @@ Datos_Partida::~Datos_Partida() {
 
 	delete _npc_manager;
   	delete _interactuable_manager;
+	delete _respawn_Points;
 }
 
 Player* Datos_Partida::get_player(){
@@ -59,4 +62,8 @@ Armas_Manager* Datos_Partida::get_armas_manager(){
 
 void Datos_Partida::inserta_npc_nivel(){
 	_npc_manager->inserta_npc_nivel();
+}
+
+Respawn_Points* Datos_Partida::get_Respawn_Points(){
+	return _respawn_Points;
 }

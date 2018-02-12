@@ -18,7 +18,7 @@ Minas::~Minas(){
 
 void Minas::activar(){
     _activa = true;
-    _explota_en=_reloj->get_current() + 3000;
+    _explota_en=_reloj->get_current() + 1000;
 }
 
 bool Minas::explota(){

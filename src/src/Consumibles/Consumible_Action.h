@@ -11,6 +11,7 @@ class Consumible_Fuerza;
 class Consumible_Power_Up;
 class NPC_Manager;
 class Player;
+class Respawn_Points;
 
 class Consumible_Action{
 public:
@@ -24,7 +25,8 @@ private:
 	Player * _player;
 	std::vector<Consumible*>* _consumibles;
 	Consumible_Manager* _consumibles_manager;
-NPC_Manager * _npc_manager;
+	NPC_Manager * _npc_manager;
+	Respawn_Points* _respawn_points;
 
 	
 };

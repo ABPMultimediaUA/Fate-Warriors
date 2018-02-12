@@ -8,6 +8,7 @@ class Consumible_Manager;
 class Trampas_manager;
 class Interactuable_Manager;
 class Armas_Manager;
+class Respawn_Points;
 class Input;
 
 
@@ -27,6 +28,7 @@ public:
     Interactuable_Manager* get_interactuable_manager();
 	Armas_Manager* get_armas_manager();
 
+	Respawn_Points* get_Respawn_Points();
 
 	void inserta_npc_nivel();
 
@@ -38,7 +40,7 @@ private:
 	Consumible_Manager * _consumibles_manager;
     Interactuable_Manager * _interactuable_manager;
 	Armas_Manager * _armas_manager;
-
+	Respawn_Points* _respawn_Points;
 
 };
 
