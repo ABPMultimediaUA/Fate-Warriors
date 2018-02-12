@@ -8,6 +8,8 @@ class TCamara : public TEntidad{
         ~TCamara();
         void setPerspectiva(float x, float y);
         void setParalela(float x, float y);
+        void beginDraw();
+        void endDraw();
     private:
         bool es_perspectiva;
         float cercano,lejano;

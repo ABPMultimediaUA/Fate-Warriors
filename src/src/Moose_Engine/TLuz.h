@@ -9,7 +9,7 @@ class TLuz : TEntidad{
         ~TLuz();
         inline void seIntensidad(TColor color);
         inline TColor getIntensidad();
-                void beginDraw();
+        void beginDraw();
         void endDraw();
         
     private:
