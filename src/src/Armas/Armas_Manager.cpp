@@ -5,6 +5,7 @@
 
  #include "AD_Ametralladora.h"
  #include "AC_Katana.h"
+ #include "AD_Pistola.h"
 
 
 // CONSTRUCTOR
@@ -61,8 +62,21 @@ void Armas_Manager::borrar_arma(short id){
     _armas.erase(_armas.begin() + id);
 }
 
+void Armas_Manager::crear_ametralladora(Vector2 posicion){
+	_armas.push_back(new AD_Ametralladora(5, posicion._x, 0, posicion._y));
+}
 
-
+void Armas_Manager::crear_pistola(Vector2 posicion){
+	_armas.push_back(new AD_Pistola(5, posicion._x, 0, posicion._y));
+}
+void Armas_Manager::crear_katana(Vector2 posicion){
+	_armas.push_back(new AC_Katana(5, posicion._x, 0, posicion._y));
+}
+/*
+void Armas_Manager::crear_ametralladora(Vector2 posicion){
+	_armas.push_back(new AD_Ametralladora(5, posicion._x, 0, posicion._y));
+}
+*/
 /// METODOS GET 
 
 std::vector<Arma*>* Armas_Manager::get_armas(){

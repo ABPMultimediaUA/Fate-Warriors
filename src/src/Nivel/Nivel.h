@@ -46,10 +46,10 @@ public:
 	inline void nivel_set_lod(int _i_id){
 		_lod2->grafo_set_lod(_i_id);
 	}
-	inline void nivel_get_numero_posiciones_spawn_enemigos(uint16_t &_i_n_posiciones){
+	inline void nivel_get_numero_posiciones_spawn(uint16_t &_i_n_posiciones){
 		_lod2->grafo_get_numero_posiciones_spawn_enemigos(_i_n_posiciones);
 	}
-	inline void nivel_get_posiciones_spawn_enemigos( float** _posiciones){
+	inline void nivel_get_posiciones_spawn( float** _posiciones){
 		_lod2->grafo_get_posiciones_spawn_enemigos( _posiciones);
 	}
 	inline Vertice *nivel_get_vertice(int _i_id){

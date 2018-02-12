@@ -12,6 +12,7 @@
 #include "Puerta.h"
 #include "Zonas_Manager.h"
 #include <iostream>
+#include "Consumibles/Respawn_Points.h"
 
 
 Datos_Partida::Datos_Partida(Input* _i_input) {
@@ -22,6 +23,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 	_trampas_manager	 	= 	new Trampas_manager();
     _interactuable_manager 	= 	new Interactuable_Manager();
 	_armas_manager 			=	new Armas_Manager();
+	_respawn_Points			=	new Respawn_Points();
 	_zonas_manager 			=	new Zonas_Manager();
 
 	
@@ -48,6 +50,7 @@ Datos_Partida::~Datos_Partida() {
 
 	delete _npc_manager;
   	delete _interactuable_manager;
+	delete _respawn_Points;
 	delete _zonas_manager;
 
 	delete [] _characters;

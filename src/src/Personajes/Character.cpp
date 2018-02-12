@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Consumibles/Consumible_Power_Up.h"
+#include "../Consumibles/Respawn_Points.h"
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
@@ -342,6 +343,14 @@ void Character::coger_arma(Arma* _arma){
          //_inventario->cambiar_objeto_cerca(_arma);
         _inventario->cambiar_objeto_cerca(static_cast<Arma_cerca*>(_arma));
     }
+
+    Game* punterito 		= Game::game_instancia();
+	Datos_Partida * datitos	= punterito->game_get_datos();
+	Respawn_Points * _respawn_points = datitos->get_Respawn_Points();
+
+    Vector2 pos(_arma->getX(), (_arma->getZ()));
+	_respawn_points->anyadir_nuevo_punto(pos);
+
 }
 
 bool Character::intentar_recoger_arma() {

@@ -9,6 +9,7 @@
 #include "../Personajes/Player.h"
 #include "../Personajes/NPC.h"
 #include "../Personajes/NPC_Manager.h"
+#include "Respawn_Points.h"
 
 #include "../Utilidades/Vector.h"
 
@@ -21,6 +22,7 @@ Consumible_Action::Consumible_Action() : _player(nullptr), _consumibles_manager(
 
 	_player 				= datitos->get_player();
 	_consumibles_manager 	= datitos->get_Consumible_Manager();
+	_respawn_points			= datitos->get_Respawn_Points();
 	_consumibles 			= _consumibles_manager->get_consumibles();
 }
 
@@ -41,6 +43,8 @@ void Consumible_Action::comprobar_consumibles(){
 
 		if((*_consumibles)[a]->usar(_player)){
 			//(*_consumibles)[a]->setPositionXZ(9000,9000);
+							  Vector2 pos((*_consumibles)[a]->getX(), (*_consumibles)[a]->getZ());
+				  _respawn_points->anyadir_nuevo_punto(pos);
 			_consumibles_manager->borrar_consumible(a);
 			--tamanio;
 			std::cout << tamanio<< "tamaaaaño" <<std::endl;
@@ -51,6 +55,8 @@ void Consumible_Action::comprobar_consumibles(){
           //NPC
 			if((*_consumibles)[a]->usar(npc[i])){
 				//(*_consumibles)[a]->setPositionXZ(9000,9000);
+				  Vector2 pos((*_consumibles)[a]->getX(), (*_consumibles)[a]->getZ());
+				  _respawn_points->anyadir_nuevo_punto(pos);
 				_consumibles_manager->borrar_consumible(a);
 				--tamanio;
 				std::cout << tamanio<< "tamaaaaño" <<std::endl;
@@ -59,9 +65,9 @@ void Consumible_Action::comprobar_consumibles(){
 		 }
 		se_ha_borrado=false;
 	}
-
-		
-	}
+		_respawn_points->generar_tipo_de_elemento();
+		_consumibles_manager->crear_consumibles_en_posiciones_aleatorias();
+}
 
 
 void Consumible_Action::borrar_power_up(Consumible_Power_Up* _i_power_up){
