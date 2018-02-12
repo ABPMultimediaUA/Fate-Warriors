@@ -36,6 +36,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _velocidadCorrer = _i_velocidad * 2;
     _rb_ataque = Motor::Motor_GetInstance()->crear_rb_ataque();
     _equipo = _i_equipo;
+    _bloqueado = false;
 }
 
 Character::~Character() {
@@ -220,7 +221,7 @@ void Character::mover(uint16_t _i_direccion){
             _velocidad = _velocidadAndar;
         }
         else if(this->get_accion() == Andar){
-            //std::cout << "Andando" << std::endl;
+            std::cout << "Andando" << std::endl;
             if(_velocidad<_velocidadAndar){
                 _velocidad += 0.05;
             }
@@ -229,7 +230,7 @@ void Character::mover(uint16_t _i_direccion){
             }
         }
         else if(_accion == Accion_Correr){
-            //std::cout << "CORRIENDO" << std::endl;
+            std::cout << "CORRIENDO" << std::endl;
             if(_velocidad<_velocidadCorrer){
                 _velocidad += 0.1;
             }
@@ -751,23 +752,23 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
 
         if(_tipo_ataque == Ataque_Especial || _tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
 
-            NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
-            NPC ** _npcs = _npc_manager->get_npcs();
-            uint16_t _cont, _n_npcs;
-            _n_npcs = _npc_manager->get_n_npc();
+            Datos_Partida * _datos_partida = Game::game_instancia()->game_get_datos();
+            Character ** _characters = _datos_partida->get_characters();
+            uint16_t _cont, _num_characters;
+            _num_characters = _datos_partida->get_num_characters();
 
             bool golpea = false;
 
-            for(_cont = 0; _cont < _n_npcs; _cont++) {
-                if( //_npcs[_cont]->get_blackboard()->get_tipo_enemigo() != Aliado &&
-                    Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _npcs[_cont]->get_objeto_motor()->getRigidBody()) == true)
+            for(_cont = 0; _cont < _num_characters; _cont++) {
+                if( _characters[_cont]->get_equipo() != _equipo &&
+                    Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true)
                 {
-                    _npcs[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
+                    _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
             
-                    std::cout << "----- " << _npcs[_cont]->get_vida() << "------" << std::endl;
+                    std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
 
                     // Impulsa al atacado
-                    impulso_danyar(this, _npcs[_cont], get_impulso_danyar(_tipo_ataque));
+                    impulso_danyar(this, _characters[_cont], get_impulso_danyar(_tipo_ataque));
 
                     golpea = true;
                 }

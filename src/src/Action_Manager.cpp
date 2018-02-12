@@ -24,7 +24,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 	
 	Blackboard* _blackboard = _i_npc->get_blackboard();
 	float x,z;
-	enum Enum_Acciones _accion = _i_npc->get_accion();
+	enum Enum_Acciones _accion = _blackboard->get_accion();
 
 	switch(_accion) {
 		case Andar:
@@ -32,7 +32,8 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				unsigned short _direccion;
 				x=_i_npc->getX();
 				z=_i_npc->getZ();
-				_direccion = _path_manager->get_direccion_movimiento(x,z);
+				_direccion = _path_manager->get_direccion_movimiento(x,z, _i_npc->get_blackboard()->get_objetivo());
+				//std::cout << _direccion<<" \n ";
 				if(_direccion!=362){
 					// Componenetes de la direccion mala
 					float _cos, _sen;
@@ -55,7 +56,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 			//if(dynamic_cast<Ally*>(_i_npc) == NULL) {
 				//std::cout << "No es un Aliado\n";
 				// Atacar al jugador/enemigo
-				//_i_npc->atacar(Ataque_Normal);
+				_i_npc->atacar(Ataque_Normal);
 			//}	
 			//else {
 				//std::cout << "Es un Aliado\n";

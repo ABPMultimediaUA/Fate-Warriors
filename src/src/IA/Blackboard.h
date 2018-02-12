@@ -33,6 +33,9 @@ public:
 	inline void set_objetivo(Objeto* i_objetivo){
 		_objetivo = i_objetivo;
 	}
+	inline void set_accion(Enum_Acciones i_accion){
+		_accion = i_accion;
+	}
 
 	//getters
 	float get_distancia_objetivo();
@@ -42,8 +45,16 @@ public:
 	inline NPC * get_npc_padre(){
 		return _npc_padre;
 	}
+	inline Objeto * get_objetivo(){
+		return _objetivo;
+	}
+	inline Enum_Acciones get_accion(){
+		return _accion;
+	}
 
 private:
+
+	Enum_Acciones _accion; // Es la accion que se tiene en mente, distinta de la accion actual de Character!!
 
 	// Datos de identidad del NPC
 	NPC * _npc_padre;

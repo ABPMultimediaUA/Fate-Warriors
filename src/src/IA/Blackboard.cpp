@@ -10,10 +10,12 @@
 
 Blackboard::Blackboard(NPC * npc_padre) {
 
+	_accion = Nada;
 	_npc_padre = npc_padre; 
 	_decision = Decision_Quieto;
 	_objetivo = nullptr;
 	_porcentaje_vida = 100;
+
 }
 
 Blackboard::~Blackboard() {
