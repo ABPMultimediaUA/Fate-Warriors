@@ -29,5 +29,10 @@ enum Enum_Nombre_Arma{
 	Nombre_Arma_Nada
 };
 
+enum Enum_Equipo{
+	Enum_Equipo_A,
+	Enum_Equipo_B
+};
+
 
 #endif /* SRC_ENUM_TIPO_ATAQUE_H_ */

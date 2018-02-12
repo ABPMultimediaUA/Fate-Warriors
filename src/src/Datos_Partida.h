@@ -1,15 +1,19 @@
 #ifndef SRC_DATOS_PARTIDA_H_
 #define SRC_DATOS_PARTIDA_H_
 
+#include <cstdint>
+
 class NPC_Manager;
 class NPC;
 class Player;
+class Character;
 class Consumible_Manager;
 class Trampas_manager;
 class Interactuable_Manager;
 class Armas_Manager;
 class Respawn_Points;
 class Input;
+class Zonas_Manager;
 
 
 class Datos_Partida {
@@ -29,17 +33,20 @@ public:
 	Armas_Manager* get_armas_manager();
 
 	Respawn_Points* get_Respawn_Points();
+	Zonas_Manager* get_zonas_manager();
 
 	void inserta_npc_nivel();
 
 private:
 	Player* _jugador;
-
+	Character ** _characters;
+	uint16_t _num_characters;
 	NPC_Manager* _npc_manager;
 	Trampas_manager *_trampas_manager;
 	Consumible_Manager * _consumibles_manager;
     Interactuable_Manager * _interactuable_manager;
 	Armas_Manager * _armas_manager;
+	Zonas_Manager * _zonas_manager;
 	Respawn_Points* _respawn_Points;
 
 };

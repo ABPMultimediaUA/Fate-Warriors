@@ -15,13 +15,12 @@
 //#include "../Interfaz/Objeto_Motor.h"
 #include <iostream>
 #include "Player.h"
-#include "NPC/Ally.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Consumibles/Consumible_Power_Up.h"
 #include "../Consumibles/Respawn_Points.h"
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
-    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte) 
+    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
     :Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
     _tiene_arma_larga(false) {
@@ -36,6 +35,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _velocidadAndar = _i_velocidad;
     _velocidadCorrer = _i_velocidad * 2;
     _rb_ataque = Motor::Motor_GetInstance()->crear_rb_ataque();
+    _equipo = _i_equipo;
 }
 
 Character::~Character() {
@@ -750,7 +750,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
             NPC_Manager * _npc_manager = Game::game_instancia()->game_get_datos()->get_npc_manager();
             NPC ** _npcs = _npc_manager->get_npcs();
             uint16_t _cont, _n_npcs;
-            _n_npcs = _npc_manager->get_n_enemigos();
+            _n_npcs = _npc_manager->get_n_npc();
 
             bool golpea = false;
 

@@ -1,3 +1,4 @@
+/*
 #include "Interfaz_Datos.h"
 
 #include "../Datos_Partida.h"
@@ -70,5 +71,5 @@ void Interfaz_Datos::get_pos_enemigo(uint16_t _i_n_enemigo, float& _i_x, float& 
 
 	_enemigo = nullptr;
 }
-
+*/
 

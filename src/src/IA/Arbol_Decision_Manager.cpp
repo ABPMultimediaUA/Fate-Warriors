@@ -5,12 +5,13 @@
 
 #include "Blackboard.h"
 #include "Nodos_Decision.h"
+#include "../Game.h"
 
 //NOMBRE DEL FICHERO DEL ARBOL
 const std::string _fichero = "txt/Arbol_Decision.txt";
 
 Arbol_Decision_Manager::Arbol_Decision_Manager() {
-	_max_arboles = 7;
+	_max_arboles = 1;
 
 	_n_nodos = 0;
 	_n_arboles = 0;
@@ -29,20 +30,12 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 
 	std::cout << "N nodos " << _n_nodos << "\n";
 	_arboles_decision[0] = _nodos_decision[3];
-	_arboles_decision[1] = _nodos_decision[_n_nodos-1];
-	_arboles_decision[2] = _nodos_decision[_n_nodos-1];
-	_arboles_decision[3] = _nodos_decision[_n_nodos-1];
-	_arboles_decision[4] = _nodos_decision[_n_nodos-1];
-	_arboles_decision[5] = _nodos_decision[_n_nodos-1];
-	_arboles_decision[6] = _nodos_decision[5];
 
 }
 
 Arbol_Decision_Manager::~Arbol_Decision_Manager() {
 	//Desasignar arboles
-	for(unsigned short _cont = 0; _cont < _n_arboles; _cont++) {
-		_arboles_decision[_cont] = nullptr;
-	}
+	_arboles_decision[0] = nullptr;
 	delete [] _arboles_decision;
 
 	//Borrar nodos
@@ -60,10 +53,7 @@ Arbol_Decision_Manager::~Arbol_Decision_Manager() {
 
 
 enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboard) {
-	_blackboard->get_tipo_enemigo();
-	Nodo_Decision* _arbol_aux=_arboles_decision[_blackboard->get_tipo_enemigo()];
-	Enum_Acciones aux=_arbol_aux->toma_decision(_blackboard);
-	return _arboles_decision[_blackboard->get_tipo_enemigo()]->toma_decision(_blackboard);
+	return _arboles_decision[0]->toma_decision(_blackboard);
 }
 
 
@@ -332,15 +322,6 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		_n_nodos++;
 	}
 
-	void Arbol_Decision_Manager::crear_nodo_rango_ataque_normal(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
-		std::cout << std::endl << "NODO RANGO NORMAL" << std::endl;
-
-		// LECTURA DE VALOR DE CORTE
-		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
-		//std::cout << _i_iteracion << std::endl;
-
-	}
-
 	void Arbol_Decision_Manager::crear_nodo_vida_actual_prcnt(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
 		//std::cout << std::endl << "NODO DISTANCIA" << std::endl;
 		float _valor;
@@ -373,7 +354,6 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 	MapeadoClaseNodo mapping_clase_nodo[] = {	// Definicion de los parametros
 			{"Distancia", &Arbol_Decision_Manager::crear_nodo_distancia},
 			{"LOD", &Arbol_Decision_Manager::crear_nodo_lod},
-			{"Rango_Ataque_Normal", &Arbol_Decision_Manager::crear_nodo_rango_ataque_normal},
 			{"Vida_Actual", &Arbol_Decision_Manager::crear_nodo_vida_actual_prcnt},
 			{0, 0}
 	};

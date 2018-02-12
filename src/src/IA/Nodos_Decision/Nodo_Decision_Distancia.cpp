@@ -13,7 +13,7 @@ Nodo_Decision_Distancia::~Nodo_Decision_Distancia() {
 }
 
 enum Enum_Acciones Nodo_Decision_Distancia::toma_decision(Blackboard* _blackboard){
-	float _distancia = _blackboard->get_distancia_jugador();
+	float _distancia = _blackboard->get_distancia_objetivo();
 	//std::cout << "distancia= " << _distancia << " y el valor es " << _valor << "\n";
 	if(_distancia >= _valor) {
 		return _nodo_der->toma_decision(_blackboard);

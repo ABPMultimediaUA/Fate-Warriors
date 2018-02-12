@@ -14,7 +14,7 @@ class Consumible_Power_Up;
 class Character : public Objeto_Movil{
 public:
 	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
-	short _i_danyo_ataque_fuerte);
+	short _i_danyo_ataque_fuerte, Enum_Equipo equipo);
 	
 	virtual ~Character();
 
@@ -26,6 +26,9 @@ public:
 	short get_vida();
 	inline int16_t get_vida_maxima(){
 		return _vida_maxima;
+	}
+	inline int16_t get_vida_actual(){
+		return _vida;
 	}
 	inline int16_t* get_ref_vida_actual(){
 		return &_vida;
@@ -118,6 +121,7 @@ protected:
 	btRigidBody *_rb_ataque;
 	uint16_t _direccion_actual;
 	bool _inmortal;
+	Enum_Equipo _equipo;
 };
 
 #endif /* SRC_CHARACTER_H_ */

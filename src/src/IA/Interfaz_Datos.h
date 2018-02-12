@@ -1,3 +1,4 @@
+/*
 #ifndef INTERFAZ_DATOS_H_
 #define INTERFAZ_DATOS_H_
 
@@ -12,12 +13,13 @@ public:
 	Interfaz_Datos();
 	virtual ~Interfaz_Datos();
 
-	float get_distancia_enemigo_personaje(uint16_t _i_n_enemigo);
+	//float get_distancia_enemigo_personaje(uint16_t _i_n_enemigo);
 	NPC** get_enemigos();
 	NPC* get_enemigo(uint16_t _i_n_enemigo);
 	uint16_t get_n_enemigos();
-	void get_pos_player(float& _i_x, float& _i_y);
-	void get_pos_enemigo(uint16_t _i_n_enemigo, float& _i_x, float& _i_y);
+	//void get_pos_player(float& _i_x, float& _i_y);
+	//void get_pos_enemigo(uint16_t _i_n_enemigo, float& _i_x, float& _i_y);
+	//Character ** sensor_vision
 
 private:
 	Datos_Partida* _datos;
