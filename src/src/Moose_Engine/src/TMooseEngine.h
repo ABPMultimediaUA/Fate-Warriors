@@ -21,6 +21,8 @@ class TMooseEngine{
         TCamara*    crearCamara();
         TLuz*       crearLuz();
         TMalla*     crearMalla(char* fichero);
+        TNodo*      nodoRaiz();
+
         void        draw();
 
     private:

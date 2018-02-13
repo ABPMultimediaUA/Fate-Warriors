@@ -12,7 +12,7 @@ char* TRecursoMalla::GetNombre(){
 }
 
 void TRecursoMalla::SetNombre(char* nombre){
-
+    std::cout<<"Le pongo el nombre "<<nombre<<"\n";
 }
 
 
@@ -27,6 +27,8 @@ void TRecursoMalla::cargarFichero(char* nombre){
         std::cout<<"Esta mierda no funciona porque esto no vale na (hablando de manjaro) y: "<<importer.GetErrorString()<<std::endl;
         exit(0);
     }
+    
+    SetNombre(nombre);
     //DoTheSceneProcessing(scene);
    
 }

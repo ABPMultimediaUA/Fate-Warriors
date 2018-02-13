@@ -4,13 +4,17 @@
 #include "TCamara.h"
 #include "TLuz.h"
 #include "TMalla.h"
+#include "TGestorRecursos.h"
 
 TMooseEngine::TMooseEngine(){
     uint16_t _contadorIDEntidad = 0;
+    _gestorRecursos = new TGestorRecursos();
+    TNodo* nodo = new TNodo(_contadorIDEntidad,nullptr);
+    _escena = nodo;
 }
 TMooseEngine::~TMooseEngine(){}
 
-TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){
+TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
     TNodo* nodo = new TNodo(_contadorIDEntidad,padre);
     padre->agrega_hijo(nodo);
     return nodo;
@@ -32,6 +36,11 @@ TLuz* TMooseEngine::crearLuz(){
 }
 
 TMalla* TMooseEngine::crearMalla(char* fichero){
-    TMalla* malla = nullptr;
+    TMalla* malla = new TMalla();
+    _gestorRecursos->getRecursoMalla(fichero);
     return malla;
+}
+
+TNodo* TMooseEngine::nodoRaiz(){
+    return _escena;
 }

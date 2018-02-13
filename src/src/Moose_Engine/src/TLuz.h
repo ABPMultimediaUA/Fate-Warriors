@@ -3,7 +3,7 @@
 #include "TEntidad.h"
 class TColor;
 
-class TLuz : TEntidad{
+class TLuz : public TEntidad{
     public:
         TLuz();
         ~TLuz();

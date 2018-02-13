@@ -4,7 +4,7 @@
 class TRecursoMalla;
 class TFichero;
 
-class TMalla : TEntidad{
+class TMalla : public TEntidad{
     public:
         TMalla();
         ~TMalla();
@@ -14,6 +14,7 @@ class TMalla : TEntidad{
         
     private:
         TRecursoMalla *malla;
+        glm::mat4 _t_matriz;
 };
 
 #endif /* SRC_TMALLA_H_ */

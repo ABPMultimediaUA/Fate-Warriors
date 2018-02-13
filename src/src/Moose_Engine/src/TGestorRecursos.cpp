@@ -4,6 +4,9 @@
 #include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
 
+TGestorRecursos::TGestorRecursos(){}
+TGestorRecursos::~TGestorRecursos(){}
+
 TRecurso* TGestorRecursos::getRecurso(char* nombre){
     TRecurso* rec;
     for(uint16_t i=0; i<_recursos.size();i++){

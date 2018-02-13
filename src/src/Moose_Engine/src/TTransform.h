@@ -1,8 +1,7 @@
 #ifndef SRC_TTRANSFORM_H_
 #define SRC_TTRANSFORM_H_
 #include "TEntidad.h"
-
-#include "TNodo.h"
+//#include "TNodo.h"
 
 class TTransform : public TEntidad{
     public:
