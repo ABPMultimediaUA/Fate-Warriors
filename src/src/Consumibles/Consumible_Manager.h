@@ -22,15 +22,19 @@ public:
 	std::vector<Consumible_Carne*> get_consumibles_carne();
 	void borrar_consumible(Consumible_Power_Up* objeto);
 	void borrar_consumible(short id);
-	void crear_consumibles_en_posiciones_aleatorias();
+	Vector2 crear_posiciones_aleatorias();
 	void anyadir_consumible();
 	
-	void anyadir_consumible_patata(Vector2 posicion);
-	void anyadir_consumible_carne(Vector2 posicion);
-	void anyadir_consumible_agua(Vector2 posicion);
-	void anyadir_consumible_fuerza(Vector2 posicion);
+	void anyadir_consumible_patata();
+	void anyadir_consumible_carne();
+	void anyadir_consumible_agua();
+	void anyadir_consumible_fuerza();
+	void anyadir_consumible_inmunidad();
+	void crear_todos_consumibles_que_faltan();
 
 private:
+
+	float mult;
 	std::vector<Consumible*> _consumibles;
 	std::vector<Vector2> posiciones_resp_por_usar;
 	std::vector<double> tiempo_resp_por_usar;

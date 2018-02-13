@@ -42,12 +42,10 @@ void Consumible_Action::comprobar_consumibles(){
 	for(short a=0; a<tamanio; a++){
 
 		if((*_consumibles)[a]->usar(_player)){
-			//(*_consumibles)[a]->setPositionXZ(9000,9000);
-							  Vector2 pos((*_consumibles)[a]->getX(), (*_consumibles)[a]->getZ());
-				  _respawn_points->anyadir_nuevo_punto(pos);
+			Vector2 pos((*_consumibles)[a]->getX(), (*_consumibles)[a]->getZ());
+			_respawn_points->anyadir_nuevo_punto(pos);
 			_consumibles_manager->borrar_consumible(a);
 			--tamanio;
-			std::cout << tamanio<< "tamaaaaño" <<std::endl;
 			continue;
 		}
 
@@ -59,14 +57,14 @@ void Consumible_Action::comprobar_consumibles(){
 				  _respawn_points->anyadir_nuevo_punto(pos);
 				_consumibles_manager->borrar_consumible(a);
 				--tamanio;
-				std::cout << tamanio<< "tamaaaaño" <<std::endl;
 				se_ha_borrado=true;
 			}
 		 }
 		se_ha_borrado=false;
 	}
-		_respawn_points->generar_tipo_de_elemento();
-		_consumibles_manager->crear_consumibles_en_posiciones_aleatorias();
+
+	_consumibles_manager->crear_todos_consumibles_que_faltan();
+
 }
 
 

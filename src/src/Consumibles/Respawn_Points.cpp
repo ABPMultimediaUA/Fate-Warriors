@@ -59,7 +59,7 @@ void Respawn_Points::anyadir_nuevo_punto(Vector2 posicion){
     tiempo_resp_por_usar.push_back(_reloj->get_current()+500); 
 } 
 
-
+/*
 //---------------------------------- MAPEADOS PARA LOS CONSUMIBLES --------------------------//
 
 	// Funciones para guardar los datos
@@ -191,3 +191,4 @@ void Respawn_Points::crear_consumible_agua(Consumible_Manager* _consumible_manag
 void Respawn_Points::crear_consumible_fuerza(Consumible_Manager* _consumible_manager_){
     _consumible_manager_->anyadir_consumible_fuerza(posiciones_resp_por_usar[0]);
 }
+*/

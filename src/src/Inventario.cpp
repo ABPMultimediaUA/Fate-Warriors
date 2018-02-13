@@ -44,6 +44,7 @@ bool Inventario::borrar_si_se_puede(Arma * seleccionado_in){
 			_objeto_cerca = nullptr;
 		}
 
+		_armas_manager->crear_todas_las_armas_que_faltan();
 		cambiar_arma_seleccionada_a_la_siguiente();
 		return true;
 	}
