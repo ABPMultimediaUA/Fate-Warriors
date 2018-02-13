@@ -20,7 +20,7 @@ Armas_Manager::Armas_Manager() {
     _armas.push_back(new AC_Katana(5,mult*10, mult*0, mult*10));
 
 
-    _numero_max = 2;
+    _numero_max = 3;
 
     Nivel* _nivel = Nivel::nivel_instancia();
 
@@ -114,6 +114,7 @@ void Armas_Manager::anyadir_arma(){
     MapeadArmas *_mapeado_clase = mapping_tipo_arma_creada;
 	Enum_Nombre_Arma _arma = static_cast<Enum_Nombre_Arma>(rand() % Nombre_Arma_Nada);
 
+    std::cout << _arma << "arma que crea" << std::endl;
 	while(_mapeado_clase->_nombre_objeto!=Nombre_Arma_Nada){
 		if(_arma == _mapeado_clase->_nombre_objeto){
 			(this->*_mapeado_clase->pmet)();

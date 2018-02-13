@@ -36,7 +36,6 @@ private:
 	std::vector<Proyectil*> _balas;
 	uint8_t _numero_max;
 
-	uint16_t numero_max;
 	uint16_t cantidad_de_posiciones;
 	float** posiciones;
 	Time* _reloj;

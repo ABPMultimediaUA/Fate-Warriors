@@ -346,14 +346,6 @@ void Character::coger_arma(Arma* _arma){
          //_inventario->cambiar_objeto_cerca(_arma);
         _inventario->cambiar_objeto_cerca(static_cast<Arma_cerca*>(_arma));
     }
-
-    Game* punterito 		= Game::game_instancia();
-	Datos_Partida * datitos	= punterito->game_get_datos();
-	Respawn_Points * _respawn_points = datitos->get_Respawn_Points();
-
-    Vector2 pos(_arma->getX(), (_arma->getZ()));
-	_respawn_points->anyadir_nuevo_punto(pos);
-
 }
 
 bool Character::intentar_recoger_arma() {
