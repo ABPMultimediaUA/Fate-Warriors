@@ -8,6 +8,10 @@ TTransform::~TTransform(){}
 void TTransform::beginDraw(){
     pila_matrices.push(matriz);
     matriz=_t_matriz*matriz;
+    /*    matriz= glm::outerProduct(&_t_matriz,&matriz);
+    glm::vec4 a(0.1, 0.2, 0.3, 0.4), b(0.5, 0.6, 0.7, 0.8);
+    glm::mat4 algo=(a,a,a,a);
+    glm::mat4 o = glm::outerProduct(a, b);*/
 }
 void TTransform::endDraw(){
     matriz=pila_matrices.top();

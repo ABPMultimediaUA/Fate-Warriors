@@ -5,7 +5,11 @@
 #include "TRecursoMaterial.h"
 
 TGestorRecursos::TGestorRecursos(){}
-TGestorRecursos::~TGestorRecursos(){}
+TGestorRecursos::~TGestorRecursos(){
+    for(auto it = _recursos.begin(); it!=_recursos.end(); it++){ //itera por el vector eliminando
+        delete *it;
+    }
+}
 
 TRecurso* TGestorRecursos::getRecurso(char* nombre){
     TRecurso* rec;

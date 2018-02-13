@@ -2,6 +2,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+
 #include <iostream>
 
 TRecursoMalla::TRecursoMalla(){}
@@ -24,11 +25,21 @@ void TRecursoMalla::cargarFichero(char* nombre){
     aiProcess_JoinIdenticalVertices |
     aiProcess_SortByPType            );
     if(!scene){
-        std::cout<<"Esta mierda no funciona porque esto no vale na (hablando de manjaro) y: "<<importer.GetErrorString()<<std::endl;
+        std::cout<<"La malla no se ha cargado correctamente: "<<importer.GetErrorString()<<std::endl;
         exit(0);
     }
     
     SetNombre(nombre);
+    uint16_t n_mesh=scene->mNumMeshes;
+    while(n_mesh){
+        n_mesh--;
+        aiMesh* mesh = scene->mMeshes[n_mesh];
+        vertices = &mesh->mVertices[0][0];
+        normales = mesh->mNormals[0][0];
+        texturas = mesh->mTextureCoords[0][0][0];
+        nTriangulos += mesh->mNumFaces;
+    }
     //DoTheSceneProcessing(scene);
-   
+   //ShaderSource* shad;
+   //preparar un shader para esto
 }

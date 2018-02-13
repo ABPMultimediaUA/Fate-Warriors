@@ -17,6 +17,7 @@ public:
     TRecurso* getRecursoMaterial(char* nombre);		
 private:
 	std::vector<TRecurso*> _recursos;
+    
     TRecurso* getRecurso(char* nombre);
 };
 

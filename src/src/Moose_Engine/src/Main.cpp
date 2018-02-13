@@ -4,6 +4,11 @@
 #include "TRecurso.h"
 #include "TRecursoMalla.h"
 #include "TTransform.h"
+#include "TCamara.h"
+#include "TMalla.h"
+#include "TLuz.h"
+#include <iostream>
+#include <glm/ext.hpp>
 #include <iostream>
 
 int main(){
@@ -25,14 +30,28 @@ int main(){
     trans1->trasladar(0,0,-300);
     trans3->trasladar(10,10,0);
 
+
     TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(),trans1);
     TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(),trans2);
-    
     TNodo* nodoTrans3 = motor->crearNodo(nodoTrans2, trans3);
-    //TNodo* nodoMalla  = motor->crearNodo(nodoTrans2, malla1);
-    //TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
-//
-    //TNodo* nodoCamara = motor->crearNodo(nodoTrans3, camara);
+
+    TNodo* nodoMalla  = motor->crearNodo(nodoTrans2, malla1);
+    TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
+    TNodo* nodoCamara = motor->crearNodo(nodoTrans3, camara);
+    
+
+    glm::mat4 algo=glm::mat4(1.0);
+    algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
+    glm::mat4 algo2=glm::mat4(1.0);
+    algo2[1]=glm::vec4( 3.0, 7.0, 0.0, 1.0 );
+    glm::mat4 algo3=algo*algo2;//a nivel de papel es algo2 * algo1
+    std::cout<<algo3[1][0]<<std::endl;
+    /*int nViewport =motor->registrarViewport(x,y,alto,ancho);
+    motor->setViewportActivoActivo(nViewport);
+    int nCamara=motor->registrarCamara(nodoCamara);
+    motor->setCamaraActiva(nCamara);
+    int nLuz=motor->registrarLuz(nodoLuz);
+    motor->setLuzActiva(nLuz);*/
 
 
     return 0;

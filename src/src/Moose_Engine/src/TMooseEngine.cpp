@@ -12,7 +12,10 @@ TMooseEngine::TMooseEngine(){
     TNodo* nodo = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
 }
-TMooseEngine::~TMooseEngine(){}
+TMooseEngine::~TMooseEngine(){
+    delete _escena;
+    delete _gestorRecursos;
+}
 
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
     TNodo* nodo = new TNodo(_contadorIDEntidad,padre);
@@ -37,7 +40,7 @@ TLuz* TMooseEngine::crearLuz(){
 
 TMalla* TMooseEngine::crearMalla(char* fichero){
     TMalla* malla = new TMalla();
-    _gestorRecursos->getRecursoMalla(fichero);
+    //_gestorRecursos->getRecursoMalla(fichero);
     return malla;
 }
 
