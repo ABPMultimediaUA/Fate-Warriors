@@ -41,11 +41,14 @@ enum Enum_Acciones ND_Set_Objetivo_Personaje_Enemigo_Cerca::toma_decision(Blackb
 			}
 		}	
 	}
-	_blackboard->set_objetivo(_objetivo);
 	
+
 	//std::cout << "distancia= " << _distancia << " y el valor es " << _valor << "\n";
 	if(_distancia_enemigo_mas_cercano >= _valor) {
 		return _nodo_der->toma_decision(_blackboard);
 	}
+
+	_blackboard->set_objetivo(_objetivo);
+	
 	return _nodo_izq->toma_decision(_blackboard);
 }

@@ -179,6 +179,7 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         set_accion(Accion_pre_atacar);
         set_tipo_ataque(_ataque_combo);
 
+        /*
         std::cout << "ENLAZA ATAQUE: ";
 
         if(_ataque_combo == Ataque_Normal_Normal)
@@ -191,6 +192,7 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
             std::cout << "Ataque FUERTE - FUERTE";
 
         std::cout << std::endl;
+        */
     }
     
 }
@@ -221,7 +223,7 @@ void Character::mover(uint16_t _i_direccion){
             _velocidad = _velocidadAndar;
         }
         else if(this->get_accion() == Andar){
-            std::cout << "Andando" << std::endl;
+            //std::cout << "Andando" << std::endl;
             if(_velocidad<_velocidadAndar){
                 _velocidad += 0.05;
             }
@@ -230,7 +232,7 @@ void Character::mover(uint16_t _i_direccion){
             }
         }
         else if(_accion == Accion_Correr){
-            std::cout << "CORRIENDO" << std::endl;
+            //std::cout << "CORRIENDO" << std::endl;
             if(_velocidad<_velocidadCorrer){
                 _velocidad += 0.1;
             }
@@ -614,19 +616,19 @@ btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
     if(tipo_arma == Tipo_Arma_cuerpo_a_cuerpo){
 
         if(_tipo_ataque == Ataque_Normal){
-            std::cout<< "cuerpo a cuerpo normal" <<std::endl;
+            //std::cout<< "cuerpo a cuerpo normal" <<std::endl;
             return btVector3(2,1,2);
         }
         else if(_tipo_ataque == Ataque_Fuerte){
-            std::cout<< "cuerpo a cuerpo  fuerte" <<std::endl;
+            //std::cout<< "cuerpo a cuerpo  fuerte" <<std::endl;
             return btVector3(2.5,1,2);
         }
         else if(_tipo_ataque == Ataque_Salto){
-            std::cout<< "cuerpo a cuerpo salto" <<std::endl;
+            //std::cout<< "cuerpo a cuerpo salto" <<std::endl;
             return btVector3(2,1,2);
         }
         else if(_tipo_ataque == Ataque_Especial){
-            std::cout<< "cuerpo a cuerpo Especial" <<std::endl;
+            //std::cout<< "cuerpo a cuerpo Especial" <<std::endl;
             return btVector3(2,1,2);
         }
         else
@@ -637,19 +639,19 @@ btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
         if(nombre_arma == Nombre_Arma_Katana){
 
             if(_tipo_ataque == Ataque_Normal){
-                std::cout<< "KATANA normal" <<std::endl;
+                //std::cout<< "KATANA normal" <<std::endl;
                 return btVector3(2,1,2);
             }
             else if(_tipo_ataque == Ataque_Fuerte){
-                std::cout<< "KATANA fuerte" <<std::endl;
+                //std::cout<< "KATANA fuerte" <<std::endl;
                 return btVector3(2.5,1,2);
             }
             else if(_tipo_ataque == Ataque_Salto){
-                std::cout<< "KATANA salto" <<std::endl;
+                //std::cout<< "KATANA salto" <<std::endl;
                 return btVector3(2,1,2);
             }
             else if(_tipo_ataque == Ataque_Especial){
-                std::cout<< "KATANA especial" <<std::endl;
+                //std::cout<< "KATANA especial" <<std::endl;
                 return btVector3(2,1,2);
             }
             else
@@ -690,7 +692,7 @@ void Character::gestion_acciones(){
 
 void Character::gestion_recibir_danyado(){
     if(get_accion() == Recibir_danyo && !_inmortal){
-        std::cout << "SIENDO DANYADO" << std::endl;
+        //std::cout << "SIENDO DANYADO" << std::endl;
         _objeto_motor->colorear_nodo(255,0,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
@@ -765,7 +767,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 {
                     _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
             
-                    std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
+                    //std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
 
                     // Impulsa al atacado
                     impulso_danyar(this, _characters[_cont], get_impulso_danyar(_tipo_ataque));
