@@ -9,6 +9,7 @@ class TMalla : public TEntidad{
         TMalla();
         ~TMalla();
         void cargarMalla(TFichero _i_fichero);
+        void draw();
         void beginDraw();
         void endDraw();
         

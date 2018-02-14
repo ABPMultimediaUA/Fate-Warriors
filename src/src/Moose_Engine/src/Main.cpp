@@ -12,7 +12,12 @@
 #include <iostream>
 #include "TNodo.h"
 
-int main(){
+//OPEN GL 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+
+void recorrerArbol(){
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoMalla("Enemigo.obj");
     TMooseEngine* motor=new TMooseEngine();
@@ -82,6 +87,16 @@ int main(){
     int nLuz=motor->registrarLuz(nodoLuz);
     motor->setLuzActiva(nLuz);*/
 
+}
 
+void dibujarOpenGL(){
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
+
+int main(){
+    dibujarOpenGL();
     return 0;
 }

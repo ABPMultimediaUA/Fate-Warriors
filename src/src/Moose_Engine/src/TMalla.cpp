@@ -9,6 +9,11 @@ TMalla::~TMalla(){
 void TMalla::beginDraw(){
     std::cout<<"ID ------"<<_ID<<"\n";
 }
+
+void TMalla::draw(){
+    
+}
+
 void TMalla::endDraw(){
     std::cout<<"termino dibujar "<<_ID<<"\n";    
 }
