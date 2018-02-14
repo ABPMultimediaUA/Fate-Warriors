@@ -1,6 +1,12 @@
 #include "TCamara.h"
+#include <iostream>
 
 TCamara::TCamara(){}
 TCamara::~TCamara(){}
-void TCamara::beginDraw(){}
-void TCamara::endDraw(){}
+void TCamara::beginDraw(){
+
+    std::cout<<"ID ------"<<_ID<<"\n";
+}
+void TCamara::endDraw(){
+    std::cout<<"termino dibujar "<<_ID<<"\n";
+}

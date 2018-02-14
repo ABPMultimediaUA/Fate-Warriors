@@ -10,6 +10,7 @@
 #include <iostream>
 #include <glm/ext.hpp>
 #include <iostream>
+#include "TNodo.h"
 
 int main(){
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
@@ -38,14 +39,42 @@ int main(){
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans2, malla1);
     TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
     TNodo* nodoCamara = motor->crearNodo(nodoTrans3, camara);
-    
+   
+    TNodo* Escena=motor->nodoRaiz();
+    /*TNodo *RotaLuz= new TNodo();
+    TNodo *RotaCam= new TNodo();
+    TNodo* RotaCoche = new TNodo();
+    Escena->agrega_hijo(RotaLuz);
+    Escena->agrega_hijo(RotaCam);
+    Escena->agrega_hijo(RotaCoche);
+    TNodo* TraslaLuz=motor->crearNodo(motor->nodoRaiz(),trans1);
+    TNodo* TraslaCam=motor->crearNodo(motor->nodoRaiz(),trans2);
+    TNodo* TraslaCoche=motor->crearNodo(motor->nodoRaiz(),trans3);
+    RotaLuz->agrega_hijo(TraslaLuz);
+    RotaCam->agrega_hijo(TraslaCam);
+    RotaCoche->agrega_hijo(TraslaCoche);
 
-    glm::mat4 algo=glm::mat4(1.0);
+    TTransform *TransfRotaLuz=new TTransform();
+    TTransform* TransfRotaCam=new TTransform();
+    TTransform *TransfRotaCoche=new TTransform();
+
+    RotaLuz->set_entidad(TransfRotaLuz);
+    RotaCam->set_entidad(TransfRotaCam);
+    RotaCoche->set_entidad(TransfRotaCoche);
+    
+    
+    NLuz->set_entidad(EntLuz);
+    NCam->set_entidad(EntCam);
+    NChasis->set_entidad(MallaChasis);*/
+
+
+    Escena->draw();
+    glm::mat4 algo=glm::mat4();
     algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
-    glm::mat4 algo2=glm::mat4(1.0);
+    glm::mat4 algo2=glm::mat4();
     algo2[1]=glm::vec4( 3.0, 7.0, 0.0, 1.0 );
     glm::mat4 algo3=algo*algo2;//a nivel de papel es algo2 * algo1
-    std::cout<<algo3[1][0]<<std::endl;
+    std::cout<<algo[0][0]<<std::endl;
     /*int nViewport =motor->registrarViewport(x,y,alto,ancho);
     motor->setViewportActivoActivo(nViewport);
     int nCamara=motor->registrarCamara(nodoCamara);

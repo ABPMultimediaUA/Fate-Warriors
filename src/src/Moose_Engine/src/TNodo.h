@@ -32,6 +32,7 @@ class TNodo{
         }
 
         uint16_t get_entidad_id();
+        void     set_entidad_id(uint16_t id);
 
         std::vector<TNodo*>& get_hijos(){return _hijos;}
 

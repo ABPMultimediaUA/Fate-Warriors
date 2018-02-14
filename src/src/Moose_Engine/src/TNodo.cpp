@@ -3,6 +3,8 @@
 #include <iterator>
 #include <algorithm>
 
+#include <iostream>
+
 TNodo::TNodo(uint16_t entidadID, TNodo* nodo_padre) : _visible(true){
     _padre = nodo_padre;
     _entidadID = entidadID;
@@ -51,6 +53,7 @@ TEntidad* TNodo::get_entidad(){
 
 void TNodo::set_entidad(TEntidad* entidad){
     _entidad = entidad;
+    _entidad->setID(_entidadID);
 }
 
 uint16_t TNodo::get_entidad_id(){
@@ -58,13 +61,16 @@ uint16_t TNodo::get_entidad_id(){
 }
 
 void TNodo::draw(){
-        if(_visible){
-            if(get_entidad() != nullptr){
-                get_entidad()->beginDraw();
+            if(_entidad != nullptr){
+                _entidad->beginDraw();
                 for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
                     (*it)->draw();
                 }
-                get_entidad()->endDraw();
+                _entidad->endDraw();
+            }else{
+                std::cout<<"entra";
+                for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
+                    (*it)->draw();
+                }
             }
-        }
 }

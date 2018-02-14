@@ -20,9 +20,10 @@ public:
 	uint16_t getID();
 
 private:
+	
+protected:
 	uint16_t _ID;
 	TNodo* _nodo;
-protected:
     static glm::mat4 matriz;
     static std::stack<glm::mat4> pila_matrices;
 };

@@ -15,11 +15,14 @@ TMooseEngine::TMooseEngine(){
 TMooseEngine::~TMooseEngine(){
     delete _escena;
     delete _gestorRecursos;
+    _contadorIDEntidad=0;
 }
 
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
     TNodo* nodo = new TNodo(_contadorIDEntidad,padre);
+    nodo->set_entidad(ent);
     padre->agrega_hijo(nodo);
+    ++_contadorIDEntidad;
     return nodo;
 }
 
