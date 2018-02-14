@@ -57,7 +57,7 @@ opt:
 	$(eval CCFLAGS:=-O2)
 	$(info $(CCFLAGS))
 $(TARGET): $(OBJFILES)
-	$(CC) -o $@ $^ $(INCLUDE) $(LIBS) $(CCFLAGS)
+	$(CC) -o $@ $^ glad.o GL/gl3w.o $(INCLUDE) $(LIBS) $(CCFLAGS)
 
 ## CREATING SUBDIRS OF THE OBJDIR
 #dir:
