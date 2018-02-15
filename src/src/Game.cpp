@@ -14,6 +14,7 @@
 #include "Motor_sonido/Interfaz_sonido.h"
 #include "Menus/Menu_Principal.h"
 #include "Menus/Menu_Pausa.h"
+#include "Zonas_Manager.h"
 
 #include <iostream>
 #include <stack>
@@ -60,10 +61,11 @@ Game::~Game(){
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
 	_sonido=Interfaz_sonido::GetInstancia();
-
 	_datos 				= new Datos_Partida(_input_jugador);
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
+
+	_zonas_manager		= _datos->get_zonas_manager();
 
 	_player = _datos->get_player();
 	_datos->inserta_npc_nivel();
@@ -128,7 +130,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 		_trampas_action->update();
 
 		_motor->update(_i_tiempo_desde_ultimo_update);
-			
+		_zonas_manager->actualizar_zonas();
 		_decision_manager->toma_decisiones();
     }
 }

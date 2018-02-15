@@ -8,6 +8,7 @@ public:
 	Zonas_Manager();
 	~Zonas_Manager();
 
+	void actualizar_zonas();
 	Zona** get_zonas();
     
 	unsigned short get_n_zonas();

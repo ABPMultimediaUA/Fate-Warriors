@@ -15,6 +15,7 @@ class Nivel;
 class Motor;
 class Player;
 class Interfaz_sonido;
+class Zonas_Manager;
 
 class Menu_Principal;
 class Menu_Pausa;
@@ -62,6 +63,7 @@ private:
 	Player* _player;
 
 	Nivel* _nivel;
+	Zonas_Manager* _zonas_manager;
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;
 	Decision_Manager *_decision_manager; 	// Encargado de tomar las decisiones de los NPCs
