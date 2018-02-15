@@ -33,7 +33,8 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 	_changeY = 0; 			
 	_dot = _det = _angle = _angleRad = 0;
 	_interpolacion = new Interpolacion(_inicial_aux);		
-	_interpolacion_colision = new Interpolacion(_inicial_aux);		
+	_interpolacion_colision = new Interpolacion(_inicial_aux);
+	_unlocked = false;	//angel busca esto	
 }
 
 void Camara::Camara_setPosition(core::vector3df position) {
@@ -129,19 +130,26 @@ void Camara::Camara_Update() {
 
 	_gradosRotacion = 35; 
 
-	if (_zdirection < -60) {
-		_zdirection = -60; 
-	}
+	if(!_unlocked){
+		if (_zdirection < -60) {
+			_zdirection = -60; 
+		}
 
-	else if (_zdirection > -5) {
-		_zdirection = -5; 
-	}
+		else if (_zdirection > -5) {
+			_zdirection = -5; 
+		}
 
-	if(_direction >= 360)
-		_direction -= 360;
-	if(_direction < 0)
-		_direction += 360;
-	
+		if(_direction >= 360)
+			_direction -= 360;
+		if(_direction < 0)
+			_direction += 360;
+	}
+	else{
+		if(_direction >= 360)
+			_direction -= 360;
+		if(_direction < 0)
+			_direction += 360;
+	}
 	/*std::cout << "Direction  " << _direction << "\n";
 	std::cout << "Zdirection " << _zdirection << "\n";*/
 
@@ -158,6 +166,14 @@ void Camara::update_position() {
 					_Prota-> getPosition().Y - _ProtaBoundingCenter.Y, 
 					_Prota-> getPosition().Z); 
 		
+		float distancia;
+
+		if(!_unlocked){
+			distancia = 20.0f;}
+		else{
+			distancia = 50.0f;
+		}
+
 		float xf = playerPos.X - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * 20.0f; 
 		
 		float yf = playerPos.Y - sin(_zdirection * irr::core::PI / 180.0f) * 20.0f; 
