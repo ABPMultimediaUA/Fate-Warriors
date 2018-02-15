@@ -57,7 +57,7 @@ private:
 	core::position2d<f32> cursorPos;
 	unsigned short _gradosRotacion;
 	Input* _input; 	// Input del control de camara
-
+	bool _unlocked; //para que se pueda desbloquear la camara y mandarla a cuenca si se quiere
 	bool _hay_colision; // Dice si hay colision para interpolar con la posicion de colision
 	Interpolacion* _interpolacion;
 	Interpolacion* _interpolacion_colision;
