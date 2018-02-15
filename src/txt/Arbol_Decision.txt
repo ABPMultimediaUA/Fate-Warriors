@@ -9,6 +9,8 @@ Fin
 # ID TIPO_NODO CATEGORIA NODOS (Final->Finales/Medio->ID) VALOR_CORTE
 # IF VALOR>=VALOR_CORTE -> DERECHA
 # IF VALOR< VALOR_CORTE -> IZQUIERDA
+# ANGEL: booleanas 0 false, 1 true. Si es false, nodo izq, true derecho
+# ANGEL: Hay algunos nodos que da igual que valor le pases, porque usan variables que leen de partida
 
 # El primer digito es el id del nodo 
 # El segundo indica la situacion en el arbol (Si esta al final o a mitad de arbol)
@@ -17,3 +19,4 @@ Fin
 #    En caso de nodo Medio -> Los id de los nodos
 # El siguiente es el tipo de nodo (valores que pide al blackboard)
 # El ultimo valor es el valor de corte que decide para que nodo ir
+

@@ -48,7 +48,8 @@ enum Enum_Acciones ND_Set_Objetivo_Personaje_Enemigo_Cerca::toma_decision(Blackb
 		return _nodo_der->toma_decision(_blackboard);
 	}
 
-	_blackboard->set_objetivo(_objetivo);
+	_blackboard->objetivo_x = _objetivo->getX();
+	_blackboard->objetivo_y = _objetivo->getZ();
 	
 	return _nodo_izq->toma_decision(_blackboard);
 }

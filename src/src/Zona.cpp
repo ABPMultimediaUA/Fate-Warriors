@@ -29,12 +29,22 @@ void Zona::actualizar_zona(){
     Motor* motor = Motor::Motor_GetInstance();
 
     personajes_de_la_zona.clear();
+    _num_characters_equipo_A = 0;
+    _num_characters_equipo_B = 0;
     bool _conquistando_aux=true;
 
     for (uint16_t num_character=0; num_character<_num_characters; num_character++){
        if(motor->comprobar_colision(_rb, todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
             personajes_de_la_zona.push_back(todos_personajes[num_character]);
-            std::cout << this <<  " estoy en la zona \n";
+            //std::cout << this <<  " estoy en la zona \n";
+
+            if(todos_personajes[num_character]->get_equipo() == Enum_Equipo_A){
+                _num_characters_equipo_A++;
+            }
+            else{
+                _num_characters_equipo_B++;
+            }
+
             if(todos_personajes[num_character]->get_equipo() == _equipo){
                 _conquistando = false;
                 _conquistando_aux = false;
@@ -54,7 +64,7 @@ void Zona::actualizar_zona(){
 
 
     if(_conquistando){
-        std::cout << " conquistando.... \n";
+       //std::cout << " conquistando.... \n";
     }
 
     if(_conquistando && _reloj->get_current() >_tiempo_inicio_conquista+5000){

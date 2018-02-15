@@ -80,14 +80,14 @@ void Decision_Manager::toma_decisiones(){
 		//std::cout << "LoD del NPC " << _cont << " es " << (int)_lod_npc << "\n";
 
 		// Estas acciones no es la misma variable que accion de Character
-		if(_iteraciones_actuales_lod[_lod_npc] == _iteraciones_lod[_lod_npc]) {
+		//if(_iteraciones_actuales_lod[_lod_npc] == _iteraciones_lod[_lod_npc]) {
 			//Se toma la accion
 			_blackboards[_cont]->set_accion(_decision_tree_manager->_tomar_decision(_blackboards[_cont]));
-		}
-		else {
+		//}
+		//else {
 			//Ninguna accion
-			_blackboards[_cont]->set_accion(Nada);
-		}
+		//	_blackboards[_cont]->set_accion(Nada);
+		//}
 
 		//Se realiza la accion
 		_action_manager->realiza_accion(_npcs[_cont]);

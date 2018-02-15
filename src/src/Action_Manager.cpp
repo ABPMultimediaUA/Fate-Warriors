@@ -32,7 +32,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				unsigned short _direccion;
 				x=_i_npc->getX();
 				z=_i_npc->getZ();
-				_direccion = _path_manager->get_direccion_movimiento(x,z, _i_npc->get_blackboard()->get_objetivo());
+				_direccion = _path_manager->get_direccion_movimiento(x,z, _i_npc->get_blackboard()->objetivo_x, _i_npc->get_blackboard()->objetivo_y);
 				//std::cout << _direccion<<" \n ";
 				if(_direccion!=362){
 					// Componenetes de la direccion mala

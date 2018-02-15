@@ -9,7 +9,7 @@ public:
 	Path_Manager();
 	virtual ~Path_Manager();
 
-	uint16_t get_direccion_movimiento(float& _x_enemigo,float& _y_enemigo, Objeto * _objetivo);
+	uint16_t get_direccion_movimiento(float& _x_enemigo,float& _y_enemigo, float pos_x, float pos_y);
 
 private:
 };

@@ -17,20 +17,41 @@ public:
     void iniciar_tiempo_conquista();
     void cambiar_bando();
 
-    //void actualizar_characters();
-    //Character ** get_characters();
-    //int get_num_characters();
+    inline btRigidBody * getRigidBody(){
+        return _rb;
+    }
+
+    inline Enum_Equipo get_equipo(){
+        return _equipo;
+    }
+
+    inline float getX(){
+        return _pos_x;
+    }
+    inline float getY(){
+        return _pos_y;
+    }
+    inline float getZ(){
+        return _pos_y;
+    }
+    inline bool siendo_capturada(){
+        return _conquistando;
+    }
+
+    int _num_characters_equipo_A;
+    int _num_characters_equipo_B;
 
 private:
     btRigidBody *_rb;
     Enum_Equipo _equipo;
 
+    int _pos_x;
+    int _pos_y; // Es la Z realmente
+
     Time* _reloj;
     std::vector <Character*> personajes_de_la_zona;
     bool _conquistando;
     double _tiempo_inicio_conquista;
-    //Character ** _characters;
-    //int _num_characters;
 };
 
 #endif /* ZONA_H_ */
