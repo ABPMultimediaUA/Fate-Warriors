@@ -1,4 +1,3 @@
-
 #include "TMooseEngine.h"
 #include "TGestorRecursos.h"
 #include "TRecurso.h"
@@ -98,18 +97,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 } 
 
-std::string LoadFileContents(const std::string filePath){
-    std::ifstream file(filePath);
-    std::stringstream sstream;
-
-    if(!file.is_open()){
-        std::cout << "Could not find the file: " << filePath << std::endl;
-    }
-
-    sstream << file.rdbuf();
-
-    return sstream.str();
-}
 float vertices[] = {
     -0.5f, -0.5f, 0.0f,
      0.5f, -0.5f, 0.0f,
@@ -141,25 +128,48 @@ int dibujarOpenGL(){
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-
     glViewport(0, 0, 1280, 720);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     //leer los programas vertex y fragment shader
-    const std::string vertex_path = "Shaders/vertex_basic.glsl";
-    const std::string fragment_path = "Shaders/fragment_basic.glsl";
+    std::ifstream vShaderFile;
+    std::ifstream fShaderFile;
+    std::string vertex_Code;
+    std::string fragment_Code;
 
-    const GLchar* vertexShaderText;
-    const GLchar* fragmentShaderText;
+    vShaderFile.exceptions(std::ifstream::badbit);
+    fShaderFile.exceptions(std::ifstream::badbit);
+    
+    const GLchar* vertex_path = "Shaders/vertex_basic.glsl";
+    const GLchar* fragment_path = "Shaders/fragment_basic.glsl";
 
-    vertexShaderText = LoadFileContents(vertex_path).c_str();
-    fragmentShaderText = LoadFileContents(fragment_path).c_str();
+    
 
+    try {
+        // Open files
+        vShaderFile.open(vertex_path);
+        fShaderFile.open(fragment_path);
+        std::stringstream vShaderStream, fShaderStream;
+        // Read file's buffer contents into streams
+        vShaderStream << vShaderFile.rdbuf();
+        fShaderStream << fShaderFile.rdbuf();
+        // close file handlers
+        vShaderFile.close();
+        fShaderFile.close();
+        // Convert stream into string
+        vertex_Code = vShaderStream.str();
+        fragment_Code = fShaderStream.str();
+    } catch (std::ifstream::failure e) {
+        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+    }
 
-    //compilar vertex shader
+    const GLchar* vShaderCode = vertex_Code.c_str();
+    const GLchar* fShaderCode = fragment_Code.c_str();
+    
+
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderText, NULL);
+    glShaderSource(vertexShader, 1, &vShaderCode, NULL);
     glCompileShader(vertexShader);
 
     int  success;
@@ -175,7 +185,7 @@ int dibujarOpenGL(){
 
     unsigned int fragmentShader;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderText, NULL);
+    glShaderSource(fragmentShader, 1, &fShaderCode, NULL);
     glCompileShader(fragmentShader);
 
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
