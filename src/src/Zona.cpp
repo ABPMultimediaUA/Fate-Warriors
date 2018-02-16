@@ -73,6 +73,10 @@ void Zona::iniciar_tiempo_conquista(){
     _tiempo_inicio_conquista = _reloj->get_current();
 }
 
+Enum_Equipo Zona::get_equipo(){
+    return _equipo;
+}
+
 std::vector <Character*> Zona::get_characters(){
     return personajes_de_la_zona;
 }

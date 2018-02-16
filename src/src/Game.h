@@ -75,6 +75,7 @@ private:
 	Trampas_action* _trampas_action;
 	Input* _input_jugador;
 
+	double 	_tiempo_final_de_partida;
 
 	Menu_Principal* _menu_principal;		// Menu Principal
 	Menu_Pausa* _menu_pausa;				// Menu Pausa

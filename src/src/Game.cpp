@@ -79,6 +79,9 @@ void Game::crea_partida() {
 	render_actual = &Game::render_partida;
 
 	_input_jugador->asignar_teclas_partida();
+
+	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
+
 }
 
 void Game::fin_partida() {
@@ -126,15 +129,24 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
     	cambio_a_update_pausa();
     }
     else {
-		_player->update();
-		_nivel->Update();
-		_consumibles_action->comprobar_consumibles();
-		_trampas_action->update();
+			_player->update();
+			_nivel->Update();
+			_consumibles_action->comprobar_consumibles();
+			_trampas_action->update();
 
-		_motor->update(_i_tiempo_desde_ultimo_update);
-		_zonas_manager->actualizar_zonas();
-		_interactuable_manager->update_interruptores();
-		_decision_manager->toma_decisiones();
+			_motor->update(_i_tiempo_desde_ultimo_update);
+			_zonas_manager->actualizar_zonas();
+			_interactuable_manager->update_interruptores();
+			_decision_manager->toma_decisiones();
+
+			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
+				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
+				//Fin de partida
+			}
+			else{
+				_zonas_manager->comprobar_victoria();
+				//if equipo!=neutro Fin partida
+			}
     }
 }
 

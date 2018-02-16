@@ -3,6 +3,11 @@
 #include <iostream>
 
 Zonas_Manager::Zonas_Manager() {
+
+	_equipoA = 0;
+	_equipoB = 0;
+
+
     // tener xml con la informacion de todos los objetos
     
 	_n_zonas = 4;
@@ -47,9 +52,24 @@ Zonas_Manager::~Zonas_Manager() {
 
 
 void Zonas_Manager::actualizar_zonas(){
+
+	_equipoA = 0;
+	_equipoB = 0;
+
 	for(uint8_t zona=0; zona<_n_zonas; zona++){
 		_zonas[zona]->actualizar_zona();
+		
+		//Una vez actualizado de quien es la zona se registra su bando
+		Enum_Equipo equipo = _zonas[zona]->get_equipo();
+		if (equipo == Enum_Equipo_A){
+			_equipoA++;
+		}
+		else if (equipo == Enum_Equipo_B){
+			_equipoB++;
+		}
+
 	}
+	comprobar_victoria();
 }
 
 Zona** Zonas_Manager::get_zonas(){
@@ -58,4 +78,67 @@ Zona** Zonas_Manager::get_zonas(){
 
 unsigned short Zonas_Manager::get_n_zonas(){
 	return _n_zonas;
+}
+
+
+
+
+Enum_Equipo Zonas_Manager::comprobar_victoria(){
+	/*
+	auto cantidad =calcular_cantidad_territorios_por_bando();
+
+    std::cout << "ID: 0, "
+              << "EquipoA: " << (int)std::get<0>(cantidad) << ", "
+              << "EquipoB: " << (int)std::get<1>(cantidad) << ", \n";
+	*/
+
+	if(_equipoA==_n_zonas){
+		std::cout << "Gana Equipo A"<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
+		return Enum_Equipo_A;
+	}
+
+	else if(_equipoB==_n_zonas){
+		std::cout << "Gana Equipo B"<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
+		return Enum_Equipo_B;
+	}
+
+	else{
+		//std::cout << "AUN NO HAY VICTORIA"<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
+		return Enum_Equipo_A;  //Borrar ........ falta equipo neutro
+	}
+}
+
+Enum_Equipo Zonas_Manager::comprobar_victoria_fin_tiempo_partida(){
+
+	
+	if(_equipoA == _equipoB){
+		std::cout << "Gana empate " << (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
+		return Enum_Equipo_A;  //Borrar ........ falta equipo neutro
+	}
+	else if(_equipoA>_equipoB){
+		std::cout << "Gana Equipo A "<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
+		return Enum_Equipo_A;
+	}
+	else{
+		std::cout << "Gana Equipo B "<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
+		return Enum_Equipo_B;	
+	}
+}
+
+
+std::tuple<uint8_t,uint8_t> Zonas_Manager::calcular_cantidad_territorios_por_bando(){
+	uint8_t equipoA = 0;
+	uint8_t equipoB = 0;
+
+	for(uint8_t zona=0; zona<_n_zonas; zona++){
+		Enum_Equipo equipo = _zonas[zona]->get_equipo();
+		if (equipo == Enum_Equipo_A){
+			equipoA++;
+		}
+		else if (equipo == Enum_Equipo_B){
+			equipoB++;
+		}
+	}
+	
+	return std::make_tuple(equipoA,equipoB);
 }

@@ -16,7 +16,7 @@ public:
     std::vector <Character*>get_characters();
     void iniciar_tiempo_conquista();
     void cambiar_bando();
-
+    Enum_Equipo get_equipo();
     //void actualizar_characters();
     //Character ** get_characters();
     //int get_num_characters();
