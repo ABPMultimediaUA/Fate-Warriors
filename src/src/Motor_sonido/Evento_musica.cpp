@@ -1,27 +1,37 @@
 #include "Evento_musica.h"
-Evento_musica::Evento_musica(std::string _i_ruta, FMOD::Studio::System *sys): Evento_sonido(_i_ruta,sys){
-    ERRCHECK( _evento->createInstance(&_instancia) );
+#include "FMOD/fmod_errors.h"
+#include <iostream>
+void Evento_musica::ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
+{
+    if (result != FMOD_OK)
+    {
+        std::cerr << file << "(" << line << "): FMOD error " << result << " - " << FMOD_ErrorString(result) << std::endl;
+        exit(-1);
+    }
+}
+Evento_musica::Evento_musica(std::string _i_ruta, FMOD_STUDIO_SYSTEM *sys): Evento_sonido(_i_ruta,sys){
+    ERRCHECK( FMOD_Studio_EventDescription_CreateInstance(_evento, &_instancia) );
 
 }
 Evento_musica::~Evento_musica(){
-    ERRCHECK( _instancia->release() );
+    ERRCHECK( FMOD_Studio_EventInstance_Release(_instancia ));
 }
 void Evento_musica::start(){
     FMOD_STUDIO_PLAYBACK_STATE state;
     //(*state)=FMOD_STUDIO_PLAYBACK_STOPPING;
-    ERRCHECK(_instancia->getPlaybackState(&state));
+    ERRCHECK(FMOD_Studio_EventInstance_GetPlaybackState(_instancia,&state));
     if(state==FMOD_STUDIO_PLAYBACK_STOPPED){
-        ERRCHECK( _instancia->start() );
+        ERRCHECK( FMOD_Studio_EventInstance_Start(_instancia) );
     }
         //ERRCHECK( _instancia->start() );
     //return _i_play;
 }
 void Evento_musica::stop(){
-    ERRCHECK(_instancia->stop(FMOD_STUDIO_STOP_IMMEDIATE));
+    ERRCHECK(FMOD_Studio_EventInstance_Stop(_instancia, FMOD_STUDIO_STOP_IMMEDIATE));
 }
 void Evento_musica::pause(){
-    ERRCHECK(_instancia -> setPaused ( true ));
+    ERRCHECK(FMOD_Studio_EventInstance_SetPaused ( _instancia, true ));
 }
 void Evento_musica::quit_pause(){
-    ERRCHECK(_instancia -> setPaused ( false ));
+    ERRCHECK(FMOD_Studio_EventInstance_SetPaused ( _instancia, false ));
 }

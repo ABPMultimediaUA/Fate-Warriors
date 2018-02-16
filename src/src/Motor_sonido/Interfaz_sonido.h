@@ -63,43 +63,44 @@ private:
     static Interfaz_sonido* instancia;
 
     int _n_canales,_n_musica,_n_ambiente,_n_armas,_n_consumibles,_n_escenario,_n_menu,_n_personaje,_n_voces,_n_pasos;
-    FMOD::Studio::Bus * _bus_musica;
-    FMOD::Studio::Bus * _bus_voces;
-    FMOD::Studio::Bus * _bus_sfx;
-    FMOD::Studio::Bus * _bus_menu;
+    
+FMOD_STUDIO_BUS * _bus_musica;
+    FMOD_STUDIO_BUS * _bus_voces;
+    FMOD_STUDIO_BUS * _bus_sfx;
+    FMOD_STUDIO_BUS * _bus_menu;
     //FMOD::ChannelGroup _canal;
     
-    FMOD::Studio::System* system = NULL;
-    FMOD::System* lowLevelSystem = NULL;
+    FMOD_STUDIO_SYSTEM* system = NULL;
+    FMOD_SYSTEM* lowLevelSystem = NULL;
 
-    FMOD::Studio::Bank* masterBank = NULL;
-    FMOD::Studio::Bank* stringsBank = NULL;
+    FMOD_STUDIO_BANK* masterBank = NULL;
+    FMOD_STUDIO_BANK* stringsBank = NULL;
 
-    FMOD::Studio::Bank* AmbienteBank = NULL;
+    FMOD_STUDIO_BANK* AmbienteBank = NULL;
     Evento_ambiente **_eventos_ambiente;
 
-    FMOD::Studio::Bank* ArmasBank = NULL;
+    FMOD_STUDIO_BANK* ArmasBank = NULL;
     Evento_armas **_eventos_armas;
 
-    FMOD::Studio::Bank* ConsumiblesBank = NULL;
+    FMOD_STUDIO_BANK* ConsumiblesBank = NULL;
     Evento_consumibles **_eventos_consumibles;
 
-    FMOD::Studio::Bank* EscenarioBank = NULL;
+    FMOD_STUDIO_BANK* EscenarioBank = NULL;
     Evento_escenario **_eventos_escenario;
 
-    FMOD::Studio::Bank* MenuBank = NULL;
+    FMOD_STUDIO_BANK* MenuBank = NULL;
     Evento_menu **_eventos_menu;
 
-    FMOD::Studio::Bank* PersonajeBank = NULL;
+    FMOD_STUDIO_BANK* PersonajeBank = NULL;
     Evento_personaje **_eventos_personaje;
 
-    FMOD::Studio::Bank* VocesBank = NULL;
+    FMOD_STUDIO_BANK* VocesBank = NULL;
     Evento_voces **_eventos_voces;
 
-    FMOD::Studio::Bank* PasosBank = NULL;
+    FMOD_STUDIO_BANK* PasosBank = NULL;
     Evento_pasos **_eventos_pasos;
 
-    FMOD::Studio::Bank* MusicaBank = NULL;
+    FMOD_STUDIO_BANK* MusicaBank = NULL;
     Evento_musica **_eventos_musica;
 
 

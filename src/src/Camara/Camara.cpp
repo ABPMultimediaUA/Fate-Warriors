@@ -4,7 +4,7 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Utilidades/Vector.h"
-
+const double M_PI=3.14159265359;
 #include <iostream> 
 
 Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {

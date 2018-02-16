@@ -483,7 +483,7 @@ typedef struct FMOD_DSP_PARAMETER_OVERALLGAIN
     A parameter of this type is used in effects that respond to a 3D position.
 
     [REMARKS]
-    The FMOD::Studio::System will set this parameter automatically if an FMOD::Studio::EventInstance position
+    The FMOD_STUDIO_SYSTEM will set this parameter automatically if an FMOD::Studio::EventInstance position
     changes, however if using the low level FMOD::System you must set this DSP parameter explicitly.
 
     Attributes must use a coordinate system with the positive Y axis being up and the positive X axis being
@@ -514,7 +514,7 @@ typedef struct FMOD_DSP_PARAMETER_3DATTRIBUTES
     A parameter of this type is used in effects that respond to a 3D position and support multiple listeners.
 
     [REMARKS]
-    The FMOD::Studio::System will set this parameter automatically if an FMOD::Studio::EventInstance position
+    The FMOD_STUDIO_SYSTEM will set this parameter automatically if an FMOD::Studio::EventInstance position
     changes, however if using the low level FMOD::System you must set this DSP parameter explicitly.
 
     Attributes must use a coordinate system with the positive Y axis being up and the positive X axis being

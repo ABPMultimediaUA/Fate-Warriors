@@ -3,7 +3,7 @@
 #include "Evento_sonido.h"
 class Evento_armas: public Evento_sonido{
     public:
-        Evento_armas(std::string _i_ruta, FMOD::Studio::System *sys);
+        Evento_armas(std::string _i_ruta, FMOD_STUDIO_SYSTEM *sys);
         ~Evento_armas();
         void start() override;
 };

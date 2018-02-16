@@ -121,23 +121,24 @@ Interfaz_sonido* Interfaz_sonido::GetInstancia(){
 
 Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
     char wavfile[] = "";//variable donde depositar el wav(en el caso de que se hiciera)
-    //FMOD::Studio::System* system = NULL;
-    ERRCHECK( FMOD::Studio::System::create(&system) );
+    //FMOD_STUDIO_SYSTEM* system = NULL;
+    ERRCHECK( FMOD_Studio_System_Create(&system, FMOD_VERSION) );
 
     // The example Studio project is authored for 5.1 sound, so set up the system output mode to match
     //FMOD::System* lowLevelSystem = NULL;
-    ERRCHECK( system->getLowLevelSystem(&lowLevelSystem) );
-    ERRCHECK( lowLevelSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_5POINT1, 0) );
+    ERRCHECK( FMOD_Studio_System_GetLowLevelSystem(system,&lowLevelSystem) );
 
-    ERRCHECK( lowLevelSystem->setOutput(FMOD_OUTPUTTYPE_AUTODETECT) );
+    ERRCHECK( FMOD_System_SetSoftwareFormat(lowLevelSystem, 0, FMOD_SPEAKERMODE_5POINT1, 0) );
 
-    ERRCHECK( system->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, &wavfile) );//inicializacion de fmod
+    ERRCHECK( FMOD_System_SetOutput(lowLevelSystem, FMOD_OUTPUTTYPE_AUTODETECT) );
 
-    //FMOD::Studio::Bank* masterBank = NULL;
-    ERRCHECK( system->loadBankFile("Banks/Master Bank.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank) );
+    ERRCHECK( FMOD_Studio_System_Initialize(system, 1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, &wavfile) );//inicializacion de fmod
+
+    //FMOD::Studio::Bank* masterBank = NULL;"Banks/Master Bank.bank"
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system, "Banks/Master Bank.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank) );
 
     //FMOD::Studio::Bank* stringsBank = NULL;
-    ERRCHECK( system->loadBankFile("Banks/Master Bank.strings.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &stringsBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system, "Banks/Master Bank.strings.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &stringsBank) );
 
 
 
@@ -206,25 +207,26 @@ Interfaz_sonido::~Interfaz_sonido(){
 		delete _eventos_voces[_cont];
 	}
 	delete [] _eventos_voces;
-    ERRCHECK( AmbienteBank->unload() );
-    ERRCHECK( ArmasBank->unload() );
-    ERRCHECK( ConsumiblesBank->unload() );
-    ERRCHECK( EscenarioBank->unload() );
-    ERRCHECK( MenuBank->unload() );
-    ERRCHECK( PersonajeBank->unload() );
-    ERRCHECK( VocesBank->unload() );
-    ERRCHECK( PasosBank->unload() );
-    ERRCHECK( masterBank->unload() );
+    ERRCHECK( FMOD_Studio_Bank_Unload(AmbienteBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(ArmasBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(ConsumiblesBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(EscenarioBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(MenuBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(PersonajeBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(VocesBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(PasosBank) );
+    ERRCHECK( FMOD_Studio_Bank_Unload(masterBank) );
 
     /*ERRCHECK( _chanel_voces->unload() );
     ERRCHECK( _chanel_efectos->unload() );
     ERRCHECK( _chanel_sfx->unload() );*/
-    ERRCHECK( system->release() );
+    ERRCHECK( FMOD_Studio_System_UnloadAll(system) );
+    ERRCHECK( FMOD_Studio_System_Release(system) );
 }
 
 void Interfaz_sonido::system_update(){
 
-    ERRCHECK( system->update() );
+    ERRCHECK( FMOD_Studio_System_Update(system) );
 }
 
 /***************************************CREACION SONIDOS***********************************************/
@@ -241,7 +243,7 @@ void Interfaz_sonido::crear_ambiente(std::string _i_iteracion){
 	}
 
     _ambiente_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &AmbienteBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &AmbienteBank) );
      _ambiente_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_ambiente = std::atoi(_iteracion.c_str());
 
@@ -268,7 +270,7 @@ void Interfaz_sonido::crear_armas(std::string _i_iteracion){
 	}
 
     _armas_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &ArmasBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &ArmasBank) );
      _armas_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_armas = std::atoi(_iteracion.c_str());
 
@@ -295,7 +297,7 @@ void Interfaz_sonido::crear_consumibles(std::string _i_iteracion){
 	}
 
     _consumibles_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &ConsumiblesBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &ConsumiblesBank) );
      _consumibles_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_consumibles = std::atoi(_iteracion.c_str());
 
@@ -322,7 +324,7 @@ void Interfaz_sonido::crear_escenario(std::string _i_iteracion){
 	}
 
     _escenario_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &EscenarioBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &EscenarioBank) );
      _escenario_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_escenario = std::atoi(_iteracion.c_str());
 
@@ -349,7 +351,7 @@ void Interfaz_sonido::crear_menu(std::string _i_iteracion){
 	}
 
     _menu_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &MenuBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &MenuBank) );
      _menu_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_menu = std::atoi(_iteracion.c_str());
 
@@ -377,7 +379,7 @@ void Interfaz_sonido::crear_pasos(std::string _i_iteracion){
 	}
 
     _pasos_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &PasosBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &PasosBank) );
      _pasos_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_pasos = std::atoi(_iteracion.c_str());
 
@@ -404,7 +406,7 @@ void Interfaz_sonido::crear_personaje(std::string _i_iteracion){
 	}
 
     _personaje_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &PersonajeBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &PersonajeBank) );
      _personaje_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_personaje = std::atoi(_iteracion.c_str());
 
@@ -431,7 +433,7 @@ void Interfaz_sonido::crear_voces(std::string _i_iteracion){
 	}
 
     _voces_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &VocesBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &VocesBank) );
      _voces_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_voces = std::atoi(_iteracion.c_str());
 
@@ -458,7 +460,7 @@ void Interfaz_sonido::crear_musica(std::string _i_iteracion){
 	}
 
     _musica_txt>>_iteracion;
-    ERRCHECK( system->loadBankFile(_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &MusicaBank) );
+    ERRCHECK( FMOD_Studio_System_LoadBankFile(system,_iteracion.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &MusicaBank) );
      _musica_txt>>_iteracion;//obtiene el valor de la id del origenre
 	_n_musica = std::atoi(_iteracion.c_str());
 
@@ -488,22 +490,22 @@ void Interfaz_sonido::crear_canales(std::string _i_iteracion){
 
     
     
-    //ERRCHECK(system->getBus(_iteracion.c_str(),_chanel_voces));
+    //ERRCHECK(FMOD_Studio_System_GetBus(system, _iteracion.c_str(),_chanel_voces));
 
 
     _canales_txt >> _iteracion;
-    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_musica));//carga de menu
+    ERRCHECK(FMOD_Studio_System_GetBus(system, _iteracion.c_str(),&_bus_musica));//carga de menu
 
     _canales_txt >> _iteracion;
-    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_voces));//carga de sfx
+    ERRCHECK(FMOD_Studio_System_GetBus(system, _iteracion.c_str(),&_bus_voces));//carga de sfx
 
     _canales_txt >> _iteracion;
-    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_sfx));//carga de voces
+    ERRCHECK(FMOD_Studio_System_GetBus(system, _iteracion.c_str(),&_bus_sfx));//carga de voces
 
     _canales_txt >> _iteracion;
-    ERRCHECK(system->getBus(_iteracion.c_str(),&_bus_menu));//carga de voces
+    ERRCHECK(FMOD_Studio_System_GetBus(system, _iteracion.c_str(),&_bus_menu));//carga de voces
 
-    _bus_sfx->lockChannelGroup();
+    ERRCHECK(FMOD_Studio_Bus_LockChannelGroup(_bus_sfx));
 
     _canales_txt.close();
 }
@@ -618,25 +620,25 @@ void Interfaz_sonido::Stop_game(){
 /***************************************VOLUMEN SONIDOS***********************************************/
 
 void Interfaz_sonido::set_volumen_musica(float _i_v){
-    ERRCHECK(_bus_musica->setVolume(_i_v));
+    ERRCHECK(FMOD_Studio_Bus_SetVolume(_bus_musica, _i_v));
 }
 void Interfaz_sonido::set_volumen_voces(float _i_v){
-    ERRCHECK(_bus_voces->setVolume(_i_v));
+    ERRCHECK(FMOD_Studio_Bus_SetVolume(_bus_voces, _i_v));
 }
 void Interfaz_sonido::set_volumen_sfx(float _i_v){
-    ERRCHECK(_bus_sfx->setVolume(_i_v));
+    ERRCHECK(FMOD_Studio_Bus_SetVolume(_bus_sfx, _i_v));
 }
 void Interfaz_sonido::set_volumen_menu(float _i_v){
-    ERRCHECK(_bus_menu->setVolume(_i_v));
+    ERRCHECK(FMOD_Studio_Bus_SetVolume(_bus_menu, _i_v));
 }
 
 
 /*******************************************PAUSA**************************************************/
 void Interfaz_sonido::Pausa(){
-    ERRCHECK(_bus_musica->setPaused(true));
+    /*ERRCHECK(_bus_musica->setPaused(true));
     ERRCHECK(_bus_voces->setPaused(true));
     ERRCHECK(_bus_sfx->setPaused(true));
-    ERRCHECK(_bus_menu->setPaused(true));
+    ERRCHECK(_bus_menu->setPaused(true));*/
 
 
 }

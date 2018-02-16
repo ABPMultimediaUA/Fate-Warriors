@@ -7,8 +7,8 @@ OBJFILES:=$(patsubst $(SDIR)%, $(ODIR)%, $(SRCFILES:%.cpp=%.o))
 SOURCES := $(wildcard $(SDIR)/*.cpp)
 DELOBJ:= $(wildcard $(ODIR)/*)
 OBJECTS := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SOURCES))
-LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader -lfmod -lfmodstudio 
-INCLUDE := -I. -I/usr/include/bullet 
+LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader $(CURDIR)/libfmod64.a $(CURDIR)/libfmodstudio64.a
+INCLUDE := -I. -IC:\msys64\mingw64\include\bullet  -I$(CURDIR)
 CC      := g++
 CCFLAGS := -g -std=c++11
 OBJS	:= $(patsubst %,$(ODIR)/%,$(OBJECTS))
@@ -63,6 +63,7 @@ $(TARGET): $(OBJFILES)
 #dir:
 #	 $(eval $(call COMPILAR, $(PRUEBA),  ))
 dir: $(OBJSUBDIRS)
+
 
 $(foreach OSD, $(filter-out $(ODIR), $(OBJSUBDIRS)), $(eval $(call MKOBJDIR, $(OSD))))
 
