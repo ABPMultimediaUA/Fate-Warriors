@@ -20,9 +20,6 @@ public:
 private:
 	Puerta_Pincho* _objeto_asociado; // Objeto asociado que activa/desactiva
 	bool _es_generador; // si es generador, despues de su primer uso se debe destruir
-	bool _activado;
-	double _temporizador; // Tiempo hasta poder activar/desactivar
-	Time* _reloj;
 };
 
 #endif /* INTERRUPTOR_H_ */

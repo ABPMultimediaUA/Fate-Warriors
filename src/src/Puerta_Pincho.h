@@ -10,10 +10,12 @@ public:
 
 	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z, Zona* _i_asociada_1, Zona* _i_asociada_2);
 	virtual ~Puerta_Pincho();
+    void update();
     void activar();
     void desactivar();
     bool comprobar_si_finalizo_el_tiempo();
     bool get_activado();
+    void comprobar_a_quien_danya();
 
 private:
     Pinchos* _pinchos;

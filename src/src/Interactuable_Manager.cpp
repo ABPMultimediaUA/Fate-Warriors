@@ -84,8 +84,8 @@ Interactuable_Manager::~Interactuable_Manager() {
 
 void Interactuable_Manager::update_interruptores(){
 
-	for(unsigned short cont=0; cont<_n_interruptores; cont++){
-		_interruptores[cont]->update();
+	for(unsigned short cont=0; cont<_n_puertas_pincho; cont++){
+		_puertas_pincho[cont]->update();
 	}
 }
 

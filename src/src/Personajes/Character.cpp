@@ -17,7 +17,6 @@
 #include "Player.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Consumibles/Consumible_Power_Up.h"
-#include "../Consumibles/Respawn_Points.h"
 #include "../Interruptor.h"
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
