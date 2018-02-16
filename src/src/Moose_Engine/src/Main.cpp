@@ -12,6 +12,10 @@
 #include <iostream>
 #include "TNodo.h"
 
+#include <string>
+#include <sstream>
+#include <fstream>
+
 //OPEN GL 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -94,6 +98,23 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 } 
 
+std::string LoadFileContents(const std::string filePath){
+    std::ifstream file(filePath);
+    std::stringstream sstream;
+
+    if(!file.is_open()){
+        std::cout << "Could not find the file: " << filePath << std::endl;
+    }
+
+    sstream << file.rdbuf();
+
+    return sstream.str();
+}
+float vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+     0.0f,  0.5f, 0.0f
+}; 
 int dibujarOpenGL(){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -114,8 +135,75 @@ int dibujarOpenGL(){
         return -1;
     }    
 
+    //buffers
+    unsigned int VBO;
+    glGenBuffers(1,&VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+
     glViewport(0, 0, 1280, 720);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    //leer los programas vertex y fragment shader
+    const std::string vertex_path = "Shaders/vertex_basic.glsl";
+    const std::string fragment_path = "Shaders/fragment_basic.glsl";
+
+    const GLchar* vertexShaderText;
+    const GLchar* fragmentShaderText;
+
+    vertexShaderText = LoadFileContents(vertex_path).c_str();
+    fragmentShaderText = LoadFileContents(fragment_path).c_str();
+
+
+    //compilar vertex shader
+    unsigned int vertexShader;
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderText, NULL);
+    glCompileShader(vertexShader);
+
+    int  success;
+    char infoLog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+
+    if(!success){
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+
+    //compilar fragment shader
+
+    unsigned int fragmentShader;
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderText, NULL);
+    glCompileShader(fragmentShader);
+
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+
+    if(!success){
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+    
+    //crear programa shader
+    unsigned int shaderProgram;
+    shaderProgram = glCreateProgram();
+
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    //comprobar que todo ha ido bien
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if(!success){
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }    
+
+    //asignar el programa shader y borramos los pequeños que ya han sido linkados
+    glUseProgram(shaderProgram);
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader); 
 
     while(!glfwWindowShouldClose(window)){
         //input
