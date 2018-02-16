@@ -55,6 +55,26 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 }
 
 
+void Objeto_Motor::setPositionY(float y){
+
+	_rigidbody->forceActivationState(DISABLE_SIMULATION);
+	btTransform btt; 
+	_rigidbody->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),y,btt.getOrigin().getZ())); // move body to the scene node new position
+
+	_rigidbody->getMotionState()->setWorldTransform(btt);
+	_rigidbody->setCenterOfMassTransform(btt);
+
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+		
+	_nodo->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+}
+
+
+
+
+
+
 // Funcion de mover para los personajes
 void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt){  // Direccion
 
@@ -135,7 +155,7 @@ void Objeto_Motor::colorear_nodo(short r,short g, short b){
 	_nodo->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
 }
 
-//Manu mira esta cosa.com
+//Manu NO miro esta cosa.com
 
 void Objeto_Motor::abrir_puerta1(){
 	
@@ -168,9 +188,11 @@ void Objeto_Motor::abrir_puerta2(){
 }
 
 void Objeto_Motor::abrir_puerta(){
-	this->abrir_puerta1();
-	this->abrir_puerta2();
+	this->setPositionY(20);
 }
+
+
+
 
 float Objeto_Motor::getVelocidadY(){
 	return  _rigidbody->getLinearVelocity()[1];

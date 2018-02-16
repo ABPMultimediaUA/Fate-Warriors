@@ -18,6 +18,7 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Consumibles/Consumible_Power_Up.h"
 #include "../Consumibles/Respawn_Points.h"
+#include "../Interruptor.h"
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
@@ -247,9 +248,28 @@ bool Character::interactuar_con_objeto(){
     
     Llave** _llaves = _int_man->get_llaves();
     Puerta** _puertas = _int_man->get_puertas();
-    
+
+    Interruptor** _interruptores = _int_man->get_interruptores();
+    unsigned short n_interruptores = _int_man->get_n_interruptores();
+
+
     unsigned short _cont;
     bool objeto_encontrado = false;
+
+    //Busca palancas y la usa 
+
+    for(_cont = 0; _cont < n_interruptores && objeto_encontrado == false; _cont++) {
+		if( comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _interruptores[_cont]->get_vector(), 3) == true){
+            // Encuentra palanca e intenta accionarla
+            
+            _interruptores[_cont]->set_activado(true);
+            objeto_encontrado = true;
+            std::cout << "Usa palanca"<< std::endl;
+        }
+	}
+
+
+
 
     // Busca llave y la coge
 

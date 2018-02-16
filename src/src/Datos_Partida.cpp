@@ -21,10 +21,10 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 	_npc_manager 		 	= 	new NPC_Manager();
 	_consumibles_manager 	= 	new Consumible_Manager();
 	_trampas_manager	 	= 	new Trampas_manager();
-    _interactuable_manager 	= 	new Interactuable_Manager();
 	_armas_manager 			=	new Armas_Manager();
 //	_respawn_Points			=	new Respawn_Points();
 	_zonas_manager 			=	new Zonas_Manager();
+    _interactuable_manager 	= 	new Interactuable_Manager(_zonas_manager->get_zonas());
 
 	
 

@@ -34,7 +34,6 @@ void Zona::actualizar_zona(){
     for (uint16_t num_character=0; num_character<_num_characters; num_character++){
        if(motor->comprobar_colision(_rb, todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
             personajes_de_la_zona.push_back(todos_personajes[num_character]);
-            std::cout << this <<  " estoy en la zona \n";
             if(todos_personajes[num_character]->get_equipo() == _equipo){
                 _conquistando = false;
                 _conquistando_aux = false;

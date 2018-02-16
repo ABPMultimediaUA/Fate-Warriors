@@ -15,6 +15,7 @@
 #include "Menus/Menu_Principal.h"
 #include "Menus/Menu_Pausa.h"
 #include "Zonas_Manager.h"
+#include "Interactuable_Manager.h"
 
 #include <iostream>
 #include <stack>
@@ -66,6 +67,7 @@ void Game::crea_partida() {
 	_decision_manager 	= new Decision_Manager(_action_manager);
 
 	_zonas_manager		= _datos->get_zonas_manager();
+	_interactuable_manager = _datos->get_interactuable_manager();
 
 	_player = _datos->get_player();
 	_datos->inserta_npc_nivel();
@@ -131,6 +133,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 
 		_motor->update(_i_tiempo_desde_ultimo_update);
 		_zonas_manager->actualizar_zonas();
+		_interactuable_manager->update_interruptores();
 		_decision_manager->toma_decisiones();
     }
 }
