@@ -21,6 +21,34 @@ void Inventario::render(){
 
 }
 
+void Inventario::crear_un_arma_al_azar_asignar_y_equipar(Armas_Manager* _armas_manager){
+  _seleccionado = _armas_manager->anyadir_arma();
+  
+  if (dynamic_cast<Arma_cerca*>(_seleccionado) == NULL){
+    _objeto_distancia=dynamic_cast<Arma_distancia*>(_seleccionado);
+    _arma = Tipo_Arma_distancia;
+  }
+  else{
+    _objeto_cerca=dynamic_cast<Arma_cerca*>(_seleccionado);
+    _arma = Tipo_Arma_cerca;
+  }
+  
+}
+
+void Inventario::soltar_armas(float x, float z){ 
+  if(_objeto_distancia!=nullptr){ 
+    _objeto_distancia->setPositionXZ(x,z); 
+    _objeto_distancia = nullptr; 
+  } 
+  if(_objeto_cerca!=nullptr){ 
+    _objeto_cerca->setPositionXZ(x,z); 
+    _objeto_cerca = nullptr; 
+  } 
+} 
+
+
+
+
 Character* Inventario::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){ 
 	Character* personaje = _seleccionado->usar(_i_objeto_origen,_i_direccion);
 

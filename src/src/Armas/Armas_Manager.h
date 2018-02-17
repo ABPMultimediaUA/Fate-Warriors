@@ -23,7 +23,7 @@ public:
 	void crear_pistola();
 	void crear_katana();
 
-	void anyadir_arma();
+	Arma* anyadir_arma();
 	void crear_todas_las_armas_que_faltan();
 	Vector2 crear_posiciones_aleatorias();
 

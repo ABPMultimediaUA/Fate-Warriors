@@ -321,6 +321,8 @@ bool Character::interactuar_con_objeto(){
 void Character::morir(){
     float mult = 4.9212625;
     std::cout << "He muerto :("<< std::endl;
+    _inventario->soltar_armas(getX(), getZ()); 
+
     setPositionXZ(12.5*mult, 9.5*mult);
     _vida=_vida_maxima;
 }

@@ -5,6 +5,8 @@
 
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
+#include "../Inventario.h"
+
 
 #include "../Tiempo/Time.h"
 
@@ -48,3 +50,9 @@ void NPC::danyar(short _danyo){
 void NPC::set_blackboard(Blackboard* _i_blackboard) {
     _blackboard = _i_blackboard;
 }
+
+void NPC::comprobar_si_asignar_arma_y_asignarla(Armas_Manager* _armas_manager){ 
+    if ((rand() % 100) < 1000){ 
+        _inventario->crear_un_arma_al_azar_asignar_y_equipar(_armas_manager); 
+    } 
+} 
