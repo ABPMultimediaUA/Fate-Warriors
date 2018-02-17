@@ -6,7 +6,6 @@
 #include <cstdint>
 
 class Arma;
-class Proyectil;
 class Time;
 
 
@@ -20,9 +19,6 @@ public:
 	void borrar_arma(Arma* objeto);
 	void borrar_arma(short id);
 
-	void anyadir_proyectil(Proyectil* _i_bala);
-	void borrar_proyectil(Proyectil* objeto);
-
 	void crear_ametralladora();
 	void crear_pistola();
 	void crear_katana();
@@ -33,7 +29,6 @@ public:
 
 private:
 	std::vector<Arma*> _armas;
-	std::vector<Proyectil*> _balas;
 	uint8_t _numero_max;
 
 	uint16_t cantidad_de_posiciones;

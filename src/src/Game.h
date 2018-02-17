@@ -16,6 +16,7 @@ class Motor;
 class Player;
 class Interfaz_sonido;
 class Zonas_Manager;
+class Interactuable_Manager;
 
 class Menu_Principal;
 class Menu_Pausa;
@@ -64,6 +65,7 @@ private:
 
 	Nivel* _nivel;
 	Zonas_Manager* _zonas_manager;
+	Interactuable_Manager* _interactuable_manager;
 	Datos_Partida *_datos;
 	Action_Manager *_action_manager;
 	Decision_Manager *_decision_manager; 	// Encargado de tomar las decisiones de los NPCs
@@ -72,6 +74,8 @@ private:
 	Consumible_Action * _consumibles_action;
 	Trampas_action* _trampas_action;
 	Input* _input_jugador;
+
+	double 	_tiempo_final_de_partida;
 
 	Menu_Principal* _menu_principal;		// Menu Principal
 	Menu_Pausa* _menu_pausa;				// Menu Pausa

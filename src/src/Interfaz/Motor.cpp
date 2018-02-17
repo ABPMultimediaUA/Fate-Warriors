@@ -7,6 +7,7 @@
 #include "../Personajes/Player.h"
 #include "../Personajes/NPC.h"
 #include "../Puerta.h"
+#include "../Interruptor.h"
 #include "DebugDraw.h"
 #include "EnumTiposColision.h"
 /*
@@ -361,12 +362,19 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 		mascara_colision = puerta_colisiona_con;
 	}
 
-	//si es otra cosa
+	
+	else if(dynamic_cast<Interruptor*>(_i_objeto)!=NULL){
+		grupo_colision   = COL_PUERTA;
+		mascara_colision = puerta_colisiona_con;
+	}
+	
+		//si es otra cosa
 	else{
 		cubeBody->setCollisionFlags(cubeBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 		grupo_colision   = COL_OTRO;
 		mascara_colision = otros_colisiona_con;
 	}
+	
 
 	cubeShape->setUserPointer(_i_objeto);
 

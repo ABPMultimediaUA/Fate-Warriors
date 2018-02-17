@@ -46,6 +46,8 @@ public:
       void abrir_puerta2();
       void updateDynamicBody();
 
+      void setPositionY(float y);
+
       float getX();
       float getY();
       float getZ();

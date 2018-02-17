@@ -9,7 +9,6 @@
 #include "../Personajes/Player.h"
 #include "../Personajes/NPC.h"
 #include "../Personajes/NPC_Manager.h"
-#include "Respawn_Points.h"
 
 #include "../Utilidades/Vector.h"
 
