@@ -99,7 +99,6 @@ void Armas_Manager::anyadir_arma(){
     MapeadArmas *_mapeado_clase = mapping_tipo_arma_creada;
 	Enum_Nombre_Arma _arma = static_cast<Enum_Nombre_Arma>(rand() % Nombre_Arma_Nada);
 
-    std::cout << _arma << "arma que crea" << std::endl;
 	while(_mapeado_clase->_nombre_objeto!=Nombre_Arma_Nada){
 		if(_arma == _mapeado_clase->_nombre_objeto){
 			(this->*_mapeado_clase->pmet)();
