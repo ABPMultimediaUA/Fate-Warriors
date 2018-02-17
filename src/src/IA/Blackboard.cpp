@@ -17,6 +17,15 @@ Blackboard::Blackboard(NPC * npc_padre) {
 	_decision = Decision_Quieto;
 	_porcentaje_vida = 100;
 
+
+	_enemigo_mas_cerca = nullptr;
+
+
+	_zona_actual = nullptr;
+	_zona_mas_cerca = nullptr;
+	_zona_enemiga_mas_cerca = nullptr;
+	_zona_aliada_mas_cerca = nullptr;
+
 }
 
 Blackboard::~Blackboard() {
@@ -62,7 +71,7 @@ void Blackboard::actualizar_characteres(){
 	Character ** characters = Game::game_instancia()->game_get_datos()->get_characters();
 	unsigned long num_characters = Game::game_instancia()->game_get_datos()->get_num_characters();
 
-	float _distancia_enemigo_mas_cercano = 1000;
+	float _distancia_enemigo_mas_cercano = 10000000000;
 
 	for (uint16_t cont=0; cont < num_characters; cont++){
 		if(characters[cont]->get_equipo() != _npc_padre->get_equipo())
@@ -75,7 +84,7 @@ void Blackboard::actualizar_characteres(){
 		}		
     }
 
-	if(_distancia_enemigo_mas_cercano < 30){
+	if(_distancia_enemigo_mas_cercano < 100000000000){
 		_enemigo_mas_cerca_menos_de_30_metros = true;
 	}
 	else
@@ -100,9 +109,9 @@ void Blackboard::actualizar_zonas(){
 	Zona * zona_mas_cerca_aux = nullptr;
 	Zona * zona_enemiga_mas_cerca_aux = nullptr;
 	Zona * zona_aliada_mas_cerca_aux = nullptr;
-	float distancia_zona_mas_cerca = 0;
-	float distancia_zona_enemiga_mas_cerca = 0;
-	float distancia_zona_aliada_mas_cerca = 0;
+	float distancia_zona_mas_cerca = 10000000000000;
+	float distancia_zona_enemiga_mas_cerca = 10000000000000;
+	float distancia_zona_aliada_mas_cerca = 10000000000000;
 	
 	for (uint16_t cont=0; cont < num_zonas; cont++){
 		if(Motor::Motor_GetInstance()->comprobar_colision(objeto_npc->getRigidBody(), zonas[cont]->getRigidBody()) == true){
@@ -119,7 +128,7 @@ void Blackboard::actualizar_zonas(){
     	
 		if(zonas[cont] != _zona_actual){
 
-			float distancia_a_zona = lib_math_distancia_2_puntos(objeto_npc->getX(), objeto_npc->getZ(), zonas[cont]->getX(), zonas[cont]->getY());
+			float distancia_a_zona = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), zonas[cont]->getX(), zonas[cont]->getY());
 
 			//Zona mas cerca
 			if(distancia_a_zona < distancia_zona_mas_cerca){
@@ -139,5 +148,9 @@ void Blackboard::actualizar_zonas(){
 			}
 		}
     }
+
+	_zona_mas_cerca = zona_mas_cerca_aux;
+	_zona_enemiga_mas_cerca = zona_enemiga_mas_cerca_aux;
+	_zona_aliada_mas_cerca = zona_aliada_mas_cerca_aux;
 
 }

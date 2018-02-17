@@ -14,6 +14,8 @@ _reloj=Time::Instance();
     Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb,btVector3(_i_x,_i_y,_i_z), btVector3(long_x,10,long_y), 0);
     _conquistando = false;
     _tiempo_inicio_conquista = 0;
+    _pos_x = _i_x;
+    _pos_y = _i_z;
 }
 
 Zona::~Zona() {
@@ -68,7 +70,7 @@ void Zona::actualizar_zona(){
     }
 
     if(_conquistando && _reloj->get_current() >_tiempo_inicio_conquista+5000){
-        std::cout<< " conquistado!!!! \n";
+        std::cout<< " conquistado!!!!'------------------------------------------ \n";
         cambiar_bando();
     }
 

@@ -29,7 +29,7 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
 	std::cout << "N nodos " << _n_nodos << "\n";
-	_arboles_decision[0] = _nodos_decision[2]; // Padre del arbol
+	_arboles_decision[0] = _nodos_decision[10]; // Padre del arbol
 
 }
 
@@ -294,6 +294,131 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 // ------------------------------------- FUNCIONES CREACION CLASES NODOS -----------------------------//
 
+	void Arbol_Decision_Manager::crear_ND_23(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_23(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	void Arbol_Decision_Manager::crear_ND_Enemigo_Cerca(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Enemigo_Cerca(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	void Arbol_Decision_Manager::crear_ND_Enemigo_Muy_Cerca(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Enemigo_Muy_Cerca(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	void Arbol_Decision_Manager::crear_ND_Hay_Enemigos_En_Mi_Zona(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Hay_Enemigos_En_Mi_Zona(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	void Arbol_Decision_Manager::crear_ND_Situado_En_Zona_Aliada(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Situado_En_Zona_Aliada(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	void Arbol_Decision_Manager::crear_ND_Situado_En_Zona(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Situado_En_Zona(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	void Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Es_Enemiga(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Zona_Mas_Cercana_Es_Enemiga(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+	void Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Siendo_Capturada(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_Zona_Mas_Cercana_Siendo_Capturada(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	void Arbol_Decision_Manager::crear_nodo_set_objetivo_personaje_enemigo_cerca(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
@@ -370,6 +495,15 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 	};
 
 	MapeadoClaseNodo mapping_clase_nodo[] = {	// Definicion de los parametros
+			{"ND_23", &Arbol_Decision_Manager::crear_ND_23},
+			{"ND_Enemigo_Cerca", &Arbol_Decision_Manager::crear_ND_Enemigo_Cerca},
+			{"ND_Enemigo_Muy_Cerca", &Arbol_Decision_Manager::crear_ND_Enemigo_Muy_Cerca},
+			{"ND_Hay_Enemigos_En_Mi_Zona", &Arbol_Decision_Manager::crear_ND_Hay_Enemigos_En_Mi_Zona},
+			{"ND_Situado_En_Zona_Aliada", &Arbol_Decision_Manager::crear_ND_Situado_En_Zona_Aliada},
+			{"ND_Situado_En_Zona", &Arbol_Decision_Manager::crear_ND_Situado_En_Zona},
+			{"ND_Zona_Mas_Cercana_Es_Enemiga", &Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Es_Enemiga},
+			{"ND_Zona_Mas_Cercana_Siendo_Capturada", &Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Siendo_Capturada},
+
 			{"ND_Distancia_Objetivo", &Arbol_Decision_Manager::crear_nodo_distancia_objetivo},
 			{"ND_Set_Objetivo_Personaje_Enemigo_Cerca", &Arbol_Decision_Manager::crear_nodo_set_objetivo_personaje_enemigo_cerca},
 			{"LOD", &Arbol_Decision_Manager::crear_nodo_lod},

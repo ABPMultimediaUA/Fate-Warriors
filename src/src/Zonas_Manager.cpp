@@ -14,8 +14,8 @@ Zonas_Manager::Zonas_Manager() {
 
 	_zonas[0]  = new Zona(5*2.5*mult, 0*mult, 5*2.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A); //Zona 1	
 	_zonas[1]  = new Zona(29.5*mult, 0*mult, 28.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B); //Zona 3
-	_zonas[2]  = new Zona(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B);		//Zona 7
-	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B);   //Zona 10
+	_zonas[2]  = new Zona(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);		//Zona 7
+	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);   //Zona 10
 
 
 	/*

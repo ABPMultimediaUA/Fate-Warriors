@@ -1,10 +1,24 @@
-3
+11
 
-- 0 Final Atacar Andar   ND_Distancia_Objetivo 6
-- 1 Final Nada Nada      ND_Distancia_Objetivo 1
-- 2 Medio 0      1       ND_Set_Objetivo_Personaje_Enemigo_Cerca  30
+
+- 0 Final Andar Andar ND_23 0
+- 1 Final Nada Nada ND_Distancia_Objetivo 0
+- 2 Medio 1 0 ND_Hay_Enemigos_En_Mi_Zona 0
+- 3 Final Andar Andar ND_Hay_Enemigos_En_Mi_Zona 0
+- 4 Medio 2 3 ND_Situado_En_Zona_Aliada 0
+- 5 Final Andar Andar ND_Zona_Mas_Cercana_Siendo_Capturada 0
+- 6 Final Andar Andar ND_Distancia_Objetivo 0
+- 7 Medio 5 6 ND_Zona_Mas_Cercana_Es_Enemiga 0
+- 8 Medio 7 4 ND_Situado_En_Zona 0
+- 9 Final Andar Atacar ND_Enemigo_Muy_Cerca 0
+- 10 Medio 8 9 ND_Enemigo_Cerca 0
+
 
 Fin
+
+#- 0 Final Atacar Andar   ND_Distancia_Objetivo 6
+#- 1 Final Nada Nada      ND_Distancia_Objetivo 1
+#- 2 Medio 0      1       ND_Set_Objetivo_Personaje_Enemigo_Cerca  30
 
 # ID TIPO_NODO CATEGORIA NODOS (Final->Finales/Medio->ID) VALOR_CORTE
 # IF VALOR>=VALOR_CORTE -> DERECHA

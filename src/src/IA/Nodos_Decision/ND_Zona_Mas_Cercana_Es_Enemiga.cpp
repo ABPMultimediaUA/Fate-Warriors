@@ -16,11 +16,15 @@ ND_Zona_Mas_Cercana_Es_Enemiga::~ND_Zona_Mas_Cercana_Es_Enemiga() {
 
 enum Enum_Acciones ND_Zona_Mas_Cercana_Es_Enemiga::toma_decision(Blackboard* _blackboard){
 
+    
+
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(_blackboard->_zona_mas_cerca->get_equipo() != _blackboard->_npc_padre->get_equipo()) { // TRUE, es 1
-        _blackboard->objetivo_x = _blackboard->_zona_enemiga_mas_cerca->getX();
-        _blackboard->objetivo_y = _blackboard->_zona_enemiga_mas_cerca->getY();
+	//std::cout <<"zona mas cerca ES enemiga \n";
+        _blackboard->objetivo_x = _blackboard->_zona_mas_cerca->getX();
+        _blackboard->objetivo_y = _blackboard->_zona_mas_cerca->getZ();
 		return _nodo_der->toma_decision(_blackboard);
 	}
+	//std::cout <<"zona mas cerca ES ALIADA \n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

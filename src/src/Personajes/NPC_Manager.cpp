@@ -6,12 +6,12 @@
 #include <iostream>
 
 NPC_Manager::NPC_Manager() {
-	_n_npc = 3;
+	_n_npc = 1;
 
 	_npc = new NPC*[_n_npc];
 	_npc[0] = new NPC(0, 34*metro, 0, 34*metro, 50, .15, 1, 10, Enum_Equipo_B);
-	_npc[1] = new NPC(0, 32*metro, 0, 29*metro, 50, .15, 1, 10, Enum_Equipo_A);
-	_npc[2] = new NPC(0, 34*metro, 0, 24*metro, 50, .15, 1, 10, Enum_Equipo_B);
+	//_npc[1] = new NPC(0, 32*metro, 0, 29*metro, 50, .15, 1, 10, Enum_Equipo_A);
+	//_npc[2] = new NPC(0, 34*metro, 0, 24*metro, 50, .15, 1, 10, Enum_Equipo_B);
 	//_npc[3] = new NPC(0, 34*metro, 0, 34*metro, 50, .15, 1, 10, Enum_Equipo_A);
 	//_npc[4] = new NPC(0, 35*metro, 0, 35*metro, 50, .15, 1, 10, Enum_Equipo_B);
 	//_npc[5] = new NPC(0, 33*metro, 0, 33*metro, 50, .15, 1, 10, Enum_Equipo_A);

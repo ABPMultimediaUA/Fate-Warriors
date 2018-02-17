@@ -16,7 +16,7 @@ enum Enum_Acciones ND_Distancia_Objetivo::toma_decision(Blackboard* _blackboard)
 	float _distancia = 1000;
 	
 	_distancia = _blackboard->get_distancia_objetivo();
-
+	//std::cout <<"nd dfistnacia objetivo -----\n";
 	//std::cout << "distancia= " << _distancia << " y el valor es " << _valor << "\n";
 	if(_distancia >= _valor) {
 		return _nodo_der->toma_decision(_blackboard);

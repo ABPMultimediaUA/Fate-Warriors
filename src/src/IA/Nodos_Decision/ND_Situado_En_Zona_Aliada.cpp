@@ -16,9 +16,13 @@ ND_Situado_En_Zona_Aliada::~ND_Situado_En_Zona_Aliada() {
 
 enum Enum_Acciones ND_Situado_En_Zona_Aliada::toma_decision(Blackboard* _blackboard){
 
+    
+
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(_blackboard->_zona_actual->get_equipo() == _blackboard->_npc_padre->get_equipo()) { // TRUE, es 1
+		//std::cout <<"Estoyen zona aliada \n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
+	//std::cout <<"NO Estoyen zona aliada \n";
 	return _nodo_izq->toma_decision(_blackboard);
 }
