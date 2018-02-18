@@ -56,8 +56,13 @@ public:
 //pathfinding estrategico
 	void set_peso_tactico_id(float _i_peso_tactico, int _i_id, float _i_x, float _i_y);
 	void set_peso_tactico_x_y(float _i_peso_tactico, float _i_x, float _i_y);
-	void cerrar_pasillo(float _i_x, float _i_y);
-	void abrir_pasillo(float _i_x, float _i_y);
+	void abrir_cerrar_pasillo(uint16_t peso, uint16_t _id);
+	inline void cerrar_pasillo(uint16_t _id){
+abrir_cerrar_pasillo(50000, _id);	
+	}
+	inline void abrir_pasillo(uint16_t _id){
+abrir_cerrar_pasillo(0, _id);
+	}
 
 private:
 	Vertice *_h;

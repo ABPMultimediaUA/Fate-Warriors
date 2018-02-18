@@ -34,11 +34,11 @@ public:
 	inline void nivel_set_peso_tactico_x_y(float _i_peso_tactico, float _i_x, float _i_y){
 		_lod2->set_peso_tactico_x_y(_i_peso_tactico,_i_x,_i_y);
 	}
-	inline void nive_cerrar_pasillo(float _i_x, float _i_y){
-		_lod2->cerrar_pasillo(_i_x,_i_y);
+	inline void nivel_cerrar_pasillo(uint16_t _id){
+		_lod2->cerrar_pasillo(_id);
 	}
-	inline void nive_abrir_pasillo(float _i_x, float _i_y){
-		_lod2->cerrar_pasillo(_i_x,_i_y);
+	inline void nivel_abrir_pasillo(uint16_t _id){
+		_lod2->abrir_pasillo(_id);
 	}
 	inline void nivel_inserta_NPC(NPC* _i_npc){
 		_lod2->grafo_inserta_NPC( _i_npc);
