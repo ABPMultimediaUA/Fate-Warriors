@@ -70,7 +70,7 @@ private:
 	void inserta_arista(Vertice *_i_origen, Vertice *_i_destino,  int _i_id);
 	void actualiza_NPC();
 	void grafo_anular();
-	void grafo_pathfindinglod2(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* vertice_origen, Vertice* vertice_destino);
+	Vertice* grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* vertice_origen, Vertice* vertice_destino);
 	unsigned short grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* origen, int destino);
 };
 #endif
