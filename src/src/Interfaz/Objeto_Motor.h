@@ -58,6 +58,8 @@ public:
 
       float getVelocidadY();
       btVector3 get_posicion_rb();
+       void rotar_rb(uint16_t rotacion);
+
 
 private:
       ISceneNode*       _nodo;

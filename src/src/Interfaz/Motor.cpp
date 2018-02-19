@@ -692,7 +692,7 @@ bool Motor::comprobar_colision(btRigidBody *rb1, btRigidBody *rb2){
 
 void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion){
 	float mult = 4.9212625;
-	btScalar gTilt = rotacion / 180.0f*SIMD_PI; 
+	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
 	btTransform rbTransform;
 
 	// Rotacion
@@ -709,5 +709,21 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	// Traslacion
 	rbTransform.setOrigin(posicion);
 
+//Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
+}
+
+void Motor::rotar_rb(btRigidBody *rb, uint16_t rotacion){
+	float mult = 4.9212625;
+	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
+	btTransform rbTransform;
+
+	// Rotacion
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(rb->getCenterOfMassPosition());
+	btQuaternion incline;
+	incline.setRotation(btVector3(0, 1, 0), gTilt);
+	rbTransform.setRotation(incline);
+	rb->setWorldTransform(rbTransform);
+
 }

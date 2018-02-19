@@ -67,6 +67,9 @@ public:
 	void cambiar_arma_seleccionada_a_la_siguiente();
 	void cambiar_arma_seleccionada_a_la_anterior();
 
+	uint16_t get_direccion_actual();
+	void set_direccion_actual(uint16_t nueva_direccion);
+
 
 	void anyadir_power_up(Consumible_Power_Up* _i_power_up);
 	void eliminar_power_up_puntero();
@@ -98,6 +101,7 @@ public:
 	
 	void activar_inmunidad_a_danyos();
 	void desactivar_inmunidad_a_danyos();
+	void rotar_cuerpo(uint16_t _i_valor);
 
 protected:
 	

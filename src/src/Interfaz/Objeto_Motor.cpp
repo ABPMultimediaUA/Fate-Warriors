@@ -239,3 +239,24 @@ btRigidBody* Objeto_Motor::getRigidBody(){
 btVector3 Objeto_Motor::get_posicion_rb(){
 	return _rigidbody->getCenterOfMassPosition();
 }
+
+void Objeto_Motor::rotar_rb(uint16_t rotacion){
+	float mult = 4.9212625;
+	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
+	btTransform rbTransform;
+
+	std::cout << gTilt << "en radianes" << std::endl;
+	// Rotacion
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(_rigidbody->getCenterOfMassPosition());
+	btQuaternion incline;
+	incline.setRotation(btVector3(0, 1, 0), gTilt);
+	rbTransform.setRotation(incline);
+	_rigidbody->setWorldTransform(rbTransform);
+/*
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+	_nodo->setPosition(vector3df(pos[0], pos[1], pos[2]));
+	*/
+	_interpolacion->actualiza_direccion(rotacion);
+
+}

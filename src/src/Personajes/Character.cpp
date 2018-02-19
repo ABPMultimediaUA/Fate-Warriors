@@ -837,3 +837,15 @@ void Character::disminuir_danyo_ataque_normal(uint8_t _i_valor){
     _danyo_ataque_normal-=_i_valor;
 }
 
+uint16_t Character::get_direccion_actual(){
+    return _direccion_actual;
+}
+
+void Character::set_direccion_actual(uint16_t nueva_direccion){
+    _direccion_actual = nueva_direccion;
+}
+
+
+void Character::rotar_cuerpo(uint16_t _i_valor){
+    _objeto_motor->rotar_rb(_i_valor);
+}

@@ -102,6 +102,7 @@ public:
     IVideoDriver* getDriver();
     float angulo_camara();
     float angulo_camaraRAD();
+    void rotar_rb(btRigidBody *rb, uint16_t rotacion);
     
       bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
       void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
