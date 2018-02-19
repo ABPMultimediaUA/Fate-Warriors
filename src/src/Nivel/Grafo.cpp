@@ -189,8 +189,8 @@ void Grafo::inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_id){
 
 		
 		Arista *_nueva = new Arista;
-
-		_nueva->set_peso(lib_math_distancia_2_puntos(_i_origen->get_coord_x(),_i_origen->get_coord_y(),_i_destino->get_coord_x(),_i_destino->get_coord_y()));
+		//std::cout <<_i_origen->get_ancho()/metro << " ANCHO/ALTOFDHSBNFGUYBFDASYFBDASUIVD " <<_i_origen->get_alto()/metro << std::endl;
+		_nueva->set_peso(lib_math_distancia_2_puntos(_i_origen->get_coord_x()+(_i_origen->get_ancho()/2),_i_origen->get_coord_y()+(_i_origen->get_alto()/2),_i_destino->get_coord_x()+(_i_destino->get_ancho()/2),_i_destino->get_coord_y()+(_i_destino->get_alto()/2)));
 		_nueva->set_sig(nullptr);
 		_nueva->set_ady(nullptr);
 		_nueva->set_id(_i_id);
@@ -301,6 +301,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 uint16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino){
 	Vertice* origen;
 	Vertice* destino;
+	uint8_t lod_max=2;
 	origen=grafo_get_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_vertice(_i_xdestino, _i_ydestino);
 	//comprobar que esta dentro del nivel
@@ -308,10 +309,18 @@ uint16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i
 		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
 		return angulo;			//MANU WAS HERE BOIII
 	}
-	if(origen->get_lod()<=2&&destino->get_lod()<=2){
-		return grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino->get_id());
+	if(origen->get_lod()<=lod_max&&destino->get_lod()<=lod_max){
+		if(origen->get_lod()==1&&destino->get_lod()<=1){
+			return grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino->get_id());
+		}else{
+			destino=grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
+			grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen,destino->get_id());
+		}
+		
 	}else{
-		grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
+		destino=grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
+		_i_xorigen=destino->get_lod1()->get_h()->get_coord_x();
+		_i_yorigen=destino->get_lod1()->get_h()->get_coord_y();
 		return 362;
 	}
 }
@@ -324,27 +333,47 @@ void Grafo::set_peso_tactico_x_y(float _i_peso_tactico, float _i_x, float _i_y){
 	Vertice* verticeaux = grafo_get_vertice(_i_x,_i_y)->get_lod1()->grafo_get_vertice(_i_x,_i_y);
 	verticeaux->set_peso_tactico(_i_peso_tactico);
 }
-void Grafo::cerrar_pasillo(float _i_x, float _i_y){
-	Vertice* verticeaux = grafo_get_vertice(_i_x,_i_y);
-	verticeaux->set_peso_tactico(100000);
+void Grafo::abrir_cerrar_pasillo(uint16_t peso, uint16_t _id){
+	Vertice* verticeaux = grafo_get_vertice(_id);
+	u_int8_t id=verticeaux->get_id();
+	verticeaux->set_peso_tactico(peso);
+	Arista* arista_aux=verticeaux->get_ady();
+	uint16_t aux;
+	bool flag=false;
+	while(arista_aux!=nullptr){
+		verticeaux=arista_aux->get_ady()->get_lod1()->get_h();
+		while(verticeaux!=nullptr && !flag){
+			aux=id;
+			while(aux<4000){
+				aux+=1000;
+				if(aux==verticeaux->get_id()){					
+					verticeaux->set_peso_tactico(peso);
+					flag=true;//cuando se activa el flag se terminan los bucles y no vuelve a buscar el vertice destino
+				}
+				
+			}
+			aux=0;
+			verticeaux=verticeaux->get_sig();
+		}
+		arista_aux=arista_aux->get_sig();
+	}
 }
-void Grafo::abrir_pasillo(float _i_x, float _i_y){
-	Vertice* verticeaux = grafo_get_vertice(_i_x,_i_y);
-	verticeaux->set_peso_tactico(0);
-}
-void Grafo::grafo_pathfindinglod2(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* vertice_origen, Vertice* vertice_destino){
+Vertice* Grafo::grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float _i_xdestino, float _i_ydestino, Vertice* vertice_origen, Vertice* vertice_destino){
 	Vertice* verticeaux=_h;
 	float distancia;
 	Arista* arista_aux;
 	int id_aux;
+	bool flag = false;
+	double algo=0;
 		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
-			verticeaux->set_peso(10000);
+		
+			verticeaux->set_peso(60000);
 			verticeaux->set_id_arista(0);
 			verticeaux=verticeaux->get_sig();
 		}
 
 		distancia=0;
-		arista_aux = vertice_origen->get_ady();
+		arista_aux = vertice_destino->get_ady();
 		while(arista_aux!= nullptr){
 
 			if(arista_aux->get_ady()->get_peso()>=(distancia+arista_aux->get_peso())){
@@ -352,46 +381,35 @@ void Grafo::grafo_pathfindinglod2(float &_i_xorigen, float &_i_yorigen, float _i
 				arista_aux->get_ady()->pathfinding(distancia, arista_aux, vertice_destino->get_id());
 			}
 			arista_aux = arista_aux->get_sig();
-		}
-		vertice_origen->set_peso(0);
-		//vuelta desde destino hacia origen
-		verticeaux=vertice_destino;
-		id_aux=0;
-		while(verticeaux->get_id()!=vertice_origen->get_id()){
-			arista_aux=verticeaux->get_ady();
-			id_aux=arista_aux->get_ady()->get_id();
-			distancia=arista_aux->get_ady()->get_peso();
-			while(arista_aux!= nullptr){//eleccion de la ariste a la cual ir
-				
-				if(arista_aux->get_ady()->get_peso()<distancia){
-					id_aux=arista_aux->get_ady()->get_id();
-					distancia=arista_aux->get_ady()->get_peso();
-				}
-				arista_aux = arista_aux->get_sig();
-			}
-			arista_aux=verticeaux->get_ady();
-			while(arista_aux!= nullptr){//este while es para evitar llamar a la fucion get_vertice la cual recorre todo el grafo
-			//se busca el vertice origen y se le da valor a la id_arista de ese vertice
+		}verticeaux=_h;
+		/*while(verticeaux!=nullptr){//mirar pesos
 			
-			if(arista_aux->get_ady()->get_id()==id_aux){
-					verticeaux=arista_aux->get_ady();
-					verticeaux->set_id_arista(arista_aux->get_id());
-					break;
-				}
-				arista_aux = arista_aux->get_sig();
+			std::cout<<"añlskdjf  "<<verticeaux->get_id()<<"  "<<verticeaux->get_peso()<<std::endl;
+			verticeaux=verticeaux->get_sig();
+		}*/
+		vertice_origen->set_peso(60000);
+		//vuelta desde destino hacia origen
+		verticeaux=vertice_origen;
+		arista_aux=verticeaux->get_ady();
+		id_aux=0;
+		distancia=60000;
+		while(arista_aux!= nullptr){//eleccion de la ariste a la cual ir
+			if(arista_aux->get_ady()->get_peso()<distancia){
+				id_aux=arista_aux->get_ady()->get_id();
+				distancia=arista_aux->get_ady()->get_peso();
 			}
+			arista_aux = arista_aux->get_sig();
 		}
 		arista_aux=verticeaux->get_ady();
 		while(arista_aux!= nullptr){//este while es para evitar llamar a la fucion get_vertice la cual recorre todo el grafo
 		//se busca el vertice al que debe ir desde el origen
-			if(arista_aux->get_id()==-verticeaux->get_id_arista()){
+			if(arista_aux->get_ady()->get_id()==id_aux){
 				verticeaux=arista_aux->get_ady();
 				break;
 			}
 			arista_aux = arista_aux->get_sig();
 		}
-		_i_xorigen=verticeaux->get_coord_x();
-		_i_yorigen=verticeaux->get_coord_y();
+		return verticeaux;
 	/*}/*else{
 		std::cout << "ERROR PATHFINDINGLOD2: no hay camino entre los dos vertices " << std::endl;
 	}*/
@@ -407,7 +425,8 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	
 	if(motor->x_ve_a_y(inicio,fin, ray_colisiona_con)){
 		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen,_i_xdestino,_i_ydestino);
-		//std::cout << "p:" << angulo << std::endl;
+
+		std::cout << "p:" << angulo << std::endl;
 		return angulo;
 	}
 	
@@ -426,12 +445,12 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		verticeaux=origen->get_lod1()->get_h();
 		vertice_origen=verticeaux;
 		vertice_destino=verticeaux;
-		distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->get_coord_x(),verticeaux->get_coord_y());
+		distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->get_coord_x(),verticeaux->get_coord_y())+verticeaux->get_peso_tactico();
 		while(verticeaux!=nullptr){
 			aux=destino;//igualar cada vez a la id del pasillo/nodo adyacente para despues ir sumandole 1000 en 1000 para buscar el nodo
-			if(distancia>lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->get_coord_x(),verticeaux->get_coord_y())){
+			if(distancia>lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->get_coord_x(),verticeaux->get_coord_y())+verticeaux->get_peso_tactico()){
 				vertice_origen=verticeaux;
-				distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->get_coord_x(),verticeaux->get_coord_y());
+				distancia=lib_math_distancia_2_puntos(_i_xorigen,_i_yorigen,verticeaux->get_coord_x(),verticeaux->get_coord_y())+verticeaux->get_peso_tactico();
 			}
 			
 			while(aux<4000 && !flag){
@@ -443,7 +462,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 				}
 				
 			}
-			verticeaux->set_peso(10000);
+			verticeaux->set_peso(60000);
 			verticeaux->set_id_arista(0);
 			verticeaux=verticeaux->get_sig();
 		}
@@ -480,7 +499,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 				vertice_destino=verticeaux;
 				distancia2=lib_math_distancia_2_puntos(_i_xdestino,_i_ydestino,verticeaux->get_coord_x(),verticeaux->get_coord_y());
 			}
-			verticeaux->set_peso(10000);
+			verticeaux->set_peso(60000);
 			verticeaux->set_id_arista(0);
 			verticeaux=verticeaux->get_sig();
 		}

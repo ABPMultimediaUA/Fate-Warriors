@@ -82,6 +82,8 @@ void Game::crea_partida() {
 
 	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
 
+	_nivel->nivel_cerrar_pasillo(8);
+
 }
 
 void Game::fin_partida() {
