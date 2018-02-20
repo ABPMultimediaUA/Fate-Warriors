@@ -16,9 +16,9 @@ enum Enum_Acciones ND_Enemigo_Cerca::toma_decision(Blackboard* _blackboard){
 
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(_blackboard->_enemigo_mas_cerca_menos_de_30_metros == true) { // TRUE, es 1
-		//std::cout <<"Enemigo cerca \n";
+		std::cout <<"Enemigo cerca \n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
-	//std::cout <<"Enemigo lejos \n";
+	std::cout <<"Enemigo lejos \n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

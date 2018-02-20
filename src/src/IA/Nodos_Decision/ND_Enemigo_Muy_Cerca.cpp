@@ -20,9 +20,11 @@ enum Enum_Acciones ND_Enemigo_Muy_Cerca::toma_decision(Blackboard* _blackboard){
 
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(_blackboard->_enemigo_mas_cerca_menos_de_6_metros == true) { // TRUE, es 1
+		std::cout <<"ataca enemigo mas cerca \n";
 		return _nodo_der->toma_decision(_blackboard);
         // Atacar
 	}
     //Andar (perseguir al enemigo)
+	std::cout <<"sigue enemigo mas cerca \n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

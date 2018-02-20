@@ -84,7 +84,7 @@ void Blackboard::actualizar_characteres(){
 		}		
     }
 
-	if(_distancia_enemigo_mas_cercano < 100000000000){
+	if(_distancia_enemigo_mas_cercano < 30){
 		_enemigo_mas_cerca_menos_de_30_metros = true;
 	}
 	else

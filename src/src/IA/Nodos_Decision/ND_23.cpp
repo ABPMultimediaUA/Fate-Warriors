@@ -19,7 +19,7 @@ enum Enum_Acciones ND_23::toma_decision(Blackboard* _blackboard){
     int num_enemigos_en_mi_zona;
     int num_aliados_en_mi_zona;
 
-    //std::cout <<"23 \n";
+    std::cout <<"23 \n";
 
     if(_blackboard->_npc_padre->get_equipo() == Enum_Equipo_A){
         num_enemigos_en_mi_zona = _blackboard->_zona_actual->_num_characters_equipo_B;
@@ -35,9 +35,11 @@ enum Enum_Acciones ND_23::toma_decision(Blackboard* _blackboard){
 	if(num_aliados_en_mi_zona - num_enemigos_en_mi_zona > -2) { // TRUE, es 1
         _blackboard->objetivo_x = _blackboard->_enemigo_mas_cerca->getX();
         _blackboard->objetivo_y = _blackboard->_enemigo_mas_cerca->getZ();
+        std::cout <<"sigue enemigo mas cerca \n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
     _blackboard->objetivo_x = _blackboard->_zona_enemiga_mas_cerca->getX();
     _blackboard->objetivo_y = _blackboard->_zona_enemiga_mas_cerca->getZ();
+    std::cout <<"sigue zona enemiga mas cerca \n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

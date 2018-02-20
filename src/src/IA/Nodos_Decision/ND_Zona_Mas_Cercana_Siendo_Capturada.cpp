@@ -20,12 +20,12 @@ enum Enum_Acciones ND_Zona_Mas_Cercana_Siendo_Capturada::toma_decision(Blackboar
 
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(_blackboard->_zona_mas_cerca->siendo_capturada() == true) { // TRUE, es 1
-	//std::cout <<"zona mas cerca capturando \n";
+	std::cout <<"zona mas cerca capturando \n";
         _blackboard->objetivo_x = _blackboard->_zona_mas_cerca->getX();
         _blackboard->objetivo_y = _blackboard->_zona_mas_cerca->getZ();
 		return _nodo_der->toma_decision(_blackboard);
 	}
-	//std::cout <<"zona mas cerca NO capturando \n";
+	std::cout <<"zona mas cerca NO capturando \n";
     _blackboard->objetivo_x = _blackboard->_zona_enemiga_mas_cerca->getX();
     _blackboard->objetivo_y = _blackboard->_zona_enemiga_mas_cerca->getZ();
 	return _nodo_izq->toma_decision(_blackboard);

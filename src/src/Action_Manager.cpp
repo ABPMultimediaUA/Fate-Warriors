@@ -48,6 +48,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 					_i_npc->mover(_nueva_direccion);
 				}else{
+					std::cout << " ERRRRRORRRRRRRRRRRRR -----------------\n ";
 					_i_npc->setPositionXZ(x,z);
 				}
 			}
@@ -75,6 +76,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 			//	Motor::Motor_GetInstance()->rotar_rb(_i_npc->get_objeto_motor()->getRigidBody(), angulo_giro);
 				_i_npc->rotar_cuerpo(_nueva_direccion);
 				_i_npc->set_direccion_actual(_nueva_direccion);
+
 				_i_npc->atacar(Ataque_Normal);
 				}
 

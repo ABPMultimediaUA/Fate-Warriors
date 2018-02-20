@@ -19,9 +19,9 @@ enum Enum_Acciones ND_Situado_En_Zona::toma_decision(Blackboard* _blackboard){
 
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(_blackboard->_zona_actual != nullptr) { // TRUE, es 1
-		//std::cout <<"SI estoy en una zona \n";
+		std::cout <<"SI estoy en una zona \n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
-	//std::cout <<"NO estoy en una zona \n";
+	std::cout <<"NO estoy en una zona \n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

@@ -45,8 +45,8 @@ private:
     btRigidBody *_rb;
     Enum_Equipo _equipo;
 
-    int _pos_x;
-    int _pos_y; // Es la Z realmente
+    float _pos_x;
+    float _pos_y; // Es la Z realmente
 
     Time* _reloj;
     std::vector <Character*> personajes_de_la_zona;
