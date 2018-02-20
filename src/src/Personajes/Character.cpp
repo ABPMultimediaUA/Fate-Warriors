@@ -18,6 +18,9 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Consumibles/Consumible_Power_Up.h"
 #include "../Interruptor.h"
+#include "../Respawn.h"
+
+
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
@@ -37,6 +40,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _rb_ataque = Motor::Motor_GetInstance()->crear_rb_ataque();
     _equipo = _i_equipo;
     _bloqueado = false;
+    
 }
 
 Character::~Character() {
@@ -323,7 +327,10 @@ void Character::morir(){
     std::cout << "He muerto :("<< std::endl;
     _inventario->soltar_armas(getX(), getZ()); 
 
-    setPositionXZ(12.5*mult, 9.5*mult);
+    Vector2 posicion = Respawn::posiciones_instancia()->posiciones_instancia()->generar_posicion_del_bando(_equipo);
+    setPositionXZ(posicion._y, posicion._x);
+
+
     _vida=_vida_maxima;
 }
 

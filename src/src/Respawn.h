@@ -8,12 +8,11 @@
 
 class Nivel;
 
-class Posiciones_Respawn {
+class Respawn {
 
 public:
-	static Posiciones_Respawn* nivel_instancia();
-
-	virtual ~Posiciones_Respawn();
+	static Respawn* posiciones_instancia();
+	~Respawn();
 
     void crear_zonas_respawn(Nivel* _i_nivel);
     void eliminar_zonas_respawn();
@@ -23,8 +22,8 @@ public:
 
 private:
 
-	static Posiciones_Respawn* instancia;
-    Posiciones_Respawn();
+    Respawn();
+	static Respawn* instancia;
    	uint16_t cantidad_de_posiciones;
     float ** posiciones;
 

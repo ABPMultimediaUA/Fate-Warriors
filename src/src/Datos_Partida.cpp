@@ -95,7 +95,3 @@ void Datos_Partida::inserta_npc_nivel(){
 Character** Datos_Partida::get_characters(){
 	return _characters;
 }
-
-Respawn_Points* Datos_Partida::get_Respawn_Points(){ 
-	return _respawn_Points; 
-}
