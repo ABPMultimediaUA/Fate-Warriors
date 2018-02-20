@@ -98,14 +98,15 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 } 
 
 float vertices[] = {
-     0.5f,  0.5f, 0.0f,  // top right
-     0.5f, -0.5f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f,  // bottom left
-    -0.5f,  0.5f, 0.0f   // top left 
-};
+    // positions         // colors
+     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+     0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
+};    
+
 unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
-    1, 2, 3    // second triangle
+  //  1, 2, 3    // second triangle
 };  
 
 int dibujarOpenGL(){
@@ -247,15 +248,18 @@ int dibujarOpenGL(){
             glfwSetWindowShouldClose(window, true);
 
         //cosicas chulas
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
+        float timeValue = glfwGetTime();
+        float colorSinValue = (sin(timeValue) / 2.0f) + 0.5f;
+        int vertexLocation = glGetUniformLocation(shaderProgram, "vertex_Color");
+        glUniform4f(vertexLocation, 1-colorSinValue, 0.0f, colorSinValue, 1.0f);
         // ..:: Drawing code (in render loop) :: ..
         // 4. draw the object
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
         //call events
         glfwSwapBuffers(window);
         glfwPollEvents();
