@@ -4,9 +4,9 @@
 class Zona;
 #include "Personajes/Enum_Tipo_Ataque.h"
 
-#include <tuple> 
+#include <vector>
 #include <cstdint>
-
+#include <tuple>
 
 class Zonas_Manager {
 public:
@@ -21,9 +21,15 @@ public:
 	Enum_Equipo comprobar_victoria_fin_tiempo_partida();
     
 	unsigned short get_n_zonas();
+	std::vector<Zona*> get_zonas_equipo_a();	
+	std::vector<Zona*> get_zonas_equipo_b();
+
 	
 private:
 	Zona** _zonas;
+
+	std::vector<Zona*> _zona_bando_a;
+	std::vector<Zona*> _zona_bando_b;
 
 	unsigned short _n_zonas;
 	uint8_t _equipoA;

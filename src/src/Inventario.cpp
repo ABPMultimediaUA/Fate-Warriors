@@ -44,6 +44,10 @@ void Inventario::soltar_armas(float x, float z){
     _objeto_cerca->setPositionXZ(x,z); 
     _objeto_cerca = nullptr; 
   } 
+  
+  	_seleccionado = nullptr;
+    _arma = Tipo_Arma_cuerpo_a_cuerpo;
+
 } 
 
 

@@ -56,6 +56,9 @@ void Zonas_Manager::actualizar_zonas(){
 	_equipoA = 0;
 	_equipoB = 0;
 
+	_zona_bando_a.clear();
+	_zona_bando_b.clear();
+
 	for(uint8_t zona=0; zona<_n_zonas; zona++){
 		_zonas[zona]->actualizar_zona();
 		
@@ -63,9 +66,11 @@ void Zonas_Manager::actualizar_zonas(){
 		Enum_Equipo equipo = _zonas[zona]->get_equipo();
 		if (equipo == Enum_Equipo_A){
 			_equipoA++;
+			_zona_bando_a.push_back(_zonas[zona]);
 		}
 		else if (equipo == Enum_Equipo_B){
 			_equipoB++;
+			_zona_bando_b.push_back(_zonas[zona]);
 		}
 
 	}
@@ -141,4 +146,13 @@ std::tuple<uint8_t,uint8_t> Zonas_Manager::calcular_cantidad_territorios_por_ban
 	}
 	
 	return std::make_tuple(equipoA,equipoB);
+}
+
+
+std::vector<Zona*> Zonas_Manager::get_zonas_equipo_a(){
+	return _zona_bando_a;
+}
+
+std::vector<Zona*> Zonas_Manager::get_zonas_equipo_b(){
+	return _zona_bando_b;
 }
