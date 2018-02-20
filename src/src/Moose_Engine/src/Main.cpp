@@ -98,10 +98,16 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 } 
 
 float vertices[] = {
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-     0.0f,  0.5f, 0.0f
-}; 
+     0.5f,  0.5f, 0.0f,  // top right
+     0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f   // top left 
+};
+unsigned int indices[] = {  // note that we start from 0!
+    0, 1, 3,   // first triangle
+    1, 2, 3    // second triangle
+};  
+
 int dibujarOpenGL(){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -125,11 +131,27 @@ int dibujarOpenGL(){
     //buffers
     unsigned int VBO;
     glGenBuffers(1,&VBO);
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+    //vertex array object
+    unsigned int VAO;
+    glGenVertexArrays(1,&VAO);
+    glBindVertexArray(VAO);
+
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
+
 
     glViewport(0, 0, 1280, 720);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // 3. then set our vertex attributes pointers
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);  
+
 
     //leer los programas vertex y fragment shader
     std::ifstream vShaderFile;
@@ -143,7 +165,7 @@ int dibujarOpenGL(){
     const GLchar* vertex_path = "Shaders/vertex_basic.glsl";
     const GLchar* fragment_path = "Shaders/fragment_basic.glsl";
 
-    
+
 
     try {
         // Open files
@@ -182,7 +204,6 @@ int dibujarOpenGL(){
     }
 
     //compilar fragment shader
-
     unsigned int fragmentShader;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fShaderCode, NULL);
@@ -205,6 +226,7 @@ int dibujarOpenGL(){
 
     //comprobar que todo ha ido bien
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+
     if(!success){
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
@@ -215,6 +237,10 @@ int dibujarOpenGL(){
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader); 
 
+
+
+    
+
     while(!glfwWindowShouldClose(window)){
         //input
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -224,6 +250,12 @@ int dibujarOpenGL(){
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // ..:: Drawing code (in render loop) :: ..
+        // 4. draw the object
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         //call events
         glfwSwapBuffers(window);
         glfwPollEvents();
