@@ -77,7 +77,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
         _objetos_motor.erase(ite2);
     }
 
-	std::cout << "cantidad de elementos en el motor" << _objetos_motor.size() << std::endl;
+	//std::cout << "cantidad de elementos en el motor" << _objetos_motor.size() << std::endl;
 	
 
 	/*

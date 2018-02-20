@@ -10,7 +10,7 @@ Zonas_Manager::Zonas_Manager() {
 
     // tener xml con la informacion de todos los objetos
     
-	_n_zonas = 4;
+	_n_zonas = 2;
 	_zonas = new Zona*[_n_zonas];
 
     unsigned short _cont;
@@ -19,8 +19,8 @@ Zonas_Manager::Zonas_Manager() {
 
 	_zonas[0]  = new Zona(5*2.5*mult, 0*mult, 5*2.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A); //Zona 1	
 	_zonas[1]  = new Zona(29.5*mult, 0*mult, 28.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B); //Zona 3
-	_zonas[2]  = new Zona(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);		//Zona 7
-	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);   //Zona 10
+//	_zonas[2]  = new Zona(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);		//Zona 7
+//	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);   //Zona 10
 
 
 	/*
@@ -109,7 +109,7 @@ Enum_Equipo Zonas_Manager::comprobar_victoria(){
 
 	else{
 		//std::cout << "AUN NO HAY VICTORIA"<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
-		return Enum_Equipo_A;  //Borrar ........ falta equipo neutro
+		return Enum_Equipo_Ninguno;  //Borrar ........ falta equipo neutro
 	}
 }
 
@@ -126,7 +126,7 @@ Enum_Equipo Zonas_Manager::comprobar_victoria_fin_tiempo_partida(){
 	}
 	else{
 		std::cout << "Gana Equipo B "<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
-		return Enum_Equipo_B;	
+		return Enum_Equipo_Ninguno;	
 	}
 }
 

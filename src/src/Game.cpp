@@ -143,10 +143,13 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 
 			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
 				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
+				cambio_a_update_menu();
 				//Fin de partida
 			}
 			else{
-				_zonas_manager->comprobar_victoria();
+				if(_zonas_manager->comprobar_victoria()!=Enum_Equipo_Ninguno){
+					cambio_a_update_menu();
+				}
 				//if equipo!=neutro Fin partida
 			}
     }

@@ -31,7 +31,8 @@ enum Enum_Nombre_Arma{
 
 enum Enum_Equipo{
 	Enum_Equipo_A,
-	Enum_Equipo_B
+	Enum_Equipo_B,
+	Enum_Equipo_Ninguno
 };
 
 
