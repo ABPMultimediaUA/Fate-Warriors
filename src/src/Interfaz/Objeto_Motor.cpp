@@ -240,12 +240,11 @@ btVector3 Objeto_Motor::get_posicion_rb(){
 	return _rigidbody->getCenterOfMassPosition();
 }
 
-void Objeto_Motor::rotar_rb(uint16_t rotacion){
+void Objeto_Motor::rotar_nodo(uint16_t rotacion){
 	float mult = 4.9212625;
-	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
+	btScalar gTilt = (rotacion*SIMD_PI) / (180.0f); 
 	btTransform rbTransform;
 
-	std::cout << gTilt << "en radianes" << std::endl;
 	// Rotacion
 	rbTransform.setIdentity();
 	rbTransform.setOrigin(_rigidbody->getCenterOfMassPosition());

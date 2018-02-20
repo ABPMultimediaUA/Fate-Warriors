@@ -712,18 +712,3 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 //Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
 }
-
-void Motor::rotar_rb(btRigidBody *rb, uint16_t rotacion){
-	float mult = 4.9212625;
-	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
-	btTransform rbTransform;
-
-	// Rotacion
-	rbTransform.setIdentity();
-	rbTransform.setOrigin(rb->getCenterOfMassPosition());
-	btQuaternion incline;
-	incline.setRotation(btVector3(0, 1, 0), gTilt);
-	rbTransform.setRotation(incline);
-	rb->setWorldTransform(rbTransform);
-
-}
