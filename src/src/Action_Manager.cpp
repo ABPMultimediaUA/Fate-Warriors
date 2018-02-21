@@ -48,7 +48,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 					_i_npc->mover(_nueva_direccion);
 				}else{
-					std::cout << " ERRRRRORRRRRRRRRRRRR -----------------\n ";
+				//	std::cout << " ERRRRRORRRRRRRRRRRRR -----------------\n ";
 					_i_npc->setPositionXZ(x,z);
 				}
 			}
@@ -81,6 +81,42 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				}
 
 			break;
+		
+		case Accion_Dash:
+				{
+								
+				x=_i_npc->getX();
+				z=_i_npc->getZ();
+				Character* enemigo = _blackboard->_enemigo_mas_cerca;
+				uint16_t angulo_giro = lib_math_angulo_2_puntos(x, z, enemigo->getX(), enemigo->getZ());
+				
+				if(uint16_t(x+z)%2==0){
+									angulo_giro+=90;
+
+				}
+				else{
+					angulo_giro-=90;
+				}
+
+				float _cos, _sen;
+				_cos = sin(angulo_giro*std::acos(-1)/180);
+				_sen = cos(angulo_giro*std::acos(-1)/180);
+
+				// Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
+				uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
+				while(_nueva_direccion >= 360) _nueva_direccion -= 360;
+
+
+			//	std::cout << (int)_nueva_direccion << std::endl;
+			//	Motor::Motor_GetInstance()->rotar_rb(_i_npc->get_objeto_motor()->getRigidBody(), angulo_giro);
+				_i_npc->rotar_cuerpo(_nueva_direccion);
+				_i_npc->set_direccion_actual(_nueva_direccion);
+				_i_npc->esquivar(_nueva_direccion);
+				//_i_npc->atacar(Ataque_Normal);
+				}
+
+		break;
+
 
 		case Decidir:
 			//_i_npc->stop();

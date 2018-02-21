@@ -68,9 +68,9 @@ void Trampas_action::comprobar_trampas_mina(){
                   float valor = lib_math_distancia_2_puntos(vec_player._x, vec_player._y, vec_mina._x, vec_mina._y);
                   _player->danyar(_minas[_cont]->get_danyo()*(1/valor));
 
-                  if(valor<1.5){valor=1.5;}
+                  if(valor<2.5){valor=2.5;}
 
-                  Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
+                  Vector3 a(direccion_impulso._x*(40000/valor),0,direccion_impulso._y*(50000/valor));
                   _player->get_objeto_motor()->Impulso_explosion(a);
                   
 
@@ -99,7 +99,7 @@ void Trampas_action::comprobar_trampas_mina(){
                   float valor = lib_math_distancia_2_puntos(vec_npc._x, vec_npc._y, vec_mina._x, vec_mina._y);
                   npc[i]->danyar(_minas[_cont]->get_danyo()*(1/valor));
                   
-                  if(valor<1.5){valor=1.5;}
+                  if(valor<2.5){valor=2.5;}
                 
                   Vector3 a(direccion_impulso._x*(50000/valor),0,direccion_impulso._y*(50000/valor));
                   npc[i]->get_objeto_motor()->Impulso_explosion(a);
