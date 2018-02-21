@@ -365,6 +365,7 @@ Vertice* Grafo::grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float 
 	int id_aux;
 	bool flag = false;
 	double algo=0;
+	std::cout<<vertice_origen->get_id()<<"  "<<vertice_destino->get_id()<<std::endl;
 		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
 		
 			verticeaux->set_peso(60000);
@@ -387,7 +388,7 @@ Vertice* Grafo::grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float 
 			std::cout<<"añlskdjf  "<<verticeaux->get_id()<<"  "<<verticeaux->get_peso()<<std::endl;
 			verticeaux=verticeaux->get_sig();
 		}*/
-		vertice_origen->set_peso(60000);
+		vertice_destino->set_peso(0);
 		//vuelta desde destino hacia origen
 		verticeaux=vertice_origen;
 		arista_aux=verticeaux->get_ady();
@@ -409,6 +410,7 @@ Vertice* Grafo::grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float 
 			}
 			arista_aux = arista_aux->get_sig();
 		}
+		std::cout<<verticeaux->get_id()<<std::endl;
 		return verticeaux;
 	/*}/*else{
 		std::cout << "ERROR PATHFINDINGLOD2: no hay camino entre los dos vertices " << std::endl;
