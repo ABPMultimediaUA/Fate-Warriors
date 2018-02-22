@@ -54,6 +54,7 @@ public:
 	bool interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
 	void morir();
+	void restaurar_toda_la_vida();
 	Enum_Acciones get_accion();
 	Enum_Tipo_Ataque get_tipo_ataque();
 	void saltar();

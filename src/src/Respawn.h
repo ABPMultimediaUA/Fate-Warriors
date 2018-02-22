@@ -4,9 +4,9 @@
 #include <cstdint>
 #include "Utilidades/Vector.h" 
 #include "Personajes/Enum_Tipo_Ataque.h"
-#include <vector>
+#include <map>
 
-
+class Character;
 class Nivel;
 
 class Respawn {
@@ -18,12 +18,17 @@ public:
     void crear_zonas_respawn(Nivel* _i_nivel);
     void eliminar_zonas_respawn();
 	
-  Vector2 generar_posicion_al_azar_xz();
-  Vector2 generar_posicion_del_bando(Enum_Equipo _i_bando);
+    void anyadir_character_y_tiempo_para_reaparecer(Character* _i_character, double _i_tiempo);
+    void eliminar_character_a_reaparecer(Character* _i_character);
+    void vaciar_map();
+    void comprobar_si_renace_y_renacer_personaje(Character* _i_personaje);
+
+    Vector2 generar_posicion_al_azar_xz();
+    Vector2 generar_posicion_del_bando(Enum_Equipo _i_bando);
 
 private:
 
-    
+    std::map<Character*, double> _character_a_reaparecer;
     Respawn();
 	static Respawn* instancia;
    	uint16_t cantidad_de_posiciones;

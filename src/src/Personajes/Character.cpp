@@ -323,16 +323,20 @@ bool Character::interactuar_con_objeto(){
 }
 
 void Character::morir(){
-    float mult = 4.9212625;
+    //float mult = 4.9212625;
     std::cout << "He muerto :("<< std::endl;
     _inventario->soltar_armas(getX(), getZ()); 
 
-    Vector2 posicion = Respawn::posiciones_instancia()->posiciones_instancia()->generar_posicion_del_bando(_equipo);
-    setPositionXZ(posicion._y, posicion._x);
+    Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
+    setY(99999999999);
+
+}
 
 
+void Character::restaurar_toda_la_vida(){
     _vida=_vida_maxima;
 }
+
 
 Enum_Acciones Character::get_accion(){
     return _accion;

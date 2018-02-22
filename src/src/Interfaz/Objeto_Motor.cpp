@@ -57,7 +57,6 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 
 void Objeto_Motor::setPositionY(float y){
 
-	_rigidbody->forceActivationState(DISABLE_SIMULATION);
 	btTransform btt; 
 	_rigidbody->getMotionState()->getWorldTransform(btt);
 	btt.setOrigin(btVector3(btt.getOrigin().getX(),y,btt.getOrigin().getZ())); // move body to the scene node new position
@@ -189,6 +188,7 @@ void Objeto_Motor::abrir_puerta2(){
 
 void Objeto_Motor::abrir_puerta(){
 	this->setPositionY(20);
+	_rigidbody->forceActivationState(DISABLE_SIMULATION);
 }
 
 

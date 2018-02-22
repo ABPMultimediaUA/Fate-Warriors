@@ -9,6 +9,7 @@
 
 #include "../Personajes/NPC.h"
 #include "../Personajes/NPC_Manager.h"
+#include "../Respawn.h"
 
 #include<iostream>
 
@@ -70,26 +71,32 @@ void Decision_Manager::toma_decisiones(){
 
 	for(uint16_t _cont=0; _cont<_n_npcs; _cont++) {
 
-		// Se actualizan los datos del blackboard
-		_blackboards[_cont]->actualiza_datos();
-		_npcs[_cont]->gestion_acciones();
+		if(_npcs[_cont]->get_vida_actual()>0){
+			// Se actualizan los datos del blackboard
+			_blackboards[_cont]->actualiza_datos();
+			_npcs[_cont]->gestion_acciones();
 
-		//std::cout << "accion" <<_npcs[_cont]->get_accion() << "\n";
-		// Recoge el Level of Detail actual
-		int8_t _lod_npc = _blackboards[_cont]->get_level_of_detail();
-		//std::cout << "LoD del NPC " << _cont << " es " << (int)_lod_npc << "\n";
+			//std::cout << "accion" <<_npcs[_cont]->get_accion() << "\n";
+			// Recoge el Level of Detail actual
+			int8_t _lod_npc = _blackboards[_cont]->get_level_of_detail();
+			//std::cout << "LoD del NPC " << _cont << " es " << (int)_lod_npc << "\n";
 
-		// Estas acciones no es la misma variable que accion de Character
-		//if(_iteraciones_actuales_lod[_lod_npc] == _iteraciones_lod[_lod_npc]) {
-			//Se toma la accion
-			_blackboards[_cont]->set_accion(_decision_tree_manager->_tomar_decision(_blackboards[_cont]));
-		//}
-		//else {
-			//Ninguna accion
-		//	_blackboards[_cont]->set_accion(Nada);
-		//}
+			// Estas acciones no es la misma variable que accion de Character
+			//if(_iteraciones_actuales_lod[_lod_npc] == _iteraciones_lod[_lod_npc]) {
+				//Se toma la accion
+				_blackboards[_cont]->set_accion(_decision_tree_manager->_tomar_decision(_blackboards[_cont]));
+			//}
+			//else {
+				//Ninguna accion
+			//	_blackboards[_cont]->set_accion(Nada);
+			//}
 
-		//Se realiza la accion
-		_action_manager->realiza_accion(_npcs[_cont]);
+			//Se realiza la accion
+			_action_manager->realiza_accion(_npcs[_cont]);
+		}
+		else{
+			std::cout<<"sigo muerto" << std::endl;
+			Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(_npcs[_cont]);
+		}
 	}
 }

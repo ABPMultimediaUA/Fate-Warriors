@@ -4,6 +4,8 @@
 #include "Zona.h"
 #include "Zonas_Manager.h"
 #include "Datos_Partida.h"
+#include "Personajes/Character.h"
+#include "Tiempo/Time.h"
 #include "Game.h"
 
 Respawn* Respawn::instancia = 0;
@@ -64,3 +66,27 @@ Vector2 Respawn::generar_posicion_del_bando(Enum_Equipo _i_bando){
 
     return Vector2(zona_bando[posicion_al_azar]->getX(), zona_bando[posicion_al_azar]->getZ());
 }
+
+void Respawn::comprobar_si_renace_y_renacer_personaje(Character* _i_personaje){
+    if(Time::Instance()->get_current()>_character_a_reaparecer[_i_personaje]){
+        Vector2 pos = generar_posicion_del_bando(_i_personaje->get_equipo());
+        _i_personaje->setPositionXZ(pos._x, pos._y);
+        _i_personaje->restaurar_toda_la_vida();
+        _i_personaje->setY(0);
+       // eliminar_character_a_reaparecer(_i_personaje);
+    }
+}
+
+void Respawn::anyadir_character_y_tiempo_para_reaparecer(Character* _i_character, double _i_tiempo){
+    _character_a_reaparecer[_i_character] = _i_tiempo;
+}
+void Respawn::eliminar_character_a_reaparecer(Character* _i_character){
+    _character_a_reaparecer.erase (_i_character);
+}
+void Respawn::vaciar_map(){
+    _character_a_reaparecer.clear();
+}
+
+
+
+
