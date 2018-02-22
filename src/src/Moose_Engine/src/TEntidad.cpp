@@ -26,3 +26,7 @@ uint16_t TEntidad::getID(){
 void TEntidad::setID(uint16_t id){
     _ID = id;
 }
+
+glm::mat4 TEntidad::get_matriz(){
+    return matriz;
+}

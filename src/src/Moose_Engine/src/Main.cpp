@@ -49,7 +49,9 @@ void recorrerArbol(){
     TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
     TNodo* nodoCamara = motor->crearNodo(nodoTrans3, camara);
    
+
     TNodo* Escena=motor->nodoRaiz();
+
     /*TNodo *RotaLuz= new TNodo();
     TNodo *RotaCam= new TNodo();
     TNodo* RotaCoche = new TNodo();
@@ -270,8 +272,20 @@ int dibujarOpenGL(){
     return 0;
 }
 
+void mainDeMierdaPalPutoFranEse(){
+    float** algo[200][2];
+   /* algo[0][0]=1.0f;
+    algo[0][1]=2.0f;
+    algo[1][0]=1.5f;
+    algo[1][1]=2.5f;*/
+    
+    float *result=0;
+    std::cout<<sizeof(algo)<<"       "<<sizeof(result)<<std::endl; 
+}
+
 int main(){
     //dibujarOpenGL();
     recorrerArbol();
+    //mainDeMierdaPalPutoFranEse();
     return 0;
 }

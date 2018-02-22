@@ -2,6 +2,7 @@
 #define SRC_TMOOSEENGINE_H_
 
 #include <cstdint>
+#include <glm/ext.hpp>
 class TNodo;
 class TGestorRecursos;
 class TEntidad;
@@ -25,20 +26,27 @@ class TMooseEngine{
         TCamara*    crearCamara();
         TLuz*       crearLuz();
         TMalla*     crearMalla(char* fichero);
-        
+
+        void        drawLuces();
+        void        drawCamaras();
+
         inline TNodo* nodoRaiz(){
             return _escena;
         }
         void draw();
 
     private:
-        Mapeado *mapping_camaras;
-        Mapeado *mapping_luces;
+        Mapeado *_mapping_camaras;
+        Mapeado *_mapping_luces;
         TNodo* _escena;
         TGestorRecursos* _gestorRecursos;
         uint16_t _contadorIDEntidad;
-        uint8_t n_camaras,n_c_actual;
-        uint8_t n_luces,n_l_actual;
+        uint8_t _n_camaras, _n_c_actual;
+        uint8_t _n_luces, _n_l_actual;
+
+        glm::mat4 matriz_luz = glm::mat4(1.0f);
+        glm::mat4 matriz_view = glm::mat4(1.0f);        
+        
         //atributos para camaras, luces y demás
 };
 

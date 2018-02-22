@@ -10,3 +10,7 @@ void TLuz::beginDraw(){
 void TLuz::endDraw(){
     std::cout<<"termino dibujar "<<_ID<<"\n";
 }
+
+void TLuz::setActiva(bool activa){
+    _activa = activa;
+}

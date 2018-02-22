@@ -10,8 +10,11 @@ class TCamara : public TEntidad{
         void setParalela(float x, float y);
         void beginDraw();
         void endDraw();
+        void setActiva(bool activa);
+        void calculaView();
     private:
         bool es_perspectiva;
+        bool _activa;
         float cercano,lejano;
 };
 
