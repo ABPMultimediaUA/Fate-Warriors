@@ -301,7 +301,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 uint16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i_xdestino, float _i_ydestino){
 	Vertice* origen;
 	Vertice* destino;
-	uint8_t lod_max=2;
+	uint8_t lod_max=4;
 	origen=grafo_get_vertice(_i_xorigen, _i_yorigen);
 	destino=grafo_get_vertice(_i_xdestino, _i_ydestino);
 	//comprobar que esta dentro del nivel
@@ -365,7 +365,7 @@ Vertice* Grafo::grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float 
 	int id_aux;
 	bool flag = false;
 	double algo=0;
-	std::cout<<vertice_origen->get_id()<<"  "<<vertice_destino->get_id()<<std::endl;
+	//std::cout<<vertice_origen->get_id()<<"  "<<vertice_destino->get_id()<<std::endl;
 		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
 		
 			verticeaux->set_peso(60000);
@@ -410,7 +410,7 @@ Vertice* Grafo::grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float 
 			}
 			arista_aux = arista_aux->get_sig();
 		}
-		std::cout<<verticeaux->get_id()<<std::endl;
+		//std::cout<<verticeaux->get_id()<<std::endl;
 		return verticeaux;
 	/*}/*else{
 		std::cout << "ERROR PATHFINDINGLOD2: no hay camino entre los dos vertices " << std::endl;

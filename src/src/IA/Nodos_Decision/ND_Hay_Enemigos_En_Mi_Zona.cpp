@@ -34,7 +34,7 @@ enum Enum_Acciones ND_Hay_Enemigos_En_Mi_Zona::toma_decision(Blackboard* _blackb
 		return _nodo_der->toma_decision(_blackboard);
 	}
     std::cout <<"NO enemigos en mi zona \n";
-    _blackboard->objetivo_x = _blackboard->_zona_enemiga_mas_cerca->getX();
-    _blackboard->objetivo_y = _blackboard->_zona_enemiga_mas_cerca->getZ();
+    //_blackboard->objetivo_x = _blackboard->_zona_enemiga_mas_cerca->getX();
+    //_blackboard->objetivo_y = _blackboard->_zona_enemiga_mas_cerca->getZ();
 	return _nodo_izq->toma_decision(_blackboard);
 }
