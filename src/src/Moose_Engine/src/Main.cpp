@@ -37,7 +37,8 @@ void recorrerArbol(){
 
     trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(0,0,-300);
-    trans3->trasladar(10,10,0);
+    trans3->escalar(10,10,0);
+    trans2->escalar(5,5,5);
 
 
     TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(),trans1);
@@ -77,9 +78,9 @@ void recorrerArbol(){
 
 
     Escena->draw();
-    glm::mat4 algo=glm::mat4();
+    glm::mat4 algo=glm::mat4(1.0f);
     algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
-    glm::mat4 algo2=glm::mat4();
+    glm::mat4 algo2=glm::mat4(1.0f);
     algo2[1]=glm::vec4( 3.0, 7.0, 0.0, 1.0 );
     glm::mat4 algo3=algo*algo2;//a nivel de papel es algo2 * algo1
     std::cout<<algo[0][0]<<std::endl;
@@ -270,6 +271,7 @@ int dibujarOpenGL(){
 }
 
 int main(){
-    dibujarOpenGL();
+    //dibujarOpenGL();
+    recorrerArbol();
     return 0;
 }

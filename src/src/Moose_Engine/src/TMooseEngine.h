@@ -10,6 +10,11 @@ class TCamara;
 class TLuz;
 class TMalla;
 
+struct MapeadoCamaras{//declaracion de los parametros
+    bool activa;
+    TNodo* Camara;
+};
+
 class TMooseEngine{
 
     public:
@@ -26,6 +31,7 @@ class TMooseEngine{
         void        draw();
 
     private:
+        MapeadoCamaras mapping[2];
         TNodo* _escena;
         TGestorRecursos* _gestorRecursos;
         uint16_t _contadorIDEntidad;

@@ -11,6 +11,8 @@ TMooseEngine::TMooseEngine(){
     _gestorRecursos = new TGestorRecursos();
     TNodo* nodo = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
+
+    
 }
 TMooseEngine::~TMooseEngine(){
     delete _escena;

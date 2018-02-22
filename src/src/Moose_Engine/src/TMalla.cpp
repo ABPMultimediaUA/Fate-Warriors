@@ -1,7 +1,7 @@
 #include "TMalla.h"
 #include <iostream>
 TMalla::TMalla(){
-    _t_matriz = glm::mat4();
+    _t_matriz = glm::mat4(1.0f);
 }
 TMalla::~TMalla(){
 
