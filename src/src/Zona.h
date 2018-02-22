@@ -17,6 +17,7 @@ public:
     void iniciar_tiempo_conquista();
     void cambiar_bando();
 
+    void set_tiempo_restante_para_conquistar();
     inline btRigidBody * getRigidBody(){
         return _rb;
     }
@@ -40,6 +41,8 @@ public:
 
     int _num_characters_equipo_A;
     int _num_characters_equipo_B;
+    
+    bool hay_personajes_conquistando_esta_zona();
 
 private:
     btRigidBody *_rb;
@@ -52,6 +55,7 @@ private:
     std::vector <Character*> personajes_de_la_zona;
     bool _conquistando;
     double _tiempo_inicio_conquista;
+    double _tiempo_restante_conquista;
 };
 
 #endif /* ZONA_H_ */

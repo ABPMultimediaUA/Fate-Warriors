@@ -4,6 +4,7 @@
 #include <cstdint>
 #include "Utilidades/Vector.h" 
 #include "Personajes/Enum_Tipo_Ataque.h"
+#include <vector>
 
 
 class Nivel;
@@ -22,6 +23,7 @@ public:
 
 private:
 
+    
     Respawn();
 	static Respawn* instancia;
    	uint16_t cantidad_de_posiciones;
