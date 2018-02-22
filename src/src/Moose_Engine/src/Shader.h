@@ -15,7 +15,7 @@ class Shader{
     private:
         unsigned int ID;
 
-        checkCompileErrors(unsigned int shader, std::string type);
+        void checkCompileErrors(unsigned int shader, std::string type);
 };
 
 #endif

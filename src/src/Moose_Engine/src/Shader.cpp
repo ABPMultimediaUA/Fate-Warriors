@@ -5,7 +5,7 @@
 
 #include "Shader.h"
 
-Shaer::Shader(const char* vertex_path, const char* fragment_path){
+Shader::Shader(const char* vertex_path, const char* fragment_path){
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertex_Code;
     std::string fragment_Code;
@@ -72,7 +72,7 @@ void Shader::setInt(const std::string &name, int value){
 void Shader::setFloat(const std::string &name, float value){ 
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value); 
 }
-void checkCompileErrors(unsigned int shader, std::string type){
+void Shader::checkCompileErrors(unsigned int shader, std::string type){
     int success;
     char infoLog[1024];
     if (type != "Program_shader")
