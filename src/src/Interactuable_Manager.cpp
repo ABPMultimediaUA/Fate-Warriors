@@ -16,8 +16,8 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	_n_llaves = 1;
 	_n_puertas = 1;
-	_n_interruptores = 1;
-	_n_puertas_pincho = 1;
+	_n_interruptores = 2;
+	_n_puertas_pincho = 2;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -39,7 +39,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
     //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
     
-    _puertas[0] = new Puerta(1,18*mult,0*mult, 31.5*mult,false);
+    _puertas[0] = new Puerta(1,18*mult,0*mult, 31.5*mult,false, 8);
 
    //_puertas[1] = new Puerta(127,-0,0,-180,false);
 	
@@ -50,8 +50,12 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	Zonas_Manager* zonas = datos->get_zonas_manager();
 	Zona** todas_las_zonas = zonas->get_zonas();
 */
-	_puertas_pincho[0] = new Puerta_Pincho(0,12.5*mult,20,23.5*mult, _todas_las_zonas[0], _todas_las_zonas[2]);	//Entre la sala 1 y 7
-	_interruptores[0] = new Interruptor(0,15*mult,0,15*mult,_puertas_pincho[0],false,false, 500);
+	_puertas_pincho[0] = new Puerta_Pincho(0,12.5*mult,20,23.5*mult, _todas_las_zonas[0], _todas_las_zonas[2],6);	//Entre la sala 1 y 7
+	_interruptores[0] = new Interruptor(0,20*mult,0,20*mult,_puertas_pincho[0],false,false, 500);
+
+	//CUIDADO CON COMENTAR LAS ZONAS PUEDE HABER CORE DUMPED
+	_puertas_pincho[1] = new Puerta_Pincho(0,10.5*mult,20,45.5*mult, _todas_las_zonas[2], _todas_las_zonas[3],9);	//Entre la sala 7 y 10
+	_interruptores[1] = new Interruptor(0,12.5*mult,0,42.5*mult,_puertas_pincho[1],false,false, 500);
 
 }
 

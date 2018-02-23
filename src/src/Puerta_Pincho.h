@@ -1,6 +1,9 @@
 #ifndef HEADERS_PUERTA_PINCHO_H_
 #define HEADERS_PUERTA_PINCHO_H_
 
+
+#include <cstdint>
+
 class Pinchos;
 class Time;
 class Zona;
@@ -8,7 +11,7 @@ class Zona;
 class Puerta_Pincho {
 public:
 
-	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z, Zona* _i_asociada_1, Zona* _i_asociada_2);
+	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z, Zona* _i_asociada_1, Zona* _i_asociada_2, uint8_t _i_pasillo_asociado);
 	virtual ~Puerta_Pincho();
     void update();
     void activar();
@@ -18,6 +21,8 @@ public:
     void comprobar_a_quien_danya();
 
 private:
+
+    uint8_t _pasillo_asociado;
     Pinchos* _pinchos;
     Zona* _zona_asociada1;
     Zona* _zona_asociada2;

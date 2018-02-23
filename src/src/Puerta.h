@@ -5,7 +5,7 @@
 
 class Puerta : public Objeto{
 public:
-	Puerta(short _i_id, float _i_x, float _i_y, float _i_z, bool _i_abierta);
+	Puerta(short _i_id, float _i_x, float _i_y, float _i_z, bool _i_abierta, uint16_t _i_id_pasillo_que_abre);
 	virtual ~Puerta();
     void update(){};
 	void render(){};
@@ -15,6 +15,7 @@ public:
 
 private:
 	bool _abierta;
+	uint8_t _id_pasillo_que_abre;
 };
 
 #endif /* PUERTA_H_ */

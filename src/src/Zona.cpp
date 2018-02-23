@@ -132,3 +132,7 @@ void Zona::iniciar_tiempo_conquista(){
 std::vector <Character*> Zona::get_characters(){
     return personajes_de_la_zona;
 }
+
+bool Zona::get_conquistando(){
+    return _conquistando;
+}

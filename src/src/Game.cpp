@@ -16,6 +16,7 @@
 #include "Menus/Menu_Pausa.h"
 #include "Zonas_Manager.h"
 #include "Interactuable_Manager.h"
+#include "Respawn.h"
 
 #include <iostream>
 #include <stack>
@@ -81,9 +82,6 @@ void Game::crea_partida() {
 	_input_jugador->asignar_teclas_partida();
 
 	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
-
-	_nivel->nivel_cerrar_pasillo(8);
-
 }
 
 void Game::fin_partida() {
@@ -102,6 +100,9 @@ void Game::fin_partida() {
 	_input_jugador->asignar_teclas_menu();
 
 	//_motor->vaciar_motor();
+	Respawn* pointer = Respawn::posiciones_instancia();
+	delete pointer;
+	//Respawn::posiciones_instancia()->eliminar_datos();
 }
 
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------

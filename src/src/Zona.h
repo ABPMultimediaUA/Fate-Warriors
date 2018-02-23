@@ -41,8 +41,9 @@ public:
 
     int _num_characters_equipo_A;
     int _num_characters_equipo_B;
-    
+
     bool hay_personajes_conquistando_esta_zona();
+    bool get_conquistando();
 
 private:
     btRigidBody *_rb;

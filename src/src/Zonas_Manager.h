@@ -24,12 +24,18 @@ public:
 	std::vector<Zona*> get_zonas_equipo_a();	
 	std::vector<Zona*> get_zonas_equipo_b();
 
+	std::vector<Zona*> get_zonas_equipo_a_no_siendo_conquistadas();
+	std::vector<Zona*> get_zonas_equipo_b_no_siendo_conquistadas();
+
 	
 private:
 	Zona** _zonas;
 
 	std::vector<Zona*> _zona_bando_a;
 	std::vector<Zona*> _zona_bando_b;
+	std::vector<Zona*> _zona_bando_a_no_sindo_conquistada;
+	std::vector<Zona*> _zona_bando_b_no_sindo_conquistada;
+
 
 	unsigned short _n_zonas;
 	uint8_t _equipoA;

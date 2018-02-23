@@ -10,7 +10,7 @@ Zonas_Manager::Zonas_Manager() {
 
     // tener xml con la informacion de todos los objetos
     
-	_n_zonas = 3;
+	_n_zonas = 4;
 	_zonas = new Zona*[_n_zonas];
 
     unsigned short _cont;
@@ -21,7 +21,8 @@ Zonas_Manager::Zonas_Manager() {
 	_zonas[1]  = new Zona(29.5*mult, 0*mult, 28.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B); //Zona 3
 	_zonas[2]  = new Zona(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);		//Zona 7
 	
-	/*_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);   //Zona 10
+	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);   //Zona 10
+	/*
 	_zonas[4]  = new Zona(38*mult, 0*mult, 104.5*mult,(20*mult)/2,(15*mult)/2, Enum_Equipo_A);	// Zona 22
 	_zonas[5]  = new Zona(34.5*mult, 0*mult, 74*mult,(25*mult)/2,(20*mult)/2, Enum_Equipo_A);	// Zona 16
 	_zonas[6]  = new Zona(72*mult, 0*mult, 42*mult,(25*mult)/2,(30*mult)/2, Enum_Equipo_A);	// Zona 32
@@ -65,19 +66,31 @@ void Zonas_Manager::actualizar_zonas(){
 
 	_zona_bando_a.clear();
 	_zona_bando_b.clear();
+	_zona_bando_a_no_sindo_conquistada.clear();
+	_zona_bando_b_no_sindo_conquistada.clear();
 
 	for(uint8_t zona=0; zona<_n_zonas; zona++){
 		_zonas[zona]->actualizar_zona();
 		
 		//Una vez actualizado de quien es la zona se registra su bando
 		Enum_Equipo equipo = _zonas[zona]->get_equipo();
+		bool conquistando = _zonas[zona]->get_conquistando();
 		if (equipo == Enum_Equipo_A){
 			_equipoA++;
 			_zona_bando_a.push_back(_zonas[zona]);
+
+			if(!conquistando){
+				_zona_bando_a_no_sindo_conquistada.push_back(_zonas[zona]);
+			}
+
 		}
 		else if (equipo == Enum_Equipo_B){
 			_equipoB++;
 			_zona_bando_b.push_back(_zonas[zona]);
+
+			if(!conquistando){
+				_zona_bando_b_no_sindo_conquistada.push_back(_zonas[zona]);
+			}
 		}
 
 	}
@@ -162,4 +175,13 @@ std::vector<Zona*> Zonas_Manager::get_zonas_equipo_a(){
 
 std::vector<Zona*> Zonas_Manager::get_zonas_equipo_b(){
 	return _zona_bando_b;
+}
+
+
+std::vector<Zona*> Zonas_Manager::get_zonas_equipo_a_no_siendo_conquistadas(){
+	return _zona_bando_a_no_sindo_conquistada;
+}
+
+std::vector<Zona*> Zonas_Manager::get_zonas_equipo_b_no_siendo_conquistadas(){
+	return _zona_bando_b_no_sindo_conquistada;
 }

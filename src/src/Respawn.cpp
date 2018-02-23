@@ -32,10 +32,7 @@ Respawn::Respawn(){
 
 
 Respawn::~Respawn(){
-  for (uint16_t i = 0; i<cantidad_de_posiciones; i++){
-    delete[] posiciones[i];
-  }
-  delete[] posiciones;
+    eliminar_datos();
 }
 
 
@@ -55,10 +52,16 @@ Vector2 Respawn::generar_posicion_del_bando(Enum_Equipo _i_bando){
 	std::vector<Zona*> zona_bando;
     
     if(_i_bando == Enum_Equipo_A){
-        zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_a();
+        zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_a_no_siendo_conquistadas();
+        if(zona_bando.size()==0){
+            zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_a();
+        }
     }
     else if (_i_bando == Enum_Equipo_B){
-        zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_b();
+        zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_b_no_siendo_conquistadas();
+        if(zona_bando.size()==0){
+            zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_b();
+        }
     }
 
     uint8_t posicion_al_azar;
@@ -73,7 +76,7 @@ void Respawn::comprobar_si_renace_y_renacer_personaje(Character* _i_personaje){
         _i_personaje->setPositionXZ(pos._x, pos._y);
         _i_personaje->restaurar_toda_la_vida();
         _i_personaje->setY(0);
-       // eliminar_character_a_reaparecer(_i_personaje);
+        eliminar_character_a_reaparecer(_i_personaje);
     }
 }
 
@@ -83,10 +86,23 @@ void Respawn::anyadir_character_y_tiempo_para_reaparecer(Character* _i_character
 void Respawn::eliminar_character_a_reaparecer(Character* _i_character){
     _character_a_reaparecer.erase (_i_character);
 }
+
+void Respawn::eliminar_datos(){
+    Respawn::instancia = 0;
+    vaciar_map();
+    eliminar_puntos();
+}
+
 void Respawn::vaciar_map(){
     _character_a_reaparecer.clear();
 }
 
+void Respawn::eliminar_puntos(){
+  for (uint16_t i = 0; i<cantidad_de_posiciones; i++){
+    delete[] posiciones[i];
+  }
+  delete[] posiciones;
 
+}
 
 

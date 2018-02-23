@@ -4,11 +4,13 @@
 #include "Interfaz/Objeto_Motor.h"
 #include "Datos_Partida.h"
 #include "Game.h"
+#include "Nivel/Nivel.h"
 
-Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z, Zona* _i_asociada_1, Zona* _i_asociada_2){
+Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z, Zona* _i_asociada_1, Zona* _i_asociada_2,  uint8_t _i_pasillo_asociado){
     _zona_asociada1 = _i_asociada_1;
     _zona_asociada2 = _i_asociada_2;
     _reloj = Time::Instance();
+    _pasillo_asociado = _i_pasillo_asociado;
 
     _pinchos = new Pinchos(0,_i_x, _i_y, _i_z);
     _activado = false;
@@ -22,11 +24,13 @@ void Puerta_Pincho::activar(){
     _activado = true;
     _tiempo_restante = _reloj->get_current() + 5000;
     _pinchos->get_objeto_motor()->setPositionY(0);
+    Nivel::nivel_instancia()->nivel_cerrar_pasillo(_pasillo_asociado);
 }
 
 void Puerta_Pincho::desactivar(){
     _activado = false;
     _pinchos->get_objeto_motor()->setPositionY(-20);
+    Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
 }
 
 bool Puerta_Pincho::comprobar_si_finalizo_el_tiempo(){
@@ -58,9 +62,9 @@ void Puerta_Pincho::comprobar_a_quien_danya(){
     Motor* motor = Motor::Motor_GetInstance();
     if(_pinchos->puede_quitar_vida()){
         for (uint16_t num_character=0; num_character<_num_characters; num_character++){
-        if(motor->comprobar_colision(_pinchos->get_objeto_motor()->getRigidBody(), todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
-                todos_personajes[num_character]->danyar(_pinchos->get_danyo());
-        }   
+            if(motor->comprobar_colision(_pinchos->get_objeto_motor()->getRigidBody(), todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
+                    todos_personajes[num_character]->danyar(_pinchos->get_danyo());
+            }   
         }
     }
 }
