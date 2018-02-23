@@ -11,8 +11,10 @@ class TLuz : public TEntidad{
         inline TColor getIntensidad();
         void beginDraw();
         void endDraw();
+        void setActiva(bool activa);
         
     private:
+        bool _activa;
         //TColor intensidad;
 };
 

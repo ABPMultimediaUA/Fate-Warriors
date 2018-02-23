@@ -18,6 +18,7 @@ public:
 	TNodo* get_mi_nodo();
 	void setID(uint16_t id);
 	uint16_t getID();
+	glm::mat4 get_matriz();
 
 private:
 	
