@@ -1,4 +1,5 @@
 #include "TMalla.h"
+#include "TRecursoMalla.h"
 #include <iostream>
 TMalla::TMalla(){
     _t_matriz = glm::mat4(1.0f);
@@ -11,7 +12,9 @@ void TMalla::beginDraw(){
 }
 
 void TMalla::draw(){
-    
+    for(std::vector<TRecursoMalla*>::iterator it = mallas.begin(); it != mallas.end(); it++){
+        (*it)->draw();
+    }
 }
 
 void TMalla::endDraw(){
