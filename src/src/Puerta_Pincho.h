@@ -4,26 +4,30 @@
 
 #include <cstdint>
 
+#include "Objeto.h"
+
 class Pinchos;
 class Time;
 class Zona;
 
-class Puerta_Pincho {
+class Puerta_Pincho  : public Objeto {
 public:
 
 	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z, Zona* _i_asociada_1, Zona* _i_asociada_2, uint8_t _i_pasillo_asociado);
-	virtual ~Puerta_Pincho();
+	~Puerta_Pincho();
     void update();
     void activar();
     void desactivar();
     bool comprobar_si_finalizo_el_tiempo();
     bool get_activado();
     void comprobar_a_quien_danya();
+    bool puede_quitar_vida();
+    void render(){}
 
 private:
 
     uint8_t _pasillo_asociado;
-    Pinchos* _pinchos;
+    double _siguiente_tiempo_hace_danyo;
     Zona* _zona_asociada1;
     Zona* _zona_asociada2;
     Time* _reloj;
