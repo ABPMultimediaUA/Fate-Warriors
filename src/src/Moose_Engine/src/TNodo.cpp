@@ -1,6 +1,5 @@
 #include "TNodo.h"
 
-#include <iterator>
 #include <algorithm>
 
 #include <iostream>

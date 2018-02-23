@@ -4,6 +4,7 @@
 #include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
 
+
 TGestorRecursos::TGestorRecursos(){}
 TGestorRecursos::~TGestorRecursos(){
     for(auto it = _recursos.begin(); it!=_recursos.end(); it++){ //itera por el vector eliminando
@@ -28,9 +29,9 @@ TRecurso* TGestorRecursos::getRecursoMalla(char* nombre){
     rec=getRecurso(nombre);
 
     if(rec==nullptr){
-        rec_aux = new TRecursoMalla();
+        /*rec_aux = new TRecursoMalla();
         rec_aux ->cargarFichero(nombre);
-        _recursos.push_back(rec_aux);
+        _recursos.push_back(rec_aux);*/
     }
     return rec_aux;
 }

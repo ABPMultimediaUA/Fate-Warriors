@@ -25,7 +25,7 @@ class TMooseEngine{
         TTransform* crearTransform();
         TCamara*    crearCamara();
         TLuz*       crearLuz();
-        TMalla*     crearMalla(char* fichero);
+        TMalla*     crearMalla(char* _i_path);
 
         void        drawLuces();
         void        drawCamaras();

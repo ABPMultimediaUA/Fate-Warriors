@@ -61,8 +61,8 @@ TLuz* TMooseEngine::crearLuz(){
     return luz;
 }
 
-TMalla* TMooseEngine::crearMalla(char* fichero){
-    TMalla* malla = new TMalla();
+TMalla* TMooseEngine::crearMalla(char* _i_path){
+    TMalla* malla = new TMalla(_i_path);
     //_gestorRecursos->getRecursoMalla(fichero);
     return malla;
 }

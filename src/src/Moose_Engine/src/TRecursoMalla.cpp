@@ -15,11 +15,11 @@ struct Vertex {
 };
 struct Texture {
     unsigned int id;
-    string type;
-    string path;
+    std::string type;
+    std::string path;
 };
 
-TRecursoMalla::TRecursoMalla(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures){
+TRecursoMalla::TRecursoMalla(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
         this->vertices = vertices;
         this->indices = indices;
         this->textures = textures;
@@ -27,7 +27,11 @@ TRecursoMalla::TRecursoMalla(vector<Vertex> vertices, vector<unsigned int> indic
         // now that we have all the required data, set the vertex buffers and its attribute pointers.
         Preparar_mesh();
 }
-TRecursoMalla::~TRecursoMalla(){}
+TRecursoMalla::~TRecursoMalla(){
+    vertices.clear();
+    indices.clear();
+    textures.clear();
+}
 
 char* TRecursoMalla::GetNombre(){
     
@@ -36,9 +40,9 @@ char* TRecursoMalla::GetNombre(){
 void TRecursoMalla::SetNombre(char* nombre){
     std::cout<<"Le pongo el nombre "<<nombre<<"\n";
 }
-void TRecursoMalla::draw(Shader shader){
-    // bind appropriate textures
-    unsigned int diffuseNr  = 1;
+void TRecursoMalla::draw(Shader *shader){
+    // bind appropriate textures 
+    /*unsigned int diffuseNr  = 1;
     unsigned int specularNr = 1;
     unsigned int normalNr   = 1;
     unsigned int heightNr   = 1;
@@ -60,7 +64,7 @@ void TRecursoMalla::draw(Shader shader){
         glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
         // and finally bind the texture
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
-    }
+    }*/
     
     // draw mesh
     glBindVertexArray(VAO);
@@ -69,7 +73,7 @@ void TRecursoMalla::draw(Shader shader){
     // always good practice to set everything back to defaults once configured.
     glActiveTexture(GL_TEXTURE0);
 }
-void Preparar_mesh(){
+void TRecursoMalla::Preparar_mesh(){
     // create buffers/arrays
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -102,7 +106,7 @@ void Preparar_mesh(){
     glBindVertexArray(0);
 }
 void TRecursoMalla::cargarFichero(char* nombre){
-    Assimp::Importer importer;
+    /*Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile( nombre,
     aiProcess_CalcTangentSpace      |
     aiProcess_Triangulate           |
@@ -122,7 +126,7 @@ void TRecursoMalla::cargarFichero(char* nombre){
         normales = mesh->mNormals[0][0];
         texturas = mesh->mTextureCoords[0][0][0];
         nTriangulos += mesh->mNumFaces;
-    }
+    }*/
     //DoTheSceneProcessing(scene);
    //ShaderSource* shad;
    //preparar un shader para esto

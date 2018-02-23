@@ -4,17 +4,17 @@
 #include <vector>
 class Vertex;
 class Texture;
-
+class Shader;
 class TRecursoMalla : public TRecurso{
 
 public:
-    TRecursoMalla();
+    TRecursoMalla(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     ~TRecursoMalla();
 
     char* GetNombre() override;
     void  SetNombre(char* nombre) override;
     void  cargarFichero(char* nombre);
-    void  draw();
+    void  draw(Shader *shader);
 
 private:
     std::vector<Vertex> vertices;

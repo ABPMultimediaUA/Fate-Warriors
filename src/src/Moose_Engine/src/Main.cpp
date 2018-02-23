@@ -6,6 +6,7 @@
 #include "TCamara.h"
 #include "TMalla.h"
 #include "TLuz.h"
+#include "Shader.h"
 #include <iostream>
 #include <glm/ext.hpp>
 #include <iostream>
@@ -21,6 +22,26 @@
 
 
 void recorrerArbol(){
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "MooseEngine", NULL, NULL);
+    
+    if (window == NULL){
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        exit(-1);
+    }
+    
+    glfwMakeContextCurrent(window);
+    //glViewport(0,0,1280,720);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        exit(-1);
+    }  
+    glEnable(GL_DEPTH_TEST);
+
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoMalla("Enemigo.obj");
     TMooseEngine* motor=new TMooseEngine();
@@ -49,6 +70,7 @@ void recorrerArbol(){
     TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
     TNodo* nodoCamara = motor->crearNodo(nodoTrans3, camara);
    
+    Shader shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
 
     TNodo* Escena=motor->nodoRaiz();
 
@@ -78,8 +100,36 @@ void recorrerArbol(){
     NCam->set_entidad(EntCam);
     NChasis->set_entidad(MallaChasis);*/
 
+while(!glfwWindowShouldClose(window)){
+            if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, true);
 
-    Escena->draw();
+
+
+
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+       shader.use();
+    
+    //Escena->draw();
+        // camera
+        //
+
+            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
+        glm::mat4 view(glm::lookAt(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,0.0f,-1.0f),glm::normalize(glm::cross(glm::normalize(glm::cross(glm::vec3(0.0f,0.0f,-1.0f),glm::vec3(0.0f, 1.0f, 0.0f))),glm::vec3(0.0f,0.0f,-1.0f)))));
+shader.setMat4("projection", projection);
+        shader.setMat4("view", view);
+
+        // render the loaded model
+        glm::mat4 model;
+        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
+        shader.setMat4("model", model);
+        malla1->draw(&shader);
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+
+}
     glm::mat4 algo=glm::mat4(1.0f);
     algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
     glm::mat4 algo2=glm::mat4(1.0f);
@@ -165,7 +215,7 @@ int dibujarOpenGL(){
 
     vShaderFile.exceptions(std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::badbit);
-    
+
     const GLchar* vertex_path = "Shaders/vertex_basic.glsl";
     const GLchar* fragment_path = "Shaders/fragment_basic.glsl";
 
@@ -251,6 +301,7 @@ int dibujarOpenGL(){
             glfwSetWindowShouldClose(window, true);
 
         //cosicas chulas
+
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         float timeValue = glfwGetTime();
@@ -266,13 +317,14 @@ int dibujarOpenGL(){
         //call events
         glfwSwapBuffers(window);
         glfwPollEvents();
+        
     }
 
     glfwTerminate();
     return 0;
 }
 
-void mainDeMierdaPalPutoFranEse(){
+void main_tamanyofloat(){
     float** algo[200][2];
    /* algo[0][0]=1.0f;
     algo[0][1]=2.0f;
@@ -286,6 +338,5 @@ void mainDeMierdaPalPutoFranEse(){
 int main(){
     //dibujarOpenGL();
     recorrerArbol();
-    //mainDeMierdaPalPutoFranEse();
     return 0;
 }
