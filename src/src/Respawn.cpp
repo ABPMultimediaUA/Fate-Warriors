@@ -64,10 +64,19 @@ Vector2 Respawn::generar_posicion_del_bando(Enum_Equipo _i_bando){
         }
     }
 
+    if(zona_bando.size()>0){
     uint8_t posicion_al_azar;
     posicion_al_azar=rand() % zona_bando.size();
 
-    return Vector2(zona_bando[posicion_al_azar]->getX(), zona_bando[posicion_al_azar]->getZ());
+    int8_t zona_al_azar_exactamente_x = (rand() % 50) - 25;
+    int8_t zona_al_azar_exactamente_z = (rand() % 50) - 25;
+
+
+    return Vector2(zona_bando[posicion_al_azar]->getX() + zona_al_azar_exactamente_x, zona_bando[posicion_al_azar]->getZ() + zona_al_azar_exactamente_z);
+    }
+    else{
+      return Vector2(0, 0);
+    }
 }
 
 void Respawn::comprobar_si_renace_y_renacer_personaje(Character* _i_personaje){

@@ -36,7 +36,7 @@ void Puerta_Pincho::activar(){
 
 void Puerta_Pincho::desactivar(){
     _activado = false;
-    setY(-5.5);
+    setY(-5.9);
     Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
 }
 
