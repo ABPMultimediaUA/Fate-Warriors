@@ -138,9 +138,9 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 			_trampas_action->update();
 
 			_motor->update(_i_tiempo_desde_ultimo_update);
-			_zonas_manager->actualizar_zonas();
 			_interactuable_manager->update_interruptores();
 			_decision_manager->toma_decisiones();
+			_zonas_manager->actualizar_zonas();
 
 			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
 				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
