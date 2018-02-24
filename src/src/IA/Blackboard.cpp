@@ -7,8 +7,13 @@
 #include "../Datos_Partida.h"
 #include "../Zonas_Manager.h"
 #include "../Zona.h"
+#include "../Inventario.h"
 #include "../Interfaz/Motor.h"
 #include "../Interfaz/Objeto_Motor.h"
+#include "../Armas/Armas_Manager.h"
+#include "../Armas/Arma.h"
+#include "../Consumibles/Consumible_Manager.h"
+#include "../Consumibles/Consumible.h"
 
 Blackboard::Blackboard(NPC * npc_padre) {
 
@@ -19,7 +24,7 @@ Blackboard::Blackboard(NPC * npc_padre) {
 
 
 	_enemigo_mas_cerca = nullptr;
-
+	_distancia_enemigo_mas_cerca = 10000000;
 
 	_zona_actual = nullptr;
 	_zona_mas_cerca = nullptr;
@@ -33,10 +38,15 @@ Blackboard::~Blackboard() {
 
 void Blackboard::actualiza_datos() {
 
-	_porcentaje_vida=100*(_npc_padre->get_vida_actual()/_npc_padre->get_vida_maxima());
+	//_porcentaje_vida=100*(_npc_padre->get_vida_actual()/_npc_padre->get_vida_maxima());
 
-	actualizar_zonas();
+	actualizar_zonas(); //actualizarlo cuando va por la rama izquierda
+
+	// Actualizar siempre:
+	actualizar_pseudo_azar();
+	actualizar_datos_npc_padre();
 	actualizar_characteres();
+	actualizar_objetos();
 	
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
@@ -84,17 +94,19 @@ void Blackboard::actualizar_characteres(){
 		}		
     }
 
+	_distancia_enemigo_mas_cerca = _distancia_enemigo_mas_cercano;
+
 	if(_distancia_enemigo_mas_cercano < 15){
-		_enemigo_mas_cerca_menos_de_30_metros = true;
+		_enemigo_mas_cerca_esta_cerca = true;
 	}
 	else
-		_enemigo_mas_cerca_menos_de_30_metros = false;
+		_enemigo_mas_cerca_esta_cerca = false;
 
 	if(_distancia_enemigo_mas_cercano < 6){
-		_enemigo_mas_cerca_menos_de_6_metros = true;
+		_enemigo_mas_cerca_esta_muy_cerca = true;
 	}
 	else
-		_enemigo_mas_cerca_menos_de_6_metros = false;
+		_enemigo_mas_cerca_esta_muy_cerca = false;
 
 }
 
@@ -154,3 +166,98 @@ void Blackboard::actualizar_zonas(){
 	_zona_aliada_mas_cerca = zona_aliada_mas_cerca_aux;
 
 }
+
+void Blackboard::actualizar_objetos(){
+
+	Objeto * objeto_mas_cerca_aux = nullptr;
+	float distancia_objeto_mas_cerca = 10000000000;
+
+	// Armas
+	std::vector<Arma*>* lista_armas = Game::game_instancia()->game_get_datos()->get_armas_manager()->get_armas();
+	int num_armas = (*lista_armas).size();
+
+	for (short i = 0; i < num_armas; i++) {
+    	float distancia_a_objeto = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), (*lista_armas)[i]->getX(), (*lista_armas)[i]->getZ());
+
+		if(distancia_a_objeto < distancia_objeto_mas_cerca){
+			distancia_objeto_mas_cerca = distancia_a_objeto;
+			objeto_mas_cerca_aux = (*lista_armas)[i];
+		}
+  	}
+
+	// Power-ups y consumibles
+	std::vector<Consumible*>* lista_consumibles = Game::game_instancia()->game_get_datos()->get_Consumible_Manager()->get_consumibles();
+	int num_consumibles = (*lista_consumibles).size();
+
+	for (short i = 0; i < num_consumibles; i++) {
+    	float distancia_a_objeto = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), (*lista_consumibles)[i]->getX(), (*lista_consumibles)[i]->getZ());
+
+		if(distancia_a_objeto < distancia_objeto_mas_cerca){
+			distancia_objeto_mas_cerca = distancia_a_objeto;
+			objeto_mas_cerca_aux = (*lista_consumibles)[i];
+		}
+  	}
+
+	if(distancia_objeto_mas_cerca <= _distancia_enemigo_mas_cerca){
+		_objeto_mas_cerca_que_enemigo_mas_cerca = true;
+	}
+	else{
+		_objeto_mas_cerca_que_enemigo_mas_cerca = false;
+	}
+
+	if(distancia_objeto_mas_cerca < 15){
+		_objeto_mas_cerca_esta_cerca = true;
+	}
+	else
+		_objeto_mas_cerca_esta_cerca = false;
+
+	if(distancia_objeto_mas_cerca < 1){
+		_objeto_mas_cerca_esta_muy_cerca = true;
+	}
+	else
+		_objeto_mas_cerca_esta_muy_cerca = false;
+
+}
+
+void Blackboard::actualizar_datos_npc_padre(){
+
+	Inventario * inventario = _npc_padre->get_inventario();
+
+	if(inventario->get_objeto_distancia() != nullptr){
+		_tengo_arma_larga_distancia = true;
+	}
+	else{
+		_tengo_arma_larga_distancia = false;
+	}
+
+	if(inventario->get_objeto_cerca() != nullptr){
+		_tengo_arma_corta_distancia = true;
+	}
+	else{
+		_tengo_arma_corta_distancia = false;
+	}
+}
+
+void Blackboard::equipar_arma_larga_distancia(){
+	_npc_padre->get_inventario()->seleccionar_arma_distancia();
+}
+
+void Blackboard::equipar_arma_corta_distancia(){
+	_npc_padre->get_inventario()->seleccionar_arma_cerca();
+}
+
+void Blackboard::actualizar_pseudo_azar(){
+	int x = _npc_padre->getX();
+	int z = _npc_padre->getZ();
+	
+	if(uint16_t(x+z)%2==0){
+		_ataque_a_realizar = Ataque_Normal;
+		_puedo_esquivar = true;
+	}
+	else{
+		_ataque_a_realizar = Ataque_Fuerte;
+		_puedo_esquivar = false;
+	}
+}
+
+
