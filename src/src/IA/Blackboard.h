@@ -24,6 +24,12 @@ public:
 	void actualiza_datos();									//Actualiza los datos del blackboard para cada iteracion
 	void actualizar_zonas();
 	void actualizar_characteres();
+	void actualizar_objetos();
+	void actualizar_datos_npc_padre();
+	void actualizar_pseudo_azar();
+
+	void equipar_arma_larga_distancia();
+	void equipar_arma_corta_distancia();
 
 	//FUNCIONES DE TOMA DE DECISION
 	void set_decision(enum Enum_Decisiones _i_decision);	//Set la decision actual
@@ -54,6 +60,10 @@ public:
 
 	// Datos de identidad del NPC
 	NPC * _npc_padre;
+	bool _tengo_arma_corta_distancia;
+	bool _tengo_arma_larga_distancia;
+	Enum_Tipo_Ataque _ataque_a_realizar; // Se lee en el Action Manager
+	bool _puedo_esquivar;
 	
 	// Datos de accion y decision propio de cada enemigo
 	enum Enum_Decisiones _decision;			// Decision actual 			(Controlado por Pablo)
@@ -65,16 +75,19 @@ public:
 	// Datos de estado
 	float _porcentaje_vida;					// Porcentaje vida actual (Se calcula en cada iteracion) DONE
 
-	// CHARACTER
+	// CHARACTER ENEMIGO
 
 	Character* _enemigo_mas_cerca;
-	bool _enemigo_mas_cerca_menos_de_30_metros;
-	bool _enemigo_mas_cerca_menos_de_6_metros;
+	float _distancia_enemigo_mas_cerca;
+	bool _enemigo_mas_cerca_esta_cerca;
+	bool _enemigo_mas_cerca_esta_muy_cerca;
 
-	// INTERATUABLES (ARMAS, POWER UPS, CONSUMIBLES)
+	// INTERACTUABLES (ARMAS, POWER UPS, CONSUMIBLES)
 
-	Objeto* _interactuable_mas_cerca; // Arma, power up o consumible 
-	bool _interactuable_mas_cerca_que_enemigo_mas_cerca;
+	Objeto* _objeto_mas_cerca; // Arma, power up o consumible 
+	bool _objeto_mas_cerca_que_enemigo_mas_cerca;
+	bool _objeto_mas_cerca_esta_cerca;
+	bool _objeto_mas_cerca_esta_muy_cerca;
 
 	// ZONAS
 
