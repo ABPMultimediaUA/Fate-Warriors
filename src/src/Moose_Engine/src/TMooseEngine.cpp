@@ -5,6 +5,7 @@
 #include "TLuz.h"
 #include "TMalla.h"
 #include "TGestorRecursos.h"
+#include "Shader.h"
 
 struct Mapeado{//declaracion de los parametros
     bool activa;
@@ -21,12 +22,15 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _mapping_camaras = new Mapeado[_n_camaras];
     _mapping_luces   = new Mapeado[_n_luces];
+    _shader = new Shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
+    
 }
 TMooseEngine::~TMooseEngine(){
     delete _escena;
     delete _gestorRecursos;
     delete _mapping_luces;
     delete _mapping_camaras;
+    delete _shader;
     _contadorIDEntidad=0;
 }
 
@@ -68,6 +72,9 @@ TMalla* TMooseEngine::crearMalla(char* _i_path){
 }
 
 void TMooseEngine::draw(){
+    _shader->use();
+    drawCamaras();
+    drawLuces();
     _escena->draw();
 }
 
@@ -108,6 +115,9 @@ void TMooseEngine::drawCamaras(){
                 pila_matriz_camara.pop();
             }
             matriz_view = glm::inverse(matriz_view);
+            _shader->setMat4("view", matriz_view);
+            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
+            _shader->setMat4("projection", projection);
         }
     }
 }

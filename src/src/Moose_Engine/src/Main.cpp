@@ -35,7 +35,7 @@ void recorrerArbol(){
     }
     
     glfwMakeContextCurrent(window);
-    //glViewport(0,0,1280,720);
+    
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(-1);
@@ -99,7 +99,7 @@ void recorrerArbol(){
     NLuz->set_entidad(EntLuz);
     NCam->set_entidad(EntCam);
     NChasis->set_entidad(MallaChasis);*/
-
+    glViewport(0,0,1280,720);
 while(!glfwWindowShouldClose(window)){
             if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(window, true);
@@ -107,25 +107,25 @@ while(!glfwWindowShouldClose(window)){
 
 
 
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-       shader.use();
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+       //shader.use();
     
     //Escena->draw();
         // camera
         //
 
-            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
+         /*   glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
         glm::mat4 view(glm::lookAt(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,0.0f,-1.0f),glm::normalize(glm::cross(glm::normalize(glm::cross(glm::vec3(0.0f,0.0f,-1.0f),glm::vec3(0.0f, 1.0f, 0.0f))),glm::vec3(0.0f,0.0f,-1.0f)))));
 shader.setMat4("projection", projection);
-        shader.setMat4("view", view);
+        shader.setMat4("view", view);*/
 
         // render the loaded model
-        glm::mat4 model;
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
+        glm::mat4 model=glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 1.75f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
         shader.setMat4("model", model);
-        malla1->draw(&shader);
+        Escena->draw();
         glfwSwapBuffers(window);
         glfwPollEvents();
 

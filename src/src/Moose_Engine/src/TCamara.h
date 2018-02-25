@@ -8,6 +8,7 @@ class TCamara : public TEntidad{
         ~TCamara();
         void setPerspectiva(float x, float y);
         void setParalela(float x, float y);
+        glm::mat4 getPerspectiva();
         void beginDraw();
         void endDraw();
         void setActiva(bool activa);

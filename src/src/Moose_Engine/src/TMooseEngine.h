@@ -11,6 +11,7 @@ class TCamara;
 class TLuz;
 class TMalla;
 class Mapeado;
+class Shader;
 
 
 class TMooseEngine{
@@ -45,7 +46,8 @@ class TMooseEngine{
         uint8_t _n_luces, _n_l_actual;
 
         glm::mat4 matriz_luz = glm::mat4(1.0f);
-        glm::mat4 matriz_view = glm::mat4(1.0f);        
+        glm::mat4 matriz_view = glm::mat4(1.0f);
+        Shader *_shader;        
         
         //atributos para camaras, luces y demás
 };
