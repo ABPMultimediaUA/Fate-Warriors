@@ -1,5 +1,18 @@
-11
+9
 
+- 0 Final Andar Atacar ND_11 0
+- 1 Final Atacar Atacar ND_5 0
+- 2 Final Atacar Esquivar ND_6 0
+- 3 Medio 1 2 ND_12 0
+- 4 Medio 0 3 ND_15 0
+- 5 Final Andar Interactuar ND_16 0
+- 6 Medio 4 5 ND_18 0
+- 7 Final Nada Nada ND_Distancia_Objetivo 0
+- 8 Medio 7 6 ND_19 0
+
+Fin
+
+11
 
 - 0 Final Andar Andar ND_23 0
 - 1 Final Nada Nada ND_Distancia_Objetivo 0
@@ -13,8 +26,8 @@
 - 9 Final Andar Atacar ND_Enemigo_Muy_Cerca 0
 - 10 Medio 8 9 ND_Enemigo_Cerca 0
 
+_____________________
 
-Fin
 
 #- 0 Final Atacar Andar   ND_Distancia_Objetivo 6
 #- 1 Final Nada Nada      ND_Distancia_Objetivo 1

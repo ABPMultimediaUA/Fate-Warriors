@@ -96,7 +96,7 @@ void Blackboard::actualizar_characteres(){
 
 	_distancia_enemigo_mas_cerca = _distancia_enemigo_mas_cercano;
 
-	if(_distancia_enemigo_mas_cercano < 15){
+	if(_distancia_enemigo_mas_cercano < 1000000){
 		_enemigo_mas_cerca_esta_cerca = true;
 	}
 	else
@@ -216,6 +216,8 @@ void Blackboard::actualizar_objetos(){
 	}
 	else
 		_objeto_mas_cerca_esta_muy_cerca = false;
+
+	_objeto_mas_cerca = objeto_mas_cerca_aux;
 
 }
 

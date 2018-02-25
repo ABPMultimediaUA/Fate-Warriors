@@ -27,7 +27,7 @@ Puerta_Pincho::~Puerta_Pincho() {
 
 void Puerta_Pincho::activar(){
     _activado = true;
-    _tiempo_restante = _reloj->get_current() + 5000;
+    _tiempo_restante = _reloj->get_current() + 60000;
     setY(6);
     Nivel::nivel_instancia()->nivel_cerrar_pasillo(_pasillo_asociado);
     comprobar_a_quien_danya();

@@ -77,7 +77,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				_i_npc->rotar_cuerpo(_nueva_direccion);
 				_i_npc->set_direccion_actual(_nueva_direccion);
 
-				_i_npc->atacar(Ataque_Normal);
+				_i_npc->atacar(_i_npc->get_blackboard()->_ataque_a_realizar);
 				}
 
 			break;
@@ -118,9 +118,8 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 		break;
 
 
-		case Decidir:
-			//_i_npc->stop();
-		//	std::cout << "El enemigo " << _n_enemigo << " decide" << std::endl;
+		case Accion_Interactuar:
+				_i_npc->intentar_recoger_arma();
 			break;
 		case Nada:
 			//_i_npc->stop();

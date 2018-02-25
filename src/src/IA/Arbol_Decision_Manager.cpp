@@ -29,7 +29,7 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
 	std::cout << "N nodos " << _n_nodos << "\n";
-	_arboles_decision[0] = _nodos_decision[10]; // Padre del arbol
+	_arboles_decision[0] = _nodos_decision[8]; // Padre del arbol
 
 }
 
@@ -68,16 +68,10 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 	MapeadoAccion mapping_enum_acciones[] = {	// Definicion de los parametros
 			{"Nada", &Arbol_Decision_Manager::get_nada},
-			{"Decidir", &Arbol_Decision_Manager::get_decidir},
 			{"Andar", &Arbol_Decision_Manager::get_andar},
 			{"Atacar", &Arbol_Decision_Manager::get_atacar},
-			{"Coger_Arma", &Arbol_Decision_Manager::get_coger_arma},
-			{"Usar_Arma", &Arbol_Decision_Manager::get_usar_arma},
-			{"Saltar", &Arbol_Decision_Manager::get_saltar},
-			{"Accionar", &Arbol_Decision_Manager::get_accionar},
-			{"Recibir_danyo", &Arbol_Decision_Manager::get_recibir_danyo},
-			{"Estar_derribado", &Arbol_Decision_Manager::get_estar_derribado},
-			{"Huir",  &Arbol_Decision_Manager::get_huir},
+			{"Esquivar", &Arbol_Decision_Manager::get_esquivar},
+			{"Interactuar", &Arbol_Decision_Manager::get_interactuar},
 			{0, &Arbol_Decision_Manager::get_error}
 	};
 
@@ -294,7 +288,11 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 // ------------------------------------- FUNCIONES CREACION CLASES NODOS -----------------------------//
 
-	void Arbol_Decision_Manager::crear_ND_23(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+
+
+
+
+	void Arbol_Decision_Manager::crear_ND_5(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -305,10 +303,12 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_23(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_5(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-	void Arbol_Decision_Manager::crear_ND_Enemigo_Cerca(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+	
+
+	void Arbol_Decision_Manager::crear_ND_6(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -319,10 +319,11 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_Enemigo_Cerca(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_6(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-	void Arbol_Decision_Manager::crear_ND_Enemigo_Muy_Cerca(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+
+	void Arbol_Decision_Manager::crear_ND_11(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -333,10 +334,11 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_Enemigo_Muy_Cerca(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_11(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-	void Arbol_Decision_Manager::crear_ND_Hay_Enemigos_En_Mi_Zona(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+
+	void Arbol_Decision_Manager::crear_ND_12(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -347,10 +349,11 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_Hay_Enemigos_En_Mi_Zona(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_12(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-	void Arbol_Decision_Manager::crear_ND_Situado_En_Zona_Aliada(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+
+	void Arbol_Decision_Manager::crear_ND_15(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -361,10 +364,11 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_Situado_En_Zona_Aliada(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_15(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-	void Arbol_Decision_Manager::crear_ND_Situado_En_Zona(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+
+	void Arbol_Decision_Manager::crear_ND_16(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -375,10 +379,11 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_Situado_En_Zona(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_16(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-	void Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Es_Enemiga(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+
+	void Arbol_Decision_Manager::crear_ND_18(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -389,10 +394,11 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_Zona_Mas_Cercana_Es_Enemiga(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_18(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-	void Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Siendo_Capturada(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+
+	void Arbol_Decision_Manager::crear_ND_19(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
 		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
 		float _valor;
 
@@ -403,15 +409,10 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		// Almacenamiento y procesado del valor
 		_valor = std::atof(_i_iteracion.c_str());
 
-		_nodos_decision[_i_id] = new ND_Zona_Mas_Cercana_Siendo_Capturada(*_i_izq, *_i_der, _valor); 
+		_nodos_decision[_i_id] = new ND_19(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
-
-
-
-
-
-
+	
 
 
 
@@ -495,14 +496,14 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 	};
 
 	MapeadoClaseNodo mapping_clase_nodo[] = {	// Definicion de los parametros
-			{"ND_23", &Arbol_Decision_Manager::crear_ND_23},
-			{"ND_Enemigo_Cerca", &Arbol_Decision_Manager::crear_ND_Enemigo_Cerca},
-			{"ND_Enemigo_Muy_Cerca", &Arbol_Decision_Manager::crear_ND_Enemigo_Muy_Cerca},
-			{"ND_Hay_Enemigos_En_Mi_Zona", &Arbol_Decision_Manager::crear_ND_Hay_Enemigos_En_Mi_Zona},
-			{"ND_Situado_En_Zona_Aliada", &Arbol_Decision_Manager::crear_ND_Situado_En_Zona_Aliada},
-			{"ND_Situado_En_Zona", &Arbol_Decision_Manager::crear_ND_Situado_En_Zona},
-			{"ND_Zona_Mas_Cercana_Es_Enemiga", &Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Es_Enemiga},
-			{"ND_Zona_Mas_Cercana_Siendo_Capturada", &Arbol_Decision_Manager::crear_ND_Zona_Mas_Cercana_Siendo_Capturada},
+			{"ND_5", &Arbol_Decision_Manager::crear_ND_5},
+			{"ND_6", &Arbol_Decision_Manager::crear_ND_6},
+			{"ND_11", &Arbol_Decision_Manager::crear_ND_11},
+			{"ND_12", &Arbol_Decision_Manager::crear_ND_12},
+			{"ND_15", &Arbol_Decision_Manager::crear_ND_15},
+			{"ND_16", &Arbol_Decision_Manager::crear_ND_16},
+			{"ND_18", &Arbol_Decision_Manager::crear_ND_18},
+			{"ND_19", &Arbol_Decision_Manager::crear_ND_19},
 
 			{"ND_Distancia_Objetivo", &Arbol_Decision_Manager::crear_nodo_distancia_objetivo},
 			{"ND_Set_Objetivo_Personaje_Enemigo_Cerca", &Arbol_Decision_Manager::crear_nodo_set_objetivo_personaje_enemigo_cerca},

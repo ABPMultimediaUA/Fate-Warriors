@@ -6,33 +6,11 @@
 #include <iostream>
 
 NPC_Manager::NPC_Manager() {
-	_n_npc = 22;
+	_n_npc = 1;
 
 	_npc = new NPC*[_n_npc];
 	_npc[0] = new NPC(0, 34*metro, 0, 34*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[1] = new NPC(0, 32*metro, 0, 29*metro, 1, .15, 1, 10, Enum_Equipo_A);
-
-	_npc[2] = new NPC(0, 34*metro, 0, 24*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[3] = new NPC(0, 34*metro, 0, 34*metro, 1, .15, 1, 10, Enum_Equipo_A);
-	_npc[4] = new NPC(0, 35*metro, 0, 35*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[5] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_A);
-
-	_npc[6] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_A);
-	_npc[7] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_A);
-	_npc[8] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_A);
-	_npc[9] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_A);
-	_npc[10] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[11] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[12] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[13] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[14] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[15] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[16] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[17] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[18] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[19] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[20] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_B);
-	_npc[21] = new NPC(0, 33*metro, 0, 33*metro, 1, .15, 1, 10, Enum_Equipo_A);
+	
 	
 }
 
