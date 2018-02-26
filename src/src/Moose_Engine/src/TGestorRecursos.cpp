@@ -85,7 +85,7 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
         return;
     }
     // coger el path
-    _path = path.substr(0, path.find_last_of('/'));
+    //_path = path.substr(0, path.find_last_of('/'));
     cargarNodo(scene->mRootNode, scene, _i_modelos);
 }
 

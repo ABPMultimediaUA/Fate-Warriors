@@ -68,6 +68,7 @@ void TRecursoMalla::draw(Shader *shader){
     
     // draw mesh
     glBindVertexArray(VAO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
     // always good practice to set everything back to defaults once configured.

@@ -32,6 +32,7 @@ TMooseEngine::~TMooseEngine(){
     delete _mapping_camaras;
     delete _shader;
     _contadorIDEntidad=0;
+
 }
 
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     

@@ -19,8 +19,8 @@ void TModelado::beginDraw(){
 }
 
 void TModelado::draw(Shader* _i_shader){
-    for(std::vector<TRecursoMalla>::iterator it = _mallas.begin(); it != _mallas.end(); it++){
-        (*it).draw(_i_shader);
+    for(std::vector<TRecursoMalla*>::iterator it = _mallas.begin(); it != _mallas.end(); it++){
+        (*it)->draw(_i_shader);
     }
 }
 
