@@ -16,8 +16,8 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	_n_llaves = 1;
 	_n_puertas = 1;
-	_n_interruptores = 6;
-	_n_puertas_pincho = 3;
+	_n_interruptores = 10;
+	_n_puertas_pincho = 5;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -65,6 +65,18 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_interruptores[4] = new Interruptor(0,20*mult,0,11.5*mult,_puertas_pincho[2],false,false, 500);
 	_interruptores[5] = new Interruptor(0,30*mult,0,21.5*mult,_puertas_pincho[2],false,false, 500);
 
+
+// CAMBIAR EL PARAMETRO DE _TODAS_LAS_ZONAS
+	_puertas_pincho[3] = new Puerta_Pincho(0,14.5*mult,0,71*mult, _todas_las_zonas[0], _todas_las_zonas[1],15);	//Entre la sala 10 y 16
+	_interruptores[6] = new Interruptor(0,17*mult,0,63.5*mult,_puertas_pincho[3],false,false, 500);
+	_interruptores[7] = new Interruptor(0,22.5*mult,0,71.5*mult,_puertas_pincho[3],false,false, 500);
+
+	_puertas_pincho[4] = new Puerta_Pincho(0,41.5*mult,0,90.5*mult, _todas_las_zonas[0], _todas_las_zonas[1],21);	//Entre la sala 22 y 16
+	_interruptores[8] = new Interruptor(0,46.5*mult,0,83.5*mult,_puertas_pincho[4],false,false, 500);
+	_interruptores[9] = new Interruptor(0,33.5*mult,0,96.5*mult,_puertas_pincho[4],false,false, 500);
+
+
+//	_interruptores[9] = new Interruptor(0,47.5*mult,0,98.5*mult,_puertas_pincho[4],false,false, 500);
 
 }
 

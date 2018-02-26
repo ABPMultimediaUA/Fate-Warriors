@@ -23,29 +23,42 @@ void Inventario::render(){
 
 void Inventario::crear_un_arma_al_azar_asignar_y_equipar(Armas_Manager* _armas_manager){
   _seleccionado = _armas_manager->anyadir_arma();
+  _seleccionado->set_ocupada(true);
+
   _seleccionado->setPositionXZ(999999,999999);
+
   
   if (dynamic_cast<Arma_cerca*>(_seleccionado) == NULL){
-    _objeto_distancia=dynamic_cast<Arma_distancia*>(_seleccionado);
+	 _objeto_distancia = (Arma_distancia*)_seleccionado;
     _arma = Tipo_Arma_distancia;
   }
   else{
-    _objeto_cerca=dynamic_cast<Arma_cerca*>(_seleccionado);
+	 _objeto_cerca = (Arma_cerca*)_seleccionado;
+	 //  _objeto_cerca=dynamic_cast<Arma_cerca*>(_seleccionado);
+
     _arma = Tipo_Arma_cerca;
   }
   
 }
 
 void Inventario::soltar_armas(float x, float z){ 
-  if(_objeto_distancia!=nullptr){ 
+
+  if(_objeto_distancia!=nullptr){
     _objeto_distancia->setPositionXZ(x,z); 
+	_objeto_distancia->set_ocupada(false);
     _objeto_distancia = nullptr; 
   } 
+
   if(_objeto_cerca!=nullptr){ 
-    _objeto_cerca->setPositionXZ(x,z); 
+   _objeto_cerca->setPositionXZ(x,z); 
+	_objeto_cerca->set_ocupada(false);
     _objeto_cerca = nullptr; 
   } 
   
+  if(_seleccionado != nullptr){
+	  _seleccionado->setPositionXZ(x,z); 
+  }
+
   	_seleccionado = nullptr;
     _arma = Tipo_Arma_cuerpo_a_cuerpo;
 
@@ -56,10 +69,8 @@ void Inventario::soltar_armas(float x, float z){
 
 Character* Inventario::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion){ 
 	Character* personaje = _seleccionado->usar(_i_objeto_origen,_i_direccion);
-
 	if(borrar_si_se_puede(_seleccionado) == true)
 		return 0;
-
 	return personaje;
 }
 
@@ -79,35 +90,48 @@ bool Inventario::borrar_si_se_puede(Arma * seleccionado_in){
 
 		_armas_manager->crear_todas_las_armas_que_faltan();
 		cambiar_arma_seleccionada_a_la_siguiente();
+
 		return true;
+
 	}
 	return false;
 }
 
 /*Metodos SET*/
 void Inventario::cambiar_objeto_cerca(Arma_cerca *_i_cerca){
-			Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
+	
+	if(_i_cerca->get_ocupada()==false){
 
-	if(_objeto_cerca!=nullptr){
-		//_objeto_cerca->set_borrar_true();
-		_armas_manager->borrar_arma(_objeto_cerca);
+		Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
+		if(_objeto_cerca!=nullptr){
+			//_objeto_cerca->set_borrar_true();
+			_armas_manager->borrar_arma(_objeto_cerca);
+		}
+			_armas_manager->crear_todas_las_armas_que_faltan();
+
+		_objeto_cerca = _i_cerca;
+		_seleccionado = _objeto_cerca;
+		_seleccionado->set_ocupada(true);
+		
 	}
-		_armas_manager->crear_todas_las_armas_que_faltan();
-
-	_objeto_cerca = _i_cerca;
-	_seleccionado = _objeto_cerca;
 }
 
 void Inventario::cambiar_objeto_distancia (Arma_distancia *_i_distancia){
-		Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
-	if(_objeto_distancia!=nullptr){
-		_armas_manager->borrar_arma(_objeto_distancia);
+	if(_i_distancia->get_ocupada()==false){
+			Armas_Manager* _armas_manager = Game::game_instancia()->game_get_datos()->get_armas_manager();
+		if(_objeto_distancia!=nullptr){
+			_armas_manager->borrar_arma(_objeto_distancia);
+
+		}
+
+		_armas_manager->crear_todas_las_armas_que_faltan();
+
+		_objeto_distancia = _i_distancia;
+		_seleccionado = _objeto_distancia;
+		_seleccionado->set_ocupada(true);
+
 	}
-
-   	_armas_manager->crear_todas_las_armas_que_faltan();
-
-	_objeto_distancia = _i_distancia;
-	_seleccionado = _objeto_distancia;
+	
 }
 
 void Inventario::cambiar_seleccionado(){

@@ -7,6 +7,7 @@ _nombre(_i_tipo),
 _frecuencia(_i_frecuencia),
 _danyo(_i_danyo),
  _rango(_i_rango),
+ _ocupada_por_character(false),
  _reloj(Time::Instance()){
  _tiempo_siguiente_disponible = 0;
  _impulso=15000;
@@ -52,4 +53,12 @@ uint8_t Arma::get_danyo(){
 
 uint16_t Arma::get_impulso(){
 	return _impulso;
+}
+
+void Arma::set_ocupada(bool _nuevo_Estado){
+	_ocupada_por_character = _nuevo_Estado;
+}
+
+bool Arma::get_ocupada(){
+	return _ocupada_por_character;
 }
