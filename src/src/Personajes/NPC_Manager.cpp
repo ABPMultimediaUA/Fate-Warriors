@@ -9,7 +9,7 @@ NPC_Manager::NPC_Manager() {
 	_n_npc = 1;
 
 	_npc = new NPC*[_n_npc];
-	_npc[0] = new NPC(0, 34*metro, 0, 34*metro, 1, .15, 1, 10, Enum_Equipo_B);
+	_npc[0] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
 	/*
 	_npc[1] = new NPC(0, 34*metro, 0, 34*metro, 1, .15, 1, 10, Enum_Equipo_A);
 	

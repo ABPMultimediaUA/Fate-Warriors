@@ -14,6 +14,9 @@
 #include "../Armas/Arma.h"
 #include "../Consumibles/Consumible_Manager.h"
 #include "../Consumibles/Consumible.h"
+#include "../Consumibles/Consumible_Agua.h"
+#include "../Consumibles/Consumible_Patata.h"
+#include "../Consumibles/Consumible_Carne.h"
 
 Blackboard::Blackboard(NPC * npc_padre) {
 
@@ -37,8 +40,6 @@ Blackboard::~Blackboard() {
 }
 
 void Blackboard::actualiza_datos() {
-
-	//_porcentaje_vida=100*(_npc_padre->get_vida_actual()/_npc_padre->get_vida_maxima());
 
 	actualizar_zonas(); //actualizarlo cuando va por la rama izquierda
 
@@ -190,11 +191,19 @@ void Blackboard::actualizar_objetos(){
 	int num_consumibles = (*lista_consumibles).size();
 
 	for (short i = 0; i < num_consumibles; i++) {
-    	float distancia_a_objeto = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), (*lista_consumibles)[i]->getX(), (*lista_consumibles)[i]->getZ());
+		if(dynamic_cast<Consumible_Agua*>((*lista_consumibles)[i]) == NULL){
 
-		if(distancia_a_objeto < distancia_objeto_mas_cerca){
-			distancia_objeto_mas_cerca = distancia_a_objeto;
-			objeto_mas_cerca_aux = (*lista_consumibles)[i];
+			if(dynamic_cast<Consumible_Patata*>((*lista_consumibles)[i]) != NULL && _porcentaje_vida > 90 ||
+				dynamic_cast<Consumible_Carne*>((*lista_consumibles)[i]) != NULL && _porcentaje_vida > 90){
+				break;
+			}
+
+			float distancia_a_objeto = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), (*lista_consumibles)[i]->getX(), (*lista_consumibles)[i]->getZ());
+
+			if(distancia_a_objeto < distancia_objeto_mas_cerca){
+				distancia_objeto_mas_cerca = distancia_a_objeto;
+				objeto_mas_cerca_aux = (*lista_consumibles)[i];
+			}
 		}
   	}
 
@@ -222,6 +231,8 @@ void Blackboard::actualizar_objetos(){
 }
 
 void Blackboard::actualizar_datos_npc_padre(){
+
+	_porcentaje_vida=100*(_npc_padre->get_vida_actual()/_npc_padre->get_vida_maxima());
 
 	Inventario * inventario = _npc_padre->get_inventario();
 
