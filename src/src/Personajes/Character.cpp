@@ -388,8 +388,8 @@ bool Character::intentar_recoger_arma() {
     for(uint8_t _i=0; _i<(*_armas).size(); _i++  ) {
         vec_cons	= (*_armas)[_i]->get_vector();
         if((*_armas)[_i]->get_ocupada()==false && comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_cons, 4)){
-            coger_arma((*_armas)[_i]);
             (*_armas)[_i]->setPositionXZ(99999,9999);
+            coger_arma((*_armas)[_i]);
           //  _motor->haz_desaparecer(_id_motor);
             return true;
         }
