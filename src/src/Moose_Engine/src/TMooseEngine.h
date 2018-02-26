@@ -9,7 +9,7 @@ class TEntidad;
 class TTransform;
 class TCamara;
 class TLuz;
-class TMalla;
+class TModelado;
 class Mapeado;
 class Shader;
 
@@ -26,7 +26,7 @@ class TMooseEngine{
         TTransform* crearTransform();
         TCamara*    crearCamara();
         TLuz*       crearLuz();
-        TMalla*     crearMalla(char* _i_path);
+        TModelado*     crearModelado(char* _i_path);
 
         void        drawLuces();
         void        drawCamaras();

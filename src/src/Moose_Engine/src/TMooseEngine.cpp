@@ -3,7 +3,7 @@
 #include "TTransform.h"
 #include "TCamara.h"
 #include "TLuz.h"
-#include "TMalla.h"
+#include "TModelado.h"
 #include "TGestorRecursos.h"
 #include "Shader.h"
 
@@ -65,8 +65,8 @@ TLuz* TMooseEngine::crearLuz(){
     return luz;
 }
 
-TMalla* TMooseEngine::crearMalla(char* _i_path){
-    TMalla* malla = new TMalla(_i_path);
+TModelado* TMooseEngine::crearModelado(char* _i_path){
+    TModelado* malla = new TModelado(_i_path);
     //_gestorRecursos->getRecursoMalla(fichero);
     return malla;
 }

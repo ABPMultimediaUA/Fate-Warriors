@@ -4,7 +4,7 @@
 #include "TRecursoMalla.h"
 #include "TTransform.h"
 #include "TCamara.h"
-#include "TMalla.h"
+#include "TModelado.h"
 #include "TLuz.h"
 #include "Shader.h"
 #include <iostream>
@@ -27,14 +27,16 @@ void recorrerArbol(){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     GLFWwindow* window = glfwCreateWindow(1280, 720, "MooseEngine", NULL, NULL);
-    
+   
+
     if (window == NULL){
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         exit(-1);
     }
-    
+
     glfwMakeContextCurrent(window);
+   
     
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to initialize GLAD" << std::endl;
