@@ -73,8 +73,8 @@ void Decision_Manager::toma_decisiones(){
 
 		if(_npcs[_cont]->get_vida_actual()>0){
 			// Se actualizan los datos del blackboard
-			_blackboards[_cont]->actualiza_datos();
 			_npcs[_cont]->gestion_acciones();
+			_blackboards[_cont]->actualiza_datos();
 
 			//std::cout << "accion" <<_npcs[_cont]->get_accion() << "\n";
 			// Recoge el Level of Detail actual
