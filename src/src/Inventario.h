@@ -33,6 +33,10 @@ public:
 	enum Tipo_Arma seleccionar_arma_distancia();
 	enum Tipo_Arma seleccionar_arma_cerca();
 	enum Tipo_Arma seleccionar_cuerpo_a_cuerpo();
+
+	void seleccionar_arma_distancia_NPC();
+	void seleccionar_arma_cerca_NPC();
+
 	enum Tipo_Arma get_tipo_arma();
     
     void anadir_llave(Llave* _i_llave);

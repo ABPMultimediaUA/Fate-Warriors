@@ -241,11 +241,11 @@ void Blackboard::actualizar_datos_npc_padre(){
 }
 
 void Blackboard::equipar_arma_larga_distancia(){
-	_npc_padre->get_inventario()->seleccionar_arma_distancia();
+	_npc_padre->get_inventario()->seleccionar_arma_distancia_NPC();
 }
 
 void Blackboard::equipar_arma_corta_distancia(){
-	_npc_padre->get_inventario()->seleccionar_arma_cerca();
+	_npc_padre->get_inventario()->seleccionar_arma_cerca_NPC();
 }
 
 void Blackboard::actualizar_pseudo_azar(){
