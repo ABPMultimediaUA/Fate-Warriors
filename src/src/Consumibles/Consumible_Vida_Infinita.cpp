@@ -35,6 +35,7 @@ bool Consumible_Vida_Infinita::usar(Character* _i_personaje){
             _personaje=_i_personaje;
             _personaje->activar_inmunidad_a_danyos();
           _personaje->anyadir_power_up(this);
+            setY(-50);
         }
     }
 	return false;	

@@ -23,6 +23,7 @@ void Inventario::render(){
 
 void Inventario::crear_un_arma_al_azar_asignar_y_equipar(Armas_Manager* _armas_manager){
   _seleccionado = _armas_manager->anyadir_arma();
+  _seleccionado->setPositionXZ(999999,999999);
   
   if (dynamic_cast<Arma_cerca*>(_seleccionado) == NULL){
     _objeto_distancia=dynamic_cast<Arma_distancia*>(_seleccionado);

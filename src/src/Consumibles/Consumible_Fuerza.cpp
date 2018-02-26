@@ -35,6 +35,8 @@ bool Consumible_Fuerza::usar(Character* _i_personaje){
             _personaje=_i_personaje;
             _personaje->aumentar_danyo_ataque_fuerte(50);
             _personaje->anyadir_power_up(this);
+            setY(-50);
+
         }
     }
 	return false;	
