@@ -12,7 +12,7 @@ class TModelado : public TEntidad{
         TModelado(const char* path);
         ~TModelado();
         void cargarMalla(const char* path);
-        void draw(Shader *_i_shader);
+        void draw();
         void beginDraw();
         void endDraw();
         

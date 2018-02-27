@@ -40,7 +40,7 @@ char* TRecursoMalla::GetNombre(){
 void TRecursoMalla::SetNombre(char* nombre){
     std::cout<<"Le pongo el nombre "<<nombre<<"\n";
 }
-void TRecursoMalla::draw(Shader *shader){
+void TRecursoMalla::draw(){
     // bind appropriate textures 
     /*unsigned int diffuseNr  = 1;
     unsigned int specularNr = 1;

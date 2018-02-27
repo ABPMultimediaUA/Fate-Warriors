@@ -14,7 +14,7 @@ public:
     char* GetNombre() override;
     void  SetNombre(char* nombre) override;
     void  cargarFichero(char* nombre);
-    void  draw(Shader *shader);
+    void  draw();
 
 private:
     std::vector<Vertex> vertices;
