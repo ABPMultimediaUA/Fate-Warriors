@@ -88,6 +88,10 @@ void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad,
 
 /*Rango muy corto 20 normal 40 y largo 80*/
 Character* Objeto_Motor::disparar(Objeto_Motor* _i_objeto_origen,uint16_t _i_direccion, uint8_t _i_rango_disparo){
+
+
+    _i_direccion = _i_direccion + (rand() % 10) - 5;
+
 	desp_z = cos(_i_direccion*std::acos(-1)/180);
     desp_x = sin(_i_direccion*std::acos(-1)/180);
 	

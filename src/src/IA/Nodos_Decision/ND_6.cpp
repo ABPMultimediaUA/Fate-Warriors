@@ -18,10 +18,10 @@ enum Enum_Acciones ND_6::toma_decision(Blackboard* _blackboard){
     //std::cout <<"Entra ND_6\n";
 	if( _blackboard->_puedo_esquivar == true) { // TRUE, es 1
         // Esquivar
-        std::cout <<"_tengo_arma_corta_distancia\n";
+        //std::cout <<"_tengo_arma_corta_distancia\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
 	// Atacar
-    std::cout <<"NO _tengo_arma_corta_distancia\n";
+    //std::cout <<"NO _tengo_arma_corta_distancia\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

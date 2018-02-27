@@ -34,9 +34,9 @@ Consumible_Manager::Consumible_Manager() {
     _consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*52));
     _consumibles.push_back( new Consumible_Agua(5,mult*6, mult*0, mult*50));
     _consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*50));
-
-    _consumibles.push_back( new Consumible_Fuerza(5,mult*6, mult*0, mult*52));
 */
+    _consumibles.push_back( new Consumible_Fuerza(5,mult*6, mult*0, mult*52));
+
 
     numero_max = 2;
 

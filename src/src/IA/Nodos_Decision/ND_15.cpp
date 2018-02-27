@@ -16,10 +16,10 @@ enum Enum_Acciones ND_15::toma_decision(Blackboard* _blackboard){
 
     //std::cout <<"Entra ND_15\n";
 	if(_blackboard->_enemigo_mas_cerca_esta_muy_cerca == true) { // TRUE, es 1
-        std::cout <<"_enemigo_mas_cerca_esta_muy_cerca\n";
+        //std::cout <<"_enemigo_mas_cerca_esta_muy_cerca\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
 
-    std::cout <<"_enemigo_mas_cerca_ NO esta_muy_cerca\n";
+    //std::cout <<"_enemigo_mas_cerca_ NO esta_muy_cerca\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

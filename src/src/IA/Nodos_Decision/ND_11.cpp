@@ -20,7 +20,7 @@ enum Enum_Acciones ND_11::toma_decision(Blackboard* _blackboard){
 		// Equipar arma larga distancia y atacar normal
 		_blackboard->equipar_arma_larga_distancia();
 		_blackboard->_ataque_a_realizar = Ataque_Normal;
-        std::cout <<"_tengo_arma_larga_distancia\n";
+        //std::cout <<"_tengo_arma_larga_distancia\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
 	// Seguir a enemigo mas cerca
@@ -28,6 +28,6 @@ enum Enum_Acciones ND_11::toma_decision(Blackboard* _blackboard){
 
     _blackboard->objetivo_x = enemigo->getX();
 	_blackboard->objetivo_y = enemigo->getZ();
-    std::cout <<"NO _tengo_arma_larga_distancia\n";
+    //std::cout <<"NO _tengo_arma_larga_distancia\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

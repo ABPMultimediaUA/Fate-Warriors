@@ -79,6 +79,7 @@ public:
 
 	// Gestion de acciones
 	void impulso_danyar(Character * atacante, Character * atacado, int impulso);
+	void impulso_ataque(int impulso);
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);
 	uint8_t get_danyo_ataque(Enum_Tipo_Ataque tipo_ataque);
 	int get_impulso_danyar(Enum_Tipo_Ataque tipo_ataque);

@@ -20,10 +20,10 @@ enum Enum_Acciones ND_5::toma_decision(Blackboard* _blackboard){
         // Equipar arma corta distancia y atacar normal
 		_blackboard->equipar_arma_corta_distancia();
 		_blackboard->_ataque_a_realizar = Ataque_Normal;
-        std::cout <<"_tengo_arma_corta_distancia\n";
+        //std::cout <<"_tengo_arma_corta_distancia\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
 	// Atacar
-    std::cout <<"NO _tengo_arma_corta_distancia\n";
+    //std::cout <<"NO _tengo_arma_corta_distancia\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }
