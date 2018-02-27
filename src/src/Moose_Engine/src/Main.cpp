@@ -22,27 +22,7 @@
 
 
 void recorrerArbol(){
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "MooseEngine", NULL, NULL);
-   
-
-    if (window == NULL){
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        exit(-1);
-    }
-
-    glfwMakeContextCurrent(window);
-   
     
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        exit(-1);
-    }  
-    glEnable(GL_DEPTH_TEST);
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoMalla("Enemigo.obj");
@@ -101,16 +81,9 @@ void recorrerArbol(){
     NLuz->set_entidad(EntLuz);
     NCam->set_entidad(EntCam);
     NChasis->set_entidad(MallaChasis);*/
-    glViewport(0,0,1280,720);
-while(!glfwWindowShouldClose(window)){
-            if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, true);
 
+while(!motor->ventana_abierta()){
 
-
-
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
        //shader.use();
     
     //Escena->draw();
@@ -127,9 +100,8 @@ shader.setMat4("projection", projection);
         model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
         shader.setMat4("model", model);
-        Escena->draw();
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        motor->draw();
+
 
 }
     glm::mat4 algo=glm::mat4(1.0f);
@@ -144,7 +116,7 @@ shader.setMat4("projection", projection);
     motor->setCamaraActiva(nCamara);
     int nLuz=motor->registrarLuz(nodoLuz);
     motor->setLuzActiva(nLuz);*/
-        glfwTerminate();
+
 
 }
 
@@ -162,7 +134,7 @@ float vertices[] = {
 
 unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
-  //  1, 2, 3    // second triangle
+    1, 2, 3    // second triangle
 };  
 
 int dibujarOpenGL(){
@@ -203,12 +175,13 @@ int dibujarOpenGL(){
 
 
     glViewport(0, 0, 1280, 720);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // 3. then set our vertex attributes pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);  
-
+    glVertexAttribPointer(1,3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     //leer los programas vertex y fragment shader
     std::ifstream vShaderFile;
@@ -219,8 +192,8 @@ int dibujarOpenGL(){
     vShaderFile.exceptions(std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::badbit);
 
-    const GLchar* vertex_path = "Shaders/vertex_basic.glsl";
-    const GLchar* fragment_path = "Shaders/fragment_basic.glsl";
+    const GLchar* vertex_path = "Shaders/vertex_prueba.glsl";
+    const GLchar* fragment_path = "Shaders/fragment_prueba.glsl";
 
 
 
@@ -296,15 +269,14 @@ int dibujarOpenGL(){
 
 
 
+    //TMooseEngine* motor=new TMooseEngine();
     
-
     while(!glfwWindowShouldClose(window)){
         //input
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(window, true);
-
-        //cosicas chulas
-
+        //motor->draw();
+        //cosicas chulas    
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         float timeValue = glfwGetTime();

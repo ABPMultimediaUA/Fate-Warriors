@@ -20,6 +20,14 @@ struct Texture {
     std::string type;
     std::string path;
 };
+TGestorRecursos* TGestorRecursos::_instancia = 0;
+
+TGestorRecursos* TGestorRecursos::get_instancia(){
+    if(_instancia == 0){
+        _instancia= new TGestorRecursos();
+    }
+    return _instancia;
+}
 TGestorRecursos::TGestorRecursos(){}
 TGestorRecursos::~TGestorRecursos(){
     for(auto it = _recursos.begin(); it!=_recursos.end(); it++){ //itera por el vector eliminando

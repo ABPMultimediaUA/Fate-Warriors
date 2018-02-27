@@ -13,6 +13,7 @@ class aiNode;
 class TGestorRecursos {
 
 public:
+    static TGestorRecursos* get_instancia();
     TGestorRecursos();
     ~TGestorRecursos();
     TRecurso* getRecursoMalla(char* nombre, std::vector<TRecursoMalla*> &_i_modelos);	
@@ -23,7 +24,7 @@ public:
     TRecursoMalla* cargarMalla(aiMesh *mesh, const aiScene *scene);		
 private:
 	std::vector<TRecurso*> _recursos;
-    
+    static TGestorRecursos* _instancia;
     TRecurso* getRecurso(char* nombre);
 };
 

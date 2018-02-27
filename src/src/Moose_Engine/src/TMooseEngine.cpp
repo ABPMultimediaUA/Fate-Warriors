@@ -6,23 +6,28 @@
 #include "TModelado.h"
 #include "TGestorRecursos.h"
 #include "Shader.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 struct Mapeado{//declaracion de los parametros
     bool activa;
     TNodo* nodo;
 };
 TMooseEngine::TMooseEngine(){
+    init_opengl();
     uint16_t _contadorIDEntidad = 0;
     _n_camaras=2;
     _n_c_actual=0;
     _n_l_actual=0;
     _n_luces=0;
-    _gestorRecursos = new TGestorRecursos();
+    _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
     _mapping_camaras = new Mapeado[_n_camaras];
     _mapping_luces   = new Mapeado[_n_luces];
-    _shader = new Shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
+    _shader = new Shader("Shaders/vertex_prueba.glsl", "Shaders/fragment_prueba.glsl");
+
     
 }
 TMooseEngine::~TMooseEngine(){
@@ -32,9 +37,34 @@ TMooseEngine::~TMooseEngine(){
     delete _mapping_camaras;
     delete _shader;
     _contadorIDEntidad=0;
+    glfwTerminate();
 
 }
+void TMooseEngine::init_opengl(){
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    window = glfwCreateWindow(1280, 720, "MooseEngine", NULL, NULL);
+   
 
+    if (window == NULL){
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        exit(-1);
+    }
+
+    glfwMakeContextCurrent(window);
+   
+    
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        exit(-1);
+    }  
+    //glEnable(GL_DEPTH_TEST);
+    glViewport(0,0,1280,720);
+
+}
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
     TNodo* nodo = new TNodo(_contadorIDEntidad,padre);
     nodo->set_entidad(ent);
@@ -71,12 +101,20 @@ TModelado* TMooseEngine::crearModelado(char* _i_path){
     //_gestorRecursos->getRecursoMalla(fichero);
     return malla;
 }
-
+void TMooseEngine::clear(){
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    glfwSetWindowShouldClose(window, true);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
 void TMooseEngine::draw(){
+    clear();
     _shader->use();
     drawCamaras();
     drawLuces();
     _escena->draw();
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void TMooseEngine::drawLuces(){
@@ -121,4 +159,7 @@ void TMooseEngine::drawCamaras(){
             _shader->setMat4("projection", projection);
         }
     }
+}
+bool TMooseEngine::ventana_abierta(){
+    return glfwWindowShouldClose(window);
 }

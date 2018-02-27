@@ -12,6 +12,7 @@ class TLuz;
 class TModelado;
 class Mapeado;
 class Shader;
+class GLFWwindow;
 
 
 class TMooseEngine{
@@ -35,6 +36,7 @@ class TMooseEngine{
             return _escena;
         }
         void draw();
+        bool ventana_abierta();
 
     private:
         Mapeado *_mapping_camaras;
@@ -47,7 +49,12 @@ class TMooseEngine{
 
         glm::mat4 matriz_luz = glm::mat4(1.0f);
         glm::mat4 matriz_view = glm::mat4(1.0f);
+        GLFWwindow* window;
         Shader *_shader;        
+
+
+        void init_opengl();
+        void clear();
         
         //atributos para camaras, luces y demás
 };
