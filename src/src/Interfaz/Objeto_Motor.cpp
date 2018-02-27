@@ -127,6 +127,10 @@ void Objeto_Motor::saltar(){
 
 void Objeto_Motor::Dash(uint16_t _i_direccion){
 	short potencia = 6000;
+	Impulso(_i_direccion, potencia);
+}
+
+void Objeto_Motor::Impulso(uint16_t _i_direccion, uint16_t potencia){
 	Motor* _motor = Motor::Motor_GetInstance();
     //float angulo = _motor->angulo_camaraRAD();
 	

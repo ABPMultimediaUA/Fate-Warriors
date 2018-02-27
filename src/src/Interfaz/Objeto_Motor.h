@@ -36,6 +36,7 @@ public:
       Character* disparar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion, uint8_t _i_rango_disparo);
       void Dash(uint16_t _i_direccion);
       void Impulso_explosion(Vector3 vector);
+      void Impulso(uint16_t _i_direccion, uint16_t potencia);
       void saltar();
 
       void colorear_nodo(short r,short g, short b);

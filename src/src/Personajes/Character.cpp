@@ -429,20 +429,6 @@ void Character::impulso_danyar(Character * atacante, Character * atacado, int im
 
 }
 
-void Character::impulso_ataque(int impulso){
-
-    float x = std::asin(_direccion_actual); 
-    float y = std::acos(_direccion_actual); 
-
-    Vector2 direccion_impulso(x,y);
-    direccion_impulso.Normalize();
-
-    //borrar 2
-
-    Vector3 a(direccion_impulso._x*impulso,0,direccion_impulso._y*impulso);
-    get_objeto_motor()->Impulso_explosion(a);
-
-}
 
 int Character::getTiempoAccion(Enum_Acciones _accion){
 
@@ -817,7 +803,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 arma->decrementar_usos();
                 _inventario->borrar_si_se_puede(arma);
             }
-            impulso_ataque(1000);
+            _objeto_motor->Impulso(_direccion_actual, 3000);
         }
         else if(tipo_arma == Tipo_Arma_distancia){
             Character * atacado = _inventario->usar(_objeto_motor, _direccion_actual);
