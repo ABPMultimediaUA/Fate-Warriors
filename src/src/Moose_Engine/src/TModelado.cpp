@@ -15,12 +15,13 @@ TModelado::~TModelado(){
     _mallas.clear();
 }
 void TModelado::beginDraw(){
+    draw();
     std::cout<<"ID ------"<<_ID<<"\n";
 }
 
-void TModelado::draw(Shader* _i_shader){
+void TModelado::draw(){
     for(std::vector<TRecursoMalla*>::iterator it = _mallas.begin(); it != _mallas.end(); it++){
-        (*it)->draw(_i_shader);
+        (*it)->draw();
     }
 }
 
