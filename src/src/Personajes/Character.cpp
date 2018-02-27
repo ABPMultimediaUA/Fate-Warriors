@@ -437,7 +437,7 @@ void Character::impulso_ataque(int impulso){
     Vector2 direccion_impulso(x,y);
     direccion_impulso.Normalize();
 
-    //borrar
+    //borrar 2
 
     Vector3 a(direccion_impulso._x*impulso,0,direccion_impulso._y*impulso);
     get_objeto_motor()->Impulso_explosion(a);
