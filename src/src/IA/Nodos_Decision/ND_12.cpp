@@ -17,10 +17,10 @@ enum Enum_Acciones ND_12::toma_decision(Blackboard* _blackboard){
 
     //std::cout <<"Entra ND_12\n";
 	if( _blackboard->_enemigo_mas_cerca->get_accion() == Accion_pre_atacar) { // TRUE, es 1
-        std::cout <<"enemigo Accion_pre_atacar\n";
+        //std::cout <<"enemigo Accion_pre_atacar\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
 	
-    std::cout <<"NO enemigo Accion_pre_atacar\n";
+    //std::cout <<"NO enemigo Accion_pre_atacar\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }
