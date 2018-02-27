@@ -139,7 +139,7 @@ void Player::modificar_vida_en(short _i_vida){
 	if(_vida+_i_vida>_vida_maxima){
         _vida=_vida_maxima;
     }
-    else if(_vida + _i_vida < 0){
+    else if(_vida + _i_vida <= 0){
         morir();
     }
     else{

@@ -2,7 +2,6 @@
 #include "../Tiempo/Time.h"
 #include "Pinchos.h"
 #include "Minas.h"
-#include "Charcos_electrificados.h"
 
 // CONSTRUCTOR
 
@@ -14,7 +13,7 @@ Trampas_manager::Trampas_manager() {
     std::cout << "Minas 1\n";
   _minas   = new Minas*[_n_minas];
     std::cout << "Minas 2\n";
-  _minas[0] = new Minas(6,15*mult, 0, 60*mult);
+  _minas[0] = new Minas(6,29*mult, 0, 28*mult);
     std::cout << "Minas 3\n";
  
   /*for(unsigned short _cont=0; _cont<_n_minas; _cont++) {
@@ -24,17 +23,6 @@ Trampas_manager::Trampas_manager() {
   //_minas[1] = new Minas(6,mult*25,0,mult*56);
   //_minas[2] = new Minas(6,mult*96,0,mult*0);
  
-    std::cout << "Charcos 0\n";
-  _n_charcos = 1;
-    std::cout << "Charcos 1\n";
-  _charcos = new Charcos_electrificados*[_n_charcos];
-    std::cout << "Charcos 2\n";
-  _charcos[0] = new Charcos_electrificados(0,10*mult, 0, 60*mult);
-    std::cout << "Charcos 3\n";
- 
-  /*for(unsigned short _cont=0; _cont<_n_charcos; _cont++) {
-    _charcos[_cont] = new Charcos_electrificados(0,mult*15,0,mult*15);
-  }*/
 
 
     std::cout << "Pinchos 0\n";
@@ -58,11 +46,6 @@ Trampas_manager::~Trampas_manager(){
 		delete _minas[_cont];
 	}
 	delete [] _minas;
-
-	for(unsigned short _cont=0; _cont<_n_charcos; _cont++) {
-		delete _charcos[_cont];
-	}
-	delete [] _charcos;
 
 	for(unsigned short _cont=0; _cont<_n_pinchos; _cont++) {
 		delete _pinchos[_cont];
@@ -98,10 +81,6 @@ unsigned short Trampas_manager::get_n_trampas_mina(){
     return _n_minas;
 }
 
-unsigned short Trampas_manager::get_n_trampas_charco(){
-    return _n_charcos;
-}
-
 unsigned short Trampas_manager::get_n_trampas_pincho(){
     return _n_pinchos;
 }
@@ -114,6 +93,3 @@ Pinchos** Trampas_manager::get_trampas_pinchos(){
     return _pinchos;
 }
 
-Charcos_electrificados** Trampas_manager::get_trampas_charco(){
-    return _charcos;
-}

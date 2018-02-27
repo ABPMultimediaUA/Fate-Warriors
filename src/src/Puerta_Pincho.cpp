@@ -67,7 +67,8 @@ void Puerta_Pincho::comprobar_a_quien_danya(){
     Motor* motor = Motor::Motor_GetInstance();
 
     for (uint16_t num_character=0; num_character<_num_characters; num_character++){
-        if(motor->comprobar_colision(_objeto_motor->getRigidBody(), todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
+        if(todos_personajes[num_character]->get_vida_actual()>0 && 
+            motor->comprobar_colision(_objeto_motor->getRigidBody(), todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
                 todos_personajes[num_character]->danyar(900);
         }   
     }

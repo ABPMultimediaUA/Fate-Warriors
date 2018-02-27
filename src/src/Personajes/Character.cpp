@@ -80,7 +80,7 @@ void Character::modificar_vida_en(short _i_vida){
 	if(_vida+_i_vida>_vida_maxima){
         _vida=_vida_maxima;
     }
-    else if(_vida + _i_vida < 0){
+    else if(_vida + _i_vida <= 0){
         morir();
     }
     else{
@@ -784,7 +784,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
             bool golpea = false;
 
             for(_cont = 0; _cont < _num_characters; _cont++) {
-                if( _characters[_cont]->get_equipo() != _equipo &&
+                if( _characters[_cont]->get_vida_actual()>0 && _characters[_cont]->get_equipo() != _equipo &&
                     Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true)
                 {
                     _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));

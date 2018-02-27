@@ -85,7 +85,7 @@ void Blackboard::actualizar_characteres(){
 	float _distancia_enemigo_mas_cercano = 10000000000;
 
 	for (uint16_t cont=0; cont < num_characters; cont++){
-		if(characters[cont]->get_equipo() != _npc_padre->get_equipo())
+		if(characters[cont]->get_vida_actual()>0 && characters[cont]->get_equipo() != _npc_padre->get_equipo())
 		{
 			float _distancia = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), characters[cont]->getX(), characters[cont]->getZ());
 			if(_distancia < _distancia_enemigo_mas_cercano){

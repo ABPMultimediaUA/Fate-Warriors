@@ -32,7 +32,7 @@ enum Enum_Acciones ND_Set_Objetivo_Personaje_Enemigo_Cerca::toma_decision(Blackb
 	_num_characters = Game::game_instancia()->game_get_datos()->get_num_characters();
 
 	for(_cont = 0; _cont < _num_characters; _cont++) {
-		if( _characters[_cont]->get_equipo() != _equipo)
+		if( _characters[_cont]->get_vida_actual()>0 && _characters[_cont]->get_equipo() != _equipo)
 		{
 			float _distancia = lib_math_distancia_2_puntos(x1, y1, _characters[_cont]->getX(), _characters[_cont]->getZ());
 			if(_distancia < _distancia_enemigo_mas_cercano){
