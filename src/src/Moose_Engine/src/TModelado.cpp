@@ -29,6 +29,9 @@ void TModelado::endDraw(){
     std::cout<<"termino dibujar "<<_ID<<"\n";    
 }
 void TModelado::leerModelado(std::string &path){
+    TGestorRecursos* gRec = TGestorRecursos::get_instancia();
+    gRec->cargarModelo(path, _mallas);
+    
     /*
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);

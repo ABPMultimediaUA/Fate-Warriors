@@ -34,7 +34,7 @@ void recorrerArbol(){
 
 	TLuz* luz =motor->crearLuz();
     TCamara* camara=motor->crearCamara();
-    char cstr[50] = "Enemigo.obj";
+    char cstr[50] = "Carne.obj";
     char* cstr2  = cstr;
     TModelado* malla1 = motor->crearModelado(cstr2);
 
