@@ -14,12 +14,13 @@ TModelado::TModelado(const char* path){
 TModelado::~TModelado(){
     _mallas.clear();
 }
-void TModelado::beginDraw(){
-    draw();
+void TModelado::beginDraw(Shader* _i_shader){
+    draw(_i_shader);
     std::cout<<"ID ------"<<_ID<<"\n";
 }
 
-void TModelado::draw(){
+void TModelado::draw(Shader* _i_shader){
+    _i_shader->setMat4("model", matriz);
     for(std::vector<TRecursoMalla*>::iterator it = _mallas.begin(); it != _mallas.end(); it++){
         (*it)->draw();
     }

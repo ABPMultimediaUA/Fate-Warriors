@@ -8,6 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 #include <cstdint>
+class Shader;
 
 class TNodo{
     public:
@@ -23,7 +24,7 @@ class TNodo{
         void agrega_hijo(TNodo* hijo);
         void agrega_hijo(TEntidad* entidad);
 
-        void draw();
+        void draw(Shader* _i_shader);
 
         TEntidad* get_entidad();
         void set_entidad(TEntidad* entidad);

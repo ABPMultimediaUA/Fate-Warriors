@@ -4,6 +4,7 @@
 #include <glm/ext.hpp>
 #include <stack>
 class TNodo;
+class Shader;
 
 class TEntidad {
 
@@ -11,7 +12,7 @@ public:
 	TEntidad();
 	virtual ~TEntidad();
 
-	virtual void beginDraw() = 0;
+	virtual void beginDraw(Shader* _i_shader) = 0;
 	virtual void endDraw() = 0;
 
 	void set_mi_nodo(TNodo* nodo);

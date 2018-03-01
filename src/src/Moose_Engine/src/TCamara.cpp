@@ -5,7 +5,7 @@ TCamara::TCamara(){
       
 }
 TCamara::~TCamara(){}
-void TCamara::beginDraw(){
+void TCamara::beginDraw(Shader* _i_shader){
     std::cout<<"ID ------"<<_ID<<"\n";
 }
 void TCamara::endDraw(){

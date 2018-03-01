@@ -32,15 +32,15 @@ void recorrerArbol(){
 	TTransform* trans2=motor->crearTransform();
 	TTransform* trans3=motor->crearTransform();
 
-	TLuz* luz =motor->crearLuz();
-    TCamara* camara=motor->crearCamara();
+	TLuz* luz = motor->crearLuz();
+    TCamara* camara = motor->crearCamara();
     char cstr[50] = "Carne.obj";
     char* cstr2  = cstr;
     TModelado* malla1 = motor->crearModelado(cstr2);
 
     trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(0,0,-300);
-    trans3->escalar(10,10,0);
+    trans3->trasladar(30,0,30);
     trans2->escalar(5,5,5);
 
 
@@ -97,8 +97,8 @@ shader.setMat4("projection", projection);
 
         // render the loaded model
         glm::mat4 model=glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 50.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
         shader.setMat4("model", model);
         motor->draw();
 

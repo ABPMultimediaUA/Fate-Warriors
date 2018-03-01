@@ -6,7 +6,7 @@ TTransform::TTransform(){
 }
 TTransform::~TTransform(){}
 
-void TTransform::beginDraw(){
+void TTransform::beginDraw(Shader* _i_shader){
     pila_matrices.push(matriz);
     matriz = matriz * _t_matriz;  //MULTIPLICACION DE MATRIZ
     std::cout<<"ID ------"<<_ID<<"matrix:   "<<glm::to_string(_t_matriz)<<"\n";

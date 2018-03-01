@@ -59,17 +59,17 @@ uint16_t TNodo::get_entidad_id(){
     return _entidadID;
 }
 
-void TNodo::draw(){
+void TNodo::draw(Shader* _i_shader){
             if(_entidad != nullptr){
-                _entidad->beginDraw();
+                _entidad->beginDraw(_i_shader);
                 for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
-                    (*it)->draw();
+                    (*it)->draw(_i_shader);
                 }
                 _entidad->endDraw();
             }else{
                 std::cout<<"entra";
                 for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
-                    (*it)->draw();
+                    (*it)->draw(_i_shader);
                 }
             }
 }

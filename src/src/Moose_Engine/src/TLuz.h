@@ -9,7 +9,7 @@ class TLuz : public TEntidad{
         ~TLuz();
         inline void seIntensidad(TColor color);
         inline TColor getIntensidad();
-        void beginDraw();
+        void beginDraw(Shader* _i_shader) override;
         void endDraw();
         void setActiva(bool activa);
         

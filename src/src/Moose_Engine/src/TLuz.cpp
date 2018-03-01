@@ -3,7 +3,7 @@
 
 TLuz::TLuz(){}
 TLuz::~TLuz(){}
-void TLuz::beginDraw(){
+void TLuz::beginDraw(Shader* _i_shader){
 
     std::cout<<"ID ------"<<_ID<<"\n";
 }

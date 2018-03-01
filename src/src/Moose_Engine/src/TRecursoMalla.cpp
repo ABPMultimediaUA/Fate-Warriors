@@ -67,6 +67,7 @@ void TRecursoMalla::draw(){
     }*/
     
     // draw mesh
+    //_i_shader->setMat4("model", model);
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

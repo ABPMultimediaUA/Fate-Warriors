@@ -27,7 +27,6 @@ TMooseEngine::TMooseEngine(){
     _mapping_camaras = new Mapeado[_n_camaras];
     _mapping_luces   = new Mapeado[_n_luces];
     _shader = new Shader("Shaders/vertex_prueba.glsl", "Shaders/fragment_prueba.glsl");
-
     
 }
 TMooseEngine::~TMooseEngine(){
@@ -105,14 +104,15 @@ void TMooseEngine::clear(){
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(
+        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void TMooseEngine::draw(){
     clear();
     _shader->use();
     drawCamaras();
     drawLuces();
-    _escena->draw();
+    _escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
 }

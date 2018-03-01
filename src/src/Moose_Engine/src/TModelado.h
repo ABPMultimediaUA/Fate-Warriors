@@ -12,8 +12,8 @@ class TModelado : public TEntidad{
         TModelado(const char* path);
         ~TModelado();
         void cargarMalla(const char* path);
-        void draw();
-        void beginDraw();
+        void draw(Shader* _i_shader);
+        void beginDraw(Shader* _i_shader) override;
         void endDraw();
         
     private:

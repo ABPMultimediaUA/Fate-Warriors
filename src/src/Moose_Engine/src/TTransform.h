@@ -15,7 +15,7 @@ class TTransform : public TEntidad{
         void rotar(float _i_x, float _i_y, float _i_z, float _i_w);
         void escalar(float _i_x, float _i_y, float _i_z);
 
-        void beginDraw();
+        void beginDraw(Shader* _i_shader) override;
         void endDraw();
     
     private:
