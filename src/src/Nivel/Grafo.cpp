@@ -189,9 +189,12 @@ void Grafo::inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_id){
 
 		
 		Arista *_nueva = new Arista;
-		//std::cout <<_i_origen->get_ancho()/metro << " ANCHO/ALTOFDHSBNFGUYBFDASYFBDASUIVD " <<_i_origen->get_alto()/metro << std::endl;
-		_nueva->set_peso(lib_math_distancia_2_puntos(_i_origen->get_coord_x()+(_i_origen->get_ancho()/2),_i_origen->get_coord_y()+(_i_origen->get_alto()/2),_i_destino->get_coord_x()+(_i_destino->get_ancho()/2),_i_destino->get_coord_y()+(_i_destino->get_alto()/2)));
-		_nueva->set_sig(nullptr);
+		if(_i_origen->get_tipo_vertice()!=Vertice_Vertice){
+			//std::cout <<_i_origen->get_ancho()/metro << " ANCHO/ALTOFDHSBNFGUYBFDASYFBDASUIVD " <<_i_origen->get_alto()/metro << std::endl;
+			_nueva->set_peso(lib_math_distancia_2_puntos(_i_origen->get_coord_x()+(_i_origen->get_ancho()/2),_i_origen->get_coord_y()+(_i_origen->get_alto()/2),_i_destino->get_coord_x()+(_i_destino->get_ancho()/2),_i_destino->get_coord_y()+(_i_destino->get_alto()/2)));
+		}else{
+			_nueva->set_peso(lib_math_distancia_2_puntos(_i_origen->get_coord_x(),_i_origen->get_coord_y(),_i_destino->get_coord_x(),_i_destino->get_coord_y()));
+		}_nueva->set_sig(nullptr);
 		_nueva->set_ady(nullptr);
 		_nueva->set_id(_i_id);
 
@@ -307,17 +310,20 @@ uint16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i
 	//comprobar que esta dentro del nivel
 	if(origen==nullptr||destino==nullptr){
 		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
-		return angulo;			//MANU WAS HERE BOIII
+		return angulo;
 	}
 	if(origen->get_lod()<=lod_max&&destino->get_lod()<=lod_max){
 		if(origen->get_lod()==1&&destino->get_lod()<=1){
 			return grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino->get_id());
 		}else{
+			
 			destino=grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
-			grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen,destino->get_id());
+			std::cout << (int)origen->get_lod() << "-------------------------" << (int)destino->get_lod() << std::endl;
+			return grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen,destino->get_id());
 		}
 		
 	}else{
+		
 		destino=grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
 		_i_xorigen=destino->get_lod1()->get_h()->get_coord_x();
 		_i_yorigen=destino->get_lod1()->get_h()->get_coord_y();
@@ -422,16 +428,16 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	unsigned short angulo;
 
 	Motor* motor = Motor::Motor_GetInstance();
-	Vector3 inicio(_i_xorigen,2,_i_yorigen);
-	Vector3 fin(_i_xdestino,2,_i_ydestino);
+	Vector3 inicio(_i_xorigen,8,_i_yorigen);
+	Vector3 fin(_i_xdestino,8,_i_ydestino);
 	
-	/*if(motor->x_ve_a_y(inicio,fin, ray_colisiona_con)){
+	if(motor->x_ve_a_y(inicio,fin, ray_colisiona_con)){
 		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen,_i_xdestino,_i_ydestino);
 
 		std::cout << "p:" << angulo << std::endl;
 		return angulo;
 	}
-	*/
+	
 
 	int id_aux, aux;
 	float distancia,distancia2,direccion;
@@ -458,7 +464,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 			while(aux<4000 && !flag){
 				aux+=1000;
 				if(aux==verticeaux->get_id()){
-					
+					std::cout<<"flag";
 					vertice_destino=verticeaux;
 					flag=true;//cuando se activa el flag se terminan los bucles y no vuelve a buscar el vertice destino
 				}
@@ -477,6 +483,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 
 				aux-=1000;
 			}
+			std::cout <<"Primer angulo: "<< angulo << std::endl;
 			return angulo;
 		}
 		
@@ -508,7 +515,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	}
 	if(vertice_origen->get_id()==vertice_destino->get_id()){//caso de que no se encuentren los nodos
 		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
-		
+		std::cout << "ERRORdbikvrgvbiuw" << std::endl;
 		return angulo;
 	}
 	else{
@@ -571,13 +578,14 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		
 		//360 y 0 es lo mismo, derechas
 		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->get_coord_x(), verticeaux->get_coord_y());
+		std::cout <<"Segundo angulo: "<< angulo << "origenx: " << _i_xorigen/metro << "origeny: " << _i_yorigen/metro  << "destinox: " << _i_xdestino/metro << "destinoy: " << _i_ydestino/metro  << "destino id: "<<verticeaux->get_id()<<"destino peso: "<<verticeaux->get_peso()+verticeaux->get_peso_tactico()<< std::endl;
 		//std::cout<<"angulo:" << angulo << "x_o:"<< _i_xorigen/metro << "y_o:"<< _i_yorigen/metro << "x_aux:"<< verticeaux->get_coord_x()/metro << "y_aux:"<<  verticeaux->get_coord_y()/metro << std::endl;
 		return angulo;
 		//return lib_math_angulo_2_puntos(verticeaux->get_coord_x(),verticeaux->get_coord_y(),_i_xorigen,_i_yorigen);
 	}
 
 
-
+    std::cout <<"ERROR 2" << std::endl;
 	return 361;
 }
 void Grafo::actualiza_NPC(){
