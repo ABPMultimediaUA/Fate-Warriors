@@ -133,7 +133,7 @@ void Player::update(){
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
     }
     else{
-        std::cout<<"sigo muerto" << std::endl;
+        //std::cout<<"sigo muerto" << std::endl;
         Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
     }
 

@@ -10,11 +10,10 @@ Puerta::Puerta(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacio
 
    // _id_motor = _motor->crear_objeto(E_BoundingBox, cstr, _i_x, _i_y, _i_z, 9999999);
     _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
-   _objeto_motor->rotar_nodo(_i_rotacion);
-
-    //if(!_i_abierta)
-      //  Nivel::nivel_instancia()->nivel_cerrar_pasillo(_id_pasillo_que_abre);
-
+    
+    if(!_i_abierta){
+        //Nivel::nivel_instancia()->nivel_cerrar_pasillo(_id_pasillo_que_abre);
+    }
 }
 
 void Puerta::set_abierta(bool _i_abierta){

@@ -221,7 +221,7 @@ void Inventario::cambiar_arma_seleccionada_a_la_siguiente(){
 	if (_seleccionado==nullptr && _arma!=Tipo_Arma_cuerpo_a_cuerpo){
 		cambiar_arma_seleccionada_a_la_siguiente();
 	}
-	std::cout << "valor arma SIGUIENTE " << _arma;
+	//std::cout << "valor arma SIGUIENTE " << _arma;
 }
 
 void Inventario::cambiar_arma_seleccionada_a_la_anterior(){
@@ -243,32 +243,32 @@ void Inventario::cambiar_arma_seleccionada_a_la_anterior(){
 
 enum Tipo_Arma Inventario::seleccionar_arma_distancia(){
 	_seleccionado = _objeto_distancia;
-	std::cout << "Ahora tengo arma distancia\n";
+	//std::cout << "Ahora tengo arma distancia\n";
 	return Tipo_Arma_distancia;
 }
 
 enum Tipo_Arma Inventario::seleccionar_arma_cerca(){
 	_seleccionado = _objeto_cerca;
-	std::cout << "Ahora tengo arma cerca\n";
+	//std::cout << "Ahora tengo arma cerca\n";
 	return Tipo_Arma_cerca;
 }
 
 enum Tipo_Arma Inventario::seleccionar_cuerpo_a_cuerpo(){
 	_seleccionado = nullptr;
-	std::cout << "Ahora cuerpo a cuerpo\n";
+	//std::cout << "Ahora cuerpo a cuerpo\n";
 	return Tipo_Arma_cuerpo_a_cuerpo;
 }
 
 void Inventario::seleccionar_arma_distancia_NPC(){
 	_seleccionado = _objeto_distancia;
-	std::cout << "Ahora tengo arma distancia\n";
+	//std::cout << "Ahora tengo arma distancia\n";
 	_arma = Tipo_Arma_distancia;
 }
 
 void Inventario::seleccionar_arma_cerca_NPC(){
 	_seleccionado = _objeto_cerca;
 	_arma = Tipo_Arma_cerca;
-	std::cout << "Ahora tengo arma cerca\n";
+	//std::cout << "Ahora tengo arma cerca\n";
 }
 
 
