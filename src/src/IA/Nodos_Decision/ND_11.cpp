@@ -16,7 +16,7 @@ ND_11::~ND_11() {
 enum Enum_Acciones ND_11::toma_decision(Blackboard* _blackboard){
 
     //std::cout <<"Entra ND_11\n";
-	if(_blackboard->_tengo_arma_larga_distancia == true) { // TRUE, es 1
+	if(_blackboard->_tengo_arma_larga_distancia == true && _blackboard->_enemigo_mas_cerca_esta_cerca == true) { // TRUE, es 1
 		// Equipar arma larga distancia y atacar normal
 		_blackboard->equipar_arma_larga_distancia();
 		_blackboard->_ataque_a_realizar = Ataque_Normal;
