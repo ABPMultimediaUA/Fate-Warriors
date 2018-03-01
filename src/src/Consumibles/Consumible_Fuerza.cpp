@@ -27,7 +27,7 @@ bool Consumible_Fuerza::usar(Character* _i_personaje){
             std::cout << "YO SOY EL " << this << std::endl;
           return true;
         }
-        std::cout << _personaje->get_danyo_ataque_fuerte()<< "pupa que hace\n";
+        //std::cout << _personaje->get_danyo_ataque_fuerte()<< "pupa que hace\n";
     }
     else{
         if(comprobar_colision(_i_personaje)){

@@ -81,12 +81,12 @@ void Zona::actualizar_zona(){
             }
 
             if(_conquistando){
-                std::cout << _tiempo_restante_conquista - (_reloj->get_current() - _tiempo_inicio_conquista) << " conquistando.... \n";
+                //std::cout << _tiempo_restante_conquista - (_reloj->get_current() - _tiempo_inicio_conquista) << " conquistando.... \n";
             }
 
             //Si se esta conquistando debe comprobar si ha pasado el tiempo necesario de conquista
             if(_reloj->get_current() >_tiempo_inicio_conquista+_tiempo_restante_conquista){
-                std::cout<< " conquistado!!!!'------------------------------------------ \n";
+                //std::cout<< " conquistado!!!!'------------------------------------------ \n";
                 _tiempo_restante_conquista = 0;
                 cambiar_bando();
             }

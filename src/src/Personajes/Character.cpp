@@ -94,7 +94,7 @@ void Character::danyar_comun(short _danyo){
         _vida = _vida - _danyo;
 
         if(_accion == Accion_pre_atacar){
-            std::cout << "Ataque cortado" << std::endl;
+            //std::cout << "Ataque cortado" << std::endl;
         }
 
         set_accion(Recibir_danyo);
@@ -324,7 +324,7 @@ bool Character::interactuar_con_objeto(){
 
 void Character::morir(){
     //float mult = 4.9212625;
-    std::cout << "He muerto :("<< std::endl;
+    //std::cout << "He muerto :("<< std::endl;
     _inventario->soltar_armas(getX(), getZ()); 
 
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
@@ -372,11 +372,11 @@ bool Character::accion_en_curso(){
 
 void Character::coger_arma(Arma* _arma){
     if(dynamic_cast<Arma_cerca*>(_arma) == NULL) {
-        std::cout << "No es un arma cerca (es arma distancia)\n";
+        //std::cout << "No es un arma cerca (es arma distancia)\n";
         _inventario->cambiar_objeto_distancia(static_cast<Arma_distancia*>(_arma));
     }
     else {
-        std::cout << "Es un arma cerca\n";
+        //std::cout << "Es un arma cerca\n";
          //_inventario->cambiar_objeto_cerca(_arma);
         _inventario->cambiar_objeto_cerca(static_cast<Arma_cerca*>(_arma));
     }
@@ -510,7 +510,7 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
                     return 200;
                 }
                 else{
-                    std::cout<< "No debe entrar 3 \n";
+                    //std::cout<< "No debe entrar 3 \n";
                     return 200;
                 }
                     
@@ -683,7 +683,7 @@ btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
         }
     }
     else{
-        std::cout<< "Escala RB ATAQUE default" <<std::endl;
+        //std::cout<< "Escala RB ATAQUE default" <<std::endl;
         return btVector3(5,1,5);
     }
 }
@@ -727,7 +727,7 @@ void Character::gestion_recibir_danyado(){
 
 void Character::gestion_dash(){
     if(get_accion() == Accion_Dash){
-        std::cout << "ESQUIVANDO" << std::endl;
+        //std::cout << "ESQUIVANDO" << std::endl;
         _objeto_motor->Dash(_direccion_actual);
         //_objeto_objeto_motor->colorear_nodo(0,255,0);
         //_objeto_motor->colorear_nodo(0,255,0);
