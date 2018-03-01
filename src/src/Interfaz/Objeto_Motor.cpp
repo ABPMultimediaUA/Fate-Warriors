@@ -60,6 +60,7 @@ void Objeto_Motor::setPositionY(float y){
 	btTransform btt; 
 	_rigidbody->getMotionState()->getWorldTransform(btt);
 	btt.setOrigin(btVector3(btt.getOrigin().getX(),y,btt.getOrigin().getZ())); // move body to the scene node new position
+	btt.setRotation(_rigidbody->getOrientation());
 
 	_rigidbody->getMotionState()->setWorldTransform(btt);
 	_rigidbody->setCenterOfMassTransform(btt);
@@ -250,7 +251,7 @@ btVector3 Objeto_Motor::get_posicion_rb(){
 
 void Objeto_Motor::rotar_nodo(uint16_t rotacion){
 	float mult = 4.9212625;
-	btScalar gTilt = (rotacion*SIMD_PI) / (180.0f); 
+	btScalar gTilt = rotacion*SIMD_PI / 180.0f; 
 	btTransform rbTransform;
 
 	// Rotacion
@@ -260,10 +261,10 @@ void Objeto_Motor::rotar_nodo(uint16_t rotacion){
 	incline.setRotation(btVector3(0, 1, 0), gTilt);
 	rbTransform.setRotation(incline);
 	_rigidbody->setWorldTransform(rbTransform);
-/*
+
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	_nodo->setPosition(vector3df(pos[0], pos[1], pos[2]));
-	*/
+	
 	_interpolacion->actualiza_direccion(rotacion);
 
 }

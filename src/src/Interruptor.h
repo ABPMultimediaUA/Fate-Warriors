@@ -8,7 +8,7 @@ class Time;
 
 class Interruptor : public Objeto{
 public:
-	Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, Puerta_Pincho* _i_objeto_asociado,
+	Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacion, Puerta_Pincho* _i_objeto_asociado,
 			bool _i_es_generador, bool _i_activado, double _i_temporizador);
 	virtual ~Interruptor();
 
