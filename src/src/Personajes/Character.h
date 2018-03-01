@@ -3,6 +3,7 @@
 
 #include "../Objeto_Movil.h"
 #include "../IA/Enum_Acciones.h"
+
 #include "Enum_Tipo_Ataque.h"
 
 class Interfaz;
@@ -54,7 +55,7 @@ public:
 	bool interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
 	void morir();
-	void restaurar_toda_la_vida();
+	void revivir(Vector2 pos);
 	Enum_Acciones get_accion();
 	Enum_Tipo_Ataque get_tipo_ataque();
 	void saltar();
