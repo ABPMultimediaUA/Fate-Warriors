@@ -8,7 +8,7 @@
 #include "Consumible_Power_Up.h"
 #include "Consumible_Fuerza.h"
 #include "Consumible_Vida_Infinita.h"
-#include "../Nivel/Nivel.h"
+#include "../Respawn.h"
 #include "../Tiempo/Time.h"
 #include "Enum_Tipo_Consumible.h"
 
@@ -40,15 +40,6 @@ Consumible_Manager::Consumible_Manager() {
 
     numero_max = 2;
 
-    Nivel* _nivel = Nivel::nivel_instancia();
-
-    _nivel->nivel_get_numero_posiciones_spawn(cantidad_de_posiciones);
-    posiciones = new float*[cantidad_de_posiciones];
-    
-    for(short i=0; i<cantidad_de_posiciones; i++){
-         posiciones[i] = new float[2];
-    }
-    _nivel->nivel_get_posiciones_spawn(posiciones);
 
     _reloj = Time::Instance();     
     _tiempo_ultimo_creado = _reloj->get_current();  
@@ -65,11 +56,6 @@ Consumible_Manager::~Consumible_Manager(){
   }
   _consumibles.clear();
 
-  for (uint16_t i = 0; i<cantidad_de_posiciones; i++){
-    delete[] posiciones[i];
-  }
-  delete[] posiciones;
-  
 }
 
 
@@ -170,11 +156,7 @@ void Consumible_Manager::anyadir_consumible_inmunidad(){
 }
 
 Vector2 Consumible_Manager::crear_posiciones_aleatorias(){
-
-    uint8_t posicion_al_azar;
-    posicion_al_azar=rand() % cantidad_de_posiciones;
-
-    return Vector2(posiciones[posicion_al_azar][0],posiciones[posicion_al_azar][1]);
+    return Respawn::posiciones_instancia()->generar_posicion_al_azar_xz();
 }
 
 /// METODOS GET 

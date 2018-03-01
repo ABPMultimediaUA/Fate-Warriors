@@ -31,8 +31,6 @@ private:
 	std::vector<Arma*> _armas;
 	uint8_t _numero_max;
 
-	uint16_t cantidad_de_posiciones;
-	float** posiciones;
 	Time* _reloj;
 	double _tiempo_ultimo_creado;
 };

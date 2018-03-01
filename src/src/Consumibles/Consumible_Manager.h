@@ -40,8 +40,6 @@ private:
 	std::vector<double> tiempo_resp_por_usar;
 
 	uint16_t numero_max;
-	uint16_t cantidad_de_posiciones;
-	float** posiciones;
 	Time* _reloj;
 	double _tiempo_ultimo_creado;
 };

@@ -5,8 +5,8 @@
  #include "AD_Ametralladora.h"
  #include "AC_Katana.h"
  #include "AD_Pistola.h"
- #include "../Nivel/Nivel.h"
 #include "../Tiempo/Time.h"
+#include "../Respawn.h"
 
 
 // CONSTRUCTOR
@@ -21,16 +21,6 @@ Armas_Manager::Armas_Manager() {
 
     _numero_max = 2;
 
-    Nivel* _nivel = Nivel::nivel_instancia();
-
-    _nivel->nivel_get_numero_posiciones_spawn(cantidad_de_posiciones);
-    posiciones = new float*[cantidad_de_posiciones];
-    
-    for(short i=0; i<cantidad_de_posiciones; i++){
-         posiciones[i] = new float[2];
-    }
-    _nivel->nivel_get_posiciones_spawn(posiciones);
-
 }
 
 // DESTRUCTOR
@@ -41,12 +31,6 @@ Armas_Manager::~Armas_Manager(){
     delete _armas[i];
   }
   _armas.clear();
-  
-    for (uint16_t i = 0; i<cantidad_de_posiciones; i++){
-    delete[] posiciones[i];
-  }
-  delete[] posiciones;
-
 
 }
 
@@ -133,15 +117,8 @@ void Armas_Manager::crear_katana(){
 
 
 Vector2 Armas_Manager::crear_posiciones_aleatorias(){
-
-    uint8_t posicion_al_azar;
-    posicion_al_azar=rand() % cantidad_de_posiciones;
-
-    return Vector2(posiciones[posicion_al_azar][0],posiciones[posicion_al_azar][1]);
+    return Respawn::posiciones_instancia()->generar_posicion_al_azar_xz();
 }
-
-
-
 
 /*
 void Armas_Manager::crear_ametralladora(Vector2 posicion){

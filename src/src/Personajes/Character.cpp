@@ -333,8 +333,10 @@ void Character::morir(){
 }
 
 
-void Character::restaurar_toda_la_vida(){
-    _vida=_vida_maxima;
+void Character::revivir(Vector2 pos){
+    set_vida(_vida_maxima);
+    setPositionXZ(pos._x, pos._y);
+    setY(0);
 }
 
 

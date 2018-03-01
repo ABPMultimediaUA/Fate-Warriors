@@ -82,9 +82,8 @@ Vector2 Respawn::generar_posicion_del_bando(Enum_Equipo _i_bando){
 void Respawn::comprobar_si_renace_y_renacer_personaje(Character* _i_personaje){
     if(Time::Instance()->get_current()>_character_a_reaparecer[_i_personaje]){
         Vector2 pos = generar_posicion_del_bando(_i_personaje->get_equipo());
-        _i_personaje->setPositionXZ(pos._x, pos._y);
-        _i_personaje->restaurar_toda_la_vida();
-        _i_personaje->setY(0);
+        _i_personaje->revivir(pos);
+
         eliminar_character_a_reaparecer(_i_personaje);
     }
 }

@@ -13,6 +13,7 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Interfaz/Motor.h"
 //#include "../Interfaz/Objeto_Motor.h"
+#include "../Respawn.h"
 
 #include "../Motor_sonido/Interfaz_sonido.h"
 
@@ -47,6 +48,8 @@ Player::~Player(){
 
 void Player::update(){
     //std::cout<< "ACCION_ACTUAL: "<< _accion << "\n";
+    if (_vida>0){
+
     gestion_acciones();
 
     // Esto hay que borrarlo
@@ -128,6 +131,13 @@ void Player::update(){
     Nivel* nivel=Nivel::nivel_instancia();
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
+    }
+    else{
+        std::cout<<"sigo muerto" << std::endl;
+        Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
+    }
+
+
 }
 			
 void Player::render(){
