@@ -36,7 +36,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				z=_i_npc->getZ();
 				_direccion = _path_manager->get_direccion_movimiento(x,z, _i_npc->get_blackboard()->objetivo_x, _i_npc->get_blackboard()->objetivo_y);
 				//std::cout << _direccion<<" \n ";
-				if(_direccion!=362){
+				if(_direccion<=360){
 					// Componenetes de la direccion mala
 					float _cos, _sen;
 					_cos = sin(_direccion*std::acos(-1)/180);
@@ -47,8 +47,8 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
         			while(_nueva_direccion >= 360) _nueva_direccion -= 360;
 
 					_i_npc->mover(_nueva_direccion);
-				}else{
-				//	std::cout << " ERRRRRORRRRRRRRRRRRR -----------------\n ";
+				}else{ //FALTA CONTROLAR EL CASO 361(ERROR) / EL CASO 362 (CON EL SETPOSITION VA BIEN) / CASO 363 (NO HAY CAMINO(SE QUEDA QUIETO))
+				
 					_i_npc->setPositionXZ(x,z);
 				}
 			}
