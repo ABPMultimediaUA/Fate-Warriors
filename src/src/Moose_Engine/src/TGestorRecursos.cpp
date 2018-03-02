@@ -3,6 +3,14 @@
 #include "TRecursoMalla.h"
 #include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
+#include "stb_image.h"
+//OPEN GL 
+#ifndef STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
+#endif
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+//
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -15,11 +23,13 @@ struct Vertex {
     glm::vec3 Tangent;
     glm::vec3 Bitangent;
 };
+
 struct Texture {
     unsigned int id;
     std::string type;
     std::string path;
 };
+
 TGestorRecursos* TGestorRecursos::_instancia = 0;
 
 TGestorRecursos* TGestorRecursos::get_instancia(){
@@ -46,7 +56,7 @@ TRecurso* TGestorRecursos::getRecurso(char* nombre){
     return nullptr;
 }
 
-TRecurso* TGestorRecursos::getRecursoMalla(char* nombre, std::vector<TRecursoMalla*> &_i_modelos){
+TRecurso* TGestorRecursos::getRecursoModelo(char* nombre, std::vector<TRecursoMalla*> &_i_modelos){
     TRecurso* rec;
     TRecursoMalla* rec_aux;
     rec=getRecurso(nombre);
@@ -95,6 +105,21 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
     // coger el path
     //_path = path.substr(0, path.find_last_of('/'));
     cargarNodo(scene->mRootNode, scene, _i_modelos);
+    int width, height, nrChannels;
+    
+    unsigned int texture1, texture2;
+    glGenTextures(1,&texture1);
+    glBindTexture(GL_TEXTURE_2D,texture1);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data = stbi_load("lel.jpg", &width, &height, &nrChannels, 0); 
+    if(!data){
+        std::cout<<"añlsdkjfañlsdkjfñalksdjf"<<std::endl;
+        exit(0);
+    }
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+    stbi_image_free(data);
 }
 
 void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos){
@@ -171,8 +196,8 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene){
     // diffuse: texture_diffuseN
     // specular: texture_specularN
     // normal: texture_normalN
-   /* // 1. diffuse maps
-    vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+    // 1. diffuse maps
+    /*std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.push_back(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
     vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
@@ -187,4 +212,73 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene){
     //devolver la malla creada a partir de los datos obtenidos
     TRecursoMalla* modelado= new TRecursoMalla(vertices, indices, textures);
     return modelado;
+}/*
+std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
+{
+    vector<Texture> textures;
+    for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+    {
+        aiString str;
+        mat->GetTexture(type, i, &str);
+        // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
+        bool skip = false;
+        for(unsigned int j = 0; j < textures_loaded.size(); j++)
+        {
+            if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
+            {
+                textures.push_back(textures_loaded[j]);
+                skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
+                break;
+            }
+        }
+        if(!skip)
+        {   // if texture hasn't been loaded already, load it
+            Texture texture;
+            texture.id = TextureFromFile(str.C_Str(), this->directory);
+            texture.type = typeName;
+            texture.path = str.C_Str();
+            textures.push_back(texture);
+            textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+        }
+    }
+    return textures;
 }
+unsigned int TGestorRecursos::TextureFromFile(const char *path, const std::string &directory, bool gamma)
+{
+    std::string filename = string(path);
+    filename = directory + '/' + filename;
+
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+
+    int width, height, nrComponents;
+    unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    if (data)
+    {
+        GLenum format;
+        if (nrComponents == 1)
+            format = GL_RED;
+        else if (nrComponents == 3)
+            format = GL_RGB;
+        else if (nrComponents == 4)
+            format = GL_RGBA;
+
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        stbi_image_free(data);
+    }
+    else
+    {
+        std::cout << "Texture failed to load at path: " << path << std::endl;
+        stbi_image_free(data);
+    }
+
+    return textureID;
+}*/

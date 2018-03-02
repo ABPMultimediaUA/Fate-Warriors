@@ -3,7 +3,7 @@
 #include "TGestorRecursos.h"
 #include "Shader.h"
 #include <iostream>
-
+#include "stb_image.h" // y ya después vamos quitando
 
 
 TModelado::TModelado(const char* path){

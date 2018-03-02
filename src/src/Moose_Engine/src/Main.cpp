@@ -25,7 +25,7 @@ void recorrerArbol(){
     
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
-    //resurseManajer->getRecursoMalla("Enemigo.obj");
+    //resurseManajer->getRecursoModelo("Enemigo.obj");
     TMooseEngine* motor=new TMooseEngine();
 	
     TTransform* trans1=motor->crearTransform();
@@ -44,8 +44,8 @@ void recorrerArbol(){
     trans2->escalar(5,5,5);
 
 
-    TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(),trans1);
-    TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(),trans2);
+    TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(), trans1);
+    TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
     TNodo* nodoTrans3 = motor->crearNodo(nodoTrans2, trans3);
 
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans2, malla1);

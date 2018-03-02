@@ -16,11 +16,13 @@ public:
     static TGestorRecursos* get_instancia();
     TGestorRecursos();
     ~TGestorRecursos();
-    TRecurso* getRecursoMalla(char* nombre, std::vector<TRecursoMalla*> &_i_modelos);	
+    TRecurso* getRecursoModelo(char* nombre, std::vector<TRecursoMalla*> &_i_modelos);	
     TRecurso* getRecursoTextura(char* nombre);	
     TRecurso* getRecursoMaterial(char* nombre);
     void cargarModelo(std::string &path, std::vector<TRecursoMalla*> &_i_modelos);
     void cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos);
+    //std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+    //unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma);
     TRecursoMalla* cargarMalla(aiMesh *mesh, const aiScene *scene);		
 private:
 	std::vector<TRecurso*> _recursos;

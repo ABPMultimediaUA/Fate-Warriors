@@ -49,6 +49,7 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "valarray": "cpp",
-        "__config": "cpp"
+        "__config": "cpp",
+        "*.ipp": "cpp"
     }
 }

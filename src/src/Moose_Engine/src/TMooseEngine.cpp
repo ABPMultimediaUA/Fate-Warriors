@@ -97,7 +97,7 @@ TLuz* TMooseEngine::crearLuz(){
 
 TModelado* TMooseEngine::crearModelado(char* _i_path){
     TModelado* malla = new TModelado(_i_path);
-    //_gestorRecursos->getRecursoMalla(fichero);
+    //_gestorRecursos->getRecursoModelo(fichero);
     return malla;
 }
 void TMooseEngine::clear(){
