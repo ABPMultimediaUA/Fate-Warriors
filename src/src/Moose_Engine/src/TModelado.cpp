@@ -16,7 +16,6 @@ TModelado::~TModelado(){
 }
 void TModelado::beginDraw(Shader* _i_shader){
     draw(_i_shader);
-    std::cout<<"ID ------"<<_ID<<"\n";
 }
 
 void TModelado::draw(Shader* _i_shader){
@@ -26,8 +25,7 @@ void TModelado::draw(Shader* _i_shader){
     }
 }
 
-void TModelado::endDraw(){
-    std::cout<<"termino dibujar "<<_ID<<"\n";    
+void TModelado::endDraw(){   
 }
 void TModelado::leerModelado(std::string &path){
     TGestorRecursos* gRec = TGestorRecursos::get_instancia();

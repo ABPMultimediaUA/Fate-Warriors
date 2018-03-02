@@ -67,7 +67,6 @@ void TNodo::draw(Shader* _i_shader){
                 }
                 _entidad->endDraw();
             }else{
-                std::cout<<"entra";
                 for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
                     (*it)->draw(_i_shader);
                 }

@@ -9,7 +9,7 @@ TTransform::~TTransform(){}
 void TTransform::beginDraw(Shader* _i_shader){
     pila_matrices.push(matriz);
     matriz = matriz * _t_matriz;  //MULTIPLICACION DE MATRIZ
-    std::cout<<"ID ------"<<_ID<<"matrix:   "<<glm::to_string(_t_matriz)<<"\n";
+    //std::cout<<"ID ------"<<_ID<<"matrix:   "<<glm::to_string(_t_matriz)<<"\n";
     //std::cout<<"lll:  "<<glm::to_string(matriz)<<"\n";
     
     /*    matriz= glm::outerProduct(&_t_matriz,&matriz);
@@ -20,7 +20,6 @@ void TTransform::beginDraw(Shader* _i_shader){
 }
 void TTransform::endDraw(){
 
-    std::cout<<"termino dibujar "<<_ID<<"\n";
     matriz=pila_matrices.top();
     pila_matrices.pop();
 }
@@ -47,4 +46,5 @@ void TTransform::rotar(float _i_x, float _i_y, float _i_z, float _i_w){
 
 void TTransform::escalar(float _i_x, float _i_y, float _i_z){
     _t_matriz = glm::scale(glm::vec3(_i_x,_i_y,_i_z));
+    int algo;
 }

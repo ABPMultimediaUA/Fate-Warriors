@@ -26,7 +26,7 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _mapping_camaras = new Mapeado[_n_camaras];
     _mapping_luces   = new Mapeado[_n_luces];
-    _shader = new Shader("Shaders/vertex_prueba.glsl", "Shaders/fragment_prueba.glsl");
+    _shader = new Shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
     
 }
 TMooseEngine::~TMooseEngine(){

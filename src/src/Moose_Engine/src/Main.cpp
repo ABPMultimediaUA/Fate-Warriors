@@ -38,19 +38,19 @@ void recorrerArbol(){
     char* cstr2  = cstr;
     TModelado* malla1 = motor->crearModelado(cstr2);
 
-    trans1->escalar(0.5,0.25,0.5);
-    trans1->trasladar(0,0,-300);
-    trans3->trasladar(30,0,30);
-    trans2->escalar(5,5,5);
+    //trans1->escalar(0.5,0.25,0.5);
+    trans1->trasladar(1,0,0);
+    //trans3->trasladar(30,0,30);
+    //trans2->escalar(1,1,1);
 
 
     TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(), trans1);
-    TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
-    TNodo* nodoTrans3 = motor->crearNodo(nodoTrans2, trans3);
+    //TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
+    //TNodo* nodoTrans3 = motor->crearNodo(nodoTrans2, trans3);
 
-    TNodo* nodoMalla  = motor->crearNodo(nodoTrans2, malla1);
-    TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
-    TNodo* nodoCamara = motor->crearNodo(nodoTrans3, camara);
+    TNodo* nodoMalla  = motor->crearNodo(nodoTrans1, malla1);
+    //TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
+    TNodo* nodoCamara = motor->crearNodo(motor->nodoRaiz(), camara);
    
     Shader shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
 
@@ -96,15 +96,15 @@ shader.setMat4("projection", projection);
         shader.setMat4("view", view);*/
 
         // render the loaded model
-        glm::mat4 model=glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 50.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-        shader.setMat4("model", model);
+        //glm::mat4 model=glm::mat4(1.0f);
+        //model = glm::translate(model, glm::vec3(0.0f, 1.75f, 50.0f)); // translate it down so it's at the center of the scene
+        //model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));	// it's a bit too big for our scene, so scale it down
+        //shader.setMat4("model", model);
         motor->draw();
 
 
 }
-    glm::mat4 algo=glm::mat4(1.0f);
+    /*glm::mat4 algo=glm::mat4(1.0f);
     algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
     glm::mat4 algo2=glm::mat4(1.0f);
     algo2[1]=glm::vec4( 3.0, 7.0, 0.0, 1.0 );

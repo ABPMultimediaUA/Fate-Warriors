@@ -6,10 +6,8 @@ TCamara::TCamara(){
 }
 TCamara::~TCamara(){}
 void TCamara::beginDraw(Shader* _i_shader){
-    std::cout<<"ID ------"<<_ID<<"\n";
 }
 void TCamara::endDraw(){
-    std::cout<<"termino dibujar "<<_ID<<"\n";
 }
 
 void TCamara::setActiva(bool activa){
