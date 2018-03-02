@@ -39,7 +39,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
     //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
     
-    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 90, false, 8);
+    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 90, false, 4);
 
    //_puertas[1] = new Puerta(127,-0,0,-180,false);
 	
@@ -75,7 +75,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_interruptores[8] = new Interruptor(0,46.5*mult,0,83.55*mult,90, _puertas_pincho[4],false,false, 500);
 	_interruptores[9] = new Interruptor(0,33.5*mult,0,96.5*mult,0, _puertas_pincho[4],false,false, 500);
 
-	_puertas_pincho[5] = new Puerta_Pincho(1,18*mult,0*mult, 31.5*mult, 90, _todas_las_zonas[0], _todas_las_zonas[1],21);	//Entre la sala 22 y 16
+	_puertas_pincho[5] = new Puerta_Pincho(1,18*mult,0, 31.5*mult, 90, _todas_las_zonas[0], _todas_las_zonas[1],21);	//Entre la sala 22 y 16
 	_interruptores[10] = new Interruptor(0,22.3*mult,0,25.55*mult,0, _puertas_pincho[5],false,false, 500);
 	_interruptores[11] = new Interruptor(0,17.5*mult,0,36.5*mult,0, _puertas_pincho[5],false,false, 500);
 

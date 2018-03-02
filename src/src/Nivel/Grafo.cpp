@@ -318,7 +318,7 @@ uint16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i
 		}else{
 			
 			destino=grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
-			std::cout << "destino: " << (int)destino->get_id() << std::endl;
+			//std::cout << "destino: " << (int)destino->get_id() << std::endl;
 			//std::cout << (int)origen->get_lod() << "-------------------------" << (int)destino->get_lod() << std::endl;
 			return grafo_pathfindinglod1(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen,destino->get_id());
 		}
@@ -342,7 +342,6 @@ void Grafo::set_peso_tactico_x_y(float _i_peso_tactico, float _i_x, float _i_y){
 }
 void Grafo::abrir_cerrar_pasillo(uint16_t peso, uint16_t _id){
 	Vertice* verticeaux = grafo_get_vertice(_id);
-	u_int8_t id=verticeaux->get_id();
 	verticeaux->set_peso_tactico(peso);
 	Arista* arista_aux=verticeaux->get_ady();
 	uint16_t aux;
@@ -350,7 +349,7 @@ void Grafo::abrir_cerrar_pasillo(uint16_t peso, uint16_t _id){
 	while(arista_aux!=nullptr){
 		verticeaux=arista_aux->get_ady()->get_lod1()->get_h();
 		while(verticeaux!=nullptr && !flag){
-			aux=id;
+			aux=_id;
 			while(aux<4000){
 				aux+=1000;
 				if(aux==verticeaux->get_id()){					
@@ -362,6 +361,7 @@ void Grafo::abrir_cerrar_pasillo(uint16_t peso, uint16_t _id){
 			aux=0;
 			verticeaux=verticeaux->get_sig();
 		}
+		flag=false;
 		arista_aux=arista_aux->get_sig();
 	}
 }
@@ -389,12 +389,7 @@ Vertice* Grafo::grafo_pathfindinglod2(float _i_xorigen, float _i_yorigen, float 
 				arista_aux->get_ady()->pathfinding(distancia, arista_aux, vertice_destino->get_id());
 			}
 			arista_aux = arista_aux->get_sig();
-		}verticeaux=_h;
-		/*while(verticeaux!=nullptr){//mirar pesos
-			
-			std::cout<<"añlskdjf  "<<verticeaux->get_id()<<"  "<<verticeaux->get_peso()<<std::endl;
-			verticeaux=verticeaux->get_sig();
-		}*/
+		}
 		vertice_destino->set_peso(0);
 		//vuelta desde destino hacia origen
 		verticeaux=vertice_origen;
@@ -448,10 +443,8 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	Vertice* vertice_destino;
 	Arista* arista_aux;
 	
-
-	
 	if(origen->get_id()!=destino){
-		std::cout << "entroooooooooooooooooooooooooo" << std::endl;
+		//std::cout << "entroooooooooooooooooooooooooo" << std::endl;
 		verticeaux=origen->get_lod1()->get_h();
 		vertice_origen=verticeaux;
 		vertice_destino=verticeaux;
@@ -476,7 +469,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 			verticeaux->set_id_arista(0);
 			verticeaux=verticeaux->get_sig();
 		}
-		std::cout <<"Vertice origen: : "<< vertice_origen->get_id() << std::endl;
+		//std::cout <<"Vertice origen: : "<< vertice_origen->get_id() << std::endl;
 		if(vertice_origen->get_id()==vertice_destino->get_id()){
 			aux=vertice_origen->get_id();
 			aux-=1000;
@@ -486,7 +479,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 
 				aux-=1000;
 			}
-			std::cout <<"Primer angulo: "<< angulo << std::endl;
+			//std::cout <<"Primer angulo: "<< angulo << std::endl;
 			return angulo;
 		}
 		
@@ -532,17 +525,14 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 			}
 			arista_aux = arista_aux->get_sig();
 		}
-		verticeaux=origen->get_lod1()->get_h();
+		/*verticeaux=origen->get_lod1()->get_h();
 		while(verticeaux!=nullptr){//mirar pesos
 			
 			std::cout<<"vericepeso:   "<<verticeaux->get_id()<<" peso:  "<<verticeaux->get_peso()<<std::endl;
 			verticeaux=verticeaux->get_sig();
-		}
-		//cout de pesos
-		/*verticeaux=origen->_lod1->_h;
-		while(verticeaux!=nullptr){//sacar vertice origen y destino y poner todos los valores iniciales
-			verticeaux=verticeaux->get_sig();
 		}*/
+		//cout de pesos
+
 
 
 		vertice_origen->set_peso(0);
@@ -585,7 +575,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		
 		//360 y 0 es lo mismo, derechas
 		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->get_coord_x(), verticeaux->get_coord_y());
-		std::cout <<"Segundo angulo: "<< angulo << "origenx: " << _i_xorigen/metro << "origeny: " << _i_yorigen/metro  << "destinox: " << _i_xdestino/metro << "destinoy: " << _i_ydestino/metro  << "destino id: "<<verticeaux->get_id()<<"destino peso: "<<verticeaux->get_peso()+verticeaux->get_peso_tactico()<< "vertice_destino: " <<vertice_destino->get_id() << std::endl;
+		//std::cout <<"Segundo angulo: "<< angulo << "origenx: " << _i_xorigen/metro << "origeny: " << _i_yorigen/metro  << "destinox: " << _i_xdestino/metro << "destinoy: " << _i_ydestino/metro  << "destino id: "<<verticeaux->get_id()<<"destino peso: "<<verticeaux->get_peso()+verticeaux->get_peso_tactico()<< "vertice_destino: " <<vertice_destino->get_id() << std::endl;
 		//std::cout<<"angulo:" << angulo << "x_o:"<< _i_xorigen/metro << "y_o:"<< _i_yorigen/metro << "x_aux:"<< verticeaux->get_coord_x()/metro << "y_aux:"<<  verticeaux->get_coord_y()/metro << std::endl;
 		return angulo;
 		//return lib_math_angulo_2_puntos(verticeaux->get_coord_x(),verticeaux->get_coord_y(),_i_xorigen,_i_yorigen);

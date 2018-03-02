@@ -10,7 +10,7 @@ public:
     void update(){};
 	void render(){};
 
-	void set_abierta(bool _i_abierta);
+	void set_abierta();
 	bool get_abierta();
 
 private:
