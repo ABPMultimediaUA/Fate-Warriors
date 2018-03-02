@@ -23,6 +23,13 @@ public:
     void comprobar_a_quien_danya();
     bool puede_quitar_vida();
     void render(){}
+    inline Zona* get_zona_1(){
+        return _zona_asociada1;
+    }
+    inline Zona* get_zona_2(){
+        return _zona_asociada2;
+    }
+
 
 private:
 

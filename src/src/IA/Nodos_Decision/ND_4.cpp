@@ -1,6 +1,7 @@
 #include "ND_4.h"
 
 #include "../Blackboard.h"
+#include "../../Zona.h"
 
 #include<iostream>
 
@@ -19,6 +20,9 @@ enum Enum_Acciones ND_4::toma_decision(Blackboard* _blackboard){
         //std::cout <<"_objeto_mas_cerca_esta_cerca\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
+    _blackboard->objetivo_x = _blackboard->_zona_enemiga_mas_cerca->getX();
+    _blackboard->objetivo_y = _blackboard->_zona_enemiga_mas_cerca->getZ();
+    //Andar
     //std::cout <<"NO _objeto_mas_cerca_esta_cerca\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }
