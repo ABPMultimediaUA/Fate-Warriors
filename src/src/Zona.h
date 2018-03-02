@@ -7,6 +7,7 @@
 
 class Character;
 class Time;
+class Interruptor;
 
 class Zona{
 public:
@@ -44,6 +45,10 @@ public:
 
     bool hay_personajes_conquistando_esta_zona();
     bool get_conquistando();
+   
+    std::vector<Interruptor*> get_interruptores_asociados();
+    void set_interruptor_asociado(Interruptor* _i_interruptor);
+
 
 private:
     btRigidBody *_rb;
@@ -57,6 +62,9 @@ private:
     bool _conquistando;
     double _tiempo_inicio_conquista;
     double _tiempo_restante_conquista;
+
+   std::vector<Interruptor*> _interruptores_asociados;
+
 };
 
 #endif /* ZONA_H_ */

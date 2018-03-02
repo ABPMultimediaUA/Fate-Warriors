@@ -14,12 +14,13 @@ Puerta::Puerta(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacio
     _abierta = false;
     Nivel::nivel_instancia()->nivel_cerrar_pasillo(_id_pasillo_que_abre);
     
+    _objeto_motor->rotar_nodo(90);
 }
 
 void Puerta::set_abierta(){
 	_abierta = true;
     _objeto_motor->abrir_puerta();
-    //Nivel::nivel_instancia()->nivel_abrir_pasillo(_id_pasillo_que_abre);
+    Nivel::nivel_instancia()->nivel_abrir_pasillo(_id_pasillo_que_abre);
 }
 
 bool Puerta::get_abierta(){

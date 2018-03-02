@@ -5,6 +5,7 @@
 #include "Interfaz/Motor.h"
 #include "Game.h"
 #include "Tiempo/Time.h"
+#include "Interruptor.h"
 
 
 Zona::Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo i_equipo){
@@ -21,6 +22,7 @@ _reloj=Time::Instance();
 
 Zona::~Zona() {
     Motor::Motor_GetInstance()->borrar_rb(_rb);
+    _interruptores_asociados.clear();
 }
 
 
@@ -135,4 +137,12 @@ std::vector <Character*> Zona::get_characters(){
 
 bool Zona::get_conquistando(){
     return _conquistando;
+}
+
+void Zona::set_interruptor_asociado(Interruptor* _i_interruptor){
+    _interruptores_asociados.push_back(_i_interruptor);
+}
+
+std::vector<Interruptor*> Zona::get_interruptores_asociados(){
+    return _interruptores_asociados;
 }
