@@ -1,6 +1,16 @@
 #ifndef SRC_NODOS_DECISION_H_
 #define SRC_NODOS_DECISION_H_
 
+#include "Nodos_Decision/ND_17.h"
+#include "Nodos_Decision/ND_13.h"
+#include "Nodos_Decision/ND_7.h"
+#include "Nodos_Decision/ND_2.h"
+#include "Nodos_Decision/ND_14.h"
+#include "Nodos_Decision/ND_9.h"
+#include "Nodos_Decision/ND_4.h"
+#include "Nodos_Decision/ND_3.h"
+#include "Nodos_Decision/ND_0.h"
+
 #include "Nodos_Decision/ND_5.h"
 #include "Nodos_Decision/ND_6.h"
 #include "Nodos_Decision/ND_11.h"

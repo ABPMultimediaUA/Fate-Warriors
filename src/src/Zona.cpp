@@ -17,7 +17,7 @@ _reloj=Time::Instance();
     _tiempo_inicio_conquista = 0;
     _pos_x = _i_x;
     _pos_y = _i_z;
-    _tiempo_restante_conquista = 30000;
+    _tiempo_restante_conquista = 10000;
 }
 
 Zona::~Zona() {
@@ -65,7 +65,7 @@ void Zona::actualizar_zona(){
     if(!hay_personajes_conquistando_esta_zona()){
          _conquistando = false;
       //  _conquistando_aux = false;
-        _tiempo_restante_conquista = 30000;
+        _tiempo_restante_conquista = 10000;
     }
 
     else{                               //hay personajes conquistando
@@ -88,7 +88,7 @@ void Zona::actualizar_zona(){
 
             //Si se esta conquistando debe comprobar si ha pasado el tiempo necesario de conquista
             if(_reloj->get_current() >_tiempo_inicio_conquista+_tiempo_restante_conquista){
-                //std::cout<< " conquistado!!!!'------------------------------------------ \n";
+                std::cout<< " conquistado!!!!'------------------------------------------ \n";
                 _tiempo_restante_conquista = 0;
                 cambiar_bando();
             }

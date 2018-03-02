@@ -15,6 +15,9 @@ public:
 	void set_activado(bool _i_activado);
 	void update() override;
 	void render() override;
+	inline Puerta_Pincho* get_puerta(){
+		return _objeto_asociado;
+	}
 
 
 private:

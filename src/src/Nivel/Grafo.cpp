@@ -326,6 +326,9 @@ uint16_t Grafo::grafo_pathfinding(float &_i_xorigen, float &_i_yorigen, float _i
 	}else{
 		
 		destino=grafo_pathfindinglod2(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino, origen, destino);
+		if(destino->get_peso_tactico()>=50000){
+			return 363;
+		}
 		_i_xorigen=destino->get_lod1()->get_h()->get_coord_x();
 		_i_yorigen=destino->get_lod1()->get_h()->get_coord_y();
 		return 362;
@@ -471,7 +474,11 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 		}
 		//std::cout <<"Vertice origen: : "<< vertice_origen->get_id() << std::endl;
 		if(vertice_origen->get_id()==vertice_destino->get_id()){
+			if(vertice_origen->get_peso_tactico()>=50000){
+				return 363;
+			}
 			aux=vertice_origen->get_id();
+			
 			aux-=1000;
 			int angulo=0;
 			while(aux>1000){
@@ -572,12 +579,16 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 			}
 			arista_aux = arista_aux->get_sig();
 		}
-		
+		if(verticeaux->get_peso_tactico()>=50000){
+			return 363;
+		}else{
+			angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->get_coord_x(), verticeaux->get_coord_y());
+			return angulo;
+		}
 		//360 y 0 es lo mismo, derechas
-		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, verticeaux->get_coord_x(), verticeaux->get_coord_y());
 		//std::cout <<"Segundo angulo: "<< angulo << "origenx: " << _i_xorigen/metro << "origeny: " << _i_yorigen/metro  << "destinox: " << _i_xdestino/metro << "destinoy: " << _i_ydestino/metro  << "destino id: "<<verticeaux->get_id()<<"destino peso: "<<verticeaux->get_peso()+verticeaux->get_peso_tactico()<< "vertice_destino: " <<vertice_destino->get_id() << std::endl;
 		//std::cout<<"angulo:" << angulo << "x_o:"<< _i_xorigen/metro << "y_o:"<< _i_yorigen/metro << "x_aux:"<< verticeaux->get_coord_x()/metro << "y_aux:"<<  verticeaux->get_coord_y()/metro << std::endl;
-		return angulo;
+		
 		//return lib_math_angulo_2_puntos(verticeaux->get_coord_x(),verticeaux->get_coord_y(),_i_xorigen,_i_yorigen);
 	}
 

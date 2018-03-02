@@ -92,10 +92,13 @@ public:
 	// ZONAS
 
 	Zona* _zona_actual; // Zona actual en la que se encuentra, puede no estar en ninguna (nullptr) 
-	// Zonas mas cercanas sin contar la actual
+	// Zonas mas cercanas sin contar la actual:
 		Zona* _zona_mas_cerca; 
 		Zona* _zona_enemiga_mas_cerca; 
 		Zona* _zona_aliada_mas_cerca; 
+
+	// INTERRUPTORES
+	Interruptor* _interruptor_cerca_util;
 
 
 	//Con informacion de la zona
