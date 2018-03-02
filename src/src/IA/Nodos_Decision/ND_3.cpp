@@ -5,6 +5,7 @@
 #include "../../Personajes/NPC.h"
 #include "../../Interruptor.h"
 #include "../../Puerta_Pincho.h"
+#include "../../Interfaz_Libs/Lib_Math.h"
 
 #include<iostream>
 
@@ -20,6 +21,8 @@ enum Enum_Acciones ND_3::toma_decision(Blackboard* _blackboard){
 
     Interruptor * interruptor_util = nullptr;
 
+    float distancia_a_interruptor_mas_cerca = 1000000000;
+
     Zona* zona_actual = _blackboard->_zona_actual;
     std::vector<Interruptor*> interruptores = zona_actual->get_interruptores_asociados();
 
@@ -29,11 +32,15 @@ enum Enum_Acciones ND_3::toma_decision(Blackboard* _blackboard){
         Zona* zona1 = interruptores[i]->get_puerta()->get_zona_1();
         Zona* zona2 = interruptores[i]->get_puerta()->get_zona_2();
 
-        if(zona1 != zona_actual && zona1->get_equipo() != _blackboard->_npc_padre->get_equipo()){
+        float distancia_a_interruptor = lib_math_distancia_2_puntos(interruptores[i]->getX(), interruptores[i]->getZ(), _blackboard->_npc_padre->getX(), _blackboard->_npc_padre->getY());
+
+        if(zona1 != zona_actual && zona1->get_equipo() != _blackboard->_npc_padre->get_equipo() && distancia_a_interruptor < distancia_a_interruptor_mas_cerca){
             interruptor_util = interruptores[i];
+            distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
         }
-        else if(zona2 != zona_actual && zona2->get_equipo() != _blackboard->_npc_padre->get_equipo()){
+        else if(zona2 != zona_actual && zona2->get_equipo() != _blackboard->_npc_padre->get_equipo() && distancia_a_interruptor < distancia_a_interruptor_mas_cerca){
             interruptor_util = interruptores[i];
+            distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
         }
     }
 

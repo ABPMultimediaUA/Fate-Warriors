@@ -10,6 +10,9 @@
 #include "Interfaz_Libs/Lib_Math.h"
 #include "Interfaz/Motor.h"
 #include "Game.h"
+#include "Interruptor.h"
+#include "Interactuable_Manager.h"
+#include "Datos_Partida.h"
 
 #include<iostream>
 #include<vector>
@@ -111,7 +114,30 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 
 		case Accion_Interactuar:
-				_i_npc->intentar_recoger_arma();
+		{
+			Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
+
+			Interruptor** _interruptores = _int_man->get_interruptores();
+			unsigned short n_interruptores = _int_man->get_n_interruptores();
+
+			unsigned short _cont;
+			bool objeto_encontrado = false;
+
+			//Busca palancas y la usa 
+
+			for(_cont = 0; _cont < n_interruptores && objeto_encontrado == false; _cont++) {
+				if( comprobar_colision_teniendo_tambien_radio(_i_npc->get_vector(), 3, _interruptores[_cont]->get_vector(), 3) == true){
+					// Encuentra palanca e intenta accionarla
+					
+					_interruptores[_cont]->set_activado(true);
+					objeto_encontrado = true;
+					std::cout << "Usa palanca"<< std::endl;
+				}
+			}
+			//std::cout << "Llega 5"<< std::endl;
+			_i_npc->intentar_recoger_arma();
+		}
+
 			break;
 		case Nada:
 			//_i_npc->stop();

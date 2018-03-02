@@ -97,7 +97,7 @@ void Blackboard::actualizar_characteres(){
 
 	_distancia_enemigo_mas_cerca = _distancia_enemigo_mas_cercano;
 
-	if(_distancia_enemigo_mas_cercano < 100000000){
+	if(_distancia_enemigo_mas_cercano < 20){
 		_enemigo_mas_cerca_esta_cerca = true;
 	}
 	else
@@ -266,12 +266,12 @@ void Blackboard::actualizar_pseudo_azar(){
 	if(rand() % 2 == 0){
 		_ataque_a_realizar = Ataque_Normal;
 		_puedo_esquivar = true;
-		std::cout <<"Entra 1 \n";
+		//std::cout <<"Entra 1 \n";
 	}
 	else{
 		_ataque_a_realizar = Ataque_Fuerte;
 		_puedo_esquivar = false;
-		std::cout <<"Entra 2 \n";
+		//std::cout <<"Entra 2 \n";
 	}
 }
 
