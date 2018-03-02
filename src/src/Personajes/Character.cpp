@@ -304,7 +304,7 @@ bool Character::interactuar_con_objeto(){
                 if(_llaves_character[i]->get_id_puerta() == _puertas[_cont]->get_id()){
                     // Abre puerta y elimina la llave del inventario
 
-                    _puertas[_cont]->set_abierta(true);
+                    _puertas[_cont]->set_abierta();
                     this->get_inventario()->eliminar_llave(_llaves_character[i]);
                     objeto_encontrado = true;
 

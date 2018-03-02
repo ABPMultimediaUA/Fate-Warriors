@@ -40,7 +40,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
     //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
     
-    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 90, false, 8);
+    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 90, false, 4);
 
    //_puertas[1] = new Puerta(127,-0,0,-180,false);
 	
