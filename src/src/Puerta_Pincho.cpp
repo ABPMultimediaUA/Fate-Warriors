@@ -13,6 +13,7 @@ Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z,float _
     _pasillo_asociado = _i_pasillo_asociado;
     _tiempo_restante = 100;
     _siguiente_tiempo_hace_danyo =_reloj->get_current();
+    _tiempo_hasta_posible_proxima_activacion= _reloj->get_current();
  
     const char* cstr  = "models/Interactuables/PuertaPinchos/pinchosp.obj";
 
@@ -29,12 +30,20 @@ Puerta_Pincho::~Puerta_Pincho() {
 
 void Puerta_Pincho::activar(){
     _activado = true;
-    _tiempo_restante = _reloj->get_current() + 60000;
+    _tiempo_restante = _reloj->get_current() + 10000;
+    _tiempo_hasta_posible_proxima_activacion= _reloj->get_current() + 20000;
     setY(6);
     Nivel::nivel_instancia()->nivel_cerrar_pasillo(_pasillo_asociado);
     comprobar_a_quien_danya();
       //  _objeto_motor->rotar_nodo(125);
 
+}
+
+bool Puerta_Pincho::ha_pasado_tiempo_suficiente(){
+    if(_reloj->get_current() > _tiempo_hasta_posible_proxima_activacion){
+        return true;
+    }
+    return false;
 }
 
 void Puerta_Pincho::desactivar(){

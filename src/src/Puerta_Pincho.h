@@ -23,9 +23,11 @@ public:
     void comprobar_a_quien_danya();
     bool puede_quitar_vida();
     void render(){}
+    bool ha_pasado_tiempo_suficiente();
 
 private:
 
+    double _tiempo_hasta_posible_proxima_activacion;
     uint8_t _pasillo_asociado;
     double _siguiente_tiempo_hace_danyo;
     Zona* _zona_asociada1;
