@@ -50,7 +50,7 @@ void recorrerArbol(){
 
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans1, malla1);
     //TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
-    TNodo* nodoCamara = motor->crearNodo(motor->nodoRaiz(), camara);
+    TNodo* nodoCamara = motor->crearNodoCamara(motor->nodoRaiz(), camara);
    
     Shader shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
 

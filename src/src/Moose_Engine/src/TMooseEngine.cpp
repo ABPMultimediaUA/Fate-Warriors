@@ -140,7 +140,7 @@ void TMooseEngine::drawLuces(){
 void TMooseEngine::drawCamaras(){
     u_int16_t cont = 0;
     std::stack<glm::mat4> pila_matriz_camara;
-    for(uint16_t i = 0; i < _n_luces; i++){
+    for(uint16_t i = 0; i < _n_camaras; i++){
         if(_mapping_camaras[i].activa){
             TNodo* this_node = _mapping_camaras[i].nodo;
             while(this_node->get_padre()!=nullptr){
