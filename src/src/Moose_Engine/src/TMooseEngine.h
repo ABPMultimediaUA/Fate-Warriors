@@ -27,7 +27,7 @@ class TMooseEngine{
         TTransform* crearTransform();
         TCamara*    crearCamara();
         TLuz*       crearLuz();
-        TModelado*     crearModelado(char* _i_path);
+        TModelado*  crearModelado(char* _i_path);
 
         void        drawLuces();
         void        drawCamaras();
@@ -35,6 +35,7 @@ class TMooseEngine{
         inline TNodo* nodoRaiz(){
             return _escena;
         }
+
         void draw();
         bool ventana_abierta();
 
@@ -49,6 +50,7 @@ class TMooseEngine{
 
         glm::mat4 matriz_luz = glm::mat4(1.0f);
         glm::mat4 matriz_view = glm::mat4(1.0f);
+        
         GLFWwindow* window;
         Shader *_shader;        
 

@@ -17,7 +17,7 @@ struct Mapeado{//declaracion de los parametros
 TMooseEngine::TMooseEngine(){
     init_opengl();
     uint16_t _contadorIDEntidad = 0;
-    _n_camaras=2;
+    _n_camaras=1;
     _n_c_actual=0;
     _n_l_actual=0;
     _n_luces=0;
@@ -27,7 +27,6 @@ TMooseEngine::TMooseEngine(){
     _mapping_camaras = new Mapeado[_n_camaras];
     _mapping_luces   = new Mapeado[_n_luces];
     _shader = new Shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
-    
 }
 TMooseEngine::~TMooseEngine(){
     delete _escena;
@@ -64,6 +63,7 @@ void TMooseEngine::init_opengl(){
     glViewport(0,0,1280,720);
 
 }
+
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
     TNodo* nodo = new TNodo(_contadorIDEntidad,padre);
     nodo->set_entidad(ent);
@@ -71,6 +71,7 @@ TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){
     ++_contadorIDEntidad;
     return nodo;
 }
+
 TNodo* TMooseEngine::crearNodoCamara(TNodo *padre, TEntidad *ent){
     _mapping_camaras[_n_c_actual]={true,crearNodo(padre,ent)};
     ++_n_c_actual;
@@ -100,6 +101,7 @@ TModelado* TMooseEngine::crearModelado(char* _i_path){
     //_gestorRecursos->getRecursoModelo(fichero);
     return malla;
 }
+
 void TMooseEngine::clear(){
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
@@ -120,13 +122,18 @@ void TMooseEngine::draw(){
 void TMooseEngine::drawLuces(){
     u_int16_t cont = 0;
     std::stack<glm::mat4> pila_matriz_luz;
+    matriz_luz=glm::mat4(1.0f);
     for(uint16_t i = 0; i < _n_luces; i++){
         if(_mapping_luces[i].activa){
             TNodo* this_node = _mapping_luces[i].nodo;
+            
             while(this_node->get_padre()!=nullptr){
-                pila_matriz_luz.push(this_node->get_entidad()->get_matriz());
                 this_node = this_node->get_padre();
-                cont++;
+                if(this_node->get_entidad()!=nullptr){
+                    pila_matriz_luz.push(static_cast<TTransform*> (this_node->get_entidad())->get_t_matriz());
+                    cont++;
+                }
+                
             }
 
             for(u_int16_t a = 0; a < cont; a++){
@@ -140,19 +147,24 @@ void TMooseEngine::drawLuces(){
 void TMooseEngine::drawCamaras(){
     u_int16_t cont = 0;
     std::stack<glm::mat4> pila_matriz_camara;
+    matriz_view=glm::mat4(1.0f);
     for(uint16_t i = 0; i < _n_camaras; i++){
         if(_mapping_camaras[i].activa){
             TNodo* this_node = _mapping_camaras[i].nodo;
             while(this_node->get_padre()!=nullptr){
-                pila_matriz_camara.push(this_node->get_entidad()->get_matriz());
                 this_node = this_node->get_padre();
-                cont++;
+                if(this_node->get_entidad()!=nullptr){
+                    pila_matriz_camara.push(static_cast<TTransform*> (this_node->get_entidad())->get_t_matriz());
+                    cont++;
+                }
+                
             }
 
             for(u_int16_t a = 0; a < cont; a++){
                 matriz_view = matriz_view * pila_matriz_camara.top();
                 pila_matriz_camara.pop();
             }
+            //std::cout<<"view: "<<glm::to_string(matriz_view)<<"\n";
             matriz_view = glm::inverse(matriz_view);
             _shader->setMat4("view", matriz_view);
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);

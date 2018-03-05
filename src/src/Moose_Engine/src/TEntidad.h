@@ -20,14 +20,15 @@ public:
 	void setID(uint16_t id);
 	uint16_t getID();
 	glm::mat4 get_matriz();
+	
 
 private:
 	
 protected:
 	uint16_t _ID;
 	TNodo* _nodo;
-    static glm::mat4 matriz;
-    static std::stack<glm::mat4> pila_matrices;
+    static glm::mat4 _matriz;
+    static std::stack<glm::mat4> _pila_matrices;
 };
 
 #endif /* SRC_TENTIDAD_H_ */

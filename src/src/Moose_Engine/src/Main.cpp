@@ -28,9 +28,9 @@ void recorrerArbol(){
     //resurseManajer->getRecursoModelo("Enemigo.obj");
     TMooseEngine* motor=new TMooseEngine();
 	
-    TTransform* trans1=motor->crearTransform();
-	TTransform* trans2=motor->crearTransform();
-	TTransform* trans3=motor->crearTransform();
+    TTransform* trans1 = motor->crearTransform();
+	TTransform* trans2 = motor->crearTransform();
+	TTransform* trans3 = motor->crearTransform();
 
 	TLuz* luz = motor->crearLuz();
     TCamara* camara = motor->crearCamara();
@@ -39,20 +39,19 @@ void recorrerArbol(){
     TModelado* malla1 = motor->crearModelado(cstr2);
 
     //trans1->escalar(0.5,0.25,0.5);
-    trans1->trasladar(1,0,0);
-    //trans3->trasladar(30,0,30);
+    trans1->trasladar(0,0,-10);
+    trans3->trasladar(0,0,0);
     //trans2->escalar(1,1,1);
-
 
     TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(), trans1);
     //TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
-    //TNodo* nodoTrans3 = motor->crearNodo(nodoTrans2, trans3);
+    TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
 
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans1, malla1);
     //TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
-    TNodo* nodoCamara = motor->crearNodoCamara(motor->nodoRaiz(), camara);
+
+    TNodo* nodoCamara = motor->crearNodoCamara(nodoTrans3, camara);
    
-    Shader shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
 
     TNodo* Escena=motor->nodoRaiz();
 
@@ -82,17 +81,16 @@ void recorrerArbol(){
     NCam->set_entidad(EntCam);
     NChasis->set_entidad(MallaChasis);*/
 
-while(!motor->ventana_abierta()){
+    while(!motor->ventana_abierta()){
 
        //shader.use();
     
     //Escena->draw();
         // camera
         //
-
          /*   glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
         glm::mat4 view(glm::lookAt(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,0.0f,-1.0f),glm::normalize(glm::cross(glm::normalize(glm::cross(glm::vec3(0.0f,0.0f,-1.0f),glm::vec3(0.0f, 1.0f, 0.0f))),glm::vec3(0.0f,0.0f,-1.0f)))));
-shader.setMat4("projection", projection);
+        shader.setMat4("projection", projection);
         shader.setMat4("view", view);*/
 
         // render the loaded model
@@ -103,7 +101,7 @@ shader.setMat4("projection", projection);
         motor->draw();
 
 
-}
+    }
     /*glm::mat4 algo=glm::mat4(1.0f);
     algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
     glm::mat4 algo2=glm::mat4(1.0f);

@@ -11,15 +11,17 @@ TModelado::TModelado(const char* path){
     std::string s(path);
     leerModelado(s);
 }
+
 TModelado::~TModelado(){
     _mallas.clear();
 }
+
 void TModelado::beginDraw(Shader* _i_shader){
     draw(_i_shader);
 }
 
 void TModelado::draw(Shader* _i_shader){
-    _i_shader->setMat4("model", matriz);
+    _i_shader->setMat4("model", _matriz);
     for(std::vector<TRecursoMalla*>::iterator it = _mallas.begin(); it != _mallas.end(); it++){
         (*it)->draw();
     }
@@ -27,6 +29,7 @@ void TModelado::draw(Shader* _i_shader){
 
 void TModelado::endDraw(){   
 }
+
 void TModelado::leerModelado(std::string &path){
     TGestorRecursos* gRec = TGestorRecursos::get_instancia();
     gRec->cargarModelo(path, _mallas);

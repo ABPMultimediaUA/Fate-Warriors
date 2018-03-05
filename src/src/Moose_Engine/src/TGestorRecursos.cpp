@@ -123,7 +123,7 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
 }
 
 void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos){
-    // process each mesh located at the current node
+    // process each mesh located at the current nodo
     for(unsigned int i = 0; i < nodo->mNumMeshes; i++){
         // the nodo object only contains indices to index the actual objects in the scene. 
         // the scene contains all the data, nodo is just to keep stuff organized (like relations between nodos).

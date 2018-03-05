@@ -17,6 +17,8 @@ class TTransform : public TEntidad{
 
         void beginDraw(Shader* _i_shader) override;
         void endDraw();
+
+        inline glm::mat4 get_t_matriz(){ return _t_matriz; }; 
     
     private:
         glm::mat4 _t_matriz;

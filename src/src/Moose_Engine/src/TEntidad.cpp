@@ -1,8 +1,8 @@
 #include "TEntidad.h"
 #include "TNodo.h"
 
-glm::mat4 TEntidad::matriz;
-std::stack<glm::mat4> TEntidad::pila_matrices;
+glm::mat4 TEntidad::_matriz;
+std::stack<glm::mat4> TEntidad::_pila_matrices;
 
 TEntidad::TEntidad() : _nodo(nullptr){
 
@@ -28,5 +28,5 @@ void TEntidad::setID(uint16_t id){
 }
 
 glm::mat4 TEntidad::get_matriz(){
-    return matriz;
+    return _matriz;
 }
