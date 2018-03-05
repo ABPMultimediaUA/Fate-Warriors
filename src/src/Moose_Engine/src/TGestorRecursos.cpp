@@ -3,11 +3,6 @@
 #include "TRecursoMalla.h"
 #include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
-#include "stb_image.h"
-//OPEN GL 
-#ifndef STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_IMPLEMENTATION
-#endif
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 //
@@ -112,14 +107,14 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
     glBindTexture(GL_TEXTURE_2D,texture1);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char *data = stbi_load("lel.jpg", &width, &height, &nrChannels, 0); 
+    //stbi_set_flip_vertically_on_load(true);
+    /*unsigned char *data = stbi_load("lel.jpg", &width, &height, &nrChannels, 0); 
     if(!data){
         std::cout<<"añlsdkjfañlsdkjfñalksdjf"<<std::endl;
         exit(0);
     }
     glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
-    stbi_image_free(data);
+    stbi_image_free(data);*/
 }
 
 void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos){

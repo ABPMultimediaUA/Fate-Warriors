@@ -14,7 +14,6 @@ class TGestorRecursos {
 
 public:
     static TGestorRecursos* get_instancia();
-    TGestorRecursos();
     ~TGestorRecursos();
     TRecurso* getRecursoModelo(char* nombre, std::vector<TRecursoMalla*> &_i_modelos);	
     TRecurso* getRecursoTextura(char* nombre);	
@@ -25,6 +24,7 @@ public:
     //unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma);
     TRecursoMalla* cargarMalla(aiMesh *mesh, const aiScene *scene);		
 private:
+    TGestorRecursos();
 	std::vector<TRecurso*> _recursos;
     static TGestorRecursos* _instancia;
     TRecurso* getRecurso(char* nombre);
