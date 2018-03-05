@@ -32,13 +32,15 @@ enum Enum_Acciones ND_3::toma_decision(Blackboard* _blackboard){
         Zona* zona1 = interruptores[i]->get_puerta()->get_zona_1();
         Zona* zona2 = interruptores[i]->get_puerta()->get_zona_2();
 
-        float distancia_a_interruptor = lib_math_distancia_2_puntos(interruptores[i]->getX(), interruptores[i]->getZ(), _blackboard->_npc_padre->getX(), _blackboard->_npc_padre->getY());
+        float distancia_a_interruptor = lib_math_distancia_2_puntos(interruptores[i]->getX(), interruptores[i]->getZ(), _blackboard->_npc_padre->getX(), _blackboard->_npc_padre->getZ());
 
-        if(zona1 != zona_actual && zona1->get_equipo() != _blackboard->_npc_padre->get_equipo() && distancia_a_interruptor < distancia_a_interruptor_mas_cerca){
+        if(zona1 != zona_actual && zona1->get_equipo() != _blackboard->_npc_padre->get_equipo() 
+            && distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
             interruptor_util = interruptores[i];
             distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
         }
-        else if(zona2 != zona_actual && zona2->get_equipo() != _blackboard->_npc_padre->get_equipo() && distancia_a_interruptor < distancia_a_interruptor_mas_cerca){
+        else if(zona2 != zona_actual && zona2->get_equipo() != _blackboard->_npc_padre->get_equipo() 
+            && distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
             interruptor_util = interruptores[i];
             distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
         }
@@ -52,6 +54,8 @@ enum Enum_Acciones ND_3::toma_decision(Blackboard* _blackboard){
 		return _nodo_der->toma_decision(_blackboard);
 	}
     // Nada
+    //_blackboard->objetivo_x = _blackboard->_zona_actual->getX();
+    //_blackboard->objetivo_y = _blackboard->_zona_actual->getZ();
     //std::cout <<"NO hay interruptor usable y util\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

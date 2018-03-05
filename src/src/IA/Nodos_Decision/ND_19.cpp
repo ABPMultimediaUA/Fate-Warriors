@@ -19,7 +19,7 @@ enum Enum_Acciones ND_19::toma_decision(Blackboard* _blackboard){
         //std::cout <<"hay enemigo cerca\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
-
+	_blackboard->actualizar_zonas();
     //std::cout <<"NO hay enemigo cerca\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }

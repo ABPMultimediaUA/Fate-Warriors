@@ -41,7 +41,7 @@ Blackboard::~Blackboard() {
 
 void Blackboard::actualiza_datos() {
 
-	actualizar_zonas(); //actualizarlo cuando va por la rama izquierda
+	//actualizar_zonas(); //actualizarlo cuando va por la rama izquierda
 
 	// Actualizar siempre:
 	actualizar_pseudo_azar();
