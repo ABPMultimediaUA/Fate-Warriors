@@ -147,26 +147,27 @@ void TMooseEngine::drawLuces(){
 void TMooseEngine::drawCamaras(){
     u_int16_t cont = 0;
     std::stack<glm::mat4> pila_matriz_camara;
-    matriz_view=glm::mat4(1.0f);
-    for(uint16_t i = 0; i < _n_camaras; i++){
-        if(_mapping_camaras[i].activa){
-            TNodo* this_node = _mapping_camaras[i].nodo;
-            while(this_node->get_padre()!=nullptr){
+    matriz_view=glm::mat4(1.0f); //inicializar la matriz view
+    for(uint16_t i = 0; i < _n_camaras; i++){ 
+        if(_mapping_camaras[i].activa){ //recorremos el mapeado de camaras buscando la que este activa
+            TNodo* this_node = _mapping_camaras[i].nodo; //obtenemos su nodo
+            while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
                 this_node = this_node->get_padre();
-                if(this_node->get_entidad()!=nullptr){
+                if(this_node->get_entidad()!=nullptr){ //para cada nodo salvo el raiz:
+                                                       //accedemos a la matriz de su transformacion y la apilamos para calcular la matriz view
                     pila_matriz_camara.push(static_cast<TTransform*> (this_node->get_entidad())->get_t_matriz());
-                    cont++;
+                    cont++;//contamos el numero de veces que hemos apilado una matriz
                 }
                 
             }
 
-            for(u_int16_t a = 0; a < cont; a++){
-                matriz_view = matriz_view * pila_matriz_camara.top();
+            for(u_int16_t a = 0; a < cont; a++){ //por cada matriz apilada... 
+                matriz_view = matriz_view * pila_matriz_camara.top(); //construimos la matriz view multiplicando en orden inverso
                 pila_matriz_camara.pop();
             }
             //std::cout<<"view: "<<glm::to_string(matriz_view)<<"\n";
-            matriz_view = glm::inverse(matriz_view);
-            _shader->setMat4("view", matriz_view);
+            matriz_view = glm::inverse(matriz_view); //invertimos la matriz para obtener la matriz view final
+            _shader->setMat4("view", matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
             _shader->setMat4("projection", projection);
         }

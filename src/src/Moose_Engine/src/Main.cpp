@@ -124,9 +124,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 } 
 
 float vertices[] = {
-    // positions         // colors
-     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+    // posiciones        // colores
+     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // abajo derecha
+    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bajo izquierda
      0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
 };    
 
