@@ -20,13 +20,25 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Interfaz_ME.h"
+
+void interfazTest(){
+    Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
+    char cstr[50] = "Carne.obj";
+    char* cstr2  = cstr;
+    interfaz_motor->crearModelado(cstr2, 0, 0, -10);
+
+    while(interfaz_motor->ventana_abierta()){
+        interfaz_motor->render();
+    }
+}
 
 void recorrerArbol(){
     
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoModelo("Enemigo.obj");
-    TMooseEngine* motor=new TMooseEngine();
+    TMooseEngine* motor=new TMooseEngine(1280,720);
 	
     TTransform* trans1 = motor->crearTransform();
 	TTransform* trans2 = motor->crearTransform();
@@ -308,8 +320,11 @@ void main_tamanyofloat(){
     std::cout<<sizeof(algo)<<"       "<<sizeof(result)<<std::endl; 
 }
 
+
+
 int main(){
     //dibujarOpenGL();
-    recorrerArbol();
+    //recorrerArbol();
+    interfazTest();
     return 0;
 }

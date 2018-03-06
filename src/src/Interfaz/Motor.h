@@ -16,8 +16,6 @@
 #include "../Utilidades/Vector.h"
 
 
-
-
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
@@ -75,6 +73,7 @@ public:
 
     //void simulationUpdate();
 
+    
 
       //bool    colision_entre_dos_puntos(Vector3 inicio, Vector3 fin);
 

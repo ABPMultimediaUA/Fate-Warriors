@@ -18,7 +18,7 @@ class GLFWwindow;
 class TMooseEngine{
 
     public:
-        TMooseEngine();
+        TMooseEngine(uint16_t width, uint16_t heigth);
         ~TMooseEngine();
 
         TNodo*      crearNodo(TNodo *padre, TEntidad *ent);
@@ -55,7 +55,7 @@ class TMooseEngine{
         Shader *_shader;        
 
 
-        void init_opengl();
+        void init_opengl(uint16_t width, uint16_t height);
         void clear();
         
         //atributos para camaras, luces y demás

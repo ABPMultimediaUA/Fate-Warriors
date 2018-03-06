@@ -14,20 +14,22 @@ struct Mapeado{//declaracion de los parametros
     bool activa;
     TNodo* nodo;
 };
-TMooseEngine::TMooseEngine(){
-    init_opengl();
+
+TMooseEngine::TMooseEngine(uint16_t width, uint16_t height){
+    init_opengl(width, height);
     uint16_t _contadorIDEntidad = 0;
     _n_camaras=1;
     _n_c_actual=0;
     _n_l_actual=0;
     _n_luces=0;
     _gestorRecursos = TGestorRecursos::get_instancia();
-    TNodo* nodo = new TNodo(_contadorIDEntidad,nullptr);
+    TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
-    _mapping_camaras = new Mapeado[_n_camaras];
-    _mapping_luces   = new Mapeado[_n_luces];
+    _mapping_camaras= new Mapeado[_n_camaras];
+    _mapping_luces  = new Mapeado[_n_luces];
     _shader = new Shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
 }
+
 TMooseEngine::~TMooseEngine(){
     delete _escena;
     delete _gestorRecursos;
@@ -36,14 +38,14 @@ TMooseEngine::~TMooseEngine(){
     delete _shader;
     _contadorIDEntidad=0;
     glfwTerminate();
-
 }
-void TMooseEngine::init_opengl(){
+
+void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    window = glfwCreateWindow(1280, 720, "MooseEngine", NULL, NULL);
+    window = glfwCreateWindow(width, height, "MooseEngine", NULL, NULL);
    
 
     if (window == NULL){
@@ -60,8 +62,7 @@ void TMooseEngine::init_opengl(){
         exit(-1);
     }  
     //glEnable(GL_DEPTH_TEST);
-    glViewport(0,0,1280,720);
-
+    glViewport(0,0,width,height);
 }
 
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
