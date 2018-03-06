@@ -16,7 +16,7 @@ Interfaz_ME* Interfaz_ME::get_instancia(uint16_t width, uint16_t height){
 }
 
 Interfaz_ME::Interfaz_ME(uint16_t width, uint16_t height){
-
+    configuracion_motor(width, height, false, false);
 }
 
 Interfaz_ME::~Interfaz_ME(){

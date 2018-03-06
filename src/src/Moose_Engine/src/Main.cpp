@@ -26,9 +26,12 @@ void interfazTest(){
     Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
     char cstr[50] = "Carne.obj";
     char* cstr2  = cstr;
+
+    interfaz_motor->crearCamara();
+    interfaz_motor->crearLuz();
     interfaz_motor->crearModelado(cstr2, 0, 0, -10);
 
-    while(interfaz_motor->ventana_abierta()){
+    while(!interfaz_motor->ventana_abierta()){
         interfaz_motor->render();
     }
 }
