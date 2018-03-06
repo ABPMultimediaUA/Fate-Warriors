@@ -1,6 +1,7 @@
 #ifndef SRC_TMOOSEENGINE_H_
 #define SRC_TMOOSEENGINE_H_
 
+#include <vector>
 #include <cstdint>
 #include <glm/ext.hpp>
 class TNodo;
@@ -13,7 +14,6 @@ class TModelado;
 class Mapeado;
 class Shader;
 class GLFWwindow;
-
 
 class TMooseEngine{
 
@@ -40,13 +40,13 @@ class TMooseEngine{
         bool ventana_abierta();
 
     private:
-        Mapeado *_mapping_camaras;
-        Mapeado *_mapping_luces;
+        std::vector<Mapeado*> _mapping_camaras;
+        std::vector<Mapeado*> _mapping_luces;
         TNodo* _escena;
         TGestorRecursos* _gestorRecursos;
         uint16_t _contadorIDEntidad;
-        uint8_t _n_camaras, _n_c_actual;
-        uint8_t _n_luces, _n_l_actual;
+        uint8_t  _n_c_actual;
+        uint8_t  _n_l_actual;
 
         glm::mat4 matriz_luz = glm::mat4(1.0f);
         glm::mat4 matriz_view = glm::mat4(1.0f);
