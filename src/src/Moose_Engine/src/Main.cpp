@@ -24,13 +24,16 @@
 
 void interfazTest(){
     Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
-    char cstr[50] = "Carne.obj";
-    char* cstr2  = cstr;
+    
+    const char cstr[] = "Carne.obj";
 
     interfaz_motor->crearCamara();
     interfaz_motor->crearLuz();
-    interfaz_motor->crearModelado(cstr2, 0, 0, -10);
 
+    interfaz_motor->crearModelado(cstr, 3, 0, -10);
+{    const char cstr[] = "Patatas.obj";
+    interfaz_motor->crearModelado(cstr, 0, 0, -10);
+}
     while(!interfaz_motor->ventana_abierta()){
         interfaz_motor->render();
     }
@@ -41,7 +44,7 @@ void recorrerArbol(){
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoModelo("Enemigo.obj");
-    TMooseEngine* motor=new TMooseEngine(1280,720);
+    TMooseEngine* motor = TMooseEngine::get_instancia(1280, 720);
 	
     TTransform* trans1 = motor->crearTransform();
 	TTransform* trans2 = motor->crearTransform();
@@ -49,9 +52,8 @@ void recorrerArbol(){
 
 	TLuz* luz = motor->crearLuz();
     TCamara* camara = motor->crearCamara();
-    char cstr[50] = "Carne.obj";
-    char* cstr2  = cstr;
-    TModelado* malla1 = motor->crearModelado(cstr2);
+    const char cstr[] = "Carne.obj";
+    TModelado* malla1 = motor->crearModelado(cstr);
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(0,0,-10);

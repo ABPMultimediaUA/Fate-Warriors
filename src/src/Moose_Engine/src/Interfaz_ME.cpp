@@ -5,6 +5,9 @@
 #include "TNodo.h"
 #include "TCamara.h"
 #include "TLuz.h"
+#include "iNodoModelado.h"
+#include "iNodoCamara.h"
+#include "iNodoLuz.h"
 
 Interfaz_ME* Interfaz_ME::_instancia = 0;
 
@@ -24,10 +27,14 @@ Interfaz_ME::~Interfaz_ME(){
 }
 
 void Interfaz_ME::configuracion_motor(uint16_t width, uint16_t height, bool fullscreen, bool v_sync){
-    motor=new TMooseEngine(width, height);
+    motor = TMooseEngine::get_instancia(width, height);
 }
 
-void Interfaz_ME::crearModelado(char* ruta, float x, float y, float z){
+iNodo* Interfaz_ME::crearModelado(const char* ruta, float x, float y, float z){
+    iNodoModelado* nodo = new iNodoModelado(ruta);
+    nodo->mover(x,y,z);
+    return nodo;
+/*
     TModelado* _modelado = motor->crearModelado(ruta);
     TTransform* transTraslacion = motor->crearTransform();
     TTransform* transRotacion   = motor->crearTransform();
@@ -38,6 +45,7 @@ void Interfaz_ME::crearModelado(char* ruta, float x, float y, float z){
     TNodo* nodoEscalado   = motor->crearNodo(nodoTraslacion, transEscalado);
 
     TNodo* nodoModelado = motor->crearNodo(nodoEscalado, _modelado);
+    */
 }
 
 uint16_t Interfaz_ME::crearCamara(){

@@ -18,8 +18,8 @@ class GLFWwindow;
 class TMooseEngine{
 
     public:
-        TMooseEngine(uint16_t width, uint16_t heigth);
         ~TMooseEngine();
+        static TMooseEngine* get_instancia(uint16_t width, uint16_t height);
 
         TNodo*      crearNodo(TNodo *padre, TEntidad *ent);
         TNodo*      crearNodoCamara(TNodo *padre, TEntidad *ent);
@@ -27,7 +27,7 @@ class TMooseEngine{
         TTransform* crearTransform();
         TCamara*    crearCamara();
         TLuz*       crearLuz();
-        TModelado*  crearModelado(char* _i_path);
+        TModelado*  crearModelado(const char* _i_path);
 
         void        drawLuces();
         void        drawCamaras();
@@ -40,6 +40,8 @@ class TMooseEngine{
         bool ventana_abierta();
 
     private:
+        TMooseEngine(uint16_t width, uint16_t heigth);
+        static TMooseEngine* _instancia;
         std::vector<Mapeado*> _mapping_camaras;
         std::vector<Mapeado*> _mapping_luces;
         TNodo* _escena;

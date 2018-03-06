@@ -5,19 +5,21 @@
 #include <cstdint>
 
 class TMooseEngine;
+class iNodo;
 
 class Interfaz_ME{
-    public:
-        
+
+    public:    
         ~Interfaz_ME();
         static Interfaz_ME* get_instancia(uint16_t width, uint16_t height);
-        void crearModelado(char* ruta, float x, float y, float z);
+        iNodo* crearModelado(const char* ruta, float x, float y, float z);
 
         uint16_t crearCamara();
         uint16_t crearLuz();
 
         void render();
         bool ventana_abierta();
+        TMooseEngine* getEngine();
 
     private:
         static Interfaz_ME* _instancia;

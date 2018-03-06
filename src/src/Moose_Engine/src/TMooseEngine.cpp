@@ -10,10 +10,20 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+TMooseEngine* TMooseEngine::_instancia;
+
+
 struct Mapeado{//declaracion de los parametros
     bool activa;
     TNodo* nodo;
 };
+
+TMooseEngine* TMooseEngine::get_instancia(uint16_t width, uint16_t height){
+    if(_instancia == 0){
+        _instancia= new TMooseEngine(width, height);
+    }
+    return _instancia;
+}
 
 TMooseEngine::TMooseEngine(uint16_t width, uint16_t height){
     init_opengl(width, height);
@@ -93,7 +103,7 @@ TLuz* TMooseEngine::crearLuz(){
     return luz;
 }
 
-TModelado* TMooseEngine::crearModelado(char* _i_path){
+TModelado* TMooseEngine::crearModelado(const char* _i_path){
     TModelado* malla = new TModelado(_i_path);
     //_gestorRecursos->getRecursoModelo(fichero);
     return malla;
