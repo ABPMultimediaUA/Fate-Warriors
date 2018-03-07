@@ -3,6 +3,7 @@
 #include "TRecursoMalla.h"
 #include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
+#include "TRecursoModelado.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 //
@@ -59,6 +60,7 @@ TRecurso* TGestorRecursos::getRecursoModelo(char* nombre, std::vector<TRecursoMa
     if(rec==nullptr){
         std::string s(nombre);
         cargarModelo(s,_i_modelos);
+        _recursos.back()->setNombre(nombre);
     }
     return rec;
 }
@@ -129,6 +131,7 @@ void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector
     for(unsigned int i = 0; i < nodo->mNumChildren; i++){
         cargarNodo(nodo->mChildren[i], scene, _i_modelos);
     }
+    _recursos.push_back(new TRecursoModelado());
 }
 
 TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene){
