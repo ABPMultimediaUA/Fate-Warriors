@@ -15,6 +15,8 @@ class Input;
 class Zonas_Manager;
 //class Respawn_Points; 
 
+#include <vector>
+
 
 class Datos_Partida {
 public:
@@ -40,8 +42,14 @@ public:
 	inline uint16_t get_num_characters(){
 		return _num_characters;
 	}
+	Player* crear_jugador(float x, float y);
+	std::vector<Player*> dame_jugadores_online();
+	inline bool get_is_server(){return isServer;}
+
 
 private:
+
+	std::vector<Player*> _jugadores_online;
 	Player* _jugador;
 	Character ** _characters;
 	uint16_t _num_characters;
@@ -51,6 +59,8 @@ private:
     Interactuable_Manager * _interactuable_manager;
 	Armas_Manager * _armas_manager;
 	Zonas_Manager * _zonas_manager;
+		bool isServer;
+
 
 };
 

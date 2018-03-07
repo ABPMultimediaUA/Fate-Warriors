@@ -78,6 +78,8 @@ public:
 
 	Enum_Equipo get_equipo();
 
+	void mover(uint16_t _i_direccion, double delta_time);
+
 	// Gestion de acciones
 	void impulso_danyar(Character * atacante, Character * atacado, int impulso);
 	Enum_Tipo_Ataque get_tipo_ataque_combo(Enum_Tipo_Ataque new_tipo_ataque);

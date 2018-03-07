@@ -36,7 +36,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _tiempo_inicio_accion = 0;
     _duracion_accion_actual = 0;
     _velocidadAndar = _i_velocidad;
-    _velocidadCorrer = _i_velocidad * 2;
+    _velocidadCorrer = _i_velocidad;
     _rb_ataque = Motor::Motor_GetInstance()->crear_rb_ataque();
     _equipo = _i_equipo;
     _bloqueado = false;
@@ -217,8 +217,43 @@ void Character::saltar(){
     }
 }
 
-void Character::mover(uint16_t _i_direccion){
+
+void Character::mover(uint16_t _i_direccion, double delta_time){
+
     if(esta_bloqueado() == false){
+     //   std::cout << this << "delta_tiem";
+
+        _direccion_actual = _i_direccion;
+            
+        if(this->get_accion() == Nada){
+            set_accion(Andar);
+            _velocidad = _velocidadAndar;
+        }
+        else if(this->get_accion() == Andar){
+            //std::cout << "Andando" << std::endl;
+            if(_velocidad<_velocidadAndar){
+                _velocidad += 0.05;
+            }
+            if(accion_en_curso() == false){
+                this->set_accion(Accion_Correr);
+            }
+        }
+        else if(_accion == Accion_Correr){
+            //std::cout << "CORRIENDO" << std::endl;
+            if(_velocidad<_velocidadCorrer){
+                _velocidad += 0.1;
+            }
+        }
+        _objeto_motor->VelocidadDireccion(_i_direccion,0.5,delta_time);
+    }
+}
+
+void Character::mover(uint16_t _i_direccion){
+    static int moverse = 0;
+ //   std::cout << moverse++ << "valor de moverse \n";
+
+    if(esta_bloqueado() == false){
+    //    std::cout << this << "actualizo velocidad\n";
 
         _direccion_actual = _i_direccion;
             

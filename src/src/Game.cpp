@@ -17,6 +17,9 @@
 #include "Zonas_Manager.h"
 #include "Interactuable_Manager.h"
 #include "Respawn.h"
+#include "Network/Cliente.h"
+#include "Network/Servidor.h"
+
 
 #include <iostream>
 #include <stack>
@@ -132,16 +135,31 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
     	cambio_a_update_pausa();
     }
     else {
+
+
+		if(_datos->get_is_server()){
+			Servidor* servidor = Servidor::getInstance();
+			servidor->check_and_send_mesages();
+		}
+		else{
+			Cliente* cliente = Cliente::getInstance();
+			cliente->check_and_send_mesages();
 			_player->update();
+		}
+
+/*
+		if(!_datos->get_is_server()){
+			_player->update();
+		}
+*/
 			_nivel->Update();
-			_consumibles_action->comprobar_consumibles();
-			_trampas_action->update();
+			//_consumibles_action->comprobar_consumibles();
+	//		_trampas_action->update();
 
 			_motor->update(_i_tiempo_desde_ultimo_update);
-			_interactuable_manager->update_interruptores();
+		/*	_interactuable_manager->update_interruptores();
 			_decision_manager->toma_decisiones();
 			_zonas_manager->actualizar_zonas();
-
 			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
 				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
 				cambio_a_update_menu();
@@ -153,6 +171,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 				}
 				//if equipo!=neutro Fin partida
 			}
+		*/
     }
 }
 

@@ -1,6 +1,10 @@
 #include "Game.h"
 #include "Interfaz/Motor.h"
 #include "Tiempo/Time.h"
+#include "Network/Cliente.h"
+#include "Network/Servidor.h"
+
+#include "Datos_Partida.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -39,6 +43,8 @@ int main(){
 
     //uint8_t _frames = 0;
     //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
+   	std::vector<Enum_Inputs> inputs;
+
 
 	while(_motor->getIrrlichtDevice()->run()){
 		//Evento para cerrar la ventana
@@ -49,6 +55,18 @@ int main(){
 		time->set_tiempo_desde_ultimo_update(time->get_current_sin_pausas() - _h_ultimo_update);//actualizacion del reloj
 		//std::cout << "Tiempo desde update " << time->get_tiempo_desde_ultimo_update() << std::endl;
 		//update
+	/*	if(_juego->game_get_datos() != nullptr){
+			if(_juego->game_get_datos()->get_is_server()){
+				Servidor* servidor = Servidor::getInstance();
+				servidor->check_and_send_mesages();
+			}
+			else{
+				Cliente* cliente = Cliente::getInstance();
+				cliente->check_and_send_mesages();
+			}
+		
+		}
+		*/
                 
 		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
 			_h_ultimo_update=time->get_current_sin_pausas();
@@ -59,7 +77,6 @@ int main(){
             //std::cout << "post update" << std::endl;
 		}
 
-
 		//Render
 		_interpolacion=fmin(1.f,(double)time->get_tiempo_desde_ultimo_update()/t_min_IA);
 		_juego->render(_interpolacion);
@@ -68,6 +85,11 @@ int main(){
 
 		//std::cout << "Interpolaicon " << _interpolacion	 << std::endl;
 		//_time->cambiar_antes_a_ahora();
+		/*if(_juego->game_get_datos() != nullptr)
+		if(!_juego->game_get_datos()->get_is_server() &&  Cliente::getInstance()->_puede_actualizar){
+			Cliente::getInstance()->send_player_move(inputs, inputs.size());
+		}	
+		*/	
 	}
 	
 	delete _time;

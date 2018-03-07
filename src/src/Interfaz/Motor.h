@@ -107,10 +107,13 @@ public:
       void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
       //bool comprobar_colision_ataque(btRigidBody *character_atacado);
 
-    
+      bool motor_envia_inputs(){
+            return envia_inputs;
+      }
 
 private:
 
+      bool envia_inputs;
       static Motor* _Motor;
       Motor();
       Vector3* rayOrigen;

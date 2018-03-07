@@ -512,7 +512,13 @@ void Motor::update(double dt){
 	}
 
 	mdt = dt;
+	
    	if(device->isWindowActive()) {
+		envia_inputs = false;
+	}
+	else{
+		envia_inputs = true;
+	}
 
         world->stepSimulation(dt * 0.001f,5);
 
@@ -526,11 +532,12 @@ void Motor::update(double dt){
 
 		// Update de la posicion de la camara (despues de actualizar la del jugador)
 		updateCamaraColision();
-    } 
+//    } 
 
-    else {
-        device->yield();
+  /*  else {
+       // device->yield();
     }
+	*/
        // device->drop();
 }
 

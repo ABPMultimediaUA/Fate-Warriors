@@ -19,27 +19,38 @@
 
 #include "../Game.h"
 #include "../Action_Manager.h"
+#include "../Network/Cliente.h"
                                                                                                             //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.25, 10, 15, Enum_Equipo_A)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input, bool _es_jugador_online) : Character(_id, _i_x, _i_y, _i_z, 500, 0.25, 10, 15, Enum_Equipo_A)
                                                                 {   
     _motor= Motor::Motor_GetInstance();
     _sonido= Interfaz_sonido::GetInstancia();
     //_tiempo = Time::Instance();
     //crear nodo de personaje del motor
 
+    es_jugador_online = _es_jugador_online;                                                                
+    if(!_es_jugador_online){
     const char* cstr  = "models/Personajes/Jugador/Personaje.obj";
-
+   //     const char* cstr  = "models/Personajes/Enemigos/Enemigo.obj";
+   
     _objeto_motor = new Objeto_Motor(this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
+    _motor->poner_camara_a_entidad(_objeto_motor);
+
+    }
+    else{
+        const char* cstr  = "models/Personajes/Enemigos/Enemigo.obj";
+    _objeto_motor = new Objeto_Motor(this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
+    }
+
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
-    _motor->poner_camara_a_entidad(_objeto_motor);
-    
     //std::cout<<"X player: "<<_motor->getX(_id_motor);
     //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
 
     _input = _i_input;
     _motor->set_text_vida(_vida);
     _especial = 0;
+    _puede_actualizar = true;
     //_sonido->Play_ambiente(2);
 }
 
@@ -48,8 +59,11 @@ Player::~Player(){
 
 void Player::update(){
     //std::cout<< "ACCION_ACTUAL: "<< _accion << "\n";
+    	std::vector<Enum_Inputs> inputs;
     if (_vida>0){
+ //    if(/*Motor::Motor_GetInstance()->motor_envia_inputs() &&*/  Cliente::getInstance()->_puede_actualizar){
 
+    std::cout << "voy a actualiizaaar" << std::endl;
     gestion_acciones();
 
     // Esto hay que borrarlo
@@ -62,13 +76,23 @@ void Player::update(){
         // Direccion buena con respecto de la camara
         uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
         while(_direccion_buena >= 360) _direccion_buena -= 360;
-        mover(_direccion_buena);
+        std::cout<< "me voy a mover desde el player \n";
         //s_sonido->Play_ambiente(2);
+     //   mover(_direccion_buena, _tiempo->get_tiempo_desde_ultimo_update());
+        if(!es_jugador_online){
+            Cliente::getInstance()->send_desplazamiento(0,_direccion_buena,_tiempo->get_tiempo_desde_ultimo_update());
+        }
+        
     }
+    
 
     if(_input->get_dash()){
-        _sonido->Play_ambiente(2);
+  /*      _sonido->Play_ambiente(2);
         esquivar(_direccion); // Habra que pasar la direccion buena
+        */
+        if(!es_jugador_online){
+        	inputs.push_back(Input_Dash);
+        }
     }
 
     if(_input->get_interactuar()){
@@ -85,7 +109,14 @@ void Player::update(){
         else{
            // std::cout<< "No puede INTERACTUAR "<< std::endl;
         }
+
+       if(!es_jugador_online){
+        	inputs.push_back(Input_Interact);
+       }
+
     }
+
+
 
     if(_input->get_centrar_camara()) {
         _motor->resetear_camara();
@@ -117,6 +148,7 @@ void Player::update(){
         }
     }
   
+//    Cliente::getInstance()->send_player_move (inputs, inputs.size());
 
     if(_input->get_saltar()){
         saltar();
@@ -131,14 +163,46 @@ void Player::update(){
     Nivel* nivel=Nivel::nivel_instancia();
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
+    
+
+   // }
     }
     else{
         //std::cout<<"sigo muerto" << std::endl;
         Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
     }
-
+    //Cliente::getInstance()->send_desplazamiento(0,getX(),getZ());
+    
 
 }
+
+void Player::comprobar_input(Enum_Inputs key_press){
+    if(key_press==Input_Dash){
+        _sonido->Play_ambiente(2);
+        esquivar(_direccion_actual); // Habra que pasar la direccion buena
+        setY(10);
+    }
+
+    if(key_press==Input_Interact){
+       _sonido->Stop_game();
+        if(esta_bloqueado() == false){
+            std::cout<< "Pulsa E\n";
+            if(!interactuar_con_objeto()){
+            std::cout<< "No encuentra objeto\n";
+                intentar_recoger_arma();
+            }
+            //this->bloquear_input(1000);
+            //std::cout<< "Interactuando..."<< std::endl;
+        }
+        else{
+           // std::cout<< "No puede INTERACTUAR "<< std::endl;
+        }
+
+
+    }
+}
+
+
 			
 void Player::render(){
   

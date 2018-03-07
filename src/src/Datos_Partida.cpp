@@ -12,18 +12,69 @@
 #include "Puerta.h"
 #include "Zonas_Manager.h"
 #include <iostream>
+#include "Network/Cliente.h"
+#include "Network/Servidor.h"
+
 //#include "Consumibles/Respawn_Points.h"
 
 
 Datos_Partida::Datos_Partida(Input* _i_input) { 
   float mult = 4.9212625; 
-  _jugador          =   new Player( 0, 12.5*mult, 0, 9.5*mult, _i_input); 
-    _consumibles_manager   =   new Consumible_Manager(); 
+
+	std::string input;
+
+		isServer = true;
+
+		std::cout << "(C)lient or (S)erver: ";
+		std::cin >> input;
+
+		if (input[0] == 'C' || input[0] == 'c')
+			isServer = false;
+
+		if(isServer){
+			char portstring[30];
+			unsigned short port;
+			Servidor* servidor = Servidor::getInstance();
+
+			std::cout << "Type port to listen " << std::endl;
+			std::cin >> portstring;
+			port = (unsigned short) strtoul(portstring, NULL, 0);
+
+			servidor->start_server(port, 3);
+			_jugador = nullptr;
+		}
+		else{
+				Cliente* cliente = Cliente::getInstance();
+				cliente->send_game_start();
+
+				char portstring [30];
+				unsigned short port;
+				char iptoconnect [30];
+
+				isServer = false;
+
+				std::cout << "Type port to connect " << std::endl;
+				std::cin >> portstring;
+				port = (unsigned short) strtoul(portstring, NULL, 0);
+
+				std::cout << "Type ip to connect to" << std::endl;
+				std::cin >> iptoconnect;
+
+  				_jugador          =   new Player( 0, 12.5*mult, 0, 9.5*mult, _i_input, false); 
+				  cliente->asociar_player(_jugador);
+				  std::cout << _jugador  <<"soy el de esta pantalla \n";
+				cliente->start_client(iptoconnect, port);
+		}
+
+
+
+
+  _consumibles_manager   =   new Consumible_Manager(); 
   _trampas_manager     =   new Trampas_manager(); 
   _armas_manager       =  new Armas_Manager(); 
 //  _respawn_Points      =  new Respawn_Points(); 
   _zonas_manager       =  new Zonas_Manager(); 
-    _interactuable_manager   =   new Interactuable_Manager(_zonas_manager->get_zonas()); 
+  _interactuable_manager   =   new Interactuable_Manager(_zonas_manager->get_zonas()); 
   _npc_manager        =   new NPC_Manager(); 
  
    
@@ -58,6 +109,8 @@ Datos_Partida::~Datos_Partida() {
 	delete _zonas_manager;
 
 	delete [] _characters;
+	Cliente* cliente = Cliente::getInstance();
+	cliente->Cerrar_peer();
 }
 
 Player* Datos_Partida::get_player(){
@@ -94,4 +147,17 @@ void Datos_Partida::inserta_npc_nivel(){
 
 Character** Datos_Partida::get_characters(){
 	return _characters;
+}
+
+Player* Datos_Partida::crear_jugador(float x, float y){
+	  float mult = 4.9212625; 
+	//  Player* _jugador = new Player( 0, 12.5*mult, 0, 9.5*mult, nullptr, true);
+	  Player* _jugador = new Player( 0, x, 0, y, nullptr, true);
+	
+	_jugadores_online.push_back(_jugador);
+	return _jugador;
+}
+
+std::vector<Player*> Datos_Partida::dame_jugadores_online(){
+ return _jugadores_online;
 }

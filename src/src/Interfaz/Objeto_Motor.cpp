@@ -38,9 +38,11 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	btTransform btt; 
 	_rigidbody->getMotionState()->getWorldTransform(btt);
 	btt.setOrigin(btVector3(x,btt.getOrigin().getY(),z)); // move body to the scene node new position
+	btt.setRotation(_rigidbody->getOrientation());
 
 	_rigidbody->getMotionState()->setWorldTransform(btt);
 	_rigidbody->setCenterOfMassTransform(btt);
+	
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
