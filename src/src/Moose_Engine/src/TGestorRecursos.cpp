@@ -7,6 +7,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 //
+#include "stb_image.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -60,7 +61,7 @@ TRecurso* TGestorRecursos::getRecursoModelo(char* nombre, std::vector<TRecursoMa
     if(rec==nullptr){
         std::string s(nombre);
         cargarModelo(s,_i_modelos);
-        _recursos.back()->setNombre(nombre);
+        _recursos.back()->SetNombre(nombre);
     }
     return rec;
 }
@@ -100,8 +101,8 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
         return;
     }
     // coger el path
-    //_path = path.substr(0, path.find_last_of('/'));
-    cargarNodo(scene->mRootNode, scene, _i_modelos);
+    directory = path.substr(0, path.find_last_of('/'));
+    cargarNodo(scene->mRootNode, scene, _i_modelos, path);
     int width, height, nrChannels;
     
     unsigned int texture1, texture2;
@@ -119,22 +120,22 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
     stbi_image_free(data);*/
 }
 
-void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos){
+void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, std::string path){
     // process each mesh located at the current nodo
     for(unsigned int i = 0; i < nodo->mNumMeshes; i++){
         // the nodo object only contains indices to index the actual objects in the scene. 
         // the scene contains all the data, nodo is just to keep stuff organized (like relations between nodos).
         aiMesh* mesh = scene->mMeshes[nodo->mMeshes[i]];
-        _i_modelos.push_back(cargarMalla(mesh, scene));
+        _i_modelos.push_back(cargarMalla(mesh, scene, path));
     }
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodos
     for(unsigned int i = 0; i < nodo->mNumChildren; i++){
-        cargarNodo(nodo->mChildren[i], scene, _i_modelos);
+        cargarNodo(nodo->mChildren[i], scene, _i_modelos, path);
     }
     _recursos.push_back(new TRecursoModelado());
 }
 
-TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene){
+TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene, std::string path){
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -187,7 +188,11 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene){
             indices.push_back(face.mIndices[j]);
     }
     // process materials
-    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];    
+    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex]; 
+    TRecursoMaterial* _material=new TRecursoMaterial(material);
+    _material->SetNombre((char*)(path+std::to_string((int)mesh->mMaterialIndex)).c_str());
+    //_recursos.push_back(_material);
+    std::cout<<"  aaaa  " << (int)material->GetTextureCount(aiTextureType_SPECULAR)<<std::endl;
     // we assume a convention for sampler names in the shaders. Each diffuse texture should be named
     // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
     // Same applies to other texture as the following list summarizes:
@@ -196,31 +201,31 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene){
     // normal: texture_normalN
     // 1. diffuse maps
     /*std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-    textures.push_back(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
-    vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-    textures.push_back(textures.end(), specularMaps.begin(), specularMaps.end());
+    std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     // 3. normal maps
     std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-    textures.push_back(textures.end(), normalMaps.begin(), normalMaps.end());
+    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     // 4. height maps
     std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-    textures.push_back(textures.end(), heightMaps.begin(), heightMaps.end());
-    */
-    //devolver la malla creada a partir de los datos obtenidos
-    TRecursoMalla* modelado= new TRecursoMalla(vertices, indices, textures);
-    return modelado;
+    textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+    //devolver la malla creada a partir de los datos obtenidos*/
+    TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
+    malla->SetMaterial(_material);
+    return malla;
 }/*
 std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
 {
-    vector<Texture> textures;
+    std::vector<Texture> textures;
     for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
         // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
         bool skip = false;
-        for(unsigned int j = 0; j < textures_loaded.size(); j++)
+       /* for(unsigned int j = 0; j < textures_loaded.size(); j++)
         {
             if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
             {
@@ -228,22 +233,22 @@ std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTe
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                 break;
             }
-        }
-        if(!skip)
+        }*/
+       /* if(!skip)
         {   // if texture hasn't been loaded already, load it
             Texture texture;
-            texture.id = TextureFromFile(str.C_Str(), this->directory);
+            texture.id = TextureFromFile(str.C_Str(), this->directory, true);
             texture.type = typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
-            textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+            //textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
         }
     }
     return textures;
 }
 unsigned int TGestorRecursos::TextureFromFile(const char *path, const std::string &directory, bool gamma)
 {
-    std::string filename = string(path);
+    std::string filename = std::string(path);
     filename = directory + '/' + filename;
 
     unsigned int textureID;

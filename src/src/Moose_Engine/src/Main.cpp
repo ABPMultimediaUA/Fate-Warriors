@@ -52,7 +52,7 @@ void recorrerArbol(){
 
 	TLuz* luz = motor->crearLuz();
     TCamara* camara = motor->crearCamara();
-    const char cstr[] = "Carne.obj";
+    const char cstr[] = "hoguera.obj";
     TModelado* malla1 = motor->crearModelado(cstr);
 
     //trans1->escalar(0.5,0.25,0.5);

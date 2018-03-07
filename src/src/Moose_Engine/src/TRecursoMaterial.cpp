@@ -3,7 +3,9 @@
 TRecursoMaterial::TRecursoMaterial(){
 
 }
-
+TRecursoMaterial::TRecursoMaterial(aiMaterial* _i_material){
+    _material=_i_material;
+}
 TRecursoMaterial::~TRecursoMaterial(){
 
 }
