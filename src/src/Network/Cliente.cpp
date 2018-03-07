@@ -132,11 +132,14 @@ void Cliente::recive_game_start(){
 void Cliente::recive_join_message(){
 	RakNet::BitStream bitstream(packet->data, packet->length, false);
 	RakNet::RakNetGUID id;
+	float x,y;
 
 	bitstream.IgnoreBytes(sizeof(RakNet::MessageID));
 	bitstream.Read(id);
+	bitstream.Read(x);
+	bitstream.Read(y);
 	std::cout << "han creado a mi hermano ------------------------------ \n";
-	players[id] = Game::game_instancia()->game_get_datos()->crear_jugador(20,20);   //-> //anyadir_jugador(); ESTO ES LO QUE PONIA
+	players[id] = Game::game_instancia()->game_get_datos()->crear_jugador(x,y);   //-> //anyadir_jugador(); ESTO ES LO QUE PONIA
 	_puede_actualizar =true;
 	//players[id] =  Game::game_instancia()->game_get_datos()->get_player();
 }
@@ -205,7 +208,7 @@ void Cliente::recive_move_message_enemy(){
 //	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[0]->mover(x, y); //->actualizar_posicion_enemigo(x,y,id); ESTO ES LO QUE PONIA
 	_puede_actualizar = true;
 	std::cout << id.ToString() << "voy a intentar actualizar este valor" << std::endl;
-//	players[id]->mover(x, y + peer->GetLastPing(packet->guid));
+	players[id]->mover(x, y + peer->GetLastPing(packet->guid));
 	std::cout << id.ToString() << "ACTUALIZADO" << std::endl;
 
 

@@ -74,6 +74,8 @@ void Servidor::check_and_send_mesages(){
 				RakNet::BitStream stream; //Send the new player's GUID to other clients due to client~server model
 				stream.Write((RakNet::MessageID)ID_PLAYER_JOIN);
 				stream.Write(packet->guid);
+				stream.Write(x);
+				stream.Write(z);				
 				peer->Send(&stream, HIGH_PRIORITY, RELIABLE_ORDERED, 0, packet->guid, true);
 
 				for (auto &row : players) { //Update new player with all pre-existing characters and positions
@@ -168,7 +170,7 @@ void Servidor::check_and_send_mesages(){
 			//	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->setPositionXZ(mult*6, mult*52);
 				//Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->setPositionXZ(mult*6, mult*52);
 				std::cout << identifyplayers[packet->guid] << "valor \n";
-				peer->Send(&posUpdate, HIGH_PRIORITY, RELIABLE_ORDERED, 0, packet->guid, true); //Send to all clients except the one that moved
+				peer->Send(&posUpdate, HIGH_PRIORITY, RELIABLE_ORDERED, 0, RakNet::UNASSIGNED_RAKNET_GUID, true); //Send to all clients except the one that moved
 				std::cout << peer->GetAveragePing(packet->guid)<< "vlor del pings" << _reloj->get_tiempo_desde_ultimo_update()+peer->GetLastPing(packet->guid);
 				Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->mover(position.x,_reloj->get_tiempo_desde_ultimo_update()+peer->GetLastPing(packet->guid));
 				Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->set_direccion_actual(position.x);
@@ -195,7 +197,7 @@ void Servidor::check_and_send_mesages(){
 
 		if(_reloj->get_current()>_siguiente_actualizacion){
 			Posicionar_jugadores();
-			_siguiente_actualizacion = _reloj->get_current()+(1000/15);
+			_siguiente_actualizacion = _reloj->get_current()+3000;
 		}
 
 }
