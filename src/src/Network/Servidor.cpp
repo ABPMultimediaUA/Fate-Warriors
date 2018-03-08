@@ -21,7 +21,7 @@ Servidor::Servidor() {
 	peer->SetOccasionalPing(true);
 	packet = new RakNet::Packet;
 	numplayers = 0;
-	_siguiente_actualizacion = 20000;
+	_siguiente_actualizacion = 30000;
 	_reloj = Time::Instance();
 }
 
@@ -197,7 +197,7 @@ void Servidor::check_and_send_mesages(){
 
 		if(_reloj->get_current()>_siguiente_actualizacion){
 			Posicionar_jugadores();
-			_siguiente_actualizacion = _reloj->get_current()+3000;
+			_siguiente_actualizacion = _reloj->get_current()+20000;
 		}
 
 }

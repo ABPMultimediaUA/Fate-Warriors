@@ -94,7 +94,7 @@ void Cliente::send_player_move(std::vector<Enum_Inputs> vector_keypresed, short 
 			key_press = vector_keypresed[a];
 			bitstream.Write(key_press);
 		}
-	_puede_actualizar = false;
+//	_puede_actualizar = false;
 	peer->Send(&bitstream, LOW_PRIORITY, UNRELIABLE, 0, RakNet::UNASSIGNED_RAKNET_GUID, true);
 }
 
@@ -166,7 +166,7 @@ void Cliente::recive_existing_message(){
 	std::cout << id.ToString() << "VALOR DE CUANDO SE CREA \n" ;
 	players[id] = Game::game_instancia()->game_get_datos()->crear_jugador(x,y);
 	   //-> //anyadir_jugador();  ESTOO ES LO QUE PONIA
-	_puede_actualizar = true;
+	//_puede_actualizar = true;
 }
 
 void Cliente::recive_move_message(){
@@ -175,7 +175,7 @@ void Cliente::recive_move_message(){
 	//std::vector <Enum_Inputs> keys;
 	float number_of_inputs;
 	Enum_Inputs key_press;
-	_puede_actualizar = true;
+//	_puede_actualizar = true;
 
 
 	bitstream.IgnoreBytes(sizeof(RakNet::MessageID));
@@ -206,9 +206,10 @@ void Cliente::recive_move_message_enemy(){
 	
 //0	if(Game::game_instancia()->game_get_datos()->dame_jugadores_online().size()>0)
 //	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[0]->mover(x, y); //->actualizar_posicion_enemigo(x,y,id); ESTO ES LO QUE PONIA
-	_puede_actualizar = true;
 	std::cout << id.ToString() << "voy a intentar actualizar este valor" << std::endl;
 	players[id]->mover(x, y + peer->GetLastPing(packet->guid));
+	if(Game::game_instancia()->game_get_datos()->get_player() == players[id])
+		_puede_actualizar = true;
 	std::cout << id.ToString() << "ACTUALIZADO" << std::endl;
 
 

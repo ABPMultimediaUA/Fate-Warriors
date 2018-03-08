@@ -61,7 +61,7 @@ void Player::update(){
     //std::cout<< "ACCION_ACTUAL: "<< _accion << "\n";
     	std::vector<Enum_Inputs> inputs;
     if (_vida>0){
- //    if(/*Motor::Motor_GetInstance()->motor_envia_inputs() &&*/  Cliente::getInstance()->_puede_actualizar){
+     if(/*Motor::Motor_GetInstance()->motor_envia_inputs() &&*/  Cliente::getInstance()->_puede_actualizar){
 
     std::cout << "voy a actualiizaaar" << std::endl;
     gestion_acciones();
@@ -165,7 +165,7 @@ void Player::update(){
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
     
 
-   // }
+    }
     }
     else{
         //std::cout<<"sigo muerto" << std::endl;
