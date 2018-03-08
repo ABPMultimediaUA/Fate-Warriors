@@ -57,7 +57,7 @@ void recorrerArbol(){
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(0,0,-10);
-    trans3->trasladar(0,0,0);
+    trans3->trasladar(0,10,70);
     trans2->trasladar(1,1,1);
 
     TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(), trans1);

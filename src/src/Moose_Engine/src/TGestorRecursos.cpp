@@ -200,7 +200,7 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene, 
     // specular: texture_specularN
     // normal: texture_normalN
     // 1. diffuse maps
-    /*std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
     std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
@@ -215,7 +215,7 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene, 
     TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
     malla->SetMaterial(_material);
     return malla;
-}/*
+}
 std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
 {
     std::vector<Texture> textures;
@@ -234,7 +234,7 @@ std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTe
                 break;
             }
         }*/
-       /* if(!skip)
+        if(!skip)
         {   // if texture hasn't been loaded already, load it
             Texture texture;
             texture.id = TextureFromFile(str.C_Str(), this->directory, true);
@@ -248,14 +248,16 @@ std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTe
 }
 unsigned int TGestorRecursos::TextureFromFile(const char *path, const std::string &directory, bool gamma)
 {
-    std::string filename = std::string(path);
-    filename = directory + '/' + filename;
 
     unsigned int textureID;
     glGenTextures(1, &textureID);
-
-    int width, height, nrComponents;
-    unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    
+    int width=0, height=0, nrComponents=0;
+    //unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    unsigned char *data = stbi_load(path, &width, &height, &nrComponents, 0);
+    /*std::cout <<nrComponents<<std::endl;
+    std::cout <<width<<"         "<<height<<std::endl;
+    std::cout <<"data:   "<<data<<std::endl;*/
     if (data)
     {
         GLenum format;
@@ -284,4 +286,4 @@ unsigned int TGestorRecursos::TextureFromFile(const char *path, const std::strin
     }
 
     return textureID;
-}*/
+}
