@@ -41,6 +41,8 @@ public:
 		return _num_characters;
 	}
 
+	void posicionar_characters_inicialmente();
+
 private:
 	Player* _jugador;
 	Character ** _characters;

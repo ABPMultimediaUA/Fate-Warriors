@@ -24,7 +24,7 @@ Zonas_Manager::Zonas_Manager() {
 
 	_zonas[2]  = new Zona(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);		//Zona 7
 	_zona_bando_a.push_back(_zonas[2]);	
-	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);   //Zona 10
+	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B);   //Zona 10
 	_zona_bando_a.push_back(_zonas[3]);	
 
 	_zona_bando_a_no_sindo_conquistada = _zona_bando_a;

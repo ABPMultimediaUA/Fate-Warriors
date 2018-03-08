@@ -171,14 +171,14 @@ void Camara::update_position() {
 		if(!_unlocked){
 			distancia = 20.0f;}
 		else{
-			distancia = 50.0f;
+			distancia = 200.0f;
 		}
 
-		float xf = playerPos.X - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * 20.0f; 
+		float xf = playerPos.X - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * distancia; 
 		
-		float yf = playerPos.Y - sin(_zdirection * irr::core::PI / 180.0f) * 20.0f; 
+		float yf = playerPos.Y - sin(_zdirection * irr::core::PI / 180.0f) * distancia; 
 
-		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * 20.0f; 
+		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * distancia; 
 
 		if (_Prota-> getPosition().Y >= 0) {	// Calculos de la camara para una Y positiva
 			

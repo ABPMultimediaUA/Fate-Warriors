@@ -76,6 +76,8 @@ void Game::crea_partida() {
 	_consumibles_action = new Consumible_Action();	
 	_trampas_action 	= new Trampas_action();	
 
+	_datos->posicionar_characters_inicialmente();
+
 	update_actual = &Game::update_partida;
 	render_actual = &Game::render_partida;
 

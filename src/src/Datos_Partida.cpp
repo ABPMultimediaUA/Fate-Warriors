@@ -12,7 +12,7 @@
 #include "Puerta.h"
 #include "Zonas_Manager.h"
 #include <iostream>
-//#include "Consumibles/Respawn_Points.h"
+#include "Respawn.h"
 
 
 Datos_Partida::Datos_Partida(Input* _i_input) { 
@@ -31,10 +31,9 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
   NPC ** _npcs = _npc_manager->get_npcs(); 
   uint16_t _cont, _n_npcs; 
   _n_npcs = _npc_manager->get_n_npc(); 
- 
-   
+
   for(_cont = 0; _cont < _n_npcs; _cont++) { 
-    _npcs[_cont]->comprobar_si_asignar_arma_y_asignarla(_armas_manager); 
+    _npcs[_cont]->comprobar_si_asignar_arma_y_asignarla(_armas_manager);
   } 
 	_num_characters = _n_npcs + 1;
 	_characters = new Character*[_num_characters];
@@ -94,4 +93,16 @@ void Datos_Partida::inserta_npc_nivel(){
 
 Character** Datos_Partida::get_characters(){
 	return _characters;
+}
+
+void Datos_Partida::posicionar_characters_inicialmente(){
+	NPC ** _npcs = _npc_manager->get_npcs(); 
+	uint16_t _cont, _n_npcs; 
+	_n_npcs = _npc_manager->get_n_npc(); 
+
+	Respawn * respawn = Respawn::posiciones_instancia();
+	for(_cont = 0; _cont < _n_npcs; _cont++) { 
+		Vector2 vector = respawn->generar_posicion_del_bando(_npcs[_cont]->get_equipo());
+		_npcs[_cont]->setPositionXZ(vector._x, vector._y);
+	} 
 }
