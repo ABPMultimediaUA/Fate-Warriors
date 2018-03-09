@@ -43,7 +43,7 @@ void TRecursoMalla::SetNombre(char* nombre){
 }
 void TRecursoMalla::draw(){
     // bind appropriate textures 
-    /*unsigned int diffuseNr  = 1;
+    unsigned int diffuseNr  = 1;
     unsigned int specularNr = 1;
     unsigned int normalNr   = 1;
     unsigned int heightNr   = 1;
@@ -65,7 +65,7 @@ void TRecursoMalla::draw(){
         glUniform1i(glGetUniformLocation(0, (name + number).c_str()), i);
         // and finally bind the texture
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
-    }*/
+    }
     
     // draw mesh
     //_i_shader->setMat4("model", model);

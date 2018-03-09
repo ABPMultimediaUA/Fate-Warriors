@@ -33,7 +33,7 @@ TMooseEngine::TMooseEngine(uint16_t width, uint16_t height){
     _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
-    _shader = new Shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
+    _shader = new Shader("Shaders/vertex_prueba.glsl", "Shaders/fragment_prueba.glsl");
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -174,9 +174,9 @@ void TMooseEngine::drawCamaras(){
             }
             //std::cout<<"view: "<<glm::to_string(matriz_view)<<"\n";
             matriz_view = glm::inverse(matriz_view); //invertimos la matriz para obtener la matriz view final
-            _shader->setMat4("view", matriz_view); //la pasamos al shader
+            _shader->setView(matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
-            _shader->setMat4("projection", projection);
+            _shader->setProjection(projection);
         }
     }
 }
