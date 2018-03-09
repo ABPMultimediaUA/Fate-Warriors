@@ -4,17 +4,19 @@
 
 #include <cstdint>
 
+#include "iNodoModelado.h"
+#include "iNodoCamara.h"
+
 class TMooseEngine;
-class iNodo;
 
 class Interfaz_ME{
 
     public:    
         ~Interfaz_ME();
         static Interfaz_ME* get_instancia(uint16_t width, uint16_t height);
-        iNodo* crearModelado(const char* ruta, float x, float y, float z);
+        iNodoModelado* crearModelado(const char* ruta, float x, float y, float z);
 
-        uint16_t crearCamara();
+        iNodoCamara* crearCamara(bool activa, float x, float y, float z);
         uint16_t crearLuz();
 
         void render();

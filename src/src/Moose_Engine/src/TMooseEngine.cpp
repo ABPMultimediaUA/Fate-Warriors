@@ -10,23 +10,22 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-TMooseEngine* TMooseEngine::_instancia;
-
+TMooseEngine* TMooseEngine::_instancia = 0;
 
 struct Mapeado{//declaracion de los parametros
     bool activa;
     TNodo* nodo;
 };
 
-TMooseEngine* TMooseEngine::get_instancia(uint16_t width, uint16_t height){
+TMooseEngine* TMooseEngine::get_instancia(){
     if(_instancia == 0){
-        _instancia= new TMooseEngine(width, height);
+        _instancia = new TMooseEngine();
     }
     return _instancia;
 }
 
-TMooseEngine::TMooseEngine(uint16_t width, uint16_t height){
-    init_opengl(width, height);
+TMooseEngine::TMooseEngine(){
+    init_opengl(1280, 720);
     uint16_t _contadorIDEntidad = 0;
     _n_c_actual=0;
     _n_l_actual=0;
@@ -93,8 +92,9 @@ TTransform* TMooseEngine::crearTransform(){
     return transform;
 }
 
-TCamara* TMooseEngine::crearCamara(){
+TCamara* TMooseEngine::crearCamara(bool activa){
     TCamara* camara = new TCamara();
+    camara->setActiva(activa);
     return camara;
 }
 

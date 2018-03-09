@@ -26,14 +26,19 @@ void interfazTest(){
     Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
     
     const char cstr[] = "Carne.obj";
-
-    interfaz_motor->crearCamara();
+    const char cstr2[] = "Patatas.obj";
+    
+    iNodoCamara* camara = interfaz_motor->crearCamara(true, 0, 0, 0);
+    //camara->mover(2, 0, 0);    
     interfaz_motor->crearLuz();
 
-    interfaz_motor->crearModelado(cstr, 3, 0, -10);
-{    const char cstr[] = "Patatas.obj";
-    interfaz_motor->crearModelado(cstr, 0, 0, -10);
-}
+    iNodoModelado* modelado1 = interfaz_motor->crearModelado(cstr, 3, 0, -10);
+    iNodoModelado* modelado2 = interfaz_motor->crearModelado(cstr2, 0, 0, -10);
+    modelado1->mover(-3, 0, -10);
+    modelado1->escalar(2,1,1);
+    modelado2->escalar(1,2,1);
+    camara->mover(-2,0,0);
+
     while(!interfaz_motor->ventana_abierta()){
         interfaz_motor->render();
     }
@@ -44,14 +49,14 @@ void recorrerArbol(){
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoModelo("Enemigo.obj");
-    TMooseEngine* motor = TMooseEngine::get_instancia(1280, 720);
+    TMooseEngine* motor = TMooseEngine::get_instancia();
 	
     TTransform* trans1 = motor->crearTransform();
 	TTransform* trans2 = motor->crearTransform();
 	TTransform* trans3 = motor->crearTransform();
 
 	TLuz* luz = motor->crearLuz();
-    TCamara* camara = motor->crearCamara();
+    TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "Carne.obj";
     TModelado* malla1 = motor->crearModelado(cstr);
 

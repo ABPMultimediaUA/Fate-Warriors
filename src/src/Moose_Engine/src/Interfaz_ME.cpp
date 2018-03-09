@@ -27,12 +27,11 @@ Interfaz_ME::~Interfaz_ME(){
 }
 
 void Interfaz_ME::configuracion_motor(uint16_t width, uint16_t height, bool fullscreen, bool v_sync){
-    motor = TMooseEngine::get_instancia(width, height);
+    motor = TMooseEngine::get_instancia();
 }
 
-iNodo* Interfaz_ME::crearModelado(const char* ruta, float x, float y, float z){
-    iNodoModelado* nodo = new iNodoModelado(ruta);
-    nodo->mover(x,y,z);
+iNodoModelado* Interfaz_ME::crearModelado(const char* ruta, float x, float y, float z){
+    iNodoModelado* nodo = new iNodoModelado(ruta, x, y, z);
     return nodo;
 /*
     TModelado* _modelado = motor->crearModelado(ruta);
@@ -40,23 +39,18 @@ iNodo* Interfaz_ME::crearModelado(const char* ruta, float x, float y, float z){
     TTransform* transRotacion   = motor->crearTransform();
     TTransform* transEscalado   = motor->crearTransform();
     transRotacion->trasladar(x, y, z);
+
     TNodo* nodoRotacion   = motor->crearNodo(motor->nodoRaiz(), transRotacion);
-    TNodo* nodoTraslacion = motor->crearNodo(nodoRotacion, transTraslacion);
     TNodo* nodoEscalado   = motor->crearNodo(nodoTraslacion, transEscalado);
+    TNodo* nodoTraslacion = motor->crearNodo(nodoRotacion, transTraslacion);
 
     TNodo* nodoModelado = motor->crearNodo(nodoEscalado, _modelado);
     */
 }
 
-uint16_t Interfaz_ME::crearCamara(){
-    TCamara* camara = motor->crearCamara();
-    TTransform* transTraslacion = motor->crearTransform();
-    TTransform* transRotacion   = motor->crearTransform();
-
-    TNodo* nodoRotacion   = motor->crearNodo(motor->nodoRaiz(), transRotacion);
-    TNodo* nodoTraslacion = motor->crearNodo(nodoRotacion, transTraslacion);
-
-    TNodo* nodoCamara = motor->crearNodoCamara(nodoTraslacion, camara);
+iNodoCamara* Interfaz_ME::crearCamara(bool activa, float x, float y, float z){
+    iNodoCamara* nodo = new iNodoCamara(activa, x, y, z);
+    return nodo;
 }
 
 uint16_t Interfaz_ME::crearLuz(){

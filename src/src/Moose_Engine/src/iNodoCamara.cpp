@@ -1,13 +1,13 @@
-#include "iNodoModelado.h"
-#include "TModelado.h"
+#include "iNodoCamara.h"
 #include "TMooseEngine.h"
 #include "TTransform.h"
+#include "TCamara.h"
 
-iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
+iNodoCamara::iNodoCamara(bool activa, float x, float y, float z){
     //referencia al ME
     TMooseEngine* motor =  TMooseEngine::get_instancia();
 
-    TModelado* _modelado = motor->crearModelado(ruta);
+    TCamara* _camara = motor->crearCamara(activa);
     TTransform* transTraslacion = motor->crearTransform();
     TTransform* transRotacion   = motor->crearTransform();
     TTransform* transEscalado   = motor->crearTransform();
@@ -18,11 +18,7 @@ iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
     TNodo* nodoEscalado   = motor->crearNodo(nodoRotacion, transEscalado);
     TNodo* nodoTraslacion = motor->crearNodo(nodoEscalado, transTraslacion);
 
-    TNodo* nodoModelado = motor->crearNodo(nodoTraslacion, _modelado);
+    TNodo* nodoCamara = motor->crearNodoCamara(nodoTraslacion, _camara);
 
-    _nodo_motor = nodoModelado; //almacenamos el puntero al nodo del ME
-}
-
-iNodoModelado::~iNodoModelado(){
-    
+    _nodo_motor = nodoCamara; //almacenamos el puntero al nodo del ME
 }

@@ -19,13 +19,13 @@ class TMooseEngine{
 
     public:
         ~TMooseEngine();
-        static TMooseEngine* get_instancia(uint16_t width, uint16_t height);
+        static TMooseEngine* get_instancia();
 
         TNodo*      crearNodo(TNodo *padre, TEntidad *ent);
         TNodo*      crearNodoCamara(TNodo *padre, TEntidad *ent);
         TNodo*      crearNodoLuz(TNodo *padre, TEntidad *ent);
         TTransform* crearTransform();
-        TCamara*    crearCamara();
+        TCamara*    crearCamara(bool activa);
         TLuz*       crearLuz();
         TModelado*  crearModelado(const char* _i_path);
 
@@ -40,7 +40,7 @@ class TMooseEngine{
         bool ventana_abierta();
 
     private:
-        TMooseEngine(uint16_t width, uint16_t heigth);
+        TMooseEngine();
         static TMooseEngine* _instancia;
         std::vector<Mapeado*> _mapping_camaras;
         std::vector<Mapeado*> _mapping_luces;
