@@ -135,22 +135,22 @@ void TMooseEngine::drawLuces(){
     u_int16_t cont = 0;
     std::stack<glm::mat4> pila_matriz_luz;
     matriz_luz=glm::mat4(1.0f);
+    TNodo* aux;
     for(uint16_t i = 0; i < _mapping_luces.size(); i++){
         if(_mapping_luces[i]->activa){
             TNodo* this_node = _mapping_luces[i]->nodo;
             
             while(this_node->get_padre()!=nullptr){
+                aux=this_node;
                 this_node = this_node->get_padre();
-                
                 if(this_node->get_entidad()!=nullptr){
-                    
                     pila_matriz_luz.push(static_cast<TTransform*> (this_node->get_entidad())->get_t_matriz());
                     cont++;
-                    std::cout << "drawentidad "<<this_node->get_entidad_id()<<"\n";
-                    std::cout<<static_cast<TLuz*>(this_node->get_entidad())->get_especular().y<<std::endl;
-                    _shader->setvec3("Light.Diffuse",static_cast<TLuz*>(this_node->get_entidad())->get_difusa());
-                    _shader->setvec3("Light.Specular",static_cast<TLuz*>(this_node->get_entidad())->get_especular());
-                    _shader->setvec3("Light.Ambient",static_cast<TLuz*>(this_node->get_entidad())->get_ambiente());
+                    std::cout << "drawentidad "<<aux->get_entidad_id()<<"\n";
+                    std::cout<<static_cast<TLuz*>(aux->get_entidad())->get_especular().y<<std::endl;
+                    _shader->setvec3("Light.Diffuse",static_cast<TLuz*>(aux->get_entidad())->get_difusa());
+                    _shader->setvec3("Light.Specular",static_cast<TLuz*>(aux->get_entidad())->get_especular());
+                    _shader->setvec3("Light.Ambient",static_cast<TLuz*>(aux->get_entidad())->get_ambiente());
                 }
             }
 
