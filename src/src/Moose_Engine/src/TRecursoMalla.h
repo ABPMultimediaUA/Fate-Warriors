@@ -5,6 +5,7 @@
 class Vertex;
 class Texture;
 class Shader;
+class TRecursoMaterial;
 class TRecursoMalla : public TRecurso{
 
 public:
@@ -14,6 +15,9 @@ public:
     char* GetNombre() override;
     void  SetNombre(char* nombre) override;
     void  cargarFichero(char* nombre);
+    inline void  SetMaterial(TRecursoMaterial* _i_material){
+        _material=_i_material;
+    }
     void  draw();
 
 private:
@@ -25,7 +29,7 @@ private:
     long nTriangulos;
     //buffers
     unsigned int VAO, VBO, EBO;
-
+    TRecursoMaterial* _material;
     void Preparar_mesh();
 };
 

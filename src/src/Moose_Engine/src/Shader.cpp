@@ -98,3 +98,22 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type){
         }
     }
 }
+void Shader::setView(const glm::mat4 &mat){
+    _view = mat;
+}
+void Shader::setModel(const glm::mat4 &mat){
+    glm::mat4 mv=_view*mat;
+    glUniformMatrix4fv(glGetUniformLocation(ID, "modelView"), 1, GL_FALSE, &mv[0][0]);
+    glm::mat4 mvp=_projection*_view*mat;
+    glUniformMatrix4fv(glGetUniformLocation(ID, "MVP"), 1, GL_FALSE, &mvp[0][0]);
+    glUniform1i(glGetUniformLocation(ID, "Material.Diffuse"),0);
+    glUniform1i(glGetUniformLocation(ID, "Material.Specular"),1);
+    glUniform1f(glGetUniformLocation(ID, "Material.Shininess"),1);
+    glUniform3f(glGetUniformLocation(ID, "Light.Diffuse"),1,1,1);
+    glUniform3f(glGetUniformLocation(ID, "Light.Specular"),1,1,1);
+    glUniform3f(glGetUniformLocation(ID, "Light.Ambient"),1,1,1);
+    std::cout << glGetUniformLocation(ID, "Material.Shininess")<< std::endl;
+}
+void Shader::setProjection(const glm::mat4 &mat){
+    _projection=mat;
+}

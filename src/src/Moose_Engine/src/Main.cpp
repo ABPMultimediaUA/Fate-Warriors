@@ -58,19 +58,24 @@ void recorrerArbol(){
 	TLuz* luz = motor->crearLuz();
     TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "Carne.obj";
+    const char cstr2[] = "npc2.obj";
     TModelado* malla1 = motor->crearModelado(cstr);
+    TModelado* malla2 =motor->crearModelado(cstr2);
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(0,0,-10);
-    trans3->trasladar(0,0,0);
-    //trans2->escalar(1,1,1);
+    trans2->trasladar(0,1,-5);
+    trans3->trasladar(0,0,10);
+    
 
     TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(), trans1);
-    //TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
+    TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
     TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
+    
 
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans1, malla1);
-    //TNodo* nodoLuz    = motor->crearNodo(nodoTrans1, luz);
+    TNodo* nodoMalla2  = motor->crearNodo(nodoTrans1, malla2);
+    TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTrans3, camara);
    
@@ -334,7 +339,7 @@ void main_tamanyofloat(){
 
 int main(){
     //dibujarOpenGL();
-    //recorrerArbol();
-    interfazTest();
+    recorrerArbol();
+    //interfazTest();
     return 0;
 }

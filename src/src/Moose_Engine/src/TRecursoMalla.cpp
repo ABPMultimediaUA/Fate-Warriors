@@ -3,7 +3,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include "stb_image.h"
+
 
 #include <iostream>
 
@@ -72,7 +72,6 @@ void TRecursoMalla::draw(){
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
     // always good practice to set everything back to defaults once configured.
     //glActiveTexture(GL_TEXTURE0);
 }
@@ -109,7 +108,7 @@ void TRecursoMalla::Preparar_mesh(){
     // vertex bitangent
     glEnableVertexAttribArray(4);
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
-    glBindVertexArray(0);
+    //glBindVertexArray(0);
 }
 void TRecursoMalla::cargarFichero(char* nombre){
     /*Assimp::Importer importer;
