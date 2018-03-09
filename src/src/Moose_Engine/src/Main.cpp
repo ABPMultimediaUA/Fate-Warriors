@@ -26,7 +26,7 @@ void interfazTest(){
     Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
     
     const char cstr[] = "Carne.obj";
-    const char cstr2[] = "Patatas.obj";
+    const char cstr2[] = "npc2.obj";
     
     iNodoCamara* camara = interfaz_motor->crearCamara(true, 0, 0, 0);
     //camara->mover(2, 0, 0);    
@@ -37,7 +37,7 @@ void interfazTest(){
     modelado1->mover(-3, 0, -10);
     modelado1->escalar(2,1,1);
     modelado2->escalar(1,2,1);
-    camara->mover(-2,0,0);
+    //camara->mover(-2,0,0);
 
     while(!interfaz_motor->ventana_abierta()){
         interfaz_motor->render();
@@ -339,7 +339,7 @@ void main_tamanyofloat(){
 
 int main(){
     //dibujarOpenGL();
-    recorrerArbol();
-    //interfazTest();
+    //recorrerArbol();
+    interfazTest();
     return 0;
 }

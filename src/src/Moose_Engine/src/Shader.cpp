@@ -112,7 +112,6 @@ void Shader::setModel(const glm::mat4 &mat){
     glUniform3f(glGetUniformLocation(ID, "Light.Diffuse"),1,1,1);
     glUniform3f(glGetUniformLocation(ID, "Light.Specular"),1,1,1);
     glUniform3f(glGetUniformLocation(ID, "Light.Ambient"),1,1,1);
-    std::cout << glGetUniformLocation(ID, "Material.Shininess")<< std::endl;
 }
 void Shader::setProjection(const glm::mat4 &mat){
     _projection=mat;
