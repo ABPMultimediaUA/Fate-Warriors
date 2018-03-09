@@ -60,22 +60,32 @@ Shader::Shader(const char* vertex_path, const char* fragment_path){
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 }
+
 void Shader::use(){ 
     glUseProgram(ID); 
 }
+
 void Shader::setBool(const std::string &name, bool value){         
     glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value); 
 }
+
 void Shader::setInt(const std::string &name, int value){ 
     glUniform1i(glGetUniformLocation(ID, name.c_str()), value); 
 }
+
 void Shader::setFloat(const std::string &name, float value){ 
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value); 
 }
+
 void Shader::setMat4(const std::string &name, const glm::mat4 &mat)
 {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
+
+void Shader::setvec3(const std::string &name, const glm::vec3 &vec){
+    glUniform3fv(glGetUniformLocation(ID, name.c_str()),1,&vec[0]);
+}
+
 void Shader::checkCompileErrors(unsigned int shader, std::string type){
     int success;
     char infoLog[1024];
@@ -108,7 +118,7 @@ void Shader::setModel(const glm::mat4 &mat){
     glUniformMatrix4fv(glGetUniformLocation(ID, "MVP"), 1, GL_FALSE, &mvp[0][0]);
     glUniform1i(glGetUniformLocation(ID, "Material.Diffuse"),0);
     glUniform1i(glGetUniformLocation(ID, "Material.Specular"),1);
-    glUniform1f(glGetUniformLocation(ID, "Material.Shininess"),1);
+    glUniform1f(glGetUniformLocation(ID, "Material.Shininess"),2);
     glUniform3f(glGetUniformLocation(ID, "Light.Diffuse"),1,1,1);
     glUniform3f(glGetUniformLocation(ID, "Light.Specular"),1,1,1);
     glUniform3f(glGetUniformLocation(ID, "Light.Ambient"),1,1,1);

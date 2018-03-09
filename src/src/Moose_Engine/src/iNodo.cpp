@@ -12,7 +12,6 @@ iNodo::~iNodo(){
 }
 
 void iNodo::mover(float x, float y, float z){
-    
     static_cast<TTransform*>(_nodo_motor->get_padre()->get_entidad())->trasladar(x, y, z);
 }
 

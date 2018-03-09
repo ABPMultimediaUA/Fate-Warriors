@@ -2,6 +2,7 @@
 #include "TMooseEngine.h"
 #include "TTransform.h"
 #include "TCamara.h"
+#include "TNodo.h"
 
 iNodoCamara::iNodoCamara(bool activa, float x, float y, float z){
     //referencia al ME
@@ -19,6 +20,6 @@ iNodoCamara::iNodoCamara(bool activa, float x, float y, float z){
     TNodo* nodoTraslacion = motor->crearNodo(nodoEscalado, transTraslacion);
 
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTraslacion, _camara);
-
     _nodo_motor = nodoCamara; //almacenamos el puntero al nodo del ME
+  
 }

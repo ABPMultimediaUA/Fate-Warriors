@@ -13,6 +13,7 @@ class Shader{
         void setInt(const std::string &name, int value);
         void setFloat(const std::string &name, float value);
         void setMat4(const std::string &name, const glm::mat4 &mat);
+        void setvec3(const std::string &name, const glm::vec3 &vec);
         void setView(const glm::mat4 &mat);
         void setModel(const glm::mat4 &mat);
         void setProjection(const glm::mat4 &mat);

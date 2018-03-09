@@ -79,12 +79,16 @@ TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){
 }
 
 TNodo* TMooseEngine::crearNodoCamara(TNodo *padre, TEntidad *ent){
-    _mapping_camaras.push_back(new Mapeado({true,crearNodo(padre,ent)}));
+    TNodo* aux=crearNodo(padre,ent);
+    _mapping_camaras.push_back(new Mapeado({true,aux}));
     ++_n_c_actual;
+    return aux;
 }
 TNodo* TMooseEngine::crearNodoLuz(TNodo *padre, TEntidad *ent){
-    _mapping_luces.push_back(new Mapeado({true,crearNodo(padre,ent)}));
+    TNodo* aux=crearNodo(padre,ent);
+    _mapping_luces.push_back(new Mapeado({true,aux}));
     ++_n_l_actual;
+    return aux;
 }
 
 TTransform* TMooseEngine::crearTransform(){
@@ -99,7 +103,8 @@ TCamara* TMooseEngine::crearCamara(bool activa){
 }
 
 TLuz* TMooseEngine::crearLuz(){
-    TLuz* luz = new TLuz();
+    TLuz* luz = new TLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
+    
     return luz;
 }
 
@@ -136,17 +141,23 @@ void TMooseEngine::drawLuces(){
             
             while(this_node->get_padre()!=nullptr){
                 this_node = this_node->get_padre();
+                
                 if(this_node->get_entidad()!=nullptr){
+                    
                     pila_matriz_luz.push(static_cast<TTransform*> (this_node->get_entidad())->get_t_matriz());
                     cont++;
+                    std::cout << "drawentidad "<<this_node->get_entidad_id()<<"\n";
+                    std::cout<<static_cast<TLuz*>(this_node->get_entidad())->get_especular().y<<std::endl;
+                    _shader->setvec3("Light.Diffuse",static_cast<TLuz*>(this_node->get_entidad())->get_difusa());
+                    _shader->setvec3("Light.Specular",static_cast<TLuz*>(this_node->get_entidad())->get_especular());
+                    _shader->setvec3("Light.Ambient",static_cast<TLuz*>(this_node->get_entidad())->get_ambiente());
                 }
-                
             }
 
             for(u_int16_t a = 0; a < cont; a++){
                matriz_luz = matriz_luz * pila_matriz_luz.top();
                pila_matriz_luz.pop();
-            }
+            } 
         }
     }
 }

@@ -37,7 +37,7 @@ void interfazTest(){
     modelado1->mover(-3, 0, -10);
     modelado1->escalar(2,1,1);
     modelado2->escalar(1,2,1);
-    //camara->mover(-2,0,0);
+    camara->mover(-2,0,5);
 
     while(!interfaz_motor->ventana_abierta()){
         interfaz_motor->render();
@@ -56,6 +56,7 @@ void recorrerArbol(){
 	TTransform* trans3 = motor->crearTransform();
 
 	TLuz* luz = motor->crearLuz();
+    std::cout<<"adasda: "<<luz->get_difusa().x<<"\n";
     TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "Carne.obj";
     const char cstr2[] = "npc2.obj";
@@ -72,11 +73,14 @@ void recorrerArbol(){
     TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
     TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
     
+    std::cout<<"dasdas2: "<<luz->get_difusa().x<<"\n";
 
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans1, malla1);
     TNodo* nodoMalla2  = motor->crearNodo(nodoTrans1, malla2);
     TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
+    std::cout<<"dasdas3: "<<luz->get_difusa().x<<"\n";
+std::cout << "entidadid "<<nodoLuz->get_entidad_id()<<"\n";
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTrans3, camara);
    
 
@@ -339,7 +343,7 @@ void main_tamanyofloat(){
 
 int main(){
     //dibujarOpenGL();
-    //recorrerArbol();
-    interfazTest();
+    recorrerArbol();
+    //interfazTest();
     return 0;
 }
