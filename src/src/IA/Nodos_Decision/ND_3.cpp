@@ -49,7 +49,7 @@ enum Enum_Acciones ND_3::toma_decision(Blackboard* _blackboard){
     _blackboard->_interruptor_cerca_util = interruptor_util;
 
     //std::cout <<"Entra ND_3\n";
-	if(interruptor_util != nullptr) { // TRUE, es 1
+	if(interruptor_util != nullptr && _blackboard->_habilidad_activar_interruptor == true) { // TRUE, es 1
         //std::cout <<"SI hay interruptor usable y util\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}

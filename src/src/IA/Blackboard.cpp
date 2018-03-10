@@ -34,6 +34,9 @@ Blackboard::Blackboard(NPC * npc_padre) {
 	_zona_enemiga_mas_cerca = nullptr;
 	_zona_aliada_mas_cerca = nullptr;
 
+	// Se generan al azar las habilidades
+	generar_habilidades();
+
 }
 
 Blackboard::~Blackboard() {
@@ -273,6 +276,25 @@ void Blackboard::actualizar_pseudo_azar(){
 		_puedo_esquivar = false;
 		//std::cout <<"Entra 2 \n";
 	}
+}
+
+void Blackboard::generar_habilidades(){
+
+	if(rand() % 2 == 0)
+		_habilidad_coger_objeto = false;
+	else
+		_habilidad_coger_objeto = true;
+
+	if(rand() % 2 == 0)
+		_habilidad_defender = false;
+	else
+		_habilidad_defender = true;
+
+	if(rand() % 2 == 0)
+		_habilidad_activar_interruptor = false;
+	else
+		_habilidad_activar_interruptor = true;
+	
 }
 
 

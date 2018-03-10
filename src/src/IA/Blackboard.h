@@ -34,6 +34,8 @@ public:
 	//FUNCIONES DE TOMA DE DECISION
 	void set_decision(enum Enum_Decisiones _i_decision);	//Set la decision actual
 
+	void generar_habilidades();
+
 	//setters
 	inline void set_nodo_blackboard(Nodo_blackboard* _i_blackboard){
 		_zona = _i_blackboard;
@@ -99,6 +101,11 @@ public:
 
 	// INTERRUPTORES
 	Interruptor* _interruptor_cerca_util;
+
+	// HABILIDADES
+	bool _habilidad_coger_objeto;
+	bool _habilidad_defender;
+	bool _habilidad_activar_interruptor;
 
 
 	//Con informacion de la zona
