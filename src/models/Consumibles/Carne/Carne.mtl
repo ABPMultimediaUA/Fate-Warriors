@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 09.01.2018 13:53:39
+# File Created: 23.02.2018 13:43:33
 
-newmtl Material__11
+newmtl Material__31
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -12,5 +12,7 @@ newmtl Material__11
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Carne_textura_p.png
-	map_Kd Carne_textura_p.png
+	map_Ka Material__27_Base_Color.png
+	map_Kd Material__27_Base_Color.png
+	map_bump Material__27_Normal_OpenGL.png
+	bump Material__27_Normal_OpenGL.png

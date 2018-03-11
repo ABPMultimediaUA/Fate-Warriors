@@ -3,6 +3,7 @@
 
 #include "../Objeto_Movil.h"
 #include "../IA/Enum_Acciones.h"
+
 #include "Enum_Tipo_Ataque.h"
 
 class Interfaz;
@@ -14,7 +15,7 @@ class Consumible_Power_Up;
 class Character : public Objeto_Movil{
 public:
 	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
-	short _i_danyo_ataque_fuerte);
+	short _i_danyo_ataque_fuerte, Enum_Equipo equipo);
 	
 	virtual ~Character();
 
@@ -26,6 +27,9 @@ public:
 	short get_vida();
 	inline int16_t get_vida_maxima(){
 		return _vida_maxima;
+	}
+	inline int16_t get_vida_actual(){
+		return _vida;
 	}
 	inline int16_t* get_ref_vida_actual(){
 		return &_vida;
@@ -51,6 +55,7 @@ public:
 	bool interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
 	void morir();
+	void revivir(Vector2 pos);
 	Enum_Acciones get_accion();
 	Enum_Tipo_Ataque get_tipo_ataque();
 	void saltar();
@@ -64,9 +69,14 @@ public:
 	void cambiar_arma_seleccionada_a_la_siguiente();
 	void cambiar_arma_seleccionada_a_la_anterior();
 
+	uint16_t get_direccion_actual();
+	void set_direccion_actual(uint16_t nueva_direccion);
+
 
 	void anyadir_power_up(Consumible_Power_Up* _i_power_up);
 	void eliminar_power_up_puntero();
+
+	Enum_Equipo get_equipo();
 
 	// Gestion de acciones
 	void impulso_danyar(Character * atacante, Character * atacado, int impulso);
@@ -93,6 +103,7 @@ public:
 	
 	void activar_inmunidad_a_danyos();
 	void desactivar_inmunidad_a_danyos();
+	void rotar_cuerpo(uint16_t _i_valor);
 
 protected:
 	
@@ -118,6 +129,7 @@ protected:
 	btRigidBody *_rb_ataque;
 	uint16_t _direccion_actual;
 	bool _inmortal;
+	Enum_Equipo _equipo;
 };
 
 #endif /* SRC_CHARACTER_H_ */

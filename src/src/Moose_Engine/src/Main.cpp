@@ -343,7 +343,7 @@ void main_tamanyofloat(){
 
 
 
-int main(){
+int main2(){
     //dibujarOpenGL();
     //recorrerArbol();
     interfazTest();

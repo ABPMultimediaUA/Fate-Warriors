@@ -35,21 +35,25 @@ void Vertice::set_lod(unsigned short _i_cont){
 	}
 }
 bool Vertice::pos2id(float _i_x, float _i_y){
-	if(_posx<_i_x && (_posx+_ancho)>_i_x && _posy<_i_y && (_posy+_alto)>_i_y){
+	if(_posx<=_i_x && (_posx+_ancho)>=_i_x && _posy<=_i_y && (_posy+_alto)>=_i_y){
 		return true;
 	}else{
 		return false;
 	}
 }
+//SOY PROGRAMADOR
 void Vertice::pathfinding(float _i_distancia, Arista* _i_arista_aux, int _i_destino){
 	//la arista final no se cuenta en las distancias
 	if(_id!=_i_destino){
-	_i_distancia+=_i_arista_aux->get_peso();
-	_peso=_i_distancia+_peso_tactico;
+	_i_distancia+=_i_arista_aux->get_peso()+_peso_tactico;
+	_peso=_i_distancia;
 	_i_arista_aux=_ady;//arista del vertice en el que estamos(para no recorrer la del vertice anterior)
 		while(_i_arista_aux!= nullptr){
 				//std::cout << _ArisAux->_ady->_id << " -> " ;
+				int algo=_i_arista_aux->get_ady()->get_peso();
+				int algo2=_i_distancia+_i_arista_aux->get_peso();
 			if(_i_arista_aux->get_ady()->get_peso()>=(_i_distancia+_i_arista_aux->get_peso())){
+				//std::cout <<(int)_id <<" ----------> "<<_i_arista_aux->get_peso()/metro << " -----------------------> " <<(int)_i_arista_aux->get_ady()->get_id() << std::endl;
 				_i_arista_aux->get_ady()->pathfinding(_i_distancia, _i_arista_aux, _i_destino);
 			}
 			_i_arista_aux = _i_arista_aux->get_sig();

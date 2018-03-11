@@ -4,7 +4,6 @@
 #include "Personajes/Enum_Tipo_Ataque.h"
 
 class Character;
-class Interfaz_Datos;
 class NPC;
 class Path_Manager;
 
@@ -17,12 +16,8 @@ public:
 
 	void mover(Character* _i_personaje, unsigned short _i_direccion);
 
-	Interfaz_Datos* get_interfaz();
-
 private:
-	Interfaz_Datos *_interfaz_decision; 	//Interfaz que permite la comunicacion entre toma de decision y datos
 	Path_Manager *_path_manager; 					//Path manager que busca el camino a seguir para el enemigo
-
 };
 
 #endif /* SRC_ACTION_MANAGER_H_ */

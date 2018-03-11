@@ -9,6 +9,7 @@ public:
 	virtual ~AD_Pistola();
 	void render() override;
 	Character* usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion) override;
+	void update();
 
 protected: 
 		//short Velocidad_bala;

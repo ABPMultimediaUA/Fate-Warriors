@@ -48,7 +48,7 @@ void Menu_Pausa::update(double _i_tiempo) {
 
 	_opcion_actual = _opcion_actual->update(_i_tiempo, _opcion_actual);
 
-	pinta_estado();
+	//pinta_estado();
 }
 
 

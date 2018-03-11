@@ -20,7 +20,7 @@ void Objeto::setX(float _i_x){
 }
 
 void Objeto::setY(float _i_y){
-
+    _objeto_motor->setPositionY(_i_y);
 }
 
 void Objeto::setZ(float _i_z){

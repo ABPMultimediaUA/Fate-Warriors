@@ -7,8 +7,11 @@
 #include "../Personajes/Player.h"
 #include "../Personajes/NPC.h"
 #include "../Puerta.h"
+#include "../Interruptor.h"
 #include "DebugDraw.h"
 #include "EnumTiposColision.h"
+#include "../Puerta_Pincho.h"
+
 /*
 #include "Entidad.h"
 #include "../Input.h"
@@ -76,7 +79,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
         _objetos_motor.erase(ite2);
     }
 
-	std::cout << "cantidad de elementos en el motor" << _objetos_motor.size() << std::endl;
+	//std::cout << "cantidad de elementos en el motor" << _objetos_motor.size() << std::endl;
 	
 
 	/*
@@ -361,12 +364,23 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 		mascara_colision = puerta_colisiona_con;
 	}
 
-	//si es otra cosa
+	else if(dynamic_cast<Puerta_Pincho*>(_i_objeto)!=NULL){
+		grupo_colision   = COL_PUERTA;
+		mascara_colision = puerta_colisiona_con;
+	}
+
+	else if(dynamic_cast<Interruptor*>(_i_objeto)!=NULL){
+		grupo_colision   = COL_PUERTA;
+		mascara_colision = puerta_colisiona_con;
+	}
+	
+		//si es otra cosa
 	else{
 		cubeBody->setCollisionFlags(cubeBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 		grupo_colision   = COL_OTRO;
 		mascara_colision = otros_colisiona_con;
 	}
+	
 
 	cubeShape->setUserPointer(_i_objeto);
 
@@ -684,7 +698,7 @@ bool Motor::comprobar_colision(btRigidBody *rb1, btRigidBody *rb2){
 
 void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion){
 	float mult = 4.9212625;
-	btScalar gTilt = rotacion / 180.0f*SIMD_PI; 
+	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
 	btTransform rbTransform;
 
 	// Rotacion
@@ -693,7 +707,7 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	btQuaternion incline;
 	incline.setRotation(btVector3(0, 1, 0), gTilt);
 	rbTransform.setRotation(incline);
-	std::cout << rotacion << std::endl;
+	//std::cout << rotacion << std::endl;
 
 	// Escalado
 	rb->getCollisionShape()->setLocalScaling(escala);
@@ -701,5 +715,6 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	// Traslacion
 	rbTransform.setOrigin(posicion);
 
+//Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
 }

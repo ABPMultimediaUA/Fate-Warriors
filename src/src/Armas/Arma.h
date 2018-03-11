@@ -26,10 +26,13 @@ public:
 	uint8_t 	get_rango();
 	uint8_t		get_danyo();
 	uint16_t	get_impulso();
+	void 		set_ocupada(bool nuevo);
+	bool		get_ocupada();
 
 
 protected:
 	
+	bool _ocupada_por_character;
 	Time*  _reloj;
 	double 	_tiempo_siguiente_disponible;
 	uint8_t 	_danyo;

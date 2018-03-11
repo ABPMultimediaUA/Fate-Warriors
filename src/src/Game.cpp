@@ -14,6 +14,9 @@
 #include "Motor_sonido/Interfaz_sonido.h"
 #include "Menus/Menu_Principal.h"
 #include "Menus/Menu_Pausa.h"
+#include "Zonas_Manager.h"
+#include "Interactuable_Manager.h"
+#include "Respawn.h"
 
 #include <iostream>
 #include <stack>
@@ -60,10 +63,12 @@ Game::~Game(){
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
 	_sonido=Interfaz_sonido::GetInstancia();
-
 	_datos 				= new Datos_Partida(_input_jugador);
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
+
+	_zonas_manager		= _datos->get_zonas_manager();
+	_interactuable_manager = _datos->get_interactuable_manager();
 
 	_player = _datos->get_player();
 	_datos->inserta_npc_nivel();
@@ -71,10 +76,14 @@ void Game::crea_partida() {
 	_consumibles_action = new Consumible_Action();	
 	_trampas_action 	= new Trampas_action();	
 
+	_datos->posicionar_characters_inicialmente();
+
 	update_actual = &Game::update_partida;
 	render_actual = &Game::render_partida;
 
 	_input_jugador->asignar_teclas_partida();
+
+	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
 }
 
 void Game::fin_partida() {
@@ -93,6 +102,9 @@ void Game::fin_partida() {
 	_input_jugador->asignar_teclas_menu();
 
 	//_motor->vaciar_motor();
+	Respawn* pointer = Respawn::posiciones_instancia();
+	delete pointer;
+	//Respawn::posiciones_instancia()->eliminar_datos();
 }
 
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------
@@ -122,14 +134,27 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
     	cambio_a_update_pausa();
     }
     else {
-		_player->update();
-		_nivel->Update();
-		_consumibles_action->comprobar_consumibles();
-		_trampas_action->update();
+			_player->update();
+			_nivel->Update();
+			_consumibles_action->comprobar_consumibles();
+			_trampas_action->update();
 
-		_motor->update(_i_tiempo_desde_ultimo_update);
-			
-		_decision_manager->toma_decisiones();
+			_motor->update(_i_tiempo_desde_ultimo_update);
+			_interactuable_manager->update_interruptores();
+			_decision_manager->toma_decisiones();
+			_zonas_manager->actualizar_zonas();
+
+			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
+				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
+				cambio_a_update_menu();
+				//Fin de partida
+			}
+			else{
+				if(_zonas_manager->comprobar_victoria()!=Enum_Equipo_Ninguno){
+					cambio_a_update_menu();
+				}
+				//if equipo!=neutro Fin partida
+			}
     }
 }
 

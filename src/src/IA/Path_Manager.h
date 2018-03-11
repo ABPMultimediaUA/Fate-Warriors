@@ -1,17 +1,17 @@
 #ifndef SRC_PATH_MANAGER_H_
 #define SRC_PATH_MANAGER_H_
 #include <cstdint>
-class Interfaz_Datos;
+
+class Objeto;
 
 class Path_Manager {
 public:
-	Path_Manager(Interfaz_Datos& _i_interfaz_decision);
+	Path_Manager();
 	virtual ~Path_Manager();
 
-	uint16_t get_direccion_movimiento(float& _x_enemigo,float& _y_enemigo);
+	uint16_t get_direccion_movimiento(float& _x_enemigo,float& _y_enemigo, float pos_x, float pos_y);
 
 private:
-	Interfaz_Datos *_interfaz_decision;
 };
 
 #endif /* SRC_PATH_MANAGER_H_ */

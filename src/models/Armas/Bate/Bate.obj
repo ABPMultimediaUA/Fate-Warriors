@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 07.02.2018 11:19:43
+# File Created: 23.02.2018 13:39:30
 
 mtllib Bate.mtl
 
@@ -980,7 +980,7 @@ vt 0.9348 0.1550 0.0000
 
 o Cylinder004
 g Cylinder004
-usemtl Material__21
+usemtl Material__29
 f 1/1/1 2/2/2 3/3/2 4/4/3 
 f 5/5/4 6/6/5 7/7/6 8/8/7 
 f 6/6/5 9/9/8 10/10/9 7/7/6 

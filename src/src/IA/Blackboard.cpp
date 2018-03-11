@@ -1,136 +1,72 @@
 #include "Blackboard.h"
 
-#include "Interfaz_Datos.h"
-
 #include "../Personajes/NPC.h"
-
 #include "../Interfaz_Libs/Lib_Math.h"
-
 #include "../Nivel/Nivel.h"
+#include "../Game.h"
+#include "../Datos_Partida.h"
+#include "../Zonas_Manager.h"
+#include "../Zona.h"
+#include "../Inventario.h"
+#include "../Interfaz/Motor.h"
+#include "../Interfaz/Objeto_Motor.h"
+#include "../Armas/Armas_Manager.h"
+#include "../Armas/Arma.h"
+#include "../Consumibles/Consumible_Manager.h"
+#include "../Consumibles/Consumible.h"
+#include "../Consumibles/Consumible_Agua.h"
+#include "../Consumibles/Consumible_Patata.h"
+#include "../Consumibles/Consumible_Carne.h"
 
-Blackboard::Blackboard(Interfaz_Datos& _i_interfaz, uint16_t _i_n_enemigo) {
-	_n_npc = _i_n_enemigo;
-	NPC *npc_aux=_i_interfaz.get_enemigo(_n_npc);
-	_interfaz = &_i_interfaz;
-	_tipo_npc = new enum Enum_Tipo_Enemigo[1];
-	//_tipo_npc[0] = Normal; //linea a borrar
-	_tipo_npc=npc_aux->get_ref_Enum_Tipo_Enemigo();
-	_vida_actual=npc_aux->get_ref_vida_actual();
-	_vida_max=npc_aux->get_vida_maxima();
-	_rango_ataque_normal=npc_aux->get_ref_rango_arma_corta();
-	_rango_ataque_fuerte=npc_aux->get_ref_rango_arma_larga();
-	_x=npc_aux->get_ref_x();
-	_z=npc_aux->get_ref_z();
-	//_level_of_detail = 1;
+Blackboard::Blackboard(NPC * npc_padre) {
 
-	_distancia_jugador = 0;
-	inicia_enums();
+	_accion = Nada;
+	_npc_padre = npc_padre; 
+	_decision = Decision_Quieto;
+	_porcentaje_vida = 100;
+
+
+	_enemigo_mas_cerca = nullptr;
+	_distancia_enemigo_mas_cerca = 10000000;
+
+	_zona_actual = nullptr;
+	_zona_mas_cerca = nullptr;
+	_zona_enemiga_mas_cerca = nullptr;
+	_zona_aliada_mas_cerca = nullptr;
+
 }
 
 Blackboard::~Blackboard() {
-	//delete _tipo_npc;
 }
-
-void Blackboard::inicia_enums() {
-	_decision = Decision_Quieto;
-	_accion = Nada;
-
-	_objetivo = Objetivo_Ninguno;
-	_t_espera = static_cast<Enum_Tiempos_Espera>(rand()%n_tiempos_espera);
-
-	_tipo_mov = static_cast<Enum_Tipo_Movimiento>(rand()%n_tipos_movimiento);
-
-	_tipo_acercar = static_cast<Enum_Tipo_Acercar>(rand()%n_tipos_acercar);
-	_forma_ataque = static_cast<Enum_Forma_Atacar>(rand()%n_formas_atacar);
-	_ataque = Ataque_Ninguno;
-
-	_d_corta = static_cast<Enum_Distancias_Cortas>(rand()%n_distancias_cortas);
-	_d_larga = static_cast<Enum_Distancias_Largas>(rand()%n_distancias_largas);
-}
-
-
 
 void Blackboard::actualiza_datos() {
 
-	_distancia_jugador = _interfaz->get_distancia_enemigo_personaje(_n_npc);//distancia_jugador esta en metros
-	_porcentaje_vida=100*(*_vida_actual)/_vida_max;
-	/*Nivel* nivel=Nivel::nivel_instancia();
-	_zona=nivel->nivel_get_blackboard((*_x),(*_z));*/
+	//actualizar_zonas(); //actualizarlo cuando va por la rama izquierda
+
+	// Actualizar siempre:
+	actualizar_pseudo_azar();
+	actualizar_datos_npc_padre();
+	actualizar_characteres();
+	actualizar_objetos();
+	
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
 	// AQUI SE HACEN CALCULOS SOBRE LAS VARIABLES QUE SE ACTUALIZAN AUTOMATICAMENTE (que van en punteros)
 	// P. EJ. _se_acerca ES ALGO QUE NO SE VA A ACTUALIZAR, SE DEBE CALCULAR EN CADA ACTUALIZA_DATOS
 }
 
-
-
 void Blackboard::set_decision(enum Enum_Decisiones _i_decision) {
 	_decision = _i_decision;
 }
-
-void Blackboard::set_accion(enum Enum_Acciones _i_accion) {
-	_accion = _i_accion;
-}
-
-
-
-// Datos de identidad del NPC
-uint16_t Blackboard::get_n_enemigo() {
-	return _n_npc;
-}
-
-enum Enum_Tipo_Enemigo Blackboard::get_tipo_enemigo() {
-	//std::cout<<(*_tipo_npc)<<std::endl;
-	return (*_tipo_npc);
-}
-
-enum Enum_Tipo_Enemigo Blackboard::get_tipo_npc() {
-	return (*_tipo_npc);
-}
-
-
-
-// Datos de estado
-int16_t Blackboard::get_vida_actual() {
-	return (*_vida_actual);
-}
-
-
-int16_t Blackboard::get_vida_max() {
-
-}
-
 
 float Blackboard::get_porcentaje_vida() {
 	return _porcentaje_vida;
 }
 
-
-unsigned short Blackboard::get_rango_ataque_normal() {
-
-}
-
-
-unsigned short Blackboard::get_rango_ataque_fuerte() {
-
-}
-
-
-
 // Datos de accion y decision propio de cada enemigo
 enum Enum_Decisiones Blackboard::get_decision() {
 	return _decision;
 }
-
-enum Enum_Acciones Blackboard::get_accion() {
-	return _accion;
-}
-
-enum Enum_Tipo_Ataque Blackboard::get_ataque() {
-
-}
-
-
 
 // Datos de estado
 int8_t Blackboard::get_level_of_detail() {
@@ -138,410 +74,205 @@ int8_t Blackboard::get_level_of_detail() {
 	return _zona->get_lod();
 }
 
+float Blackboard::get_distancia_objetivo(){
+	return lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), objetivo_x, objetivo_y);
+}
 
-bool Blackboard::get_alertado() {
+void Blackboard::actualizar_characteres(){
+	Character ** characters = Game::game_instancia()->game_get_datos()->get_characters();
+	unsigned long num_characters = Game::game_instancia()->game_get_datos()->get_num_characters();
+
+	float _distancia_enemigo_mas_cercano = 10000000000;
+
+	for (uint16_t cont=0; cont < num_characters; cont++){
+		if(characters[cont]->get_vida_actual()>0 && characters[cont]->get_equipo() != _npc_padre->get_equipo())
+		{
+			float _distancia = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), characters[cont]->getX(), characters[cont]->getZ());
+			if(_distancia < _distancia_enemigo_mas_cercano){
+				_distancia_enemigo_mas_cercano = _distancia;
+				_enemigo_mas_cerca = characters[cont];
+			}
+		}		
+    }
+
+	_distancia_enemigo_mas_cerca = _distancia_enemigo_mas_cercano;
+
+	if(_distancia_enemigo_mas_cercano < 20){
+		_enemigo_mas_cerca_esta_cerca = true;
+	}
+	else
+		_enemigo_mas_cerca_esta_cerca = false;
+
+	if(_distancia_enemigo_mas_cercano < 6){
+		_enemigo_mas_cerca_esta_muy_cerca = true;
+	}
+	else
+		_enemigo_mas_cerca_esta_muy_cerca = false;
 
 }
 
+void Blackboard::actualizar_zonas(){
+	Zonas_Manager * zonas_manager = Game::game_instancia()->game_get_datos()->get_zonas_manager();
+	Zona** zonas = zonas_manager->get_zonas();
+	unsigned long num_zonas = zonas_manager->get_n_zonas();
 
+	Objeto_Motor * objeto_npc = _npc_padre->get_objeto_motor();
+	bool encontrado = false;
 
-// Datos de inventario
-bool Blackboard::get_tiene_arma() {
-	return (_tiene_arma_corta || _tiene_arma_larga);
-}
-
-bool Blackboard::get_tiene_arma_corta() {
-
-}
-
-
-unsigned short Blackboard::get_rango_arma_corta() {
-
-}
-
-
-bool Blackboard::get_tiene_arma_larga() {
-
-}
-
-
-unsigned short Blackboard::get_rango_arma_larga() {
-
-}
-
-
-
-// Blackboard del NPC contrario (PARA LOS ALIADOS PUEDEN SER DE CUALQUIER TIPO DE ENEMIGO Y PARA LOS ENEMIGOS DE TIPO ALIADO)
-enum Enum_Decisiones Blackboard::get_decision_contrario() {
-
-}
-
-
-enum Enum_Acciones Blackboard::get_accion_contrario() {
-
-}
-
-
-enum Enum_Tipo_Ataque Blackboard::get_ataque_contrario() {
-
-}
-
-
-float Blackboard::get_x_contrario() {
+	Zona * zona_mas_cerca_aux = nullptr;
+	Zona * zona_enemiga_mas_cerca_aux = nullptr;
+	Zona * zona_aliada_mas_cerca_aux = nullptr;
+	float distancia_zona_mas_cerca = 10000000000000;
+	float distancia_zona_enemiga_mas_cerca = 10000000000000;
+	float distancia_zona_aliada_mas_cerca = 10000000000000;
 	
+	for (uint16_t cont=0; cont < num_zonas; cont++){
+		if(Motor::Motor_GetInstance()->comprobar_colision(objeto_npc->getRigidBody(), zonas[cont]->getRigidBody()) == true){
+			encontrado = true;
+			_zona_actual = zonas[cont];
+		}   
+    }
+
+	if(encontrado == false){
+		_zona_actual = nullptr;
+	}
+
+	for (uint16_t cont=0; cont < num_zonas; cont++){
+    	
+		if(zonas[cont] != _zona_actual){
+
+			float distancia_a_zona = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), zonas[cont]->getX(), zonas[cont]->getY());
+
+			//Zona mas cerca
+			if(distancia_a_zona < distancia_zona_mas_cerca){
+				distancia_zona_mas_cerca = distancia_a_zona;
+				zona_mas_cerca_aux = zonas[cont];
+			}
+
+			//Zona enemiga mas cerca
+			if(zonas[cont]->get_equipo() != _npc_padre->get_equipo() && distancia_a_zona < distancia_zona_enemiga_mas_cerca){
+				distancia_zona_enemiga_mas_cerca = distancia_a_zona;
+				zona_enemiga_mas_cerca_aux = zonas[cont];
+			}
+			//Zona aliada mas cerca
+			else if(zonas[cont]->get_equipo() == _npc_padre->get_equipo() && distancia_a_zona < distancia_zona_aliada_mas_cerca){
+				distancia_zona_aliada_mas_cerca = distancia_a_zona;
+				zona_aliada_mas_cerca_aux = zonas[cont];
+			}
+		}
+    }
+
+	_zona_mas_cerca = zona_mas_cerca_aux;
+	_zona_enemiga_mas_cerca = zona_enemiga_mas_cerca_aux;
+	_zona_aliada_mas_cerca = zona_aliada_mas_cerca_aux;
+
 }
 
+void Blackboard::actualizar_objetos(){
 
-float Blackboard::get_z_contrario() {
+	Objeto * objeto_mas_cerca_aux = nullptr;
+	float distancia_objeto_mas_cerca = 10000000000;
+
+	// Armas
+	std::vector<Arma*>* lista_armas = Game::game_instancia()->game_get_datos()->get_armas_manager()->get_armas();
+	int num_armas = (*lista_armas).size();
+
+	for (short i = 0; i < num_armas; i++) {
+    	float distancia_a_objeto = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), (*lista_armas)[i]->getX(), (*lista_armas)[i]->getZ());
+
+		if(distancia_a_objeto < distancia_objeto_mas_cerca){
+			distancia_objeto_mas_cerca = distancia_a_objeto;
+			objeto_mas_cerca_aux = (*lista_armas)[i];
+		}
+  	}
+
+	// Power-ups y consumibles
+	std::vector<Consumible*>* lista_consumibles = Game::game_instancia()->game_get_datos()->get_Consumible_Manager()->get_consumibles();
+	int num_consumibles = (*lista_consumibles).size();
+
+	for (short i = 0; i < num_consumibles; i++) {
+		if(dynamic_cast<Consumible_Agua*>((*lista_consumibles)[i]) == NULL){
+
+			if(dynamic_cast<Consumible_Patata*>((*lista_consumibles)[i]) != NULL && _porcentaje_vida > 90 ||
+				dynamic_cast<Consumible_Carne*>((*lista_consumibles)[i]) != NULL && _porcentaje_vida > 90){
+				break;
+			}
+
+			float distancia_a_objeto = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), (*lista_consumibles)[i]->getX(), (*lista_consumibles)[i]->getZ());
+
+			if(distancia_a_objeto < distancia_objeto_mas_cerca){
+				distancia_objeto_mas_cerca = distancia_a_objeto;
+				objeto_mas_cerca_aux = (*lista_consumibles)[i];
+			}
+		}
+  	}
+
+	if(distancia_objeto_mas_cerca <= _distancia_enemigo_mas_cerca){
+		_objeto_mas_cerca_que_enemigo_mas_cerca = true;
+	}
+	else{
+		_objeto_mas_cerca_que_enemigo_mas_cerca = false;
+	}
+
+	if(distancia_objeto_mas_cerca < 15){
+		_objeto_mas_cerca_esta_cerca = true;
+	}
+	else
+		_objeto_mas_cerca_esta_cerca = false;
+
+	if(distancia_objeto_mas_cerca < 1){
+		_objeto_mas_cerca_esta_muy_cerca = true;
+	}
+	else
+		_objeto_mas_cerca_esta_muy_cerca = false;
+
+	_objeto_mas_cerca = objeto_mas_cerca_aux;
+
+}
+
+void Blackboard::actualizar_datos_npc_padre(){
+
+	_porcentaje_vida=100*(_npc_padre->get_vida_actual()/_npc_padre->get_vida_maxima());
+
+	Inventario * inventario = _npc_padre->get_inventario();
+
+	if(inventario->get_objeto_distancia() != nullptr){
+		_tengo_arma_larga_distancia = true;
+	}
+	else{
+		_tengo_arma_larga_distancia = false;
+	}
+
+	if(inventario->get_objeto_cerca() != nullptr){
+		_tengo_arma_corta_distancia = true;
+	}
+	else{
+		_tengo_arma_corta_distancia = false;
+	}
+}
+
+void Blackboard::equipar_arma_larga_distancia(){
+	_npc_padre->get_inventario()->seleccionar_arma_distancia_NPC();
+}
+
+void Blackboard::equipar_arma_corta_distancia(){
+	_npc_padre->get_inventario()->seleccionar_arma_cerca_NPC();
+}
+
+void Blackboard::actualizar_pseudo_azar(){
+	int x = _npc_padre->getX();
+	int z = _npc_padre->getZ();
 	
+	if(rand() % 2 == 0){
+		_ataque_a_realizar = Ataque_Normal;
+		_puedo_esquivar = true;
+		//std::cout <<"Entra 1 \n";
+	}
+	else{
+		_ataque_a_realizar = Ataque_Fuerte;
+		_puedo_esquivar = false;
+		//std::cout <<"Entra 2 \n";
+	}
 }
 
 
-float Blackboard::get_distancia_contrario() {
-
-}
-
-
-int16_t Blackboard::get_vida_actual_npc_contrario() {
-	
-}
-
-
-int16_t Blackboard::get_vida_max_npc_contrario() {
-	
-}
-
-
-float Blackboard::get_porcentaje_vida_contrario() {
-
-}
-
-
-bool Blackboard::get_tiene_arma_contrario() {
-	return (_tiene_arma_corta_contrario || _tiene_arma_larga_contrario);
-}
-
-
-bool Blackboard::get_tiene_arma_corta_contrario() {
-
-}
-
-
-bool Blackboard::get_tiene_arma_larga_contrario() {
-
-}
-
-
-bool Blackboard::get_se_acerca_contrario() {
-
-}
-
-
-
-//Con el jugador
-enum Enum_Decisiones Blackboard::get_decision_jugador() {
-
-}
-
-
-enum Enum_Acciones Blackboard::get_accion_jugador() {
-
-}
-
-
-enum Enum_Tipo_Ataque Blackboard::get_ataque_jugador() {
-
-}
-
-
-float Blackboard::get_x_jugador() {
-	
-}
-
-
-float Blackboard::get_z_jugador() {
-	
-}
-
-
-float Blackboard::get_distancia_jugador() {
-	return _distancia_jugador;
-}
-
-
-int16_t Blackboard::get_vida_actual_jugador() {
-	
-}
-
-
-int16_t Blackboard::get_vida_max_jugador() {
-	
-}
-
-
-float Blackboard::get_porcentaje_vida_jugador() {
-
-}
-
-
-bool Blackboard::get_tiene_arma_jugador() {
-	return (_tiene_arma_corta_jugador || _tiene_arma_larga_jugador);
-}
-
-
-bool Blackboard::get_tiene_arma_corta_jugador() {
-
-}
-
-
-bool Blackboard::get_tiene_arma_larga_jugador() {
-
-}
-
-
-bool Blackboard::get_se_acerca() {
-
-}
-
-
-bool Blackboard::get_jugador_en_zona() {
-
-}
-
-
-unsigned short Blackboard::get_distancia_jugador_puerta_cerca() {
-
-}
-
-
-bool Blackboard::get_tiene_llave() {
-
-}
-
-
-
-//Con objetos
-float Blackboard::get_distancia_objeto_cercano() {
-
-}
-
-
-bool Blackboard::get_jugador_entre_objeto() {
-
-}	
-
-
-
-//Con otros enemigos
-float Blackboard::get_distancia_enemigo_cercano() {
-
-}
-
-
-float Blackboard::get_distancia_enemigo_lejano() {
-
-}
-
-
-bool Blackboard::get_enemigos_tienen_arma() {
-
-}
-
-
-int16_t Blackboard::get_vida_actual_enemigo_cerca() {
-
-}
-
-
-int16_t Blackboard::get_vida_maxima_enemigo_cerca() {
-
-}
-
-
-float Blackboard::get_porcentaje_vida_enemigo_cerca() {
-
-}
-
-
-unsigned short Blackboard::get_n_enemigos_cerca() {
-
-}
-
-
-unsigned short Blackboard::get_n_enemigos_medio() {
-
-}
-
-
-unsigned short Blackboard::get_n_enemigos_lejos() {
-
-}
-
-
-bool Blackboard::get_enemigo_alertado_medio() {
-
-}
-
-
-bool Blackboard::get_enemigo_alertado_lejos() {
-
-}
-
-
-
-//Con otros aliados
-float Blackboard::get_distancia_aliado_cercano() {
-
-}
-
-
-float Blackboard::get_distancia_aliado_lejano() {
-
-}
-
-
-bool Blackboard::get_aliados_tienen_arma() {
-
-}
-
-
-int16_t Blackboard::get_vida_actual_aliado_cerca() {
-
-}
-
-
-int16_t Blackboard::get_vida_maxima_aliado_cerca() {
-
-}
-
-
-float Blackboard::get_porcentaje_vida_aliado_cerca() {
-
-}
-
-
-unsigned short Blackboard::get_n_aliados_cerca() {
-
-}
-
-
-unsigned short Blackboard::get_n_aliados_medio() {
-
-}
-
-
-unsigned short Blackboard::get_n_aliados_lejos() {
-
-}
-
-
-
-//Con informacion de la zona
-int8_t Blackboard::get_n_enemigos_zona() {
-
-}
-
-
-int8_t Blackboard::get_n_aliados_zona() {
-
-}
-
-
-float Blackboard::get_n_aliados_por_n_enemigos() {
-
-}
-
-
-
-unsigned short Blackboard::get_n_pasillos() {
-
-}
-
-
-unsigned short Blackboard::get_distancia_pasillos() {
-
-}
-
-
-unsigned short Blackboard::get_n_enemigos_min_pasillo() {
-
-}
-
-
-unsigned short Blackboard::get_n_paredes_cerca() {
-
-}
-
-
-unsigned short Blackboard::get_n_paredes_medio() {
-
-}
-
-
-unsigned short Blackboard::get_n_paredes_lejos() {
-
-}
-
-
-bool Blackboard::get_jugador_entre_pasillo_y_yo() {
-
-}
-
-
-
-//Con otras zonas
-unsigned short Blackboard::get_zonas_adyacentes() {
-
-}
-
-
-unsigned short Blackboard::get_zonas_enemigas() {
-
-}
-
-
-unsigned short Blackboard::get_zonas_jugador() {
-
-}
-
-
-enum Enum_zonas Blackboard::get_tipo_zona_cercana() {
-
-}
-
-
-bool Blackboard::get_puedo_ir_zona_cercana() {
-
-}
-
-
-
-//Con objetos interactuables
-bool Blackboard::get_interruptor_en_zona() {
-
-}
-
-
-bool Blackboard::get_interruptor_activado() {
-
-}
-
-
-bool Blackboard::get_soy_enemigo_mas_cerca_interruptor() {
-
-}
-
-
-unsigned short Blackboard::get_dist_jug_interruptor() {
-
-}
-
-
-bool Blackboard::get_powerup_zona_adyacente() {
-
-}
-
-
-unsigned short Blackboard::get_id_zona_powerup() {
-
-}

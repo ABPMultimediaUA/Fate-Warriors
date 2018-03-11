@@ -13,14 +13,14 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Interfaz/Motor.h"
 //#include "../Interfaz/Objeto_Motor.h"
+#include "../Respawn.h"
 
 #include "../Motor_sonido/Interfaz_sonido.h"
-
 
 #include "../Game.h"
 #include "../Action_Manager.h"
                                                                                                             //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.25, 10, 15)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.25, 10, 15, Enum_Equipo_A)
                                                                 {   
     _motor= Motor::Motor_GetInstance();
     _sonido= Interfaz_sonido::GetInstancia();
@@ -48,6 +48,8 @@ Player::~Player(){
 
 void Player::update(){
     //std::cout<< "ACCION_ACTUAL: "<< _accion << "\n";
+    if (_vida>0){
+
     gestion_acciones();
 
     // Esto hay que borrarlo
@@ -129,6 +131,13 @@ void Player::update(){
     Nivel* nivel=Nivel::nivel_instancia();
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
+    }
+    else{
+        //std::cout<<"sigo muerto" << std::endl;
+        Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
+    }
+
+
 }
 			
 void Player::render(){
@@ -140,7 +149,7 @@ void Player::modificar_vida_en(short _i_vida){
 	if(_vida+_i_vida>_vida_maxima){
         _vida=_vida_maxima;
     }
-    else if(_vida + _i_vida < 0){
+    else if(_vida + _i_vida <= 0){
         morir();
     }
     else{

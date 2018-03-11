@@ -5,10 +5,16 @@
 AD_Pistola::AD_Pistola(uint16_t _id, float _i_x, float _i_y, float _i_z) 
 : Arma_distancia(_id, _i_x, _i_y, _i_z, 
 				Nombre_Arma_Pistola,
-				script->Dame_valor_de("Pistola_usos"), 
-				script->Dame_valor_de("Pistola_frecuencia"), 
-				script->Dame_valor_de("Pistola_rango"),
-				20){}
+				10, 
+				150, 
+				90,
+				20){
+
+    const char* cstr  = "models/Armas/Pistola/Pistola.obj";
+    //_id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z,12);
+    _objeto_motor = new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
+
+}
 
 AD_Pistola::~AD_Pistola(){
 	
@@ -24,6 +30,9 @@ Character* AD_Pistola::usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccio
 		return _objeto_motor->disparar(_i_objeto_origen,_i_direccion, _rango);
 	}
 	return 0;
+}
+
+void AD_Pistola::update(){
 }
 
 

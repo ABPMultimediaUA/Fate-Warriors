@@ -55,6 +55,26 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 }
 
 
+void Objeto_Motor::setPositionY(float y){
+
+	btTransform btt; 
+	_rigidbody->getMotionState()->getWorldTransform(btt);
+	btt.setOrigin(btVector3(btt.getOrigin().getX(),y,btt.getOrigin().getZ())); // move body to the scene node new position
+	btt.setRotation(_rigidbody->getOrientation());
+
+	_rigidbody->getMotionState()->setWorldTransform(btt);
+	_rigidbody->setCenterOfMassTransform(btt);
+
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+		
+	_nodo->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+}
+
+
+
+
+
+
 // Funcion de mover para los personajes
 void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt){  // Direccion
 
@@ -69,6 +89,10 @@ void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad,
 
 /*Rango muy corto 20 normal 40 y largo 80*/
 Character* Objeto_Motor::disparar(Objeto_Motor* _i_objeto_origen,uint16_t _i_direccion, uint8_t _i_rango_disparo){
+
+
+    _i_direccion = _i_direccion + (rand() % 10) - 5;
+
 	desp_z = cos(_i_direccion*std::acos(-1)/180);
     desp_x = sin(_i_direccion*std::acos(-1)/180);
 	
@@ -104,6 +128,10 @@ void Objeto_Motor::saltar(){
 
 void Objeto_Motor::Dash(uint16_t _i_direccion){
 	short potencia = 6000;
+	Impulso(_i_direccion, potencia);
+}
+
+void Objeto_Motor::Impulso(uint16_t _i_direccion, uint16_t potencia){
 	Motor* _motor = Motor::Motor_GetInstance();
     //float angulo = _motor->angulo_camaraRAD();
 	
@@ -135,7 +163,7 @@ void Objeto_Motor::colorear_nodo(short r,short g, short b){
 	_nodo->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
 }
 
-//Manu mira esta cosa.com
+//Manu NO miro esta cosa.com
 
 void Objeto_Motor::abrir_puerta1(){
 	
@@ -168,9 +196,12 @@ void Objeto_Motor::abrir_puerta2(){
 }
 
 void Objeto_Motor::abrir_puerta(){
-	this->abrir_puerta1();
-	this->abrir_puerta2();
+	this->setPositionY(20);
+	_rigidbody->forceActivationState(DISABLE_SIMULATION);
 }
+
+
+
 
 float Objeto_Motor::getVelocidadY(){
 	return  _rigidbody->getLinearVelocity()[1];
@@ -216,4 +247,24 @@ btRigidBody* Objeto_Motor::getRigidBody(){
 
 btVector3 Objeto_Motor::get_posicion_rb(){
 	return _rigidbody->getCenterOfMassPosition();
+}
+
+void Objeto_Motor::rotar_nodo(uint16_t rotacion){
+	float mult = 4.9212625;
+	btScalar gTilt = rotacion*SIMD_PI / 180.0f; 
+	btTransform rbTransform;
+
+	// Rotacion
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(_rigidbody->getCenterOfMassPosition());
+	btQuaternion incline;
+	incline.setRotation(btVector3(0, 1, 0), gTilt);
+	rbTransform.setRotation(incline);
+	_rigidbody->setWorldTransform(rbTransform);
+
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+	_nodo->setPosition(vector3df(pos[0], pos[1], pos[2]));
+	
+	_interpolacion->actualiza_direccion(rotacion);
+
 }

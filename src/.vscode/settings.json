@@ -49,7 +49,6 @@
         "condition_variable": "cpp",
         "mutex": "cpp",
         "valarray": "cpp",
-        "__config": "cpp",
-        "*.ipp": "cpp"
+        "__config": "cpp"
     }
 }
