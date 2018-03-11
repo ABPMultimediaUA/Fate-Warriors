@@ -13,7 +13,7 @@
 - 9 Medio 8 5 ND_13 0
 
 - 10 Final Andar Interactuar ND_0 0
-- 11 Izq Nada 10 ND_3 0
+- 11 Izq Andar 10 ND_3 0
 - 12 Medio 11 6 ND_9 0
 
 - 13 Izq Andar 5 ND_4 0

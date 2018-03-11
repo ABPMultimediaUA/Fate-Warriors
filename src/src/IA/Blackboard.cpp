@@ -100,7 +100,7 @@ void Blackboard::actualizar_characteres(){
 
 	_distancia_enemigo_mas_cerca = _distancia_enemigo_mas_cercano;
 
-	if(_distancia_enemigo_mas_cercano < 20){
+	if(_distancia_enemigo_mas_cercano < 60){
 		_enemigo_mas_cerca_esta_cerca = true;
 	}
 	else

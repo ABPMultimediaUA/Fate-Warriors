@@ -54,8 +54,8 @@ enum Enum_Acciones ND_3::toma_decision(Blackboard* _blackboard){
 		return _nodo_der->toma_decision(_blackboard);
 	}
     // Nada
-    //_blackboard->objetivo_x = _blackboard->_zona_actual->getX();
-    //_blackboard->objetivo_y = _blackboard->_zona_actual->getZ();
+    _blackboard->objetivo_x = _blackboard->_zona_actual->getX();
+    _blackboard->objetivo_y = _blackboard->_zona_actual->getZ();
     //std::cout <<"NO hay interruptor usable y util\n";
 	return _nodo_izq->toma_decision(_blackboard);
 }
