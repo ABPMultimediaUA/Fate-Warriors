@@ -8,6 +8,9 @@
 #include "iNodoCamara.h"
 #include "iNodoLuz.h"
 #include <vector>
+//#include "EnumTiposBoundingBox.h"
+#include <btBulletCollisionCommon.h>
+#include "../Utilidades/Vector.h"
 
 class TMooseEngine;
 
@@ -32,7 +35,8 @@ class Interfaz_ME{
         static Interfaz_ME* _instancia;
         TMooseEngine* motor;
         Interfaz_ME(uint16_t width, uint16_t height);
-        void configuracion_motor(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
+        void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
+        //void configuracion_bullet();
         std::vector<iNodo*> lista_i_nodo;        
 };
 

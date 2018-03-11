@@ -9,6 +9,7 @@
 #include "iNodoCamara.h"
 #include "iNodoLuz.h"
 
+
 Interfaz_ME* Interfaz_ME::_instancia = 0;
 
 Interfaz_ME* Interfaz_ME::get_instancia(uint16_t width, uint16_t height){
@@ -19,7 +20,7 @@ Interfaz_ME* Interfaz_ME::get_instancia(uint16_t width, uint16_t height){
 }
 
 Interfaz_ME::Interfaz_ME(uint16_t width, uint16_t height){
-    configuracion_motor(width, height, false, false);
+    configuracion_ME(width, height, false, false);
 }
 
 Interfaz_ME::~Interfaz_ME(){
@@ -28,9 +29,45 @@ Interfaz_ME::~Interfaz_ME(){
     }
 }
 
-void Interfaz_ME::configuracion_motor(uint16_t width, uint16_t height, bool fullscreen, bool v_sync){
+void Interfaz_ME::configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync){
     motor = TMooseEngine::get_instancia();
 }
+/*
+void Interfaz_ME::configuracion_bullet(){
+    collisionConfiguration = new btDefaultCollisionConfiguration();
+	broadPhase = new btDbvtBroadphase(new btHashedOverlappingPairCache());
+	collisionDispatcher = new btCollisionDispatcher(collisionConfiguration);
+	constraintSolver = new btSequentialImpulseConstraintSolver();
+
+	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadPhase, constraintSolver, collisionConfiguration);
+
+	fileLoader = new btBulletWorldImporter(world);
+	fileLoader->loadFile("models/MapaColision/ColisionesNivel1.bullet");
+	btCollisionShape* escenario; 
+	btRigidBody* esta_vez_si;
+	int num = fileLoader->getNumRigidBodies();
+	
+	btTransform cubeTransform;
+	cubeTransform.setIdentity();
+	//cubeTransform.setOrigin(btVector3(x,y,z));
+	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(cubeTransform);
+	for(short i = 0; i<num;i++){
+
+		btTransform trans = fileLoader->getRigidBodyByIndex(i)->getWorldTransform();
+
+		escenario = fileLoader->getRigidBodyByIndex(i)->getCollisionShape();
+		cubeMotionState = new btDefaultMotionState(trans);
+		btRigidBody* _objeto_esceario = new btRigidBody(0, cubeMotionState, escenario);
+		_objeto_esceario->setFriction(0);
+		world->addRigidBody(_objeto_esceario,COL_ESCENARIO, escenario_colisiona_con);
+
+		//btBroadphaseProxy* proxy = esta_vez_si->getBroadphaseProxy();
+		//proxy->m_collisionFilterGroup = 4;
+		//proxy->m_collisionFilterMask = 4;
+	}	
+    world->setGravity(btVector3(0,-9.8*18,0));
+}
+*/
 
 iNodoModelado* Interfaz_ME::crearModelado(const char* ruta){
     iNodoModelado* nodo = new iNodoModelado(ruta);
