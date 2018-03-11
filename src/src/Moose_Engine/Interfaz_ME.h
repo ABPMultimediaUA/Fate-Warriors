@@ -8,9 +8,9 @@
 #include "iNodoCamara.h"
 #include "iNodoLuz.h"
 #include <vector>
-//#include "EnumTiposBoundingBox.h"
+#include "EnumTiposBoundingBox.h"
 #include <btBulletCollisionCommon.h>
-//#include "../Utilidades/Vector.h"
+#include "../Utilidades/Vector.h"
 
 class TMooseEngine;
 
