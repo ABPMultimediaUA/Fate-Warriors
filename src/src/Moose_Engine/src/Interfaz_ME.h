@@ -6,6 +6,8 @@
 
 #include "iNodoModelado.h"
 #include "iNodoCamara.h"
+#include "iNodoLuz.h"
+#include <vector>
 
 class TMooseEngine;
 
@@ -14,10 +16,13 @@ class Interfaz_ME{
     public:    
         ~Interfaz_ME();
         static Interfaz_ME* get_instancia(uint16_t width, uint16_t height);
-        iNodoModelado* crearModelado(const char* ruta, float x, float y, float z);
 
+        iNodoModelado* crearModelado(const char* ruta);
+        iNodoModelado* crearModelado(const char* ruta, float x, float y, float z);
+        iNodoCamara* crearCamara(bool activa); 
         iNodoCamara* crearCamara(bool activa, float x, float y, float z);
-        uint16_t crearLuz();
+        iNodoLuz* crearLuz(bool activa, float intensidad);
+        iNodoLuz* crearLuz(bool activa, float intensidad, float x, float y, float z);
 
         void render();
         bool ventana_abierta();
@@ -28,7 +33,7 @@ class Interfaz_ME{
         TMooseEngine* motor;
         Interfaz_ME(uint16_t width, uint16_t height);
         void configuracion_motor(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
-        
+        std::vector<iNodo*> lista_i_nodo;        
 };
 
 #endif

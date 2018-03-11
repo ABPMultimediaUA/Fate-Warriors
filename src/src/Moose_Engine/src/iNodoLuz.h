@@ -6,6 +6,8 @@
 class iNodoLuz : public iNodo{
     public:
         iNodoLuz(bool activa, float intensidad);
+        iNodoLuz(bool activa, float intensidad, float x, float y, float z);
+        
         ~iNodoLuz();
     private:
 };

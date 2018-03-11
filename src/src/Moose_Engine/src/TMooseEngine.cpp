@@ -102,9 +102,8 @@ TCamara* TMooseEngine::crearCamara(bool activa){
     return camara;
 }
 
-TLuz* TMooseEngine::crearLuz(){
-    TLuz* luz = new TLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
-    
+TLuz* TMooseEngine::crearLuz(glm::vec3 ambiente, glm::vec3 especular, glm::vec3 difusa){
+    TLuz* luz = new TLuz(ambiente,especular,difusa);
     return luz;
 }
 
@@ -146,8 +145,8 @@ void TMooseEngine::drawLuces(){
                 if(this_node->get_entidad()!=nullptr){
                     pila_matriz_luz.push(static_cast<TTransform*> (this_node->get_entidad())->get_t_matriz());
                     cont++;
-                    std::cout << "drawentidad "<<aux->get_entidad_id()<<"\n";
-                    std::cout<<static_cast<TLuz*>(aux->get_entidad())->get_especular().y<<std::endl;
+                    //std::cout << "drawentidad "<<aux->get_entidad_id()<<"\n";
+                    //std::cout<<static_cast<TLuz*>(aux->get_entidad())->get_especular().y<<std::endl;
                     _shader->setvec3("Light.Diffuse",static_cast<TLuz*>(aux->get_entidad())->get_difusa());
                     _shader->setvec3("Light.Specular",static_cast<TLuz*>(aux->get_entidad())->get_especular());
                     _shader->setvec3("Light.Ambient",static_cast<TLuz*>(aux->get_entidad())->get_ambiente());

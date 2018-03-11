@@ -5,6 +5,7 @@
 
 class iNodoCamara : public iNodo{
     public:
+        iNodoCamara(bool activa);
         iNodoCamara(bool activa, float x, float y, float z);
         ~iNodoCamara() = default;
     private:

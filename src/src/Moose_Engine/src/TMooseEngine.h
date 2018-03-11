@@ -26,7 +26,7 @@ class TMooseEngine{
         TNodo*      crearNodoLuz(TNodo *padre, TEntidad *ent);
         TTransform* crearTransform();
         TCamara*    crearCamara(bool activa);
-        TLuz*       crearLuz();
+        TLuz*       crearLuz(glm::vec3 ambiente, glm::vec3 especular, glm::vec3 difusa);
         TModelado*  crearModelado(const char* _i_path);
 
         void        drawLuces();
