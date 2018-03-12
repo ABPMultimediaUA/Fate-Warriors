@@ -32,7 +32,7 @@ TMooseEngine::TMooseEngine(){
     _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
-    _shader = new Shader("Shaders/vertex_prueba.glsl", "Shaders/fragment_prueba.glsl");
+    _shader = new Shader("src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
 }
 
 TMooseEngine::~TMooseEngine(){
