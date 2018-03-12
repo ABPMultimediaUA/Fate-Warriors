@@ -43,7 +43,7 @@ vec3  Phong ()
     vec3 Diffuse = Light.Diffuse * max(dot(s, n), 0.0) * vec3(texture(Material.Diffuse, TexCoords));  
     
     //COMPONENTE ESPECULAR  
-    vec3 Specular = Light.Specular * pow(max(dot(r, v), 0.0), Material.Shininess) * vec3(texture(Material.Specular, TexCoords));
+    vec3 Specular = Light.Specular * pow(max(dot(r, v), 0.0), 1) * vec3(texture(Material.Specular, TexCoords));//pow(max(dot(r, v), 0.0), 1): el 1 es un valor default ya que actualmente no hay brillos
         
     return Ambient + Diffuse + Specular;  
 } 
