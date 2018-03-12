@@ -60,8 +60,8 @@ void recorrerArbol(){
 	TLuz* luz = motor->crearLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
     std::cout<<"adasda: "<<luz->get_difusa().x<<"\n";
     TCamara* camara = motor->crearCamara(true);
-    const char cstr[] = "hoguera.obj";
-    const char cstr2[] = "Tapa.obj";
+    const char cstr[] = "src/Moose_Engine/hoguera.obj";
+    const char cstr2[] = "src/Moose_Engine/Tapa.obj";
     TModelado* malla1 = motor->crearModelado(cstr);
     TModelado* malla2 =motor->crearModelado(cstr2);
 
@@ -223,8 +223,8 @@ int dibujarOpenGL(){
     vShaderFile.exceptions(std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::badbit);
 
-    const GLchar* vertex_path = "Shaders/vertex_prueba.glsl";
-    const GLchar* fragment_path = "Shaders/fragment_prueba.glsl";
+    const GLchar* vertex_path = "src/Moose_Engine/Shaders/vertex_prueba.glsl";
+    const GLchar* fragment_path = "src/Moose_Engine/Shaders/fragment_prueba.glsl";
 
 
 
