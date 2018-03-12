@@ -49,6 +49,7 @@ class Interfaz_ME{
         iNodoLuz* crearLuz(bool activa, float intensidad, float x, float y, float z);
 
         iNodoModelado* importarEscenario(const char* rutaObj, float x, float y, float z);
+        
 
         // METODOS DE LA VIEJA INTERFAZ //
         Interpolacion* crear_interpolacion(float x, float y, float z);
@@ -58,8 +59,15 @@ class Interfaz_ME{
         
         btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end, int mascara_colision); //devuelve solo la primera colision del rayo
         btCollisionWorld::AllHitsRayResultCallback trazaRayoAll(btVector3 start, btVector3 end, int mascara_colision); //devuelve todas las colisiones del rayo
+        btRigidBody* crear_rb_ataque();
+        void setCollisionMask( int mask,  btRigidBody* _i_rigidbody);
+        void setCollisionGroup(int group, btRigidBody* _i_rigidbody);
 
+        void poner_camara_a_entidad(Objeto_ME* _objeto_me);
+        bool x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
+                                         //teniendo en cuenta unicamente el escenario (no el resto de objetos)
 
+        void update(double dt);
 
         void render();
         bool ventana_abierta();
@@ -77,7 +85,9 @@ class Interfaz_ME{
 
         //COSAS DE LA VIEJA INTERFAZ//
         std::vector<Objeto_ME*> _objetos_me;
+        uint16_t _id_jugador;
 
+        Camara* camara;
         //Bullet
     	btCollisionConfiguration *collisionConfiguration;
     	btBroadphaseInterface *broadPhase;
@@ -90,6 +100,8 @@ class Interfaz_ME{
 
         Vector3* rayOrigen;
         Vector3* rayDestino;
+
+        double mdt;
 };
 
 #endif

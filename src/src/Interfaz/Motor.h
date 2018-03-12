@@ -66,7 +66,7 @@ public:
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
-    void setCollisionGroup(int group, btRigidBody *_i_rigidbody );
+    void setCollisionGroup(int group, btRigidBody *_i_rigidbody);
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end, int mascara_colision); //devuelve solo la primera colision del rayo
     btCollisionWorld::AllHitsRayResultCallback trazaRayoAll(btVector3 start, btVector3 end, int mascara_colision); //devuelve todas las colisiones del rayo

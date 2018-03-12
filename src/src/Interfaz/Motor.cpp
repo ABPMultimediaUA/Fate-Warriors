@@ -455,7 +455,6 @@ void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
 void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
 	btBroadphaseProxy* proxy = _i_rigidbody->getBroadphaseProxy();
 	proxy->m_collisionFilterMask = mask;
-
 }
 
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){

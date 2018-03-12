@@ -25,8 +25,8 @@
 void interfazTest(){
     Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
     
-    const char cstr[] = "Carne.obj";
-    const char cstr2[] = "npc2.obj";
+    const char cstr[] =  "src/Moose_Engine/Carne.obj";
+    const char cstr2[] = "src/Moose_Engine/npc2.obj";
     
     iNodoCamara* camara = interfaz_motor->crearCamara(true);
     //camara->mover(2, 0, 0);    
@@ -41,9 +41,12 @@ void interfazTest(){
     modelado2->escalar(1,2,1);
     camara->mover(-2,0,5);
 
+
+
     while(interfaz_motor->ventana_abierta()){
         interfaz_motor->render();
     }
+
 }
 */
 void recorrerArbol(){
@@ -62,7 +65,7 @@ void recorrerArbol(){
     const char cstr[] = "hoguera.obj";
     const char cstr2[] = "Tapa.obj";
     TModelado* malla1 = motor->crearModelado(cstr);
-    TModelado* malla2 =motor->crearModelado(cstr2);
+    TModelado* malla2 = motor->crearModelado(cstr2);
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(5,0,-10);
@@ -341,7 +344,7 @@ void main_tamanyofloat(){
 
 int main(){
     //dibujarOpenGL();
-    recorrerArbol();
-    //interfazTest();
+    //recorrerArbol();
+    interfazTest();
     return 0;
 }

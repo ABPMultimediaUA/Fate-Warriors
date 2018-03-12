@@ -274,3 +274,104 @@ btCollisionWorld::AllHitsRayResultCallback Interfaz_ME::trazaRayoAll(btVector3 s
 
 	return rayCallback;
 }
+
+btRigidBody* Interfaz_ME::crear_rb_ataque(){
+	float mult = 4.9212625;
+
+	btTransform ghostTransform;
+	ghostTransform.setIdentity();
+	ghostTransform.setOrigin(btVector3(1, 1 ,1));
+
+	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(ghostTransform);
+
+	float cubeMass = 0;
+
+	btBoxShape *cubeShape = new btBoxShape(btVector3(1,1,1));
+
+	btVector3 cubeLocalInertia;
+	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
+
+	btRigidBody* rb_ataque = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
+	
+	rb_ataque->setCollisionFlags(rb_ataque->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	int grupo_colision   = COL_OTRO;
+	int mascara_colision = otros_colisiona_con;
+	
+	world->addRigidBody(rb_ataque,grupo_colision,mascara_colision);
+
+	return rb_ataque;
+}
+
+void Interfaz_ME::setCollisionMask(int mask, btRigidBody* _i_rigidbody){
+	btBroadphaseProxy* proxy = _i_rigidbody->getBroadphaseProxy();
+	proxy->m_collisionFilterMask = mask;
+}
+
+void Interfaz_ME::setCollisionGroup(int group, btRigidBody *_i_rigidbody){
+	btBroadphaseProxy* proxy = _i_rigidbody->getBroadphaseProxy();
+	proxy->m_collisionFilterGroup = group;	
+}
+
+void Interfaz_ME::poner_camara_a_entidad(Objeto_ME* _i_objeto_me){
+	iNodoModelado* _i_nodo = _i_objeto_me->getNodo();
+	//camara->Camara_setProta(cubeNode);
+	_id_jugador = 0;
+	camara->set_posicion_inicial(_i_objeto_me->getInterpolacion()->get_direccion_actual());
+}
+
+bool Interfaz_ME::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
+	//conversion de vector3 a bullet vector3
+	btVector3 mX(x._x,x._y,x._z);
+	btVector3 mY(y._x,y._y,y._z);
+
+	btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(mX, mY,mascara_colision);
+
+	//if(dynamic_cast<Character*>(rayCallback)!=null){
+	//	std::cout<<"colisiona con personaje/npc  \n";
+	//}
+	//como no se quien es quito el control PD: HOLA FRAN :)
+	/*
+	if(rayCallback.hasHit()){
+		btVector3 point = rayCallback.m_hitPointWorld;
+		btVector3 normal = rayCallback.m_hitNormalWorld;
+		const btCollisionObject *object = rayCallback.m_collisionObject;
+		for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
+			if(fileLoader->getRigidBodyByIndex(i) == object){
+				
+			}
+		}
+	}
+	*/
+	//std::cout<<"colisiona: "<<rayCallback.hasHit()<<std::endl;
+	return(!rayCallback.hasHit());
+}
+
+
+void Interfaz_ME::update(double dt){
+
+	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
+	//	_debug = !_debug;
+	//}
+//
+	mdt = dt;
+   	if(ventana_abierta()) {
+
+        world->stepSimulation(dt * 0.001f,5);
+
+		short tamanio = _objetos_me.size();
+		for(short i=0; i<tamanio; i++){
+			// Actualiza el cuerpo dinamico de la caja
+			_objetos_me[i]->updateDynamicBody();
+			_objetos_me[i]->setVelocidad(0,_objetos_me[i]->getVelocidadY(),0);
+		
+		}
+
+		// Update de la posicion de la camara (despues de actualizar la del jugador)
+		updateCamaraColision();
+    } 
+
+    else {
+        //device->yield();
+    }
+       // device->drop();
+}

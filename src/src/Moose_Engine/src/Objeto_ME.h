@@ -25,7 +25,14 @@ class Objeto_ME{
         void VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt);
         void setVelocidad(float x, float y, float z);
         Character* disparar(Objeto_ME* _i_objeto_origen, uint16_t _i_direccion, uint8_t _i_rango_disparo);
-        
+        iNodoModelado* getNodo();
+
+        Interpolacion* getInterpolacion();
+
+        void updateDynamicBody();
+        float getVelocidadY();
+        void updateCamaraColision();
+
         float getX();
         float getY();
         float getZ();
