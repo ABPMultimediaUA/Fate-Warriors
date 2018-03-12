@@ -10,7 +10,7 @@ Zonas_Manager::Zonas_Manager() {
 
     // tener xml con la informacion de todos los objetos
     
-	_n_zonas = 4;
+	_n_zonas = 8;
 	_zonas = new Zona*[_n_zonas];
 
     unsigned short _cont;
@@ -25,21 +25,26 @@ Zonas_Manager::Zonas_Manager() {
 	_zonas[2]  = new Zona(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A);		//Zona 7
 	_zona_bando_a.push_back(_zonas[2]);	
 	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B);   //Zona 10
-	_zona_bando_a.push_back(_zonas[3]);	
+	_zona_bando_b.push_back(_zonas[3]);	
+
+
+
+	_zonas[4]  = new Zona(38*mult, 0*mult, 104.5*mult,(20*mult)/2,(15*mult)/2, Enum_Equipo_A);	// Zona 22
+	_zona_bando_a.push_back(_zonas[4]);	
+
+	_zonas[5]  = new Zona(34.5*mult, 0*mult, 74*mult,(25*mult)/2,(20*mult)/2, Enum_Equipo_B);	// Zona 16
+	_zona_bando_b.push_back(_zonas[5]);	
+
+	_zonas[6]  = new Zona(72*mult, 0*mult, 42*mult,(25*mult)/2,(30*mult)/2, Enum_Equipo_A);	// Zona 32
+	_zona_bando_a.push_back(_zonas[6]);	
+
+	//_zonas[7]  = new Zona(57*mult, 0*mult, 101*mult,(9*mult)/2,(7*mult)/2, Enum_Equipo_A);	// Zona 24 desmasiado peque
+	
+	_zonas[7]  = new Zona(73.5*mult, 0*mult, 99*mult,(15*mult)/2,(20*mult)/2, Enum_Equipo_B);	// Zona 28
+	_zona_bando_b.push_back(_zonas[7]);	
 
 	_zona_bando_a_no_sindo_conquistada = _zona_bando_a;
 	_zona_bando_b_no_sindo_conquistada = _zona_bando_b;
-
-
-
-	/*
-	_zonas[4]  = new Zona(38*mult, 0*mult, 104.5*mult,(20*mult)/2,(15*mult)/2, Enum_Equipo_A);	// Zona 22
-	_zonas[5]  = new Zona(34.5*mult, 0*mult, 74*mult,(25*mult)/2,(20*mult)/2, Enum_Equipo_A);	// Zona 16
-	_zonas[6]  = new Zona(72*mult, 0*mult, 42*mult,(25*mult)/2,(30*mult)/2, Enum_Equipo_A);	// Zona 32
-	//_zonas[7]  = new Zona(57*mult, 0*mult, 101*mult,(9*mult)/2,(7*mult)/2, Enum_Equipo_A);	// Zona 24 desmasiado peque
-	_zonas[7]  = new Zona(73.5*mult, 0*mult, 99*mult,(15*mult)/2,(20*mult)/2, Enum_Equipo_A);	// Zona 28
-
-*/
 
 	/*
 	_zonas[2]  = new Zona(38*mult, 0*mult, 35*mult,8*mult,10*mult, Enum_Equipo_B);
