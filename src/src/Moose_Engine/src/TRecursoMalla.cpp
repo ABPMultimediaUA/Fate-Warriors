@@ -39,40 +39,30 @@ char* TRecursoMalla::GetNombre(){
 }
 
 void TRecursoMalla::SetNombre(char* nombre){
-    std::cout<<"Le pongo el nombre "<<nombre<<"\n";
+    
 }
-void TRecursoMalla::draw(){
-    // bind appropriate textures 
-    unsigned int diffuseNr  = 1;
-    unsigned int specularNr = 1;
-    unsigned int shininessNr   = 1;
-    unsigned int heightNr   = 1;
-    for(unsigned int i = 0; i < textures.size(); i++)
-    {
-        glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-        // retrieve texture number (the N in diffuse_textureN)
+void TRecursoMalla::draw(Shader* shader){
+    for(uint8_t i = 0; i < textures.size(); i++){
+        glActiveTexture(GL_TEXTURE0 + i); //activar la textura correspondiente 
         std::string number;
         std::string name = textures[i].type;
         if(name == "texture_diffuse"){
-            glUniform1i(glGetUniformLocation(3, "Material.Diffuse"),i);
+            shader->setInt("Material.Diffuse",i);//pasar la textura difusa
         }	
 		else if(name == "texture_specular"){
-            glUniform1i(glGetUniformLocation(3, "Material.Specular"),i);
+            shader->setInt("Material.Specular",i);//pasar la texutra especular
         }	
         else if(name == "texture_shininess"){
-            glUniform1f(glGetUniformLocation(3, "Material.Shininess"),i);
+            shader->setInt("Material.Shininess",i);//pasar el brillo
         }
         //bind texture
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
     
     // draw mesh
-    //_i_shader->setMat4("model", model);
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-    // always good practice to set everything back to defaults once configured.
-    //glActiveTexture(GL_TEXTURE0);
 }
 void TRecursoMalla::Preparar_mesh(){
 
@@ -81,15 +71,12 @@ void TRecursoMalla::Preparar_mesh(){
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
     glBindVertexArray(VAO);
-    // load data into vertex buffers
+    // load data into buffers
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // A great thing about structs is that their memory layout is sequential for all its items.
-    // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
-    // again translates to 3/2 floats which translates to a byte array.
     glBufferData(GL_ARRAY_BUFFER, vertices.size() *sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);  
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-    // set the vertex attribute pointers
+
 
     
     // vertex Positions
@@ -101,37 +88,5 @@ void TRecursoMalla::Preparar_mesh(){
     // vertex texture coords
     glEnableVertexAttribArray(2);	
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-    /*// vertex tangent
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-    // vertex bitangent
-    glEnableVertexAttribArray(4);
-    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));*/
-    //glBindVertexArray(0);
-}
-void TRecursoMalla::cargarFichero(char* nombre){
-    /*Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile( nombre,
-    aiProcess_CalcTangentSpace      |
-    aiProcess_Triangulate           |
-    aiProcess_JoinIdenticalVertices |
-    aiProcess_SortByPType            );
-    if(!scene){
-        std::cout<<"La malla no se ha cargado correctamente: "<<importer.GetErrorString()<<std::endl;
-        exit(0);
-    }
-    
-    SetNombre(nombre);
-    uint16_t n_mesh=scene->mNumMeshes;
-    while(n_mesh){
-        n_mesh--;
-        aiMesh* mesh = scene->mMeshes[n_mesh];
-        vertices = &mesh->mVertices[0][0];
-        normales = mesh->mNormals[0][0];
-        texturas = mesh->mTextureCoords[0][0][0];
-        nTriangulos += mesh->mNumFaces;
-    }*/
-    //DoTheSceneProcessing(scene);
-   //ShaderSource* shad;
-   //preparar un shader para esto
+
 }

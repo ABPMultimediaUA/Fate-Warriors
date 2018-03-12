@@ -23,7 +23,7 @@ void TModelado::beginDraw(Shader* _i_shader){
 void TModelado::draw(Shader* _i_shader){
     _i_shader->setModel(_matriz);
     for(std::vector<TRecursoMalla*>::iterator it = _mallas.begin(); it != _mallas.end(); it++){
-        (*it)->draw();
+        (*it)->draw(_i_shader);
     }
 }
 

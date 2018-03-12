@@ -114,11 +114,12 @@ TModelado* TMooseEngine::crearModelado(const char* _i_path){
 }
 
 void TMooseEngine::clear(){
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, true);
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glClear(
-        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
+        glfwSetWindowShouldClose(window, true);
+    }else{
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
 }
 void TMooseEngine::draw(){
     clear();

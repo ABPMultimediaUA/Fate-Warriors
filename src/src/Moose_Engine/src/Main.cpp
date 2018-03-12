@@ -19,7 +19,7 @@
 //OPEN GL 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+/*
 #include "Interfaz_ME.h"
 
 void interfazTest(){
@@ -45,7 +45,7 @@ void interfazTest(){
         interfaz_motor->render();
     }
 }
-
+*/
 void recorrerArbol(){
     
 
@@ -58,15 +58,14 @@ void recorrerArbol(){
 	TTransform* trans3 = motor->crearTransform();
 
 	TLuz* luz = motor->crearLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
-    std::cout<<"adasda: "<<luz->get_difusa().x<<"\n";
     TCamara* camara = motor->crearCamara(true);
-    const char cstr[] = "src/Moose_Engine/hoguera.obj";
-    const char cstr2[] = "src/Moose_Engine/Tapa.obj";
+    const char cstr[] = "hoguera.obj";
+    const char cstr2[] = "Tapa.obj";
     TModelado* malla1 = motor->crearModelado(cstr);
     TModelado* malla2 =motor->crearModelado(cstr2);
 
     //trans1->escalar(0.5,0.25,0.5);
-    trans1->trasladar(0,0,-10);
+    trans1->trasladar(5,0,-10);
     trans2->rotar(0,1,0,90);
     trans3->trasladar(0,0,50);
     
@@ -75,14 +74,11 @@ void recorrerArbol(){
     TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
     TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
     
-    std::cout<<"dasdas2: "<<luz->get_difusa().x<<"\n";
 
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans1, malla1);
     TNodo* nodoMalla2  = motor->crearNodo(nodoTrans2, malla2);
     TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
-    std::cout<<"dasdas3: "<<luz->get_difusa().x<<"\n";
-std::cout << "entidadid "<<nodoLuz->get_entidad_id()<<"\n";
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTrans3, camara);
    
 
