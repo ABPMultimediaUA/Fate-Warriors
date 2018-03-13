@@ -47,8 +47,8 @@ void interfazTest(){
         interfaz_motor->render();
     }
 
-}
-*/
+}*/
+
 void recorrerArbol(){
     
 
