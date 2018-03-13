@@ -63,7 +63,7 @@ void recorrerArbol(){
 	TLuz* luz = motor->crearLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
     TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "hoguera.obj";
-    const char cstr2[] = "Tapa.obj";
+    const char cstr2[] = "npc2_anim.0001.obj";
     TModelado* malla1 = motor->crearModelado(cstr);
     TModelado* malla2 = motor->crearModelado(cstr2);
 
@@ -79,7 +79,7 @@ void recorrerArbol(){
     
 
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans1, malla1);
-    TNodo* nodoMalla2  = motor->crearNodo(nodoTrans2, malla2);
+    //TNodo* nodoMalla2  = motor->crearNodo(nodoTrans2, malla2);
     TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTrans3, camara);
@@ -146,7 +146,7 @@ void recorrerArbol(){
     motor->setCamaraActiva(nCamara);
     int nLuz=motor->registrarLuz(nodoLuz);
     motor->setLuzActiva(nLuz);*/
-
+    delete motor;
 
 }
 
@@ -344,7 +344,7 @@ void main_tamanyofloat(){
 
 int main(){
     //dibujarOpenGL();
-    //recorrerArbol();
-    interfazTest();
+    recorrerArbol();
+    //interfazTest();
     return 0;
 }
