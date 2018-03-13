@@ -67,6 +67,8 @@ class Interfaz_ME{
         bool x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
                                          //teniendo en cuenta unicamente el escenario (no el resto de objetos)
 
+        void updateCamaraColision();
+
         void update(double dt);
 
         void render();

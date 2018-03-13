@@ -138,34 +138,6 @@ float Objeto_ME::getVelocidadY(){
 	return  _rigidbody->getLinearVelocity()[1];
 }
 
-void Objeto_ME::updateCamaraColision(){
-		btTransform t;
-		btVector3 pos = _objetos_me[0]->getRigidBody()->getCenterOfMassPosition();
-		
-        float miX = pos[0];
-        float miY = pos[1];
-        float miZ = pos[2];
-        
-		camara->Camara_Update();
-
-		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
-		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
-		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con);
-		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
-		//->getUserPointer();
-		if(rayCallback.hasHit()){
-			btVector3 point = rayCallback.m_hitPointWorld;
-			btVector3 normal = rayCallback.m_hitNormalWorld;
-			const btCollisionObject *object = rayCallback.m_collisionObject;
-			camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
-				
-			//for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
-			//	if(fileLoader->getRigidBodyByIndex(i) == object){
-			//		// Set posicion colision
-			//		//camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
-			//	}
-			//}
-		}
-
-		angulo = camara->Camara_getAngleRad();
+btRigidBody* Objeto_Motor::getRigidBody(){
+	return _rigidbody;
 }

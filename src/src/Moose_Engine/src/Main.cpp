@@ -19,7 +19,7 @@
 //OPEN GL 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-/*
+
 #include "Interfaz_ME.h"
 
 void interfazTest(){
@@ -48,7 +48,7 @@ void interfazTest(){
     }
 
 }
-*/
+
 void recorrerArbol(){
     
 
