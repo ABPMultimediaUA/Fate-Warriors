@@ -44,3 +44,7 @@ iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
 iNodoModelado::~iNodoModelado(){
     
 }
+
+void iNodoModelado::remove(){
+    delete this;
+}

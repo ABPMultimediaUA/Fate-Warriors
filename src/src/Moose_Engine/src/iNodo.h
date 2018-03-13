@@ -1,5 +1,6 @@
 #ifndef SRC_INODO_H_
 #define SRC_INODO_H_
+#include "../Utilidades/Vector.h"
 
 class TNodo;
 
@@ -10,6 +11,7 @@ class iNodo{
         void mover  (float x, float y, float z);
         void rotar  (float x, float y, float z, float w); 
         void escalar(float x, float y, float z);
+        Vector3 getPosition();
     
     protected:
         TNodo* _nodo_motor; //nodo interno del ME

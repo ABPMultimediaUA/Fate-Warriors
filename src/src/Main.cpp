@@ -40,7 +40,7 @@ int main2(){
     //uint8_t _frames = 0;
     //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
 
-	while(_motor->getIrrlichtDevice()->run()){
+	while(_motor->ventana_abierta()){
 		//Evento para cerrar la ventana
 
 		// Recoge inputs

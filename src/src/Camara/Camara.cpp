@@ -4,6 +4,7 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Utilidades/Vector.h"
+#include "../Moose_Engine/src/iNodoModelado.h"
 
 #include <iostream> 
 
@@ -69,9 +70,9 @@ void Camara::Camara_setTarget(core::vector3df targetPos) {
 	_Camara->setTarget(_target); 
 }
 
-void Camara::Camara_setProta(scene::ISceneNode * prota) {
+void Camara::Camara_setProta(iNodoModelado* prota) {
 	_Prota = prota; 
-	_ProtaBoundingCenter = _Prota-> getBoundingBox().getCenter(); 
+	//_ProtaBoundingCenter = 0;//_Prota-> getBoundingBox().getCenter(); 
 }
 
 core::vector3df Camara::Camara_getPosition(){
