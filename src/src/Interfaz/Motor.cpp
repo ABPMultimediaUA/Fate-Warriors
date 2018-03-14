@@ -41,7 +41,8 @@ Motor* Motor::Motor_GetInstance(){
 
 
 Motor::Motor(uint16_t width, uint16_t height){
-    configuracion_irlitch();
+    //configuracion_irlitch();
+	configuracion_ME(width, height, false, false);
     configuracion_bullet();
     preparar_depuracion_mundo();
 
@@ -309,6 +310,30 @@ iNodoModelado* Motor::crearModelado(const char* ruta){
 
 iNodoModelado* Motor::crearModelado(const char* ruta, float x, float y, float z){
     iNodoModelado* nodo = new iNodoModelado(ruta, x, y, z);
+    lista_i_nodo.push_back(nodo);
+    return nodo;
+}
+
+iNodoCamara* Motor::crearCamara(bool activa){
+    iNodoCamara* nodo = new iNodoCamara(activa);
+    lista_i_nodo.push_back(nodo);
+    return nodo;
+}
+
+iNodoCamara* Motor::crearCamara(bool activa, float x, float y, float z){
+    iNodoCamara* nodo = new iNodoCamara(activa, x, y, z);
+    lista_i_nodo.push_back(nodo);
+    return nodo;
+}
+
+iNodoLuz* Motor::crearLuz(bool activa, float intensidad){
+    iNodoLuz* nodo = new iNodoLuz(activa, intensidad);
+    lista_i_nodo.push_back(nodo);
+    return nodo;
+}
+
+iNodoLuz* Motor::crearLuz(bool activa, float intensidad, float x, float y, float z){
+    iNodoLuz* nodo = new iNodoLuz(activa, intensidad, x, y, z);
     lista_i_nodo.push_back(nodo);
     return nodo;
 }

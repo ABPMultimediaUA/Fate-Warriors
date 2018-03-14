@@ -50,7 +50,7 @@ public:
    
     void apagar();
 
-    void configuracion_irlitch();
+    //void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
     iNodoModelado* importarEscenario(const char* rutaObj, float x, float y, float z);
@@ -59,8 +59,14 @@ public:
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
+    
     iNodoModelado* crearModelado(const char*  ruta,float x, float y, float z);
     iNodoModelado* crearModelado(const char*  ruta);
+    iNodoCamara* crearCamara(bool activa); 
+    iNodoCamara* crearCamara(bool activa, float x, float y, float z);
+    iNodoLuz* crearLuz(bool activa, float intensidad);
+    iNodoLuz* crearLuz(bool activa, float intensidad, float x, float y, float z);
+
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
@@ -106,7 +112,7 @@ public:
     bool ventana_abierta();
     //TMooseEngine* getEngine();
 
-      void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
+    void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
     
 
 private:

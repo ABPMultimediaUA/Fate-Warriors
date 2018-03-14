@@ -1,4 +1,4 @@
-
+/*
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -42,3 +42,4 @@ int main(){
     interfazTest();
     return 0;
 }
+*/
