@@ -187,7 +187,7 @@ _Motor=0;
 	delete mapa;
 	
 	delete world; 
-	delete camara; 
+	//delete camara; 
 	delete debugDraw; 
 	delete collisionConfiguration; 
 	delete broadPhase; 
@@ -202,7 +202,7 @@ _Motor=0;
 
 
 	world = nullptr;
-	camara = nullptr;
+	//camara = nullptr;
 	debugDraw = nullptr;
 	collisionConfiguration = nullptr;
 	broadPhase = nullptr;
@@ -507,10 +507,10 @@ void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
 
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
 	iNodoModelado *cubeNode = _objeto_motor->getNodo();
-	camara->Camara_setProta(cubeNode);
+	//camara->Camara_setProta(cubeNode);
 	_id_jugador = 0;
 
-	camara->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
+	//camara->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
 }
 
 btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btVector3 end, int mascara_colision){
@@ -564,7 +564,7 @@ void Motor::update(double dt){
 		}
 
 		// Update de la posicion de la camara (despues de actualizar la del jugador)
-		updateCamaraColision();
+		//updateCamaraColision();
     //} 
 
     //else {
@@ -581,10 +581,10 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 		Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
 
 		if(i == _id_jugador) {
-			camara->interpola_target(_posicion_interpolada);
+			//camara->interpola_target(_posicion_interpolada);
 		}	
 	}
-	camara->interpola_posicion(_i_interpolacion);
+	//camara->interpola_posicion(_i_interpolacion);
 }
 
 bool Motor::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
@@ -614,42 +614,42 @@ bool Motor::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
 	return(!rayCallback.hasHit());
 }
 
-void Motor::updateCamaraColision(){
-		btTransform t;
-		btVector3 pos = _objetos_motor[0]->getRigidBody()->getCenterOfMassPosition();
-		
-        float miX = pos[0];
-        float miY = pos[1];
-        float miZ = pos[2];
-        
-		camara->Camara_Update();
-
-		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
-		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
-		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con);
-		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
-		//->getUserPointer();
-		if(rayCallback.hasHit()){
-			btVector3 point = rayCallback.m_hitPointWorld;
-			btVector3 normal = rayCallback.m_hitNormalWorld;
-			const btCollisionObject *object = rayCallback.m_collisionObject;
-			camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
-				
-			//for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
-			//	if(fileLoader->getRigidBodyByIndex(i) == object){
-			//		// Set posicion colision
-			//		//camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
-			//	}
-			//}
-		}
-
-		angulo = camara->Camara_getAngleRad();
-}
+//void Motor::updateCamaraColision(){
+//		btTransform t;
+//		btVector3 pos = _objetos_motor[0]->getRigidBody()->getCenterOfMassPosition();
+//		
+//        float miX = pos[0];
+//        float miY = pos[1];
+//        float miZ = pos[2];
+//        
+//		//camara->Camara_Update();
+//
+//		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
+//		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
+//		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con);
+//		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
+//		//->getUserPointer();
+//		if(rayCallback.hasHit()){
+//			btVector3 point = rayCallback.m_hitPointWorld;
+//			btVector3 normal = rayCallback.m_hitNormalWorld;
+//			const btCollisionObject *object = rayCallback.m_collisionObject;
+//			camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
+//				
+//			//for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
+//			//	if(fileLoader->getRigidBodyByIndex(i) == object){
+//			//		// Set posicion colision
+//			//		//camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
+//			//	}
+//			//}
+//		}
+//
+//		angulo = camara->Camara_getAngleRad();
+//}
 
 
 
 void Motor::resetear_camara(){
-	camara->Camara_reset(_objetos_motor[0]->getInterpolacion()->get_direccion_actual());
+	//camara->Camara_reset(_objetos_motor[0]->getInterpolacion()->get_direccion_actual());
 }
 
 /*
@@ -697,14 +697,14 @@ void Motor::render(float _i_interpolacion){
 
 
 
-float Motor::angulo_camara(){
-	return camara->Camara_getAngle();
-}
+//float Motor::angulo_camara(){
+//	return camara->Camara_getAngle();
+//}
 
 
-float Motor::angulo_camaraRAD(){
-	return camara->Camara_getAngleRad();
-}
+//float Motor::angulo_camaraRAD(){
+//	return camara->Camara_getAngleRad();
+//}
 
 bool Motor::comprobar_colision(btRigidBody *rb1, btRigidBody *rb2){
 

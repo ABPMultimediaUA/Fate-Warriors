@@ -89,11 +89,11 @@ public:
     void update();
     void render();
 
-    inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
+    //inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
     
-    void updateCamaraColision();
+    //void updateCamaraColision();
 
     void interpola_posiciones(float _i_interpolacion);
     void resetear_camara();
@@ -102,8 +102,8 @@ public:
     void borrar_objeto(Objeto_Motor* _objeto_motor);
     void borrar_rb(btRigidBody* rb); // Mejorar
 
-    float angulo_camara();
-    float angulo_camaraRAD();
+    //float angulo_camara();
+    //float angulo_camaraRAD();
     
     bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
     void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
@@ -139,7 +139,7 @@ private:
       bool _debug;
 
       //Camara
-      Camara* camara;
+      //Camara* camara;
 
       //Draw
       DebugDraw* debugDraw;    
