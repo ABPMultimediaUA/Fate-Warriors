@@ -1,4 +1,5 @@
 #include "irrlicht/irrlicht.h"
+
 using namespace irr;
 
 #ifndef SRC_CPP_CAMARA_H_
@@ -8,6 +9,7 @@ class Vector3;
 
 class Input;
 class Interpolacion;
+class iNodoModelado;
 class Camara{
 
 public:
@@ -17,7 +19,7 @@ public:
 	void Camara_setPosition(core::vector3df position);
 	void Camara_setPositionColision(core::vector3df position);
 	void Camara_setTarget(core::vector3df targetPos);         //ajusta el target de la Camara a una posicion
-	void Camara_setProta(scene::ISceneNode* prota);  //ajusta el target de la Camara a otro nodo
+	void Camara_setProta(iNodoModelado* prota);  //ajusta el target de la Camara a otro nodo
 	core::vector3df Camara_getPosition();
 	core::vector3df Camara_getTarget();
 	core::vector3df Camara_getDirection();
@@ -33,7 +35,7 @@ public:
 	void interpola_target(Vector3 _i_posicion_interpolada);
 	void Camara_reset(short _i_direccion);
 private:
-	scene::ISceneNode* _Prota;         //personaje protagonista A.K.A Target
+	iNodoModelado* _Prota;         //personaje protagonista A.K.A Target
 	core::vector3df _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
 	scene::ICameraSceneNode* _Camara;  //camara de irrlicht
 	core::vector3df _position;		 	//posicion de la camara

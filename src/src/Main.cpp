@@ -25,7 +25,7 @@ void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uin
 
 
 // Main del juego
-int main2(){
+int main(){
 	srand((int)time(0)); // Inicia la semilla del rand
 
 	Game* _juego = Game::game_instancia();
@@ -36,11 +36,11 @@ int main2(){
 	Time* _time = Time::Instance();
 
     Motor* _motor = Motor::Motor_GetInstance();
-
+	_motor->crearCamara(false, 0, 10, 0);
     //uint8_t _frames = 0;
     //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
 
-	while(_motor->getIrrlichtDevice()->run()){
+	while(_motor->ventana_abierta()){
 		//Evento para cerrar la ventana
 
 		// Recoge inputs

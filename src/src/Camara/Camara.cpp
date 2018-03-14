@@ -4,6 +4,7 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Utilidades/Vector.h"
+#include "../Moose_Engine/src/iNodoModelado.h"
 
 #include <iostream> 
 
@@ -69,9 +70,9 @@ void Camara::Camara_setTarget(core::vector3df targetPos) {
 	_Camara->setTarget(_target); 
 }
 
-void Camara::Camara_setProta(scene::ISceneNode * prota) {
+void Camara::Camara_setProta(iNodoModelado* prota) {
 	_Prota = prota; 
-	_ProtaBoundingCenter = _Prota-> getBoundingBox().getCenter(); 
+	//_ProtaBoundingCenter = 0;//_Prota-> getBoundingBox().getCenter(); 
 }
 
 core::vector3df Camara::Camara_getPosition(){
@@ -162,9 +163,9 @@ void Camara::update_position() {
 	if (_Prota != nullptr) {
 		// Posicion estándar del jugador que usaremos para el seguimiento de la camara
 		core::vector3df playerPos = core::vector3df(
-					_Prota-> getPosition().X, 
-					_Prota-> getPosition().Y - _ProtaBoundingCenter.Y, 
-					_Prota-> getPosition().Z); 
+					_Prota-> getPosition()._x, 
+					_Prota-> getPosition()._y,  //falta el -protaboundingcenter Y 
+					_Prota-> getPosition()._z); 
 		
 		float distancia;
 
@@ -180,7 +181,7 @@ void Camara::update_position() {
 
 		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * distancia; 
 
-		if (_Prota-> getPosition().Y >= 0) {	// Calculos de la camara para una Y positiva
+		if (_Prota-> getPosition()._y >= 0) {	// Calculos de la camara para una Y positiva
 			
 		//std::cout<<"llego loko"<<std::endl;
 			//std::cout << playerPos.Y << std::endl; 
@@ -190,21 +191,21 @@ void Camara::update_position() {
 							zf)); 
 			
 			this->Camara_setTarget(	
-					core::vector3df(_Prota-> getPosition().X + _ProtaBoundingCenter.X, 
-							_Prota-> getPosition().Y + _ProtaBoundingCenter.Y * 1.5f, 
-							_Prota-> getPosition().Z + _ProtaBoundingCenter.Z)); 
+					core::vector3df(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
+							_Prota-> getPosition()._y + _ProtaBoundingCenter.Y * 1.5f, 
+							_Prota-> getPosition()._z + _ProtaBoundingCenter.Z)); 
 				
 		}
 		
 		else {	// Calculos de la camara para una Y negativa
 			this->Camara_setPosition(
 					core::vector3df(xf, 
-							yf - _ProtaBoundingCenter.Y - _Prota->getPosition().Y, zf)); 
+							yf - _ProtaBoundingCenter.Y - _Prota->getPosition()._y, zf)); 
 			
 			this->Camara_setTarget(
-					core::vector3df(_Prota-> getPosition().X + _ProtaBoundingCenter.X, 
+					core::vector3df(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
 							(_ProtaBoundingCenter.Y * 0.5), 
-							_Prota-> getPosition().Z + _ProtaBoundingCenter.Z)); 
+							_Prota-> getPosition()._z + _ProtaBoundingCenter.Z)); 
 		}
 		
 		
