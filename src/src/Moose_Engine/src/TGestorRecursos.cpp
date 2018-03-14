@@ -42,7 +42,7 @@ TGestorRecursos::~TGestorRecursos(){
     }
 }
 
-TRecurso* TGestorRecursos::getRecurso(char* nombre){
+TRecurso* TGestorRecursos::getRecurso(const char* nombre){
     TRecurso* rec;
     for(uint16_t i=0; i<_recursos.size();i++){
         if(nombre==_recursos[i]->GetNombre()){
@@ -53,17 +53,17 @@ TRecurso* TGestorRecursos::getRecurso(char* nombre){
     return nullptr;
 }
 
-TRecurso* TGestorRecursos::getRecursoModelo(char* nombre, std::vector<TRecursoMalla*> &_i_modelos){
+TRecursoModelado* TGestorRecursos::getRecursoModelo(const char* nombre){
     TRecurso* rec;
-    TRecursoMalla* rec_aux;
     rec=getRecurso(nombre);
 
     if(rec==nullptr){
         std::string s(nombre);
-        cargarModelo(s,_i_modelos);
-        _recursos.back()->SetNombre(nombre);
+        cargarModelo(s);
+        _recursos.back()->SetNombre((char*)nombre);
+        return static_cast<TRecursoModelado*>(_recursos.back());
     }
-    return rec;
+    return static_cast<TRecursoModelado*>(rec);
 }
 
 TRecurso* TGestorRecursos::getRecursoTextura(char* nombre){
@@ -93,7 +93,36 @@ TRecurso* TGestorRecursos::getRecursoMaterial(char* nombre){
 
     return rec_aux;
 }
-void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*> &_i_modelos){
+void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado*> &_i_modelados){
+    Assimp::Importer importer;
+    uint16_t cont=0;
+    path+="."+std::to_string(cont)+".obj";
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    
+    while(scene){
+        cargarModelo(path, scene, _i_modelados);
+        ++cont;
+        path+="."+std::to_string(cont)+".obj";
+        scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    }
+}
+void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados){
+    directory = path.substr(0, path.find_last_of('/'));
+    std::vector<TRecursoMalla*> _modelos;
+    cargarNodo(scene->mRootNode, scene, _modelos, path);
+    int width, height, nrChannels;
+    
+    unsigned int texture1, texture2;
+    glGenTextures(1,&texture1);
+    glBindTexture(GL_TEXTURE_2D,texture1);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
+    _recursos.push_back(modelado);
+    _i_modelados.push_back(modelado);
+}
+void TGestorRecursos::cargarModelo(std::string &path){
+    std::vector<TRecursoMalla*> _modelos;
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){//si no es cero
@@ -102,7 +131,7 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
     }
     // coger el path
     directory = path.substr(0, path.find_last_of('/'));
-    cargarNodo(scene->mRootNode, scene, _i_modelos, path);
+    cargarNodo(scene->mRootNode, scene, _modelos, path);
     int width, height, nrChannels;
     
     unsigned int texture1, texture2;
@@ -110,14 +139,8 @@ void TGestorRecursos::cargarModelo(std::string &path, std::vector<TRecursoMalla*
     glBindTexture(GL_TEXTURE_2D,texture1);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    //stbi_set_flip_vertically_on_load(true);
-    /*unsigned char *data = stbi_load("lel.jpg", &width, &height, &nrChannels, 0); 
-    if(!data){
-        std::cout<<"añlsdkjfañlsdkjfñalksdjf"<<std::endl;
-        exit(0);
-    }
-    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
-    stbi_image_free(data);*/
+    TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
+    _recursos.push_back(modelado);
 }
 
 void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, std::string path){
@@ -132,7 +155,6 @@ void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector
     for(unsigned int i = 0; i < nodo->mNumChildren; i++){
         cargarNodo(nodo->mChildren[i], scene, _i_modelos, path);
     }
-    _recursos.push_back(new TRecursoModelado());
 }
 
 TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene, std::string path){

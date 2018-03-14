@@ -20,16 +20,11 @@ struct Texture {
     std::string path;
 };
 
-TRecursoMalla::TRecursoMalla(std::vector<Vertex> vert, 
-    std::vector<unsigned int> ind, std::vector<Texture> tex)
-    : vertices( std::move(vert) ), indices( std::move(ind) ), textures( std::move(tex) )
+TRecursoMalla::TRecursoMalla(std::vector<Vertex> _i_vertices, 
+    std::vector<unsigned int> _i_indices, std::vector<Texture> _i_textures)
+    : vertices( std::move(_i_vertices) ), indices( std::move(_i_indices) ), textures( std::move(_i_textures) )
     {
-    //    this->vertices = vertices;
-    //    this->indices = indices;
-    //    this->textures = textures;
-
-        // now that we have all the required data, set the vertex buffers and its attribute pointers.
-        Preparar_mesh();
+    Preparar_mesh();
 }
 TRecursoMalla::~TRecursoMalla(){
     vertices.clear();
