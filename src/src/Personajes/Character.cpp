@@ -835,6 +835,30 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 }
             }
 
+
+
+//PARA EL ONLINE
+            std::vector<Player*> _jugadores_online_incluyendo_player = _datos_partida->todos_jugadores_de_la_sesion();
+            _num_characters = _jugadores_online_incluyendo_player.size();
+            for(_cont = 0; _cont < _num_characters; _cont++) {
+                if( _jugadores_online_incluyendo_player[_cont]->get_vida_actual()>0 && this!=_jugadores_online_incluyendo_player[_cont] &&
+                    Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _jugadores_online_incluyendo_player[_cont]->get_objeto_motor()->getRigidBody()) == true)
+                {
+                    _jugadores_online_incluyendo_player[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
+            
+                    //std::cout << "----- " << _jugadores_online_incluyendo_player[_cont]->get_vida() << "------" << std::endl;
+
+                    // Impulsa al atacado
+                    impulso_danyar(this, _jugadores_online_incluyendo_player[_cont], get_impulso_danyar(_tipo_ataque));
+
+                    golpea = true;
+                }
+            }
+
+
+
+
+
             if(golpea == true && tipo_arma == Tipo_Arma_cerca){
                 Arma_cerca * arma = _inventario->get_objeto_cerca();
                 arma->decrementar_usos();

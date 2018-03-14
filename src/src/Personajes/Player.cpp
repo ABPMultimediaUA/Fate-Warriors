@@ -125,25 +125,33 @@ void Player::update(){
 
     auto _cambio = _input->get_cambiar_arma();
     if(std::get<0>(_cambio)) {
-        if(std::get<1>(_cambio))
+        if(std::get<1>(_cambio)){
+        	inputs.push_back(Input_Arma_Izquierda);
             cambiar_arma_seleccionada_a_la_anterior();
-        else
+        }
+        else{
+        	inputs.push_back(Input_Arma_Derecha);
             cambiar_arma_seleccionada_a_la_siguiente();
+        }
     }
 
     auto _ataques = _input->get_atacar();
 
+
     if(std::get<0>(_ataques)) {
         if(std::get<1>(_ataques)) {    // Ataque especial
-            atacar(Ataque_Especial);
+         //   atacar(Ataque_Especial);
+            inputs.push_back(Input_Ataque_Especial);
             //std::cout << "Ataque Especial\n";
         }
         else if(std::get<2>(_ataques)){      // Ataque normal
-            atacar(Ataque_Normal);
+         //   atacar(Ataque_Normal);
+            inputs.push_back(Input_Ataque_Normal);
             //std::cout << "Ataque Normal\n";
         }
         else {                          // Ataque fuerte
-            this->atacar(Ataque_Fuerte);
+          //  this->atacar(Ataque_Fuerte);
+            inputs.push_back(Input_Ataque_Fuerte);
             //std::cout << "Ataque Fuerte\n";
         }
     }
@@ -152,6 +160,7 @@ void Player::update(){
 
     if(_input->get_saltar()){
         saltar();
+        inputs.push_back(Input_Salto);
 	}
 
     if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
@@ -177,11 +186,18 @@ void Player::update(){
 }
 
 void Player::comprobar_input(Enum_Inputs key_press){
+    
+    
     if(key_press==Input_Dash){
         _sonido->Play_ambiente(2);
         esquivar(_direccion_actual); // Habra que pasar la direccion buena
-        setY(10);
+        //setY(10);
     }
+
+    else if(key_press==Input_Salto){
+        saltar();
+	}
+
 
     if(key_press==Input_Interact){
        _sonido->Stop_game();
@@ -197,8 +213,31 @@ void Player::comprobar_input(Enum_Inputs key_press){
         else{
            // std::cout<< "No puede INTERACTUAR "<< std::endl;
         }
+    }
+
+///// ATAQUES ///// 
+
+    if(key_press==Input_Ataque_Especial) {    // Ataque especial
+            atacar(Ataque_Especial);
+            //std::cout << "Ataque Especial\n";
+        }
+    else if(key_press==Input_Ataque_Normal){      // Ataque normal
+            atacar(Ataque_Normal);
+            //std::cout << "Ataque Normal\n";
+        }
+    else if(key_press==Input_Ataque_Fuerte){                          // Ataque fuerte
+            atacar(Ataque_Fuerte);
+            //std::cout << "Ataque Fuerte\n";
+        }
 
 
+///// CAMBIO DE ARMAS /////
+
+    if(key_press==Input_Arma_Izquierda) {
+            cambiar_arma_seleccionada_a_la_anterior();
+        }
+    else if(key_press==Input_Arma_Derecha){
+        cambiar_arma_seleccionada_a_la_siguiente();
     }
 }
 

@@ -44,12 +44,14 @@ public:
 	}
 	Player* crear_jugador(float x, float y);
 	std::vector<Player*> dame_jugadores_online();
+	std::vector<Player*> todos_jugadores_de_la_sesion();
 	inline bool get_is_server(){return isServer;}
 
 
 private:
 
 	std::vector<Player*> _jugadores_online;
+	std::vector<Player*> _jugadores_online_incluyendo_player;
 	Player* _jugador;
 	Character ** _characters;
 	uint16_t _num_characters;

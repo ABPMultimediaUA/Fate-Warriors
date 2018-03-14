@@ -207,7 +207,7 @@ void Cliente::recive_move_message_enemy(){
 //0	if(Game::game_instancia()->game_get_datos()->dame_jugadores_online().size()>0)
 //	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[0]->mover(x, y); //->actualizar_posicion_enemigo(x,y,id); ESTO ES LO QUE PONIA
 	std::cout << id.ToString() << "voy a intentar actualizar este valor" << std::endl;
-	players[id]->mover(x, y + peer->GetLastPing(packet->guid));
+	players[id]->mover(x, y - peer->GetLastPing(packet->guid));
 	if(Game::game_instancia()->game_get_datos()->get_player() == players[id])
 		_puede_actualizar = true;
 	std::cout << id.ToString() << "ACTUALIZADO" << std::endl;

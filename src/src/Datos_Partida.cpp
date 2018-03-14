@@ -61,6 +61,8 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 				std::cin >> iptoconnect;
 
   				_jugador          =   new Player( 0, 12.5*mult, 0, 9.5*mult, _i_input, false); 
+				  	_jugadores_online_incluyendo_player.push_back(_jugador);
+
 				  cliente->asociar_player(_jugador);
 				  std::cout << _jugador  <<"soy el de esta pantalla \n";
 				cliente->start_client(iptoconnect, port);
@@ -155,9 +157,14 @@ Player* Datos_Partida::crear_jugador(float x, float y){
 	  Player* _jugador = new Player( 0, x, 0, y, nullptr, true);
 	
 	_jugadores_online.push_back(_jugador);
+	_jugadores_online_incluyendo_player.push_back(_jugador);
 	return _jugador;
 }
 
 std::vector<Player*> Datos_Partida::dame_jugadores_online(){
  return _jugadores_online;
+}
+
+std::vector<Player*> Datos_Partida::todos_jugadores_de_la_sesion(){
+	return _jugadores_online_incluyendo_player;
 }
