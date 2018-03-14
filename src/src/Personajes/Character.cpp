@@ -40,6 +40,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _rb_ataque = Motor::Motor_GetInstance()->crear_rb_ataque();
     _equipo = _i_equipo;
     _bloqueado = false;
+    _npcs_persiguiendome = 0;
     
 }
 
@@ -335,6 +336,7 @@ void Character::morir(){
 
 void Character::revivir(Vector2 pos){
     set_vida(_vida_maxima);
+    _npcs_persiguiendome = 0;
     setPositionXZ(pos._x, pos._y);
     setY(0);
 }

@@ -46,6 +46,18 @@ public:
 	inline float* get_ref_z(){
 		//return &_z; Tiene que coger la posicion del motor
 	}
+	inline int get_npcs_persiguiendome(){
+		return _npcs_persiguiendome;
+	}
+	inline void incrementar_npcs_persiguiendome(){
+		_npcs_persiguiendome++;
+	}
+	inline void decrementar_npcs_persiguiendome(){
+		_npcs_persiguiendome--;
+	}
+	inline void reiniciar_npcs_persiguiendome(){
+		_npcs_persiguiendome = 0;
+	}
 	uint8_t* get_ref_rango_arma_corta();
 	uint8_t* get_ref_rango_arma_larga();
     Inventario* get_inventario();
@@ -130,6 +142,7 @@ protected:
 	uint16_t _direccion_actual;
 	bool _inmortal;
 	Enum_Equipo _equipo;
+	int _npcs_persiguiendome;
 };
 
 #endif /* SRC_CHARACTER_H_ */

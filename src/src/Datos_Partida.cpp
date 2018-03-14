@@ -35,13 +35,13 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
   for(_cont = 0; _cont < _n_npcs; _cont++) { 
     _npcs[_cont]->comprobar_si_asignar_arma_y_asignarla(_armas_manager);
   } 
-	_num_characters = _n_npcs + 1;
+	_num_characters = _n_npcs; //+ 1;
 	_characters = new Character*[_num_characters];
 
 	for(_cont = 0; _cont < _n_npcs; _cont++) {
 		_characters[_cont] = _npcs[_cont];
 	}
-	_characters[_cont] = _jugador;
+	//_characters[_cont] = _jugador;
 
 }
 
