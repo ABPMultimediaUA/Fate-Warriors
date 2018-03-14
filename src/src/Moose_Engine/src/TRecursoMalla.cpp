@@ -20,10 +20,13 @@ struct Texture {
     std::string path;
 };
 
-TRecursoMalla::TRecursoMalla(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
-        this->vertices = vertices;
-        this->indices = indices;
-        this->textures = textures;
+TRecursoMalla::TRecursoMalla(std::vector<Vertex> vert, 
+    std::vector<unsigned int> ind, std::vector<Texture> tex)
+    : vertices( std::move(vert) ), indices( std::move(ind) ), textures( std::move(tex) )
+    {
+    //    this->vertices = vertices;
+    //    this->indices = indices;
+    //    this->textures = textures;
 
         // now that we have all the required data, set the vertex buffers and its attribute pointers.
         Preparar_mesh();
@@ -32,6 +35,13 @@ TRecursoMalla::~TRecursoMalla(){
     vertices.clear();
     indices.clear();
     textures.clear();
+    const GLuint* VA=&VAO;
+    const GLuint*VB=&VBO;
+    const GLuint*EB=&EBO;
+
+    glDeleteBuffers(1,VA);
+    glDeleteBuffers(1,VB);
+    glDeleteBuffers(1,EB);
 }
 
 char* TRecursoMalla::GetNombre(){
@@ -62,6 +72,7 @@ void TRecursoMalla::draw(Shader* shader){
     // draw mesh
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    //std::cout<<"elementos: "<<(int)*std::max(indices.begin(),indices.end())<<std::endl;
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 void TRecursoMalla::Preparar_mesh(){
@@ -73,9 +84,9 @@ void TRecursoMalla::Preparar_mesh(){
     glBindVertexArray(VAO);
     // load data into buffers
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() *sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);  
+    glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);  
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(GL_UNSIGNED_INT), &indices[0], GL_STATIC_DRAW);
 
 
     
