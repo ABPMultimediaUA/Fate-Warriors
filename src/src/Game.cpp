@@ -140,11 +140,19 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 		if(_datos->get_is_server()){
 			Servidor* servidor = Servidor::getInstance();
 			servidor->check_and_send_mesages();
+			std::vector<Player*> _jugadores_online = _datos->dame_jugadores_online();
+			
+			for(short a=0; a < _jugadores_online.size(); a++)
+				_jugadores_online[a]->update();
 		}
 		else{
 			Cliente* cliente = Cliente::getInstance();
 			cliente->check_and_send_mesages();
 			_player->update();
+			
+			std::vector<Player*> _jugadores_online = _datos->dame_jugadores_online();
+			for(short a=0; a < _jugadores_online.size(); a++)
+				_jugadores_online[a]->update();
 		}
 
 /*

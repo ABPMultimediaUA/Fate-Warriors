@@ -63,7 +63,6 @@ void Player::update(){
     if (_vida>0){
      if(/*Motor::Motor_GetInstance()->motor_envia_inputs() &&*/  Cliente::getInstance()->_puede_actualizar){
 
-    std::cout << "voy a actualiizaaar" << std::endl;
     gestion_acciones();
 
     // Esto hay que borrarlo

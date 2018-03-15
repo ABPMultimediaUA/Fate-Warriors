@@ -3,6 +3,7 @@
 #include "Interactuable_Manager.h"
 #include "Interfaz/Motor.h"
 #include "Personajes/Player.h"
+#include "Personajes/Player_Online.h"
 #include "Personajes/NPC_Manager.h"
 #include "Personajes/NPC.h"
 #include "Armas/Armas_Manager.h"
@@ -154,7 +155,7 @@ Character** Datos_Partida::get_characters(){
 Player* Datos_Partida::crear_jugador(float x, float y){
 	  float mult = 4.9212625; 
 	//  Player* _jugador = new Player( 0, 12.5*mult, 0, 9.5*mult, nullptr, true);
-	  Player* _jugador = new Player( 0, x, 0, y, nullptr, true);
+	  Player_Online* _jugador = new Player_Online( 0, x, 0, y, nullptr, true);
 	
 	_jugadores_online.push_back(_jugador);
 	_jugadores_online_incluyendo_player.push_back(_jugador);

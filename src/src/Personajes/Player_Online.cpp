@@ -54,95 +54,10 @@ void Player_Online::update(){
 
         gestion_acciones();
 
-        // Esto hay que borrarlo
-        Controles* controles = Controles::Instance();
-
-        // Recoge si ha habido movimiento y la direccion de el mismo
-        uint16_t _direccion;
-
-        if(_input->get_mover(_direccion)){
-            // Direccion buena con respecto de la camara
-            uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
-            while(_direccion_buena >= 360) _direccion_buena -= 360;
-
-        }
-        
-
-        if(_input->get_dash()){
-    /*      _sonido->Play_ambiente(2);
-            esquivar(_direccion); // Habra que pasar la direccion buena
-            */
-        }
-
-        if(_input->get_interactuar()){
-        _sonido->Stop_game();
-            if(esta_bloqueado() == false){
-                std::cout<< "Pulsa E\n";
-                if(!interactuar_con_objeto()){
-                std::cout<< "No encuentra objeto\n";
-                    intentar_recoger_arma();
-                }
-                //this->bloquear_input(1000);
-                //std::cout<< "Interactuando..."<< std::endl;
-            }
-            else{
-            // std::cout<< "No puede INTERACTUAR "<< std::endl;
-            }
-
-        }
-
-
-
-        if(_input->get_centrar_camara()) {
-            _motor->resetear_camara();
-        }
-
-
-        auto _cambio = _input->get_cambiar_arma();
-        if(std::get<0>(_cambio)) {
-            if(std::get<1>(_cambio)){
-                cambiar_arma_seleccionada_a_la_anterior();
-            }
-            else{
-                cambiar_arma_seleccionada_a_la_siguiente();
-            }
-        }
-
-        auto _ataques = _input->get_atacar();
-
-
-        if(std::get<0>(_ataques)) {
-            if(std::get<1>(_ataques)) {    // Ataque especial
-                atacar(Ataque_Especial);
-                //std::cout << "Ataque Especial\n";
-            }
-            else if(std::get<2>(_ataques)){      // Ataque normal
-                atacar(Ataque_Normal);
-                //std::cout << "Ataque Normal\n";
-            }
-            else {                          // Ataque fuerte
-                this->atacar(Ataque_Fuerte);
-                //std::cout << "Ataque Fuerte\n";
-            }
-        }
-    
-    //    Cliente::getInstance()->send_Player_Online_move (inputs, inputs.size());
-
-        if(_input->get_saltar()){
-            saltar();
-        }
-
-        if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
-            && !std::get<0>(_ataques) && !_input->get_saltar() && _accion != Atacar && _accion != Saltar){
-            set_accion(Nada);
-        }
-    
-        //set level of detail del nivel
+      //set level of detail del nivel
         Nivel* nivel=Nivel::nivel_instancia();
         nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
         //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
-        
-
         
     }
     else{

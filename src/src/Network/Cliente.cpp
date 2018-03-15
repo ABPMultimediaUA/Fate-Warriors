@@ -190,7 +190,7 @@ void Cliente::recive_move_message(){
 		//keys.push_back(key_press);<
 	//	    std::cout << key_press << "el valor que recibo como mensaje es este \n";
 
-		Game::game_instancia()->game_get_datos()->dame_jugadores_online()[0]->comprobar_input(key_press); //->actualizar_by_id(1, key_press); ESTO ES LO QUE PONIA
+		players[id]->comprobar_input(key_press); //->actualizar_by_id(1, key_press); ESTO ES LO QUE PONIA
 	}
 }
 
