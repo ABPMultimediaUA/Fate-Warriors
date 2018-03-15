@@ -118,8 +118,10 @@ void Servidor::check_and_send_mesages(){
 				for(stream.Read(number_of_inputs); number_of_inputs; number_of_inputs--){
 					stream.Read(key_press);
 					keys.push_back(key_press);
-					Game::game_instancia(); //->actualizar_by_id(identifyplayers[packet->guid], key_press); ESTO ES LO QUE PONIA
+					Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->comprobar_input(key_press);  //->actualizar_by_id(identifyplayers[packet->guid], key_press); ESTO ES LO QUE PONIA
 				}
+
+
 
 				float numberallkeys = keys.size();
 				RakNet::BitStream posUpdate;
@@ -130,8 +132,8 @@ void Servidor::check_and_send_mesages(){
 					posUpdate.Write(keys[a]);
 				}
 
-				peer->Send(&posUpdate, LOW_PRIORITY, RELIABLE_ORDERED , 0, packet->guid, true); //Send to all clients except the one that moved
-
+				peer->Send(&posUpdate, LOW_PRIORITY, RELIABLE_ORDERED , 0,  RakNet::UNASSIGNED_RAKNET_GUID, true); //Send to all clients except the one that moved
+				
 				break;
 			}
 
@@ -164,7 +166,7 @@ void Servidor::check_and_send_mesages(){
 
 
 
-position.y =_reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid);
+				position.y =_reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid);
 
 				RakNet::BitStream posUpdate;
 				posUpdate.Write((RakNet::MessageID)ID_ENEMY_MOVE); //Client getting "ID_PLAYER_MOVE", know's it's a different player

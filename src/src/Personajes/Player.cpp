@@ -142,17 +142,17 @@ void Player::update(){
         if(std::get<1>(_ataques)) {    // Ataque especial
          //   atacar(Ataque_Especial);
             inputs.push_back(Input_Ataque_Especial);
-            //std::cout << "Ataque Especial\n";
+            std::cout << "Ataque Especial\n";
         }
         else if(std::get<2>(_ataques)){      // Ataque normal
          //   atacar(Ataque_Normal);
             inputs.push_back(Input_Ataque_Normal);
-            //std::cout << "Ataque Normal\n";
+            std::cout << "Ataque Normal\n";
         }
         else {                          // Ataque fuerte
           //  this->atacar(Ataque_Fuerte);
             inputs.push_back(Input_Ataque_Fuerte);
-            //std::cout << "Ataque Fuerte\n";
+            std::cout << "Ataque Fuerte\n";
         }
     }
   
@@ -173,6 +173,11 @@ void Player::update(){
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
     
+    if(inputs.size()>0){
+     Cliente::getInstance()->send_player_move(inputs, inputs.size());
+    }
+
+
 
     }
     }
@@ -186,7 +191,8 @@ void Player::update(){
 }
 
 void Player::comprobar_input(Enum_Inputs key_press){
-    
+        gestion_acciones();
+
     
     if(key_press==Input_Dash){
         _sonido->Play_ambiente(2);
@@ -219,15 +225,15 @@ void Player::comprobar_input(Enum_Inputs key_press){
 
     if(key_press==Input_Ataque_Especial) {    // Ataque especial
             atacar(Ataque_Especial);
-            //std::cout << "Ataque Especial\n";
+            std::cout << "Ataque Especial\n";
         }
     else if(key_press==Input_Ataque_Normal){      // Ataque normal
             atacar(Ataque_Normal);
-            //std::cout << "Ataque Normal\n";
+            std::cout << "Ataque Normallllll\n";
         }
     else if(key_press==Input_Ataque_Fuerte){                          // Ataque fuerte
             atacar(Ataque_Fuerte);
-            //std::cout << "Ataque Fuerte\n";
+            std::cout << "Ataque Fuerte\n";
         }
 
 
