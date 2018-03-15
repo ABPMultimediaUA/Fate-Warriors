@@ -26,7 +26,7 @@ enum Enum_Acciones ND_9::toma_decision(Blackboard* _blackboard){
     }
 
     //std::cout <<"Entra ND_9\n";
-	if(num_enemigos_en_mi_zona > 0) { // TRUE, es 1
+	if(num_enemigos_en_mi_zona > 0 && _blackboard->_enemigo_mas_cerca != nullptr){ // TRUE, es 1
         //std::cout <<"en zona actual hay enemigos\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}

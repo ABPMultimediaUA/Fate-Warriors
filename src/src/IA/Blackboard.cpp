@@ -29,10 +29,15 @@ Blackboard::Blackboard(NPC * npc_padre) {
 	_enemigo_mas_cerca = nullptr;
 	_distancia_enemigo_mas_cerca = 10000000;
 
+	_enemigo_mas_cerca_esta_cerca = false;
+	_enemigo_mas_cerca_esta_muy_cerca = false;
+
 	_zona_actual = nullptr;
 	_zona_mas_cerca = nullptr;
 	_zona_enemiga_mas_cerca = nullptr;
 	_zona_aliada_mas_cerca = nullptr;
+
+	_enemigo_mas_cerca_anterior_iteracion = nullptr;
 
 	// Se generan al azar las habilidades
 	generar_habilidades();
@@ -85,34 +90,97 @@ void Blackboard::actualizar_characteres(){
 	Character ** characters = Game::game_instancia()->game_get_datos()->get_characters();
 	unsigned long num_characters = Game::game_instancia()->game_get_datos()->get_num_characters();
 
-	float _distancia_enemigo_mas_cercano = 10000000000;
+	if(_enemigo_mas_cerca != nullptr && _enemigo_mas_cerca->get_vida() > 0){
 
-	for (uint16_t cont=0; cont < num_characters; cont++){
-		if(characters[cont]->get_vida_actual()>0 && characters[cont]->get_equipo() != _npc_padre->get_equipo())
-		{
-			float _distancia = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), characters[cont]->getX(), characters[cont]->getZ());
-			if(_distancia < _distancia_enemigo_mas_cercano){
-				_distancia_enemigo_mas_cercano = _distancia;
-				_enemigo_mas_cerca = characters[cont];
+		float _distancia_enemigo_mas_cercano = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), _enemigo_mas_cerca->getX(), _enemigo_mas_cerca->getZ());
+
+		// Esta lejos
+		if(_distancia_enemigo_mas_cercano >= 60){
+			_enemigo_mas_cerca->decrementar_npcs_persiguiendome();
+			_enemigo_mas_cerca = nullptr;
+			_enemigo_mas_cerca_esta_cerca = false;
+			_enemigo_mas_cerca_esta_muy_cerca = false;
+			_distancia_enemigo_mas_cerca =  10000000000;
+			
+		}
+		else{
+
+			_distancia_enemigo_mas_cerca =  _distancia_enemigo_mas_cercano;
+
+			if(_distancia_enemigo_mas_cercano < 60){
+				_enemigo_mas_cerca_esta_cerca = true;
 			}
-		}		
-    }
+			else{
+				_enemigo_mas_cerca_esta_cerca = false;
+			}
+				
+			if(_distancia_enemigo_mas_cercano < 6){
+				_enemigo_mas_cerca_esta_muy_cerca = true;
+			}
+			else{
+				_enemigo_mas_cerca_esta_muy_cerca = false;
+			}
+				
+		}
 
-	_distancia_enemigo_mas_cerca = _distancia_enemigo_mas_cercano;
+		// COntrolar cuando se acerca mas otro enemigo
 
-	if(_distancia_enemigo_mas_cercano < 60){
-		_enemigo_mas_cerca_esta_cerca = true;
 	}
-	else
-		_enemigo_mas_cerca_esta_cerca = false;
+	else{ // En este caso analizara todos los enemigos que pueda perseguir
 
-	if(_distancia_enemigo_mas_cercano < 6){
-		_enemigo_mas_cerca_esta_muy_cerca = true;
+		float _distancia_enemigo_mas_cercano = 10000000000;
+		_enemigo_mas_cerca_anterior_iteracion = _enemigo_mas_cerca;
+
+		_distancia_enemigo_mas_cerca =  10000000000;
+		_enemigo_mas_cerca = nullptr;
+
+		for (uint16_t cont=0; cont < num_characters; cont++){
+			if(characters[cont]->get_vida_actual()>0 && characters[cont]->get_equipo() != _npc_padre->get_equipo())
+			{
+				float _distancia = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), characters[cont]->getX(), characters[cont]->getZ());
+				if(_distancia < _distancia_enemigo_mas_cercano && characters[cont]->get_npcs_persiguiendome() < 2){
+					_distancia_enemigo_mas_cercano = _distancia;
+					_enemigo_mas_cerca = characters[cont];
+				}
+				if( characters[cont]->get_npcs_persiguiendome() > 2){
+					std::cout<< "MAS DE 2 ------------------ \n";
+					std::cout<<characters[cont]->get_npcs_persiguiendome()<<std::endl;
+				}
+			}		
+		}
+
+		if(_enemigo_mas_cerca != nullptr){
+
+			
+
+			if(_distancia_enemigo_mas_cercano < 60){
+				_distancia_enemigo_mas_cerca =  _distancia_enemigo_mas_cercano;
+				_enemigo_mas_cerca->incrementar_npcs_persiguiendome();
+				_enemigo_mas_cerca_esta_cerca = true;
+			}
+			else{
+				_enemigo_mas_cerca = nullptr;
+				_distancia_enemigo_mas_cerca =  10000000000;
+				_enemigo_mas_cerca_esta_cerca = false;
+			}
+				
+			if(_distancia_enemigo_mas_cercano < 6){
+				_enemigo_mas_cerca_esta_muy_cerca = true;
+			}
+			else
+				_enemigo_mas_cerca_esta_muy_cerca = false;
+
+		}
+		else{
+			_distancia_enemigo_mas_cerca =  10000000000;
+			_enemigo_mas_cerca_esta_cerca = false;
+			_enemigo_mas_cerca_esta_muy_cerca = false;
+		}
+		
 	}
-	else
-		_enemigo_mas_cerca_esta_muy_cerca = false;
 
-}
+} 
+
 
 void Blackboard::actualizar_zonas(){
 	Zonas_Manager * zonas_manager = Game::game_instancia()->game_get_datos()->get_zonas_manager();
@@ -210,7 +278,7 @@ void Blackboard::actualizar_objetos(){
 		}
   	}
 
-	if(distancia_objeto_mas_cerca <= _distancia_enemigo_mas_cerca){
+	if(_enemigo_mas_cerca != nullptr && distancia_objeto_mas_cerca <= _distancia_enemigo_mas_cerca){
 		_objeto_mas_cerca_que_enemigo_mas_cerca = true;
 	}
 	else{
@@ -278,8 +346,9 @@ void Blackboard::actualizar_pseudo_azar(){
 	}
 }
 
-void Blackboard::generar_habilidades(){
 
+void Blackboard::generar_habilidades(){
+/*
 	if(rand() % 2 == 0)
 		_habilidad_coger_objeto = false;
 	else
@@ -294,6 +363,7 @@ void Blackboard::generar_habilidades(){
 		_habilidad_activar_interruptor = false;
 	else
 		_habilidad_activar_interruptor = true;
+		*/
 	
 }
 

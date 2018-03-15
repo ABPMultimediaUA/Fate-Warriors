@@ -15,7 +15,7 @@ ND_13::~ND_13() {
 enum Enum_Acciones ND_13::toma_decision(Blackboard* _blackboard){
 
     //std::cout <<"Entra ND_13\n";
-	if( _blackboard->_objeto_mas_cerca_esta_cerca == true && _blackboard->_habilidad_coger_objeto == true) { // TRUE, es 1
+	if( _blackboard->_objeto_mas_cerca_esta_cerca == true /*&& _blackboard->_habilidad_coger_objeto == true*/) { // TRUE, es 1
         //std::cout <<"_objeto_mas_cerca_esta_cerca\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}

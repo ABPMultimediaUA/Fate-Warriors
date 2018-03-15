@@ -6,13 +6,13 @@
 #include <iostream>
 
 NPC_Manager::NPC_Manager() {
-	_n_npc = 10;
+	_n_npc = 2;
 
 	_npc = new NPC*[_n_npc];
 	_npc[0] = new NPC(0, 34*metro, 0, 34*metro, 10000, .15, 10, 20, Enum_Equipo_B);
 	
 	_npc[1] = new NPC(0, 34*metro, 0, 34*metro, 1, .15, 10, 20, Enum_Equipo_A);
-	
+	/*
 	_npc[2] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
 	_npc[3] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
 	_npc[4] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
@@ -21,7 +21,7 @@ NPC_Manager::NPC_Manager() {
 	_npc[7] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
 	_npc[8] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
 	_npc[9] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	/*
+	
 	_npc[10] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
 	_npc[11] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
 	_npc[12] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);

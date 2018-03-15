@@ -66,7 +66,7 @@ public:
 	short get_danyo_ataque_fuerte();
 	bool interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
-	void morir();
+	virtual void morir();
 	void revivir(Vector2 pos);
 	Enum_Acciones get_accion();
 	Enum_Tipo_Ataque get_tipo_ataque();

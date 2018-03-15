@@ -15,7 +15,7 @@ ND_18::~ND_18() {
 enum Enum_Acciones ND_18::toma_decision(Blackboard* _blackboard){
 
     //std::cout <<"Entra ND_18\n";
-	if(_blackboard->_objeto_mas_cerca_que_enemigo_mas_cerca == true && _blackboard->_habilidad_coger_objeto == true) { // TRUE, es 1
+	if(_blackboard->_objeto_mas_cerca_que_enemigo_mas_cerca == true /*&& _blackboard->_habilidad_coger_objeto == true*/) { // TRUE, es 1
         //std::cout <<"hay _objeto_mas_cerca_que_enemigo_mas_cerca\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}

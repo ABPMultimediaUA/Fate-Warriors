@@ -16,7 +16,7 @@ ND_2::~ND_2() {
 enum Enum_Acciones ND_2::toma_decision(Blackboard* _blackboard){
 
     //std::cout <<"Entra ND_2\n";
-	if( _blackboard->_zona_mas_cerca->siendo_capturada() == true && _blackboard->_habilidad_defender == true) { // TRUE, es 1
+	if( _blackboard->_zona_mas_cerca->siendo_capturada() == true /*&& _blackboard->_habilidad_defender == true*/) { // TRUE, es 1
 
         _blackboard->objetivo_x = _blackboard->_zona_mas_cerca->getX();
         _blackboard->objetivo_y = _blackboard->_zona_mas_cerca->getZ();

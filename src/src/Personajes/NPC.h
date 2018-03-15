@@ -19,6 +19,7 @@ public:
 	void stop();
 
 	void danyar(short _danyo) override;
+	void morir() override;
 
 	void set_blackboard(Blackboard* _i_blackboard);
 	inline Blackboard* get_blackboard() { return _blackboard;}

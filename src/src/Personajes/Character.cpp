@@ -323,7 +323,7 @@ bool Character::interactuar_con_objeto(){
     return objeto_encontrado;
 }
 
-void Character::morir(){
+void Character::morir(){ // SE SOBRESCRIBE EN NPC!!
     //float mult = 4.9212625;
     //std::cout << "He muerto :("<< std::endl;
     _inventario->soltar_armas(getX(), getZ()); 
@@ -334,11 +334,11 @@ void Character::morir(){
 }
 
 
-void Character::revivir(Vector2 pos){
+void Character::revivir(Vector2 pos){ 
     set_vida(_vida_maxima);
-    _npcs_persiguiendome = 0;
     setPositionXZ(pos._x, pos._y);
     setY(0);
+    _npcs_persiguiendome = 0;
 }
 
 

@@ -79,7 +79,8 @@ public:
 
 	// CHARACTER ENEMIGO
 
-	Character* _enemigo_mas_cerca;
+	Character* _enemigo_mas_cerca; // Y CON MENOS DE 2 NPCS SIGUIENDOLO
+	Character* _enemigo_mas_cerca_anterior_iteracion;
 	float _distancia_enemigo_mas_cerca;
 	bool _enemigo_mas_cerca_esta_cerca;
 	bool _enemigo_mas_cerca_esta_muy_cerca;
@@ -103,9 +104,9 @@ public:
 	Interruptor* _interruptor_cerca_util;
 
 	// HABILIDADES
-	bool _habilidad_coger_objeto;
-	bool _habilidad_defender;
-	bool _habilidad_activar_interruptor;
+	//bool _habilidad_coger_objeto;
+	//bool _habilidad_defender;
+	//bool _habilidad_activar_interruptor;
 
 
 	//Con informacion de la zona
