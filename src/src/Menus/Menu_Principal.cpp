@@ -1,6 +1,7 @@
 #include "Menu_Principal.h"
 
 #include "Opcion_Jugar.h"
+#include "Opcion_Jugar_Online.h"
 #include "Opcion_Configuracion.h"
 #include "Opcion_Salir_Juego.h"
 
@@ -8,20 +9,23 @@
 
 #include "../Interfaz/Motor.h"
 
-// Crea las 3 opciones del menu principal
+// Crea las 4 opciones del menu principal
 // Jugar -> Al darle a OK empieza la partida
+// Jugar Online -> Al darle a OK empieza la partida online
 // Configuracion -> Con sus opciones
 // Salir -> Se sale del juego
 Menu_Principal::Menu_Principal(Input* _i_input) {
 	_opciones = new Opcion*[_n_opciones_principal];
 
-	_opciones[0] = new Opcion_Jugar(_i_input);	// Opcion Jugar
-	_opciones[1] = new Opcion_Configuracion(_i_input); 	// Opción Configuración
-	_opciones[2] = new Opcion_Salir_Juego(_i_input); 	// Opcion Salir
+	_opciones[0] = new Opcion_Jugar(_i_input);			// Opcion Jugar
+	_opciones[1] = new Opcion_Jugar_Online(_i_input);	// Opcion Jugar Online
+	_opciones[2] = new Opcion_Configuracion(_i_input); 	// Opción Configuración
+	_opciones[3] = new Opcion_Salir_Juego(_i_input); 	// Opcion Salir
 
-	_opciones[0]->set_opciones(_opciones[2], _opciones[1]);
+	_opciones[0]->set_opciones(_opciones[3], _opciones[1]);
 	_opciones[1]->set_opciones(_opciones[0], _opciones[2]);
-	_opciones[2]->set_opciones(_opciones[1], _opciones[0]);
+	_opciones[2]->set_opciones(_opciones[1], _opciones[3]);
+	_opciones[3]->set_opciones(_opciones[2], _opciones[0]);
 
 	_opcion_actual = _opciones[0];
 
@@ -51,7 +55,9 @@ void Menu_Principal::pinta_estado() {
 	if(_opcion_actual == _opciones[0])
 		std::cout << "Opción Jugar\n";
 	if(_opcion_actual == _opciones[1])
-		std::cout << "Opción Configuración\n";
+		std::cout << "Opción Jugar Online\n";
 	if(_opcion_actual == _opciones[2])
+		std::cout << "Opción Configuración\n";
+	if(_opcion_actual == _opciones[3])
 		std::cout << "Opción Salir\n";
 }

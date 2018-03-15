@@ -43,6 +43,8 @@ public:
     // Funciones de cambio de Update
     void cambio_a_update_menu();
     void cambio_a_update_partida();
+	void cambio_a_update_online();
+
     void cambio_a_update_pausa();
 	Consumible_Action* get_consumibles_action();
 
@@ -55,6 +57,8 @@ private:
 
 	void update_menu(double _i_tiempo_desde_ultimo_update);			// Update del menu
 	void update_partida(double _i_tiempo_desde_ultimo_update);		// Update de partida
+	void update_online(double _i_tiempo_desde_ultimo_update);		// Update de partida online
+
 	void update_pausa(double _i_tiempo_desde_ultimo_update);		// Update de pausa
 
 	void render_menu(float _i_interpolacion);						// Render del menu

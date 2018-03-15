@@ -128,8 +128,10 @@ void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 	_menu_principal->update(_i_tiempo_desde_ultimo_update);
 }
 
-
 void Game::update_partida(double _i_tiempo_desde_ultimo_update){
+}
+
+void Game::update_online(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Partida" << std::endl;
 	if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200) {
     	cambio_a_update_pausa();
@@ -228,6 +230,15 @@ void Game::cambio_a_update_partida() {
 	Time::Instance()->reanudar_reloj();
 	_input_jugador->asignar_teclas_partida();
 }
+
+void Game::cambio_a_update_online() {
+	update_actual = &Game::update_online;
+	render_actual = &Game::render_partida;
+	Time::Instance()->reanudar_reloj();
+	_input_jugador->asignar_teclas_partida();
+}
+
+
 
 void Game::cambio_a_update_pausa() {
 	update_actual = &Game::update_pausa;
