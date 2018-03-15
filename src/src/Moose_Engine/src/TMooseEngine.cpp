@@ -32,7 +32,7 @@ TMooseEngine::TMooseEngine(){
     _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
-    _shader = new Shader("src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
+    _shader = new Shader("Shaders/vertex_prueba.glsl", "Shaders/fragment_prueba.glsl");
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -66,8 +66,11 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(-1);
     }  
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     glViewport(0,0,width,height);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 }
 
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
