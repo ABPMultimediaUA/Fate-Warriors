@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef VECTOR_H_
+#define VECTOR_H_
 
 struct Vector2;
 struct Vector3;
@@ -100,7 +100,8 @@ Vector3 operator -(Vector3 _i_vector, const short _i_valor);
 
 
 
-#endif /* VECTOR_H */
+
+#endif /* VECTOR_H_ */
 
 
 

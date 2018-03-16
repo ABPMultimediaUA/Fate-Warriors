@@ -50,8 +50,9 @@ Motor::Motor(uint16_t width, uint16_t height){
 	importarEscenario(cstr, 0,0,0);
     desp_x = desp_z = 0;
 
-	//camara = new Camara(smgr, device);
+//	camara = new Camara();
 	//crear camara
+
 
 	angulo = 0;
 	_velocidad = 1;

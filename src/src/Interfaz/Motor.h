@@ -110,13 +110,14 @@ public:
     //bool comprobar_colision_ataque(btRigidBody *character_atacado);
  
     bool ventana_abierta();
-    //TMooseEngine* getEngine();
+    inline TMooseEngine* getEngine(){ return _me;}
 
     void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
     
 
 private:
 
+      Camara* camara;
       static Motor* _Motor;
       Motor(uint16_t width, uint16_t height);
       Vector3* rayOrigen;
