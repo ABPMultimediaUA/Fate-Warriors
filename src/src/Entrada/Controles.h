@@ -8,8 +8,14 @@ public:
 	virtual ~Controles();
 	bool estaPulsada(Input_key key);
 	static Controles* Instance();
+	//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 private:
 	static Controles* instancia;
+
+	bool _firstMouse;
+	float _lastX;
+    float _lastY;
+
 	Controles();
 };
 

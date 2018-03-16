@@ -34,6 +34,8 @@ public:
 	Input_Manager();
 	~Input_Manager();
 
+	
+
 	void recibe_input();
 
 private:

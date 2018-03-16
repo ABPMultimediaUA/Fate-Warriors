@@ -5,26 +5,64 @@
 #include "../Personajes/Interpolacion.h"
 #include "../Utilidades/Vector.h"
 #include "../Moose_Engine/src/iNodoModelado.h"
+#include <GLFW/glfw3.h>
+#include "../Moose_Engine/src/TMooseEngine.h"
+#include "../Moose_Engine/src/iNodoCamara.h"
+#include "../Interfaz/Motor.h"
 
 #include <iostream> 
 
 Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
-	_Camara = smgr-> addCameraSceneNode(0, 
-										core::vector3df(0, 0, 0), 
-										core::vector3df(1, 1, 1)
-											); 
+	//_Camara = smgr-> addCameraSceneNode(0, 
+	//									core::vector3df(0, 0, 0), 
+	//									core::vector3df(1, 1, 1)
+	//										); 
 	//_Camara = smgr->addCameraSceneNodeFPS();
 	
 	_Cdevice = device; 
 	_Cdevice->getCursorControl()->setVisible(false); 
-	_inicial = core::vector3df(0,0,1);
-	Vector3 _inicial_aux(_inicial.X,_inicial.Y,_inicial.Z);
+	//_inicial = core::vector3df(0,0,1);
+	//Vector3 _inicial_aux(_inicial.X,_inicial.Y,_inicial.Z);
 
 	_Prota = 0; 
 	_direction = 0; 
 	_zdirection = -20;
-	_position = core::vector3df(0, 0, 0); 
-	_target = core::vector3df(1, 1, 1); 
+	//_position = core::vector3df(0, 0, 0); 
+	//_target = core::vector3df(1, 1, 1); 
+	_xf = 0; 
+	_yf = 0; 
+	_zf = 0; 
+	_sensibilidadX = 256; 
+	_sensibilidadY = 256; 
+	_changeX = 0; 
+	_changeY = 0; 			
+	_dot = _det = _angle = _angleRad = 0;
+	//_interpolacion = new Interpolacion(_inicial_aux);		
+	//_interpolacion_colision = new Interpolacion(_inicial_aux);
+	_unlocked = false;	//angel busca esto	
+}
+
+Camara::Camara(bool activa, GLFWwindow* _i_window) {
+	//_Camara = smgr-> addCameraSceneNode(0, 
+	//									core::vector3df(0, 0, 0), 
+	//									core::vector3df(1, 1, 1)
+	//										); 
+	//_Camara = smgr->addCameraSceneNodeFPS();
+
+	_OGLWindow = Motor::Motor_GetInstance()->getEngine()->getWindow();
+	
+	//_Cdevice = device; 
+	//_Cdevice->getCursorControl()->setVisible(false); 
+	//_inicial = core::vector3df(0,0,1);
+	_inicial = glm::vec3(0,0,1);
+	Vector3 _inicial_aux(_inicial.x,_inicial.y,_inicial.z);
+
+	_Prota = 0; 
+	_direction = 0; 
+	_zdirection = -20;
+	_position = glm::vec3(0,0,0); 
+	_target = glm::vec3(1,1,1);
+	
 	_xf = 0; 
 	_yf = 0; 
 	_zf = 0; 
@@ -38,11 +76,11 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 	_unlocked = false;	//angel busca esto	
 }
 
-void Camara::Camara_setPosition(core::vector3df position) {
-	_position = position; 
-	_Camara->setPosition(_position);
+void Camara::Camara_setPosition(Vector3 position) {
+	_position = glm::vec3(position._x, position._y, position._z); 
+	_Camara->mover(position);
 
-	Vector3 posicion(_position.X,_position.Y,_position.Z);
+	Vector3 posicion(_position.x,_position.y,_position.z);
 	_interpolacion->actualiza_posicion(posicion);
 
 	if(!_hay_colision)
@@ -51,23 +89,23 @@ void Camara::Camara_setPosition(core::vector3df position) {
 	_hay_colision = false;
 }
 
-void Camara::Camara_setPositionColision(core::vector3df position) {
+void Camara::Camara_setPositionColision(Vector3 position) {
 	_hay_colision = true;
-	_position = position; 
-	_Camara->setPosition(_position);
+	_position = glm::vec3(position._x, position._y, position._z); 
+	_Camara->mover(position);
 
-	Vector3 posicion(_position.X,_position.Y,_position.Z);
+	Vector3 posicion(_position.x,_position.y,_position.z);
 	_interpolacion_colision->actualiza_posicion(posicion);
 }
 
-void Camara::set_position_interpolada(core::vector3df position) {
-	_position = position; 
-	_Camara->setPosition(_position);
+void Camara::set_position_interpolada(Vector3 position) {
+	_position = glm::vec3(position._x, position._y, position._z); 
+	_Camara->mover(position);
 }
 
-void Camara::Camara_setTarget(core::vector3df targetPos) {
-	_target = targetPos; 
-	_Camara->setTarget(_target); 
+void Camara::Camara_setTarget(Vector3 targetPos) {
+	_target = glm::vec3(targetPos._x, targetPos._y, targetPos._z); 
+	//this->setTarget(targetPos); 
 }
 
 void Camara::Camara_setProta(iNodoModelado* prota) {
@@ -75,16 +113,19 @@ void Camara::Camara_setProta(iNodoModelado* prota) {
 	//_ProtaBoundingCenter = 0;//_Prota-> getBoundingBox().getCenter(); 
 }
 
-core::vector3df Camara::Camara_getPosition(){
-	return(_position);
+Vector3 Camara::Camara_getPosition(){
+	Vector3 retorno(_position.x, _position.y, _position.z);
+	return retorno;
 }
 
-core::vector3df Camara::Camara_getTarget(){
-	return(_target);
+Vector3 Camara::Camara_getTarget(){
+	Vector3 retorno(_target.x, _target.y, _target.z);
+	return retorno;
 }
 
-core::vector3df Camara::Camara_getDirection(){
-	return(_camaraDir);
+Vector3 Camara::Camara_getDirection(){
+	Vector3 retorno(_camaraDir.x, _camaraDir.y, _camaraDir.z);
+	return retorno;
 }
 
 void Camara::Camara_reset(short _i_direccion){
@@ -97,6 +138,13 @@ void Camara::Camara_Update() {
 	_changeX = 0;
 	_changeY = 0;
 	
+	//input de raton de openGL BOIIIII
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+	//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	//glfwSetCursorPosCallback(window, mouse_callback); 
+
+	
+
 	// Esto se hace hasta que se pueda usar el de Input sin que se choque con los bordes de pantalla y se quede atascado el raton
 	if(_input->get_posiciona_camara() && _input->get_mover_camara()) {
 		// Obtener la posicion del cursor
@@ -186,12 +234,12 @@ void Camara::update_position() {
 		//std::cout<<"llego loko"<<std::endl;
 			//std::cout << playerPos.Y << std::endl; 
 			this->Camara_setPosition(
-					core::vector3df(xf, 
+					Vector3(xf, 
 							yf + _ProtaBoundingCenter.Y, 
 							zf)); 
 			
 			this->Camara_setTarget(	
-					core::vector3df(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
+					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
 							_Prota-> getPosition()._y + _ProtaBoundingCenter.Y * 1.5f, 
 							_Prota-> getPosition()._z + _ProtaBoundingCenter.Z)); 
 				
@@ -199,27 +247,27 @@ void Camara::update_position() {
 		
 		else {	// Calculos de la camara para una Y negativa
 			this->Camara_setPosition(
-					core::vector3df(xf, 
+					Vector3(xf, 
 							yf - _ProtaBoundingCenter.Y - _Prota->getPosition()._y, zf)); 
 			
 			this->Camara_setTarget(
-					core::vector3df(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
+					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
 							(_ProtaBoundingCenter.Y * 0.5), 
 							_Prota-> getPosition()._z + _ProtaBoundingCenter.Z)); 
 		}
 		
 		
 		// Calculo de la direccion de la camara
-		_camaraDir = this->Camara_getTarget() - this->Camara_getPosition();
-		_camaraDir = _camaraDir.normalize();
+		_camaraDir = _target - _position;
+		_camaraDir = glm::normalize(_camaraDir);
 
-		core::vector3df inicial(0,0,1); //v1
+		glm::vec3 inicial(0,0,1); //v1
 
         
 		// Angulo entre el vector inicial de referencia
 		// y el vector de direccion actual 
-        _dot = inicial.X * _camaraDir.X + inicial.Z*_camaraDir.Z;
-        _det = inicial.X * _camaraDir.Z - inicial.Z*_camaraDir.X;
+        _dot = inicial.x * _camaraDir.x + inicial.z * _camaraDir.z;
+        _det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
 
         _angle = -(atan2f(_det,_dot)/M_PI)*180;
 
@@ -261,14 +309,14 @@ void Camara::set_posicion_inicial(short _i_direccion) {
 void Camara::interpola_posicion(float _i_interpolacion) {
 	if(!_hay_colision) {
 		Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
-		set_position_interpolada(core::vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+		set_position_interpolada(_posicion_interpolada);
 	}
 	else {
 		Vector3 _posicion_interpolada = _interpolacion_colision->interpola_posicion(_i_interpolacion);
-		set_position_interpolada(core::vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+		set_position_interpolada(_posicion_interpolada);
 	}
 }
 
 void Camara::interpola_target(Vector3 _i_posicion_interpolada) {
-	Camara_setTarget(core::vector3df(_i_posicion_interpolada._x, _i_posicion_interpolada._y, _i_posicion_interpolada._z));
+	Camara_setTarget(_i_posicion_interpolada);
 }

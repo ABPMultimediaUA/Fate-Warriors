@@ -1,4 +1,6 @@
 #include "irrlicht/irrlicht.h"
+#include "../Utilidades/Vector.h"
+#include <glm/ext.hpp>
 
 using namespace irr;
 
@@ -10,19 +12,22 @@ class Vector3;
 class Input;
 class Interpolacion;
 class iNodoModelado;
+class GLFWwindow;
+class iNodoCamara;
 class Camara{
 
 public:
 	Camara(scene::ISceneManager* smgr, IrrlichtDevice* device);
+	Camara(bool activa, GLFWwindow* _i_window);
 	~Camara();
 	
-	void Camara_setPosition(core::vector3df position);
-	void Camara_setPositionColision(core::vector3df position);
-	void Camara_setTarget(core::vector3df targetPos);         //ajusta el target de la Camara a una posicion
+	void Camara_setPosition(Vector3 position);
+	void Camara_setPositionColision(Vector3 position);
+	void Camara_setTarget(Vector3 targetPos);         //ajusta el target de la Camara a una posicion
 	void Camara_setProta(iNodoModelado* prota);  //ajusta el target de la Camara a otro nodo
-	core::vector3df Camara_getPosition();
-	core::vector3df Camara_getTarget();
-	core::vector3df Camara_getDirection();
+	Vector3 Camara_getPosition();
+	Vector3 Camara_getTarget();
+	Vector3 Camara_getDirection();
 	float Camara_getAngle();
 	float Camara_getAngleRad();
 	void Camara_Update(); //updatea la Camara usando el device
@@ -34,15 +39,24 @@ public:
 	void interpola_posicion(float _i_interpolacion);
 	void interpola_target(Vector3 _i_posicion_interpolada);
 	void Camara_reset(short _i_direccion);
+
 private:
+	//las nuevas variables de escena del ME
+	GLFWwindow* _OGLWindow;
+	glm::vec3 _inicial;
+	glm::vec3 _position;		 	//posicion de la camara
+	glm::vec3 _target; 		   //target de la camara
+	iNodoCamara* _Camara;  //camara de irrlicht
+	
+	//---//
+	
+	
 	iNodoModelado* _Prota;         //personaje protagonista A.K.A Target
 	core::vector3df _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
-	scene::ICameraSceneNode* _Camara;  //camara de irrlicht
-	core::vector3df _position;		 	//posicion de la camara
-	core::vector3df _target; 		   //target de la camara
+	
 	IrrlichtDevice* _Cdevice;
 
-	core::vector3df _inicial; //vector de direccion inicial 
+	//core::vector3df _inicial; //vector de direccion inicial 
 									//hacia donde mira la camara como referencia
 
 	float _dot, _det, _angle, _angleRad;
@@ -55,7 +69,7 @@ private:
 	float _sensibilidadY;
 	float _changeX;
 	float _changeY;
-	core::vector3df _camaraDir; //direccion hacia la que mira la camara que se actualiza en el update
+	glm::vec3 _camaraDir; //direccion hacia la que mira la camara que se actualiza en el update
 	core::position2d<f32> cursorPos;
 	unsigned short _gradosRotacion;
 	Input* _input; 	// Input del control de camara
@@ -64,7 +78,7 @@ private:
 	Interpolacion* _interpolacion;
 	Interpolacion* _interpolacion_colision;
 	
-	void set_position_interpolada(core::vector3df position); //Pone la nueva posicion interpolada para renderizar
+	void set_position_interpolada(Vector3 position); //Pone la nueva posicion interpolada para renderizar
 };
 
 

@@ -58,8 +58,10 @@ TRecursoModelado* TGestorRecursos::getRecursoModelo(const char* nombre){
     rec=getRecurso(nombre);
 
     if(rec==nullptr){
+        std::string aux("models/");
         std::string s(nombre);
-        cargarModelo(s);
+        aux+=s+"/"+s+".obj";
+        cargarModelo(aux);
         _recursos.back()->SetNombre((char*)nombre);
         return static_cast<TRecursoModelado*>(_recursos.back());
     }
