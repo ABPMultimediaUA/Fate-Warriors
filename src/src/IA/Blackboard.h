@@ -25,6 +25,7 @@ public:
 	void actualizar_zonas();
 	void actualizar_characteres();
 	void actualizar_objetos();
+	void actualizar_interruptores();
 	void actualizar_datos_npc_padre();
 	void actualizar_pseudo_azar();
 
@@ -102,6 +103,7 @@ public:
 
 	// INTERRUPTORES
 	Interruptor* _interruptor_cerca_util;
+	bool _interruptor_esta_cerca;
 
 	// HABILIDADES
 	//bool _habilidad_coger_objeto;

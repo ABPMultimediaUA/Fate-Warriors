@@ -10,6 +10,8 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, float 
     _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
 
       _objeto_motor->rotar_nodo(_i_rotacion);
+	  
+	  _npcs_persiguiendome = 0;
 
 }
 

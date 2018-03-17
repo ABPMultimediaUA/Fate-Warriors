@@ -18,15 +18,8 @@ ND_0::~ND_0() {
 
 enum Enum_Acciones ND_0::toma_decision(Blackboard* _blackboard){
 
-    bool interruptor_esta_cerca = false;
-    float distancia_a_interruptor = lib_math_distancia_2_puntos(_blackboard->_interruptor_cerca_util->getX(), _blackboard->_interruptor_cerca_util->getZ(), _blackboard->_npc_padre->getX(), _blackboard->_npc_padre->getZ());
-    //std::cout <<distancia_a_interruptor << std::endl;
-    if(distancia_a_interruptor < 5){
-        interruptor_esta_cerca = true;
-    }
-
     //std::cout <<"Entra ND_0\n";
-	if( interruptor_esta_cerca == true) { // TRUE, es 1
+	if( _blackboard->_interruptor_esta_cerca == true) { // TRUE, es 1
         //std::cout <<"Interruptor muy cerca\n";
         // Interactuar
 		return _nodo_der->toma_decision(_blackboard);

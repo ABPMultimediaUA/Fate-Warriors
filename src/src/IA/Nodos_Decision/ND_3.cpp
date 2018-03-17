@@ -19,37 +19,8 @@ ND_3::~ND_3() {
 
 enum Enum_Acciones ND_3::toma_decision(Blackboard* _blackboard){
 
-    Interruptor * interruptor_util = nullptr;
-
-    float distancia_a_interruptor_mas_cerca = 1000000000;
-
-    Zona* zona_actual = _blackboard->_zona_actual;
-    std::vector<Interruptor*> interruptores = zona_actual->get_interruptores_asociados();
-
-    short tamanio = interruptores.size();
-
-    for(short i = 0; i < tamanio; i++){
-        Zona* zona1 = interruptores[i]->get_puerta()->get_zona_1();
-        Zona* zona2 = interruptores[i]->get_puerta()->get_zona_2();
-
-        float distancia_a_interruptor = lib_math_distancia_2_puntos(interruptores[i]->getX(), interruptores[i]->getZ(), _blackboard->_npc_padre->getX(), _blackboard->_npc_padre->getZ());
-
-        if(zona1 != zona_actual && zona1->get_equipo() != _blackboard->_npc_padre->get_equipo() 
-            && distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
-            interruptor_util = interruptores[i];
-            distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
-        }
-        else if(zona2 != zona_actual && zona2->get_equipo() != _blackboard->_npc_padre->get_equipo() 
-            && distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
-            interruptor_util = interruptores[i];
-            distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
-        }
-    }
-
-    _blackboard->_interruptor_cerca_util = interruptor_util;
-
     //std::cout <<"Entra ND_3\n";
-	if(interruptor_util != nullptr /*&& _blackboard->_habilidad_activar_interruptor == true*/) { // TRUE, es 1
+	if(_blackboard->_interruptor_cerca_util != nullptr /*&& _blackboard->_habilidad_activar_interruptor == true*/) { // TRUE, es 1
         //std::cout <<"SI hay interruptor usable y util\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}

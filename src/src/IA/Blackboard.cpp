@@ -8,6 +8,8 @@
 #include "../Zonas_Manager.h"
 #include "../Zona.h"
 #include "../Inventario.h"
+#include "../Interruptor.h"
+#include "../Puerta_Pincho.h"
 #include "../Interfaz/Motor.h"
 #include "../Interfaz/Objeto_Motor.h"
 #include "../Armas/Armas_Manager.h"
@@ -31,6 +33,9 @@ Blackboard::Blackboard(NPC * npc_padre) {
 
 	_enemigo_mas_cerca_esta_cerca = false;
 	_enemigo_mas_cerca_esta_muy_cerca = false;
+
+	_interruptor_cerca_util = nullptr;
+	_interruptor_esta_cerca = false;
 
 	_zona_actual = nullptr;
 	_zona_mas_cerca = nullptr;
@@ -56,6 +61,7 @@ void Blackboard::actualiza_datos() {
 	actualizar_datos_npc_padre();
 	actualizar_characteres();
 	actualizar_objetos();
+	actualizar_interruptores();
 	
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
@@ -298,6 +304,60 @@ void Blackboard::actualizar_objetos(){
 		_objeto_mas_cerca_esta_muy_cerca = false;
 
 	_objeto_mas_cerca = objeto_mas_cerca_aux;
+
+}
+
+void Blackboard::actualizar_interruptores(){
+
+	if(_zona_actual != nullptr){
+
+		Interruptor * interruptor_aux = nullptr;
+
+		float distancia_a_interruptor_mas_cerca = 1000000000;
+
+		std::vector<Interruptor*> interruptores = _zona_actual->get_interruptores_asociados();
+
+		short tamanio = interruptores.size();
+
+		for(short i = 0; i < tamanio; i++){
+			Zona* zona1 = interruptores[i]->get_puerta()->get_zona_1();
+			Zona* zona2 = interruptores[i]->get_puerta()->get_zona_2();
+
+			float distancia_a_interruptor = lib_math_distancia_2_puntos(interruptores[i]->getX(), interruptores[i]->getZ(), _npc_padre->getX(), _npc_padre->getZ());
+
+			if(zona1 != _zona_actual && zona1->get_equipo() != _npc_padre->get_equipo() 
+				&& distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
+				interruptor_aux = interruptores[i];
+				distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+			}
+			else if(zona2 != _zona_actual && zona2->get_equipo() != _npc_padre->get_equipo() 
+				&& distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
+				interruptor_aux = interruptores[i];
+				distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+			}
+		}
+
+		_interruptor_cerca_util = interruptor_aux;
+
+		if(interruptor_aux != nullptr){
+
+			float distancia_a_interruptor = lib_math_distancia_2_puntos(_interruptor_cerca_util->getX(), _interruptor_cerca_util->getZ(), _npc_padre->getX(), _npc_padre->getZ());
+		
+			if(distancia_a_interruptor < 5){
+				_interruptor_esta_cerca = true;
+			}
+			else{
+				_interruptor_esta_cerca = false;
+			}
+				
+
+		}
+		
+	}
+	else{
+		_interruptor_cerca_util = nullptr;
+		_interruptor_esta_cerca = false;
+	}
 
 }
 

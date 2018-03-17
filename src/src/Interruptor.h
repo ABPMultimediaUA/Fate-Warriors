@@ -19,10 +19,24 @@ public:
 		return _objeto_asociado;
 	}
 
+	inline int get_npcs_persiguiendome(){
+		return _npcs_persiguiendome;
+	}
+	inline void incrementar_npcs_persiguiendome(){
+		_npcs_persiguiendome++;
+	}
+	inline void decrementar_npcs_persiguiendome(){
+		_npcs_persiguiendome--;
+	}
+	inline void reiniciar_npcs_persiguiendome(){
+		_npcs_persiguiendome = 0;
+	}
+
 
 private:
 	Puerta_Pincho* _objeto_asociado; // Objeto asociado que activa/desactiva
 	bool _es_generador; // si es generador, despues de su primer uso se debe destruir
+	int _npcs_persiguiendome;
 };
 
 #endif /* INTERRUPTOR_H_ */
