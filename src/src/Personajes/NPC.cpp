@@ -7,6 +7,7 @@
 #include "../Utilidades/Modelados.h"
 #include "../Inventario.h"
 #include "../Respawn.h"
+#include "../Interruptor.h"
 
 
 #include "../Tiempo/Time.h"
@@ -50,6 +51,10 @@ void NPC::morir(){
         _blackboard->_enemigo_mas_cerca_esta_cerca = false;
         _blackboard->_enemigo_mas_cerca_esta_muy_cerca = false;
         _blackboard->_distancia_enemigo_mas_cerca =  10000000000;
+    }
+
+    if(_blackboard->_interruptor_cerca_util != nullptr){
+        _blackboard->_interruptor_cerca_util->decrementar_npcs_persiguiendome();
     }
         
 

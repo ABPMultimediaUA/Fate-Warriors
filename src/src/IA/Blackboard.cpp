@@ -309,52 +309,92 @@ void Blackboard::actualizar_objetos(){
 
 void Blackboard::actualizar_interruptores(){
 
-	if(_zona_actual != nullptr){
+	if(_zona_actual != nullptr && _enemigo_mas_cerca == nullptr){
 
-		Interruptor * interruptor_aux = nullptr;
 
-		float distancia_a_interruptor_mas_cerca = 1000000000;
+		if(_interruptor_cerca_util != nullptr){ // Se actualiza el interruptor objetivo actual
 
-		std::vector<Interruptor*> interruptores = _zona_actual->get_interruptores_asociados();
+			if(!_interruptor_cerca_util->get_puerta()->ha_pasado_tiempo_suficiente()){
 
-		short tamanio = interruptores.size();
-
-		for(short i = 0; i < tamanio; i++){
-			Zona* zona1 = interruptores[i]->get_puerta()->get_zona_1();
-			Zona* zona2 = interruptores[i]->get_puerta()->get_zona_2();
-
-			float distancia_a_interruptor = lib_math_distancia_2_puntos(interruptores[i]->getX(), interruptores[i]->getZ(), _npc_padre->getX(), _npc_padre->getZ());
-
-			if(zona1 != _zona_actual && zona1->get_equipo() != _npc_padre->get_equipo() 
-				&& distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
-				interruptor_aux = interruptores[i];
-				distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
-			}
-			else if(zona2 != _zona_actual && zona2->get_equipo() != _npc_padre->get_equipo() 
-				&& distancia_a_interruptor < distancia_a_interruptor_mas_cerca && interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente()){
-				interruptor_aux = interruptores[i];
-				distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
-			}
-		}
-
-		_interruptor_cerca_util = interruptor_aux;
-
-		if(interruptor_aux != nullptr){
-
-			float distancia_a_interruptor = lib_math_distancia_2_puntos(_interruptor_cerca_util->getX(), _interruptor_cerca_util->getZ(), _npc_padre->getX(), _npc_padre->getZ());
-		
-			if(distancia_a_interruptor < 5){
-				_interruptor_esta_cerca = true;
-			}
-			else{
+				_interruptor_cerca_util->decrementar_npcs_persiguiendome();
+				_interruptor_cerca_util = nullptr;
 				_interruptor_esta_cerca = false;
 			}
-				
+			else{
+
+				float distancia_a_interruptor = lib_math_distancia_2_puntos(_interruptor_cerca_util->getX(), _interruptor_cerca_util->getZ(), _npc_padre->getX(), _npc_padre->getZ());
+			
+				if(distancia_a_interruptor < 5){
+					_interruptor_esta_cerca = true;
+				}
+				else{
+					_interruptor_esta_cerca = false;
+				}
+
+			}
+			
 
 		}
-		
+		else{ // Se analizan de nuevo los interruptores
+
+			Interruptor * interruptor_aux = nullptr;
+
+			float distancia_a_interruptor_mas_cerca = 1000000000;
+
+			std::vector<Interruptor*> interruptores = _zona_actual->get_interruptores_asociados();
+
+			short tamanio = interruptores.size();
+
+			for(short i = 0; i < tamanio; i++){
+				Zona* zona1 = interruptores[i]->get_puerta()->get_zona_1();
+				Zona* zona2 = interruptores[i]->get_puerta()->get_zona_2();
+
+				float distancia_a_interruptor = lib_math_distancia_2_puntos(interruptores[i]->getX(), interruptores[i]->getZ(), _npc_padre->getX(), _npc_padre->getZ());
+
+				if(distancia_a_interruptor < distancia_a_interruptor_mas_cerca 
+				&& interruptores[i]->get_puerta()->ha_pasado_tiempo_suficiente() 
+				&& interruptores[i]->get_npcs_persiguiendome() < 1){
+
+					if(zona1 != _zona_actual && zona1->get_equipo() != _npc_padre->get_equipo()){
+						interruptor_aux = interruptores[i];
+						distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+					}
+					else if(zona2 != _zona_actual && zona2->get_equipo() != _npc_padre->get_equipo()){
+						interruptor_aux = interruptores[i];
+						distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+					}
+
+				}
+
+				
+			}
+
+			_interruptor_cerca_util = interruptor_aux;
+
+			if(interruptor_aux != nullptr){
+
+				interruptor_aux->incrementar_npcs_persiguiendome();
+
+				float distancia_a_interruptor = lib_math_distancia_2_puntos(_interruptor_cerca_util->getX(), _interruptor_cerca_util->getZ(), _npc_padre->getX(), _npc_padre->getZ());
+			
+				if(distancia_a_interruptor < 5){
+					_interruptor_esta_cerca = true;
+				}
+				else{
+					_interruptor_esta_cerca = false;
+				}
+					
+
+			}
+
+
+		}
 	}
 	else{
+
+		if(_interruptor_cerca_util != nullptr){
+			_interruptor_cerca_util->decrementar_npcs_persiguiendome();
+		}
 		_interruptor_cerca_util = nullptr;
 		_interruptor_esta_cerca = false;
 	}
