@@ -10,7 +10,7 @@ AD_Pistola::AD_Pistola(uint16_t _id, float _i_x, float _i_y, float _i_z)
 				90,
 				20){
 
-    const char* cstr  = "models/Armas/Pistola/Pistola.obj";
+    const char* cstr  = "Pistola";
     //_id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z,12);
     _objeto_motor = new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
 

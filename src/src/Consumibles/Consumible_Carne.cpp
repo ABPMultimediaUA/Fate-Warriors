@@ -9,7 +9,7 @@
 
 
 Consumible_Carne::Consumible_Carne(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 125){
-    const char* cstr  = "models/Consumibles/Carne/Carne.obj";
+    const char* cstr  = "Carne";
     
     //_id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z,12);
     _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);

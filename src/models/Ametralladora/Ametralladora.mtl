@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 23.02.2018 13:04:56
+# File Created: 13.03.2018 20:36:07
 
-newmtl Material__36
+newmtl Ametralladora
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -14,5 +14,6 @@ newmtl Material__36
 	Ke 0.0000 0.0000 0.0000
 	map_Ka Material__13_Base_Color.png
 	map_Kd Material__13_Base_Color.png
+	map_Ks Material__13_Metallic.png
 	map_bump Material__13_Normal_OpenGL.png
 	bump Material__13_Normal_OpenGL.png

@@ -8,7 +8,7 @@
 
 
 AC_Katana::AC_Katana(uint16_t _id, float _i_x, float _i_y, float _i_z) : Arma_cerca(_id, _i_x, _i_y, _i_z, Nombre_Arma_Katana, 10, 10, 20,20){
-    const char* cstr  = "models/Armas/Katana/Katana.obj";
+    const char* cstr  = "Katana";
     //_id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z,12);
     _objeto_motor = new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
 }
