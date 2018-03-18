@@ -40,6 +40,20 @@ public:
         return _conquistando;
     }
 
+
+	inline int get_npcs_persiguiendome(){
+		return _npcs_persiguiendome;
+	}
+	inline void incrementar_npcs_persiguiendome(){
+		_npcs_persiguiendome++;
+	}
+	inline void decrementar_npcs_persiguiendome(){
+		_npcs_persiguiendome--;
+	}
+	inline void reiniciar_npcs_persiguiendome(){
+		_npcs_persiguiendome = 0;
+	}
+
     int _num_characters_equipo_A;
     int _num_characters_equipo_B;
 
@@ -62,6 +76,8 @@ private:
     bool _conquistando;
     double _tiempo_inicio_conquista;
     double _tiempo_restante_conquista;
+
+    int _npcs_persiguiendome;
 
    std::vector<Interruptor*> _interruptores_asociados;
 

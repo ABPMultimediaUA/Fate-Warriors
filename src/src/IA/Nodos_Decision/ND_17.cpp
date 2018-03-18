@@ -1,6 +1,8 @@
 #include "ND_17.h"
 
 #include "../Blackboard.h"
+#include "../../Zona.h"
+#include "../../Personajes/NPC.h"
 
 #include<iostream>
 
@@ -14,8 +16,21 @@ ND_17::~ND_17() {
 
 enum Enum_Acciones ND_17::toma_decision(Blackboard* _blackboard){
 
+/*
+	int num_aliados_en_mi_zona;
+
+	if(_blackboard->_zona_actual != nullptr){
+		
+		if(_blackboard->_npc_padre->get_equipo() == Enum_Equipo_A){
+			num_aliados_en_mi_zona = _blackboard->_zona_actual->_num_characters_equipo_A;
+		}
+		else{
+			num_aliados_en_mi_zona = _blackboard->_zona_actual->_num_characters_equipo_B;
+		}
+	}
+	*/
     //std::cout <<"Entra ND_17\n";
-	if( _blackboard->_zona_actual != nullptr) { // TRUE, es 1
+	if( _blackboard->_zona_actual != nullptr /*&& num_aliados_en_mi_zona < 3*/) { // TRUE, es 1
         //std::cout <<"estoy en una zona\n";
 		return _nodo_der->toma_decision(_blackboard);
 	}

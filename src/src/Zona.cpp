@@ -18,6 +18,8 @@ _reloj=Time::Instance();
     _pos_x = _i_x;
     _pos_y = _i_z;
     _tiempo_restante_conquista = 10000;
+
+    _npcs_persiguiendome = 0;
 }
 
 Zona::~Zona() {
