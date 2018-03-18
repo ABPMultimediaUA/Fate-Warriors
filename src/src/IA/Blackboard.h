@@ -81,7 +81,6 @@ public:
 	// CHARACTER ENEMIGO
 
 	Character* _enemigo_mas_cerca; // Y CON MENOS DE 2 NPCS SIGUIENDOLO
-	Character* _enemigo_mas_cerca_anterior_iteracion;
 	float _distancia_enemigo_mas_cerca;
 	bool _enemigo_mas_cerca_esta_cerca;
 	bool _enemigo_mas_cerca_esta_muy_cerca;
