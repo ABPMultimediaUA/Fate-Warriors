@@ -189,7 +189,7 @@ void TMooseEngine::drawCamaras(){
             //std::cout<<"view: "<<glm::to_string(matriz_view)<<"\n";
             matriz_view = glm::inverse(matriz_view); //invertimos la matriz para obtener la matriz view final
             _shader->setView(matriz_view); //la pasamos al shader
-            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
+            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 1000.0f);
             _shader->setProjection(projection);
         }
     }

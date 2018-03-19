@@ -48,6 +48,30 @@ Motor::Motor(uint16_t width, uint16_t height){
 
 	//const char* cstr = "ColisionesNivel1";
 	//importarEscenario(cstr, 0,0,0);
+	const char* cstr = "suelo_t_1";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "suelo_t_2";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "suelo_t_3";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "suelo_t_4";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "suelo_t_5";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "suelo_exterior_1";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "suelo_exterior_2";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "suelo_exterior_3";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "SueloEdificio1";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "SueloEdificio2";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "SueloEdificio3";
+	importarEscenario(cstr, 0,0,0);
+	cstr = "SueloEdificio4";
+	importarEscenario(cstr, 0,0,0);
     desp_x = desp_z = 0;
 
 //	camara = new Camara();
@@ -327,14 +351,28 @@ iNodoCamara* Motor::crearCamara(bool activa, float x, float y, float z){
     return nodo;
 }
 
-iNodoLuz* Motor::crearLuz(bool activa, float intensidad){
-    iNodoLuz* nodo = new iNodoLuz(activa, intensidad);
+iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
+									   Vector3 ambient,
+									   Vector3 specular,
+									   Vector3 diffuse){
+    iNodoLuz* nodo = new iNodoLuz(activa, intensidad,
+								  ambient,
+								  specular,
+								  diffuse);
     lista_i_nodo.push_back(nodo);
     return nodo;
 }
 
-iNodoLuz* Motor::crearLuz(bool activa, float intensidad, float x, float y, float z){
-    iNodoLuz* nodo = new iNodoLuz(activa, intensidad, x, y, z);
+iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
+									   Vector3 ambient,
+									   Vector3 specular,
+									   Vector3 diffuse,
+			  						   float x, float y, float z){
+    iNodoLuz* nodo = new iNodoLuz(activa, intensidad, 
+								  ambient,   
+								  specular,
+								  diffuse,   
+								  x, y, z);
     lista_i_nodo.push_back(nodo);
     return nodo;
 }

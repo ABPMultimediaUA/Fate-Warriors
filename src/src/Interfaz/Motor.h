@@ -64,8 +64,17 @@ public:
     iNodoModelado* crearModelado(const char*  ruta);
     iNodoCamara* crearCamara(bool activa); 
     iNodoCamara* crearCamara(bool activa, float x, float y, float z);
-    iNodoLuz* crearLuz(bool activa, float intensidad);
-    iNodoLuz* crearLuz(bool activa, float intensidad, float x, float y, float z);
+    
+    iNodoLuz* crearLuz(bool activa, float intensidad, 
+                                    Vector3 ambient,
+                                    Vector3 specular,
+                                    Vector3 diffuse);
+
+    iNodoLuz* crearLuz(bool activa, float intensidad, 
+                                    Vector3 ambient,
+                                    Vector3 specular,
+                                    Vector3 diffuse,  
+                                    float x, float y, float z);
 
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
