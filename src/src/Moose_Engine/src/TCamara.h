@@ -12,11 +12,17 @@ class TCamara : public TEntidad{
         void beginDraw(Shader* _i_shader) override;
         void endDraw();
         void setActiva(bool activa);
-        void calculaView();
+        glm::mat4 calculaView();
     private:
         bool es_perspectiva;
         bool _activa;
         float cercano,lejano;
+        
+        //posicion y target de la camara para ajustarlos en cada metodo
+        glm::vec3 _position;
+        glm::vec3 _target;
+        glm::mat4 _matriz_view;
+
 };
 
 #endif /* SRC_TCAMARA_H_ */

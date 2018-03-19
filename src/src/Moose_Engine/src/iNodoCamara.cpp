@@ -72,10 +72,11 @@ void iNodoCamara::LookAt(Vector3 position, Vector3 target){
     glm::vec3 zAxis(0.0f, 0.0f, 1.0f);
     // Angulo entre el vector inicial de referencia
 	// y el vector de direccion actual 
-    float angleX, angleY, angleZ;
+    /*float angleX, angleY, angleZ;
     float dot, det;
     
-    //dot = inicial.x * _camaraDir.x + inicial.z * _camaraDir.z;
-    //det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
-    //angle = -(atan2f(_det,_dot)/M_PI)*180;
+    dot = inicial.x * _camaraDir.x + inicial.z * _camaraDir.z;
+    det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
+    angle = -(atan2f(_det,_dot)/M_PI)*180;*/
+    //glm::mat4 matriz_vista 
 }
