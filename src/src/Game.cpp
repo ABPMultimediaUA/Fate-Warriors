@@ -2,6 +2,9 @@
 
 #include "Action_Manager.h"
 #include "Datos_Partida.h"
+#include "Datos_Partida_Offline.h"
+#include "Datos_Partida_Online.h"
+
 
 #include "Entrada/Controles.h"
 #include "IA/Decision_Manager.h"
@@ -66,7 +69,7 @@ Game::~Game(){
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
 	_sonido=Interfaz_sonido::GetInstancia();
-	_datos 				= new Datos_Partida(_input_jugador);
+	_datos 				= new Datos_Partida_Offline(_input_jugador);
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
 
@@ -86,6 +89,30 @@ void Game::crea_partida() {
 
 	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
 }
+
+void Game::crea_partida_online(){
+	_nivel = Nivel::nivel_instancia();
+	_sonido=Interfaz_sonido::GetInstancia();
+	_datos 				= new Datos_Partida_Online(_input_jugador);
+
+	_interactuable_manager = _datos->get_interactuable_manager();
+
+	_player = _datos->get_player();
+	_datos->inserta_npc_nivel();
+	
+	_consumibles_action = new Consumible_Action();	
+	_trampas_action 	= new Trampas_action();	
+
+	update_actual = &Game::update_partida;
+	render_actual = &Game::render_partida;
+
+	_input_jugador->asignar_teclas_partida();
+
+	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
+
+
+}
+
 
 void Game::fin_partida() {
 	delete _datos;
@@ -108,6 +135,26 @@ void Game::fin_partida() {
 	//Respawn::posiciones_instancia()->eliminar_datos();
 }
 
+void Game::fin_partida_online() {
+	delete _datos;
+
+	delete _decision_manager;
+
+	delete _action_manager;
+	
+	delete _consumibles_action;
+
+	delete _trampas_action;
+
+	_input_jugador->asignar_teclas_menu();
+
+	//_motor->vaciar_motor();
+	Respawn* pointer = Respawn::posiciones_instancia();
+	delete pointer;
+	//Respawn::posiciones_instancia()->eliminar_datos();
+}
+
+
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------
 
 // Llama a la funcion update en el momento necesario
@@ -129,47 +176,21 @@ void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 }
 
 void Game::update_partida(double _i_tiempo_desde_ultimo_update){
-}
-
-void Game::update_online(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Partida" << std::endl;
 	if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200) {
     	cambio_a_update_pausa();
     }
     else {
-
-
-		if(_datos->get_is_server()){
-			Servidor* servidor = Servidor::getInstance();
-			servidor->check_and_send_mesages();
-			std::vector<Player*> _jugadores_online = _datos->dame_jugadores_online();
-			
-			for(short a=0; a < _jugadores_online.size(); a++)
-				_jugadores_online[a]->update();
-		}
-		else{
-			Cliente* cliente = Cliente::getInstance();
-			cliente->check_and_send_mesages();
 			_player->update();
-			
-			std::vector<Player*> _jugadores_online = _datos->dame_jugadores_online();
-			for(short a=0; a < _jugadores_online.size(); a++)
-				_jugadores_online[a]->update();
-		}
-
-/*
-		if(!_datos->get_is_server()){
-			_player->update();
-		}
-*/
 			_nivel->Update();
-			//_consumibles_action->comprobar_consumibles();
-	//		_trampas_action->update();
+			_consumibles_action->comprobar_consumibles();
+			_trampas_action->update();
 
 			_motor->update(_i_tiempo_desde_ultimo_update);
-		/*	_interactuable_manager->update_interruptores();
+			_interactuable_manager->update_interruptores();
 			_decision_manager->toma_decisiones();
 			_zonas_manager->actualizar_zonas();
+
 			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
 				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
 				cambio_a_update_menu();
@@ -181,7 +202,38 @@ void Game::update_online(double _i_tiempo_desde_ultimo_update){
 				}
 				//if equipo!=neutro Fin partida
 			}
-		*/
+	}
+}
+
+void Game::update_online(double _i_tiempo_desde_ultimo_update){
+	if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200) {
+    	cambio_a_update_pausa();
+    }
+	
+    else {
+		if(_datos->get_is_server()){
+			Servidor* servidor = Servidor::getInstance();
+			servidor->check_and_send_mesages();
+			std::vector<Player*> _jugadores_online = _datos->dame_jugadores_online();
+			
+			for(short a=0; a < _jugadores_online.size(); a++){
+				_jugadores_online[a]->update();
+			}
+		}
+		
+		else{
+			Cliente* cliente = Cliente::getInstance();
+			cliente->check_and_send_mesages();
+			_player->update_online();
+			
+			std::vector<Player*> _jugadores_online = _datos->dame_jugadores_online();
+			for(short a=0; a < _jugadores_online.size(); a++){
+				_jugadores_online[a]->update();
+			}
+		}
+
+			_nivel->Update();
+			_motor->update(_i_tiempo_desde_ultimo_update);
     }
 }
 

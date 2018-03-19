@@ -1,4 +1,4 @@
-#include "Datos_Partida.h"
+#include "Datos_Partida_Online.h"
 
 #include "Interactuable_Manager.h"
 #include "Interfaz/Motor.h"
@@ -19,7 +19,7 @@
 //#include "Consumibles/Respawn_Points.h"
 
 
-Datos_Partida::Datos_Partida(Input* _i_input) { 
+Datos_Partida_Online::Datos_Partida_Online(Input* _i_input){ 
   float mult = 4.9212625; 
 
 	std::string input;
@@ -45,28 +45,27 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 			_jugador = nullptr;
 		}
 		else{
-				Cliente* cliente = Cliente::getInstance();
-				cliente->send_game_start();
+			Cliente* cliente = Cliente::getInstance();
+			cliente->send_game_start();
 
-				char portstring [30];
-				unsigned short port;
-				char iptoconnect [30];
+			char portstring [30];
+			unsigned short port;
+			char iptoconnect [30];
 
-				isServer = false;
+			isServer = false;
 
-				std::cout << "Type port to connect " << std::endl;
-				std::cin >> portstring;
-				port = (unsigned short) strtoul(portstring, NULL, 0);
+			std::cout << "Type port to connect " << std::endl;
+			std::cin >> portstring;
+			port = (unsigned short) strtoul(portstring, NULL, 0);
 
-				std::cout << "Type ip to connect to" << std::endl;
-				std::cin >> iptoconnect;
+			std::cout << "Type ip to connect to" << std::endl;
+			std::cin >> iptoconnect;
+			_jugador = new Player( 0, 12.5*mult, 0, 9.5*mult, _i_input, false); 
+		  	_jugadores_online_incluyendo_player.push_back(_jugador);
 
-  				_jugador          =   new Player( 0, 12.5*mult, 0, 9.5*mult, _i_input, false); 
-				  	_jugadores_online_incluyendo_player.push_back(_jugador);
-
-				  cliente->asociar_player(_jugador);
-				  std::cout << _jugador  <<"soy el de esta pantalla \n";
-				cliente->start_client(iptoconnect, port);
+			cliente->asociar_player(_jugador);
+			std::cout << _jugador  <<"soy el de esta pantalla \n";
+			cliente->start_client(iptoconnect, port);
 		}
 
 
@@ -100,7 +99,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 
 }
 
-Datos_Partida::~Datos_Partida() {
+Datos_Partida_Online::~Datos_Partida_Online() {
 	delete _jugador;
 	delete _trampas_manager;
 	delete _consumibles_manager;
@@ -116,43 +115,43 @@ Datos_Partida::~Datos_Partida() {
 	cliente->Cerrar_peer();
 }
 
-Player* Datos_Partida::get_player(){
+Player* Datos_Partida_Online::get_player(){
 	return _jugador;
 }
 
-NPC_Manager* Datos_Partida::get_npc_manager() {
+NPC_Manager* Datos_Partida_Online::get_npc_manager() {
 	return _npc_manager;
 }
 
-Trampas_manager * Datos_Partida::get_trampas_manager(){
+Trampas_manager * Datos_Partida_Online::get_trampas_manager(){
 	return _trampas_manager;
 }
 
-Consumible_Manager * Datos_Partida::get_Consumible_Manager(){
+Consumible_Manager * Datos_Partida_Online::get_Consumible_Manager(){
 	return _consumibles_manager;
 }
 
-Interactuable_Manager* Datos_Partida::get_interactuable_manager(){
+Interactuable_Manager* Datos_Partida_Online::get_interactuable_manager(){
 	return _interactuable_manager;
 }
 
-Armas_Manager* Datos_Partida::get_armas_manager(){
+Armas_Manager* Datos_Partida_Online::get_armas_manager(){
 	return _armas_manager;
 }
 
-Zonas_Manager* Datos_Partida::get_zonas_manager(){
+Zonas_Manager* Datos_Partida_Online::get_zonas_manager(){
 	return _zonas_manager;
 }
 
-void Datos_Partida::inserta_npc_nivel(){
+void Datos_Partida_Online::inserta_npc_nivel(){
 	_npc_manager->inserta_npc_nivel();
 }
 
-Character** Datos_Partida::get_characters(){
+Character** Datos_Partida_Online::get_characters(){
 	return _characters;
 }
 
-Player* Datos_Partida::crear_jugador(float x, float y){
+Player* Datos_Partida_Online::crear_jugador(float x, float y){
 	  float mult = 4.9212625; 
 	//  Player* _jugador = new Player( 0, 12.5*mult, 0, 9.5*mult, nullptr, true);
 	  Player_Online* _jugador = new Player_Online( 0, x, 0, y, nullptr, true);
@@ -162,10 +161,10 @@ Player* Datos_Partida::crear_jugador(float x, float y){
 	return _jugador;
 }
 
-std::vector<Player*> Datos_Partida::dame_jugadores_online(){
+std::vector<Player*> Datos_Partida_Online::dame_jugadores_online(){
  return _jugadores_online;
 }
 
-std::vector<Player*> Datos_Partida::todos_jugadores_de_la_sesion(){
+std::vector<Player*> Datos_Partida_Online::todos_jugadores_de_la_sesion(){
 	return _jugadores_online_incluyendo_player;
 }

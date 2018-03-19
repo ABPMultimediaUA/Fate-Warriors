@@ -20,32 +20,32 @@ class Zonas_Manager;
 
 class Datos_Partida {
 public:
-	Datos_Partida(Input* _i_input);
-	virtual ~Datos_Partida();
+//	virtual Datos_Partida(Input* _i_input);
+	virtual ~Datos_Partida(){};
 
-	Player* get_player();
+	virtual Player* get_player() = 0;
 
-	Trampas_manager* get_trampas_manager();
+	virtual Trampas_manager* get_trampas_manager() = 0;
 
-	NPC_Manager* get_npc_manager();
+	virtual NPC_Manager* get_npc_manager() = 0;
 
-	Consumible_Manager * get_Consumible_Manager();
+	virtual Consumible_Manager * get_Consumible_Manager()= 0;
     
-    Interactuable_Manager* get_interactuable_manager();
-	Armas_Manager* get_armas_manager();
+    virtual Interactuable_Manager* get_interactuable_manager()=0;
+	virtual Armas_Manager* get_armas_manager()=0;
 
-	Zonas_Manager* get_zonas_manager();
+	virtual Zonas_Manager* get_zonas_manager()=0;
 
-	void inserta_npc_nivel();
+	virtual void inserta_npc_nivel()=0;
 
-	Character** get_characters();
-	inline uint16_t get_num_characters(){
+	virtual Character** get_characters()=0;
+	virtual inline uint16_t get_num_characters(){
 		return _num_characters;
 	}
-	Player* crear_jugador(float x, float y);
-	std::vector<Player*> dame_jugadores_online();
-	std::vector<Player*> todos_jugadores_de_la_sesion();
-	inline bool get_is_server(){return isServer;}
+	virtual Player* crear_jugador(float x, float y)=0;
+	virtual std::vector<Player*> dame_jugadores_online()=0;
+	virtual std::vector<Player*> todos_jugadores_de_la_sesion()=0;
+	virtual inline bool get_is_server(){return isServer;}
 
 
 private:
@@ -61,7 +61,7 @@ private:
     Interactuable_Manager * _interactuable_manager;
 	Armas_Manager * _armas_manager;
 	Zonas_Manager * _zonas_manager;
-		bool isServer;
+	bool isServer;
 
 
 };

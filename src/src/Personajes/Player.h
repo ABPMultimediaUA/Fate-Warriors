@@ -16,6 +16,7 @@ public:
 	Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input,bool es_jugador_online);
 	virtual ~Player();
 	void update() override;
+	void update_online();
 	void render() override;
 	void comprobar_input(Enum_Inputs key_press);
 

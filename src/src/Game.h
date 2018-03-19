@@ -30,6 +30,9 @@ public:
 	void crea_partida();
 	void fin_partida();
 
+	void crea_partida_online();
+	void fin_partida_online();
+
  	void update(double _i_tiempo_desde_ultimo_update);	// Update publico
 
 	void render(float _i_interpolacion);				// Render publico
