@@ -9,8 +9,14 @@ class iNodoCamara : public iNodo{
     public:
         iNodoCamara(bool activa);
         iNodoCamara(bool activa, float x, float y, float z);
-        void LookAt(Vector3 position, Vector3 target);
         ~iNodoCamara() = default;
+        //metodos para el plan de emergencia
+        void mover(float x, float y, float z);
+        void mover  (Vector3 posicion);
+        void LookAt(Vector3 position, Vector3 target);
+        void setPosition(Vector3 position);
+        void setTarget(Vector3 target);
+        
     private:
 
 };

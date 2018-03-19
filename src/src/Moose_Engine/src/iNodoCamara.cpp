@@ -43,6 +43,16 @@ iNodoCamara::iNodoCamara(bool activa, float x, float y, float z){
   
 }
 
+void iNodoCamara::mover(float x, float y, float z){
+    static_cast<TTransform*>(_nodo_motor->get_padre()->get_entidad())->trasladar(x, y, z);
+    static_cast<TCamara*>(_nodo_motor->get_entidad())->setVecPosition(glm::vec3(x, y, z));
+}
+
+void iNodoCamara::mover(Vector3 posicion){
+    static_cast<TTransform*>(_nodo_motor->get_padre()->get_entidad())->trasladar(posicion._x, posicion._y, posicion._z);
+    static_cast<TCamara*>(_nodo_motor->get_entidad())->setVecPosition(glm::vec3(posicion._x, posicion._y, posicion._z));
+}
+
 //implementa de forma manual glm look at insertando en el arbol las rotaciones y traslaciones 
 //necesarias para que la camara apunte hacia un punto concreto del espacio 3D
 void iNodoCamara::LookAt(Vector3 position, Vector3 target){
@@ -79,4 +89,15 @@ void iNodoCamara::LookAt(Vector3 position, Vector3 target){
     det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
     angle = -(atan2f(_det,_dot)/M_PI)*180;*/
     //glm::mat4 matriz_vista 
+
+}
+
+void iNodoCamara::setPosition(Vector3 position){
+    static_cast<TCamara*>(_nodo_motor->get_entidad())->setVecPosition(
+                          glm::vec3(position._x, position._y, position._z));
+}
+
+void iNodoCamara::setTarget(Vector3 target){
+    static_cast<TCamara*>(_nodo_motor->get_entidad())->setVecTarget(
+                          glm::vec3(target._x, target._y, target._z));
 }

@@ -105,6 +105,7 @@ void Camara::set_position_interpolada(Vector3 position) {
 
 void Camara::Camara_setTarget(Vector3 targetPos) {
 	_target = glm::vec3(targetPos._x, targetPos._y, targetPos._z); 
+	_Camara->setTarget(targetPos);
 	//this->setTarget(targetPos); 
 }
 

@@ -6,7 +6,7 @@ TCamara::TCamara(){
 }
 TCamara::~TCamara(){}
 void TCamara::beginDraw(Shader* _i_shader){
-    
+
 }
 void TCamara::endDraw(){
 }
@@ -83,4 +83,12 @@ glm::mat4 TCamara::calculaView(){
 
     _matriz_view = matrixA * matrixB;
     return _matriz_view;
+}
+
+void TCamara::setVecPosition(glm::vec3 position){
+    _position = position;
+}
+
+void TCamara::setVecTarget(glm::vec3 target){
+    _target = target;
 }

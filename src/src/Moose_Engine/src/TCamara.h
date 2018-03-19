@@ -12,7 +12,11 @@ class TCamara : public TEntidad{
         void beginDraw(Shader* _i_shader) override;
         void endDraw();
         void setActiva(bool activa);
+
+
         glm::mat4 calculaView();
+        void setVecPosition(glm::vec3 position);
+        void setVecTarget(glm::vec3 target);
     private:
         bool es_perspectiva;
         bool _activa;
