@@ -27,7 +27,7 @@ public:
     void cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, const std::string &path);
     std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string &path);
     unsigned int TextureFromFile(const char *path, bool gamma);
-    TRecursoMalla* cargarMalla(aiMesh *mesh, const aiScene *scene, std::string path);		
+    TRecursoMalla* cargarMalla(aiMesh *mesh, const aiScene *scene,const std::string path);		
     void cargarAnim(std::string &path, std::vector<TRecursoModelado*> &_i_modelados);
     void cargarModelo(std::string &path,const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados);
 private:
