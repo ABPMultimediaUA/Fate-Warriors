@@ -133,10 +133,10 @@ void TGestorRecursos::cargarModelo(std::string &path){
         std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
         return;
     }
-    aux="models/"+path;//cambio de ruta para coger la ruta de la textura
+    aux="models/"+path+"/";//cambio de ruta para coger la ruta de la textura
     // coger el path
     //directory = path.substr(0, path.find_last_of('/'));
-    cargarNodo(scene->mRootNode, scene, _modelos, path);
+    cargarNodo(scene->mRootNode, scene, _modelos, aux);
     int width, height, nrChannels;
     
     unsigned int texture1, texture2;
@@ -162,7 +162,7 @@ void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector
     }
 }
 
-TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene, std::string path){
+TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,const std::string path){
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
