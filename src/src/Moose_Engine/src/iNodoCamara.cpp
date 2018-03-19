@@ -32,7 +32,7 @@ iNodoCamara::iNodoCamara(bool activa, float x, float y, float z){
     TTransform* transRotacion   = motor->crearTransform();
     TTransform* transEscalado   = motor->crearTransform();
 
-    transTraslacion->trasladar(x, y, z);
+    //transTraslacion->trasladar(x, y, z);
     
     TNodo* nodoRotacion   = motor->crearNodo(motor->nodoRaiz(), transRotacion);
     TNodo* nodoEscalado   = motor->crearNodo(nodoRotacion, transEscalado);
@@ -40,7 +40,7 @@ iNodoCamara::iNodoCamara(bool activa, float x, float y, float z){
 
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTraslacion, _camara);
     _nodo_motor = nodoCamara; //almacenamos el puntero al nodo del ME
-  
+    this->mover(x, y, z);
 }
 
 void iNodoCamara::mover(float x, float y, float z){
