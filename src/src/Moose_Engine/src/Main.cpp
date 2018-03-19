@@ -53,21 +53,24 @@ void recorrerArbol(){
 	TTransform* trans2 = motor->crearTransform();
 	TTransform* trans3 = motor->crearTransform();
     TTransform* trans4 = motor->crearTransform();
+    TTransform* trans5 = motor->crearTransform();
 
 	TLuz* luz = motor->crearLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
     TCamara* camara = motor->crearCamara(true);
-    const char cstr[] = "Carne.obj";
+    const char cstr[] = "suelo_t_1";
     TModelado* malla1 = motor->crearModelado(cstr);
 
     //trans1->escalar(0.5,0.25,0.5);
-    trans1->trasladar(5,0,-10);
+    trans1->trasladar(1,0,0);
     trans2->rotar(0,1,0,90);
-    trans3->trasladar(0,0,10);
-    trans4->rotar(0,1,1,45);
+    trans3->trasladar(0,10,500);
+    trans4->rotar(0,1,1,1);
+    //trans5->rotar(0,1,0,10);
     
 
     TNodo* nodoTrans1 = motor->crearNodo(motor->nodoRaiz(), trans1);
     TNodo* nodoTrans2 = motor->crearNodo(motor->nodoRaiz(), trans2);
+    //TNodo* nodoTrans5 = motor->crearNodo(motor->nodoRaiz(), trans3);
     TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
     TNodo* nodoTrans4 = motor->crearNodo(nodoTrans1, trans4);
     
