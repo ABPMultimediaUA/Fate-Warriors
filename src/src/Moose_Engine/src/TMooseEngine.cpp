@@ -32,7 +32,7 @@ TMooseEngine::TMooseEngine(){
     _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
-    _shader = new Shader("src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
+    _shader = new Shader("src/Moose_Engine/Shaders/vertex_basic.glsl", "src/Moose_Engine/Shaders/fragment_basic.glsl");
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -45,13 +45,39 @@ TMooseEngine::~TMooseEngine(){
     glfwTerminate();
 }
 
+void micallback(GLFWwindow* oglwindow, double _i_xpos, double _i_ypos){
+    TMooseEngine::get_instancia()->mouse_callback(oglwindow, _i_xpos, _i_ypos);
+}
+
+void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    std::cout<<"FUNCIONO \n";
+    if (_firstMouse)
+    {
+        _lastX = xpos;
+        _lastY = ypos;
+        _firstMouse = false;
+    }
+
+    float xoffset = xpos - _lastX;
+    float yoffset = _lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+    _lastX = xpos;
+    _lastY = ypos;
+    
+    setMouseOffsetX(xoffset);
+    setMouseOffsetY(yoffset);
+    //camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
 void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     window = glfwCreateWindow(width, height, "MooseEngine", NULL, NULL);
-   
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, micallback);
 
     if (window == NULL){
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -71,6 +97,22 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
+}
+
+float TMooseEngine::getMouseOffsetX(){
+    return _offsetX;
+}
+
+float TMooseEngine::getMouseOffsetY(){
+    return _offsetY;
+}
+
+void TMooseEngine::setMouseOffsetX(float offset){
+    _offsetX = offset;
+}
+
+void TMooseEngine::setMouseOffsetY(float offset){
+    _offsetY = offset;
 }
 
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     

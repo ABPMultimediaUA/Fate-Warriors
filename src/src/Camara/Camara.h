@@ -39,7 +39,7 @@ public:
 	void interpola_posicion(float _i_interpolacion);
 	void interpola_target(Vector3 _i_posicion_interpolada);
 	void Camara_reset(short _i_direccion);
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 private:
 	//las nuevas variables de escena del ME
@@ -61,7 +61,7 @@ private:
 	
 	//IrrlichtDevice* _Cdevice;
 
-	//core::vector3df _inicial; //vector de direccion inicial 
+	
 									//hacia donde mira la camara como referencia
 
 	float _dot, _det, _angle, _angleRad;

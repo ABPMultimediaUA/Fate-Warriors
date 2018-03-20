@@ -40,8 +40,18 @@ class TMooseEngine{
 
         void draw();
         bool ventana_abierta();
+	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+        
+        float getMouseOffsetX();
+        float getMouseOffsetY();
 
     private:
+
+        void setMouseOffsetX(float offset);
+        void setMouseOffsetY(float offset);
+
+        float _offsetX, _offsetY;
+
         TMooseEngine();
         static TMooseEngine* _instancia;
         std::vector<Mapeado*> _mapping_camaras;
@@ -62,6 +72,10 @@ class TMooseEngine{
         void init_opengl(uint16_t width, uint16_t height);
         void clear();
         
+        //GLFW mouse input
+	    float _lastX, _lastY, _xpos, _ypos;
+	    bool _firstMouse;
+
         //atributos para camaras, luces y demás
 };
 

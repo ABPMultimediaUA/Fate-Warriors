@@ -140,9 +140,10 @@ void Camara::Camara_Update() {
 	_changeY = 0;
 	
 	//input de raton de openGL BOIIIII
-	//glfwSetInputMode(_OGLWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+	//glfwSetInputMode(_OGLWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetCursorPosCallback(_OGLWindow, mouse_callback);  
 	//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	//glfwSetCursorPosCallback(_OGLWindow, mouse_callback); 
+	 
 
 	
 
@@ -155,8 +156,6 @@ void Camara::Camara_Update() {
 		//_changeY = (cursorPos.Y - 0.5) * _sensibilidadY; 
 //
 		//_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
-
-		//std::cout << "Por Irrlicht\n";
 	}
 
 	else {
@@ -213,7 +212,7 @@ void Camara::update_position() {
 	// Antes de nada nos aseguramos de que el prota ha sido inicializado 
 	if (_Prota != nullptr) {
 		// Posicion estándar del jugador que usaremos para el seguimiento de la camara
-		core::vector3df playerPos = core::vector3df(
+			Vector3 playerPos(
 					_Prota-> getPosition()._x, 
 					_Prota-> getPosition()._y,  //falta el -protaboundingcenter Y 
 					_Prota-> getPosition()._z); 
@@ -223,14 +222,13 @@ void Camara::update_position() {
 		if(!_unlocked){
 			distancia = 20.0f;}
 		else{
-			distancia = 200.0f;
-		}
+			distancia = 200.0f;}
 
-		float xf = playerPos.X - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * distancia; 
+		float xf = playerPos._x - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * distancia; 
 		
-		float yf = playerPos.Y - sin(_zdirection * irr::core::PI / 180.0f) * distancia; 
+		float yf = playerPos._y - sin(_zdirection * irr::core::PI / 180.0f) * distancia; 
 
-		float zf = playerPos.Z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * distancia; 
+		float zf = playerPos._z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * distancia; 
 
 		if (_Prota-> getPosition()._y >= 0) {	// Calculos de la camara para una Y positiva
 			
@@ -282,40 +280,6 @@ void Camara::update_position() {
 
 	}
 }
-
-
-void Camara::mouse_callback(GLFWwindow* window, double xpos, double ypos){
-   /*
-    if(firstMouse){
-        _lastX = _xpos;
-        _lastY = _ypos;
-        firstMouse = false;
-    }
-  
-    float xoffset = _xpos - _lastX;
-    float yoffset = _lastY - _ypos; 
-    _lastX = _xpos;
-    _lastY = _ypos;
-
-    float sensitivity = 0.05;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    yaw   += xoffset;
-    pitch += yoffset;
-
-    if(pitch > 89.0f)
-        pitch = 89.0f;
-    if(pitch < -89.0f)
-        pitch = -89.0f;
-
-    glm::vec3 front;
-    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front.y = sin(glm::radians(pitch));
-    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(front);
-	*/
-} 
 
 float Camara::Camara_getAngle(){
 	return(_angle);

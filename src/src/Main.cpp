@@ -37,9 +37,8 @@ int main(){
 
     Motor* _motor = Motor::Motor_GetInstance();
 	_motor->crearLuz(true, 100, Vector3(1,1,1), Vector3(1,1,1), Vector3(1,1,1), 0, 20, 0);
-	iNodoCamara* camarica = _motor->crearCamara(true, 10, 15, 0);
-
-    camarica->setTarget(Vector3(40,10,2));
+	iNodoCamara* camarica = _motor->crearCamara(true, -50, 30, -50);
+    //camarica->setTarget(Vector3(300,10,300));
 	iNodoModelado* carne = _motor->crearModelado("Carne",40, 10, 2);
 	
 	for(int i=0; i<20; i++){

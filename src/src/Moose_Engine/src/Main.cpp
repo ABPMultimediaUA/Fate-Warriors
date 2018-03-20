@@ -215,8 +215,8 @@ int dibujarOpenGL(){
     vShaderFile.exceptions(std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::badbit);
 
-    const GLchar* vertex_path = "src/Moose_Engine/Shaders/vertex_prueba.glsl";
-    const GLchar* fragment_path = "src/Moose_Engine/Shaders/fragment_prueba.glsl";
+    const GLchar* vertex_path = "src/Moose_Engine/Shaders/vertex_basic.glsl";
+    const GLchar* fragment_path = "src/Moose_Engine/Shaders/fragment_basic.glsl";
 
 
 
