@@ -39,6 +39,7 @@ public:
 	void interpola_posicion(float _i_interpolacion);
 	void interpola_target(Vector3 _i_posicion_interpolada);
 	void Camara_reset(short _i_direccion);
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 private:
 	//las nuevas variables de escena del ME
@@ -48,13 +49,17 @@ private:
 	glm::vec3 _target; 		   //target de la camara
 	iNodoCamara* _Camara;  //camara de irrlicht
 	
+	//GLFW mouse input
+	float _lastX, _lastY, _xpos, _ypos;
+	bool _firstMouse;
+
 	//---//
 	
 	
 	iNodoModelado* _Prota;         //personaje protagonista A.K.A Target
 	core::vector3df _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
 	
-	IrrlichtDevice* _Cdevice;
+	//IrrlichtDevice* _Cdevice;
 
 	//core::vector3df _inicial; //vector de direccion inicial 
 									//hacia donde mira la camara como referencia
@@ -70,7 +75,7 @@ private:
 	float _changeX;
 	float _changeY;
 	glm::vec3 _camaraDir; //direccion hacia la que mira la camara que se actualiza en el update
-	core::position2d<f32> cursorPos;
+	float cursorPos;
 	unsigned short _gradosRotacion;
 	Input* _input; 	// Input del control de camara
 	bool _unlocked; //para que se pueda desbloquear la camara y mandarla a cuenca si se quiere

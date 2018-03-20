@@ -140,16 +140,16 @@ void Camara::Camara_Update() {
 	_changeY = 0;
 	
 	//input de raton de openGL BOIIIII
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
-	//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	//glfwSetCursorPosCallback(window, mouse_callback); 
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	glfwSetCursorPosCallback(window, mouse_callback); 
 
 	
 
 	// Esto se hace hasta que se pueda usar el de Input sin que se choque con los bordes de pantalla y se quede atascado el raton
 	if(_input->get_posiciona_camara() && _input->get_mover_camara()) {
 		// Obtener la posicion del cursor
-		cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
+		//cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
 
 		_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
 		_changeY = (cursorPos.Y - 0.5) * _sensibilidadY; 
@@ -205,6 +205,8 @@ void Camara::Camara_Update() {
 
 	update_position();
 }
+
+
 
 
 void Camara::update_position() {
@@ -281,6 +283,37 @@ void Camara::update_position() {
 	}
 }
 
+
+void Camara::mouse_callback(GLFWwindow* window, double xpos, double ypos){
+    if(firstMouse){
+        _lastX = _xpos;
+        _lastY = _ypos;
+        firstMouse = false;
+    }
+  
+    float xoffset = _xpos - _lastX;
+    float yoffset = _lastY - _ypos; 
+    _lastX = _xpos;
+    _lastY = _ypos;
+
+    float sensitivity = 0.05;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    yaw   += xoffset;
+    pitch += yoffset;
+
+    if(pitch > 89.0f)
+        pitch = 89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+
+    glm::vec3 front;
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(glm::radians(pitch));
+    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(front);
+} 
 
 float Camara::Camara_getAngle(){
 	return(_angle);
