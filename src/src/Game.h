@@ -57,6 +57,9 @@ private:
 
 	void (Game::*update_actual)(double);
 	void (Game::*render_actual)(float);
+	void (Game::*render_borrar)();
+
+	void finalizar_esta_partida();
 
 	void update_menu(double _i_tiempo_desde_ultimo_update);			// Update del menu
 	void update_partida(double _i_tiempo_desde_ultimo_update);		// Update de partida

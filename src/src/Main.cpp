@@ -60,15 +60,14 @@ int main(){
 				Servidor* servidor = Servidor::getInstance();
 				servidor->check_and_send_mesages();
 			}
-			/*
+			
 			else{
 				Cliente* cliente = Cliente::getInstance();
 				cliente->check_and_send_mesages();
 			}
-			*/
+			
 		}
-		
-                
+		      
 		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
 			_h_ultimo_update=time->get_current_sin_pausas();
             //std::cout << "pre update" << std::endl;

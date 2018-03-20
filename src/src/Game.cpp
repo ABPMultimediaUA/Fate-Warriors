@@ -110,12 +110,12 @@ void Game::crea_partida_online(){
 
 	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
 
-
 }
 
 
 void Game::fin_partida() {
 	delete _datos;
+	_datos = nullptr;
 
 	delete _decision_manager;
 
@@ -137,14 +137,15 @@ void Game::fin_partida() {
 
 void Game::fin_partida_online() {
 	delete _datos;
+	_datos = nullptr;
 
-	delete _decision_manager;
+	//delete _decision_manager;
 
-	delete _action_manager;
+//	delete _action_manager;
 	
-	delete _consumibles_action;
+//	delete _consumibles_action;
 
-	delete _trampas_action;
+//	delete _trampas_action;
 
 	_input_jugador->asignar_teclas_menu();
 
@@ -250,6 +251,11 @@ void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
     }
 }
 
+void Game::finalizar_esta_partida(){
+	(*this.*render_borrar)();
+}
+
+
 
 // ------------------------------------ FUNCIONES DE RENDER ------------------------------------
 
@@ -259,6 +265,7 @@ void Game::render(float _i_interpolacion){
 
 void Game::render_menu(float _i_interpolacion){
 }
+
 
 void Game::render_partida(float _i_interpolacion){
 	_motor->render(_i_interpolacion);
@@ -275,13 +282,15 @@ void Game::render_pausa(float _i_interpolacion){
 void Game::cambio_a_update_menu() {
 	update_actual = &Game::update_menu;
 	render_actual = &Game::render_menu;
-	fin_partida();
+	finalizar_esta_partida();
 }
 
 
 void Game::cambio_a_update_partida() {
 	update_actual = &Game::update_partida;
 	render_actual = &Game::render_partida;
+	render_borrar = &Game::fin_partida;
+
 	Time::Instance()->reanudar_reloj();
 	_input_jugador->asignar_teclas_partida();
 }
@@ -289,6 +298,8 @@ void Game::cambio_a_update_partida() {
 void Game::cambio_a_update_online() {
 	update_actual = &Game::update_online;
 	render_actual = &Game::render_partida;
+	render_borrar = &Game::fin_partida_online;
+
 	Time::Instance()->reanudar_reloj();
 	_input_jugador->asignar_teclas_partida();
 }
