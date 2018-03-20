@@ -19,27 +19,27 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 	//										); 
 	//_Camara = smgr->addCameraSceneNodeFPS();
 	
-	_Cdevice = device; 
-	_Cdevice->getCursorControl()->setVisible(false); 
+	//_Cdevice = device; 
+	//_Cdevice->getCursorControl()->setVisible(false); 
 	//_inicial = core::vector3df(0,0,1);
 	//Vector3 _inicial_aux(_inicial.X,_inicial.Y,_inicial.Z);
-
-	_Prota = 0; 
-	_direction = 0; 
-	_zdirection = -20;
-	//_position = core::vector3df(0, 0, 0); 
-	//_target = core::vector3df(1, 1, 1); 
-	_xf = 0; 
-	_yf = 0; 
-	_zf = 0; 
-	_sensibilidadX = 256; 
-	_sensibilidadY = 256; 
-	_changeX = 0; 
-	_changeY = 0; 			
-	_dot = _det = _angle = _angleRad = 0;
-	//_interpolacion = new Interpolacion(_inicial_aux);		
-	//_interpolacion_colision = new Interpolacion(_inicial_aux);
-	_unlocked = false;	//angel busca esto	
+//
+	//_Prota = 0; 
+	//_direction = 0; 
+	//_zdirection = -20;
+	////_position = core::vector3df(0, 0, 0); 
+	////_target = core::vector3df(1, 1, 1); 
+	//_xf = 0; 
+	//_yf = 0; 
+	//_zf = 0; 
+	//_sensibilidadX = 256; 
+	//_sensibilidadY = 256; 
+	//_changeX = 0; 
+	//_changeY = 0; 			
+	//_dot = _det = _angle = _angleRad = 0;
+	////_interpolacion = new Interpolacion(_inicial_aux);		
+	////_interpolacion_colision = new Interpolacion(_inicial_aux);
+	//_unlocked = false;	//angel busca esto	
 }
 
 Camara::Camara(bool activa, GLFWwindow* _i_window) {
@@ -140,9 +140,9 @@ void Camara::Camara_Update() {
 	_changeY = 0;
 	
 	//input de raton de openGL BOIIIII
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	glfwSetCursorPosCallback(window, mouse_callback); 
+	//glfwSetInputMode(_OGLWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+	//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	//glfwSetCursorPosCallback(_OGLWindow, mouse_callback); 
 
 	
 
@@ -151,10 +151,10 @@ void Camara::Camara_Update() {
 		// Obtener la posicion del cursor
 		//cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
 
-		_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
-		_changeY = (cursorPos.Y - 0.5) * _sensibilidadY; 
-
-		_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
+		//_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
+		//_changeY = (cursorPos.Y - 0.5) * _sensibilidadY; 
+//
+		//_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
 
 		//std::cout << "Por Irrlicht\n";
 	}
@@ -285,6 +285,7 @@ void Camara::update_position() {
 
 
 void Camara::mouse_callback(GLFWwindow* window, double xpos, double ypos){
+   /*
     if(firstMouse){
         _lastX = _xpos;
         _lastY = _ypos;
@@ -313,6 +314,7 @@ void Camara::mouse_callback(GLFWwindow* window, double xpos, double ypos){
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(front);
+	*/
 } 
 
 float Camara::Camara_getAngle(){
