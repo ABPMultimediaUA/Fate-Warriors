@@ -20,6 +20,9 @@ public:
 	void render() override;
 	void comprobar_input(Enum_Inputs key_press);
 
+	void intoducir_movimiento(float x, float y);
+
+
 	void modificar_vida_en(short _i_vida)	override;
 	void danyar(short _danyo) 				override;
 	void set_vida(short _i_vida) 			override;
@@ -28,6 +31,9 @@ public:
 	void disminuir_especial();
 	bool _puede_actualizar;
 	//ckeyboardman* _KeyMan;
+
+protected:
+	std::vector<float> movimientos;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
 	Motor* _motor;
@@ -38,6 +44,7 @@ private:
 	//Time * _tiempo;
 	Input* _input;
 	bool es_jugador_online;
+	
 };
 
 #endif /* SRC_PLAYER_H_ */

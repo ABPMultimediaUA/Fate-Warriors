@@ -148,8 +148,14 @@ void Player::update(){
         Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
     }
 
+
+
 }
 
+
+void Player::intoducir_movimiento(float x, float y){
+    movimientos.push_back(x);
+}
 
 
 
@@ -157,7 +163,7 @@ void Player::update_online(){
     //std::cout<< "ACCION_ACTUAL: "<< _accion << "\n";
     	std::vector<Enum_Inputs> inputs;
     if (_vida>0){
-     if(/*Motor::Motor_GetInstance()->motor_envia_inputs() &&*/  Cliente::getInstance()->_puede_actualizar){
+     if(/*Motor::Motor_GetInstance()->motor_envia_inputs() &&  Cliente::getInstance()->_puede_actualizar */ 0 == 0){
 
     gestion_acciones();
 
@@ -171,7 +177,6 @@ void Player::update_online(){
         // Direccion buena con respecto de la camara
         uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
         while(_direccion_buena >= 360) _direccion_buena -= 360;
-        std::cout<< "me voy a mover desde el player \n";
         //s_sonido->Play_ambiente(2);
      //   mover(_direccion_buena, _tiempo->get_tiempo_desde_ultimo_update());
         if(!es_jugador_online){
@@ -281,7 +286,10 @@ void Player::update_online(){
         Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
     }
     //Cliente::getInstance()->send_desplazamiento(0,getX(),getZ());
-    
+    if(movimientos.size()>0){
+        mover(movimientos[0], 80);
+        movimientos.erase(movimientos.begin());
+    }
 
 }
 

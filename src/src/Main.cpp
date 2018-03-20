@@ -55,18 +55,19 @@ int main(){
 		time->set_tiempo_desde_ultimo_update(time->get_current_sin_pausas() - _h_ultimo_update);//actualizacion del reloj
 		//std::cout << "Tiempo desde update " << time->get_tiempo_desde_ultimo_update() << std::endl;
 		//update
-	/*	if(_juego->game_get_datos() != nullptr){
+		if(_juego->game_get_datos() != nullptr){
 			if(_juego->game_get_datos()->get_is_server()){
 				Servidor* servidor = Servidor::getInstance();
 				servidor->check_and_send_mesages();
 			}
+			/*
 			else{
 				Cliente* cliente = Cliente::getInstance();
 				cliente->check_and_send_mesages();
 			}
-		
+			*/
 		}
-		*/
+		
                 
 		if(time->get_tiempo_desde_ultimo_update()>t_min_IA){
 			_h_ultimo_update=time->get_current_sin_pausas();

@@ -66,6 +66,10 @@ void Player_Online::update(){
     }
     //Cliente::getInstance()->send_desplazamiento(0,getX(),getZ());
     
+    if(movimientos.size()>0){
+        mover(movimientos[0], 80);
+        movimientos.erase(movimientos.begin());
+    }
 
 }
 

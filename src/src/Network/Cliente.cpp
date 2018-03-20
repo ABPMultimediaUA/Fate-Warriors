@@ -87,7 +87,6 @@ void Cliente::send_player_move(std::vector<Enum_Inputs> vector_keypresed, short 
 	RakNet::BitStream bitstream;
 	Enum_Inputs key_press;
 
-	//std::cout << number_of_inputs << "Envio mensaje de tipo ya he actualizado" << std::endl;
 	bitstream.Write((RakNet::MessageID)ID_PLAYER_MOVE);
 	bitstream.Write(number_of_inputs);
 		for(short a = 0; a < number_of_inputs; a++){
@@ -115,7 +114,6 @@ void Cliente::send_desplazamiento(short id, float x, float y){
 	RakNet::Time time = RakNet::GetTime();
 	bitstream.Write(time);
 
-	std::cout << (double)time << "TIEMPO DEL CLIENTE \n";
 
 	peer->Send(&bitstream, LOW_PRIORITY, RELIABLE_ORDERED, 0, RakNet::UNASSIGNED_RAKNET_GUID, true);
 	_puede_actualizar = false;
@@ -138,7 +136,6 @@ void Cliente::recive_join_message(){
 	bitstream.Read(id);
 	bitstream.Read(x);
 	bitstream.Read(y);
-	std::cout << "han creado a mi hermano ------------------------------ \n";
 	players[id] = Game::game_instancia()->game_get_datos()->crear_jugador(x,y);   //-> //anyadir_jugador(); ESTO ES LO QUE PONIA
 	_puede_actualizar =true;
 	//players[id] =  Game::game_instancia()->game_get_datos()->get_player();
@@ -146,10 +143,7 @@ void Cliente::recive_join_message(){
 
 
 void Cliente::asociar_player(Player* _player_asociado){
-	//RakNet::RakNetGUID = 
-	//std::cout << "zorra"<< << std::endl;
 	players[peer->GetMyGUID()] = _player_asociado;
-	//RakPeer::GetGuidFromSystemAddress(UNASSIGNED_SYSTEM_ADDRESS);
 }
 
 
@@ -163,7 +157,6 @@ void Cliente::recive_existing_message(){
 	bitstream.Read(x);
 	bitstream.Read(y);
 
-	std::cout << id.ToString() << "VALOR DE CUANDO SE CREA \n" ;
 	players[id] = Game::game_instancia()->game_get_datos()->crear_jugador(x,y);
 	   //-> //anyadir_jugador();  ESTOO ES LO QUE PONIA
 	//_puede_actualizar = true;
@@ -182,14 +175,11 @@ void Cliente::recive_move_message(){
 	bitstream.Read(id);
 	bitstream.Read(number_of_inputs);
 
-	// std::cout << number_of_inputs << "<- Recibo mensaje del otro jugador \n";
 	if(Game::game_instancia()->game_get_datos()->dame_jugadores_online().size()>0)
 
 	for(; number_of_inputs; number_of_inputs--){
 		bitstream.Read(key_press);
-		//keys.push_back(key_press);<
-	//	    std::cout << key_press << "el valor que recibo como mensaje es este \n";
-
+		//keys.push_back(key_press);
 		players[id]->comprobar_input(key_press); //->actualizar_by_id(1, key_press); ESTO ES LO QUE PONIA
 	}
 }
@@ -204,14 +194,15 @@ void Cliente::recive_move_message_enemy(){
 	bitstream.Read(x);
 	bitstream.Read(y);
 	
-//0	if(Game::game_instancia()->game_get_datos()->dame_jugadores_online().size()>0)
-//	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[0]->mover(x, y); //->actualizar_posicion_enemigo(x,y,id); ESTO ES LO QUE PONIA
-	std::cout << id.ToString() << "voy a intentar actualizar este valor" << std::endl;
-	players[id]->mover(x, y - peer->GetLastPing(packet->guid));
+				std::cout << "me llega un mensaje SOY CLIENTE ------------------- \n";
+
+//	players[id]->mover(x, y - peer->GetLastPing(packet->guid));
 	if(Game::game_instancia()->game_get_datos()->get_player() == players[id])
 		_puede_actualizar = true;
-	std::cout << id.ToString() << "ACTUALIZADO" << std::endl;
 
+
+	std::cout << "movimiento del jugador " << id.ToString() << std::endl;
+	players[id]->intoducir_movimiento(x,y);
 
 }
 
@@ -223,10 +214,8 @@ void Cliente::posicionar_player(){
 	bitstream.Read(id);
 	bitstream.Read(x);
 	bitstream.Read(y);
-	//if(Game::game_instancia()->game_get_datos()->dame_jugadores_online().size()>0)
-	//Game::game_instancia()->game_get_datos()->dame_jugadores_online()[0]->mover(x, y); //->actualizar_posicion_enemigo(x,y,id); ESTO ES LO QUE PONIA
-	_puede_actualizar = true;
-	std::cout << "llego aqui al menos"<< id.ToString()<< std::endl;
+
+	//_puede_actualizar = true;
 	players[id]->setPositionXZ(x,y);
 }
 
