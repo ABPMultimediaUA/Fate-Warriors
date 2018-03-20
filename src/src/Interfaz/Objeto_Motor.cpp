@@ -127,7 +127,7 @@ void Objeto_Motor::saltar(){
 }
 
 void Objeto_Motor::Dash(uint16_t _i_direccion){
-	short potencia = 6000;
+	short potencia = 4000;
 	Impulso(_i_direccion, potencia);
 }
 

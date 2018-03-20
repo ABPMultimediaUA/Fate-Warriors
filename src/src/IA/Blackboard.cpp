@@ -485,17 +485,39 @@ void Blackboard::actualizar_interruptores(){
 				&& interruptores[i]->get_npcs_persiguiendome() < 1){
 
 					if(zona1 != _zona_actual && zona1->get_equipo() != _npc_padre->get_equipo()){
-						interruptor_aux = interruptores[i];
-						distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+
+						int num_enemigos_zona = 0;
+
+						if(_npc_padre->get_equipo() == Enum_Equipo_A){
+							num_enemigos_zona = zona1->_num_characters_equipo_B;
+						}
+						else{
+							num_enemigos_zona = zona1->_num_characters_equipo_A;
+						}
+
+						if(num_enemigos_zona > 2){
+							interruptor_aux = interruptores[i];
+							distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+						}
+						
 					}
 					else if(zona2 != _zona_actual && zona2->get_equipo() != _npc_padre->get_equipo()){
-						interruptor_aux = interruptores[i];
-						distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+
+						int num_enemigos_zona = 0;
+
+						if(_npc_padre->get_equipo() == Enum_Equipo_A){
+							num_enemigos_zona = zona2->_num_characters_equipo_B;
+						}
+						else{
+							num_enemigos_zona = zona2->_num_characters_equipo_A;
+						}
+
+						if(num_enemigos_zona > 2){
+							interruptor_aux = interruptores[i];
+							distancia_a_interruptor_mas_cerca = distancia_a_interruptor;
+						}
 					}
-
 				}
-
-				
 			}
 
 			_interruptor_cerca_util = interruptor_aux;
