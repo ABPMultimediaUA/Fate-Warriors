@@ -44,6 +44,8 @@ struct Vector3{
 	float _z;
 
 	//Constructor
+	Vector3(){}
+	//Constructor
 	Vector3(float _i_x, float _i_y, float _i_z);
 
 	//Para floats	

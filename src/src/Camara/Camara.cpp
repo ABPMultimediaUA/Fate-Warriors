@@ -12,50 +12,27 @@
 
 #include <iostream> 
 
-Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
-	//_Camara = smgr-> addCameraSceneNode(0, 
-	//									core::vector3df(0, 0, 0), 
-	//									core::vector3df(1, 1, 1)
-	//										); 
-	//_Camara = smgr->addCameraSceneNodeFPS();
-	
-	//_Cdevice = device; 
-	//_Cdevice->getCursorControl()->setVisible(false); 
-	//_inicial = core::vector3df(0,0,1);
-	//Vector3 _inicial_aux(_inicial.X,_inicial.Y,_inicial.Z);
-//
-	//_Prota = 0; 
-	//_direction = 0; 
-	//_zdirection = -20;
-	////_position = core::vector3df(0, 0, 0); 
-	////_target = core::vector3df(1, 1, 1); 
-	//_xf = 0; 
-	//_yf = 0; 
-	//_zf = 0; 
-	//_sensibilidadX = 256; 
-	//_sensibilidadY = 256; 
-	//_changeX = 0; 
-	//_changeY = 0; 			
-	//_dot = _det = _angle = _angleRad = 0;
-	////_interpolacion = new Interpolacion(_inicial_aux);		
-	////_interpolacion_colision = new Interpolacion(_inicial_aux);
-	//_unlocked = false;	//angel busca esto	
-}
 
-Camara::Camara(bool activa, GLFWwindow* _i_window) {
+Camara::Camara(bool activa) {
 	//_Camara = smgr-> addCameraSceneNode(0, 
 	//									core::vector3df(0, 0, 0), 
 	//									core::vector3df(1, 1, 1)
 	//										); 
 	//_Camara = smgr->addCameraSceneNodeFPS();
 
-	_OGLWindow = Motor::Motor_GetInstance()->getEngine()->getWindow();
+	//_OGLWindow = Motor::Motor_GetInstance()->getEngine()->getWindow();
 	
 	//_Cdevice = device; 
 	//_Cdevice->getCursorControl()->setVisible(false); 
 	//_inicial = core::vector3df(0,0,1);
+	_Camara = new iNodoCamara(activa);
 	_inicial = glm::vec3(0,0,1);
-	Vector3 _inicial_aux(_inicial.x,_inicial.y,_inicial.z);
+
+	float fx = _inicial.x;
+	float fy = _inicial.y;
+	float fz = _inicial.z;
+	
+	Vector3 _inicial_aux(fx,fy,fz);
 
 	_Prota = 0; 
 	_direction = 0; 
@@ -71,8 +48,8 @@ Camara::Camara(bool activa, GLFWwindow* _i_window) {
 	_changeX = 0; 
 	_changeY = 0; 			
 	_dot = _det = _angle = _angleRad = 0;
-	_interpolacion = new Interpolacion(_inicial_aux);		
-	_interpolacion_colision = new Interpolacion(_inicial_aux);
+	_interpolacion = new Interpolacion(Vector3(_inicial_aux._x, _inicial_aux._y, _inicial_aux._z));		
+	_interpolacion_colision = new Interpolacion(Vector3(_inicial_aux._x, _inicial_aux._y, _inicial_aux._z));
 	_unlocked = false;	//angel busca esto	
 }
 
@@ -150,6 +127,11 @@ void Camara::Camara_Update() {
 	// Esto se hace hasta que se pueda usar el de Input sin que se choque con los bordes de pantalla y se quede atascado el raton
 	if(_input->get_posiciona_camara() && _input->get_mover_camara()) {
 		// Obtener la posicion del cursor
+		float offX = TMooseEngine::get_instancia()->getMouseOffsetX();
+		float offY = TMooseEngine::get_instancia()->getMouseOffsetY();
+
+		_changeX = (offX - 0.5) * _sensibilidadX;
+		_changeY = (offY - 0.5) * _sensibilidadY;
 		//cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
 
 		//_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
@@ -236,25 +218,25 @@ void Camara::update_position() {
 			//std::cout << playerPos.Y << std::endl; 
 			this->Camara_setPosition(
 					Vector3(xf, 
-							yf + _ProtaBoundingCenter.Y, 
+							yf + _ProtaBoundingCenter._y, 
 							zf)); 
 			
 			this->Camara_setTarget(	
-					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
-							_Prota-> getPosition()._y + _ProtaBoundingCenter.Y * 1.5f, 
-							_Prota-> getPosition()._z + _ProtaBoundingCenter.Z)); 
+					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
+							_Prota-> getPosition()._y + _ProtaBoundingCenter._y * 1.5f, 
+							_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
 				
 		}
 		
 		else {	// Calculos de la camara para una Y negativa
 			this->Camara_setPosition(
 					Vector3(xf, 
-							yf - _ProtaBoundingCenter.Y - _Prota->getPosition()._y, zf)); 
+							yf - _ProtaBoundingCenter._y - _Prota->getPosition()._y, zf)); 
 			
 			this->Camara_setTarget(
-					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter.X, 
-							(_ProtaBoundingCenter.Y * 0.5), 
-							_Prota-> getPosition()._z + _ProtaBoundingCenter.Z)); 
+					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
+							(_ProtaBoundingCenter._y * 0.5), 
+							_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
 		}
 		
 		

@@ -42,11 +42,10 @@ class TMooseEngine;
 class Motor{
 
 public:
-
     static Motor* Motor_GetInstance();
 
-   ~Motor();
-   void vaciar_motor();
+    ~Motor();
+    void vaciar_motor();
    
     void apagar();
 
@@ -55,15 +54,14 @@ public:
     void preparar_depuracion_mundo();
     iNodoModelado* importarEscenario(const char* rutaObj, float x, float y, float z);
 
-  
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
     
-    iNodoModelado* crearModelado(const char*  ruta,float x, float y, float z);
-    iNodoModelado* crearModelado(const char*  ruta);
-    iNodoCamara* crearCamara(bool activa); 
-    iNodoCamara* crearCamara(bool activa, float x, float y, float z);
+    iNodoModelado* crearModelado(const char* ruta, float x, float y, float z);
+    iNodoModelado* crearModelado(const char* ruta);
+    Camara* crearCamara(bool activa); 
+    Camara* crearCamara(bool activa, float x, float y, float z);
     
     iNodoLuz* crearLuz(bool activa, float intensidad, 
                                     Vector3 ambient,
@@ -102,21 +100,20 @@ public:
     
     void set_text_vida(int _i_vida);
     
-    //void updateCamaraColision();
-
+    void updateCamaraColision();
     void interpola_posiciones(float _i_interpolacion);
     void resetear_camara();
     void getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad);
 
     void borrar_objeto(Objeto_Motor* _objeto_motor);
-    void borrar_rb(btRigidBody* rb); // Mejorar
+    void borrar_rb(btRigidBody* rb);
 
     //float angulo_camara();
     //float angulo_camaraRAD();
     
     bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
     void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
-    //bool comprobar_colision_ataque(btRigidBody *character_atacado);
+    bool comprobar_colision_ataque(btRigidBody *character_atacado);
  
     bool ventana_abierta();
     inline TMooseEngine* getEngine(){ return _me;}

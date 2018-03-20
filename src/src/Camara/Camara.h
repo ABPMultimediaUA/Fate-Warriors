@@ -17,8 +17,8 @@ class iNodoCamara;
 class Camara{
 
 public:
-	Camara(scene::ISceneManager* smgr, IrrlichtDevice* device);
-	Camara(bool activa, GLFWwindow* _i_window);
+	//Camara(scene::ISceneManager* smgr, IrrlichtDevice* device);
+	Camara(bool activa);
 	~Camara();
 	
 	void Camara_setPosition(Vector3 position);
@@ -57,7 +57,7 @@ private:
 	
 	
 	iNodoModelado* _Prota;         //personaje protagonista A.K.A Target
-	core::vector3df _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
+	Vector3 _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
 	
 	//IrrlichtDevice* _Cdevice;
 
