@@ -41,7 +41,7 @@ endef
 
 .PHONY: all
 all: dir $(ODIR) $(TARGET)
-	chmod +x $(TARGET)
+	chmod a+x $(TARGET)
 .PHONY: release
 release: opt all
 comw:
