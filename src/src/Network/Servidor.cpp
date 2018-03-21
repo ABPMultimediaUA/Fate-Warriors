@@ -151,45 +151,24 @@ void Servidor::check_and_send_mesages(){
 				stream.Read(position.y);
 				stream.Read(tiempo_recibido);
 
-
 				players[packet->guid]->intoducir_movimiento(Ninguno, position.x, position.y);
-
-			//	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->mover(position.x,_reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid));
-			//	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->set_direccion_actual(position.x);
 				std::cout << position.y << "me llega un mensaje ------------------- \n";
 			
-			
-				RakNet::Time tiempo = peer->GetClockDifferential(packet->guid);
-				RakNet::Time serverTime = RakNet::GetTime() + tiempo;
-
-
-				//std::cout << "TIEMPO DEL SERVIDOR " << (double) serverTime << tiempo_recibido  << std::endl;
-				
-			//	printf("Time difference is %" PRINTF_64_BIT_MODIFIER "u\n",  tiempo_recibido);
-
-			//	std::cout <<  (int) (time - tiempo_recibido)<< " <- mira aqui" << std::endl;
-
-
-
-				position.y =_reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid);
+				//position.y =_reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid);
 
 				RakNet::BitStream posUpdate;
-				posUpdate.Write((RakNet::MessageID)ID_ENEMY_MOVE); //Client getting "ID_PLAYER_MOVE", know's it's a different player
-				posUpdate.Write(packet->guid); //Send Raknet ID of the enemy
+				posUpdate.Write((RakNet::MessageID)ID_ENEMY_MOVE);
+				posUpdate.Write(packet->guid); 
 				posUpdate.Write(position.x);
 				posUpdate.Write(position.y);
 
 				float  mult = 4.9212625;
 
 
-			//	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->setPositionXZ(mult*6, mult*52);
-				//Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->setPositionXZ(mult*6, mult*52);
-		//		std::cout << identifyplayers[packet->guid] << "valor \n";
 				peer->Send(&posUpdate, HIGH_PRIORITY, RELIABLE_ORDERED, 0, RakNet::UNASSIGNED_RAKNET_GUID, true); //Send to all clients except the one that moved
 			
 			
 			
-			//	std::cout << peer->GetAveragePing(packet->guid)<< "vlor del pings" << _reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid);
 				break;
 			}
 
