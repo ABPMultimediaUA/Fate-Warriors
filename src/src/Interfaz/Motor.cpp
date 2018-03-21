@@ -533,7 +533,10 @@ void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, f
 	delete edges;
 	*/
 	//de forma temporal hasta que el ME tenga forma de calcular bounding
-	profundidad = anchura = altura = 8;
+	anchura = 1.6758;
+	altura = 8.389;
+	profundidad = 2.9168;
+	//profundidad = anchura = altura = 8;
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {

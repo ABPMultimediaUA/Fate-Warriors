@@ -37,6 +37,7 @@ glm::mat4 TCamara::calculaView(){
 
     glm::mat4 matrixA, matrixB;
     
+
     //matrixA
     //[columna] [fila]
     matrixA[0][0] = cameraRight.x;
@@ -81,7 +82,8 @@ glm::mat4 TCamara::calculaView(){
     matrixB[2][3] = 0;
     matrixB[3][3] = 1;
 
-    _matriz_view = matrixA * matrixB;
+    //_matriz_view = matrixA * matrixB;
+    _matriz_view =  glm::lookAt(_position,_target, up);
     return _matriz_view;
 }
 

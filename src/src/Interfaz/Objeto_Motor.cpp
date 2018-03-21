@@ -21,7 +21,7 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
    Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);
    _interpolacion   = _motor->crear_interpolacion(x, y, z);
-   _rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
+   _rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,0 ,_nodo);
 
    _motor->crear_ObjetoMotor(this);
 

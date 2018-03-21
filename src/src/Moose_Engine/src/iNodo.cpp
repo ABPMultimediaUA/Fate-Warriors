@@ -30,6 +30,6 @@ void iNodo::escalar(float x, float y, float z){
 
 Vector3 iNodo::getPosition(){
     glm::mat4 transformacion = static_cast<TTransform*>(_nodo_motor->get_padre()->get_entidad())->get_t_matriz();
-    Vector3 position(transformacion[0][0], transformacion[1][1], transformacion[2][2]);
+    Vector3 position(transformacion[3][0], transformacion[3][1], transformacion[3][2]);
     return position;
 }

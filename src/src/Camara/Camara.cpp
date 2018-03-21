@@ -80,7 +80,7 @@ void Camara::set_position_interpolada(Vector3 position) {
 	_Camara->mover(position);
 }
 
-void Camara::Camara_setTarget(Vector3 targetPos) {
+void Camara::Camara_setTarget(Vector3 targetPos){
 	_target = glm::vec3(targetPos._x, targetPos._y, targetPos._z); 
 	_Camara->setTarget(targetPos);
 	//this->setTarget(targetPos); 
@@ -194,6 +194,9 @@ void Camara::update_position() {
 	// Antes de nada nos aseguramos de que el prota ha sido inicializado 
 	if (_Prota != nullptr) {
 		// Posicion estándar del jugador que usaremos para el seguimiento de la camara
+			float ax = _Prota-> getPosition()._x;
+			float ay = _Prota-> getPosition()._y;
+			float az = _Prota-> getPosition()._z; 
 			Vector3 playerPos(
 					_Prota-> getPosition()._x, 
 					_Prota-> getPosition()._y,  //falta el -protaboundingcenter Y 
