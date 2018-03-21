@@ -11,6 +11,14 @@ class Motor;
 class Interfaz_sonido;
 
 
+struct Datos_Input{
+	float _dt;
+	Enum_Inputs _tecla;
+	uint16_t _direccion;
+};
+
+
+
 class Player : public Character{
 public:
 	Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input,bool es_jugador_online);
@@ -20,7 +28,7 @@ public:
 	void render() override;
 	void comprobar_input(Enum_Inputs key_press);
 
-	void intoducir_movimiento(float x, float y);
+	void intoducir_movimiento(Enum_Inputs _input, float x, float y);
 
 
 	void modificar_vida_en(short _i_vida)	override;
@@ -34,6 +42,10 @@ public:
 
 protected:
 	std::vector<float> movimientos;
+	
+	std::vector<Datos_Input> _datos_movimientos;
+	
+
 private:
 	short _nodoId; //ID del nodo del modelado del motor
 	Motor* _motor;

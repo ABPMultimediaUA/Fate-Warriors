@@ -8,6 +8,7 @@
 #include "Personajes/NPC.h"
 #include "Armas/Armas_Manager.h"
 #include "Consumibles/Consumible_Manager.h"
+#include "Consumibles/Consumible.h"
 #include "Trampas/Trampas_manager.h"
 #include "Llave.h"
 #include "Puerta.h"
@@ -28,6 +29,8 @@ Datos_Partida_Online::Datos_Partida_Online(Input* _i_input){
 
 		std::cout << "(C)lient or (S)erver: ";
 		std::cin >> input;
+ 
+  _consumibles_manager   =   new Consumible_Manager(); 
 
 		if (input[0] == 'C' || input[0] == 'c')
 			isServer = false;
@@ -37,12 +40,15 @@ Datos_Partida_Online::Datos_Partida_Online(Input* _i_input){
 			unsigned short port;
 			Servidor* servidor = Servidor::getInstance();
 
+
 			std::cout << "Type port to listen " << std::endl;
 			std::cin >> portstring;
 			port = (unsigned short) strtoul(portstring, NULL, 0);
 
 			servidor->start_server(port, 3);
 			_jugador = nullptr;
+			std::vector<Consumible*>* consum = _consumibles_manager->get_consumibles();
+			Motor::Motor_GetInstance()->poner_camara_a_entidad((*consum)[0]->get_objeto_motor());
 		}
 		else{
 			Cliente* cliente = Cliente::getInstance();
@@ -68,10 +74,6 @@ Datos_Partida_Online::Datos_Partida_Online(Input* _i_input){
 			cliente->start_client(iptoconnect, port);
 		}
 
-
-
-
-  _consumibles_manager   =   new Consumible_Manager(); 
   _trampas_manager     =   new Trampas_manager(); 
   _armas_manager       =  new Armas_Manager(); 
 //  _respawn_Points      =  new Respawn_Points(); 
@@ -113,6 +115,12 @@ Datos_Partida_Online::~Datos_Partida_Online() {
 	delete [] _characters;
 	Cliente* cliente = Cliente::getInstance();
 	cliente->Cerrar_peer();
+
+	for (short i = 0; i < _jugadores_online.size(); i++) {
+    	delete _jugadores_online[i];
+  	}
+  	_jugadores_online.clear();
+	  _jugadores_online_incluyendo_player.clear();
 }
 
 Player* Datos_Partida_Online::get_player(){

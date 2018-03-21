@@ -460,6 +460,7 @@ void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
 
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
 	ISceneNode *cubeNode = _objeto_motor->getNodo();
+	_objeto_que_sigue_la_camara = _objeto_motor;
 	camara->Camara_setProta(cubeNode);
 	_id_jugador = 0;
 
@@ -548,7 +549,7 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 		
 		Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
 
-		if(i == _id_jugador) {
+		if(_objetos_motor[i] == _objeto_que_sigue_la_camara) {
 			camara->interpola_target(_posicion_interpolada);
 		}	
 	}
@@ -584,7 +585,7 @@ bool Motor::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
 
 void Motor::updateCamaraColision(){
 		btTransform t;
-		btVector3 pos = _objetos_motor[0]->getRigidBody()->getCenterOfMassPosition();
+		btVector3 pos = _objeto_que_sigue_la_camara->getRigidBody()->getCenterOfMassPosition();
 		
         float miX = pos[0];
         float miY = pos[1];
@@ -617,7 +618,7 @@ void Motor::updateCamaraColision(){
 
 
 void Motor::resetear_camara(){
-	camara->Camara_reset(_objetos_motor[0]->getInterpolacion()->get_direccion_actual());
+	camara->Camara_reset(_objeto_que_sigue_la_camara->getInterpolacion()->get_direccion_actual());
 }
 
 

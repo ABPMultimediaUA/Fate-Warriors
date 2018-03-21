@@ -65,72 +65,11 @@ void Player_Online::update(){
         Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
     }
     //Cliente::getInstance()->send_desplazamiento(0,getX(),getZ());
-    
-    if(movimientos.size()>0){
-        mover(movimientos[0], 80);
-        movimientos.erase(movimientos.begin());
+    if(_datos_movimientos.size()>0){
+        comprobar_input(Ninguno);
     }
 
 }
-
-
-
-void Player_Online::comprobar_input(Enum_Inputs key_press){
-    
-    
-    if(key_press==Input_Dash){
-        _sonido->Play_ambiente(2);
-        esquivar(_direccion_actual); // Habra que pasar la direccion buena
-        //setY(10);
-    }
-
-    else if(key_press==Input_Salto){
-        saltar();
-	}
-
-
-    if(key_press==Input_Interact){
-       _sonido->Stop_game();
-        if(esta_bloqueado() == false){
-            std::cout<< "Pulsa E\n";
-            if(!interactuar_con_objeto()){
-            std::cout<< "No encuentra objeto\n";
-                intentar_recoger_arma();
-            }
-            //this->bloquear_input(1000);
-            //std::cout<< "Interactuando..."<< std::endl;
-        }
-        else{
-           // std::cout<< "No puede INTERACTUAR "<< std::endl;
-        }
-    }
-
-///// ATAQUES ///// 
-
-    if(key_press==Input_Ataque_Especial) {    // Ataque especial
-            atacar(Ataque_Especial);
-            //std::cout << "Ataque Especial\n";
-        }
-    else if(key_press==Input_Ataque_Normal){      // Ataque normal
-            atacar(Ataque_Normal);
-            //std::cout << "Ataque Normal\n";
-        }
-    else if(key_press==Input_Ataque_Fuerte){                          // Ataque fuerte
-            atacar(Ataque_Fuerte);
-            //std::cout << "Ataque Fuerte\n";
-        }
-
-
-///// CAMBIO DE ARMAS /////
-
-    if(key_press==Input_Arma_Izquierda) {
-            cambiar_arma_seleccionada_a_la_anterior();
-        }
-    else if(key_press==Input_Arma_Derecha){
-        cambiar_arma_seleccionada_a_la_siguiente();
-    }
-}
-
 
 			
 void Player_Online::render(){

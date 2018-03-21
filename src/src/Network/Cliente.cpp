@@ -176,11 +176,13 @@ void Cliente::recive_move_message(){
 	bitstream.Read(number_of_inputs);
 
 	if(Game::game_instancia()->game_get_datos()->dame_jugadores_online().size()>0)
+		std::cout << "---------------------------- esto es muy MALA señal si aqui llegoo ---------------------------- \n";
 
 	for(; number_of_inputs; number_of_inputs--){
 		bitstream.Read(key_press);
 		//keys.push_back(key_press);
-		players[id]->comprobar_input(key_press); //->actualizar_by_id(1, key_press); ESTO ES LO QUE PONIA
+		std::cout << "---------------------------- esto es muy buena señal si aqui llegoo ---------------------------- \n";
+		players[id]->intoducir_movimiento(key_press,0, 0); //->actualizar_by_id(1, key_press); ESTO ES LO QUE PONIA
 	}
 }
 
@@ -202,7 +204,7 @@ void Cliente::recive_move_message_enemy(){
 
 
 	std::cout << "movimiento del jugador " << id.ToString() << std::endl;
-	players[id]->intoducir_movimiento(x,y);
+	players[id]->intoducir_movimiento(Ninguno, x,y);
 
 }
 

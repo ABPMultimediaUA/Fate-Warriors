@@ -118,7 +118,7 @@ void Servidor::check_and_send_mesages(){
 				for(stream.Read(number_of_inputs); number_of_inputs; number_of_inputs--){
 					stream.Read(key_press);
 					keys.push_back(key_press);
-					Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->comprobar_input(key_press);  //->actualizar_by_id(identifyplayers[packet->guid], key_press); ESTO ES LO QUE PONIA
+					Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->intoducir_movimiento(key_press,0, 0);
 				}
 
 
@@ -150,7 +150,7 @@ void Servidor::check_and_send_mesages(){
 				stream.Read(tiempo_recibido);
 
 
-				Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->intoducir_movimiento(position.x, position.y);
+				Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->intoducir_movimiento(Ninguno, position.x, position.y);
 
 			//	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->mover(position.x,_reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid));
 			//	Game::game_instancia()->game_get_datos()->dame_jugadores_online()[identifyplayers[packet->guid]]->set_direccion_actual(position.x);

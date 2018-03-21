@@ -160,6 +160,7 @@ private:
       GUI* _GUI;
 
        
+      Objeto_Motor *_objeto_que_sigue_la_camara;
 
       uint16_t _id_jugador;
 

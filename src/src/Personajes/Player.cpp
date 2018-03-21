@@ -153,8 +153,14 @@ void Player::update(){
 }
 
 
-void Player::intoducir_movimiento(float x, float y){
+void Player::intoducir_movimiento(Enum_Inputs _input, float x, float y){
     movimientos.push_back(x);
+   Datos_Input _datos_movimiento; 
+    _datos_movimiento._tecla = _input;
+    _datos_movimiento._direccion = x;
+    _datos_movimiento._dt = y;
+
+    _datos_movimientos.push_back(_datos_movimiento);
 }
 
 
@@ -286,29 +292,32 @@ void Player::update_online(){
         Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
     }
     //Cliente::getInstance()->send_desplazamiento(0,getX(),getZ());
-    if(movimientos.size()>0){
-        mover(movimientos[0], 80);
-        movimientos.erase(movimientos.begin());
+    
+    if(_datos_movimientos.size()>0){
+        comprobar_input(Ninguno);
     }
 
 }
 
-void Player::comprobar_input(Enum_Inputs key_press){
-        gestion_acciones();
 
+void Player::comprobar_input(Enum_Inputs key_press){
+    gestion_acciones();
+    if(_datos_movimientos[0]._tecla == Ninguno){
+        mover(_datos_movimientos[0]._direccion, _datos_movimientos[0]._dt);
+    }
     
-    if(key_press==Input_Dash){
+    else if(_datos_movimientos[0]._tecla == Input_Dash){
         _sonido->Play_ambiente(2);
         esquivar(_direccion_actual); // Habra que pasar la direccion buena
         //setY(10);
     }
 
-    else if(key_press==Input_Salto){
+    else if(_datos_movimientos[0]._tecla == Input_Salto){
         saltar();
 	}
 
 
-    if(key_press==Input_Interact){
+    else if(_datos_movimientos[0]._tecla == Input_Interact){
        _sonido->Stop_game();
         if(esta_bloqueado() == false){
             std::cout<< "Pulsa E\n";
@@ -326,15 +335,15 @@ void Player::comprobar_input(Enum_Inputs key_press){
 
 ///// ATAQUES ///// 
 
-    if(key_press==Input_Ataque_Especial) {    // Ataque especial
+   else if(_datos_movimientos[0]._tecla == Input_Ataque_Especial) {    // Ataque especial
             atacar(Ataque_Especial);
             std::cout << "Ataque Especial\n";
         }
-    else if(key_press==Input_Ataque_Normal){      // Ataque normal
+    else if(_datos_movimientos[0]._tecla == Input_Ataque_Normal){      // Ataque normal
             atacar(Ataque_Normal);
             std::cout << "Ataque Normallllll\n";
         }
-    else if(key_press==Input_Ataque_Fuerte){                          // Ataque fuerte
+    else if(_datos_movimientos[0]._tecla == Input_Ataque_Fuerte){                          // Ataque fuerte
             atacar(Ataque_Fuerte);
             std::cout << "Ataque Fuerte\n";
         }
@@ -342,12 +351,15 @@ void Player::comprobar_input(Enum_Inputs key_press){
 
 ///// CAMBIO DE ARMAS /////
 
-    if(key_press==Input_Arma_Izquierda) {
+    else if(_datos_movimientos[0]._tecla == Input_Arma_Izquierda) {
             cambiar_arma_seleccionada_a_la_anterior();
         }
-    else if(key_press==Input_Arma_Derecha){
+    else if(_datos_movimientos[0]._tecla == Input_Arma_Derecha){
         cambiar_arma_seleccionada_a_la_siguiente();
     }
+
+    _datos_movimientos.erase(_datos_movimientos.begin());
+
 }
 
 

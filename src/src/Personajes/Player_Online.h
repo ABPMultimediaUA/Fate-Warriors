@@ -17,7 +17,6 @@ public:
 	virtual ~Player_Online();
 	void update() override;
 	void render() override;
-	void comprobar_input(Enum_Inputs key_press);
 
 	void modificar_vida_en(short _i_vida)	override;
 	void danyar(short _danyo) 				override;
