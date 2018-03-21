@@ -161,8 +161,8 @@ Character** Datos_Partida_Online::get_characters(){
 
 Player* Datos_Partida_Online::crear_jugador(float x, float y){
 	  float mult = 4.9212625; 
-	//  Player* _jugador = new Player( 0, 12.5*mult, 0, 9.5*mult, nullptr, true);
-	  Player_Online* _jugador = new Player_Online( 0, x, 0, y, nullptr, true);
+
+    Player_Online* _jugador = new Player_Online( 0, x, 0, y, nullptr, true);
 	
 	_jugadores_online.push_back(_jugador);
 	_jugadores_online_incluyendo_player.push_back(_jugador);

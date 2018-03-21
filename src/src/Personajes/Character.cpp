@@ -244,7 +244,7 @@ void Character::mover(uint16_t _i_direccion, double delta_time){
                 _velocidad += 0.1;
             }
         }
-        _objeto_motor->VelocidadDireccion(_i_direccion,0.5,80);
+        _objeto_motor->VelocidadDireccion(_i_direccion,0.5,delta_time);
     }
 }
 

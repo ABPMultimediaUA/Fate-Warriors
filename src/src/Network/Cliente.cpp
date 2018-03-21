@@ -203,7 +203,7 @@ void Cliente::recive_move_message_enemy(){
 		_puede_actualizar = true;
 
 
-	std::cout << "movimiento del jugador " << id.ToString() << std::endl;
+	std::cout << "movimiento del jugador " <<  y << std::endl;
 	players[id]->intoducir_movimiento(Ninguno, x,y);
 
 }

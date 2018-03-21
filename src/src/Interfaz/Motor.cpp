@@ -521,7 +521,7 @@ void Motor::update(double dt){
 		envia_inputs = true;
 	}
 
-        world->stepSimulation(80 * 0.001f,5);
+        world->stepSimulation(dt * 0.001f,5);
 
 		short tamanio = _objetos_motor.size();
 		for(short i=0; i<tamanio; i++){
