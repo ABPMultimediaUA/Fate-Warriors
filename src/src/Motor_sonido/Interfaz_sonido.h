@@ -37,6 +37,7 @@ public:
     void Play_personaje(uint8_t _i_n);
     void Play_voces(uint8_t _i_n);
     void Play_pasos(uint8_t _i_n);
+    void Play_musica(uint8_t _i_n);
 
     void Stop_pasos(uint8_t _i_n);
     void Stop_ambiente(uint8_t _i_n);

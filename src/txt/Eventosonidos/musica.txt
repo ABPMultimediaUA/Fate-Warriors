@@ -1,5 +1,7 @@
 Banks/Musica.bank
-3
-event:/Musica/MusicaCreditos
-event:/Musica/MusicaMenu
-event:/Musica/MusicaMuerte
+5
+event:/Musica/Menu
+event:/Musica/Online
+event:/Musica/Lose
+event:/Musica/Win
+event:/Musica/Equilibrado

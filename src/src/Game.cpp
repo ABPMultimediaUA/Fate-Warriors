@@ -35,7 +35,8 @@ Game::Game() : _datos(nullptr),
 			   _consumibles_action(nullptr),
 			   _trampas_action(nullptr) {
 	_motor = Motor::Motor_GetInstance();
-
+    _sonido= Interfaz_sonido::GetInstancia();
+	_sonido->Play_musica(0);
 	_input_jugador = new Input();
 	_motor->asigna_input(_input_jugador);
 
@@ -46,6 +47,8 @@ Game::Game() : _datos(nullptr),
 	render_actual = &Game::render_menu;
 
 	_input_jugador->asignar_teclas_menu();
+
+	
 }
 
 Game::~Game(){
@@ -62,7 +65,6 @@ Game::~Game(){
 
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
-	_sonido=Interfaz_sonido::GetInstancia();
 	_datos 				= new Datos_Partida(_input_jugador);
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
@@ -194,6 +196,9 @@ void Game::cambio_a_update_menu() {
 	update_actual = &Game::update_menu;
 	render_actual = &Game::render_menu;
 	fin_partida();
+
+	_sonido->Stop_musica(3);
+	_sonido->Play_musica(0);
 }
 
 
@@ -202,6 +207,9 @@ void Game::cambio_a_update_partida() {
 	render_actual = &Game::render_partida;
 	Time::Instance()->reanudar_reloj();
 	_input_jugador->asignar_teclas_partida();
+
+	_sonido->Stop_musica(0);
+	_sonido->Play_musica(3);
 }
 
 void Game::cambio_a_update_pausa() {

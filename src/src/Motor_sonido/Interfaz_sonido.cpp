@@ -54,6 +54,18 @@ mover = 1
 
 Musica:
 
+Menu = 0
+Lose1 = 1
+Lose2 = 2
+Win1 = 3
+Win2 = 4
+Win3 = 5
+Equilibrado1 = 6
+Equilibrado2 = 7
+Equilibrado3 = 8
+Equilibrado4 = 9
+Equilibrado5 = 10
+
 Pasos:
 arena = 0
 asfalto = 1
@@ -574,6 +586,14 @@ void Interfaz_sonido::Play_pasos(uint8_t _i_n){
     _eventos_pasos[_i_n]->start();
     system_update();
 }
+void Interfaz_sonido::Play_musica(uint8_t _i_n){
+    if(_i_n>=_n_musica){
+        std::cout<<"ERROR SONIDO: musica solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    _eventos_musica[_i_n]->start();
+    system_update();
+}
 
 
 /***************************************STOP SONIDOS***********************************************/
@@ -637,8 +657,6 @@ void Interfaz_sonido::Pausa(){
     ERRCHECK(_bus_voces->setPaused(true));
     ERRCHECK(_bus_sfx->setPaused(true));
     ERRCHECK(_bus_menu->setPaused(true));
-
-
 }
 void Interfaz_sonido::Quitar_pausa(){
    /* uint8_t cont=_n_pasos;
