@@ -113,6 +113,8 @@ void Camara::Camara_reset(short _i_direccion){
 
 void Camara::Camara_Update() {
 	// Desactivamos el cursor del raton
+	float offX = 0;
+	float offY = 0;
 	_changeX = 0;
 	_changeY = 0;
 	
@@ -127,11 +129,11 @@ void Camara::Camara_Update() {
 	// Esto se hace hasta que se pueda usar el de Input sin que se choque con los bordes de pantalla y se quede atascado el raton
 	if(_input->get_posiciona_camara() && _input->get_mover_camara()) {
 		// Obtener la posicion del cursor
-		float offX = TMooseEngine::get_instancia()->getMouseOffsetX();
-		float offY = TMooseEngine::get_instancia()->getMouseOffsetY();
+		 offX = TMooseEngine::get_instancia()->getMouseOffsetX();
+		 offY = TMooseEngine::get_instancia()->getMouseOffsetY();
 
-		_changeX = (offX - 0.5) * _sensibilidadX;
-		_changeY = (offY - 0.5) * _sensibilidadY;
+		_changeX = (offX) * _sensibilidadX;
+		_changeY = (offY) * _sensibilidadY;
 		//cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
 
 		//_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
@@ -181,6 +183,8 @@ void Camara::Camara_Update() {
 		if(_direction < 0)
 			_direction += 360;
 	}
+
+	
 	/*std::cout << "Direction  " << _direction << "\n";
 	std::cout << "Zdirection " << _zdirection << "\n";*/
 
