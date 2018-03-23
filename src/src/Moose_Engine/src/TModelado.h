@@ -15,11 +15,13 @@ class TModelado : public TEntidad{
         void draw(Shader* _i_shader);
         void beginDraw(Shader* _i_shader) override;
         void endDraw();
+        glm::vec3* get_BB();
         
     private:
         
         TRecursoModelado* _modelado;
-        std::string _path;     
+        std::string _path;
+        glm::vec3* _BB;
 
         void leerModelado(const char* path);
 

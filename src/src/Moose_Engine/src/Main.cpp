@@ -159,7 +159,7 @@ unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
     1, 2, 3    // second triangle
 };  
-
+/*
 int dibujarOpenGL(){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -328,7 +328,7 @@ void main_tamanyofloat(){
     algo[0][1]=2.0f;
     algo[1][0]=1.5f;
     algo[1][1]=2.5f;*/
-    
+/*    
     float *result=0;
     std::cout<<sizeof(algo)<<"       "<<sizeof(result)<<std::endl; 
 }
@@ -340,4 +340,4 @@ int main2(){
     recorrerArbol();
     //interfazTest();
     return 0;
-}
+}*/
