@@ -50,12 +50,13 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
 	vector3df euler;
 	q.toEuler(euler);
+	/*
 	euler *= RADTODEG;
 
 	_nodo->rotar(1, 0, 0, euler.X);
 	_nodo->rotar(0, 1, 0, euler.Y);
 	_nodo->rotar(0, 0, 1, euler.Z);
-
+*/
 	//_nodo->rotar(euler.X, euler.Y, euler.Z);
 }
 
@@ -86,8 +87,11 @@ void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad,
 	// Actualiza la rotacion del personaje
 	_interpolacion->actualiza_direccion(_i_direccion);
 
-	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
-    desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
+	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * 90;
+    desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * 90;
+
+	std::cout << "desplazamiento" << desp_z<< "\n";
+	std::cout << "desplazamiento" << desp_x<< "\n";
 
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }
@@ -216,12 +220,17 @@ void Objeto_Motor::updateDynamicBody() {
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	_nodo->mover(pos[0], pos[1], pos[2]);
 
-	Vector3 vector(pos[0], pos[1], pos[2]);
+	Vector3 vector(pos[0],  pos[1], pos[2]);
+	std::cout << "Posicion " << pos[0] << " "<< pos[1]<< " "<< pos[2] << std::endl;
+	Vector3 posicion = _nodo->getPosition();
+	std::cout << "Posicion nodo " << posicion._x << " "<< posicion._y<< " "<< posicion._z << std::endl;
+
 	_interpolacion->actualiza_posicion(vector);
 
 	if(!_interpolacion->get_cambio_direccion()) {
 		_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
 	}
+
 
 	_interpolacion->cambio_direccion(false);
 

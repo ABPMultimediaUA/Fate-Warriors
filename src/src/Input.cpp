@@ -30,6 +30,8 @@ Input::Input() {
 	actualiza_mando();
 
 	asignar_teclas_partida();
+
+	reiniciar_inputs();
 }
 
 Input::~Input() {
@@ -880,6 +882,9 @@ bool Input::lee_asignacion_input(enum sf::Keyboard::Key& _tecla, enum sf::Mouse:
 
 // Pinta los couts de inputs recibidos
 void Input::pinta_couts_inputs() {
+
+	std::cout <<"Pinto inputs\n";
+
 	if(_mover) std::cout << "Se mueve en la direccion " << _direccion << "\n";
 	if(_saltar) std::cout << "Se realiza un salto\n";
 	if(_interactuar) std::cout << "Se interactua\n";

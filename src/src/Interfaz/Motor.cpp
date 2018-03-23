@@ -212,7 +212,7 @@ _Motor=0;
 	delete mapa;
 	
 	delete world; 
-	//delete camara; 
+	delete camara; 
 	delete debugDraw; 
 	delete collisionConfiguration; 
 	delete broadPhase; 
@@ -227,7 +227,7 @@ _Motor=0;
 
 
 	world = nullptr;
-	//camara = nullptr;
+	camara = nullptr;
 	debugDraw = nullptr;
 	collisionConfiguration = nullptr;
 	broadPhase = nullptr;
@@ -434,8 +434,8 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 	//si es un personaje
 	if(dynamic_cast<Player*>(_i_objeto)!=NULL){
-		grupo_colision   = COL_JUGADOR;
-		mascara_colision = jugador_colisiona_con;
+		grupo_colision   = COL_OTRO;
+		mascara_colision = otros_colisiona_con;
 	}
 
 	//si es un npc
@@ -608,7 +608,7 @@ void Motor::update(double dt){
 		}
 
 		// Update de la posicion de la camara (despues de actualizar la del jugador)
-		updateCamaraColision();
+		//updateCamaraColision();
     //} 
 
     //else {
@@ -621,10 +621,11 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 
 	uint16_t _tam = _objetos_motor.size();
 	for(uint16_t i=0; i<_tam; i++){
-		
+		std::cout << "Interpolo la posicion del personaje " << i << "\n";
 		Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
 
 		if(i == _id_jugador) {
+			std::cout << "Interpolo la posicion de la cámara " << i << "\n";
 			camara->interpola_target(_posicion_interpolada);
 		}	
 	}
@@ -735,7 +736,7 @@ void Motor::set_text_vida(int _i_vida){
 
 
 void Motor::render(float _i_interpolacion){
-	interpola_posiciones(_i_interpolacion);
+	//interpola_posiciones(_i_interpolacion);
 	render();
 }
 
