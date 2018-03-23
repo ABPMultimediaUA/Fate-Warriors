@@ -22,7 +22,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
     : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte, equipo){
 
     const char* cstr;
-    if(equipo == Enum_Equipo_A)
+    if(equipo == Enum_Equipo_B)
         cstr = "models/Personajes/Enemigos/Enemigo.obj";
     else
         cstr = "models/Personajes/Jugador/Personaje.obj";

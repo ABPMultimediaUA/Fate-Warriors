@@ -34,7 +34,7 @@ Camara::Camara(scene::ISceneManager * smgr, IrrlichtDevice * device) {
 	_dot = _det = _angle = _angleRad = 0;
 	_interpolacion = new Interpolacion(_inicial_aux);		
 	_interpolacion_colision = new Interpolacion(_inicial_aux);
-	_unlocked = true;	//angel busca esto	
+	_unlocked = false;	//angel busca esto	
 }
 
 void Camara::Camara_setPosition(core::vector3df position) {

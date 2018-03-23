@@ -35,13 +35,13 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
   for(_cont = 0; _cont < _n_npcs; _cont++) { 
     _npcs[_cont]->comprobar_si_asignar_arma_y_asignarla(_armas_manager);
   } 
-	_num_characters = _n_npcs; //+ 1;
+	_num_characters = _n_npcs + 1;
 	_characters = new Character*[_num_characters];
 
 	for(_cont = 0; _cont < _n_npcs; _cont++) {
 		_characters[_cont] = _npcs[_cont];
 	}
-	//_characters[_cont] = _jugador;
+	_characters[_cont] = _jugador;
 
 }
 
@@ -96,13 +96,12 @@ Character** Datos_Partida::get_characters(){
 }
 
 void Datos_Partida::posicionar_characters_inicialmente(){
-	NPC ** _npcs = _npc_manager->get_npcs(); 
-	uint16_t _cont, _n_npcs; 
-	_n_npcs = _npc_manager->get_n_npc(); 
+ 
+	uint16_t _cont;
 
 	Respawn * respawn = Respawn::posiciones_instancia();
-	for(_cont = 0; _cont < _n_npcs; _cont++) { 
-		Vector2 vector = respawn->generar_posicion_del_bando(_npcs[_cont]->get_equipo());
-		_npcs[_cont]->setPositionXZ(vector._x, vector._y);
+	for(_cont = 0; _cont < _num_characters; _cont++) { 
+		Vector2 vector = respawn->generar_posicion_del_bando(_characters[_cont]->get_equipo());
+		_characters[_cont]->setPositionXZ(vector._x, vector._y);
 	} 
 }
