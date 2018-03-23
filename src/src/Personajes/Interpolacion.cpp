@@ -1,5 +1,7 @@
 #include "Interpolacion.h"
 
+#include <iostream>
+
 Interpolacion::Interpolacion(Vector3 _i_posicion_inicial) {
 	_posicion_actual = new Vector3(_i_posicion_inicial);
 	_posicion_anterior = new Vector3(_i_posicion_inicial);
@@ -35,6 +37,8 @@ Vector3 Interpolacion::interpola_posicion(float _i_interpolacion){
     float _x_interpolada = _posicion_anterior->_x * (1 -_i_interpolacion) + _posicion_actual->_x * _i_interpolacion;
     float _y_interpolada = _posicion_anterior->_y * (1 -_i_interpolacion) + _posicion_actual->_y * _i_interpolacion;
     float _z_interpolada = _posicion_anterior->_z * (1 -_i_interpolacion) + _posicion_actual->_z * _i_interpolacion;
+
+	std::cout << "Pos interpolada " <<  _x_interpolada << ", " << _y_interpolada << ", " << _z_interpolada << "\n";
 
     return Vector3(_x_interpolada, _y_interpolada, _z_interpolada);
 }

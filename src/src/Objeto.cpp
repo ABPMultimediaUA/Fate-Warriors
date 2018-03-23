@@ -24,7 +24,8 @@ void Objeto::setY(float _i_y){
 }
 
 void Objeto::setZ(float _i_z){
-
+	iNodoModelado* nodo = _objeto_motor->getNodo();
+	nodo->mover(nodo->getPosition()._x, nodo->getPosition()._y, nodo->getPosition()._z-1);
 }
 
 void Objeto::haz_desaparecer(){

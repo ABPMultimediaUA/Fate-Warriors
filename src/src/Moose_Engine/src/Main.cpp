@@ -19,28 +19,54 @@
 //OPEN GL 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-/*
-#include "Interfaz_ME.h"
+
+#include "../../Camara/Camara.h"
+#include "../../Interfaz/Motor.h"
+#include "../../Personajes/Player.h"
+#include "../../Input.h"
+
 void interfazTest(){
-    Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
+    Motor* interfaz_motor = Motor::Motor_GetInstance();
+
+    const char cstr[] =  "Carne";
+    const char cstr2[] = "Carne";
     
-    const char cstr[] =  "src/Moose_Engine/Carne.obj";
-    const char cstr2[] = "src/Moose_Engine/npc2.obj";
-    
-    iNodoCamara* camara = interfaz_motor->crearCamara(true);
+    Camara* camara = interfaz_motor->crearCamara(true);
     //camara->mover(2, 0, 0);    
-    iNodoLuz* luz = interfaz_motor->crearLuz(true, 1.0f);
-    iNodoModelado* modelado1 = interfaz_motor->crearModelado(cstr, 3, 0, -10);
-    iNodoModelado* modelado2 = interfaz_motor->crearModelado(cstr2, 0, 0, -10);
+    iNodoLuz* luz = interfaz_motor->crearLuz(true, 10,
+									   Vector3(1.0f, 1.0f, 1.0f),
+									   Vector3(1.0f, 1.0f, 1.0f),
+									   Vector3(1.0f, 1.0f, 1.0f),
+			  						   0, 0, 0);
+    //iNodoModelado* modelado1 = interfaz_motor->crearModelado(cstr, 3, 0, -10);
+    //iNodoModelado* modelado2 = interfaz_motor->crearModelado(cstr2, 0, 0, -10);
+    float mult = 4.9212625; 
+    Input* _input = new Input();
+    camara->asigna_input(_input);
     
-    modelado1->mover(-3, 0, -10);
-    modelado1->escalar(2,1,1);
-    modelado2->escalar(1,2,1);
-    camara->mover(-2,0,5);
+    Player* _jugador = new Player(0, 12.5*mult, 0, 9.5*mult, _input);
+    
+
+    //modelado1->mover(-3, 0, -10);
+    //modelado1->escalar(2,1,1);
+    //modelado2->escalar(1,2,1);
+    interfaz_motor->poner_camara_a_entidad(_jugador->get_objeto_motor());
+    
+
+    
+    camara->Camara_setPosition(Vector3(-10, 0, 0)); 
+
+    
     while(interfaz_motor->ventana_abierta()){
+        _input->recibir_inputs();
+        _input->procesar_inputs();
+        camara->Camara_Update();
+        _jugador->update();
+      //  interfaz_motor->update(80);
         interfaz_motor->render();
+        _input->reiniciar_inputs();
     }
-}*/
+}
 
 void recorrerArbol(){
     
@@ -335,9 +361,9 @@ void main_tamanyofloat(){
 
 
 
-int main2(){
+int main(){
     //dibujarOpenGL();
-    recorrerArbol();
-    //interfazTest();
+    //recorrerArbol();
+    interfazTest();
     return 0;
 }*/

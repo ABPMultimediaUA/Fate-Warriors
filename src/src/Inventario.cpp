@@ -25,7 +25,7 @@ void Inventario::crear_un_arma_al_azar_asignar_y_equipar(Armas_Manager* _armas_m
   _seleccionado = _armas_manager->anyadir_arma();
   _seleccionado->set_ocupada(true);
 
-  _seleccionado->setPositionXZ(999999,999999);
+  //_seleccionado->setPositionXZ(999999,999999);
 
   
   if (dynamic_cast<Arma_cerca*>(_seleccionado) == NULL){
