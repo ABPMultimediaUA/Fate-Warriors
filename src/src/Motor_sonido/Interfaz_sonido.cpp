@@ -55,16 +55,19 @@ mover = 1
 Musica:
 
 Menu = 0
-Lose1 = 1
-Lose2 = 2
-Win1 = 3
-Win2 = 4
-Win3 = 5
-Equilibrado1 = 6
-Equilibrado2 = 7
-Equilibrado3 = 8
-Equilibrado4 = 9
-Equilibrado5 = 10
+Online1 = 1
+Online2 = 2
+Lose1 = 3
+Lose2 = 4
+Lose3 = 5
+Win1 = 6
+Win2 = 7
+Win3 = 8
+Equilibrado1 = 9
+Equilibrado2 = 10
+Equilibrado3 = 11
+Equilibrado4 = 12
+Equilibrado5 = 13
 
 Pasos:
 arena = 0
