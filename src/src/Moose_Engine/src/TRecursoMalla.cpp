@@ -1,5 +1,8 @@
 #include "TRecursoMalla.h"
 #include "Shader.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 
 #include <iostream>
@@ -92,16 +95,4 @@ void TRecursoMalla::Preparar_mesh(){
     glEnableVertexAttribArray(2);	
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
-}
-glm::vec3* TRecursoMalla::get_max(){
-        return _max;
-}
-void TRecursoMalla::set_max(glm::vec3* _i_max){
-    _max=_i_max;
-}
-glm::vec3* TRecursoMalla::get_min(){
-        return _min;
-}
-void TRecursoMalla::set_min(glm::vec3* _i_min){
-    _min=_i_min;
 }

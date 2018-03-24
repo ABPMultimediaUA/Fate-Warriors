@@ -8,7 +8,7 @@ TTransform::~TTransform(){}
 
 void TTransform::beginDraw(Shader* _i_shader){
     _pila_matrices.push(_matriz);
-    _matriz = _matriz * _t_matriz;   //MULTIPLICACION DE MATRIZ
+    _matriz = _t_matriz * _matriz;   //MULTIPLICACION DE MATRIZ
     //std::cout<<"ID ------"<<_ID<<"matrix:   "<<glm::to_string(_t_matriz)<<"\n";
     //std::cout<<"lll:  "<<glm::to_string(matriz)<<"\n";
     

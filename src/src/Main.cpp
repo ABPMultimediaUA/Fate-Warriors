@@ -1,8 +1,6 @@
 #include "Game.h"
 #include "Interfaz/Motor.h"
 #include "Tiempo/Time.h"
-#include "Entrada/Input.h"
-#include "Personajes/Player.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -27,30 +25,7 @@ void _imprime_fps(Time* _time, uint8_t& _frames, uint32_t _tiempo_por_frame, uin
 
 
 // Main del juego
-int main2(){
-	/*
-	Motor* _motor = Motor::Motor_GetInstance();
-	
-	iNodoModelado* carne = _motor->crearModelado("Carne", 1.0f, 0.0f, 0.0f);
-	
-
-	 Camara* _camara;
-	_camara = _motor->crearCamara(true);
-	_camara->Camara_Update();
-	//_camara->Camara_setProta(_motor->crearModelado("Bate", -1.0f, 0.0f, 0.0f));
-	Input* _i_input = new Input();
-	Player* _jugador = new Player( 0, 12.5, 0, 9.5, _i_input); 
-	_camara->Camara_setProta(_jugador);
-	while(_motor->ventana_abierta()){
-
-		//_camara->Camara_Update();
-		_motor->render();
-	}
-	
-	*/	
-
-
-
+int main(){
 	srand((int)time(0)); // Inicia la semilla del rand
 
 	Game* _juego = Game::game_instancia();

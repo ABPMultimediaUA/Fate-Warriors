@@ -130,19 +130,18 @@ void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 
 void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Partida" << std::endl;
-	std::cout << "UPDATE\n";
 	if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200) {
     	cambio_a_update_pausa();
     }
     else {
 			_player->update();
 			_nivel->Update();
-			//_consumibles_action->comprobar_consumibles();
-			//_trampas_action->update();
+			_consumibles_action->comprobar_consumibles();
+			_trampas_action->update();
 
 			_motor->update(_i_tiempo_desde_ultimo_update);
-			//_interactuable_manager->update_interruptores();
-			//_decision_manager->toma_decisiones();
+			_interactuable_manager->update_interruptores();
+			_decision_manager->toma_decisiones();
 			_zonas_manager->actualizar_zonas();
 
 			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
@@ -180,8 +179,7 @@ void Game::render_menu(float _i_interpolacion){
 }
 
 void Game::render_partida(float _i_interpolacion){
-	std::cout << "RENDER\n";
-	_motor->render(1);
+	_motor->render(_i_interpolacion);
 }
 
 void Game::render_pausa(float _i_interpolacion){

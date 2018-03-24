@@ -22,9 +22,3 @@ void TRecursoModelado::draw(Shader* _i_shader){
         (*it)->draw(_i_shader);
     }
 }
-void TRecursoModelado::set_BB(glm::vec3* _i_BB){
-    _BB=_i_BB;
-}
-glm::vec3* TRecursoModelado::get_BB(){
-    return _BB;
-}

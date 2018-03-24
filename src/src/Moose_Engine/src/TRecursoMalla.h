@@ -15,21 +15,17 @@ public:
     char* GetNombre() override;
     void  SetNombre(char* nombre) override;
     void  draw(Shader* shader);
-    glm::vec3* get_max();
-    void set_max(glm::vec3* _i_max);
-    glm::vec3* get_min();
-    void set_min(glm::vec3* _i_min);
 
 private:
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
+    //float* vertices,*normales,*texturas;
     float* vertTriangulos, *normTriangulos, *texTriangulos;
     long nTriangulos;
     //buffers
     unsigned int VAO, VBO, EBO;
-    glm::vec3* _max;
-    glm::vec3* _min;
+
     //funciones
     void Preparar_mesh();
 };

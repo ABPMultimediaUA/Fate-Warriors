@@ -30,10 +30,6 @@ public:
     TRecursoMalla* cargarMalla(aiMesh *mesh, const aiScene *scene,const std::string path);		
     void cargarAnim(std::string &path, std::vector<TRecursoModelado*> &_i_modelados);
     void cargarModelo(std::string &path,const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados);
-    TRecursoModelado* getRecursoModelo_sinBB(const char* nombre);
-    void cargarModelo_sinBB(std::string &path);
-    void cargarNodo_sinBB(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, const std::string& path);
-    TRecursoMalla* cargarMalla_sinBB(aiMesh *mesh, const aiScene *scene,const std::string path);
 private:
     TGestorRecursos();
 	std::vector<TRecurso*> _recursos;

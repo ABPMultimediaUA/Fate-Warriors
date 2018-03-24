@@ -1,7 +1,7 @@
 #ifndef SRC_TRECURSO_H_
 #define SRC_TRECURSO_H_
-
 #include <glm/ext.hpp>
+
 class TRecurso {
 
 public:

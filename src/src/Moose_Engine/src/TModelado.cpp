@@ -30,6 +30,3 @@ void TModelado::leerModelado(const char* path){
     _modelado = gRec->getRecursoModelo(path);
  
 }
-glm::vec3* TModelado::get_BB(){
-    return _BB;
-}

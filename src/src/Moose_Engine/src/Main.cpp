@@ -19,55 +19,35 @@
 //OPEN GL 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-#include "../../Camara/Camara.h"
+/*
 #include "../../Interfaz/Motor.h"
-#include "../../Personajes/Player.h"
-#include "../../Input.h"
 
 void interfazTest(){
     Motor* interfaz_motor = Motor::Motor_GetInstance();
-
+    
     const char cstr[] =  "Carne";
-    const char cstr2[] = "Carne";
+    //const char cstr2[] = "npc2";
     
     Camara* camara = interfaz_motor->crearCamara(true);
     //camara->mover(2, 0, 0);    
-    iNodoLuz* luz = interfaz_motor->crearLuz(true, 10,
-									   Vector3(1.0f, 1.0f, 1.0f),
-									   Vector3(1.0f, 1.0f, 1.0f),
-									   Vector3(1.0f, 1.0f, 1.0f),
-			  						   0, 0, 0);
+    iNodoLuz* luz = interfaz_motor->crearLuz(true, 1.0f, Vector3(1,1,1), Vector3(1,1,1), Vector3(1,1,1));
+
     //iNodoModelado* modelado1 = interfaz_motor->crearModelado(cstr, 3, 0, -10);
     //iNodoModelado* modelado2 = interfaz_motor->crearModelado(cstr2, 0, 0, -10);
-    float mult = 4.9212625; 
-    Input* _input = new Input();
-    camara->asigna_input(_input);
     
-    Player* _jugador = new Player(0, 12.5*mult, 0, 9.5*mult, _input);
-    
+    Player* _jugador = new Player(0, 10, 0, 10, )
 
-    //modelado1->mover(-3, 0, -10);
-    //modelado1->escalar(2,1,1);
+    modelado1->mover(-3, 0, -10);
+    modelado1->escalar(2,1,1);
     //modelado2->escalar(1,2,1);
-    interfaz_motor->poner_camara_a_entidad(_jugador->get_objeto_motor());
-    
-
-    
-    camara->Camara_setPosition(Vector3(-10, 0, 0)); 
-
-    
+    //camara->mover(-2,0,5);
+   // camara->Camara_setProta(modelado1);
+    camara->Camara_Update();
     while(interfaz_motor->ventana_abierta()){
-        _input->recibir_inputs();
-        _input->procesar_inputs();
-        camara->Camara_Update();
-        _jugador->update();
-      //  interfaz_motor->update(80);
         interfaz_motor->render();
-        _input->reiniciar_inputs();
     }
 }
-
+*/
 void recorrerArbol(){
     
 
@@ -185,7 +165,7 @@ unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
     1, 2, 3    // second triangle
 };  
-/*
+
 int dibujarOpenGL(){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -354,16 +334,16 @@ void main_tamanyofloat(){
     algo[0][1]=2.0f;
     algo[1][0]=1.5f;
     algo[1][1]=2.5f;*/
-/*    
+    
     float *result=0;
     std::cout<<sizeof(algo)<<"       "<<sizeof(result)<<std::endl; 
 }
 
 
 
-int main(){
+int main2(){
     //dibujarOpenGL();
     //recorrerArbol();
-    interfazTest();
+    //interfazTest();
     return 0;
-}*/
+}
