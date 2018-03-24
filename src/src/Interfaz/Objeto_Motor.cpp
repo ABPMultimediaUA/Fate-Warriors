@@ -32,7 +32,7 @@ Objeto_Motor::Objeto_Motor(bool ME, Objeto* objeto, BoundingBoxes tipo,const cha
 
 	else{
    		Motor* _motor = Motor::Motor_GetInstance();
-   		_nodo_ME         = _motor->crearModelado(rutaObj, x, y, z);
+   		_nodo_ME         = _motor->crearModelado(x, y, z, rutaObj);
    		_interpolacion   = _motor->crear_interpolacion(x, y, z);
    		_rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
 		

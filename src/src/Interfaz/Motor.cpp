@@ -12,6 +12,10 @@
 #include "EnumTiposColision.h"
 #include "../Puerta_Pincho.h"
 
+#include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodo.h"
+
+
 /*
 #include "Entidad.h"
 #include "../Input.h"
@@ -292,6 +296,12 @@ ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
 	
 	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
 	return cubeNode;
+}
+
+iNodoModelado* Motor::crearModelado(float x, float y, float z, const char* ruta){
+    iNodoModelado* nodo = new iNodoModelado(ruta, x, y, z);
+    lista_i_nodo.push_back(nodo);
+    return nodo;
 }
 
 void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){

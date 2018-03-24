@@ -40,6 +40,8 @@ class btBulletWorldImporter;
 class btPairCachingGhostObject;
 class btRigidBody;
 class btVector3;
+class iNodoModelado;
+class iNodo;
 
 
 class Motor{
@@ -62,7 +64,8 @@ public:
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
-    ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
+    ISceneNode* crearModelado(const char* ruta,float x, float y, float z);
+    iNodoModelado* crearModelado(float x, float y, float z, const char* ruta);
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
@@ -110,6 +113,9 @@ public:
     
 
 private:
+
+      std::vector<iNodo*> lista_i_nodo;
+
 
       static Motor* _Motor;
       Motor();
