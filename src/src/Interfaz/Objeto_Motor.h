@@ -21,11 +21,12 @@ class Interpolacion;
 class btRigidBody;
 class btVector3;
 class Character;
+class iNodoModelado;
 
 class Objeto_Motor{
 public:
 
-      Objeto_Motor(Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
+      Objeto_Motor(bool ME, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
       ~Objeto_Motor();
     
       void setPositionXZ(float x, float z);
@@ -63,11 +64,17 @@ public:
 
 
 private:
+
+      //irrlicht
       ISceneNode*       _nodo;
       Interpolacion*    _interpolacion;
       btRigidBody*      _rigidbody;
       double desp_z;
       double desp_x;
+
+      //Mouse Engine
+      iNodoModelado* _nodo_ME;
+      
 };
 
 #endif /* OBJETO_MOTOR_H_ */

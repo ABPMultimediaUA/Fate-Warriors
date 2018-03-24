@@ -29,7 +29,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
     const char* cstr  = "models/Personajes/Jugador/Personaje.obj";
 
-    _objeto_motor = new Objeto_Motor(this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
+    _objeto_motor = new Objeto_Motor(false, this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_objeto_motor);

@@ -14,19 +14,33 @@
 #include "../Personajes/Character.h"
 
 #include "EnumTiposColision.h"
-
+#include "../Moose_Engine/src/iNodoModelado.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 
-Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
-   Motor* _motor = Motor::Motor_GetInstance();
-   _nodo            = _motor->crearModelado(rutaObj, x, y, z);
-   _interpolacion   = _motor->crear_interpolacion(x, y, z);
-   _rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
+Objeto_Motor::Objeto_Motor(bool ME, Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
+   if(!ME){
+   		Motor* _motor = Motor::Motor_GetInstance();
+   		_nodo            = _motor->crearModelado(rutaObj, x, y, z);
+   		_interpolacion   = _motor->crear_interpolacion(x, y, z);
+   		_rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
 
-   _motor->crear_ObjetoMotor(this);
+   		_motor->crear_ObjetoMotor(this);
 
-	desp_z = 0;
-    desp_x = 0;
+   		desp_z = 0;
+   		desp_x = 0;
+	}
+
+	else{
+   		Motor* _motor = Motor::Motor_GetInstance();
+   		//_nodo_ME         = _motor->crearModelado(rutaObj, x, y, z);
+   		_interpolacion   = _motor->crear_interpolacion(x, y, z);
+   		_rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
+		
+   		_motor->crear_ObjetoMotor(this);
+		
+   		desp_z = 0;
+   		desp_x = 0;		
+	}
 }
 
 Objeto_Motor::~Objeto_Motor(){
