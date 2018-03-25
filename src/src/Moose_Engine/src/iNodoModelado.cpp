@@ -2,6 +2,7 @@
 #include "TModelado.h"
 #include "TMooseEngine.h"
 #include "TTransform.h"
+#include "TNodo.h"
 
 iNodoModelado::iNodoModelado(const char* ruta){
     //referencia al ME
@@ -39,6 +40,11 @@ iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
     TNodo* nodoModelado = motor->crearNodo(nodoTraslacion, _modelado);
 
     _nodo_motor = nodoModelado; //almacenamos el puntero al nodo del ME
+}
+
+Vector3 iNodoModelado::getBB(){
+    glm::vec3 bb = static_cast<TModelado*>(_nodo_motor->get_entidad())->get_BB();
+    return Vector3(bb.x, bb.y, bb.z);
 }
 
 iNodoModelado::~iNodoModelado(){

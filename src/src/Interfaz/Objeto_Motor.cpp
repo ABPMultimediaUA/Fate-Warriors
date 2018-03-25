@@ -21,7 +21,7 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
    Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModelado(rutaObj, x, y, z);
    _interpolacion   = _motor->crear_interpolacion(x, y, z);
-   _rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,0 ,_nodo);
+   _rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
 
    _motor->crear_ObjetoMotor(this);
 
@@ -52,10 +52,10 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	q.toEuler(euler);
 	euler *= RADTODEG;
 
-	_nodo->rotar(1, 0, 0, euler.X);
+	/*_nodo->rotar(1, 0, 0, euler.X);
 	_nodo->rotar(0, 1, 0, euler.Y);
 	_nodo->rotar(0, 0, 1, euler.Z);
-
+*/
 	//_nodo->rotar(euler.X, euler.Y, euler.Z);
 }
 
@@ -84,7 +84,7 @@ void Objeto_Motor::setPositionY(float y){
 void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt){  // Direccion
 
 	// Actualiza la rotacion del personaje
-	_interpolacion->actualiza_direccion(_i_direccion);
+	//_interpolacion->actualiza_direccion(_i_direccion);
 
 	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
     desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
@@ -220,7 +220,7 @@ void Objeto_Motor::updateDynamicBody() {
 	_interpolacion->actualiza_posicion(vector);
 
 	if(!_interpolacion->get_cambio_direccion()) {
-		_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
+		//_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
 	}
 
 	_interpolacion->cambio_direccion(false);
@@ -234,7 +234,7 @@ Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 
 	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
 	
-	_nodo->rotar(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
+	//_nodo->rotar(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
 
 
 
@@ -274,6 +274,6 @@ void Objeto_Motor::rotar_nodo(uint16_t rotacion){
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	_nodo->mover(pos[0], pos[1], pos[2]);
 	
-	_interpolacion->actualiza_direccion(rotacion);
+	//_interpolacion->actualiza_direccion(rotacion);
 
 }

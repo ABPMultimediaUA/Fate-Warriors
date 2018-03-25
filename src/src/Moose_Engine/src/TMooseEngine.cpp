@@ -185,7 +185,7 @@ void TMooseEngine::drawLuces(){
     for(uint16_t i = 0; i < _mapping_luces.size(); i++){
         if(_mapping_luces[i]->activa){
             TNodo* this_node = _mapping_luces[i]->nodo;
-            std::cout<<static_cast<TLuz*>(this_node->get_entidad())->get_especular().y<<std::endl;
+            //std::cout<<static_cast<TLuz*>(this_node->get_entidad())->get_especular().y<<std::endl;
             _shader->setvec3("Light.Diffuse",static_cast<TLuz*>(this_node->get_entidad())->get_difusa());
             _shader->setvec3("Light.Specular",static_cast<TLuz*>(this_node->get_entidad())->get_especular());
             _shader->setvec3("Light.Ambient",static_cast<TLuz*>(this_node->get_entidad())->get_ambiente());
@@ -223,7 +223,7 @@ void TMooseEngine::drawCamaras(){
             TNodo* this_node = _mapping_camaras[i]->nodo; //obtenemos su nodo
             matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
             _shader->setView(matriz_view); //la pasamos al shader
-            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 100.0f);
+            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
             _shader->setProjection(projection);
             
             /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR

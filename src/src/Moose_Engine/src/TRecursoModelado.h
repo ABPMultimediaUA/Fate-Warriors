@@ -13,11 +13,11 @@ public:
     void draw(Shader* _i_shader);
     char* GetNombre() override;
     void  SetNombre(char* nombre) override;
-    void set_BB(glm::vec3* _i_BB);
-    glm::vec3* get_BB();
+    void set_BB(glm::vec3 _i_BB);
+    glm::vec3 get_BB();
 private:
     std::vector<TRecursoMalla*> _mallas;
-    glm::vec3* _BB;
+    glm::vec3 _BB;
     
 };
 

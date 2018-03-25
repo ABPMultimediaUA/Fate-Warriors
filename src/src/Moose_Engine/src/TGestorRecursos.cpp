@@ -146,18 +146,27 @@ void TGestorRecursos::cargarModelo(std::string &path){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
     glm::vec3 Vmax,Vmin,BB;
+
+    
     for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
-        Vmax.x=std::max(Vmax.x,(*it)->get_max()->x);
-        Vmax.y=std::max(Vmax.y,(*it)->get_max()->y);
-        Vmax.y=std::max(Vmax.y,(*it)->get_max()->y);
-        Vmin.x=std::min(Vmin.x,(*it)->get_min()->x);
-        Vmin.y=std::min(Vmin.y,(*it)->get_min()->y);
-        Vmin.y=std::min(Vmin.y,(*it)->get_min()->y);
+        std::cout<<(*it)->get_max().x << "\n";
+        std::cout<<(*it)->get_max().y << "\n";
+
+    }
+
+
+    for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
+        Vmax.x=std::max(Vmax.x,(*it)->get_max().x);
+        Vmax.y=std::max(Vmax.y,(*it)->get_max().y);
+        Vmax.z=std::max(Vmax.z,(*it)->get_max().z);
+        Vmin.x=std::min(Vmin.x,(*it)->get_min().x);
+        Vmin.y=std::min(Vmin.y,(*it)->get_min().y);
+        Vmin.z=std::min(Vmin.z,(*it)->get_min().z);
     }
     BB.x=Vmax.x-Vmin.x;
     BB.y=Vmax.y-Vmin.y;
     BB.z=Vmax.z-Vmin.z;
-    modelado->set_BB(&BB);
+    modelado->set_BB(BB);
     _recursos.push_back(modelado);
 }
 
@@ -245,8 +254,10 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
 
     //devolver la malla creada a partir de los datos obtenidos*/
     TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
-    malla->set_min(&Vmin);
-    malla->set_max(&Vmax);
+    malla->set_min(Vmin);
+    malla->set_max(Vmax);
+    std::cout<<Vmax.x << "\n";
+    std::cout<<Vmax.y << "\n";
     return malla;
 }
 std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string& path)
