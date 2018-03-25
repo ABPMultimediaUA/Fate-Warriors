@@ -45,7 +45,7 @@ Motor::Motor(){
 	importarEscenario(cstr, 0,0,0);
     desp_x = desp_z = 0;
 
-	camara = new Camara(smgr, device);
+	camara = new Camara(true);
 	angulo = 0;
 	_velocidad = 1;
 	_debug = false;
@@ -605,7 +605,7 @@ void Motor::updateCamaraColision(){
         
 		camara->Camara_Update();
 
-		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
+		core::vector3df camPosI(camara->Camara_getPosition()._x,camara->Camara_getPosition()._y,camara->Camara_getPosition()._z);
 		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
 		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con);
 		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
@@ -614,7 +614,7 @@ void Motor::updateCamaraColision(){
 			btVector3 point = rayCallback.m_hitPointWorld;
 			btVector3 normal = rayCallback.m_hitNormalWorld;
 			const btCollisionObject *object = rayCallback.m_collisionObject;
-			camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
+			camara->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
 				
 			//for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
 			//	if(fileLoader->getRigidBodyByIndex(i) == object){

@@ -254,9 +254,9 @@ iNodoModelado* Objeto_Motor::getNodo(){
 	return _nodo;
 }
 
-iNodoModelado* Objeto_Motor::getNodoME(){
-	return _nodo_ME;
-}
+//iNodoModelado* Objeto_Motor::getNodoME(){
+//	return _nodo_ME;
+//}
 
 Interpolacion* Objeto_Motor::getInterpolacion(){
 	return _interpolacion;

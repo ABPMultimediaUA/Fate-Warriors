@@ -45,6 +45,7 @@ struct Vector3{
 
 	//Constructor
 	Vector3(float _i_x, float _i_y, float _i_z);
+	Vector3();
 
 	//Para floats	
 	Vector3& operator *=(const float _i_valor);
