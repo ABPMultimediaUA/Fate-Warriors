@@ -620,14 +620,11 @@ void Motor::update(double dt){
 void Motor::interpola_posiciones(float _i_interpolacion) {
 
 	uint16_t _tam = _objetos_motor.size();
-	for(uint16_t i=0; i<_tam; i++){
-		
-		
+	for(uint16_t i=0; i<_tam; i++){		
 		if(i == _id_jugador) {
-			camara->interpola_target(_posicion_interpolada);
 			Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
+			camara->interpola_target(_posicion_interpolada);
 			std::cout << "La posicion interpolada del jugadpr " << i << " es " << _posicion_interpolada._x << ", " << _posicion_interpolada._y << ", " << _posicion_interpolada._z << "\n";
-
 		}	
 	}
 	std::cout << "se interpola la camara\n";
