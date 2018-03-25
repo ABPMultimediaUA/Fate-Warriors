@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 23.02.2018 13:47:36
+# File Created: 25.03.2018 13:38:58
 
-newmtl Material__32
+newmtl Llave
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -14,5 +14,3 @@ newmtl Material__32
 	Ke 0.0000 0.0000 0.0000
 	map_Ka Material__19_Base_Color.png
 	map_Kd Material__19_Base_Color.png
-	map_bump Material__19_Normal_OpenGL.png
-	bump Material__19_Normal_OpenGL.png
