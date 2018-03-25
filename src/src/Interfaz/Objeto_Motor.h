@@ -54,7 +54,7 @@ public:
       float getY();
       float getZ();
 
-      ISceneNode*    getNodo();
+      iNodoModelado*    getNodo();
       iNodoModelado* getNodoME();
       Interpolacion* getInterpolacion();
       btRigidBody*   getRigidBody();

@@ -479,7 +479,7 @@ void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
 }
 
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
-	ISceneNode *cubeNode = _objeto_motor->getNodo();
+	iNodoModelado *cubeNode = _objeto_motor->getNodo();
 	camara->Camara_setProta(cubeNode);
 	_id_jugador = 0;
 
