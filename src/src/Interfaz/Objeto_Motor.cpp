@@ -237,13 +237,13 @@ void Objeto_Motor::updateDynamicBody() {
 }
 
 Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
-	Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
-	
-	_nodo->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
-
-	_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
-
-	return _posicion_interpolada;
+	//Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
+	//
+	//_nodo->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+//
+	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
+//
+	//return _posicion_interpolada;
 }
 
 ISceneNode* Objeto_Motor::getNodo(){
