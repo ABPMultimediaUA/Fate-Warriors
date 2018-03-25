@@ -7,6 +7,7 @@
 #include "../Tiempo/Time.h"
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
+#include "../Moose_Engine/src/iNodoModelado.h"
 
 #include "../Nivel/Nivel.h"
 
@@ -28,9 +29,21 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     //crear nodo de personaje del motor
 
     const char* cstr  = "models/Personajes/Jugador/Personaje.obj";
+    const char* cstr2  = "Personaje";
 
     _objeto_motor = new Objeto_Motor(false, this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
+    Objeto_Motor * _objeto_motor_ME = new Objeto_Motor(true, this, E_BoundingCapsule, cstr2, _i_x,_i_y,_i_z,80);
     
+
+    std::cout<<"IRR///////////////  X->" << _objeto_motor->getNodo()->getPosition().X <<
+                                  " Y->" << _objeto_motor->getNodo()->getPosition().Y << 
+                                  " Z->" << _objeto_motor->getNodo()->getPosition().Z << "/n";
+
+    std::cout<<"ME////////////////  X->" << _objeto_motor_ME->getNodoME()->getPosition()._x << 
+                                  " Y->" << _objeto_motor_ME->getNodoME()->getPosition()._y << 
+                                  " Z->" << _objeto_motor_ME->getNodoME()->getPosition()._z << "/n";
+    
+
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_objeto_motor);
     
