@@ -135,7 +135,11 @@ void Player::update(){
     }
     else{
         //std::cout<<"sigo muerto" << std::endl;
-        Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
+        //Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
+
+        Vector2 pos = Respawn::posiciones_instancia()->generar_posicion_del_bando(get_equipo());
+        revivir(pos);
+        Respawn::posiciones_instancia()->eliminar_character_a_reaparecer(this);
     }
 
 
