@@ -63,7 +63,7 @@ public:
   
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
-    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
+    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
     ISceneNode* crearModelado(const char* ruta,float x, float y, float z);
     iNodoModelado* crearModelado(float x, float y, float z, const char* ruta);
     Interpolacion* crear_interpolacion(float x, float y, float z);
@@ -99,6 +99,7 @@ public:
     void interpola_posiciones(float _i_interpolacion);
     void resetear_camara();
     void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
+    void getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad);
 
     void borrar_objeto(Objeto_Motor* _objeto_motor);
     void borrar_rb(btRigidBody* rb); // Mejorar

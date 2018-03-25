@@ -308,7 +308,7 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 	_objetos_motor.push_back(_i_objeto_motor);
 }
 
-btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode){
 		
 	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
@@ -433,28 +433,38 @@ btRigidBody* Motor::crear_rb_ataque(){
 }
 
 void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
-	//core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	//core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
-	//boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	//boundingbox.getEdges(edges);
-	//altura = (edges[1].Y - edges[0].Y);
-	//delete edges;
-//
-//
-	//edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	//boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	//boundingbox.getEdges(edges);
-	//anchura = (edges[2].Z - edges[0].Z);
-//
-	//delete edges;
-//
-//
-	//edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	//boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	//boundingbox.getEdges(edges);
-	//profundidad = (edges[6].X - edges[2].X);
-//
-	//delete edges;
+	/*
+	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
+	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	altura = (edges[1].Y - edges[0].Y);
+	delete edges;
+
+
+	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	anchura = (edges[2].Z - edges[0].Z);
+
+	delete edges;
+
+
+	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
+	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
+	boundingbox.getEdges(edges);
+	profundidad = (edges[6].X - edges[2].X);
+
+	delete edges;
+	*/
+	  
+	anchura = 1.6758;
+	altura = 8.389;
+	profundidad = 2.9168;
+}
+
+void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
+	anchura = altura = profundidad = 0;
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {

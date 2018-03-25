@@ -18,21 +18,21 @@
 #include "../Interfaz_Libs/Lib_Math.h"
 
 Objeto_Motor::Objeto_Motor(bool ME, Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
-   if(!ME){
+   //if(!ME){
+   //		Motor* _motor = Motor::Motor_GetInstance();
+   //		//_nodo            = _motor->crearModelado(rutaObj, x, y, z);
+   //		_interpolacion   = _motor->crear_interpolacion(x, y, z);
+   //		_rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
+//
+   //		_motor->crear_ObjetoMotor(this);
+//
+   //		desp_z = 0;
+   //		desp_x = 0;
+	//}
+
+	
    		Motor* _motor = Motor::Motor_GetInstance();
-   		_nodo            = _motor->crearModelado(rutaObj, x, y, z);
-   		_interpolacion   = _motor->crear_interpolacion(x, y, z);
-   		_rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
-
-   		_motor->crear_ObjetoMotor(this);
-
-   		desp_z = 0;
-   		desp_x = 0;
-	}
-
-	else{
-   		Motor* _motor = Motor::Motor_GetInstance();
-   		_nodo_ME         = _motor->crearModelado(x, y, z, rutaObj);
+   		_nodo        = _motor->crearModelado(x, y, z, rutaObj);
    		_interpolacion   = _motor->crear_interpolacion(x, y, z);
    		_rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
 		
@@ -40,7 +40,7 @@ Objeto_Motor::Objeto_Motor(bool ME, Objeto* objeto, BoundingBoxes tipo,const cha
 		
    		desp_z = 0;
    		desp_x = 0;		
-	}
+	
 }
 
 Objeto_Motor::~Objeto_Motor(){
@@ -58,14 +58,18 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
-	_nodo->setPosition(vector3df(x,btt.getOrigin().getY(),z));
+	_nodo->setPosition(Vector3(x,btt.getOrigin().getY(),z));
 
 	const btQuaternion &quat = _rigidbody->getOrientation();
 	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
 	vector3df euler;
 	q.toEuler(euler);
 	euler *= RADTODEG;
-	_nodo->setRotation(euler);
+	//_nodo->setRotation(euler);
+	Vector3 aRotar(euler.X, euler.Y, euler.Z);
+	_nodo->rotar(1, 0, 0, aRotar._x);
+	_nodo->rotar(0, 1, 0, aRotar._y);
+	_nodo->rotar(0, 0, 1, aRotar._z);
 }
 
 
@@ -237,13 +241,13 @@ void Objeto_Motor::updateDynamicBody() {
 }
 
 Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
-	//Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
-	//
-	//_nodo->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
-//
-	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
-//
-	//return _posicion_interpolada;
+	Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
+	
+	_nodo->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+	_nodo_ME->mover(Vector3(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+	_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
+
+	return _posicion_interpolada;
 }
 
 ISceneNode* Objeto_Motor::getNodo(){

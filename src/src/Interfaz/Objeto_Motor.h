@@ -63,18 +63,17 @@ public:
       btVector3 get_posicion_rb();
       void rotar_nodo(uint16_t rotacion);
 
-
 private:
 
       //irrlicht
-      ISceneNode*       _nodo;
+      //ISceneNode*       _nodo;
       Interpolacion*    _interpolacion;
       btRigidBody*      _rigidbody;
       double desp_z;
       double desp_x;
 
       //Mouse Engine
-      iNodoModelado* _nodo_ME;
+      iNodoModelado* _nodo;
       
 };
 
