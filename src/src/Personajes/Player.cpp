@@ -67,12 +67,11 @@ void Player::update(){
     }
 
     if(_input->get_dash()){
-        _sonido->Play_ambiente(2);
+        _sonido->Play_personaje(0);
         esquivar(_direccion); // Habra que pasar la direccion buena
     }
 
     if(_input->get_interactuar()){
-       _sonido->Stop_game();
         if(esta_bloqueado() == false){
             std::cout<< "Pulsa E\n";
             if(!interactuar_con_objeto()){
@@ -109,10 +108,12 @@ void Player::update(){
         }
         else if(std::get<2>(_ataques)){      // Ataque normal
             atacar(Ataque_Normal);
+            _sonido->Play_personaje(1);
             //std::cout << "Ataque Normal\n";
         }
         else {                          // Ataque fuerte
             this->atacar(Ataque_Fuerte);
+            _sonido->Play_personaje(1);
             //std::cout << "Ataque Fuerte\n";
         }
     }
