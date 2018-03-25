@@ -15,7 +15,7 @@ Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z,float _
     _siguiente_tiempo_hace_danyo =_reloj->get_current();
     _tiempo_hasta_posible_proxima_activacion= _reloj->get_current();
  
-    const char* cstr  = "models/Interactuables/PuertaPinchos/pinchosp.obj";
+    const char* cstr  = "Puerta";
 
   //  _id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z, 9999999);
     _objeto_motor =new Objeto_Motor(false, this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);

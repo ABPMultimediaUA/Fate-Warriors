@@ -23,9 +23,9 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
 
     const char* cstr;
     if(equipo == Enum_Equipo_B)
-        cstr = "models/Personajes/Enemigos/Enemigo.obj";
+        cstr = "Enemigo";
     else
-        cstr = "models/Personajes/Jugador/Personaje.obj";
+        cstr = "Personaje";
 
     _blackboard = new Blackboard(this);
     

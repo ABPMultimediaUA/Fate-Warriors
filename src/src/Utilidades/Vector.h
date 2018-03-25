@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef VECTOR_H_
+#define VECTOR_H_
 
 struct Vector2;
 struct Vector3;
@@ -44,8 +44,9 @@ struct Vector3{
 	float _z;
 
 	//Constructor
+	Vector3(){}
+	//Constructor
 	Vector3(float _i_x, float _i_y, float _i_z);
-	Vector3();
 
 	//Para floats	
 	Vector3& operator *=(const float _i_valor);
@@ -101,9 +102,5 @@ Vector3 operator -(Vector3 _i_vector, const short _i_valor);
 
 
 
-#endif /* VECTOR_H */
 
-
-
-
-
+#endif /* VECTOR_H_ */

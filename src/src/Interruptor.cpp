@@ -6,7 +6,7 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, float 
 		bool _i_es_generador, bool _i_activado, double _i_temporizador) : Objeto(_i_id, _i_x, _i_y, _i_z),
 		_objeto_asociado(_i_objeto_asociado), _es_generador(_i_es_generador){
 	 
-    const char* cstr  = "models/Interactuables/Interruptor/Interruptor.obj";
+    const char* cstr  = "Interruptor";
     _objeto_motor =new Objeto_Motor(false, this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
 
       _objeto_motor->rotar_nodo(_i_rotacion);
