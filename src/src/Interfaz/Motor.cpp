@@ -285,6 +285,7 @@ unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, 
 	return 1;
 }
 
+/*
 ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
 	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
@@ -297,8 +298,9 @@ ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
 	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
 	return cubeNode;
 }
+*/
 
-iNodoModelado* Motor::crearModelado(float x, float y, float z, const char* ruta){
+iNodoModelado* Motor::crearModelado(const char* ruta, float x, float y, float z){
     iNodoModelado* nodo = new iNodoModelado(ruta, x, y, z);
     lista_i_nodo.push_back(nodo);
     return nodo;

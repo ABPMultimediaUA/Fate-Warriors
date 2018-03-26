@@ -64,8 +64,8 @@ public:
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
-    ISceneNode* crearModelado(const char* ruta,float x, float y, float z);
-    iNodoModelado* crearModelado(float x, float y, float z, const char* ruta);
+    //ISceneNode* crearModelado(const char* ruta,float x, float y, float z);
+    iNodoModelado* crearModelado(const char* ruta, float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
