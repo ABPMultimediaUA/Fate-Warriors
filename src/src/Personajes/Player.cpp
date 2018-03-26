@@ -34,7 +34,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
    // _objeto_motor = new Objeto_Motor(false, this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
     
-    Objeto_Motor * _objeto_motor = new Objeto_Motor(true, this, E_BoundingCapsule, cstr2, _i_x,_i_y,_i_z,80);
+    Objeto_Motor * _objeto_motor = new Objeto_Motor(this, E_BoundingCapsule, cstr2, _i_x,_i_y,_i_z,80);
     
 /*
     std::cout<<"IRR///////////////  X->" << _objeto_motor->getNodo()->getPosition().X <<

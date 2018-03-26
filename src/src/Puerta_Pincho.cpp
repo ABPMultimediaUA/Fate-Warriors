@@ -18,7 +18,7 @@ Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z,float _
     const char* cstr  = "Puerta";
 
   //  _id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z, 9999999);
-    _objeto_motor =new Objeto_Motor(false, this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
+    _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
     desactivar();   
      _objeto_motor->rotar_nodo(_i_rotacion);
      Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);

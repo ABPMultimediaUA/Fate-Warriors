@@ -464,7 +464,7 @@ void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, floa
 }
 
 void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
-	anchura = altura = profundidad = 0;
+	anchura = altura = profundidad = 2;
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
