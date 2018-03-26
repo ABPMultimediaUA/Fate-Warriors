@@ -83,11 +83,12 @@ void Cliente::Cerrar_peer(){
 
 // SEND MESSAGES
 
-void Cliente::send_player_move(std::vector<Enum_Inputs> vector_keypresed, short number_of_inputs){
+void Cliente::send_player_move(std::vector<Enum_Inputs> vector_keypresed, uint16_t id_mensaje, short number_of_inputs){
 	RakNet::BitStream bitstream;
 	Enum_Inputs key_press;
 
 	bitstream.Write((RakNet::MessageID)ID_PLAYER_MOVE);
+	bitstream.Write(id_mensaje);
 	bitstream.Write(number_of_inputs);
 		for(short a = 0; a < number_of_inputs; a++){
 			key_press = vector_keypresed[a];
@@ -104,10 +105,11 @@ void Cliente::send_game_start(){
 	peer->Send(&bitstream, LOW_PRIORITY, RELIABLE_ORDERED, 0, RakNet::UNASSIGNED_RAKNET_GUID, true);
 }
 
-void Cliente::send_desplazamiento(short id, float x, float y){
+void Cliente::send_desplazamiento(short id, uint16_t id_mensaje, float x, float y){
 	RakNet::BitStream bitstream;
 	bitstream.Write((RakNet::MessageID)ID_ENEMY_MOVE);
 	bitstream.Write(id);
+	bitstream.Write(id_mensaje);
 	bitstream.Write(x);
 	bitstream.Write(y);
 
@@ -168,11 +170,14 @@ void Cliente::recive_move_message(){
 	//std::vector <Enum_Inputs> keys;
 	float number_of_inputs;
 	Enum_Inputs key_press;
+
+	uint16_t id_mensaje;
 //	_puede_actualizar = true;
 
 
 	bitstream.IgnoreBytes(sizeof(RakNet::MessageID));
 	bitstream.Read(id);
+	bitstream.Read(id_mensaje);
 	bitstream.Read(number_of_inputs);
 
 	if(Game::game_instancia()->game_get_datos()->dame_jugadores_online().size()>0)
@@ -182,7 +187,7 @@ void Cliente::recive_move_message(){
 		bitstream.Read(key_press);
 		//keys.push_back(key_press);
 		std::cout << "---------------------------- esto es muy buena señal si aqui llegoo ---------------------------- \n";
-		players[id]->intoducir_movimiento(key_press,0, 0); //->actualizar_by_id(1, key_press); ESTO ES LO QUE PONIA
+		players[id]->intoducir_movimiento(key_press, id_mensaje, 0, 0); //->actualizar_by_id(1, key_press); ESTO ES LO QUE PONIA
 	}
 }
 
@@ -190,9 +195,12 @@ void Cliente::recive_move_message_enemy(){
 	RakNet::BitStream bitstream(packet->data, packet->length, false);
 	float x, y;
 	RakNet::RakNetGUID id;
+	uint16_t id_mensaje;
+
 
 	bitstream.IgnoreBytes(sizeof(RakNet::MessageID));
 	bitstream.Read(id);
+	bitstream.Read(id_mensaje);
 	bitstream.Read(x);
 	bitstream.Read(y);
 	
@@ -204,7 +212,7 @@ void Cliente::recive_move_message_enemy(){
 
 
 	std::cout << "movimiento del jugador " <<  y << std::endl;
-	players[id]->intoducir_movimiento(Ninguno, x,y);
+	players[id]->intoducir_movimiento(Ninguno, id_mensaje, x,y);
 
 }
 

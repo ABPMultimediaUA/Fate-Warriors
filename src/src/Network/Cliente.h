@@ -28,12 +28,11 @@ public:
 	void recive_move_message();
 	void recive_move_message_enemy();
 	void recive_player_desconnect();
-	void send_desplazamiento(short id, float x, float y);
+	void send_desplazamiento(short id, uint16_t id_mensaje, float x, float y);
 	void posicionar_player();
 
 	//Send data
-	void send_player_move(std::vector<Enum_Inputs> vector_keypresed, short number_of_inputs);
-	void send_enemy_move(float x, float y, short id_enemigo);
+	void send_player_move(std::vector<Enum_Inputs> vector_keypresed, uint16_t id_mensaje, short number_of_inputs);
 	void send_game_start();
 
 	std::vector<Player*> all_clients();

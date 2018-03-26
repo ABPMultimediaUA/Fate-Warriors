@@ -15,6 +15,7 @@ struct Datos_Input{
 	float _dt;
 	Enum_Inputs _tecla;
 	uint16_t _direccion;
+	uint16_t _num;
 };
 
 
@@ -28,7 +29,7 @@ public:
 	void render() override;
 	void comprobar_input(Enum_Inputs key_press);
 
-	void intoducir_movimiento(Enum_Inputs _input, float x, float y);
+	void intoducir_movimiento(Enum_Inputs _input, uint16_t _num_mensaje, float x, float y);
 
 
 	void modificar_vida_en(short _i_vida)	override;

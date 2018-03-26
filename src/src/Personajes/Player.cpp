@@ -153,9 +153,10 @@ void Player::update(){
 }
 
 
-void Player::intoducir_movimiento(Enum_Inputs _input, float x, float y){
+void Player::intoducir_movimiento(Enum_Inputs _input, uint16_t _num_mensaje,float x, float y){
     movimientos.push_back(x);
-   Datos_Input _datos_movimiento; 
+    Datos_Input _datos_movimiento; 
+    _datos_movimiento._num = _num_mensaje;
     _datos_movimiento._tecla = _input;
     _datos_movimiento._direccion = x;
     _datos_movimiento._dt = y;
@@ -168,6 +169,9 @@ void Player::intoducir_movimiento(Enum_Inputs _input, float x, float y){
 void Player::update_online(){
     //std::cout<< "ACCION_ACTUAL: "<< _accion << "\n";
     	std::vector<Enum_Inputs> inputs;
+        static uint16_t id_mensaje = 0;
+
+    id_mensaje++;
     if (_vida>0){
      if(/*Motor::Motor_GetInstance()->motor_envia_inputs() &&  Cliente::getInstance()->_puede_actualizar */ 0 == 0){
 
@@ -186,7 +190,7 @@ void Player::update_online(){
         //s_sonido->Play_ambiente(2);
      //   mover(_direccion_buena, _tiempo->get_tiempo_desde_ultimo_update());
         if(!es_jugador_online){
-            Cliente::getInstance()->send_desplazamiento(0,_direccion_buena,_tiempo->get_tiempo_desde_ultimo_update());
+            Cliente::getInstance()->send_desplazamiento(0, id_mensaje, _direccion_buena,_tiempo->get_tiempo_desde_ultimo_update());
         }
         
     }
@@ -280,7 +284,7 @@ void Player::update_online(){
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
     
     if(inputs.size()>0){
-     Cliente::getInstance()->send_player_move(inputs, inputs.size());
+     Cliente::getInstance()->send_player_move(inputs, id_mensaje, inputs.size());
     }
 
 
@@ -302,63 +306,68 @@ void Player::update_online(){
 
 void Player::comprobar_input(Enum_Inputs key_press){
     gestion_acciones();
-    if(_datos_movimientos[0]._tecla == Ninguno){
-        mover(_datos_movimientos[0]._direccion, _datos_movimientos[0]._dt);
-    }
-    
-    else if(_datos_movimientos[0]._tecla == Input_Dash){
-        _sonido->Play_ambiente(2);
-        esquivar(_direccion_actual); // Habra que pasar la direccion buena
-        //setY(10);
-    }
 
-    else if(_datos_movimientos[0]._tecla == Input_Salto){
-        saltar();
-	}
+    uint16_t nummens = _datos_movimientos[0]._num;
+
+    while(_datos_movimientos.size()>0 && nummens == _datos_movimientos[0]._num){
+        if(_datos_movimientos[0]._tecla == Ninguno){
+            mover(_datos_movimientos[0]._direccion, _datos_movimientos[0]._dt);
+        }
+        
+        else if(_datos_movimientos[0]._tecla == Input_Dash){
+            _sonido->Play_ambiente(2);
+            esquivar(_direccion_actual); // Habra que pasar la direccion buena
+            //setY(10);
+        }
+
+        else if(_datos_movimientos[0]._tecla == Input_Salto){
+            saltar();
+        }
 
 
-    else if(_datos_movimientos[0]._tecla == Input_Interact){
-       _sonido->Stop_game();
-        if(esta_bloqueado() == false){
-            std::cout<< "Pulsa E\n";
-            if(!interactuar_con_objeto()){
-            std::cout<< "No encuentra objeto\n";
-                intentar_recoger_arma();
+        else if(_datos_movimientos[0]._tecla == Input_Interact){
+        _sonido->Stop_game();
+            if(esta_bloqueado() == false){
+                std::cout<< "Pulsa E\n";
+                if(!interactuar_con_objeto()){
+                std::cout<< "No encuentra objeto\n";
+                    intentar_recoger_arma();
+                }
+                //this->bloquear_input(1000);
+                //std::cout<< "Interactuando..."<< std::endl;
             }
-            //this->bloquear_input(1000);
-            //std::cout<< "Interactuando..."<< std::endl;
+            else{
+            // std::cout<< "No puede INTERACTUAR "<< std::endl;
+            }
         }
-        else{
-           // std::cout<< "No puede INTERACTUAR "<< std::endl;
+
+    ///// ATAQUES ///// 
+
+    else if(_datos_movimientos[0]._tecla == Input_Ataque_Especial) {    // Ataque especial
+                atacar(Ataque_Especial);
+                std::cout << "Ataque Especial\n";
+            }
+        else if(_datos_movimientos[0]._tecla == Input_Ataque_Normal){      // Ataque normal
+                atacar(Ataque_Normal);
+                std::cout << "Ataque Normallllll\n";
+            }
+        else if(_datos_movimientos[0]._tecla == Input_Ataque_Fuerte){                          // Ataque fuerte
+                atacar(Ataque_Fuerte);
+                std::cout << "Ataque Fuerte\n";
+            }
+
+
+    ///// CAMBIO DE ARMAS /////
+
+        else if(_datos_movimientos[0]._tecla == Input_Arma_Izquierda) {
+                cambiar_arma_seleccionada_a_la_anterior();
+            }
+        else if(_datos_movimientos[0]._tecla == Input_Arma_Derecha){
+            cambiar_arma_seleccionada_a_la_siguiente();
         }
+
+        _datos_movimientos.erase(_datos_movimientos.begin());
     }
-
-///// ATAQUES ///// 
-
-   else if(_datos_movimientos[0]._tecla == Input_Ataque_Especial) {    // Ataque especial
-            atacar(Ataque_Especial);
-            std::cout << "Ataque Especial\n";
-        }
-    else if(_datos_movimientos[0]._tecla == Input_Ataque_Normal){      // Ataque normal
-            atacar(Ataque_Normal);
-            std::cout << "Ataque Normallllll\n";
-        }
-    else if(_datos_movimientos[0]._tecla == Input_Ataque_Fuerte){                          // Ataque fuerte
-            atacar(Ataque_Fuerte);
-            std::cout << "Ataque Fuerte\n";
-        }
-
-
-///// CAMBIO DE ARMAS /////
-
-    else if(_datos_movimientos[0]._tecla == Input_Arma_Izquierda) {
-            cambiar_arma_seleccionada_a_la_anterior();
-        }
-    else if(_datos_movimientos[0]._tecla == Input_Arma_Derecha){
-        cambiar_arma_seleccionada_a_la_siguiente();
-    }
-
-    _datos_movimientos.erase(_datos_movimientos.begin());
 
 }
 

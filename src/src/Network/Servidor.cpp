@@ -98,6 +98,7 @@ void Servidor::check_and_send_mesages(){
 			//Player methods
 			case ID_START_GAME: {
 
+
 				RakNet::BitStream stream(packet->data, packet->length, false);
 				stream.IgnoreBytes(sizeof(RakNet::MessageID));
 
@@ -111,16 +112,18 @@ void Servidor::check_and_send_mesages(){
 
 			case ID_PLAYER_MOVE: {
 				Enum_Inputs key_press;
+				uint16_t id_mensaje;
 				std::vector<Enum_Inputs> keys;
 				short number_of_inputs;
 				RakNet::BitStream stream(packet->data, packet->length, false);
 				stream.IgnoreBytes(sizeof(RakNet::MessageID));
 
+				stream.Read(id_mensaje);
 
 				for(stream.Read(number_of_inputs); number_of_inputs; number_of_inputs--){
 					stream.Read(key_press);
 					keys.push_back(key_press);
-					players[packet->guid]->intoducir_movimiento(key_press,0, 0);
+					players[packet->guid]->intoducir_movimiento(key_press, id_mensaje, 0, 0);
 				}
 
 
@@ -129,6 +132,7 @@ void Servidor::check_and_send_mesages(){
 				RakNet::BitStream posUpdate;
 				posUpdate.Write((RakNet::MessageID)ID_PLAYER_MOVE); //Client getting "ID_PLAYER_MOVE", know's it's a different player
 				posUpdate.Write(packet->guid);
+				posUpdate.Write(id_mensaje);
 				posUpdate.Write(numberallkeys);
 				for(unsigned short a=0; a<keys.size(); a++){
 					posUpdate.Write(keys[a]);
@@ -142,23 +146,27 @@ void Servidor::check_and_send_mesages(){
 			case ID_ENEMY_MOVE: {
 				Position position;
 				short id;
+				uint16_t id_mensaje;
+
 				RakNet::Time tiempo_recibido;
 
 				RakNet::BitStream stream(packet->data, packet->length, false);
 				stream.IgnoreBytes(sizeof(RakNet::MessageID));
 				stream.Read(id);
+				stream.Read(id_mensaje);
 				stream.Read(position.x);
 				stream.Read(position.y);
 				stream.Read(tiempo_recibido);
 
-				players[packet->guid]->intoducir_movimiento(Ninguno, position.x, position.y);
-				std::cout << position.y << "me llega un mensaje ------------------- \n";
+				players[packet->guid]->intoducir_movimiento(Ninguno, id_mensaje, position.x, position.y);
+				std::cout << id <<  "posiciones " << (int)id_mensaje << "posiciones " << position.x<< "posiciones " << position.y << "me llega un mensaje ------------------- \n";
 			
 				//position.y =_reloj->get_tiempo_desde_ultimo_update()-peer->GetLastPing(packet->guid);
 
 				RakNet::BitStream posUpdate;
 				posUpdate.Write((RakNet::MessageID)ID_ENEMY_MOVE);
 				posUpdate.Write(packet->guid); 
+				posUpdate.Write(id_mensaje);
 				posUpdate.Write(position.x);
 				posUpdate.Write(position.y);
 
