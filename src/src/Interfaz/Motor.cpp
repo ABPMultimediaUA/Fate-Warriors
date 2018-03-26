@@ -377,10 +377,11 @@ void Motor::configuracion_bullet(){
 
 void Motor::configuracion_irlitch(){
 // Configuracion de Irrlicht
-	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16, 
-    					  false, false, false); 
+	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1024, 768), 16, 
+    					  false, false, false);
+						   
 
-	device->setWindowCaption(L"Feito Güarriorusuu");
+	device->setWindowCaption(L"Fate Warriors");
 
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
