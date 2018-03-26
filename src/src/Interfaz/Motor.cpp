@@ -713,7 +713,7 @@ void Motor::updateCamaraColision(){
 
 		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
 		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
-		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con);
+		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con2);
 		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
 		//->getUserPointer();
 		if(rayCallback.hasHit()){
