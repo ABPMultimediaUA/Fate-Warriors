@@ -118,6 +118,8 @@ public:
     bool ventana_abierta();
     inline TMooseEngine* getEngine(){ return _me;}
 
+    void rotar(btRigidBody *rb, uint16_t rotacion);
+
     void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
     
 

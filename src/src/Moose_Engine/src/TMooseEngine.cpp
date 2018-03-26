@@ -96,7 +96,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glViewport(0,0,width,height);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
+    glFrontFace(GL_CW);
 }
 
 float TMooseEngine::getMouseOffsetX(){

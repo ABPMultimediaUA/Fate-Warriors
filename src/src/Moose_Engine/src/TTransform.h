@@ -12,6 +12,7 @@ class TTransform : public TEntidad{
         void cargar(glm::mat4 matriz);
         void trasponer();
         void trasladar(float _i_x, float _i_y, float _i_z);
+        void setRotacion(float _i_x, float _i_y, float _i_z, float _i_w);
         void rotar(float _i_x, float _i_y, float _i_z, float _i_w);
         void escalar(float _i_x, float _i_y, float _i_z);
 

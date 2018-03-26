@@ -223,7 +223,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 
 
 	_nodo->remove();
-    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);
+    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);cubeBody
     if ( ite2 != nodes.end()){
         nodes.erase(ite2);
         //delete _nodo;
@@ -369,10 +369,15 @@ void Motor::configuracion_bullet(){
 	for(short i = 0; i<num;i++){
 
 		btTransform trans = fileLoader->getRigidBodyByIndex(i)->getWorldTransform();
+		
 
 		escenario = fileLoader->getRigidBodyByIndex(i)->getCollisionShape();
 		cubeMotionState = new btDefaultMotionState(trans);
 		btRigidBody* _objeto_esceario = new btRigidBody(0, cubeMotionState, escenario);
+
+		fileLoader->getRigidBodyByIndex(i)->setCollisionFlags(fileLoader->getRigidBodyByIndex(i)->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+
+		rotar(_objeto_esceario,180);
 		_objeto_esceario->setFriction(0);
 		world->addRigidBody(_objeto_esceario,COL_ESCENARIO, escenario_colisiona_con);
 
@@ -685,7 +690,14 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 
 
 iNodoModelado* Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
-	return crearModelado(rutaObj, x, y, z);
+	iNodoModelado* modelado = crearModelado(rutaObj, x, y, z);
+	
+	//modelado->rotar(-1,0,0,180);
+	modelado->escalar(1,-1,1);
+	modelado->rotar(0,0,1,180);
+
+
+	return modelado;
 }
 
 void Motor::update(double dt){
@@ -899,3 +911,23 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 //Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
 }
+
+void Motor::rotar(btRigidBody *rb, uint16_t rotacion){
+	float mult = 4.9212625;
+	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
+	btTransform rbTransform;
+
+	// Rotacion
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(rb->getCenterOfMassPosition());
+	btQuaternion incline;
+	incline.setRotation(btVector3(0, 1, 0), gTilt);
+	rbTransform.setRotation(incline);
+	//std::cout << rotacion << std::endl;
+
+//Se aplican las transformaciones
+	rb->setWorldTransform(rbTransform);
+}
+
+
+

@@ -220,7 +220,7 @@ void Objeto_Motor::updateDynamicBody() {
 	_interpolacion->actualiza_posicion(vector);
 
 	if(!_interpolacion->get_cambio_direccion()) {
-		//_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
+		_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
 	}
 
 	_interpolacion->cambio_direccion(false);
@@ -234,7 +234,7 @@ Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 
 	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
 	
-	//_nodo->rotar(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
+	_nodo->rotar(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
 
 
 
@@ -274,6 +274,6 @@ void Objeto_Motor::rotar_nodo(uint16_t rotacion){
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	_nodo->mover(pos[0], pos[1], pos[2]);
 	
-	//_interpolacion->actualiza_direccion(rotacion);
+	_interpolacion->actualiza_direccion(rotacion);
 
 }
