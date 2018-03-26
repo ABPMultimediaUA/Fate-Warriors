@@ -48,9 +48,9 @@ Motor::Motor(){
 	importarEscenario(cstr4, 0,0,0);
 	const char* cstr5 = "models/Entorno/Suelo/suelo_t_5/suelo_t_5.obj";
 	importarEscenario(cstr5, 0,0,0);
-	/*const char* cstr6 = "models/Entorno/Suelo/suelo_exterior_1/suelo_exterior_1.obj";
+	const char* cstr6 = "models/Entorno/Suelo/suelo_exterior_1/suelo_exterior_1.obj";
 	importarEscenario(cstr6, 0,0,0);
-	const char* cstr7 = "models/Entorno/Suelo/suelo_exterior_2/suelo_exterior_2.obj";
+	/*const char* cstr7 = "models/Entorno/Suelo/suelo_exterior_2/suelo_exterior_2.obj";
 	importarEscenario(cstr7, 0,0,0);
 	const char* cstr8 = "models/Entorno/Suelo/suelo_exterior_3/suelo_exterior_3.obj";
 	importarEscenario(cstr8, 0,0,0);*/
