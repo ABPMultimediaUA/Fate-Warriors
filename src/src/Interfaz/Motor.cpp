@@ -48,12 +48,12 @@ Motor::Motor(){
 	importarEscenario(cstr4, 0,0,0);
 	const char* cstr5 = "models/Entorno/Suelo/suelo_t_5/suelo_t_5.obj";
 	importarEscenario(cstr5, 0,0,0);
-	const char* cstr6 = "models/Entorno/Suelo/suelo_exterior_1/suelo_exterior_1.obj";
+	/*const char* cstr6 = "models/Entorno/Suelo/suelo_exterior_1/suelo_exterior_1.obj";
 	importarEscenario(cstr6, 0,0,0);
 	const char* cstr7 = "models/Entorno/Suelo/suelo_exterior_2/suelo_exterior_2.obj";
 	importarEscenario(cstr7, 0,0,0);
 	const char* cstr8 = "models/Entorno/Suelo/suelo_exterior_3/suelo_exterior_3.obj";
-	importarEscenario(cstr8, 0,0,0);
+	importarEscenario(cstr8, 0,0,0);*/
     
 	const char* cstr9 = "models/Entorno/Duna/Duna.obj";
 	importarEscenario(cstr9, 0,0,0);
@@ -117,8 +117,8 @@ Motor::Motor(){
 	importarEscenario(cstr38, 0,0,0);
 	const char* cstr39 = "models/Entorno/PosteLuz/PosteLuz.obj";
 	importarEscenario(cstr39, 0,0,0);
-	const char* cstr40 = "models/Entorno/Presa/Presa.obj";
-	importarEscenario(cstr40, 0,0,0);
+	//const char* cstr40 = "models/Entorno/Presa/Presa.obj";
+	//importarEscenario(cstr40, 0,0,0);
 	const char* cstr41 = "models/Entorno/RuinaEdificio1/RuinaEdificio1.obj";
 	importarEscenario(cstr41, 0,0,0);
 	const char* cstr42 = "models/Entorno/RuinaEdificio2/RuinaEdificio2.obj";
@@ -145,12 +145,12 @@ Motor::Motor(){
 	importarEscenario(cstr52, 0,0,0);
 	const char* cstr53 = "models/Entorno/Tuberia3/tuberia_3.obj";
 	importarEscenario(cstr53, 0,0,0);
-	const char* cstr54 = "models/Entorno/Tuberia4/tuberia_4.obj";
-	importarEscenario(cstr54, 0,0,0);
-	const char* cstr55 = "models/Entorno/Tuberia5/uberia_5.obj";
+	/*const char* cstr54 = "models/Entorno/Tuberia4/tuberia_4.obj";
+	importarEscenario(cstr54, 0,0,0);*/
+	/*const char* cstr55 = "models/Entorno/Tuberia5/tuberia_5.obj";
 	importarEscenario(cstr55, 0,0,0);
 	const char* cstr56 = "models/Entorno/Tuberia6/tuberia_6.obj";
-	importarEscenario(cstr56, 0,0,0);
+	importarEscenario(cstr56, 0,0,0);*/
 	const char* cstr57 = "models/Entorno/VallaCampamento2/VallaCampamento2.obj";
 	importarEscenario(cstr57, 0,0,0);
 	const char* cstr58 = "models/Entorno/VallaPubli/VallaPubli.obj";
