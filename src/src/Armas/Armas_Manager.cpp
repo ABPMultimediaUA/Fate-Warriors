@@ -14,12 +14,12 @@
 Armas_Manager::Armas_Manager() {
     
     float mult = 4.9212625;
-	_armas.push_back(new AD_Ametralladora(5,mult*18, mult*0, mult*15));
+	//_armas.push_back(new AD_Ametralladora(5,mult*18, mult*0, mult*15));
     
-    _armas.push_back(new AC_Katana(5,mult*10, mult*0, mult*10));
+    //_armas.push_back(new AC_Katana(5,mult*10, mult*0, mult*10));
 
 
-    _numero_max = 2;
+    _numero_max = 0;
 
 }
 

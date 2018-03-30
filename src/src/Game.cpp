@@ -146,7 +146,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 			_decision_manager->toma_decisiones();
 			_zonas_manager->actualizar_zonas();
 
-			if(Time::Instance()->get_current()>_tiempo_final_de_partida){
+		/*	if(Time::Instance()->get_current()>_tiempo_final_de_partida){
 				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
 				cambio_a_update_menu();
 				//Fin de partida
@@ -157,6 +157,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 				}
 				//if equipo!=neutro Fin partida
 			}
+			*/
     }
 }
 

@@ -441,7 +441,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 	switch(tipo){
 		case E_BoundingCapsule: 
-			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
+			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5);
 
 					break;
 		case E_BoundingBox:
@@ -488,6 +488,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	else if(dynamic_cast<Puerta*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
+		cubeBody->setFriction(0);
 	}
 
 	else if(dynamic_cast<Puerta_Pincho*>(_i_objeto)!=NULL){

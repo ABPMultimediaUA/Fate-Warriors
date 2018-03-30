@@ -40,7 +40,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
     //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
     
-    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 90, false, 4);
+    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 0, false, 4);
 
    //_puertas[1] = new Puerta(127,-0,0,-180,false);
 	
@@ -136,7 +136,7 @@ Interactuable_Manager::~Interactuable_Manager() {
 void Interactuable_Manager::update_interruptores(){
 
 	for(unsigned short cont=0; cont<_n_puertas_pincho; cont++){
-		_puertas_pincho[cont]->update();
+		//_puertas_pincho[cont]->update();
 	}
 }
 

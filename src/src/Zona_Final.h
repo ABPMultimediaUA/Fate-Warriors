@@ -1,19 +1,21 @@
-#ifndef ZONA_H_
-#define ZONA_H_
+#ifndef ZONA_FINAL_H_
+#define ZONA_FINAL_H_
 
 #include "Objeto.h"
 #include "Personajes/Enum_Tipo_Ataque.h"
+#include "Zona.h"
+
 #include <vector>
 
 class Character;
 class Time;
 class Interruptor;
 
-class Zona{
+class Zona_Final : public Zona{
 public:
-	Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo);
-    ~Zona();
-    virtual void actualizar_zona();
+	Zona_Final(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo);
+    ~Zona_Final();
+    void actualizar_zona();
     std::vector <Character*>get_characters();
     void iniciar_tiempo_conquista();
     void cambiar_bando();
@@ -63,24 +65,6 @@ public:
     std::vector<Interruptor*> get_interruptores_asociados();
     void set_interruptor_asociado(Interruptor* _i_interruptor);
 
-
-protected:
-    btRigidBody *_rb;
-    Enum_Equipo _equipo;
-
-    float _pos_x;
-    float _pos_y; // Es la Z realmente
-
-    Time* _reloj;
-    std::vector <Character*> personajes_de_la_zona;
-    bool _conquistando;
-    double _tiempo_inicio_conquista;
-    double _tiempo_restante_conquista;
-
-    int _npcs_persiguiendome;
-
-   std::vector<Interruptor*> _interruptores_asociados;
-
 };
 
-#endif /* ZONA_H_ */
+#endif /* ZONA_FINAL_H_ */
