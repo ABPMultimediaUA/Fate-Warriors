@@ -25,8 +25,7 @@ _reloj=Time::Instance();
 }
 
 Zona_Final::~Zona_Final() {
-    Motor::Motor_GetInstance()->borrar_rb(_rb);
-    _interruptores_asociados.clear();
+
 }
 
 
@@ -39,114 +38,16 @@ void Zona_Final::actualizar_zona(){
 	uint16_t _num_characters = _datos->get_num_characters();
     Motor* motor = Motor::Motor_GetInstance();
 
-    personajes_de_la_zona.clear();
-    _num_characters_equipo_A = 0;
-    _num_characters_equipo_B = 0;
-    bool _conquistando_aux=true;
-    bool _pausar_conquista = false;
-
-
-    for (uint16_t num_character=0; num_character<_num_characters; num_character++){
-       if(todos_personajes[num_character]->get_vida_actual()>0 && motor->comprobar_colision(_rb, todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
-            personajes_de_la_zona.push_back(todos_personajes[num_character]);
-            //std::cout << this <<  " estoy en la zona \n";
-
-            if(todos_personajes[num_character]->get_equipo() == Enum_Equipo_A){
-                _num_characters_equipo_A++;
-            }
-            else{
-                _num_characters_equipo_B++;
-            }
-
-            if(todos_personajes[num_character]->get_equipo() == _equipo){
-                _conquistando_aux = false;
-                _pausar_conquista = true;
-            }
-       }   
-    }
-
-    //Si no hay del bando que toca tambien debe de restaurarse
-    if(!hay_personajes_conquistando_esta_zona()){
-         _conquistando = false;
-      //  _conquistando_aux = false;
-        _tiempo_restante_conquista = 10000;
-    }
-
-    else{                               //hay personajes conquistando
-        if(!_conquistando){             //Es la primera vez que se pone a conquistar el territorio se debe poner el tiempo
-            if(_conquistando_aux){
-                _conquistando = true;
-                iniciar_tiempo_conquista();
-            }
+    if(esta_jugador_en_zona()){
+        for (uint16_t num_character=0; num_character<_num_characters; num_character++){
+            if(motor->comprobar_colision(_rb, todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
+               // personajes_de_la_zona.push_back(todos_personajes[num_character]);
+               std::cout << "HAS GANADO \n";
+            }   
         }
-
-        else{                           //No es la primera vez que se conquista, se estaba conquistando de antes
-            if(_pausar_conquista){
-                _conquistando = false;
-                set_tiempo_restante_para_conquistar();
-            }
-
-            if(_conquistando){
-                //std::cout << _tiempo_restante_conquista - (_reloj->get_current() - _tiempo_inicio_conquista) << " conquistando.... \n";
-            }
-
-            //Si se esta conquistando debe comprobar si ha pasado el tiempo necesario de conquista
-            if(_reloj->get_current() >_tiempo_inicio_conquista+_tiempo_restante_conquista){
-                std::cout<< " conquistado!!!!'------------------------------------------ \n";
-                _tiempo_restante_conquista = 0;
-                cambiar_bando();
-            }
-        }
-
-
-        //Si esta conquistando y de golpe entra un enemigo debe pausar el tiempo de conquista y guardar el tiempo que falta para conquistar el territorio
-
+   
     }
 
-}
-
-//Comprobar si hay personajes conquistando
-bool Zona_Final::hay_personajes_conquistando_esta_zona(){
-    if(_equipo != Enum_Equipo_A && _num_characters_equipo_A==0){
-        return false;
-    }
-
-    else if(_equipo != Enum_Equipo_B && _num_characters_equipo_B==0){
-        return false;
-    }
-    return true;
-}
 
 
-//Pausa el tiempo que necesita para conquistar un territorio
-void Zona_Final::set_tiempo_restante_para_conquistar(){
-    _tiempo_restante_conquista = _tiempo_restante_conquista - (_reloj->get_current() - _tiempo_inicio_conquista);
-    std::cout << _tiempo_restante_conquista << "Tiempo_que queda" << std::endl;
-}
-
-//Cambia de bando el equipo la zona
-void Zona_Final::cambiar_bando(){
-    _equipo=personajes_de_la_zona[0]->get_equipo();
-    _conquistando=false;
-}
-
-//Restaura el tiempo de conquista
-void Zona_Final::iniciar_tiempo_conquista(){
-    _tiempo_inicio_conquista = _reloj->get_current();
-}
-
-std::vector <Character*> Zona_Final::get_characters(){
-    return personajes_de_la_zona;
-}
-
-bool Zona_Final::get_conquistando(){
-    return _conquistando;
-}
-
-void Zona_Final::set_interruptor_asociado(Interruptor* _i_interruptor){
-    _interruptores_asociados.push_back(_i_interruptor);
-}
-
-std::vector<Interruptor*> Zona_Final::get_interruptores_asociados(){
-    return _interruptores_asociados;
 }

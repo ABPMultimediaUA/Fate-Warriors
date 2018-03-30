@@ -1,6 +1,8 @@
 #include "Zona.h"
 #include "Interfaz/Motor.h"
 #include "Personajes/Character.h"
+#include "Personajes/Player.h"
+
 #include "Datos_Partida.h"
 #include "Interfaz/Motor.h"
 #include "Game.h"
@@ -115,6 +117,18 @@ bool Zona::hay_personajes_conquistando_esta_zona(){
     return true;
 }
 
+
+bool Zona::esta_jugador_en_zona(){
+    Game* game 		= Game::game_instancia();
+	Datos_Partida * _datos	= game->game_get_datos();
+    Player* _player = _datos->get_player();
+    Motor* motor = Motor::Motor_GetInstance();
+
+    if(motor->comprobar_colision(_rb, _player->get_objeto_motor()->getRigidBody()) == true){
+        return true;
+    }
+    return false;
+}
 
 //Pausa el tiempo que necesita para conquistar un territorio
 void Zona::set_tiempo_restante_para_conquistar(){

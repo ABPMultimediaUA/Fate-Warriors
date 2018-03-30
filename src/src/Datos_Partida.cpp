@@ -13,18 +13,21 @@
 #include "Zonas_Manager.h"
 #include <iostream>
 #include "Respawn.h"
+#include "Utilidades/Vector.h"
+
 
 
 Datos_Partida::Datos_Partida(Input* _i_input) { 
-  float mult = 4.9212625; 
-  _jugador          =   new Player( 0, 12.5*mult, 0, 9.5*mult, _i_input); 
-    _consumibles_manager   =   new Consumible_Manager(); 
-  _trampas_manager     =   new Trampas_manager(); 
-  _armas_manager       =  new Armas_Manager(); 
-//  _respawn_Points      =  new Respawn_Points(); 
-  _zonas_manager       =  new Zonas_Manager(); 
-    _interactuable_manager   =   new Interactuable_Manager(_zonas_manager->get_zonas()); 
-  _npc_manager        =   new NPC_Manager(); 
+	float mult = 4.9212625; 
+  	_zonas_manager       	=  new Zonas_Manager();
+	Vector2 pos 			=  _zonas_manager->get_posicion_zona_inicial();
+  	_jugador 				= new Player( 0, pos._x, 1, pos._y, _i_input); 
+    _consumibles_manager 	= new Consumible_Manager(); 
+  	_trampas_manager 		= new Trampas_manager(); 
+  	_armas_manager  		=  new Armas_Manager(); 
+	//  _respawn_Points      =  new Respawn_Points(); 
+	_interactuable_manager  =   new Interactuable_Manager(_zonas_manager->get_zonas()); 
+  	_npc_manager        	=   new NPC_Manager(); 
  
    
  
@@ -101,7 +104,9 @@ void Datos_Partida::posicionar_characters_inicialmente(){
 
 	Respawn * respawn = Respawn::posiciones_instancia();
 	for(_cont = 0; _cont < _num_characters; _cont++) { 
-		Vector2 vector = respawn->generar_posicion_del_bando(_characters[_cont]->get_equipo());
-		_characters[_cont]->setPositionXZ(vector._x, vector._y);
+		if(_characters[_cont]!=_jugador){
+			Vector2 vector = respawn->generar_posicion_del_bando(_characters[_cont]->get_equipo());
+			_characters[_cont]->setPositionXZ(vector._x, vector._y);
+		}
 	} 
 }

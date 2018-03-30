@@ -11,6 +11,7 @@
 #include "Datos_Partida.h"
 #include "Zona.h"
 
+
 Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	// tener xml con la informacion de todos los objetos

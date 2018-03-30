@@ -2,7 +2,11 @@
 #define ZONAS_MANAGER_H_
 
 class Zona;
+class Zona_Inicial;
+class Player;
 #include "Personajes/Enum_Tipo_Ataque.h"
+#include "Utilidades/Vector.h"
+
 
 #include <vector>
 #include <cstdint>
@@ -27,6 +31,8 @@ public:
 	std::vector<Zona*> get_zonas_equipo_a_no_siendo_conquistadas();
 	std::vector<Zona*> get_zonas_equipo_b_no_siendo_conquistadas();
 
+	Vector2 get_posicion_zona_inicial();
+
 	
 private:
 	Zona** _zonas;
@@ -36,6 +42,7 @@ private:
 	std::vector<Zona*> _zona_bando_a_no_sindo_conquistada;
 	std::vector<Zona*> _zona_bando_b_no_sindo_conquistada;
 
+	Zona_Inicial* _zona_incial;
 
 	unsigned short _n_zonas;
 	uint8_t _equipoA;

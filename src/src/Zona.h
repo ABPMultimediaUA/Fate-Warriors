@@ -18,6 +18,9 @@ public:
     void iniciar_tiempo_conquista();
     void cambiar_bando();
 
+
+    bool esta_jugador_en_zona();
+
     void set_tiempo_restante_para_conquistar();
     inline btRigidBody * getRigidBody(){
         return _rb;
