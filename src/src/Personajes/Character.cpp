@@ -628,6 +628,9 @@ btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
   
     switch(_ataque)
     {
+        case Ataque_Ninguno:
+            return btVector3(x_atacante + _sen * 9, y_atacante, z_atacante + _cos * 9);
+
         default:
             return btVector3(x_atacante + _sen * 3, y_atacante, z_atacante + _cos * 3);
     }

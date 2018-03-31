@@ -549,6 +549,34 @@ btRigidBody* Motor::crear_rb_ataque(){
 	return rb_ataque;
 }
 
+btRigidBody* Motor::crear_rb_vision(){
+	float mult = 4.9212625;
+
+	btTransform ghostTransform;
+	
+	ghostTransform.setIdentity();
+	ghostTransform.setOrigin(btVector3(1, 1 ,1));
+
+	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(ghostTransform);
+
+	float cubeMass = 0;
+
+	btConeShape *cubeShape = new btConeShape(8,2);
+
+	btVector3 cubeLocalInertia;
+	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
+
+	btRigidBody* rb_ataque = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
+	
+	rb_ataque->setCollisionFlags(rb_ataque->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	int grupo_colision   = COL_OTRO;
+	int mascara_colision = otros_colisiona_con;
+	
+	world->addRigidBody(rb_ataque,grupo_colision,mascara_colision);
+
+	return rb_ataque;
+}
+
 void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
 	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
@@ -831,9 +859,37 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	// Rotacion
 	rbTransform.setIdentity();
 	rbTransform.setOrigin(rb->getCenterOfMassPosition());
-	btQuaternion incline;
-	incline.setRotation(btVector3(0, 1, 0), gTilt);
-	rbTransform.setRotation(incline);
+ 	btQuaternion incline; 
+  	incline.setRotation(btVector3(0, 1, 0), gTilt); 
+  	rbTransform.setRotation(incline); 
+	//std::cout << rotacion << std::endl;
+
+	// Escalado
+	rb->getCollisionShape()->setLocalScaling(escala);
+
+	// Traslacion
+	rbTransform.setOrigin(posicion);
+
+//Se aplican las transformaciones
+	rb->setWorldTransform(rbTransform);
+}
+
+
+void Motor::posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion){
+	float mult = 4.9212625;
+	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
+	btTransform rbTransform;
+
+	// Rotacion
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(rb->getCenterOfMassPosition());
+	btQuaternion incline(btVector3(0, 1, 0), gTilt);
+ 	gTilt = 90*SIMD_PI / (180.0f); 
+	btQuaternion miau(btVector3(0, 0, 1), gTilt);
+ 	gTilt = 270*SIMD_PI / (180.0f); 
+	btQuaternion bee(btVector3(1, 0, 0), gTilt);
+
+	rbTransform.setRotation(incline*miau*bee);
 	//std::cout << rotacion << std::endl;
 
 	// Escalado

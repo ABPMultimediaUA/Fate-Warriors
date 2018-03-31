@@ -35,7 +35,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_objeto_motor);
-    _rb_apuntado = Motor::Motor_GetInstance()->crear_rb_ataque();
+    _rb_apuntado = Motor::Motor_GetInstance()->crear_rb_vision();
     
     //std::cout<<"X player: "<<_motor->getX(_id_motor);
     //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
@@ -43,6 +43,8 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _input = _i_input;
     _motor->set_text_vida(_vida);
     _especial = 0;
+    _apuntando = nullptr;
+
     //_sonido->Play_ambiente(2);
 }
 
@@ -67,18 +69,25 @@ void Player::update(){
         uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
         while(_direccion_buena >= 360) _direccion_buena -= 360;
         mover(_direccion_buena);
+        rotar_en_funcion_de_ese_objetivo();
+        rotar_en_funcion_de_ese_objetivo();
+
         //s_sonido->Play_ambiente(2);
+    }
+    else{
+        rotar_en_funcion_de_ese_objetivo();
     }
 
 
-        Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(2,1,2), _direccion_actual);
+    Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb_visor(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(1,10,1), _direccion_actual);
 
-        objetivo_mas_proximo_angulo();
 
 
     if(_input->get_dash()){
         _sonido->Play_personaje(0);
         esquivar(_direccion); // Habra que pasar la direccion buena
+      objetivo_mas_proximo_angulo();
+
     }
 
     if(_input->get_interactuar()){
@@ -150,6 +159,7 @@ void Player::update(){
         Vector2 pos = Respawn::posiciones_instancia()->generar_posicion_del_bando(get_equipo());
         revivir(pos);
         Respawn::posiciones_instancia()->eliminar_character_a_reaparecer(this);
+        _apuntando=nullptr;
     }
 
 
@@ -180,24 +190,37 @@ void Player::objetivo_mas_proximo_angulo(){
 
 
     if(enemigo!=nullptr){
-
-        uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), enemigo->getX(), enemigo->getZ());
-
-        float _cos, _sen;
-        _cos = sin(angulo_giro*std::acos(-1)/180);
-        _sen = cos(angulo_giro*std::acos(-1)/180);
-
-
-        // Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
-        uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
-        while(_nueva_direccion >= 360) _nueva_direccion -= 360;
-
-
-        set_direccion_actual(_nueva_direccion);
-        rotar_cuerpo(_nueva_direccion);
+        rotar_en_funcion_de_ese_objetivo();
+        _apuntando=enemigo;
+    }
+    else {
+        _apuntando = nullptr;
     }
 }
 
+void Player::rotar_en_funcion_de_ese_objetivo(){
+
+    if(_apuntando!=nullptr){
+        if(_apuntando->get_vida_actual()<1){
+            _apuntando = nullptr;
+        }
+        else{
+            uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), _apuntando->getX(), _apuntando->getZ());
+
+            float _cos, _sen;
+            _cos = sin(angulo_giro*std::acos(-1)/180);
+            _sen = cos(angulo_giro*std::acos(-1)/180);
+
+            // Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
+            uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
+            while(_nueva_direccion >= 360) _nueva_direccion -= 360;
+
+            set_direccion_actual(_nueva_direccion);
+            rotar_cuerpo(_nueva_direccion);
+        }
+    }
+
+}
 
 void Player::modificar_vida_en(short _i_vida){
 	if(_vida+_i_vida>_vida_maxima){

@@ -23,6 +23,7 @@ public:
 	void aumentar_especial();
 	void disminuir_especial();
 	void objetivo_mas_proximo_angulo();
+	void rotar_en_funcion_de_ese_objetivo();
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
@@ -34,6 +35,7 @@ private:
 	//Time * _tiempo;
 	Input* _input;
 	btRigidBody *_rb_apuntado;
+	Character * _apuntando;
 
 };
 

@@ -65,6 +65,7 @@ public:
     ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
+    btRigidBody* crear_rb_vision();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
     void setCollisionGroup(int group, btRigidBody *_i_rigidbody );
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
@@ -105,6 +106,8 @@ public:
     
       bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
       void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
+      void posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
+
       //bool comprobar_colision_ataque(btRigidBody *character_atacado);
 
     
