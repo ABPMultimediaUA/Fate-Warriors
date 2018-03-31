@@ -22,6 +22,7 @@ public:
 	bool puede_subir_especial();
 	void aumentar_especial();
 	void disminuir_especial();
+	void objetivo_mas_proximo_angulo();
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
@@ -32,6 +33,8 @@ private:
 	Interfaz_Fisica* _interface_fisica;
 	//Time * _tiempo;
 	Input* _input;
+	btRigidBody *_rb_apuntado;
+
 };
 
 #endif /* SRC_PLAYER_H_ */

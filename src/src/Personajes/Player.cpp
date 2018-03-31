@@ -8,6 +8,7 @@
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
 
+
 #include "../Nivel/Nivel.h"
 
 #include "../Interfaz_Libs/Lib_Math.h"
@@ -17,6 +18,7 @@
 
 #include "../Motor_sonido/Interfaz_sonido.h"
 
+#include "../Datos_Partida.h"
 #include "../Game.h"
 #include "../Action_Manager.h"
                                                                                                             //  vida_prota, velocidad
@@ -33,6 +35,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     
     //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_objeto_motor);
+    _rb_apuntado = Motor::Motor_GetInstance()->crear_rb_ataque();
     
     //std::cout<<"X player: "<<_motor->getX(_id_motor);
     //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
@@ -44,6 +47,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 }
 
 Player::~Player(){
+    Motor::Motor_GetInstance()->borrar_rb(_rb_apuntado);
 }
 
 void Player::update(){
@@ -65,6 +69,12 @@ void Player::update(){
         mover(_direccion_buena);
         //s_sonido->Play_ambiente(2);
     }
+
+
+        Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(2,1,2), _direccion_actual);
+
+        objetivo_mas_proximo_angulo();
+
 
     if(_input->get_dash()){
         _sonido->Play_personaje(0);
@@ -147,6 +157,45 @@ void Player::update(){
 			
 void Player::render(){
   
+}
+
+void Player::objetivo_mas_proximo_angulo(){
+    Datos_Partida * _datos_partida = Game::game_instancia()->game_get_datos();
+    Character ** _characters = _datos_partida->get_characters();
+    uint16_t _num_characters  = _datos_partida->get_num_characters();
+    Character * enemigo = nullptr;
+
+    float distance = 9999;
+    float distance_aux = 9999;
+
+    for(uint16_t _cont = 0; _cont < _num_characters; _cont++) {
+      if( _characters[_cont]!=this && Motor::Motor_GetInstance()->comprobar_colision(_rb_apuntado, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true){
+          distance_aux = lib_math_distancia_2_puntos(_characters[_cont]->getX(), _characters[_cont]->getZ(), getX(), getZ());
+          if(distance_aux<distance){
+            distance = distance_aux;
+            enemigo = _characters[_cont];
+          }
+      }
+    }           
+
+
+    if(enemigo!=nullptr){
+
+        uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), enemigo->getX(), enemigo->getZ());
+
+        float _cos, _sen;
+        _cos = sin(angulo_giro*std::acos(-1)/180);
+        _sen = cos(angulo_giro*std::acos(-1)/180);
+
+
+        // Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
+        uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
+        while(_nueva_direccion >= 360) _nueva_direccion -= 360;
+
+
+        set_direccion_actual(_nueva_direccion);
+        rotar_cuerpo(_nueva_direccion);
+    }
 }
 
 
