@@ -138,7 +138,7 @@ Enum_Equipo Zonas_Manager::comprobar_victoria(){
 	*/
 
 	if(_equipoA==_n_zonas){
-		std::cout << "Gana Equipo A"<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
+ 		std::cout << "Gana Equipo A"<< (int)_equipoA << " - " <<(int)_equipoB << "\n" ;
 		return Enum_Equipo_A;
 	}
 

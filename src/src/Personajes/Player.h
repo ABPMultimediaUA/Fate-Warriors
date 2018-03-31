@@ -22,7 +22,9 @@ public:
 	bool puede_subir_especial();
 	void aumentar_especial();
 	void disminuir_especial();
-	void objetivo_mas_proximo_angulo();
+	Character* objetivo_mas_proximo_angulo();
+	void rotar_en_funcion_de_un_punto(Character* _objetivo);
+	void set_apuntando_a_objetivo_mas_proximo();
 	void rotar_en_funcion_de_ese_objetivo();
 	//ckeyboardman* _KeyMan;
 private:

@@ -86,8 +86,7 @@ void Player::update(){
     if(_input->get_dash()){
         _sonido->Play_personaje(0);
         esquivar(_direccion); // Habra que pasar la direccion buena
-      objetivo_mas_proximo_angulo();
-
+        set_apuntando_a_objetivo_mas_proximo();
     }
 
     if(_input->get_interactuar()){
@@ -135,6 +134,7 @@ void Player::update(){
             _sonido->Play_personaje(1);
             //std::cout << "Ataque Fuerte\n";
         }
+        objetivo_mas_proximo_angulo();
     }
   
 
@@ -169,7 +169,7 @@ void Player::render(){
   
 }
 
-void Player::objetivo_mas_proximo_angulo(){
+Character* Player::objetivo_mas_proximo_angulo(){
     Datos_Partida * _datos_partida = Game::game_instancia()->game_get_datos();
     Character ** _characters = _datos_partida->get_characters();
     uint16_t _num_characters  = _datos_partida->get_num_characters();
@@ -190,13 +190,34 @@ void Player::objetivo_mas_proximo_angulo(){
 
 
     if(enemigo!=nullptr){
-        rotar_en_funcion_de_ese_objetivo();
-        _apuntando=enemigo;
+        rotar_en_funcion_de_un_punto(enemigo);
+        return enemigo;
+
     }
     else {
-        _apuntando = nullptr;
+        return enemigo;
     }
 }
+
+void Player::set_apuntando_a_objetivo_mas_proximo(){
+    _apuntando = objetivo_mas_proximo_angulo();
+}
+
+void Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
+    uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), _objetivo->getX(), _objetivo->getZ());
+
+    float _cos, _sen;
+    _cos = sin(angulo_giro*std::acos(-1)/180);
+    _sen = cos(angulo_giro*std::acos(-1)/180);
+
+    // Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
+    uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
+    while(_nueva_direccion >= 360) _nueva_direccion -= 360;
+
+    set_direccion_actual(_nueva_direccion);
+    rotar_cuerpo(_nueva_direccion);
+}
+
 
 void Player::rotar_en_funcion_de_ese_objetivo(){
 
@@ -205,18 +226,7 @@ void Player::rotar_en_funcion_de_ese_objetivo(){
             _apuntando = nullptr;
         }
         else{
-            uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), _apuntando->getX(), _apuntando->getZ());
-
-            float _cos, _sen;
-            _cos = sin(angulo_giro*std::acos(-1)/180);
-            _sen = cos(angulo_giro*std::acos(-1)/180);
-
-            // Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
-            uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
-            while(_nueva_direccion >= 360) _nueva_direccion -= 360;
-
-            set_direccion_actual(_nueva_direccion);
-            rotar_cuerpo(_nueva_direccion);
+           rotar_en_funcion_de_un_punto(_apuntando);
         }
     }
 
