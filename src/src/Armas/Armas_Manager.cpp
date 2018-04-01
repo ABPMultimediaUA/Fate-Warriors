@@ -19,7 +19,7 @@ Armas_Manager::Armas_Manager() {
     //_armas.push_back(new AC_Katana(5,mult*10, mult*0, mult*10));
 
 
-    _numero_max = 0;
+    _numero_max = 15;
 
 }
 

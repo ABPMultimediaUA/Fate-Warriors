@@ -17,6 +17,7 @@ public:
 	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
 	short _i_danyo_ataque_fuerte, Enum_Equipo equipo);
 	
+	bool get_bloqueando();
 	virtual ~Character();
 
 	virtual void modificar_vida_en(short _i_vida); // este metodo debe derivar en danyar y curar
@@ -116,9 +117,11 @@ public:
 	void activar_inmunidad_a_danyos();
 	void desactivar_inmunidad_a_danyos();
 	void rotar_cuerpo(uint16_t _i_valor);
+	bool _bloqueado; // Si se encuentra bloqueado por el Tipo_Accion
 
 protected:
 	
+	bool _bloqueando_ataque;
 	int16_t _vida_maxima;
 	int16_t _vida;
 	float _velocidadAndar;		//velocidad al andar
@@ -129,7 +132,6 @@ protected:
 	short _danyo_ataque_normal;
 	short _danyo_ataque_fuerte;
 	double _tiempo_inicio_accion; // El tiempo cuando ha empezado a realizar el Tipo_Accion
-	bool _bloqueado; // Si se encuentra bloqueado por el Tipo_Accion
     Inventario* _inventario;
 	bool _tiene_arma_corta;
 	bool _tiene_arma_larga;

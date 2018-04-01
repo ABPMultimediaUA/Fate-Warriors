@@ -26,7 +26,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
     :Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
-    _tiene_arma_larga(false) {
+    _tiene_arma_larga(false), _bloqueando_ataque(false) {
 
     _inmortal = false;
     _inventario = new Inventario();
@@ -41,7 +41,11 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _equipo = _i_equipo;
     _bloqueado = false;
     _npcs_persiguiendome = 0;
-    
+       
+}
+
+bool Character::get_bloqueando(){
+    return _bloqueando_ataque;
 }
 
 Character::~Character() {
@@ -219,7 +223,7 @@ void Character::saltar(){
 }
 
 void Character::mover(uint16_t _i_direccion){
-    if(esta_bloqueado() == false){
+    if(0== 0){
 
         _direccion_actual = _i_direccion;
             
@@ -794,6 +798,8 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 if( _characters[_cont]->get_vida_actual()>0 && _characters[_cont]->get_equipo() != _equipo &&
                     Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true)
                 {
+                    if(!(_characters[_cont]->get_bloqueando())){
+
                     _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
             
                     //std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
@@ -802,6 +808,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                     impulso_danyar(this, _characters[_cont], get_impulso_danyar(_tipo_ataque));
 
                     golpea = true;
+                    }
                 }
             }
 

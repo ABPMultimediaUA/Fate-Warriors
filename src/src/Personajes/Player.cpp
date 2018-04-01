@@ -44,7 +44,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _motor->set_text_vida(_vida);
     _especial = 0;
     _apuntando = nullptr;
-
+    _bloqueando_ataque = false;
     //_sonido->Play_ambiente(2);
 }
 
@@ -71,16 +71,16 @@ void Player::update(){
         mover(_direccion_buena);
         rotar_en_funcion_de_ese_objetivo();
         rotar_en_funcion_de_ese_objetivo();
-
         //s_sonido->Play_ambiente(2);
     }
     else{
         rotar_en_funcion_de_ese_objetivo();
     }
 
-
-    Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb_visor(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(1,10,1), _direccion_actual);
-
+    /*if(_apuntando!=nullptr)
+        _motor->resetear_camara();
+*/
+    Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb_visor(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(5,10,1), _direccion_actual);
 
 
     if(_input->get_dash()){
@@ -139,8 +139,14 @@ void Player::update(){
   
 
     if(_input->get_saltar()){
-        saltar();
+       // saltar();
+       _bloqueando_ataque = true;
+       _tiempobloqueo = _tiempo->get_current()+1000;
+
 	}
+    if(_tiempo->get_current()>_tiempobloqueo && _bloqueando_ataque){
+        _bloqueando_ataque = false;
+    }
 
     if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
         && !std::get<0>(_ataques) && !_input->get_saltar() && _accion != Atacar && _accion != Saltar){
@@ -191,6 +197,9 @@ Character* Player::objetivo_mas_proximo_angulo(){
 
     if(enemigo!=nullptr){
         rotar_en_funcion_de_un_punto(enemigo);
+        if (distance>6){
+            _objeto_motor->Impulso(_direccion_actual, 9000);
+        }
         return enemigo;
 
     }
