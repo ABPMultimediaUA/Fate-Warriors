@@ -908,7 +908,7 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	// Traslacion
 	rbTransform.setOrigin(posicion);
 
-//Se aplican las transformaciones
+	//Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
 }
 

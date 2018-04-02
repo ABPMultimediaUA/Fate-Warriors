@@ -37,7 +37,7 @@ Game::Game() : _datos(nullptr),
 	_motor = Motor::Motor_GetInstance();
 
 	_input_jugador = new Input();
-	//_motor->asigna_input(_input_jugador);
+	_motor->asigna_input(_input_jugador);
 
 	_menu_principal = new Menu_Principal(_input_jugador);
 	_menu_pausa = new Menu_Pausa(_input_jugador);

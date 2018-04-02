@@ -52,11 +52,9 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	q.toEuler(euler);
 	euler *= RADTODEG;
 
-	/*_nodo->rotar(1, 0, 0, euler.X);
-	_nodo->rotar(0, 1, 0, euler.Y);
-	_nodo->rotar(0, 0, 1, euler.Z);
-*/
-	//_nodo->rotar(euler.X, euler.Y, euler.Z);
+	_nodo->rotacionDirecta(1, 0, 0, euler.X);
+	_nodo->rotacionDirecta(0, 1, 0, euler.Y);
+	_nodo->rotacionDirecta(0, 0, 1, euler.Z);
 }
 
 
