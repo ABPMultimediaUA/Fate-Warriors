@@ -57,12 +57,14 @@ void Player::update(){
     if (_vida>0){
 
     gestion_acciones();
+    Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb_visor(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(5,10,1), _direccion_actual);
 
     // Esto hay que borrarlo
     Controles* controles = Controles::Instance();
 
     // Recoge si ha habido movimiento y la direccion de el mismo
     uint16_t _direccion;
+    uint16_t _direccion_posterior = get_direccion_actual();
 
     if(_input->get_mover(_direccion)){
         // Direccion buena con respecto de la camara
@@ -72,6 +74,16 @@ void Player::update(){
         rotar_en_funcion_de_ese_objetivo();
         rotar_en_funcion_de_ese_objetivo();
         //s_sonido->Play_ambiente(2);
+      
+        if(_input->get_dash()){
+            _sonido->Play_personaje(0);
+            int16_t _direccion_incremento = (int16_t)_direccion_buena-(int16_t)_direccion_posterior;
+            std::cout << "hola " <<(int)_direccion_incremento<< "incremento en -----" << std::endl;
+            if(_direccion_incremento>-45 && _direccion_incremento<45){
+                set_apuntando_a_objetivo_mas_proximo();
+            }
+            esquivar(_direccion_buena); // Habra que pasar la direccion buena
+        }
     }
     else{
         rotar_en_funcion_de_ese_objetivo();
@@ -80,14 +92,9 @@ void Player::update(){
     /*if(_apuntando!=nullptr)
         _motor->resetear_camara();
 */
-    Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb_visor(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(5,10,1), _direccion_actual);
 
 
-    if(_input->get_dash()){
-        _sonido->Play_personaje(0);
-        esquivar(_direccion); // Habra que pasar la direccion buena
-        set_apuntando_a_objetivo_mas_proximo();
-    }
+
 
     if(_input->get_interactuar()){
         if(esta_bloqueado() == false){
@@ -174,6 +181,22 @@ void Player::update(){
 void Player::render(){
   
 }
+
+void Player::gestion_dash(){
+    if(get_accion() == Accion_Dash){
+        //std::cout << "ESQUIVANDO" << std::endl;
+        _objeto_motor->Dash(_direccion_actual);
+        //_objeto_objeto_motor->colorear_nodo(0,255,0);
+        //_objeto_motor->colorear_nodo(0,255,0);
+        if(esta_bloqueado() == false){
+            this->set_accion(Accion_Correr);
+            if(_apuntando!=nullptr)
+            rotar_en_funcion_de_un_punto(_apuntando);
+            _objeto_motor->colorear_nodo(255,255,255);
+        }
+    }
+}
+
 
 Character* Player::objetivo_mas_proximo_angulo(){
     Datos_Partida * _datos_partida = Game::game_instancia()->game_get_datos();

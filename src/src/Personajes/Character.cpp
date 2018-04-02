@@ -223,7 +223,7 @@ void Character::saltar(){
 }
 
 void Character::mover(uint16_t _i_direccion){
-    if(0== 0){
+    if(esta_bloqueado() == false){ 
 
         _direccion_actual = _i_direccion;
             
@@ -272,7 +272,7 @@ bool Character::interactuar_con_objeto(){
             
             _interruptores[_cont]->set_activado(true);
             objeto_encontrado = true;
-            std::cout << "Usa palanca"<< std::endl;
+       //     std::cout << "Usa palanca"<< std::endl;
         }
 	}
 
@@ -567,7 +567,7 @@ static bool getSiAccionBloqueaInput(Enum_Acciones _accion){
         case Saltar:
             return false;
         case Recibir_danyo:
-            return true;
+            return false;
         default:
             return false;
     }

@@ -103,7 +103,7 @@ public:
 	btVector3 getEscalaRbAtaque(Enum_Tipo_Ataque _ataque);
 	void gestion_acciones();
 	virtual void gestion_ataque();
-	void gestion_dash();
+	virtual void gestion_dash();
 	void gestion_saltar();
 	void gestion_interactuar();
 	void gestion_recibir_danyado();

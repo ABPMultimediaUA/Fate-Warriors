@@ -26,6 +26,8 @@ public:
 	void rotar_en_funcion_de_un_punto(Character* _objetivo);
 	void set_apuntando_a_objetivo_mas_proximo();
 	void rotar_en_funcion_de_ese_objetivo();
+	void gestion_dash()					override;
+
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor

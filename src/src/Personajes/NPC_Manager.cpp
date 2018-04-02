@@ -6,7 +6,7 @@
 #include <iostream>
 
 NPC_Manager::NPC_Manager() {
-	_n_npc = 40;
+	_n_npc = 50;
 
 	_npc = new NPC*[_n_npc];
 	_npc[0] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
@@ -39,10 +39,10 @@ NPC_Manager::NPC_Manager() {
 	_npc[21] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[22] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[23] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[24] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
+	_npc[24] = new NPC(0, 34*metro, 0, 34*metro, 2000, .15, 1, 10, Enum_Equipo_B);
 	
-	_npc[25] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[26] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
+	_npc[25] = new NPC(0, 34*metro, 0, 34*metro, 2000, .15, 1, 10, Enum_Equipo_B);
+	_npc[26] = new NPC(0, 34*metro, 0, 34*metro, 2000, .15, 1, 10, Enum_Equipo_B);
 	_npc[27] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[28] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[29] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
@@ -56,7 +56,6 @@ NPC_Manager::NPC_Manager() {
 	_npc[37] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[38] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[39] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	/*
 	_npc[40] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[41] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[42] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
@@ -66,8 +65,9 @@ NPC_Manager::NPC_Manager() {
 	_npc[46] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[47] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[48] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	/*
 	_npc[49] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
+	/*
+	/*
 	*/
 
 	
