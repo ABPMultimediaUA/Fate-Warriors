@@ -78,7 +78,6 @@ void Player::update(){
         if(_input->get_dash()){
             _sonido->Play_personaje(0);
             int16_t _direccion_incremento = (int16_t)_direccion_buena-(int16_t)_direccion_posterior;
-
             if(_direccion_incremento>-45 && _direccion_incremento<45){
                 set_apuntando_a_objetivo_mas_proximo();
             }
@@ -135,6 +134,7 @@ void Player::update(){
             atacar(Ataque_Normal);
             _sonido->Play_personaje(1);
             //std::cout << "Ataque Normal\n";
+            preparar_ataque_objetivo_mas_proximo_con_impulso();
         }
         else {                          // Ataque fuerte
             this->atacar(Ataque_Fuerte);
@@ -197,8 +197,9 @@ void Player::gestion_dash(){
         //_objeto_motor->colorear_nodo(0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Accion_Correr);
-            if(_apuntando!=nullptr)
-            rotar_en_funcion_de_un_punto(_apuntando);
+            if(_apuntando!=nullptr){
+                rotar_en_funcion_de_un_punto(_apuntando);
+            }
             _objeto_motor->colorear_nodo(255,255,255);
         }
     }
@@ -215,7 +216,7 @@ Character* Player::objetivo_mas_proximo_angulo(){
     float distance_aux = 9999;
 
     for(uint16_t _cont = 0; _cont < _num_characters; _cont++) {
-      if( _characters[_cont]!=this && Motor::Motor_GetInstance()->comprobar_colision(_rb_apuntado, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true){
+      if( _characters[_cont]!=this &&  Motor::Motor_GetInstance()->comprobar_colision(_rb_apuntado, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true){
           distance_aux = lib_math_distancia_2_puntos(_characters[_cont]->getX(), _characters[_cont]->getZ(), getX(), getZ());
           if(distance_aux<distance){
             distance = distance_aux;
@@ -227,9 +228,6 @@ Character* Player::objetivo_mas_proximo_angulo(){
 
     if(enemigo!=nullptr){
         rotar_en_funcion_de_un_punto(enemigo);
-        if (distance>6){
-            //_objeto_motor->Impulso(_direccion_actual, 9000);
-        }
         return enemigo;
 
     }
@@ -257,6 +255,16 @@ void Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
     rotar_cuerpo(_nueva_direccion);
 }
 
+void Player::preparar_ataque_objetivo_mas_proximo_con_impulso(){
+    Character* enemigo = objetivo_mas_proximo_angulo();
+    if(enemigo!=nullptr){
+        uint16_t distance = lib_math_distancia_2_puntos(enemigo->getX(), enemigo->getZ(), getX(), getZ());
+
+        if (distance>6){
+            _objeto_motor->Impulso(_direccion_actual, 9000);
+        }
+    }
+}
 
 void Player::rotar_en_funcion_de_ese_objetivo(){
 

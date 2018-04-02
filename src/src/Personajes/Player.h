@@ -27,6 +27,7 @@ public:
 	void set_apuntando_a_objetivo_mas_proximo();
 	void rotar_en_funcion_de_ese_objetivo();
 	void gestion_dash()					override;
+	void preparar_ataque_objetivo_mas_proximo_con_impulso();
 
 	//ckeyboardman* _KeyMan;
 private:
