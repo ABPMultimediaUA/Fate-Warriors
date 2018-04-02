@@ -78,7 +78,7 @@ void Player::update(){
         if(_input->get_dash()){
             _sonido->Play_personaje(0);
             int16_t _direccion_incremento = (int16_t)_direccion_buena-(int16_t)_direccion_posterior;
-            std::cout << "hola " <<(int)_direccion_incremento<< "incremento en -----" << std::endl;
+
             if(_direccion_incremento>-45 && _direccion_incremento<45){
                 set_apuntando_a_objetivo_mas_proximo();
             }
@@ -112,7 +112,7 @@ void Player::update(){
     }
 
     if(_input->get_centrar_camara()) {
-        _motor->resetear_camara();
+       _motor->resetear_camara();
     }
 
 
@@ -147,6 +147,13 @@ void Player::update(){
 
     if(_input->get_saltar()){
        // saltar();
+               if(_apuntando!=nullptr){
+            _apuntando = nullptr;
+        }
+        else{
+            set_apuntando_a_objetivo_mas_proximo();
+        }
+
        _bloqueando_ataque = true;
        _tiempobloqueo = _tiempo->get_current()+1000;
 
@@ -221,7 +228,7 @@ Character* Player::objetivo_mas_proximo_angulo(){
     if(enemigo!=nullptr){
         rotar_en_funcion_de_un_punto(enemigo);
         if (distance>6){
-            _objeto_motor->Impulso(_direccion_actual, 9000);
+            //_objeto_motor->Impulso(_direccion_actual, 9000);
         }
         return enemigo;
 
