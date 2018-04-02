@@ -96,7 +96,7 @@ public:
     void update();
     void render();
 
-    //inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
+    inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
     
