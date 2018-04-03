@@ -35,7 +35,6 @@ void Zona_Coliseo::actualizar_zona(){
     }
 }
 
-
 void Zona_Coliseo::iniciar_coliseo(){
     
     Respawn* _respawn = Respawn::posiciones_instancia();
