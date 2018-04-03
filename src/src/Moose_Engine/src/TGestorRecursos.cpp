@@ -97,20 +97,49 @@ TRecurso* TGestorRecursos::getRecursoMaterial(char* nombre){
 void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado*> &_i_modelados){
     Assimp::Importer importer;
     uint16_t cont=0;
-    path+="."+std::to_string(cont)+".obj";
-    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    std::string path2 = path.substr(path.find_last_of('_')+1, path.size()-path.find_last_of('_')-1);
+    std::string aux="animaciones/"+path2+"/"+path+"/"+path;
+    std::string path_obj=aux;
+    const std::string path_text="animaciones/"+path2+"/"+path+"/";
     
-    while(scene){
-        cargarModelo(path, scene, _i_modelados);
+    path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
+        
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    while(!scene && cont<200){//bucle para encontrar el primer numero de la animacion
+        scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         ++cont;
-        path+="."+std::to_string(cont)+".obj";
-        scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+        path_obj=aux;
+        if(cont>=10){
+            if(cont>=100){
+                path_obj+="."+std::to_string(0)+std::to_string(cont)+".obj";
+            }else{
+                path_obj+="."+std::to_string(0)+'0'+std::to_string(cont)+".obj";
+            }
+        }else{
+            path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
+        }
+        
+    }
+    while(scene){//bucle para cargar todos los modelos de la animacion
+        cargarModelo(path_obj, scene, _i_modelados, path_text);
+        ++cont;
+        path_obj=aux;
+        if(cont>=10){
+            if(cont>=100){
+                path_obj+="."+std::to_string(0)+std::to_string(cont)+".obj";
+            }else{
+                path_obj+="."+std::to_string(0)+'0'+std::to_string(cont)+".obj";
+            }
+        }else{
+            path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
+        }
+        scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     }
 }
-void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados){
-    //directory = path.substr(0, path.find_last_of('/'));
+void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados, const std::string &path_text){
+
     std::vector<TRecursoMalla*> _modelos;
-    cargarNodo(scene->mRootNode, scene, _modelos, path);
+    cargarNodo(scene->mRootNode, scene, _modelos, path_text);
     int width, height, nrChannels;
     
     unsigned int texture1, texture2;
@@ -148,11 +177,11 @@ void TGestorRecursos::cargarModelo(std::string &path){
     glm::vec3 Vmax,Vmin,BB;
 
     
-    for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
+   /* for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
         std::cout<<(*it)->get_max().x << "\n";
         std::cout<<(*it)->get_max().y << "\n";
 
-    }
+    }*/
 
 
     for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
@@ -256,8 +285,6 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
     TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
     malla->set_min(Vmin);
     malla->set_max(Vmax);
-    std::cout<<Vmax.x << "\n";
-    std::cout<<Vmax.y << "\n";
     return malla;
 }
 std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string& path)

@@ -4,6 +4,7 @@
 #include "TCamara.h"
 #include "TLuz.h"
 #include "TModelado.h"
+#include "TAnimacion.h"
 #include "TGestorRecursos.h"
 #include "Shader.h"
 #include <glad/glad.h>
@@ -33,6 +34,8 @@ TMooseEngine::TMooseEngine(){
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
     _shader = new Shader("src/Moose_Engine/Shaders/vertex_basic.glsl", "src/Moose_Engine/Shaders/fragment_basic.glsl");
+
+    //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -95,8 +98,8 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glEnable(GL_DEPTH_TEST);
     glViewport(0,0,width,height);
     glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CW);
+    glCullFace(GL_BACK); //Hay que usar el front, asi que mirare el modelado.
+    glFrontFace(GL_CCW);
 }
 
 float TMooseEngine::getMouseOffsetX(){

@@ -11,9 +11,9 @@ class TAnimacion : public TEntidad{
         void beginDraw(Shader* _i_shader) override;
         void draw(Shader* _i_shader);
         void endDraw();
+        std::vector<TRecursoModelado*> _modelos;
         
     private:
-        std::vector<TRecursoModelado*> _modelos;
         std::string _path;     
 
         void leerAnimacion(std::string &path);
