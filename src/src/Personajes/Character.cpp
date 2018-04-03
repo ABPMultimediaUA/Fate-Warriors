@@ -330,7 +330,7 @@ bool Character::interactuar_con_objeto(){
 void Character::morir(){ // SE SOBRESCRIBE EN NPC!!
     //float mult = 4.9212625;
     //std::cout << "He muerto :("<< std::endl;
-    _inventario->soltar_armas(getX(), getZ()); 
+    //_inventario->soltar_armas(getX(), getZ()); BORRAME
 
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
     setY(99999999999);

@@ -37,6 +37,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 
   for(_cont = 0; _cont < _n_npcs; _cont++) { 
     _npcs[_cont]->comprobar_si_asignar_arma_y_asignarla(_armas_manager);
+	_npcs[_cont]->morir();
   } 
 	_num_characters = _n_npcs + 1;
 	_characters = new Character*[_num_characters];
@@ -104,9 +105,10 @@ void Datos_Partida::posicionar_characters_inicialmente(){
 
 	Respawn * respawn = Respawn::posiciones_instancia();
 	for(_cont = 0; _cont < _num_characters; _cont++) { 
-		if(_characters[_cont]!=_jugador){
-			Vector2 vector = respawn->generar_posicion_del_bando(_characters[_cont]->get_equipo());
+	/*	if(_characters[_cont]!=_jugador){
+			Vector2 vector = respawn->generar_posicion_del_bando(_characters[_cont]->get_equipo()); BORRAME
 			_characters[_cont]->setPositionXZ(vector._x, vector._y);
 		}
+		*/
 	} 
 }

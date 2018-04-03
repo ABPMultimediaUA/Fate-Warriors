@@ -96,7 +96,7 @@ void Decision_Manager::toma_decisiones(){
 		}
 		else{
 			//std::cout<<"sigo muerto" << std::endl;
-			Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(_npcs[_cont]);
+			//Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(_npcs[_cont]);
 		}
 	}
 }

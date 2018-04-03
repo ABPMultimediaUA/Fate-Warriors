@@ -65,6 +65,7 @@ public:
    
     std::vector<Interruptor*> get_interruptores_asociados();
     void set_interruptor_asociado(Interruptor* _i_interruptor);
+    uint8_t get_num_npc_en_zona();
 
 
 protected:
