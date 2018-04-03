@@ -22,6 +22,11 @@ void Interruptor::set_activado(bool _i_activado){
 //	_objeto_asociado->get_objeto_motor()->abrir_puerta();
 }
 
+void Interruptor::set_desactivado(){
+	_objeto_asociado->desactivar();
+//	_objeto_asociado->get_objeto_motor()->abrir_puerta();
+}
+
 Interruptor::~Interruptor() {
 }
 

@@ -29,15 +29,16 @@ Puerta_Pincho::~Puerta_Pincho() {
 }
 
 void Puerta_Pincho::activar(){
+  
     _activado = true;
-    /*
+    
     _tiempo_restante = _reloj->get_current() + 10000;
     _tiempo_hasta_posible_proxima_activacion= _reloj->get_current() + 20000;
     setY(6);
     Nivel::nivel_instancia()->nivel_cerrar_pasillo(_pasillo_asociado);
     comprobar_a_quien_danya();
       //  _objeto_motor->rotar_nodo(125);
-      */
+      
 
 }
 
@@ -49,7 +50,7 @@ bool Puerta_Pincho::ha_pasado_tiempo_suficiente(){
 }
 
 void Puerta_Pincho::desactivar(){
-    _activado = true;   //Cambiar
+    _activado = false;   
     setY(-5.95);
     Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
 }

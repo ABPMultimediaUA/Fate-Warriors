@@ -81,8 +81,8 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_interruptores[6] = new Interruptor(0,22.3*mult,0,25.55*mult,0, _puertas_pincho[3],false,false, 500);
 	_interruptores[7] = new Interruptor(0,17.5*mult,0,36.5*mult,0, _puertas_pincho[3],false,false, 500);
 
-	_todas_las_zonas[0]->set_interruptor_asociado(_interruptores[6]); //3
-	_todas_las_zonas[1]->set_interruptor_asociado(_interruptores[7]); //7
+	_todas_las_zonas[1]->set_interruptor_asociado(_interruptores[6]); //3
+	_todas_las_zonas[2]->set_interruptor_asociado(_interruptores[7]); //7
 
 
 // CAMBIAR EL PARAMETRO DE _TODAS_LAS_ZONAS

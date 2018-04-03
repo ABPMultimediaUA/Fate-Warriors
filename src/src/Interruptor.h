@@ -32,6 +32,8 @@ public:
 		_npcs_persiguiendome = 0;
 	}
 
+	void set_desactivado();
+
 
 private:
 	Puerta_Pincho* _objeto_asociado; // Objeto asociado que activa/desactiva

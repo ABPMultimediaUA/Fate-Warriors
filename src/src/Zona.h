@@ -67,6 +67,8 @@ public:
     void set_interruptor_asociado(Interruptor* _i_interruptor);
     uint8_t get_num_npc_en_zona();
 
+    void activar_todos_los_interruptores();
+    void desactivar_todos_los_interruptores();
 
 protected:
     btRigidBody *_rb;
