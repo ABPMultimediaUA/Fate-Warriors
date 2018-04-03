@@ -9,12 +9,13 @@
 
 Zona_Respawn_Infinito::Zona_Respawn_Infinito(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo i_equipo, uint16_t num_enemigos) : Zona(_i_x, _i_y, _i_z, long_x, long_y, i_equipo){
     _num_enemigos = num_enemigos;
+    Respawn* _respawn = Respawn::posiciones_instancia();
+    _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
 }
 
 Zona_Respawn_Infinito::~Zona_Respawn_Infinito() {
 
 }
-
 
 /*Metodo para actualizar los valores de la zona*/
 

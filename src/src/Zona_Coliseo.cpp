@@ -45,15 +45,17 @@ void Zona_Coliseo::iniciar_coliseo(){
 
 
 void Zona_Coliseo::update_coliseo(){
-    if( _rondas>0){
+    if( _rondas>-1){
         if(get_num_npc_en_zona()==0){
-            Respawn* _respawn = Respawn::posiciones_instancia();
-            _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
+            if (_rondas>0){
+                Respawn* _respawn = Respawn::posiciones_instancia();
+                _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
+            }
             _rondas--;
         }
-    }
-    else{
-         desactivar_todos_los_interruptores();  //BORRAR     HAY QUE TENER EN CUENTA QUE SI SE SIGUE EJECUTANDO PUEDE OCURRIR QUE MAS ADELANTE ESTAS PUERTAS NO SE PUEDAN ACTIVAR
+        if(_rondas==-1){
+            desactivar_todos_los_interruptores();
+        }
     }
 
 }
