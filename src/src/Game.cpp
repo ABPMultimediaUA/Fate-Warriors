@@ -14,6 +14,7 @@
 #include "Motor_sonido/Interfaz_sonido.h"
 #include "Menus/Menu_Principal.h"
 #include "Menus/Menu_Pausa.h"
+#include "Menus/Menu_Fin.h"
 #include "Zonas_Manager.h"
 #include "Interactuable_Manager.h"
 #include "Respawn.h"
@@ -42,6 +43,7 @@ Game::Game() : _datos(nullptr),
 
 	_menu_principal = new Menu_Principal(_input_jugador);
 	_menu_pausa = new Menu_Pausa(_input_jugador);
+	_menu_fin = new Menu_Fin(_input_jugador);
 
 	update_actual = &Game::update_menu;
 	render_actual = &Game::render_menu;
@@ -54,6 +56,7 @@ Game::Game() : _datos(nullptr),
 Game::~Game(){
 	delete _menu_pausa;
 	delete _menu_principal;
+	delete _menu_fin;
 
 	delete _input_jugador;
 
@@ -172,6 +175,16 @@ void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
 }
 
 
+void Game::update_fin_partida(double _i_tiempo_desde_ultimo_update){
+	//std::cout << "Update Fin Partida" << std::endl;
+	_menu_fin->update(_i_tiempo_desde_ultimo_update);
+
+    if(update_actual == &Game::update_partida) {
+		update_partida(_i_tiempo_desde_ultimo_update);	
+    }
+}
+
+
 // ------------------------------------ FUNCIONES DE RENDER ------------------------------------
 
 void Game::render(float _i_interpolacion){
@@ -187,6 +200,16 @@ void Game::render_partida(float _i_interpolacion){
 
 void Game::render_pausa(float _i_interpolacion){
 	_motor->render(1);
+}
+
+void Game::render_win(float _i_interpolacion){
+	_motor->render(1);
+	//_motor->render_texto_win();
+}
+
+void Game::render_lose(float _i_interpolacion){
+	_motor->render(1);
+	//_motor->render_texto_lose();
 }
 
 
@@ -216,6 +239,20 @@ void Game::cambio_a_update_partida() {
 void Game::cambio_a_update_pausa() {
 	update_actual = &Game::update_pausa;
 	render_actual = &Game::render_pausa;
+	_menu_pausa->set_tiempo_pausa();
+	_input_jugador->asignar_teclas_menu();
+}
+
+void Game::cambio_a_update_win() {
+	update_actual = &Game::update_fin_partida;
+	render_actual = &Game::render_win;
+	_menu_pausa->set_tiempo_pausa();
+	_input_jugador->asignar_teclas_menu();
+}
+
+void Game::cambio_a_update_lose() {
+	update_actual = &Game::update_fin_partida;
+	render_actual = &Game::render_lose;
 	_menu_pausa->set_tiempo_pausa();
 	_input_jugador->asignar_teclas_menu();
 }

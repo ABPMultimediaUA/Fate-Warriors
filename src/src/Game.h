@@ -20,6 +20,7 @@ class Interactuable_Manager;
 
 class Menu_Principal;
 class Menu_Pausa;
+class Menu_Fin;
 
 class Game{
 
@@ -44,6 +45,8 @@ public:
     void cambio_a_update_menu();
     void cambio_a_update_partida();
     void cambio_a_update_pausa();
+    void cambio_a_update_win();
+    void cambio_a_update_lose();
 	Consumible_Action* get_consumibles_action();
 
 private:
@@ -56,10 +59,13 @@ private:
 	void update_menu(double _i_tiempo_desde_ultimo_update);			// Update del menu
 	void update_partida(double _i_tiempo_desde_ultimo_update);		// Update de partida
 	void update_pausa(double _i_tiempo_desde_ultimo_update);		// Update de pausa
+	void update_fin_partida(double _i_tiempo_desde_ultimo_update);	// Update de fin de partida
 
 	void render_menu(float _i_interpolacion);						// Render del menu
 	void render_partida(float _i_interpolacion);					// Render de partida
 	void render_pausa(float _i_interpolacion);						// Render de pausa
+	void render_win(float _i_interpolacion);						// Render de fin de partida (win)
+	void render_lose(float _i_interpolacion);						// Render de fin de partida (lose)
 
 	Player* _player;
 
@@ -79,6 +85,7 @@ private:
 
 	Menu_Principal* _menu_principal;		// Menu Principal
 	Menu_Pausa* _menu_pausa;				// Menu Pausa
+	Menu_Fin*	_menu_fin;					// Menu Fin Partida
 };
 
 
