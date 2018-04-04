@@ -68,7 +68,10 @@ void recorrerArbol(){
     TModelado* malla1 = motor->crearModelado(cstr);
     const char cstr2[] = "Anim_ataque_d1_npc2";
     TAnimacion* Animacion1 = motor->crearAnimacion(cstr2);
-
+    motor->crearAnimacion(cstr2);
+    motor->crearAnimacion(cstr2);
+    motor->crearAnimacion(cstr2);
+    motor->crearAnimacion(cstr2);
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
     trans2->rotar(0,1,0,90);

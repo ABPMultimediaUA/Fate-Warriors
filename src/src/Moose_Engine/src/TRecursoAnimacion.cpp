@@ -4,6 +4,7 @@
 TRecursoAnimacion::TRecursoAnimacion(std::vector<TRecursoModelado*> _i_modelos, const char* _i_nombre):
     _modelos(std::move(_i_modelos)){
     _nombre=(char*)_i_nombre;
+    
 }
 TRecursoAnimacion::~TRecursoAnimacion(){
     _modelos.clear();
@@ -18,5 +19,6 @@ void TRecursoAnimacion::SetNombre(char* nombre){
 }
 
 char* TRecursoAnimacion::GetNombre(){
+    
     return _nombre;
 }
