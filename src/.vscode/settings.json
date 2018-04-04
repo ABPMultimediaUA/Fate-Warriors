@@ -50,6 +50,7 @@
         "mutex": "cpp",
         "valarray": "cpp",
         "__config": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "algorithm": "cpp"
     }
 }

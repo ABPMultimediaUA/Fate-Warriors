@@ -249,32 +249,40 @@ void Camara::update_position() {
 		
 		// Calculo de la direccion de la camara
 		_camaraDir = _target - _position;
-		_camaraDir = glm::normalize(_camaraDir);
+		//_camaraDir = glm::normalize(_camaraDir);
 
 		glm::vec3 inicial(0,0,1); //v1
 
         
 		// Angulo entre el vector inicial de referencia
 		// y el vector de direccion actual 
+
         _dot = inicial.x * _camaraDir.x + inicial.z * _camaraDir.z;
         _det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
 
         _angle = -(atan2f(_det,_dot)/M_PI)*180;
-
-        if(_angle<0){
+		//std::cout<<"inicial X: "<< inicial.x << "Z: " << inicial.z << "\n";
+		
+		//std::cout<<"camaraDir X: "<< _camaraDir.x << "Z: " << _camaraDir.z << "\n";				 
+        
+		if(_angle<0){
             _angle+=360;
         }
 
         _angleRad = _angle * (M_PI/180);
+		//_angleRad = 2,5;
+		//std::cout<<"ANGLE RAD: " << _angleRad << "\n";
 
 	}
 }
 
 float Camara::Camara_getAngle(){
+	//std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angle << "\n";
 	return(_angle);
 }
 
 float Camara::Camara_getAngleRad(){
+	std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angleRad << "\n";
 	return(_angleRad);
 }
 
