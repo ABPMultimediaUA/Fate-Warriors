@@ -5,6 +5,7 @@
 #include "TTransform.h"
 #include "TCamara.h"
 #include "TModelado.h"
+#include "TAnimacion.h"
 #include "TLuz.h"
 #include "Shader.h"
 #include <iostream>
@@ -65,11 +66,13 @@ void recorrerArbol(){
     TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "suelo_t_1";
     TModelado* malla1 = motor->crearModelado(cstr);
+    const char cstr2[] = "Anim_ataque_d1_npc2";
+    TAnimacion* Animacion1 = motor->crearAnimacion(cstr2);
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
     trans2->rotar(0,1,0,90);
-    trans3->trasladar(0,10,500);
+    trans3->trasladar(0,10,15);
     trans4->rotar(0,1,1,1);
     //trans5->rotar(0,1,0,10);
     
@@ -80,7 +83,7 @@ void recorrerArbol(){
     TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
     TNodo* nodoTrans4 = motor->crearNodo(nodoTrans1, trans4);
     
-    TNodo* nodoMalla  = motor->crearNodo(nodoTrans4, malla1);
+    TNodo* nodoMalla  = motor->crearNodo(nodoTrans4, Animacion1);
     TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTrans3, camara);
@@ -339,7 +342,7 @@ void main_tamanyofloat(){
 }
 
 
-int main2(){
+int main(){
     //dibujarOpenGL();
     recorrerArbol();
     //interfazTest();
