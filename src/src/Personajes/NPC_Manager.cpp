@@ -7,7 +7,7 @@
 
 NPC_Manager::NPC_Manager() {
 
-	_n_npc = 1;
+	_n_npc = 0;
 
 	_npc = new NPC*[_n_npc];
 	/*
