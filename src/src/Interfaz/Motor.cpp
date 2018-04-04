@@ -738,7 +738,7 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 			camara->interpola_target(_posicion_interpolada);
 		}	
 	}
-	std::cout << "se interpola la camara\n";
+	//std::cout << "se interpola la camara\n";
 
 	camara->interpola_posicion(_i_interpolacion);
 }
@@ -800,6 +800,7 @@ void Motor::updateCamaraColision(){
 		}
 
 		angulo = camara->Camara_getAngleRad();
+		std::cout<< "ANGULO JODER: "<< angulo << "\n";
 }
 
 

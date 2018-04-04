@@ -75,6 +75,6 @@ int16_t Interpolacion::interpola_direccion(float _i_interpolacion){
     int16_t _direccion_interpolada = _direccion_anterior * (1 -_i_interpolacion) + _direccion_actual * _i_interpolacion;
 	_direccion_interpolada-=_direccion_anterior;
 
-	std::cout << "La dirección interpolada es " << _direccion_interpolada << "\n";
+	//std::cout << "La dirección interpolada es " << _direccion_interpolada << "\n";
     return _direccion_interpolada;
 }

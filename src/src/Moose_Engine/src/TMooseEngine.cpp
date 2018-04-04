@@ -54,7 +54,7 @@ void micallback(GLFWwindow* oglwindow, double _i_xpos, double _i_ypos){
 
 void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    std::cout<<"FUNCIONO \n";
+    //std::cout<<"FUNCIONO \n";
     if (_firstMouse)
     {
         _lastX = xpos;
