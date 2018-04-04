@@ -232,7 +232,7 @@ Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 
 	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
 	
-	_nodo->rotar(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
+	_nodo->rotacionDirecta(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
 
 
 

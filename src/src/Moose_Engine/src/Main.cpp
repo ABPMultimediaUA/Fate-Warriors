@@ -50,7 +50,8 @@ void interfazTest(){
 }
 */
 void recorrerArbol(){
-    
+
+/*    
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoModelo("Enemigo.obj");
@@ -115,6 +116,10 @@ void recorrerArbol(){
     NCam->set_entidad(EntCam);
     NChasis->set_entidad(MallaChasis);*/
 
+
+
+/*
+
     while(!motor->ventana_abierta()){
 
        //shader.use();
@@ -132,10 +137,10 @@ void recorrerArbol(){
         //model = glm::translate(model, glm::vec3(0.0f, 1.75f, 50.0f)); // translate it down so it's at the center of the scene
         //model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));	// it's a bit too big for our scene, so scale it down
         //shader.setMat4("model", model);
-        motor->draw();
+  //      motor->draw();
 
 
-    }
+    //}
     /*glm::mat4 algo=glm::mat4(1.0f);
     algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
     glm::mat4 algo2=glm::mat4(1.0f);
@@ -148,7 +153,7 @@ void recorrerArbol(){
     motor->setCamaraActiva(nCamara);
     int nLuz=motor->registrarLuz(nodoLuz);
     motor->setLuzActiva(nLuz);*/
-    delete motor;
+ //   delete motor;
 
 }
 
@@ -342,7 +347,7 @@ void main_tamanyofloat(){
 }
 
 
-int main(){
+int main2(){
     //dibujarOpenGL();
     recorrerArbol();
     //interfazTest();
