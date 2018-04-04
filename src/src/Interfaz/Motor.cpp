@@ -854,14 +854,14 @@ void Motor::render(float _i_interpolacion){
 
 
 
-//float Motor::angulo_camara(){
-//	return camara->Camara_getAngle();
-//}
+float Motor::angulo_camara(){
+	return camara->Camara_getAngle();
+}
 
 
-//float Motor::angulo_camaraRAD(){
-//	return camara->Camara_getAngleRad();
-//}
+float Motor::angulo_camaraRAD(){
+	return camara->Camara_getAngleRad();
+}
 
 bool Motor::comprobar_colision(btRigidBody *rb1, btRigidBody *rb2){
 

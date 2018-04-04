@@ -108,8 +108,8 @@ public:
     void borrar_objeto(Objeto_Motor* _objeto_motor);
     void borrar_rb(btRigidBody* rb);
 
-    //float angulo_camara();
-    //float angulo_camaraRAD();
+    float angulo_camara();
+    float angulo_camaraRAD();
     
     bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
     void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
