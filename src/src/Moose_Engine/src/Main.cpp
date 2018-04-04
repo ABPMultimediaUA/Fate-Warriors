@@ -72,6 +72,7 @@ void recorrerArbol(){
     motor->crearAnimacion(cstr2);
     motor->crearAnimacion(cstr2);
     motor->crearAnimacion(cstr2);
+
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
     trans2->rotar(0,1,0,90);
@@ -345,7 +346,7 @@ void main_tamanyofloat(){
 }
 
 
-int main(){
+int main2(){
     //dibujarOpenGL();
     recorrerArbol();
     //interfazTest();

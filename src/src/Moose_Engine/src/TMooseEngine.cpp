@@ -33,7 +33,7 @@ TMooseEngine::TMooseEngine(){
     _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
-    _shader = new Shader("Shaders/vertex_basic.glsl", "Shaders/fragment_basic.glsl");
+    _shader = new Shader("src/Moose_Engine/Shaders/vertex_basic.glsl", "src/Moose_Engine/Shaders/fragment_basic.glsl");
 
 }
 
@@ -228,13 +228,13 @@ void TMooseEngine::drawCamaras(){
     for(uint16_t i = 0; i < _mapping_camaras.size(); i++){ 
         if(_mapping_camaras[i]->activa){ //recorremos el mapeado de camaras buscando la que este activa
             TNodo* this_node = _mapping_camaras[i]->nodo; //obtenemos su nodo
-            /*matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
+            matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
             _shader->setView(matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
             _shader->setProjection(projection);
-            */
+            
             // ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
-            while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
+            /*while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
                 this_node = this_node->get_padre();
                 if(this_node->get_entidad()!=nullptr){ //para cada nodo salvo el raiz:
                                                        //accedemos a la matriz de su transformacion y la apilamos para calcular la matriz view
@@ -253,7 +253,7 @@ void TMooseEngine::drawCamaras(){
             _shader->setView(matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 1000.0f);
             _shader->setProjection(projection);
-            
+            */
         }
     }
 }
