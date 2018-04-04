@@ -4,6 +4,7 @@
 #include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
 #include "TRecursoModelado.h"
+#include "TRecursoAnimacion.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 //
@@ -51,6 +52,19 @@ TRecurso* TGestorRecursos::getRecurso(const char* nombre){
         }
     }
     return nullptr;
+}
+TRecursoAnimacion* TGestorRecursos::getRecursoAnim(const char* nombre){
+    TRecurso* rec;
+    rec=getRecurso(nombre);
+
+    if(rec==nullptr){
+        
+        std::string s(nombre);
+        std::vector<TRecursoModelado*> modelos;
+        cargarAnim(s,modelos);
+        return static_cast<TRecursoAnimacion*>(_recursos.back());
+    }
+    return static_cast<TRecursoAnimacion*>(rec);
 }
 
 TRecursoModelado* TGestorRecursos::getRecursoModelo(const char* nombre){
@@ -100,7 +114,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
     std::string path2 = path.substr(path.find_last_of('_')+1, path.size()-path.find_last_of('_')-1);
     std::string aux="animaciones/"+path2+"/"+path+"/"+path;
     std::string path_obj=aux;
-    const std::string path_text="animaciones/"+path2+"/"+path+"/";
+    const std::string path_text="animaciones/"+path2+"/";
     
     path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
         
@@ -135,6 +149,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
         }
         scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     }
+    _recursos.push_back(new TRecursoAnimacion(_i_modelados,aux.c_str()));
 }
 void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados, const std::string &path_text){
 
@@ -148,7 +163,6 @@ void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std:
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
-    _recursos.push_back(modelado);
     _i_modelados.push_back(modelado);
 }
 void TGestorRecursos::cargarModelo(std::string &path){
