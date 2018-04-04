@@ -1,5 +1,8 @@
 #include "TRecursoMalla.h"
 #include "Shader.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 
 #include <iostream>
@@ -91,6 +94,7 @@ void TRecursoMalla::Preparar_mesh(){
     // vertex texture coords
     glEnableVertexAttribArray(2);	
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+
 
 }
 glm::vec3 TRecursoMalla::get_max(){

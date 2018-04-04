@@ -37,6 +37,7 @@ Vector3 Interpolacion::interpola_posicion(float _i_interpolacion){
     float _y_interpolada = _posicion_anterior->_y * (1 -_i_interpolacion) + _posicion_actual->_y * _i_interpolacion;
     float _z_interpolada = _posicion_anterior->_z * (1 -_i_interpolacion) + _posicion_actual->_z * _i_interpolacion;
 
+	
     return Vector3(_x_interpolada, _y_interpolada, _z_interpolada);
 }
 
@@ -73,6 +74,7 @@ void Interpolacion::actualiza_direccion(int16_t _i_direccion_actual) {
 int16_t Interpolacion::interpola_direccion(float _i_interpolacion){
     int16_t _direccion_interpolada = _direccion_anterior * (1 -_i_interpolacion) + _direccion_actual * _i_interpolacion;
 	_direccion_interpolada-=_direccion_anterior;
-	std::cout << _direccion_interpolada << std::endl;
+
+	std::cout << "La dirección interpolada es " << _direccion_interpolada << "\n";
     return _direccion_interpolada;
 }

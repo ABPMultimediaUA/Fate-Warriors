@@ -20,28 +20,34 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 /*
-#include "Interfaz_ME.h"
+#include "../../Interfaz/Motor.h"
+
 void interfazTest(){
-    Interfaz_ME* interfaz_motor = Interfaz_ME::get_instancia(1280,720);
+    Motor* interfaz_motor = Motor::Motor_GetInstance();
     
-    const char cstr[] =  "src/Moose_Engine/Carne.obj";
-    const char cstr2[] = "src/Moose_Engine/npc2.obj";
+    const char cstr[] =  "Carne";
+    //const char cstr2[] = "npc2";
     
-    iNodoCamara* camara = interfaz_motor->crearCamara(true);
+    Camara* camara = interfaz_motor->crearCamara(true);
     //camara->mover(2, 0, 0);    
-    iNodoLuz* luz = interfaz_motor->crearLuz(true, 1.0f);
-    iNodoModelado* modelado1 = interfaz_motor->crearModelado(cstr, 3, 0, -10);
-    iNodoModelado* modelado2 = interfaz_motor->crearModelado(cstr2, 0, 0, -10);
+    iNodoLuz* luz = interfaz_motor->crearLuz(true, 1.0f, Vector3(1,1,1), Vector3(1,1,1), Vector3(1,1,1));
+
+    //iNodoModelado* modelado1 = interfaz_motor->crearModelado(cstr, 3, 0, -10);
+    //iNodoModelado* modelado2 = interfaz_motor->crearModelado(cstr2, 0, 0, -10);
     
+    Player* _jugador = new Player(0, 10, 0, 10, )
+
     modelado1->mover(-3, 0, -10);
     modelado1->escalar(2,1,1);
-    modelado2->escalar(1,2,1);
-    camara->mover(-2,0,5);
+    //modelado2->escalar(1,2,1);
+    //camara->mover(-2,0,5);
+   // camara->Camara_setProta(modelado1);
+    camara->Camara_Update();
     while(interfaz_motor->ventana_abierta()){
         interfaz_motor->render();
     }
-}*/
-
+}
+*/
 void recorrerArbol(){
     
 
@@ -159,7 +165,7 @@ unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
     1, 2, 3    // second triangle
 };  
-/*
+
 int dibujarOpenGL(){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -328,11 +334,9 @@ void main_tamanyofloat(){
     algo[0][1]=2.0f;
     algo[1][0]=1.5f;
     algo[1][1]=2.5f;*/
-/*   
     float *result=0;
     std::cout<<sizeof(algo)<<"       "<<sizeof(result)<<std::endl; 
 }
-*/
 
 
 int main2(){

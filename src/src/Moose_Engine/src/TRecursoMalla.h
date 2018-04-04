@@ -24,6 +24,7 @@ private:
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
+    //float* vertices,*normales,*texturas;
     float* vertTriangulos, *normTriangulos, *texTriangulos;
     long nTriangulos;
     //buffers
