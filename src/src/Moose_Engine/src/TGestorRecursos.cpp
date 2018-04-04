@@ -58,10 +58,11 @@ TRecursoAnimacion* TGestorRecursos::getRecursoAnim(const char* nombre){
     rec=getRecurso(nombre);
 
     if(rec==nullptr){
-        
+        std::cout<<"1 vez"<<std::endl;
         std::string s(nombre);
         std::vector<TRecursoModelado*> modelos;
         cargarAnim(s,modelos);
+        _recursos.back()->SetNombre((char*)nombre);
         return static_cast<TRecursoAnimacion*>(_recursos.back());
     }
     return static_cast<TRecursoAnimacion*>(rec);
@@ -149,7 +150,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
         }
         scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     }
-    _recursos.push_back(new TRecursoAnimacion(_i_modelados,aux.c_str()));
+    _recursos.push_back(new TRecursoAnimacion(_i_modelados,path.c_str()));
 }
 void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados, const std::string &path_text){
 
