@@ -24,6 +24,10 @@ void iNodo::rotar(float x, float y, float z, float w){
     static_cast<TTransform*>(_nodo_motor->get_padre()->get_padre()->get_padre()->get_entidad())->rotar(x, y, z, w);    
 }
 
+void iNodo::rotacionDirecta(float x, float y, float z, float w){
+    static_cast<TTransform*>(_nodo_motor->get_padre()->get_padre()->get_padre()->get_entidad())->setRotacion(x, y, z, w);        
+}
+
 void iNodo::escalar(float x, float y, float z){
     static_cast<TTransform*>(_nodo_motor->get_padre()->get_padre()->get_entidad())->escalar(x, y, z);
 }

@@ -334,16 +334,14 @@ void main_tamanyofloat(){
     algo[0][1]=2.0f;
     algo[1][0]=1.5f;
     algo[1][1]=2.5f;*/
-    
     float *result=0;
     std::cout<<sizeof(algo)<<"       "<<sizeof(result)<<std::endl; 
 }
 
 
-
 int main2(){
     //dibujarOpenGL();
-    //recorrerArbol();
+    recorrerArbol();
     //interfazTest();
     return 0;
 }

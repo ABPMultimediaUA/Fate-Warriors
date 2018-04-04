@@ -44,8 +44,11 @@ void TTransform::rotar(float _i_x, float _i_y, float _i_z, float _i_w){
     _t_matriz = glm::rotate(_t_matriz, glm::radians(_i_w), glm::vec3(_i_x,_i_y,_i_z));
 }
 
+void TTransform::setRotacion(float _i_x, float _i_y, float _i_z, float _i_w){
+    _t_matriz = glm::rotate(glm::mat4(1.0f), glm::radians(_i_w), glm::vec3(_i_x,_i_y,_i_z));
+}
+
 void TTransform::escalar(float _i_x, float _i_y, float _i_z){
     _t_matriz = glm::scale(glm::vec3(_i_x,_i_y,_i_z));
     int algo;
 }
-

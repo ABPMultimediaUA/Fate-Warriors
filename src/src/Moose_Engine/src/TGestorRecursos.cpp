@@ -97,20 +97,49 @@ TRecurso* TGestorRecursos::getRecursoMaterial(char* nombre){
 void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado*> &_i_modelados){
     Assimp::Importer importer;
     uint16_t cont=0;
-    path+="."+std::to_string(cont)+".obj";
-    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    std::string path2 = path.substr(path.find_last_of('_')+1, path.size()-path.find_last_of('_')-1);
+    std::string aux="animaciones/"+path2+"/"+path+"/"+path;
+    std::string path_obj=aux;
+    const std::string path_text="animaciones/"+path2+"/"+path+"/";
     
-    while(scene){
-        cargarModelo(path, scene, _i_modelados);
+    path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
+        
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    while(!scene && cont<200){//bucle para encontrar el primer numero de la animacion
+        scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         ++cont;
-        path+="."+std::to_string(cont)+".obj";
-        scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+        path_obj=aux;
+        if(cont>=10){
+            if(cont>=100){
+                path_obj+="."+std::to_string(0)+std::to_string(cont)+".obj";
+            }else{
+                path_obj+="."+std::to_string(0)+'0'+std::to_string(cont)+".obj";
+            }
+        }else{
+            path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
+        }
+        
+    }
+    while(scene){//bucle para cargar todos los modelos de la animacion
+        cargarModelo(path_obj, scene, _i_modelados, path_text);
+        ++cont;
+        path_obj=aux;
+        if(cont>=10){
+            if(cont>=100){
+                path_obj+="."+std::to_string(0)+std::to_string(cont)+".obj";
+            }else{
+                path_obj+="."+std::to_string(0)+'0'+std::to_string(cont)+".obj";
+            }
+        }else{
+            path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
+        }
+        scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     }
 }
-void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados){
-    //directory = path.substr(0, path.find_last_of('/'));
+void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados, const std::string &path_text){
+
     std::vector<TRecursoMalla*> _modelos;
-    cargarNodo(scene->mRootNode, scene, _modelos, path);
+    cargarNodo(scene->mRootNode, scene, _modelos, path_text);
     int width, height, nrChannels;
     
     unsigned int texture1, texture2;
@@ -145,6 +174,28 @@ void TGestorRecursos::cargarModelo(std::string &path){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
+    glm::vec3 Vmax,Vmin,BB;
+
+    
+   /* for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
+        std::cout<<(*it)->get_max().x << "\n";
+        std::cout<<(*it)->get_max().y << "\n";
+
+    }*/
+
+
+    for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
+        Vmax.x=std::max(Vmax.x,(*it)->get_max().x);
+        Vmax.y=std::max(Vmax.y,(*it)->get_max().y);
+        Vmax.z=std::max(Vmax.z,(*it)->get_max().z);
+        Vmin.x=std::min(Vmin.x,(*it)->get_min().x);
+        Vmin.y=std::min(Vmin.y,(*it)->get_min().y);
+        Vmin.z=std::min(Vmin.z,(*it)->get_min().z);
+    }
+    BB.x=Vmax.x-Vmin.x;
+    BB.y=Vmax.y-Vmin.y;
+    BB.z=Vmax.z-Vmin.z;
+    modelado->set_BB(BB);
     _recursos.push_back(modelado);
 }
 
@@ -223,6 +274,8 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
 
     //devolver la malla creada a partir de los datos obtenidos*/
     TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
+    malla->set_min(Vmin);
+    malla->set_max(Vmax);
     return malla;
 }
 std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string& path)

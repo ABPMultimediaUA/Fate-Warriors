@@ -31,6 +31,6 @@ void TAnimacion::endDraw(){
 
 void TAnimacion::leerAnimacion(std::string &path){
     TGestorRecursos* gRec = TGestorRecursos::get_instancia();
-    //gRec->cargarModelo(path, _mallas);
+    gRec->cargarAnim(path, _modelos);
 
 }

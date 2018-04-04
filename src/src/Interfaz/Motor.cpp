@@ -48,30 +48,126 @@ Motor::Motor(uint16_t width, uint16_t height){
 
 	//const char* cstr = "ColisionesNivel1";
 	//importarEscenario(cstr, 0,0,0);
+//meter modelos pa irlitch
 	const char* cstr = "suelo_t_1";
 	importarEscenario(cstr, 0,0,0);
-	cstr = "suelo_t_2";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "suelo_t_3";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "suelo_t_4";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "suelo_t_5";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "suelo_exterior_1";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "suelo_exterior_2";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "suelo_exterior_3";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "SueloEdificio1";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "SueloEdificio2";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "SueloEdificio3";
-	importarEscenario(cstr, 0,0,0);
-	cstr = "SueloEdificio4";
-	importarEscenario(cstr, 0,0,0);
+	const char* cstr2 = "suelo_t_2";
+	importarEscenario(cstr2, 0,0,0);
+	const char* cstr3 = "suelo_t_3";
+	importarEscenario(cstr3, 0,0,0);
+	const char* cstr4 = "suelo_t_4";
+	importarEscenario(cstr4, 0,0,0);
+	const char* cstr5 = "suelo_t_5";
+	importarEscenario(cstr5, 0,0,0);
+	const char* cstr6 = "suelo_exterior_1";
+	importarEscenario(cstr6, 0,0,0);
+	const char* cstr7 = "suelo_exterior_2";
+	importarEscenario(cstr7, 0,0,0);
+	const char* cstr8 = "suelo_exterior_3";
+	importarEscenario(cstr8, 0,0,0);
+    
+	const char* cstr9 = "Duna";
+	importarEscenario(cstr9, 0,0,0);
+	const char* cstr10 = "Arbol";
+	importarEscenario(cstr10, 0,0,0);
+	const char* cstr11 = "Bidones1";
+	importarEscenario(cstr11, 0,0,0);
+	const char* cstr12 = "Bidones2";
+	importarEscenario(cstr12, 0,0,0);
+	const char* cstr13 = "Ruinas1";
+	importarEscenario(cstr13, 0,0,0);
+	const char* cstr14 = "Ruinas1";
+	importarEscenario(cstr14, 0,0,0);
+	const char* cstr15 = "Muralla";
+	importarEscenario(cstr15, 0,0,0);
+	const char* cstr16 = "Lenyos";
+	importarEscenario(cstr16, 0,0,0);
+	const char* cstr17 = "EdificioPuente";
+	importarEscenario(cstr17, 0,0,0);
+	const char* cstr18 = "RuinaPuerta";
+	importarEscenario(cstr18, 0,0,0);
+	const char* cstr19 = "Valla1";
+	importarEscenario(cstr19, 0,0,0);
+	const char* cstr20 = "Valla2";
+	importarEscenario(cstr20, 0,0,0);
+	const char* cstr21 = "PinchosFoso";
+	importarEscenario(cstr21, 0,0,0);
+	const char* cstr22 = "ApoyoEdificio1";
+	importarEscenario(cstr22, 0,0,0);
+	const char* cstr23 = "ApoyoEdificio2";
+	importarEscenario(cstr23, 0,0,0);
+	const char* cstr24 = "ApoyoEdificio3";
+	importarEscenario(cstr24, 0,0,0);
+	const char* cstr25 = "ApoyoEdificio4";
+	importarEscenario(cstr25, 0,0,0);
+	const char* cstr26 = "ApoyoEdificio5";
+	importarEscenario(cstr26, 0,0,0);
+	const char* cstr27 = "CajasHoguera";
+	importarEscenario(cstr27, 0,0,0);
+	const char* cstr28 = "Campamento2";
+	importarEscenario(cstr28, 0,0,0);
+	const char* cstr29 = "EdificioGrande";
+	importarEscenario(cstr29, 0,0,0);
+	const char* cstr30 = "EdificioLejos1";
+	importarEscenario(cstr30, 0,0,0);
+	const char* cstr31 = "EdificioLejos2";
+	importarEscenario(cstr31, 0,0,0);
+	const char* cstr32 = "EdificioLejos3";
+	importarEscenario(cstr32, 0,0,0);
+	const char* cstr33 = "EdificioLejos4";
+	importarEscenario(cstr33, 0,0,0);
+	const char* cstr34 = "EdificioLejos5";
+	importarEscenario(cstr34, 0,0,0);
+	const char* cstr35 = "EdificioRuinas1";
+	importarEscenario(cstr35, 0,0,0);
+	const char* cstr36 = "Hoguera";
+	importarEscenario(cstr36, 0,0,0);
+	const char* cstr37 = "Hoguerads";
+	importarEscenario(cstr37, 0,0,0);
+	const char* cstr38 = "PiedraPoste";
+	importarEscenario(cstr38, 0,0,0);
+	const char* cstr39 = "PosteLuz";
+	importarEscenario(cstr39, 0,0,0);
+	const char* cstr40 = "Presa";
+	importarEscenario(cstr40, 0,0,0);
+	const char* cstr41 = "RuinaEdificio1";
+	importarEscenario(cstr41, 0,0,0);
+	const char* cstr42 = "RuinaEdificio2";
+	importarEscenario(cstr42, 0,0,0);
+	const char* cstr43 = "RuinaEdificio3";
+	importarEscenario(cstr43, 0,0,0);
+	const char* cstr44 = "RuinaEdificio4";
+	importarEscenario(cstr44, 0,0,0);
+	const char* cstr45 = "RuinaEdificio5";
+	importarEscenario(cstr45, 0,0,0);
+	const char* cstr46 = "SueloEdificio1";
+	importarEscenario(cstr46, 0,0,0);
+	const char* cstr47 = "SueloEdificio2";
+	importarEscenario(cstr47, 0,0,0);
+	const char* cstr48 = "SueloEdificio3";
+	importarEscenario(cstr48, 0,0,0);
+	const char* cstr49 = "SueloEdificio4";
+	importarEscenario(cstr49, 0,0,0);
+	const char* cstr50 = "TiendaCampanya1";
+	importarEscenario(cstr50, 0,0,0);
+	const char* cstr51 = "tuberia_1";
+	importarEscenario(cstr51, 0,0,0);
+	const char* cstr52 = "tuberia_2";
+	importarEscenario(cstr52, 0,0,0);
+	const char* cstr53 = "tuberia_3";
+	importarEscenario(cstr53, 0,0,0);
+	const char* cstr54 = "tuberia_4";
+	importarEscenario(cstr54, 0,0,0);
+	const char* cstr55 = "uberia_5";
+	importarEscenario(cstr55, 0,0,0);
+	const char* cstr56 = "tuberia_6";
+	importarEscenario(cstr56, 0,0,0);
+	const char* cstr57 = "VallaCampamento2";
+	importarEscenario(cstr57, 0,0,0);
+	const char* cstr58 = "VallaPubli";
+	importarEscenario(cstr58, 0,0,0);
+	const char* cstr59 = "Vertedero";
+	importarEscenario(cstr59, 0,0,0);
     desp_x = desp_z = 0;
 
 	camara = new Camara(true);
@@ -127,7 +223,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 
 
 	_nodo->remove();
-    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);
+    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);cubeBody
     if ( ite2 != nodes.end()){
         nodes.erase(ite2);
         //delete _nodo;
@@ -273,10 +369,15 @@ void Motor::configuracion_bullet(){
 	for(short i = 0; i<num;i++){
 
 		btTransform trans = fileLoader->getRigidBodyByIndex(i)->getWorldTransform();
+		
 
 		escenario = fileLoader->getRigidBodyByIndex(i)->getCollisionShape();
 		cubeMotionState = new btDefaultMotionState(trans);
 		btRigidBody* _objeto_esceario = new btRigidBody(0, cubeMotionState, escenario);
+
+		fileLoader->getRigidBodyByIndex(i)->setCollisionFlags(fileLoader->getRigidBodyByIndex(i)->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+
+		rotar(_objeto_esceario,180);
 		_objeto_esceario->setFriction(0);
 		world->addRigidBody(_objeto_esceario,COL_ESCENARIO, escenario_colisiona_con);
 
@@ -532,10 +633,14 @@ void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, f
 
 	delete edges;
 	*/
+	
 	//de forma temporal hasta que el ME tenga forma de calcular bounding
-	anchura = 1.6758;
-	altura = 8.389;
-	profundidad = 2.9168;
+	Vector3 cosas = node->getBB();
+	anchura = cosas._z;
+	altura = cosas._y;
+	profundidad = cosas._x;
+
+	std::cout << "-----------------------------------------------------" << anchura << altura << profundidad << std::endl;
 	//profundidad = anchura = altura = 8;
 }
 
@@ -585,7 +690,14 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 
 
 iNodoModelado* Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
-	return crearModelado(rutaObj, x, y, z);
+	iNodoModelado* modelado = crearModelado(rutaObj, x, y, z);
+	
+	//modelado->rotar(-1,0,0,180);
+	modelado->escalar(1,-1,1);
+	modelado->rotar(0,0,1,180);
+
+
+	return modelado;
 }
 
 void Motor::update(double dt){
@@ -624,7 +736,6 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 		if(i == _id_jugador) {
 			Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
 			camara->interpola_target(_posicion_interpolada);
-			std::cout << "La posicion interpolada del jugadpr " << i << " es " << _posicion_interpolada._x << ", " << _posicion_interpolada._y << ", " << _posicion_interpolada._z << "\n";
 		}	
 	}
 	std::cout << "se interpola la camara\n";
@@ -795,6 +906,26 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	// Traslacion
 	rbTransform.setOrigin(posicion);
 
+	//Se aplican las transformaciones
+	rb->setWorldTransform(rbTransform);
+}
+
+void Motor::rotar(btRigidBody *rb, uint16_t rotacion){
+	float mult = 4.9212625;
+	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
+	btTransform rbTransform;
+
+	// Rotacion
+	rbTransform.setIdentity();
+	rbTransform.setOrigin(rb->getCenterOfMassPosition());
+	btQuaternion incline;
+	incline.setRotation(btVector3(0, 1, 0), gTilt);
+	rbTransform.setRotation(incline);
+	//std::cout << rotacion << std::endl;
+
 //Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
 }
+
+
+

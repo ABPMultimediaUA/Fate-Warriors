@@ -1,6 +1,7 @@
 #include "TModelado.h"
 #include "TRecursoModelado.h"
 #include "TGestorRecursos.h"
+
 #include "Shader.h"
 #include <iostream>
 
@@ -29,4 +30,7 @@ void TModelado::leerModelado(const char* path){
     TGestorRecursos* gRec = TGestorRecursos::get_instancia();
     _modelado = gRec->getRecursoModelo(path);
  
+}
+glm::vec3 TModelado::get_BB(){
+    return _modelado->get_BB();
 }
