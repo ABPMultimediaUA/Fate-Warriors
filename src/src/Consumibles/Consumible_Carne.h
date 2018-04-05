@@ -6,7 +6,7 @@
 class Consumible_Carne : public Consumible{
 public:
 	Consumible_Carne(short _id, float _i_x, float _i_y, float _i_z);
-	virtual ~Consumible_Carne();
+	~Consumible_Carne();
 
 	bool usar(Character* _personaje) override;
 	void render() override;

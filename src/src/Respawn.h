@@ -5,6 +5,8 @@
 #include "Utilidades/Vector.h" 
 #include "Personajes/Enum_Tipo_Ataque.h"
 #include <map>
+#include <vector>
+
 
 class Character;
 class Nivel;
@@ -31,12 +33,13 @@ public:
     Vector2 generar_posicion_del_bando(Enum_Equipo _i_bando);
     std::map<Character*, double> jugadores_a_revivir();
     void renacer_personaje_en_posicion(Character* _i_personaje, Vector2 posicion);
-    uint8_t revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, bool inmediatamente);
+    std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, bool inmediatamente);
 
 
 private:
 
     std::map<Character*, double> _character_a_reaparecer;
+    std::vector<Character*> _personajes_muertos;
     Respawn();
 	static Respawn* instancia;
     // Zonas del mapa (puntos de los nodos)

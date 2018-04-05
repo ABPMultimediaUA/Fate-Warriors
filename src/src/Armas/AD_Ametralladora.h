@@ -6,7 +6,7 @@
 class AD_Ametralladora : public Arma_distancia{
 public:
 	AD_Ametralladora(uint16_t _id, float _i_x, float _i_y, float _i_z);
-	virtual ~AD_Ametralladora();
+	~AD_Ametralladora();
 	void update() override;
 
 	void render() override;

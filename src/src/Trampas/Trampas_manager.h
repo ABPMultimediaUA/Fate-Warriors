@@ -7,7 +7,7 @@ class Pinchos;
 class Trampas_manager{
 public:
 	Trampas_manager();
-	virtual ~Trampas_manager();
+	~Trampas_manager();
 
 	unsigned short get_n_trampas_mina();
 	unsigned short get_n_trampas_pincho();

@@ -10,7 +10,7 @@ class Time;
 class Consumible_Vida_Infinita : public Consumible_Power_Up{
 public:
 	Consumible_Vida_Infinita(short _id, float _i_x, float _i_y, float _i_z);
-	virtual ~Consumible_Vida_Infinita();
+	~Consumible_Vida_Infinita();
 
 	bool usar(Character* _personaje) override;
 	void render() override;

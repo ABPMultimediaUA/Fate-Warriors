@@ -7,7 +7,7 @@
 class Pinchos : public Trampas{
 public:
 	Pinchos(short _id, float _i_x, float _i_y, float _i_z);
-	virtual ~Pinchos();
+	~Pinchos();
 
 	void render() override;
 	bool puede_quitar_vida();

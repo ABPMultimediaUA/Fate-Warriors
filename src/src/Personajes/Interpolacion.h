@@ -10,7 +10,7 @@
 class Interpolacion {
 public:
 	Interpolacion(Vector3 _i_posicion_inicial);
-	virtual ~Interpolacion();
+	~Interpolacion();
 
 
 	void actualiza_posicion(Vector3 _i_posicion_actual); 	// Hace la posicion anterior la antigua posicion actual y pone la nueva actual

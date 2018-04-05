@@ -16,7 +16,7 @@ class Character;
 class Inventario{
 public:
 	Inventario();
-	virtual ~Inventario();
+	~Inventario();
 
 	void render();
 	Character* usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion);

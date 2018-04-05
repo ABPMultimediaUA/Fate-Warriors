@@ -9,7 +9,7 @@ class Trampas_manager;
 class Trampas_action{
 public:
 	Trampas_action();
-	virtual ~Trampas_action();
+	~Trampas_action();
 
 	void comprobar_trampas_mina();
 	void eliminar_trampas_mina();

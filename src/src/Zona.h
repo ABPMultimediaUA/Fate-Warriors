@@ -12,7 +12,7 @@ class Interruptor;
 class Zona{
 public:
 	Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo);
-    ~Zona();
+    virtual ~Zona();
     virtual void actualizar_zona();
     std::vector <Character*>get_characters();
     void iniciar_tiempo_conquista();
@@ -71,6 +71,7 @@ public:
     void desactivar_todos_los_interruptores();
 
 protected:
+    float distancia_player_a_zona();
     btRigidBody *_rb;
     Enum_Equipo _equipo;
 
@@ -82,10 +83,19 @@ protected:
     bool _conquistando;
     double _tiempo_inicio_conquista;
     double _tiempo_restante_conquista;
+    float _long_x;
+    float _long_y;
+
 
     int _npcs_persiguiendome;
 
    std::vector<Interruptor*> _interruptores_asociados;
+   std::vector<Interruptor*> _interruptores_asociados1;
+   std::vector<Interruptor*> _interruptores_asociados3;
+   std::vector<Interruptor*> _interruptores_asociados7;
+   std::vector<Interruptor*> _interruptores_asociados5;
+   std::vector<Interruptor*> _interruptores_asociados6;
+   std::vector<Interruptor*> _interruptores_asociados20;
 
 };
 

@@ -13,7 +13,7 @@ class Consumible_Power_Up;
 class Consumible_Action{
 public:
 	Consumible_Action();
-	virtual ~Consumible_Action();
+	~Consumible_Action();
 	void comprobar_consumibles();
 	void borrar_power_up(Consumible_Power_Up* _i_power_up);
 

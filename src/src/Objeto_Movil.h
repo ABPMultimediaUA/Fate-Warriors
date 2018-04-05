@@ -6,7 +6,7 @@
 class Objeto_Movil : public Objeto{
 public:
 	Objeto_Movil(short _id, float _i_x, float _i_y, float _i_z);
-	virtual ~Objeto_Movil();
+	~Objeto_Movil();
 	virtual void update() = 0;
 
 };

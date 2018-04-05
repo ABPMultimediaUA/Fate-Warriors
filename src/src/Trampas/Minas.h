@@ -8,7 +8,7 @@ class Time;
 class Minas : public Trampas{
 public:
 	Minas(short _id, float _i_x, float _i_y, float _i_z);
-	virtual ~Minas();
+	~Minas();
 
 	void	activar();
 	void 	activar_explosion();

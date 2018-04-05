@@ -16,9 +16,7 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, float 
 }
 
 void Interruptor::set_activado(bool _i_activado){
-	if(!_objeto_asociado->get_activado() && _objeto_asociado->ha_pasado_tiempo_suficiente()){
 		_objeto_asociado->activar();
-	}
 //	_objeto_asociado->get_objeto_motor()->abrir_puerta();
 }
 

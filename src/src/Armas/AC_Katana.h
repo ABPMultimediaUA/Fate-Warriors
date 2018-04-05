@@ -6,7 +6,7 @@
 class AC_Katana : public Arma_cerca{
 public:
 	AC_Katana(uint16_t _id, float _i_x, float _i_y, float _i_z);
-	virtual ~AC_Katana();
+	~AC_Katana();
 	void update() override;
 
 	void render() override;

@@ -1,6 +1,7 @@
 #include "Zona.h"
 #include "Interfaz/Motor.h"
 #include "Personajes/Character.h"
+#include "Interfaz_Libs/Lib_Math.h"
 #include "Personajes/Player.h"
 
 #include "Datos_Partida.h"
@@ -17,6 +18,8 @@ _reloj=Time::Instance();
     Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb,btVector3(_i_x,_i_y,_i_z), btVector3(long_x,10,long_y), 0);
     _conquistando = false;
     _tiempo_inicio_conquista = 0;
+    _long_x = long_x;
+    _long_y = long_y;
     _pos_x = _i_x;
     _pos_y = _i_z;
     _tiempo_restante_conquista = 10000;
@@ -27,6 +30,7 @@ _reloj=Time::Instance();
 Zona::~Zona() {
     Motor::Motor_GetInstance()->borrar_rb(_rb);
     _interruptores_asociados.clear();
+    std::cout<<"borrado de zona"<<std::endl;
 }
 
 
@@ -117,6 +121,13 @@ bool Zona::hay_personajes_conquistando_esta_zona(){
     return true;
 }
 
+float Zona::distancia_player_a_zona(){
+        Game* game 		= Game::game_instancia();
+	Datos_Partida * _datos	= game->game_get_datos();
+    Player* _player = _datos->get_player();
+   return lib_math_distancia_2_puntos(_player->getX(), _player->getZ(), _pos_x, _pos_y);
+}
+
 
 bool Zona::esta_jugador_en_zona(){
     Game* game 		= Game::game_instancia();
@@ -125,6 +136,8 @@ bool Zona::esta_jugador_en_zona(){
     Motor* motor = Motor::Motor_GetInstance();
 
     if(motor->comprobar_colision(_rb, _player->get_objeto_motor()->getRigidBody()) == true){
+        std::cout << "pos x " << _player->getX() << "pos z " << _player->getZ() << std::endl;
+
         return true;
     }
     return false;

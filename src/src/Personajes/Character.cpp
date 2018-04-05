@@ -333,15 +333,15 @@ void Character::morir(){ // SE SOBRESCRIBE EN NPC!!
     //_inventario->soltar_armas(getX(), getZ()); BORRAME
 
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
-    setY(99999999999);
+    //setY(99999999999);
 
 }
 
 
 void Character::revivir(Vector2 pos){ 
     set_vida(_vida_maxima);
+    setY(2);
     setPositionXZ(pos._x, pos._y);
-    setY(0);
     _npcs_persiguiendome = 0;
 }
 

@@ -6,7 +6,7 @@
 class Llave : public Objeto{
 public:
 	Llave(short _i_id, float _i_x, float _i_y, float _i_z, short _i_id_puerta);
-	virtual ~Llave();
+	~Llave();
 	void update(){};
 	void render(){};
     

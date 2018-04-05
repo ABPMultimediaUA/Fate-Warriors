@@ -11,6 +11,7 @@ const double PIs = std::acos(-1);
 unsigned short lib_math_angulo_2_puntos(float _i_x1, float _i_y1, float _i_x2, float i_y2);
 
 float lib_math_distancia_2_puntos(float _i_x1, float _i_y1, float _i_x2, float i_y2);
+bool colision_caja(float _i_anx1, float _i_any1, float _i_alx1, float _i_aly1, float _i_x2, float _i_y2);
 
 template <typename T>
 inline int8_t lib_math_sgn(T v) {

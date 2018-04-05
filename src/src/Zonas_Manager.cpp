@@ -115,6 +115,7 @@ void Zonas_Manager::actualizar_zonas(){
 			}
 		}
 
+
 	}
 	comprobar_victoria();
 }

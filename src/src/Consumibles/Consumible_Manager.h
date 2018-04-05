@@ -15,7 +15,7 @@ class Time;
 class Consumible_Manager{
 public:
 	Consumible_Manager();
-	virtual ~Consumible_Manager();
+	~Consumible_Manager();
 
 	std::vector<Consumible*>* get_consumibles();
 	std::vector<Consumible_Patata*> get_consumibles_patata();

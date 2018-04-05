@@ -6,7 +6,7 @@
 class Consumible_Agua : public Consumible{
 public:
 	Consumible_Agua(short _id, float _i_x, float _i_y, float _i_z);
-	virtual ~Consumible_Agua();
+	~Consumible_Agua();
 
 	bool usar(Character* _personaje) override;
 	void render() override;

@@ -22,3 +22,10 @@ float lib_math_distancia_2_puntos(float _i_x1, float _i_y1, float _i_x2, float _
 
 	return _distancia_total;
 }
+
+bool colision_caja(float _i_anx1, float _i_any1, float _i_alx1, float _i_aly1, float _i_x2, float _i_y2){
+	if((_i_x2>_i_anx1 && _i_x2<_i_anx1) && (_i_y2>_i_alx1 && _i_y2<_i_aly1) ){
+		return true;
+	}
+	return false;
+}

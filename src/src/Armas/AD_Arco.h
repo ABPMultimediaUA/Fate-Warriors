@@ -6,7 +6,7 @@
 class AD_Arco : public Arma_distancia{
 public:
 	AD_Arco(uint16_t _id, float _i_x, float _i_y, float _i_z);
-	virtual ~AD_Arco();
+	~AD_Arco();
 	void render() override;
 	Character* usar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion) override;
 

@@ -14,16 +14,18 @@ class Player;
 
 class Zona_Coliseo : public Zona{
 public:
-	Zona_Coliseo(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo, uint16_t num_enemigos,  uint16_t rondas);
+	Zona_Coliseo(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo, uint16_t num_enemigos,  int rondas);
     ~Zona_Coliseo();
-    void actualizar_zona();
+    void actualizar_zona() override;
 
 private:
     void iniciar_coliseo();
     void update_coliseo();
     bool _coliseo_iniciado;
     uint16_t _num_enemigos;
-    uint16_t _rondas;
+    int _rondas;
+    std::vector <Character*> _enemigos_que_creo;
+
 };
 
 #endif /* ZONA_COLISEO_H_ */

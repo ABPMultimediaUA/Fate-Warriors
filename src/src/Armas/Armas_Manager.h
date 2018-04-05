@@ -12,7 +12,7 @@ class Time;
 class Armas_Manager{
 public:
 	Armas_Manager();
-	virtual ~Armas_Manager();
+	~Armas_Manager();
 
 	std::vector<Arma*>* get_armas();
 
