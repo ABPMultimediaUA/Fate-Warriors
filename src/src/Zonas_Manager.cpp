@@ -22,16 +22,16 @@ Zonas_Manager::Zonas_Manager() {
 	float mult = 4.9212625;
 //	_zonas[0] = new Zona(5*mult, 0*mult, 37*mult,20,20, Enum_Equipo_A);
 
-	_zona_incial = new Zona_Inicial(12.5*mult, 0*mult, 12.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A); //Zona 1
+	_zona_incial = new Zona_Inicial(12.5*mult, 0*mult, 12.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A, 12.5*mult, 9*mult); //Zona 1
 	_zonas[0] = _zona_incial ;
 	_zona_bando_a.push_back(_zonas[0]);	
 	
 	_zonas[1]  = new Zona_Respawn_Infinito(29.5*mult, 0*mult, 28.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B, 8); //Zona 3
 	_zona_bando_b.push_back(_zonas[1]);	
 
-	_zonas[2]  = new Zona_Coliseo(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A,4,2);		//Zona 7
+	_zonas[2]  = new Zona_Coliseo(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A,4,1);		//Zona 7
 	_zona_bando_a.push_back(_zonas[2]);	
-	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B);   //Zona 10
+	_zonas[3]  = new Zona_Respawn_Infinito(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B, 5);   //Zona 10
 	_zona_bando_b.push_back(_zonas[3]);	
 
 
@@ -39,7 +39,7 @@ Zonas_Manager::Zonas_Manager() {
 	_zonas[4]  = new Zona(38*mult, 0*mult, 104.5*mult,(20*mult)/2,(15*mult)/2, Enum_Equipo_A);	// Zona 22
 	_zona_bando_a.push_back(_zonas[4]);	
 
-	_zonas[5]  = new Zona(34.5*mult, 0*mult, 74*mult,(25*mult)/2,(20*mult)/2, Enum_Equipo_B);	// Zona 16
+	_zonas[5]  = new Zona_Coliseo(34.5*mult, 0*mult, 74*mult,(25*mult)/2,(20*mult)/2, Enum_Equipo_B, 5,4);	// Zona 16
 	_zona_bando_b.push_back(_zonas[5]);	
 
 	_zonas[6]  = new Zona_Final(72*mult, 0*mult, 42*mult,(25*mult)/2,(30*mult)/2, Enum_Equipo_A);	// Zona 32
@@ -210,5 +210,5 @@ std::vector<Zona*> Zonas_Manager::get_zonas_equipo_b_no_siendo_conquistadas(){
 }
 
 Vector2 Zonas_Manager::get_posicion_zona_inicial(){
-	return Vector2(_zona_incial->getX(), _zona_incial->getZ());
+	return _zona_incial->get_posicion_inicial();
 }

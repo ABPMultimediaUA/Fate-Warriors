@@ -39,10 +39,10 @@ NPC_Manager::NPC_Manager() {
 	_npc[21] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[22] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[23] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[24] = new NPC(0, 34*metro, 0, 34*metro, 2000, .15, 1, 10, Enum_Equipo_B);
+	_npc[24] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	
-	_npc[25] = new NPC(0, 34*metro, 0, 34*metro, 2000, .15, 1, 10, Enum_Equipo_B);
-	_npc[26] = new NPC(0, 34*metro, 0, 34*metro, 2000, .15, 1, 10, Enum_Equipo_B);
+	_npc[25] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
+	_npc[26] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[27] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[28] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[29] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);

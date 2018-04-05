@@ -16,8 +16,8 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	// tener xml con la informacion de todos los objetos
     
-	_n_llaves = 1;
-	_n_puertas = 1;
+	_n_llaves = 2;
+	_n_puertas = 2;
 	_n_interruptores = 12;
 	_n_puertas_pincho = 6;
 
@@ -41,11 +41,15 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
     //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
     
-    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 0, false, 4);
+    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 0, false, 4);			//puerta situada entre nodo 3 y 5 pasillo 4
+    _puertas[1] = new Puerta(2,12.5*mult,0*mult, 21.155*mult, 0, false, 4); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
+
 
    //_puertas[1] = new Puerta(127,-0,0,-180,false);
 	
-	_llaves[0] = new Llave(0, 5*mult, 0*mult, 37*mult,_puertas[0]->get_id());
+	_llaves[0] = new Llave(0, 35*mult, 0*mult, 55*mult,_puertas[0]->get_id());	//Lave situada en nodo 18, abre la puerta situada en pasillo 4
+	_llaves[1] = new Llave(0, 12.5*mult, 0*mult, 17*mult,_puertas[1]->get_id());  // Llave situada en el nodo 1, abre puerta de pasillo 6
+
 /*
 	Game* game 		= Game::game_instancia();
 	Datos_Partida * datos	= game->game_get_datos();
