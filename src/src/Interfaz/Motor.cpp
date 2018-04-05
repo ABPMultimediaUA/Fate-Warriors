@@ -800,7 +800,7 @@ void Motor::updateCamaraColision(){
 		}
 
 		angulo = camara->Camara_getAngleRad();
-		std::cout<< "ANGULO JODER: "<< angulo << "\n";
+
 }
 
 

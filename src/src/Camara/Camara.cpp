@@ -277,12 +277,10 @@ void Camara::update_position() {
 }
 
 float Camara::Camara_getAngle(){
-	//std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angle << "\n";
 	return(_angle);
 }
 
 float Camara::Camara_getAngleRad(){
-	std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angleRad << "\n";
 	return(_angleRad);
 }
 

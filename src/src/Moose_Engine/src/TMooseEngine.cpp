@@ -35,6 +35,7 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader("src/Moose_Engine/Shaders/vertex_basic.glsl", "src/Moose_Engine/Shaders/fragment_basic.glsl");
 
+    //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -155,14 +156,9 @@ TLuz* TMooseEngine::crearLuz(glm::vec3 ambiente, glm::vec3 especular, glm::vec3 
 }
 
 TModelado* TMooseEngine::crearModelado(const char* _i_path){
-    TModelado* modelado = new TModelado(_i_path);
+    TModelado* malla = new TModelado(_i_path);
     //_gestorRecursos->getRecursoModelo(fichero);
-    return modelado;
-}
-TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){
-    TAnimacion* animacion = new TAnimacion(_i_path);
-    //_gestorRecursos->getRecursoModelo(fichero);
-    return animacion;
+    return malla;
 }
 
 void TMooseEngine::clear(){
