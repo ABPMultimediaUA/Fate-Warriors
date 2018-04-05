@@ -87,6 +87,18 @@ void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad,
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }
 
+// Funcion de mover para los personajes
+void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt, uint16_t _i_direccion_mirar){  // Direccion
+
+	// Actualiza la rotacion del personaje
+	_interpolacion->actualiza_direccion(_i_direccion_mirar);
+
+	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
+    desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
+
+    setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
+}
+
 /*Rango muy corto 20 normal 40 y largo 80*/
 Character* Objeto_Motor::disparar(Objeto_Motor* _i_objeto_origen,uint16_t _i_direccion, uint8_t _i_rango_disparo){
 

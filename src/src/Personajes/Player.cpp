@@ -69,7 +69,14 @@ void Player::update(){
         // Direccion buena con respecto de la camara
         uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
         while(_direccion_buena >= 360) _direccion_buena -= 360;
-        mover(_direccion_buena);
+        
+        if(_apuntando != nullptr) {
+            mover_direccion(_direccion_buena, rotar_en_funcion_de_un_punto(_apuntando));
+        }
+        else {
+            mover(_direccion_buena);
+        }
+
         rotar_en_funcion_de_ese_objetivo();
         rotar_en_funcion_de_ese_objetivo();
         //s_sonido->Play_ambiente(2);
@@ -233,8 +240,14 @@ void Player::set_apuntando_a_objetivo_mas_proximo(){
     _apuntando = objetivo_mas_proximo_angulo();
 }
 
-void Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
+uint16_t Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
     uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), _objetivo->getX(), _objetivo->getZ());
+
+    std::cout << "Origen: " << getX() << ", " << getZ() << "\n";
+
+    std::cout << "Objetivo: " << _objetivo->getX() << ", " << _objetivo->getZ() << "\n";
+
+    std::cout << "Ángulo: " << angulo_giro << "\n";
 
     float _cos, _sen;
     _cos = sin(angulo_giro*std::acos(-1)/180);
@@ -244,8 +257,11 @@ void Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
     uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
     while(_nueva_direccion >= 360) _nueva_direccion -= 360;
 
-    set_direccion_actual(_nueva_direccion);
-    rotar_cuerpo(_nueva_direccion);
+    std::cout << "Ángulo Bueno: " << _nueva_direccion << "\n";
+
+    //set_direccion_actual(_nueva_direccion);
+    //rotar_cuerpo(_nueva_direccion);
+    return _nueva_direccion;
 }
 
 void Player::preparar_ataque_objetivo_mas_proximo_con_impulso(){

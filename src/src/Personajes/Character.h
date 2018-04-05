@@ -72,6 +72,7 @@ public:
 	void saltar();
 	void esquivar(uint16_t _direccion);
 	void mover(uint16_t _direccion);
+	void mover_direccion(uint16_t _i_direccion, uint16_t _i_direccion_mover);
 	bool esta_bloqueado();
 	bool accion_en_curso();
 

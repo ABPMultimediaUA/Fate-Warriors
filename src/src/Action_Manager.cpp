@@ -115,7 +115,8 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 		case Accion_Interactuar:
 		{
-			Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager();
+			/*
+			Interactuable_Manager * _int_man  = Game::game_instancia()->game_get_datos()->get_interactuable_manager(); 	BORRAME
 
 			Interruptor** _interruptores = _int_man->get_interruptores();
 			unsigned short n_interruptores = _int_man->get_n_interruptores();
@@ -136,6 +137,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 			}
 			//std::cout << "Llega 5"<< std::endl;
 			_i_npc->intentar_recoger_arma();
+			*/
 		}
 
 			break;

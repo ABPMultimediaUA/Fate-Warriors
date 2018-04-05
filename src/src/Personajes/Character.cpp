@@ -219,6 +219,10 @@ void Character::saltar(){
 }
 
 void Character::mover(uint16_t _i_direccion){
+    mover_direccion(_i_direccion, _i_direccion);
+}
+
+void Character::mover_direccion(uint16_t _i_direccion, uint16_t _i_direccion_mover){
     if(esta_bloqueado() == false){ 
 
         _direccion_actual = _i_direccion;
@@ -242,7 +246,7 @@ void Character::mover(uint16_t _i_direccion){
                 _velocidad += 0.1;
             }
         }
-        _objeto_motor->VelocidadDireccion(_i_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update());
+        _objeto_motor->VelocidadDireccion(_i_direccion,_velocidad,_tiempo->get_tiempo_desde_ultimo_update(), _i_direccion_mover);
     }
 }
 
@@ -253,8 +257,8 @@ bool Character::interactuar_con_objeto(){
     Llave** _llaves = _int_man->get_llaves();
     Puerta** _puertas = _int_man->get_puertas();
 
-    Interruptor** _interruptores = _int_man->get_interruptores();
-    unsigned short n_interruptores = _int_man->get_n_interruptores();
+    std::vector<Interruptor*> _interruptores = _int_man->get_interruptores();
+    unsigned short n_interruptores = _interruptores.size();
 
 
     unsigned short _cont;

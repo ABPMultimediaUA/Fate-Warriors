@@ -136,8 +136,6 @@ bool Zona::esta_jugador_en_zona(){
     Motor* motor = Motor::Motor_GetInstance();
 
     if(motor->comprobar_colision(_rb, _player->get_objeto_motor()->getRigidBody()) == true){
-        std::cout << "pos x " << _player->getX() << "pos z " << _player->getZ() << std::endl;
-
         return true;
     }
     return false;
