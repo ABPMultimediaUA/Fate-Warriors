@@ -41,7 +41,7 @@ private:
 	Input* _input;
 	btRigidBody *_rb_apuntado;
 	Character * _apuntando;
-	double _tiempobloqueo;
+	// double _tiempobloqueo; BORRAME
 
 };
 

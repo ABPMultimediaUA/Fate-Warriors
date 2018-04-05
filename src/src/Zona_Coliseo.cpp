@@ -39,9 +39,10 @@ void Zona_Coliseo::actualizar_zona(){
 void Zona_Coliseo::iniciar_coliseo(){
     
     Respawn* _respawn = Respawn::posiciones_instancia();
-    _enemigos_que_creo = _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
+    _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
     activar_todos_los_interruptores();
     _coliseo_iniciado=true;
+    _rondas--;
 }
 
 
@@ -52,7 +53,7 @@ void Zona_Coliseo::update_coliseo(){
             _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
             _rondas--;
         }
-        
+
         else if(_rondas==0){
             desactivar_todos_los_interruptores();
             _rondas--; //Valdra -1 asi no se podra meter en ninguno de los dos metodos

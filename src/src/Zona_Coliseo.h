@@ -24,8 +24,6 @@ private:
     bool _coliseo_iniciado;
     uint16_t _num_enemigos;
     int _rondas;
-    std::vector <Character*> _enemigos_que_creo;
-
 };
 
 #endif /* ZONA_COLISEO_H_ */

@@ -29,7 +29,7 @@ Zonas_Manager::Zonas_Manager() {
 	_zonas[1]  = new Zona_Respawn_Infinito(29.5*mult, 0*mult, 28.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B, 8); //Zona 3
 	_zona_bando_b.push_back(_zonas[1]);	
 
-	_zonas[2]  = new Zona_Coliseo(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A,4,5);		//Zona 7
+	_zonas[2]  = new Zona_Coliseo(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A,4,2);		//Zona 7
 	_zona_bando_a.push_back(_zonas[2]);	
 	_zonas[3]  = new Zona(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_B);   //Zona 10
 	_zona_bando_b.push_back(_zonas[3]);	

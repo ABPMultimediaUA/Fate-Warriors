@@ -16,8 +16,6 @@ class Character : public Objeto_Movil{
 public:
 	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
 	short _i_danyo_ataque_fuerte, Enum_Equipo equipo);
-	
-	bool get_bloqueando();
 	virtual ~Character();
 
 	virtual void modificar_vida_en(short _i_vida); // este metodo debe derivar en danyar y curar
@@ -121,7 +119,6 @@ public:
 
 protected:
 	
-	bool _bloqueando_ataque;
 	int16_t _vida_maxima;
 	int16_t _vida;
 	float _velocidadAndar;		//velocidad al andar

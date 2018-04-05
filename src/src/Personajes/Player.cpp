@@ -44,7 +44,6 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _motor->set_text_vida(_vida);
     _especial = 0;
     _apuntando = nullptr;
-    _bloqueando_ataque = false;
     //_sonido->Play_ambiente(2);
 }
 
@@ -153,14 +152,8 @@ void Player::update(){
         else{
             set_apuntando_a_objetivo_mas_proximo();
         }
-
-       _bloqueando_ataque = true;
-       _tiempobloqueo = _tiempo->get_current()+1000;
-
+       //_tiempobloqueo = _tiempo->get_current()+1000; BORRAME
 	}
-    if(_tiempo->get_current()>_tiempobloqueo && _bloqueando_ataque){
-        _bloqueando_ataque = false;
-    }
 
     if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
         && !std::get<0>(_ataques) && !_input->get_saltar() && _accion != Atacar && _accion != Saltar){

@@ -86,17 +86,8 @@ protected:
     float _long_x;
     float _long_y;
 
-
     int _npcs_persiguiendome;
-
-   std::vector<Interruptor*> _interruptores_asociados;
-   std::vector<Interruptor*> _interruptores_asociados1;
-   std::vector<Interruptor*> _interruptores_asociados3;
-   std::vector<Interruptor*> _interruptores_asociados7;
-   std::vector<Interruptor*> _interruptores_asociados5;
-   std::vector<Interruptor*> _interruptores_asociados6;
-   std::vector<Interruptor*> _interruptores_asociados20;
-
+    std::vector<Interruptor*> _interruptores_asociados;
 };
 
 #endif /* ZONA_H_ */
