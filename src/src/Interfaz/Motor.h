@@ -160,9 +160,7 @@ private:
       GUI* _GUI;
 
        
-
-      uint16_t _id_jugador;
-
+      Objeto_Motor *_objeto_que_sigue_la_camara;
       std::vector<Objeto_Motor*> _objetos_motor;
 };
 

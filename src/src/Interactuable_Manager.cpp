@@ -26,51 +26,45 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
     unsigned short _cont;
 
-	//for(_cont = 0; _cont < _n_llaves; _cont++) {
-		//_llaves[_cont] = new Llave(20,0,10,230,25);
-	//}
-	
-	//for(_cont = 0; _cont < _n_puertas; _cont++) {
-		//_puertas[_cont] = new Puerta(25,0,10,-180,false);
-	//}
-
 	float mult = 4.9212625;
-    
-    
-    //_llaves[1] = new Llave(0,10*mult,1*mult,10*mult,1);
-    
+          
     _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 0, false, 4);			//puerta situada entre nodo 3 y 5 pasillo 4
-    _puertas[1] = new Puerta(2,12.5*mult,0*mult, 21.155*mult, 0, false, 4); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
+    _puertas[1] = new Puerta(2,12.5*mult,0*mult, 21.155*mult, 0, false, 6); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
 
-
-   //_puertas[1] = new Puerta(127,-0,0,-180,false);
 	
 	_llaves[0] = new Llave(0, 35*mult, 0*mult, 55*mult,_puertas[0]->get_id());	//Lave situada en nodo 18, abre la puerta situada en pasillo 4
 	_llaves[1] = new Llave(0, 12.5*mult, 0*mult, 17*mult,_puertas[1]->get_id());  // Llave situada en el nodo 1, abre puerta de pasillo 6
 
-/*
-	Game* game 		= Game::game_instancia();
-	Datos_Partida * datos	= game->game_get_datos();
-	Zonas_Manager* zonas = datos->get_zonas_manager();
-	Zona** todas_las_zonas = zonas->get_zonas();
-*/
-	_puertas_pincho[0] = new Puerta_Pincho(0,12.5*mult,0,23.5*mult,0, _todas_las_zonas[0], _todas_las_zonas[2],6);	//Entre la sala 1 y 7
-	_puertas_pincho[1] = new Puerta_Pincho(0,10.5*mult,0,45.5*mult, 0, _todas_las_zonas[2], _todas_las_zonas[3],9);	//Entre la sala 7 y 10
+
+
+
+
+	_puertas_pincho[0] = new Puerta_Pincho(0,12.5*mult,0,23.5*mult, false, 0, _todas_las_zonas[0], _todas_las_zonas[2],6);	//Entre la sala 1 y 7
+
+	_puertas_pincho[1] = new Puerta_Pincho(0,10.5*mult,0,45.5*mult, false, 0, _todas_las_zonas[2], _todas_las_zonas[3],9);	//Entre la sala 7 y 10
 	
 
-	_puertas_pincho[2] = new Puerta_Pincho(0,25.5*mult,0,17.5*mult, 0, _todas_las_zonas[0], _todas_las_zonas[1],2);	//Entre la sala 1 y 3
+	_puertas_pincho[2] = new Puerta_Pincho(0,25.5*mult,0,17.5*mult, false, 0, _todas_las_zonas[0], _todas_las_zonas[1],2);	//Entre la sala 1 y 3
 	_interrutoress.push_back(new Interruptor(0,30*mult,0,21.2*mult,90, _puertas_pincho[2],false,false, 500));
 
-	_puertas_pincho[3] = new Puerta_Pincho(1,18*mult,0*mult, 31.5*mult, 90, _todas_las_zonas[0], _todas_las_zonas[1],8);	//Entre la sala 3 y 7
+	_puertas_pincho[3] = new Puerta_Pincho(1,18*mult,0*mult, 31.5*mult, false, 90, _todas_las_zonas[0], _todas_las_zonas[1],8);	//Entre la sala 3 y 7
 
-// CAMBIAR EL PARAMETRO DE _TODAS_LAS_ZONAS
 
-	_puertas_pincho[4] = new Puerta_Pincho(0,14.5*mult,0,71*mult, 0, _todas_las_zonas[3], _todas_las_zonas[5],15);	//Entre la sala 10 y 16
+	_puertas_pincho[4] = new Puerta_Pincho(0,14.5*mult,0,71*mult, false, 0, _todas_las_zonas[3], _todas_las_zonas[5],15);	//Entre la sala 10 y 16
 
-	_puertas_pincho[5] = new Puerta_Pincho(0,41.5*mult,0,90.5*mult, 0, _todas_las_zonas[5], _todas_las_zonas[4],21);	//Entre la sala 22 y 16
+	_puertas_pincho[5] = new Puerta_Pincho(0,41.5*mult,0,90.5*mult, false, 0, _todas_las_zonas[5], _todas_las_zonas[4],21);	//Entre la sala 22 y 16
 	_interrutoress.push_back(new Interruptor(0,33.5*mult,0,96.5*mult,0, _puertas_pincho[5],false,false, 500));
 	_interrutoress.push_back(new Interruptor(0,45*mult,0,40*mult,0, _puertas_pincho[5],false,false, 500));
 
+	//Zona 7
+	_todas_las_zonas[2]->set_puerta_pincho_asociada(_puertas_pincho[0]);
+	_todas_las_zonas[2]->set_puerta_pincho_asociada(_puertas_pincho[1]);
+	_todas_las_zonas[2]->set_puerta_pincho_asociada(_puertas_pincho[3]);
+
+
+	//Zona 16
+	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[4]);
+	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[5]);
 
 }
 
@@ -103,9 +97,9 @@ Interactuable_Manager::~Interactuable_Manager() {
 
 
 void Interactuable_Manager::update_interruptores(){
-
-	for(unsigned short cont=0; cont<_n_puertas_pincho; cont++){
-		//_puertas_pincho[cont]->update();
+	uint8_t _n_interruptores = _interrutoress.size();
+	for(unsigned short cont=0; cont<_n_interruptores; cont++){
+		_interrutoress[cont]->update();
 	}
 }
 

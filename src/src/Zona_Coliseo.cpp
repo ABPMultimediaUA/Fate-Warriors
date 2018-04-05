@@ -40,7 +40,7 @@ void Zona_Coliseo::iniciar_coliseo(){
     
     Respawn* _respawn = Respawn::posiciones_instancia();
     _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
-    activar_todos_los_interruptores();
+    activar_todas_las_puerta_pincho();
     _coliseo_iniciado=true;
     _rondas--;
 }
@@ -55,7 +55,7 @@ void Zona_Coliseo::update_coliseo(){
         }
 
         else if(_rondas==0){
-            desactivar_todos_los_interruptores();
+            desactivar_todas_las_puerta_pincho();
             _rondas--; //Valdra -1 asi no se podra meter en ninguno de los dos metodos
         }
     

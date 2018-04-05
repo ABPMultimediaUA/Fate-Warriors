@@ -8,6 +8,7 @@
 class Character;
 class Time;
 class Interruptor;
+class Puerta_Pincho;
 
 class Zona{
 public:
@@ -70,8 +71,14 @@ public:
     void activar_todos_los_interruptores();
     void desactivar_todos_los_interruptores();
 
+    void set_puerta_pincho_asociada(Puerta_Pincho* _i_puerta_pincho);
+
 protected:
+
     float distancia_player_a_zona();
+    void activar_todas_las_puerta_pincho();
+    void desactivar_todas_las_puerta_pincho();
+
     btRigidBody *_rb;
     Enum_Equipo _equipo;
 
@@ -88,6 +95,7 @@ protected:
 
     int _npcs_persiguiendome;
     std::vector<Interruptor*> _interruptores_asociados;
+    std::vector<Puerta_Pincho*> _puerta_pincho_asociados;
 };
 
 #endif /* ZONA_H_ */

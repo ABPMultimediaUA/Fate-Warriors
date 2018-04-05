@@ -2,6 +2,7 @@
 #define INTERRUPTOR_H_
 
 #include "Objeto.h"
+#include <vector>
 
 class Puerta_Pincho;
 class Time;
@@ -36,9 +37,10 @@ public:
 
 
 private:
-	Puerta_Pincho* _objeto_asociado; // Objeto asociado que activa/desactiva
+	Puerta_Pincho* _objeto_asociado; // Objeto asociado que activa/desactiva	//BORRAME esto debe de ser borrado porque a partir de ahora recibira un vector de las puertas a las que haga referencia sin importar la cantidad de elementos
 	bool _es_generador; // si es generador, despues de su primer uso se debe destruir
 	int _npcs_persiguiendome;
+	std::vector<Puerta_Pincho*> _objetos_asociados;	//Vector con todas las puertas asociadas
 };
 
 #endif /* INTERRUPTOR_H_ */

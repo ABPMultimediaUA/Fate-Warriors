@@ -13,7 +13,7 @@ class Zona;
 class Puerta_Pincho  : public Objeto {
 public:
 
-	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z ,float _i_rotacion, Zona* _i_asociada_1, Zona* _i_asociada_2, uint8_t _i_pasillo_asociado);
+	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z, bool activada, float _i_rotacion, Zona* _i_asociada_1, Zona* _i_asociada_2, uint8_t _i_pasillo_asociado);
 	~Puerta_Pincho();
     void update();
     void activar();

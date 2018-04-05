@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "Tiempo/Time.h"
 #include "Interruptor.h"
+#include "Puerta_Pincho.h"
 
 
 Zona::Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo i_equipo){
@@ -34,7 +35,7 @@ Zona::~Zona() {
 }
 
 
-/*Metodo para actualizar los valores de la zona*/
+/*METODO PARA ACTUALIZAR LA ZONA*/
 
 void Zona::actualizar_zona(){
     Game* game 		= Game::game_instancia();
@@ -109,7 +110,7 @@ void Zona::actualizar_zona(){
 
 }
 
-//Comprobar si hay personajes conquistando
+//COMPROBAR SI HAY PERSONAJES CONQUISTANDO
 bool Zona::hay_personajes_conquistando_esta_zona(){
     if(_equipo != Enum_Equipo_A && _num_characters_equipo_A==0){
         return false;
@@ -186,18 +187,43 @@ bool Zona::get_conquistando(){
     return _conquistando;
 }
 
+
+/* ASOCIAR ELEMENTOS A LA ZONA */ 
 void Zona::set_interruptor_asociado(Interruptor* _i_interruptor){
     _interruptores_asociados.push_back(_i_interruptor);
+}
+
+void Zona::set_puerta_pincho_asociada(Puerta_Pincho* _i_puerta_pincho){
+    _puerta_pincho_asociados.push_back(_i_puerta_pincho);
 }
 
 std::vector<Interruptor*> Zona::get_interruptores_asociados(){
     return _interruptores_asociados;
 }
 
-void Zona::activar_todos_los_interruptores(){
-    uint8_t num_interruptores = _interruptores_asociados.size();
+
+/* METODOS DE CERRAR/ABRIR ELEMENTOS ASOCIADOS*/ 
+
+void Zona::activar_todas_las_puerta_pincho(){
+    uint8_t num_interruptores = _puerta_pincho_asociados.size();
     for (uint8_t cont=0; cont<num_interruptores; cont++){
-       _interruptores_asociados[cont]->set_activado(true);
+       _puerta_pincho_asociados[cont]->activar();
+    }
+}
+
+void Zona::desactivar_todas_las_puerta_pincho(){
+    uint8_t num_interruptores = _puerta_pincho_asociados.size();
+    for (uint8_t cont=0; cont<num_interruptores; cont++){
+       _puerta_pincho_asociados[cont]->desactivar();
+    }
+}
+
+
+
+void Zona::activar_todos_los_interruptores(){
+    uint8_t num_interruptores = _puerta_pincho_asociados.size();
+    for (uint8_t cont=0; cont<num_interruptores; cont++){
+     //  _puerta_pincho_asociados[cont]->set_activado(true); TODO
     }
 }
 
