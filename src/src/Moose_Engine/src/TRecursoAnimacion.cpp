@@ -3,7 +3,7 @@
 #include "Shader.h"
 TRecursoAnimacion::TRecursoAnimacion(std::vector<TRecursoModelado*> _i_modelos, const char* _i_nombre):
     _modelos(std::move(_i_modelos)){
-    _nombre=(char*)_i_nombre;
+    _nombre=_i_nombre;
     
 }
 TRecursoAnimacion::~TRecursoAnimacion(){
@@ -14,11 +14,11 @@ void TRecursoAnimacion::draw(Shader* shader, uint8_t num){
         _modelos[num]->draw(shader);
     }
 }
-void TRecursoAnimacion::SetNombre(char* nombre){
+void TRecursoAnimacion::SetNombre(std::string nombre){
     _nombre = nombre;
 }
 
-char* TRecursoAnimacion::GetNombre(){
+std::string TRecursoAnimacion::GetNombre(){
     
     return _nombre;
 }

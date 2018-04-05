@@ -1,8 +1,6 @@
 #include "TRecursoMalla.h"
+#include "TRecursoMaterial.h"
 #include "Shader.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 
 
 #include <iostream>
@@ -14,14 +12,9 @@ struct Vertex {
     /*glm::vec3 Tangent;
     glm::vec3 Bitangent;*/
 };
-struct Texture {
-    unsigned int id;
-    std::string type;
-    std::string path;
-};
 
 TRecursoMalla::TRecursoMalla(std::vector<Vertex> _i_vertices, 
-    std::vector<unsigned int> _i_indices, std::vector<Texture> _i_textures)
+    std::vector<unsigned int> _i_indices, std::vector<TRecursoMaterial*> _i_textures)
     : vertices( std::move(_i_vertices) ), indices( std::move(_i_indices) ), textures( std::move(_i_textures) )
     {
     Preparar_mesh();
@@ -39,29 +32,29 @@ TRecursoMalla::~TRecursoMalla(){
     glDeleteBuffers(1,EB);
 }
 
-char* TRecursoMalla::GetNombre(){
+std::string TRecursoMalla::GetNombre(){
     
 }
 
-void TRecursoMalla::SetNombre(char* nombre){
+void TRecursoMalla::SetNombre(std::string nombre){
     
 }
 void TRecursoMalla::draw(Shader* shader){
     for(uint8_t i = 0; i < textures.size(); i++){
         glActiveTexture(GL_TEXTURE0 + i); //activar la textura correspondiente 
         std::string number;
-        std::string name = textures[i].type;
-        if(name == "texture_diffuse"){
+        std::string name = textures[i]->Get_type();
+        if(name == "_diffuse"){
             shader->setInt("Material.Diffuse",i);//pasar la textura difusa
         }	
-		else if(name == "texture_specular"){
+		else if(name == "_specular"){
             shader->setInt("Material.Specular",i);//pasar la texutra especular
         }	
         else if(name == "texture_shininess"){
             shader->setInt("Material.Shininess",i);//pasar el brillo
         }
         //bind texture
-        glBindTexture(GL_TEXTURE_2D, textures[i].id);
+        glBindTexture(GL_TEXTURE_2D, textures[i]->Get_id());
     }
     
     // draw mesh

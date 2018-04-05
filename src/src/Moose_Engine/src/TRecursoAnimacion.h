@@ -11,8 +11,8 @@ public:
     TRecursoAnimacion(std::vector<TRecursoModelado*> _i_modelos, const char* _i_nombre);
     ~TRecursoAnimacion();
 
-    char* GetNombre() override;
-    void  SetNombre(char* nombre) override;
+    std::string GetNombre() override;
+    void  SetNombre(std::string nombre) override;
     void  draw(Shader* shader, uint8_t num);
 private:
     std::vector<TRecursoModelado*> _modelos;

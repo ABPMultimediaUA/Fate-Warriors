@@ -233,8 +233,8 @@ void TMooseEngine::drawCamaras(){
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
             _shader->setProjection(projection);
             
-            // ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
-            /*while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
+            /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
+            while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
                 this_node = this_node->get_padre();
                 if(this_node->get_entidad()!=nullptr){ //para cada nodo salvo el raiz:
                                                        //accedemos a la matriz de su transformacion y la apilamos para calcular la matriz view
