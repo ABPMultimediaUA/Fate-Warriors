@@ -46,8 +46,11 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 					_sen = cos(_direccion*std::acos(-1)/180);
 
 					// Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
-					uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
-        			while(_nueva_direccion >= 360) _nueva_direccion -= 360;
+					int16_t _nueva_direccion_2 = atan2(_sen, _cos) * 180 / std::acos(-1);
+			        while(_nueva_direccion_2 >= 360) _nueva_direccion_2 -= 360;
+			        while(_nueva_direccion_2 < 0) _nueva_direccion_2 += 360;
+
+			        uint16_t _nueva_direccion = _nueva_direccion_2;
 
 					_i_npc->mover(_nueva_direccion);
 				}else{ //FALTA CONTROLAR EL CASO 361(ERROR) / EL CASO 362 (CON EL SETPOSITION VA BIEN) / CASO 363 (NO HAY CAMINO(SE QUEDA QUIETO))
@@ -98,8 +101,11 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				_sen = cos(angulo_giro*std::acos(-1)/180);
 
 				// Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
-				uint16_t _nueva_direccion = atan2(_sen, _cos) * 180 / std::acos(-1);
-				while(_nueva_direccion >= 360) _nueva_direccion -= 360;
+				int16_t _nueva_direccion_2 = atan2(_sen, _cos) * 180 / std::acos(-1);
+				while(_nueva_direccion_2 >= 360) _nueva_direccion_2 -= 360;
+		        while(_nueva_direccion_2 < 0) _nueva_direccion_2 += 360;
+
+		        uint16_t _nueva_direccion = _nueva_direccion_2;
 
 
 			//	std::cout << (int)_nueva_direccion << std::endl;
