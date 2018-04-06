@@ -218,12 +218,10 @@ void Zona::desactivar_todas_las_puerta_pincho(){
     }
 }
 
-
-
 void Zona::activar_todos_los_interruptores(){
-    uint8_t num_interruptores = _puerta_pincho_asociados.size();
+    uint8_t num_interruptores = _interruptores_asociados.size();
     for (uint8_t cont=0; cont<num_interruptores; cont++){
-     //  _puerta_pincho_asociados[cont]->set_activado(true); TODO
+       _interruptores_asociados[cont]->set_activado(true);
     }
 }
 

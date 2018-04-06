@@ -18,7 +18,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	_n_llaves = 2;
 	_n_puertas = 2;
-	_n_puertas_pincho = 6;
+	_n_puertas_pincho = 9;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -50,9 +50,14 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_puertas_pincho[3] = new Puerta_Pincho(1,18*mult,0*mult, 31.5*mult, false, 90, _todas_las_zonas[0], _todas_las_zonas[1],8);	//Entre la sala 3 y 7
 
 
-	_puertas_pincho[4] = new Puerta_Pincho(0,14.5*mult,0,71*mult, false, 0, _todas_las_zonas[3], _todas_las_zonas[5],15);	//Entre la sala 10 y 16
+	_puertas_pincho[4] = new Puerta_Pincho(0,20*mult,0,73.5*mult, false, 90, _todas_las_zonas[3], _todas_las_zonas[5],15);	//Entre la sala 10 y 16
 
-	_puertas_pincho[5] = new Puerta_Pincho(0,41.5*mult,0,90.5*mult, false, 0, _todas_las_zonas[5], _todas_las_zonas[4],21);	//Entre la sala 22 y 16
+	_puertas_pincho[5] = new Puerta_Pincho(0,41.5*mult,0,87.5*mult, false, 0, _todas_las_zonas[5], _todas_las_zonas[4],21);	//Entre la sala 22 y 16
+	_puertas_pincho[6] = new Puerta_Pincho(0,25.5*mult,0,85.5*mult, false, 0, _todas_las_zonas[3], _todas_las_zonas[5],20);	//Entre la sala 10 y 16
+
+	_puertas_pincho[7] = new Puerta_Pincho(0,25.5*mult,0,62*mult, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
+	_puertas_pincho[8] = new Puerta_Pincho(0,45.5*mult,0,62*mult, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
+
 	_interrutoress.push_back(new Interruptor(0,33.5*mult,0,96.5*mult,0, _puertas_pincho[5],false,false, 500));
 	_interrutoress.push_back(new Interruptor(0,45*mult,0,40*mult,0, _puertas_pincho[5],false,false, 500));
 
@@ -65,6 +70,10 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	//Zona 16
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[4]);
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[5]);
+	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[6]);
+	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[7]);
+	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[8]);
+
 
 }
 
