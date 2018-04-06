@@ -20,6 +20,11 @@
 
 
 
+#ifdef _IRR_WINDOWS_
+#pragma comment(lib, "Irrlicht.lib")
+#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
+#endif
+
 class Objeto_Motor;
 class Interpolacion;
 class Time;
@@ -27,7 +32,7 @@ class Input;
 class Objeto;
 class DebugDraw;    
       
-//Bullet
+      //Bullet
 class btCollisionConfiguration;
 class btBroadphaseInterface;
 class btDispatcher;
@@ -39,50 +44,41 @@ class btRigidBody;
 class btVector3;
 class TMooseEngine;
 
+
+
+
+
 class Motor{
 
 public:
+
     static Motor* Motor_GetInstance();
 
-    ~Motor();
-    void vaciar_motor();
+   ~Motor();
+   void vaciar_motor();
    
     void apagar();
 
-    //void configuracion_irlitch();
+    void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
-    iNodoModelado* importarEscenario(const char* rutaObj, float x, float y, float z);
+    void importarEscenario(const char* rutaObj, float x, float y, float z);
 
+  
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
-    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
-    
-    iNodoModelado* crearModelado(const char* ruta, float x, float y, float z);
-    iNodoModelado* crearModelado(const char* ruta);
-    Camara* crearCamara(bool activa); 
-    Camara* crearCamara(bool activa, float x, float y, float z);
-    
-    iNodoLuz* crearLuz(bool activa, float intensidad, 
-                                    Vector3 ambient,
-                                    Vector3 specular,
-                                    Vector3 diffuse);
-
-    iNodoLuz* crearLuz(bool activa, float intensidad, 
-                                    Vector3 ambient,
-                                    Vector3 specular,
-                                    Vector3 diffuse,  
-                                    float x, float y, float z);
-
+    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
+    ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
+    btRigidBody* crear_rb_vision();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
-    void setCollisionGroup(int group, btRigidBody *_i_rigidbody);
+    void setCollisionGroup(int group, btRigidBody *_i_rigidbody );
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
     btCollisionWorld::ClosestRayResultCallback trazaRayo(btVector3 start, btVector3 end, int mascara_colision); //devuelve solo la primera colision del rayo
     btCollisionWorld::AllHitsRayResultCallback trazaRayoAll(btVector3 start, btVector3 end, int mascara_colision); //devuelve todas las colisiones del rayo
     bool x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
-                                                               //teniendo en cuenta unicamente el escenario (no el resto de objetos)
+                                         //teniendo en cuenta unicamente el escenario (no el resto de objetos)
 
     //void simulationUpdate();
 
@@ -99,35 +95,42 @@ public:
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
+
+    IrrlichtDevice* getIrrlichtDevice();    
     
     void updateCamaraColision();
+
     void interpola_posiciones(float _i_interpolacion);
     void resetear_camara();
-    void getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad);
+    void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
 
     void borrar_objeto(Objeto_Motor* _objeto_motor);
-    void borrar_rb(btRigidBody* rb);
-
+    void borrar_rb(btRigidBody* rb); // Mejorar
+    IVideoDriver* getDriver();
     float angulo_camara();
     float angulo_camaraRAD();
     
     bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
     void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
-    bool comprobar_colision_ataque(btRigidBody *character_atacado);
- 
-    bool ventana_abierta();
-    inline TMooseEngine* getEngine(){ return _me;}
-
-    void rotar(btRigidBody *rb, uint16_t rotacion);
-
-    void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
+    void posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);            
+    //bool comprobar_colision_ataque(btRigidBody *character_atacado);
     
+    iNodoLuz* crearLuz(bool activa, float intensidad, 
+                                    Vector3 ambient,
+                                    Vector3 specular,
+                                    Vector3 diffuse);
+
+    iNodoLuz* crearLuz(bool activa, float intensidad, 
+                                    Vector3 ambient,
+                                    Vector3 specular,
+                                    Vector3 diffuse,  
+                                    float x, float y, float z);
+      bool ventana_abierta();
 
 private:
 
-      Camara* camara;
       static Motor* _Motor;
-      Motor(uint16_t width, uint16_t height);
+      Motor();
       Vector3* rayOrigen;
       Vector3* rayDestino;
       int _vida; //salud para la barra de salud
@@ -148,7 +151,7 @@ private:
       bool _debug;
 
       //Camara
-      //Camara* camara;
+      Camara* camara;
 
       //Draw
       DebugDraw* debugDraw;    
@@ -164,12 +167,17 @@ private:
       Time* _tiempo;
       uint8_t _numcubos;
 
-      //ME
-      TMooseEngine* _me;
-      iNodoModelado* mapa;
-      uint16_t _id_jugador;
+      //Irlitch
+      ISceneNode *mapa;
+	IrrlichtDevice *device;
+      IVideoDriver* driver;
+	ISceneManager* smgr;
+      GUI* _GUI;
+
+       
+      Objeto_Motor *_objeto_que_sigue_la_camara;
       std::vector<Objeto_Motor*> _objetos_motor;
-      std::vector<iNodo*> lista_i_nodo;
 };
+
 
 #endif /* MOTOR_H_ */

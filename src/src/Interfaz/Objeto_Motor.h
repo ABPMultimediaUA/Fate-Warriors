@@ -2,12 +2,18 @@
 #ifndef OBJETO_MOTOR_H_
 #define OBJETO_MOTOR_H_
 
+#include "irrlicht/irrlicht.h"
 #include "../Utilidades/Vector.h"
 #include "EnumTiposBoundingBox.h"
-#include "../Moose_Engine/src/iNodoModelado.h"
+
 #include <cstdint>
 
-
+using namespace irr;
+using namespace core;
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
 
 class Objeto;
 class Motor;
@@ -25,6 +31,7 @@ public:
       void setPositionXZ(float x, float z);
       
       void VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double dt);
+      void VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt, uint16_t _i_direccion_mirar);
       void setVelocidad(float x, float y, float z);
 
       Character* disparar(Objeto_Motor* _i_objeto_origen, uint16_t _i_direccion, uint8_t _i_rango_disparo);
