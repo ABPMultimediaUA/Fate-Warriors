@@ -1,7 +1,7 @@
 #ifndef LLAVE_H_
 #define LLAVE_H_
 
-#include "Objeto.h"
+#include "../Objeto.h"
 
 class Llave : public Objeto{
 public:

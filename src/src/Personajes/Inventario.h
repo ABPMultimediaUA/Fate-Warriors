@@ -1,8 +1,10 @@
 #ifndef INVENTARIO_H_
 #define INVENTARIO_H_
 
+#include "Enum_Tipo_Ataque.h"
+
 #include <vector>
-#include "Personajes/Enum_Tipo_Ataque.h"
+#include <cstdint>
 
 class Arma_distancia;
 class Objeto;

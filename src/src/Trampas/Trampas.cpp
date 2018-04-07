@@ -1,6 +1,9 @@
 #include "Trampas.h"
+
 #include "../Utilidades/Vector.h"
 #include "../Tiempo/Time.h"
+#include "../Personajes/Character.h"
+#include "../Interfaz/Motor.h"
 
 
 Trampas::Trampas(short _id, float _i_x, float _i_y,float _i_z, short _i_danyo) : Objeto(_id, _i_x, _i_y,  _i_z),

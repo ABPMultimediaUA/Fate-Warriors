@@ -1,7 +1,7 @@
 #ifndef PUERTA_H_
 #define PUERTA_H_
 
-#include "Objeto.h"
+#include "../Objeto.h"
 
 class Puerta : public Objeto{
 public:

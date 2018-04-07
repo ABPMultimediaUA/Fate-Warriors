@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-#include "Objeto.h"
+#include "../Objeto.h"
 
 class Pinchos;
 class Time;

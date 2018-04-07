@@ -10,8 +10,8 @@
 #include "Interfaz_Libs/Lib_Math.h"
 #include "Interfaz/Motor.h"
 #include "Game.h"
-#include "Interruptor.h"
-#include "Interactuable_Manager.h"
+#include "Interactuables/Interruptor.h"
+#include "Interactuables/Interactuable_Manager.h"
 #include "Datos_Partida.h"
 
 #include<iostream>

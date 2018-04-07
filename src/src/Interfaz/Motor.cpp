@@ -1,16 +1,18 @@
 #include "Motor.h"
+
 #include "SFML/Graphics.hpp"
 #include <cmath>
+
 #include "../Personajes/Interpolacion.h"
 #include "Objeto_Motor.h"
 #include "../Objeto.h"
 #include "../Personajes/Player.h"
 #include "../Personajes/NPC.h"
-#include "../Puerta.h"
-#include "../Interruptor.h"
+#include "../Interactuables/Puerta.h"
+#include "../Interactuables/Interruptor.h"
 #include "DebugDraw.h"
 #include "EnumTiposColision.h"
-#include "../Puerta_Pincho.h"
+#include "../Interactuables/Puerta_Pincho.h"
 #include "../Game.h"
 
 /*

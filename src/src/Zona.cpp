@@ -1,4 +1,5 @@
 #include "Zona.h"
+
 #include "Interfaz/Motor.h"
 #include "Personajes/Character.h"
 #include "Interfaz_Libs/Lib_Math.h"
@@ -8,8 +9,8 @@
 #include "Interfaz/Motor.h"
 #include "Game.h"
 #include "Tiempo/Time.h"
-#include "Interruptor.h"
-#include "Puerta_Pincho.h"
+#include "Interactuables/Interruptor.h"
+#include "Interactuables/Puerta_Pincho.h"
 
 
 Zona::Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo i_equipo){

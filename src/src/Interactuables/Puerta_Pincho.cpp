@@ -1,10 +1,12 @@
 #include "Puerta_Pincho.h"
-#include "Trampas/Pinchos.h"
-#include "Tiempo/Time.h"
-#include "Interfaz/Objeto_Motor.h"
-#include "Datos_Partida.h"
-#include "Game.h"
-#include "Nivel/Nivel.h"
+
+#include "../Tiempo/Time.h"
+#include "../Interfaz/Objeto_Motor.h"
+#include "../Datos_Partida.h"
+#include "../Game.h"
+#include "../Nivel/Nivel.h"
+#include "../Interfaz/Motor.h"
+#include "../Personajes/Character.h"
 
 Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z, bool activada, bool desactivable_con_tiempo, float _i_rotacion, Zona* _i_asociada_1, Zona* _i_asociada_2,  uint8_t _i_pasillo_asociado) : Objeto(id, _i_x, _i_y, _i_z){
     _zona_asociada1 = _i_asociada_1;

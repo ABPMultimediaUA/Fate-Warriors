@@ -1,11 +1,11 @@
 #include "Zona_Final.h"
+
 #include "Interfaz/Motor.h"
 #include "Personajes/Character.h"
 #include "Datos_Partida.h"
 #include "Interfaz/Motor.h"
 #include "Game.h"
 #include "Tiempo/Time.h"
-#include "Interruptor.h"
 
 
 Zona_Final::Zona_Final(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo i_equipo) : Zona(_i_x, _i_y, _i_z, long_x, long_y, i_equipo){

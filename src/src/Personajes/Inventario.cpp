@@ -1,13 +1,12 @@
-
-#include <iostream>
 #include "Inventario.h"
-#include "Armas/Arma_distancia.h"
-#include "Armas/Arma_cerca.h"
-#include "Armas/Armas_Manager.h"
-#include "Datos_Partida.h"
-#include "Game.h"
 
-#include "Llave.h"
+#include "../Armas/Arma_distancia.h"
+#include "../Armas/Arma_cerca.h"
+#include "../Armas/Armas_Manager.h"
+#include "../Datos_Partida.h"
+#include "../Game.h"
+
+#include "../Interactuables/Llave.h"
 
 Inventario::Inventario() : _objeto_cerca(nullptr), _objeto_distancia(nullptr), _seleccionado(nullptr){
 	_arma = Tipo_Arma_cuerpo_a_cuerpo;
@@ -143,8 +142,8 @@ void Inventario::cambiar_seleccionado(){
 		_seleccionado = _objeto_cerca;
 	}
 
-	std::cout << _objeto_distancia << std::endl;
-	std::cout << _objeto_cerca << std::endl;
+	//std::cout << _objeto_distancia << std::endl;
+	//std::cout << _objeto_cerca << std::endl;
 
 }
 

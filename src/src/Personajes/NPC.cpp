@@ -5,9 +5,9 @@
 
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
-#include "../Inventario.h"
+#include "Inventario.h"
 #include "../Respawn.h"
-#include "../Interruptor.h"
+#include "../Interactuables/Interruptor.h"
 
 
 #include "../Tiempo/Time.h"

@@ -1,7 +1,7 @@
 #ifndef INTERRUPTOR_H_
 #define INTERRUPTOR_H_
 
-#include "Objeto.h"
+#include "../Objeto.h"
 #include <vector>
 
 class Puerta_Pincho;

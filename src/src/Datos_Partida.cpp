@@ -1,6 +1,6 @@
 #include "Datos_Partida.h"
 
-#include "Interactuable_Manager.h"
+#include "Interactuables/Interactuable_Manager.h"
 #include "Interfaz/Motor.h"
 #include "Personajes/Player.h"
 #include "Personajes/NPC_Manager.h"
@@ -8,10 +8,7 @@
 #include "Armas/Armas_Manager.h"
 #include "Consumibles/Consumible_Manager.h"
 #include "Trampas/Trampas_manager.h"
-#include "Llave.h"
-#include "Puerta.h"
 #include "Zonas_Manager.h"
-#include <iostream>
 #include "Respawn.h"
 #include "Utilidades/Vector.h"
 

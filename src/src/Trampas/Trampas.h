@@ -2,8 +2,6 @@
 #define SRC_Trampas_H_
 
 #include "../Objeto.h"
-#include "../Personajes/Character.h"
-#include "../Interfaz/Motor.h"
 
 class Time;
 

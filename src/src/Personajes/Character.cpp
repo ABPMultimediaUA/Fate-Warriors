@@ -1,26 +1,26 @@
 #include "Character.h"
+
+#include "Player.h"
+#include "NPC.h"
+#include "NPC_Manager.h"
+
 #include "../Armas/Arma_distancia.h"
 #include "../Armas/Arma_cerca.h"
 #include "../Armas/Armas_Manager.h"
-#include "../Inventario.h"
+#include "Inventario.h"
 #include "../Game.h"
 #include "../Datos_Partida.h"
-#include "NPC.h"
-#include "NPC_Manager.h"
-#include "../Llave.h"
-#include "../Puerta.h"
-#include "../Interactuable_Manager.h"
+#include "../Interactuables/Llave.h"
+#include "../Interactuables/Puerta.h"
+#include "../Interactuables/Interactuable_Manager.h"
+#include "../Interactuables/Interruptor.h"
 #include "../Consumibles/Consumible_Action.h"
 #include "../Interfaz/Motor.h"
-//#include "../Interfaz/Objeto_Motor.h"
-#include <iostream>
-#include "Player.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Consumibles/Consumible_Power_Up.h"
-#include "../Interruptor.h"
 #include "../Respawn.h"
 
-
+#include <iostream>
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 

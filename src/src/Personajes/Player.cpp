@@ -1,5 +1,5 @@
 #include "Player.h"
-#include <iostream>
+
 #include "../Entrada/Input.h"
 #include "../Input.h"
 #include "../Entrada/Controles.h"
@@ -13,7 +13,6 @@
 
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Interfaz/Motor.h"
-//#include "../Interfaz/Objeto_Motor.h"
 #include "../Respawn.h"
 
 #include "../Motor_sonido/Interfaz_sonido.h"
@@ -21,6 +20,7 @@
 #include "../Datos_Partida.h"
 #include "../Game.h"
 #include "../Action_Manager.h"
+#include <iostream>
                                                                                                             //  vida_prota, velocidad
 Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.4, 50, 75, Enum_Equipo_B)
                                                                 {   

@@ -22,7 +22,7 @@ Zonas_Manager::Zonas_Manager() {
 	float mult = 4.9212625;
 //	_zonas[0] = new Zona(5*mult, 0*mult, 37*mult,20,20, Enum_Equipo_A);
 
-	_zona_incial = new Zona_Inicial(12.5*mult, 0*mult, 12.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A, 12.5*mult, 9*mult); //Zona 1
+	_zona_incial = new Zona_Inicial(12.5*mult, 0*mult, 12.5*mult,(15*mult)/2,(15*mult)/2, Enum_Equipo_A, 78.5*mult, 70*mult); //Zona 1
 	_zonas[0] = _zona_incial ;
 	_zona_bando_a.push_back(_zonas[0]);	
 	

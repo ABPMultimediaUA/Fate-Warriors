@@ -1,16 +1,16 @@
 #include "Interactuable_Manager.h"
 
-//#include "Interfaz/Interfaz.h"
-
 #include "Llave.h"
 #include "Puerta.h"
 #include "Interruptor.h"
 #include "Puerta_Pincho.h"
-#include "Zonas_Manager.h"
-#include "Game.h"
-#include "Datos_Partida.h"
-#include "Zona.h"
-#include "Interfaz/Motor.h"
+
+#include "../Zona.h"
+#include "../Zonas_Manager.h"
+
+#include "../Game.h"
+#include "../Datos_Partida.h"
+#include "../Interfaz/Motor.h"
 
 
 Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {

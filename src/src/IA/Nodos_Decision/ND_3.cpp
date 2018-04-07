@@ -3,8 +3,8 @@
 #include "../Blackboard.h"
 #include "../../Zona.h"
 #include "../../Personajes/NPC.h"
-#include "../../Interruptor.h"
-#include "../../Puerta_Pincho.h"
+#include "../../Interactuables/Interruptor.h"
+#include "../../Interactuables/Puerta_Pincho.h"
 #include "../../Interfaz_Libs/Lib_Math.h"
 
 #include<iostream>

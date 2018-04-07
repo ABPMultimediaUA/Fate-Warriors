@@ -16,7 +16,7 @@
 #include "Menus/Menu_Pausa.h"
 #include "Menus/Menu_Fin.h"
 #include "Zonas_Manager.h"
-#include "Interactuable_Manager.h"
+#include "Interactuables/Interactuable_Manager.h"
 #include "Respawn.h"
 
 #include <iostream>
