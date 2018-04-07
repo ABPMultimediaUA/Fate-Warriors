@@ -11,6 +11,7 @@
 #include "DebugDraw.h"
 #include "EnumTiposColision.h"
 #include "../Puerta_Pincho.h"
+#include "../Game.h"
 
 /*
 #include "Entidad.h"
@@ -682,7 +683,7 @@ void Motor::update(double dt){
     } 
 
     else {
-        device->yield();
+        Game::game_instancia()->cambio_a_update_pausa();
     }
        // device->drop();
 }

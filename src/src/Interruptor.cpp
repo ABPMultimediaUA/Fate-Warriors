@@ -7,11 +7,14 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, float 
 		_objeto_asociado(_i_objeto_asociado), _es_generador(_i_es_generador){
 	 
     const char* cstr  = "models/Interactuables/Interruptor/BaseInterruptor.obj";
-    _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
+    _objeto_motor = new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
 
     _objeto_motor->rotar_nodo(_i_rotacion);
 	_npcs_persiguiendome = 0;
 
+    const char* cstr_2  = "models/Interactuables/Interruptor/PalancaInterruptor.obj";
+	_palito = new Objeto_Motor(this,E_BoundingBox, cstr_2, _i_x,_i_y-1.8,_i_z,0);
+    _palito->rotar_nodo(_i_rotacion);
 }
 
 void Interruptor::set_activado(bool _i_activado){
@@ -29,6 +32,7 @@ void Interruptor::set_desactivado(){
 }
 
 Interruptor::~Interruptor() {
+	delete _palito;
 }
 
 void Interruptor::update(){

@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "Datos_Partida.h"
 #include "Zona.h"
+#include "Interfaz/Motor.h"
 
 
 Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
@@ -18,7 +19,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	_n_llaves = 2;
 	_n_puertas = 2;
-	_n_puertas_pincho = 9;
+	_n_puertas_pincho = 15;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -58,8 +59,26 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_puertas_pincho[7] = new Puerta_Pincho(0,25.5*mult,0,62*mult, false, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
 	_puertas_pincho[8] = new Puerta_Pincho(0,45.5*mult,0,62*mult, false, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
 
+ 
+	_puertas_pincho[9] =  new Puerta_Pincho(0, 78.55*mult, 0, 57.5*mult, true, true, 0, nullptr, nullptr, 31); //Entre la sala 30 y 32 (pasillo 31)
+	_puertas_pincho[10] = new Puerta_Pincho(0, 78.45*mult, 0, 59.3*mult, true, true, 180, nullptr, nullptr, 31); //Entre la sala 30 y 32 (pasillo 31)
+	_puertas_pincho[11] = new Puerta_Pincho(0, 78.52*mult, 0, 61.1*mult, true, true, 0, nullptr, nullptr, 31); //Entre la sala 30 y 32 (pasillo 31)
+	_puertas_pincho[12] = new Puerta_Pincho(0, 78.57*mult, 0, 62.9*mult, true, true, 180, nullptr, nullptr, 31); //Entre la sala 30 y 32 (pasillo 31)
+	_puertas_pincho[13] = new Puerta_Pincho(0, 78.5*mult, 0, 64.7*mult, true, true, 0, nullptr, nullptr, 31); //Entre la sala 30 y 32 (pasillo 31)
+	_puertas_pincho[14] = new Puerta_Pincho(0, 78.53*mult, 0, 66.5*mult, true, true, 180, nullptr, nullptr, 31); //Entre la sala 30 y 32 (pasillo 31)
+
+
 	_interrutoress.push_back(new Interruptor(0,33.5*mult,0,96.5*mult,0, _puertas_pincho[5],false,false, 500));
 	_interrutoress.push_back(new Interruptor(0,45*mult,0,40*mult,0, _puertas_pincho[5],false,false, 500));
+
+
+	// ESTE TIPO DE PUERTAS NO ESTAN HECHAS :)
+	_interrutoress.push_back(new Interruptor(0, 80.5*mult, 0, 67.8*mult, 180,  _puertas_pincho[12], false, false, 500));
+	_interrutoress.push_back(new Interruptor(0, 80.5*mult, 0, 71*mult, 0,  _puertas_pincho[13], false, false, 500));
+	_interrutoress.push_back(new Interruptor(0, 80.5*mult, 0, 74.2*mult, 180,  _puertas_pincho[14], false, false, 500));
+	_interrutoress.push_back(new Interruptor(0, 75.5*mult, 0, 67.8*mult, 0,  _puertas_pincho[9], false, false, 500));
+	_interrutoress.push_back(new Interruptor(0, 75.5*mult, 0, 71*mult, 180,  _puertas_pincho[10], false, false, 500));
+	_interrutoress.push_back(new Interruptor(0, 75.5*mult, 0, 74.2*mult, 0,  _puertas_pincho[11], false, false, 500));
 
 	//Zona 7
 	_todas_las_zonas[2]->set_puerta_pincho_asociada(_puertas_pincho[0]);
@@ -73,8 +92,6 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[6]);
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[7]);
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[8]);
-
-
 }
 
 Interactuable_Manager::~Interactuable_Manager() {

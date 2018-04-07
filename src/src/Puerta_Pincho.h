@@ -46,6 +46,8 @@ private:
     bool _activado;
     double _tiempo_restante;
     bool _desactivable_con_tiempo;
+    
+    Objeto_Motor* _basecita;
 };
 
 #endif /* HEADERS_PUERTA_PINCHO_H_ */

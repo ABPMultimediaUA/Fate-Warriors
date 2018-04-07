@@ -42,6 +42,32 @@ private:
 	bool _es_generador; // si es generador, despues de su primer uso se debe destruir
 	int _npcs_persiguiendome;
 	std::vector<Puerta_Pincho*> _objetos_asociados;	//Vector con todas las puertas asociadas
+	Objeto_Motor* _palito;
 };
 
 #endif /* INTERRUPTOR_H_ */
+
+
+
+/*
+
+
+// BASE
+Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
+private: 
+	bool _estado;
+	Puerta_Pincho** _puertas;
+
+// 1 USO
+Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
+
+// TIEMPO
+Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion, double _tiempo_duracion);
+private: 
+	uint16_t _t_inicio;
+
+// RARA
+Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
+private: 
+	Interruptor** _interruptor_afecta;
+*/

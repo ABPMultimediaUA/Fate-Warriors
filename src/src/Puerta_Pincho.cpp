@@ -17,8 +17,12 @@ Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z, bool a
     _desactivable_con_tiempo = desactivable_con_tiempo;
     const char* cstr  = "models/Interactuables/PuertaPinchos/Puerta/pinchos_puerta_pinchos.obj";
 
-  //  _id=_id_motor = _motor->crear_objeto(E_BoundingBox,cstr,_i_x, _i_y, _i_z, 9999999);
     _objeto_motor =new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
+
+    const char* cstr_2  = "models/Interactuables/PuertaPinchos/Base/base_puerta_pinchos.obj";
+    _basecita = new Objeto_Motor(this,E_BoundingBox, cstr_2, _i_x,_i_y,_i_z,0);
+    _basecita->rotar_nodo(_i_rotacion);
+
     if(activada){
         activar();
     }
@@ -32,6 +36,7 @@ Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z, bool a
 }
 
 Puerta_Pincho::~Puerta_Pincho() {
+    delete _basecita;
 }
 
 void Puerta_Pincho::activar(){
@@ -92,7 +97,7 @@ void Puerta_Pincho::comprobar_a_quien_danya(){
     for (uint16_t num_character=0; num_character<_num_characters; num_character++){
         if(todos_personajes[num_character]->get_vida_actual()>0 && 
             motor->comprobar_colision(_objeto_motor->getRigidBody(), todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
-                todos_personajes[num_character]->danyar(900);
+                // empujar (angulo_jugador) TO DO GEMMA
         }   
     }
 }
