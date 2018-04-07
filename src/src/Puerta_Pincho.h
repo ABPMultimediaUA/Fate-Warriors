@@ -13,7 +13,7 @@ class Zona;
 class Puerta_Pincho  : public Objeto {
 public:
 
-	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z, bool activada, float _i_rotacion, Zona* _i_asociada_1, Zona* _i_asociada_2, uint8_t _i_pasillo_asociado);
+	Puerta_Pincho(short id, float _i_x, float _i_y, float _i_z, bool activada, bool desactivable_con_tiempo, float _i_rotacion, Zona* _i_asociada_1, Zona* _i_asociada_2, uint8_t _i_pasillo_asociado);
 	~Puerta_Pincho();
     void update();
     void activar();
@@ -31,6 +31,9 @@ public:
     }
     bool ha_pasado_tiempo_suficiente();
 
+    bool set_desactivable_con_con_el_tiempo(bool _estado);
+
+    void desactivar_si_desactivable();
 
 private:
 
@@ -42,6 +45,7 @@ private:
     Time* _reloj;
     bool _activado;
     double _tiempo_restante;
+    bool _desactivable_con_tiempo;
 };
 
 #endif /* HEADERS_PUERTA_PINCHO_H_ */

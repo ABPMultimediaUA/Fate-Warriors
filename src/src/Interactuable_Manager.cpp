@@ -39,24 +39,24 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 
 
-	_puertas_pincho[0] = new Puerta_Pincho(0,12.5*mult,0,23.5*mult, false, 0, _todas_las_zonas[0], _todas_las_zonas[2],6);	//Entre la sala 1 y 7
+	_puertas_pincho[0] = new Puerta_Pincho(0,12.5*mult,0,23.5*mult, false, false, 0, _todas_las_zonas[0], _todas_las_zonas[2],6);	//Entre la sala 1 y 7
 
-	_puertas_pincho[1] = new Puerta_Pincho(0,10.5*mult,0,45.5*mult, false, 0, _todas_las_zonas[2], _todas_las_zonas[3],9);	//Entre la sala 7 y 10
+	_puertas_pincho[1] = new Puerta_Pincho(0,10.5*mult,0,45.5*mult, false, false, 0, _todas_las_zonas[2], _todas_las_zonas[3],9);	//Entre la sala 7 y 10
 	
 
-	_puertas_pincho[2] = new Puerta_Pincho(0,25.5*mult,0,17.5*mult, false, 0, _todas_las_zonas[0], _todas_las_zonas[1],2);	//Entre la sala 1 y 3
+	_puertas_pincho[2] = new Puerta_Pincho(0,25.5*mult,0,17.5*mult, true, false, 0, _todas_las_zonas[0], _todas_las_zonas[1],2);	//Entre la sala 1 y 3
 	_interrutoress.push_back(new Interruptor(0,30*mult,0,21.2*mult,90, _puertas_pincho[2],false,false, 500));
 
-	_puertas_pincho[3] = new Puerta_Pincho(1,18*mult,0*mult, 31.5*mult, false, 90, _todas_las_zonas[0], _todas_las_zonas[1],8);	//Entre la sala 3 y 7
+	_puertas_pincho[3] = new Puerta_Pincho(1,18*mult,0*mult, 31.5*mult, true, true, 90, _todas_las_zonas[0], _todas_las_zonas[1],8);	//Entre la sala 3 y 7
 
 
-	_puertas_pincho[4] = new Puerta_Pincho(0,20*mult,0,73.5*mult, false, 90, _todas_las_zonas[3], _todas_las_zonas[5],15);	//Entre la sala 10 y 16
+	_puertas_pincho[4] = new Puerta_Pincho(0,20*mult,0,73.5*mult, false, false, 90, _todas_las_zonas[3], _todas_las_zonas[5],15);	//Entre la sala 10 y 16
 
-	_puertas_pincho[5] = new Puerta_Pincho(0,41.5*mult,0,87.5*mult, false, 0, _todas_las_zonas[5], _todas_las_zonas[4],21);	//Entre la sala 22 y 16
-	_puertas_pincho[6] = new Puerta_Pincho(0,25.5*mult,0,85.5*mult, false, 0, _todas_las_zonas[3], _todas_las_zonas[5],20);	//Entre la sala 10 y 16
+	_puertas_pincho[5] = new Puerta_Pincho(0,41.5*mult,0,87.5*mult, false, true, 0, _todas_las_zonas[5], _todas_las_zonas[4],21);	//Entre la sala 22 y 16
+	_puertas_pincho[6] = new Puerta_Pincho(0,25.5*mult,0,85.5*mult, false, false, 0, _todas_las_zonas[3], _todas_las_zonas[5],20);	//Entre la sala 10 y 16
 
-	_puertas_pincho[7] = new Puerta_Pincho(0,25.5*mult,0,62*mult, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
-	_puertas_pincho[8] = new Puerta_Pincho(0,45.5*mult,0,62*mult, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
+	_puertas_pincho[7] = new Puerta_Pincho(0,25.5*mult,0,62*mult, false, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
+	_puertas_pincho[8] = new Puerta_Pincho(0,45.5*mult,0,62*mult, false, false, 0, _todas_las_zonas[5],nullptr,17); //Entre la sala 16 
 
 	_interrutoress.push_back(new Interruptor(0,33.5*mult,0,96.5*mult,0, _puertas_pincho[5],false,false, 500));
 	_interrutoress.push_back(new Interruptor(0,45*mult,0,40*mult,0, _puertas_pincho[5],false,false, 500));

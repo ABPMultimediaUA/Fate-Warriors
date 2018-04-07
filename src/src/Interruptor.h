@@ -16,6 +16,7 @@ public:
 	void set_activado(bool _i_activado);
 	void update() override;
 	void render() override;
+	void set_desactivado_para_siempre();
 	inline Puerta_Pincho* get_puerta(){
 		return _objeto_asociado;
 	}

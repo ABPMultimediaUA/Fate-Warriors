@@ -18,6 +18,12 @@ void Interruptor::set_activado(bool _i_activado){
 	_objeto_asociado->activar();
 }
 
+void Interruptor::set_desactivado_para_siempre(){
+	_objeto_asociado->desactivar();
+	_objeto_asociado->set_desactivable_con_con_el_tiempo(false);
+}
+
+
 void Interruptor::set_desactivado(){
 	_objeto_asociado->desactivar();
 }
@@ -31,7 +37,7 @@ void Interruptor::update(){
 	}
 	*/
 	if(_objeto_asociado->comprobar_si_finalizo_el_tiempo()){
-		_objeto_asociado->desactivar();
+		_objeto_asociado->activar();
 	}
 
 }
