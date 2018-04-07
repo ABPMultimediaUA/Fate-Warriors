@@ -2,10 +2,6 @@
 #define SRC_Consumible_Vida_Infinita_H_
 
 #include "Consumible_Power_Up.h"
-#include "../Personajes/Character.h"
-class Character;
-class Time;
-
 
 class Consumible_Vida_Infinita : public Consumible_Power_Up{
 public:
@@ -13,10 +9,8 @@ public:
 	~Consumible_Vida_Infinita();
 
 	bool usar(Character* _personaje) override;
-	void render() override;
 	void activar_tiempo();
 	bool comprobar_tiempo_power_up();
-
 };
 
 #endif /* SRC_Consumible_Vida_Infinita_H_ */

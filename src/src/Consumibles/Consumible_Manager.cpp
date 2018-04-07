@@ -90,7 +90,6 @@ void Consumible_Manager::borrar_consumible(short id){
 void Consumible_Manager::crear_todos_consumibles_que_faltan(){
   
     for(uint16_t i=_consumibles.size(); i<numero_max; i++){
-    std::cout << "aparece consumible \n";
        anyadir_consumible();
     }
 }

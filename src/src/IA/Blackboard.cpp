@@ -438,7 +438,7 @@ void Blackboard::actualizar_objetos(){
 
 void Blackboard::actualizar_interruptores(){
 
-	if(_zona_actual != nullptr && _enemigo_mas_cerca == nullptr){
+	/*if(_zona_actual != nullptr && _enemigo_mas_cerca == nullptr){
 
 
 		if(_interruptor_cerca_util != nullptr){ // Se actualiza el interruptor objetivo actual
@@ -549,7 +549,7 @@ void Blackboard::actualizar_interruptores(){
 		_interruptor_cerca_util = nullptr;
 		_interruptor_esta_cerca = false;
 	}
-
+	*/
 }
 
 void Blackboard::actualizar_datos_npc_padre(){

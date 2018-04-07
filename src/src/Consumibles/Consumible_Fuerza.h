@@ -2,10 +2,8 @@
 #define SRC_CONSUMIBLE_FUERZA_H_
 
 #include "Consumible_Power_Up.h"
-#include "../Personajes/Character.h"
-class Character;
-class Time;
 
+class Character;
 
 class Consumible_Fuerza : public Consumible_Power_Up{
 public:
@@ -13,7 +11,6 @@ public:
 	virtual ~Consumible_Fuerza();
 
 	bool usar(Character* _personaje) override;
-	void render() override;
 	void activar_tiempo();
 	bool comprobar_tiempo_power_up();
 };

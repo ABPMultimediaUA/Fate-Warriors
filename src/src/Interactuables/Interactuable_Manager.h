@@ -31,7 +31,7 @@ public:
 private:
 	Llave** _llaves;
     Puerta** _puertas;
-    std::vector<Interruptor*> _interrutoress;
+    std::vector<Interruptor*> _interrutores;
 
 
     Puerta_Pincho** _puertas_pincho;

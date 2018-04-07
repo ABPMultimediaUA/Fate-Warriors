@@ -11,11 +11,9 @@ class NPC : public Character {
 public:
 	NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
 	short _i_danyo_ataque_fuerte, Enum_Equipo equipo);
+	virtual ~NPC();
 	
 	void comprobar_si_asignar_arma_y_asignarla(Armas_Manager* _armas_manager);
-	virtual ~NPC();
-  	void update() override;
-  	void render() override;
 	void stop();
 
 	void danyar(short _danyo) override;

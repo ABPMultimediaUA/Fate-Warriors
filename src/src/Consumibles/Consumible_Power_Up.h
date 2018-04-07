@@ -2,10 +2,8 @@
 #define SRC_Consumible_Power_Up_H_
 
 #include "Consumible.h"
-#include "../Personajes/Character.h"
-class Character;
-class Time;
 
+class Time;
 
 class Consumible_Power_Up : public Consumible{
 public:
@@ -13,9 +11,9 @@ public:
 	~Consumible_Power_Up();
 
 	bool usar(Character* _personaje) override;
-	void render() override;
 	void activar_tiempo();
 	bool comprobar_tiempo_power_up();
+
 protected:
 	Character* _personaje;
 	Time* _reloj;

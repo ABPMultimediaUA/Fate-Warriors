@@ -1,12 +1,8 @@
 #include "Consumible_Power_Up.h"
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
 
 #include "../Personajes/Character.h"
 #include "../Interfaz/Motor.h"
 #include "../Tiempo/Time.h"
-
 
 Consumible_Power_Up::Consumible_Power_Up(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 0){
     _reloj = Time::Instance();
@@ -17,10 +13,6 @@ Consumible_Power_Up::~Consumible_Power_Up(){
 
 bool Consumible_Power_Up::usar(Character* _i_personaje){
 	return false;	
-}
-	
-void Consumible_Power_Up::render(){
-
 }
 
 void Consumible_Power_Up::activar_tiempo(){

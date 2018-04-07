@@ -1,6 +1,6 @@
 #ifndef TIME_H_
 #define TIME_H_
-#include <iostream>
+
 #include <cstdlib>
 #include "SFML/Graphics.hpp"
 

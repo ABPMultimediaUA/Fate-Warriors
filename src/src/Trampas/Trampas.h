@@ -10,7 +10,6 @@ public:
 	Trampas(short _id, float _i_x, float _i_y, float _i_z, short _i_danyo);
 	virtual 	~Trampas();
 	
-	void update(){};
 	virtual void	activar();
 	void			desactivar();
 	bool			get_estado();

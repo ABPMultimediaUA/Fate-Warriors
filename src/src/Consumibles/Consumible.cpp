@@ -1,5 +1,5 @@
 #include "Consumible.h"
-#include <iostream>
+
 #include "../Personajes/Character.h"
 
 Consumible::Consumible(short _id, float _i_x, float _i_y, float _i_z, short _i_valor) : Objeto(_id, _i_x, _i_y, _i_z), _valor(_i_valor){
@@ -16,10 +16,6 @@ bool Consumible::comprobar_colision(Character *_character){
 		return true;
 	}
 	return false;
-}
-
-void Consumible::render(){
-
 }
 
 short Consumible::get_valor(){

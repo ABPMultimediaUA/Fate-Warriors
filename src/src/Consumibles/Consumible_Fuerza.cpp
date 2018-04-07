@@ -1,12 +1,8 @@
 #include "Consumible_Fuerza.h"
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
 
 #include "../Personajes/Character.h"
 #include "../Interfaz/Motor.h"
 #include "../Tiempo/Time.h"
-
 
 Consumible_Fuerza::Consumible_Fuerza(short _id, float _i_x, float _i_y, float _i_z) : Consumible_Power_Up(_id,_i_x, _i_y, _i_z){
     const char* cstr  = "models/Consumibles/Carne/Carne.obj";
@@ -41,10 +37,6 @@ bool Consumible_Fuerza::usar(Character* _i_personaje){
         }
     }
 	return false;	
-}
-	
-void Consumible_Fuerza::render(){
-
 }
 
 void Consumible_Fuerza::activar_tiempo(){

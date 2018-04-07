@@ -9,8 +9,6 @@ public:
 	~Consumible_Patata();
 
 	bool usar(Character* _personaje) override;
-	void render() override;
-
 };
 
 #endif /* SRC_CONSUMIBLE_PATATA_H_ */

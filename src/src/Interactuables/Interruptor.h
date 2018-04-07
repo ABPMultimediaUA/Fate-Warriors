@@ -6,44 +6,23 @@
 #include <vector>
 
 class Puerta_Pincho;
-class Time;
 
 class Interruptor : public Objeto{
 public:
-	Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacion, Puerta_Pincho* _i_objeto_asociado,
-			bool _i_es_generador, bool _i_activado, double _i_temporizador);
+	Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
 	virtual ~Interruptor();
 
-	void set_activado(bool _i_activado);
-	void update() override;
-	void render() override;
-	void set_desactivado_para_siempre();
-	inline Puerta_Pincho* get_puerta(){
-		return _objeto_asociado;
-	}
+	virtual void accionar() = 0;			// Acciona el interruptor y le cambia el estado (si es posible)
+	void agregar_puerta(Puerta_Pincho* _puerta);	// Agrega una puerta a sus asociadas
 
-	inline int get_npcs_persiguiendome(){
-		return _npcs_persiguiendome;
-	}
-	inline void incrementar_npcs_persiguiendome(){
-		_npcs_persiguiendome++;
-	}
-	inline void decrementar_npcs_persiguiendome(){
-		_npcs_persiguiendome--;
-	}
-	inline void reiniciar_npcs_persiguiendome(){
-		_npcs_persiguiendome = 0;
-	}
+	virtual void update();
 
-	void set_desactivado();
-
+protected:
+	std::vector<Puerta_Pincho*> _puertas_asociadas;		// Vector con todas las puertas asociadas
+	bool _estado;										// Estado del interruptor (false = no activado / true = activado)
 
 private:
-	Puerta_Pincho* _objeto_asociado; // Objeto asociado que activa/desactiva	//BORRAME esto debe de ser borrado porque a partir de ahora recibira un vector de las puertas a las que haga referencia sin importar la cantidad de elementos
-	bool _es_generador; // si es generador, despues de su primer uso se debe destruir
-	int _npcs_persiguiendome;
-	std::vector<Puerta_Pincho*> _objetos_asociados;	//Vector con todas las puertas asociadas
-	Objeto_Motor* _palito;
+	Objeto_Motor* _palito;								// Modelado del Palo del interruptor (hay que animarlo)
 };
 
 #endif /* INTERRUPTOR_H_ */
@@ -52,23 +31,15 @@ private:
 
 /*
 
-
 // BASE
 Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
 private: 
 	bool _estado;
 	Puerta_Pincho** _puertas;
 
-// 1 USO
-Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
-
-// TIEMPO
-Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion, double _tiempo_duracion);
-private: 
-	uint16_t _t_inicio;
-
 // RARA
 Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
 private: 
 	Interruptor** _interruptor_afecta;
+
 */

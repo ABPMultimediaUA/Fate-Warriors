@@ -49,7 +49,7 @@ void NPC::morir(){
     }
 
     if(_blackboard->_interruptor_cerca_util != nullptr){
-        _blackboard->_interruptor_cerca_util->decrementar_npcs_persiguiendome();
+        //_blackboard->_interruptor_cerca_util->decrementar_npcs_persiguiendome();
         _blackboard->_interruptor_cerca_util = nullptr;
     }
 
@@ -63,14 +63,6 @@ void NPC::morir(){
 
 void NPC::stop() {
     //_motor->Mover(_id_motor,0, 0, 0);
-}
-
-void NPC::update() {
-
-}
-
-void NPC::render() {
-
 }
 
 void NPC::danyar(short _danyo){

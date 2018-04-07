@@ -68,8 +68,6 @@ void Armas_Manager::borrar_arma(short id){
 	MapeadArmas mapping_tipo_arma_creada[] = {	// Definicion de los parametros
 			{Nombre_Arma_Katana, &Armas_Manager::crear_katana},
 			{Nombre_Arma_Ametralladora, &Armas_Manager::crear_ametralladora},
-			{Nombre_Arma_Arco, &Armas_Manager::crear_pistola},
-			{Nombre_Arma_Bazooka, &Armas_Manager::crear_pistola},
 			{Nombre_Arma_Pistola, &Armas_Manager::crear_pistola},
 			{Nombre_Arma_Nada, &Armas_Manager::crear_pistola}
 	};
@@ -81,7 +79,6 @@ Arma* Armas_Manager::anyadir_arma(){
     MapeadArmas *_mapeado_clase = mapping_tipo_arma_creada; 
   Enum_Nombre_Arma _arma = static_cast<Enum_Nombre_Arma>(rand() % Nombre_Arma_Nada); 
  
-    std::cout << _arma << "arma que crea" << std::endl; 
   while(_mapeado_clase->_nombre_objeto!=Nombre_Arma_Nada){ 
     if(_arma == _mapeado_clase->_nombre_objeto){ 
       (this->*_mapeado_clase->pmet)(); 

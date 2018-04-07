@@ -1,4 +1,5 @@
 #include "Trampas_action.h"
+
 #include "../Tiempo/Time.h"
 #include "Pinchos.h"
 #include "Minas.h"

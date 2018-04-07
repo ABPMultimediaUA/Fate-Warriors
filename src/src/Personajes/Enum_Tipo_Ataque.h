@@ -23,8 +23,6 @@ enum Tipo_Arma{
 enum Enum_Nombre_Arma{
 	Nombre_Arma_Katana,		
 	Nombre_Arma_Ametralladora,		
-	Nombre_Arma_Arco,		
-	Nombre_Arma_Bazooka,
 	Nombre_Arma_Pistola,
 	Nombre_Arma_Nada
 };

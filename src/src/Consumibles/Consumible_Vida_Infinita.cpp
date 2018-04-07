@@ -1,12 +1,8 @@
 #include "Consumible_Vida_Infinita.h"
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
 
 #include "../Personajes/Character.h"
 #include "../Interfaz/Motor.h"
 #include "../Tiempo/Time.h"
-
 
 Consumible_Vida_Infinita::Consumible_Vida_Infinita(short _id, float _i_x, float _i_y, float _i_z) : Consumible_Power_Up(_id,_i_x, _i_y, _i_z){
     const char* cstr  = "models/Consumibles/Carne/Carne.obj";
@@ -24,7 +20,6 @@ bool Consumible_Vida_Infinita::usar(Character* _i_personaje){
         if(comprobar_tiempo_power_up()){
             _personaje->desactivar_inmunidad_a_danyos();
             _personaje->eliminar_power_up_puntero();
-            std::cout << "YO SOY EL " << this << std::endl;
           return true;
         }
         std::cout << "Vida infinita \n";
@@ -39,10 +34,6 @@ bool Consumible_Vida_Infinita::usar(Character* _i_personaje){
         }
     }
 	return false;	
-}
-	
-void Consumible_Vida_Infinita::render(){
-
 }
 
 void Consumible_Vida_Infinita::activar_tiempo(){

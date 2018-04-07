@@ -16,49 +16,29 @@ class Zona{
 public:
 	Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo);
     virtual ~Zona();
+    
     virtual void actualizar_zona();
     std::vector <Character*>get_characters();
     void iniciar_tiempo_conquista();
     void cambiar_bando();
 
-
     bool esta_jugador_en_zona();
 
     void set_tiempo_restante_para_conquistar();
-    inline btRigidBody * getRigidBody(){
-        return _rb;
-    }
+    inline btRigidBody * getRigidBody(){return _rb; }
 
-    inline Enum_Equipo get_equipo(){
-        return _equipo;
-    }
+    inline Enum_Equipo get_equipo(){    return _equipo; }
 
-    inline float getX(){
-        return _pos_x;
-    }
-    inline float getY(){
-        return _pos_y;
-    }
-    inline float getZ(){
-        return _pos_y;
-    }
-    inline bool siendo_capturada(){
-        return _conquistando;
-    }
+    inline float getX(){                return _pos_x; }
+    inline float getY(){                return _pos_y; }
+    inline float getZ(){                return _pos_y; }
+    inline bool siendo_capturada(){     return _conquistando; }
 
 
-	inline int get_npcs_persiguiendome(){
-		return _npcs_persiguiendome;
-	}
-	inline void incrementar_npcs_persiguiendome(){
-		_npcs_persiguiendome++;
-	}
-	inline void decrementar_npcs_persiguiendome(){
-		_npcs_persiguiendome--;
-	}
-	inline void reiniciar_npcs_persiguiendome(){
-		_npcs_persiguiendome = 0;
-	}
+	inline int get_npcs_persiguiendome(){          return _npcs_persiguiendome; }
+	inline void incrementar_npcs_persiguiendome(){ _npcs_persiguiendome++; }
+	inline void decrementar_npcs_persiguiendome(){ _npcs_persiguiendome--; }
+	inline void reiniciar_npcs_persiguiendome(){   _npcs_persiguiendome = 0; }
 
     int _num_characters_equipo_A;
     int _num_characters_equipo_B;
@@ -69,9 +49,6 @@ public:
     std::vector<Interruptor*> get_interruptores_asociados();
     void set_interruptor_asociado(Interruptor* _i_interruptor);
     uint8_t get_num_npc_en_zona();
-
-    void activar_todos_los_interruptores();
-    void desactivar_todos_los_interruptores();
 
     void set_puerta_pincho_asociada(Puerta_Pincho* _i_puerta_pincho);
 

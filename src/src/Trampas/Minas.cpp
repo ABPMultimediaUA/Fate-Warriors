@@ -15,7 +15,6 @@ Minas::Minas(short _id, float _i_x, float _i_y,float _i_z) : Trampas(_id, _i_x, 
 Minas::~Minas(){
 }
 
-
 void Minas::activar(){
     _activa = true;
     _explota_en=_reloj->get_current() + 1000;
@@ -26,8 +25,4 @@ bool Minas::explota(){
         return true;
     }
     return false;
-}
-
-void Minas::render(){
-
 }

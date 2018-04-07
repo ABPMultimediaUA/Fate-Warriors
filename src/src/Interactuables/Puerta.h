@@ -7,8 +7,6 @@ class Puerta : public Objeto{
 public:
 	Puerta(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacion, bool _i_abierta, uint16_t _i_id_pasillo_que_abre);
 	~Puerta();
-    void update(){};
-	void render(){};
 
 	void set_abierta();
 	bool get_abierta();

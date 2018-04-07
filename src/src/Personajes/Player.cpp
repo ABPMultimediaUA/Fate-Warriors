@@ -181,10 +181,6 @@ void Player::update(){
 
 
 }
-			
-void Player::render(){
-  
-}
 
 void Player::gestion_dash(){
     if(get_accion() == Accion_Dash){

@@ -1,16 +1,13 @@
 #ifndef HEADERS_OBJETO_H_
 #define HEADERS_OBJETO_H_
+
 #include "Utilidades/Vector.h"
 #include "Interfaz/EnumTiposBoundingBox.h"
-#include <cstdint>
 #include "Interfaz/Objeto_Motor.h"
 
+#include <cstdint>
+
 class Motor;
-
-enum NombreObjetos{
-
-};
-
 
 class Objeto {
 public:
@@ -18,8 +15,6 @@ public:
 	Objeto(short id, float _i_x, float _i_y, float _i_z);
 	virtual ~Objeto();
 
-	virtual void update() = 0;
-	virtual void render() = 0;
 	float getX();
 	float getY();
 	float getZ();

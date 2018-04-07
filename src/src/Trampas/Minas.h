@@ -12,9 +12,7 @@ public:
 
 	void	activar();
 	void 	activar_explosion();
-	bool 	explota();
-	void render() override;
-	
+	bool 	explota();	
 
 private:
 	double _explota_en;

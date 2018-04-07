@@ -9,8 +9,6 @@ public:
 	~Consumible_Agua();
 
 	bool usar(Character* _personaje) override;
-	void render() override;
-
 };
 
 #endif /* SRC_CONSUMIBLE_AGUA_H_ */

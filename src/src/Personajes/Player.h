@@ -13,8 +13,7 @@ class Player : public Character{
 public:
 	Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input);
 	virtual ~Player();
-	void update() override;
-	void render() override;
+	void update();
 
 	void modificar_vida_en(short _i_vida)	override;
 	void danyar(short _danyo) 				override;

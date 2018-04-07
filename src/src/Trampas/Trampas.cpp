@@ -1,8 +1,6 @@
 #include "Trampas.h"
 
-#include "../Utilidades/Vector.h"
 #include "../Tiempo/Time.h"
-#include "../Personajes/Character.h"
 #include "../Interfaz/Motor.h"
 
 

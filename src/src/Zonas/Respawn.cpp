@@ -156,9 +156,6 @@ std::vector <Character*> Respawn::revivir_enemigos_en_zona(uint8_t num_npc, floa
         
     }
 
-            std::cout << " Posiciones resultantes \n";
-
-
     return _enemigos_que_creo;
 }
 
