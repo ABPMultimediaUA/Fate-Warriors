@@ -1,13 +1,13 @@
 #include "Character.h"
 
-#include "Player.h"
+#include "Inventario.h"
 #include "NPC.h"
 #include "NPC_Manager.h"
+#include "Player.h"
 
 #include "../Armas/Arma_distancia.h"
 #include "../Armas/Arma_cerca.h"
 #include "../Armas/Armas_Manager.h"
-#include "Inventario.h"
 #include "../Game.h"
 #include "../Datos_Partida.h"
 #include "../Interactuables/Llave.h"
@@ -18,13 +18,13 @@
 #include "../Interfaz/Motor.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Consumibles/Consumible_Power_Up.h"
-#include "../Respawn.h"
+#include "../Zonas/Respawn.h"
 
 #include <iostream>
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
-    :Objeto_Movil(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
+    :Objeto(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
     _tiene_arma_larga(false){
 

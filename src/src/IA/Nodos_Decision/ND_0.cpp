@@ -1,12 +1,12 @@
 #include "ND_0.h"
 
 #include "../Blackboard.h"
-#include "../../Zona.h"
+#include "../../Zonas/Zona.h"
 #include "../../Interactuables/Interruptor.h"
 #include "../../Personajes/NPC.h"
 #include "../../Interfaz_Libs/Lib_Math.h"
 
-#include<iostream>
+//#include<iostream>
 
 ND_0::ND_0(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;

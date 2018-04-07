@@ -1,10 +1,10 @@
 #include "ND_Hay_Enemigos_En_Mi_Zona.h"
 
 #include "../Blackboard.h"
-#include "../../Zona.h"
+#include "../../Zonas/Zona.h"
 #include "../../Personajes/NPC.h"
 
-#include<iostream>
+//#include<iostream>
 
 ND_Hay_Enemigos_En_Mi_Zona::ND_Hay_Enemigos_En_Mi_Zona(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;
@@ -28,12 +28,12 @@ enum Enum_Acciones ND_Hay_Enemigos_En_Mi_Zona::toma_decision(Blackboard* _blackb
     }
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(num_enemigos_en_mi_zona > 0) { // TRUE, es 1
-        std::cout <<"SI enemigos en mi zona \n";
+        //std::cout <<"SI enemigos en mi zona \n";
         _blackboard->objetivo_x = _blackboard->_enemigo_mas_cerca->getX();
         _blackboard->objetivo_y = _blackboard->_enemigo_mas_cerca->getZ();
 		return _nodo_der->toma_decision(_blackboard);
 	}
-    std::cout <<"NO enemigos en mi zona \n";
+    //std::cout <<"NO enemigos en mi zona \n";
     //_blackboard->objetivo_x = _blackboard->_zona_enemiga_mas_cerca->getX();
     //_blackboard->objetivo_y = _blackboard->_zona_enemiga_mas_cerca->getZ();
 	return _nodo_izq->toma_decision(_blackboard);

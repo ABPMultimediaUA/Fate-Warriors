@@ -1,7 +1,7 @@
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
 
-#include "../Objeto_Movil.h"
+#include "../Objeto.h"
 #include "../IA/Enum_Acciones.h"
 
 #include "Enum_Tipo_Ataque.h"
@@ -12,7 +12,7 @@ class Time;
 class Arma;
 class Consumible_Power_Up;
 
-class Character : public Objeto_Movil{
+class Character : public Objeto{
 public:
 	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
 	short _i_danyo_ataque_fuerte, Enum_Equipo equipo);

@@ -8,8 +8,8 @@
 #include "Armas/Armas_Manager.h"
 #include "Consumibles/Consumible_Manager.h"
 #include "Trampas/Trampas_manager.h"
-#include "Zonas_Manager.h"
-#include "Respawn.h"
+#include "Zonas/Zonas_Manager.h"
+#include "Zonas/Respawn.h"
 #include "Utilidades/Vector.h"
 
 

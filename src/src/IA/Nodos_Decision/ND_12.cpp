@@ -3,7 +3,7 @@
 #include "../Blackboard.h"
 #include "../../Personajes/Character.h"
 
-#include<iostream>
+//#include<iostream>
 
 ND_12::ND_12(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;

@@ -1,10 +1,10 @@
 #include "ND_7.h"
 
 #include "../Blackboard.h"
-#include "../../Zona.h"
+#include "../../Zonas/Zona.h"
 #include "../../Personajes/NPC.h"
 
-#include<iostream>
+//#include<iostream>
 
 ND_7::ND_7(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;

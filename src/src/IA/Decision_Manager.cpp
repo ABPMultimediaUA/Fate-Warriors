@@ -1,15 +1,15 @@
 #include "Decision_Manager.h"
 
-#include "../Action_Manager.h"
+#include "Action_Manager.h"
 #include "Arbol_Decision_Manager.h"
 #include "Blackboard.h"
 #include "Enum_Acciones.h"
+
 #include "../Game.h"
 #include "../Datos_Partida.h"
-
 #include "../Personajes/NPC.h"
 #include "../Personajes/NPC_Manager.h"
-#include "../Respawn.h"
+#include "../Zonas/Respawn.h"
 
 #include<iostream>
 

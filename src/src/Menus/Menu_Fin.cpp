@@ -4,7 +4,8 @@
 #include "Opcion_Salir_Partida.h"
 
 #include "../Game.h"
-#include "../Input.h"
+
+#include "../Input/Input.h"
 
 #include "../Tiempo/Time.h"
 

@@ -6,7 +6,7 @@
 #include "../../Personajes/NPC.h"
 #include "../../Interfaz_Libs/Lib_Math.h"
 
-#include<iostream>
+//#include<iostream>
 
 ND_Set_Objetivo_Personaje_Enemigo_Cerca::ND_Set_Objetivo_Personaje_Enemigo_Cerca(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;

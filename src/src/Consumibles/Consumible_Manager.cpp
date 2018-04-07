@@ -1,16 +1,16 @@
 #include "Consumible_Manager.h"
-#include "../Tiempo/Time.h"
+
 #include "Consumible.h"
 #include "Consumible_Patata.h"
 #include "Consumible_Carne.h"
 #include "Consumible_Agua.h"
-
 #include "Consumible_Power_Up.h"
 #include "Consumible_Fuerza.h"
 #include "Consumible_Vida_Infinita.h"
-#include "../Respawn.h"
-#include "../Tiempo/Time.h"
 #include "Enum_Tipo_Consumible.h"
+
+#include "../Zonas/Respawn.h"
+#include "../Tiempo/Time.h"
 
 
 // CONSTRUCTOR

@@ -2,7 +2,7 @@
 
 #include "../Blackboard.h"
 
-#include<iostream>
+//#include<iostream>
 
 Nodo_Decision_LOD::Nodo_Decision_LOD(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, unsigned short _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;

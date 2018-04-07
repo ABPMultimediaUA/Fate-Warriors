@@ -1,6 +1,7 @@
 #include "Interruptor.h"
 
 #include "Puerta_Pincho.h"
+
 #include "../Tiempo/Time.h"
 
 Interruptor::Interruptor(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacion, Puerta_Pincho* _i_objeto_asociado,

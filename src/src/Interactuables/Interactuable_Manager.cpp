@@ -5,8 +5,8 @@
 #include "Interruptor.h"
 #include "Puerta_Pincho.h"
 
-#include "../Zona.h"
-#include "../Zonas_Manager.h"
+#include "../Zonas/Zona.h"
+#include "../Zonas/Zonas_Manager.h"
 
 #include "../Game.h"
 #include "../Datos_Partida.h"

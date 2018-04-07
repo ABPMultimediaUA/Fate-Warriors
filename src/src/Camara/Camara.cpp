@@ -1,6 +1,6 @@
 #include "Camara.h"
 
-#include "../Input.h"
+#include "../Input/Input.h"
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Utilidades/Vector.h"

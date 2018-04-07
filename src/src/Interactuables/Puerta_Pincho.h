@@ -1,10 +1,9 @@
 #ifndef HEADERS_PUERTA_PINCHO_H_
 #define HEADERS_PUERTA_PINCHO_H_
 
+#include "../Objeto.h"
 
 #include <cstdint>
-
-#include "../Objeto.h"
 
 class Pinchos;
 class Time;

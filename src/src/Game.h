@@ -1,7 +1,7 @@
 #ifndef HEADER_GAME_H_
 #define HEADER_GAME_H_
 
-#include "Input.h"
+#include "Input/Input.h"
 
 class Datos_Partida;
 class Action_Manager;

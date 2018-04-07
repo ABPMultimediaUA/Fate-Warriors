@@ -1,13 +1,13 @@
 #include "Armas_Manager.h"
-#include "../Tiempo/Time.h"
+
 #include "Arma.h"
+#include "AD_Ametralladora.h"
+#include "AC_Katana.h"
+#include "AD_Pistola.h"
 
- #include "AD_Ametralladora.h"
- #include "AC_Katana.h"
- #include "AD_Pistola.h"
 #include "../Tiempo/Time.h"
-#include "../Respawn.h"
-
+#include "../Tiempo/Time.h"
+#include "../Zonas/Respawn.h"
 
 // CONSTRUCTOR
 

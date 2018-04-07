@@ -1,25 +1,22 @@
 #include "Player.h"
 
-#include "../Entrada/Input.h"
-#include "../Input.h"
-#include "../Entrada/Controles.h"
+#include "../Input/Input.h"
 #include "../Camara/Camara.h"
 #include "../Tiempo/Time.h"
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
 
-
 #include "../Nivel/Nivel.h"
 
 #include "../Interfaz_Libs/Lib_Math.h"
 #include "../Interfaz/Motor.h"
-#include "../Respawn.h"
+#include "../Zonas/Respawn.h"
 
 #include "../Motor_sonido/Interfaz_sonido.h"
 
 #include "../Datos_Partida.h"
 #include "../Game.h"
-#include "../Action_Manager.h"
+
 #include <iostream>
                                                                                                             //  vida_prota, velocidad
 Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 500, 0.4, 50, 75, Enum_Equipo_B)
@@ -57,9 +54,6 @@ void Player::update(){
 
     gestion_acciones();
     Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb_visor(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(5,10,1), _direccion_actual);
-
-    // Esto hay que borrarlo
-    Controles* controles = Controles::Instance();
 
     // Recoge si ha habido movimiento y la direccion de el mismo
     uint16_t _direccion;

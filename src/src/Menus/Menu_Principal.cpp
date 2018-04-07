@@ -4,7 +4,7 @@
 #include "Opcion_Configuracion.h"
 #include "Opcion_Salir_Juego.h"
 
-#include "../Input.h"
+#include "../Input/Input.h"
 
 #include "../Interfaz/Motor.h"
 

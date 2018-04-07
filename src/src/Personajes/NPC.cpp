@@ -1,21 +1,16 @@
 #include "NPC.h"
 
+#include "Inventario.h"
+
 #include "../IA/Blackboard.h"
 #include "../Interfaz_Libs/Lib_Math.h"
-
 #include "../Interfaz/Motor.h"
 #include "../Utilidades/Modelados.h"
-#include "Inventario.h"
-#include "../Respawn.h"
+#include "../Zonas/Respawn.h"
 #include "../Interactuables/Interruptor.h"
-
-
 #include "../Tiempo/Time.h"
 
 #include <iostream>
-//#include "../Interfaz/Objeto_Motor.h"
-
-
 
 NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
     short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo equipo) 

@@ -11,7 +11,7 @@
 #include "../Personajes/Enum_Tipo_Enemigo.h"
 #include "../Nivel/Nodo_blackboard.h"
 
-#include "../Zona.h"
+#include "../Zonas/Zona.h"
 
 class Character;
 

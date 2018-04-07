@@ -1,9 +1,8 @@
 #include "Game.h"
 
-#include "Action_Manager.h"
 #include "Datos_Partida.h"
 
-#include "Entrada/Controles.h"
+#include "IA/Action_Manager.h"
 #include "IA/Decision_Manager.h"
 #include "Personajes/Player.h"
 #include "Interfaz/Motor.h"
@@ -15,9 +14,9 @@
 #include "Menus/Menu_Principal.h"
 #include "Menus/Menu_Pausa.h"
 #include "Menus/Menu_Fin.h"
-#include "Zonas_Manager.h"
+#include "Zonas/Zonas_Manager.h"
 #include "Interactuables/Interactuable_Manager.h"
-#include "Respawn.h"
+#include "Zonas/Respawn.h"
 
 #include <iostream>
 #include <stack>

@@ -2,7 +2,7 @@
 
 #include "../Blackboard.h"
 
-#include<iostream>
+//#include<iostream>
 
 ND_Distancia_Objetivo::ND_Distancia_Objetivo(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;

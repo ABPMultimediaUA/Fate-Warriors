@@ -1,9 +1,9 @@
 #include "ND_Situado_En_Zona.h"
 
 #include "../Blackboard.h"
-#include "../../Zona.h"
+#include "../../Zonas/Zona.h"
 
-#include<iostream>
+//#include<iostream>
 
 ND_Situado_En_Zona::ND_Situado_En_Zona(Nodo_Decision& _i_nodo_izq, Nodo_Decision& _i_nodo_der, float _i_valor) : Nodo_Decision(_i_nodo_izq, _i_nodo_der) {
 	_valor = _i_valor;
@@ -19,9 +19,9 @@ enum Enum_Acciones ND_Situado_En_Zona::toma_decision(Blackboard* _blackboard){
 
 	//std::cout << "% vida = " << _vida << " y el valor es " << _valor << "\n";
 	if(_blackboard->_zona_actual != nullptr) { // TRUE, es 1
-		std::cout <<"SI estoy en una zona \n";
+		//std::cout <<"SI estoy en una zona \n";
 		return _nodo_der->toma_decision(_blackboard);
 	}
-	std::cout <<"NO estoy en una zona \n";
+	//std::cout <<"NO estoy en una zona \n";
 	return _nodo_izq->toma_decision(_blackboard);
 }
