@@ -21,10 +21,6 @@ public:
 	bool puede_subir_especial();
 	void aumentar_especial();
 	void disminuir_especial();
-	Character* objetivo_mas_proximo_angulo();
-	uint16_t rotar_en_funcion_de_un_punto(Character* _objetivo);
-	void set_apuntando_a_objetivo_mas_proximo();
-	void rotar_en_funcion_de_ese_objetivo();
 	void gestion_dash()					override;
 	void preparar_ataque_objetivo_mas_proximo_con_impulso();
 
@@ -41,6 +37,15 @@ private:
 	btRigidBody *_rb_apuntado;
 	Character * _apuntando;
 	// double _tiempobloqueo; BORRAME
+
+
+	Character* objetivo_mas_proximo_angulo();
+
+	void rotar_en_funcion_de_un_punto(Character* _objetivo);
+
+	//uint16_t rotar_en_funcion_de_un_punto_direccion(Character* _objetivo);
+	void set_apuntando_a_objetivo_mas_proximo();
+	void rotar_en_funcion_de_ese_objetivo();
 
 };
 

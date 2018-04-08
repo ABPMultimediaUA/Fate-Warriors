@@ -54,7 +54,7 @@ void Player::update(){
 
     gestion_acciones();
     Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb_visor(_rb_apuntado, getPosicionRbAtaque(Ataque_Ninguno), btVector3(5,10,1), _direccion_actual);
-
+    
     // Recoge si ha habido movimiento y la direccion de el mismo
     uint16_t _direccion;
     uint16_t _direccion_posterior = get_direccion_actual();
@@ -66,13 +66,13 @@ void Player::update(){
         while(_direccion_buena_2 < 0) _direccion_buena_2 += 360;
 
         uint16_t _direccion_buena = _direccion_buena_2;
-        
-        if(_apuntando != nullptr) {
-            mover_direccion(_direccion_buena, rotar_en_funcion_de_un_punto(_apuntando));
+
+       /*if(_apuntando != nullptr) {
+            mover_direccion(_direccion_buena, rotar_en_funcion_de_un_punto_direccion(_apuntando));
         }
-        else {
+        else {*/
             mover(_direccion_buena);
-        }
+        /*}*/
 
         rotar_en_funcion_de_ese_objetivo();
         rotar_en_funcion_de_ese_objetivo();
@@ -233,7 +233,8 @@ void Player::set_apuntando_a_objetivo_mas_proximo(){
     _apuntando = objetivo_mas_proximo_angulo();
 }
 
-uint16_t Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
+
+void Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
     uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), _objetivo->getX(), _objetivo->getZ());
 
     float _cos, _sen;
@@ -247,10 +248,27 @@ uint16_t Player::rotar_en_funcion_de_un_punto(Character* _objetivo){
 
     uint16_t _nueva_direccion = _nueva_direccion_2;
 
-    //set_direccion_actual(_nueva_direccion);
-    //rotar_cuerpo(_nueva_direccion);
-    return _nueva_direccion;
+    set_direccion_actual(_nueva_direccion);
+    rotar_cuerpo(_nueva_direccion);
 }
+
+/*
+uint16_t Player::rotar_en_funcion_de_un_punto_direccion(Character* _objetivo){
+    uint16_t angulo_giro = lib_math_angulo_2_puntos(getX(), getZ(), _objetivo->getX(), _objetivo->getZ());
+
+    float _cos, _sen;
+    _cos = sin(angulo_giro*std::acos(-1)/180);
+    _sen = cos(angulo_giro*std::acos(-1)/180);
+
+    // Saca una nueva direccion, dado que _i_direccion no viene en el mismo sistema
+    int16_t _nueva_direccion_2 = atan2(_sen, _cos) * 180 / std::acos(-1);
+    while(_nueva_direccion_2 >= 360) _nueva_direccion_2 -= 360;
+    while(_nueva_direccion_2 < 0) _nueva_direccion_2 += 360;
+
+    uint16_t _nueva_direccion = _nueva_direccion_2;
+
+    return _nueva_direccion;
+}*/
 
 void Player::preparar_ataque_objetivo_mas_proximo_con_impulso(){
     Character* enemigo = objetivo_mas_proximo_angulo();

@@ -263,6 +263,12 @@ btVector3 Objeto_Motor::get_posicion_rb(){
 }
 
 void Objeto_Motor::rotar_nodo(uint16_t rotacion){
+	rotar_nodo_sin_interpolacion(rotacion);
+	
+	_interpolacion->actualiza_direccion(rotacion);
+}
+
+void Objeto_Motor::rotar_nodo_sin_interpolacion(uint16_t rotacion) {
 	float mult = 4.9212625;
 	btScalar gTilt = rotacion*SIMD_PI / 180.0f; 
 	btTransform rbTransform;
@@ -277,7 +283,5 @@ void Objeto_Motor::rotar_nodo(uint16_t rotacion){
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	_nodo->setPosition(vector3df(pos[0], pos[1], pos[2]));
-	
-	_interpolacion->actualiza_direccion(rotacion);
 
 }

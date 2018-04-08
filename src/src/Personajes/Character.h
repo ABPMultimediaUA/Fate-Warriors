@@ -116,6 +116,8 @@ public:
 	void activar_inmunidad_a_danyos();
 	void desactivar_inmunidad_a_danyos();
 	void rotar_cuerpo(uint16_t _i_valor);
+	void rotar_cuerpo_sin_interpolacion(uint16_t _i_valor);
+
 	bool _bloqueado; // Si se encuentra bloqueado por el Tipo_Accion
 
 protected:

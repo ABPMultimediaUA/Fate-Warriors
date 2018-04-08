@@ -60,7 +60,8 @@ public:
 
       float getVelocidadY();
       btVector3 get_posicion_rb();
-      void rotar_nodo(uint16_t rotacion);
+      void rotar_nodo(uint16_t rotacion);                   // Interpola la rotacion
+      void rotar_nodo_sin_interpolacion(uint16_t rotacion); // NO interpola la rotacion
 
 
 private:

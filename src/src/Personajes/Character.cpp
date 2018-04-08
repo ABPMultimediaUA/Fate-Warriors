@@ -871,3 +871,7 @@ void Character::set_direccion_actual(uint16_t nueva_direccion){
 void Character::rotar_cuerpo(uint16_t _i_valor){
     _objeto_motor->rotar_nodo(_i_valor);
 }
+
+void Character::rotar_cuerpo_sin_interpolacion(uint16_t _i_valor){
+    _objeto_motor->rotar_nodo_sin_interpolacion(_i_valor);
+}
