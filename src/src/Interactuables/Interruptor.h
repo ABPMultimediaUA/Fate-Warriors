@@ -12,8 +12,11 @@ public:
 	Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
 	virtual ~Interruptor();
 
-	virtual void accionar() = 0;			// Acciona el interruptor y le cambia el estado (si es posible)
-	void agregar_puerta(Puerta_Pincho* _puerta);	// Agrega una puerta a sus asociadas
+	virtual void accionar() = 0;				// Acciona el interruptor y le cambia el estado (si es posible)
+	virtual void accionar_sin_propagar();		// Acciona el interruptor sin propagar
+
+	void agregar_puerta(Puerta_Pincho* _puerta);					// Agrega una puerta a sus asociadas
+	virtual void agregar_interruptor(Interruptor* _interruptor);	// Solo para la propagadora
 
 	virtual void update();
 
@@ -36,10 +39,5 @@ Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
 private: 
 	bool _estado;
 	Puerta_Pincho** _puertas;
-
-// RARA
-Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion);
-private: 
-	Interruptor** _interruptor_afecta;
 
 */

@@ -22,8 +22,16 @@ Interruptor::~Interruptor() {
     _puertas_asociadas.clear();
 }
 
+
+void Interruptor::accionar_sin_propagar() {
+    accionar();
+}
+
 void Interruptor::agregar_puerta(Puerta_Pincho* _puerta) {
     _puertas_asociadas.push_back(_puerta);
+}
+
+void Interruptor::agregar_interruptor(Interruptor* _interruptor) {
 }
 
 

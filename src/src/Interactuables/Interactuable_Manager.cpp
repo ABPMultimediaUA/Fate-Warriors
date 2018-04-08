@@ -5,8 +5,9 @@
 #include "Puerta_Pincho.h"
 
 #include "Interruptor.h"
-#include "Interruptores/Interruptor_Un_Uso.h"
+#include "Interruptores/Interruptor_Propagador.h"
 #include "Interruptores/Interruptor_Tiempo.h"
+#include "Interruptores/Interruptor_Un_Uso.h"
 
 #include "../Zonas/Zona.h"
 #include "../Zonas/Zonas_Manager.h"
@@ -94,12 +95,12 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 
 	// INTERRUPTORES DE ZONA FINAL
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 80.5*mult, 67.8*mult, 180));
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 80.5*mult, 71*mult, 0));
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 80.5*mult, 74.2*mult, 180));
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 75.5*mult, 67.8*mult, 0));
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 75.5*mult, 71*mult, 180));
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 75.5*mult, 74.2*mult, 0));
+	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 67.8*mult, 180));	// 3
+	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 71*mult, 0));		// 2
+	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 74.2*mult, 180));	// 1
+	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 67.8*mult, 0));	// 6
+	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 71*mult, 180));	// 5
+	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 74.2*mult, 0));	// 4
 
 	_interrutores[3]->agregar_puerta(_puertas_pincho[12]);
 	_interrutores[4]->agregar_puerta(_puertas_pincho[13]);
@@ -107,6 +108,19 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_interrutores[6]->agregar_puerta(_puertas_pincho[9]);
 	_interrutores[7]->agregar_puerta(_puertas_pincho[10]);
 	_interrutores[8]->agregar_puerta(_puertas_pincho[11]);
+
+	_interrutores[5]->agregar_interruptor(_interrutores[7]);
+
+	_interrutores[4]->agregar_interruptor(_interrutores[8]);
+	_interrutores[4]->agregar_interruptor(_interrutores[6]);
+
+	_interrutores[3]->agregar_interruptor(_interrutores[4]);
+
+	_interrutores[8]->agregar_interruptor(_interrutores[7]);
+
+	_interrutores[7]->agregar_interruptor(_interrutores[3]);
+
+	_interrutores[6]->agregar_interruptor(_interrutores[3]);
 
 
 	//Zona 7
