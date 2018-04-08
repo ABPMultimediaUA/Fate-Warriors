@@ -21,9 +21,9 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	// tener xml con la informacion de todos los objetos
     
-	_n_llaves = 2;
-	_n_puertas = 2;
-	_n_puertas_pincho = 15;
+	_n_llaves = 3;
+	_n_puertas = 3;
+	_n_puertas_pincho = 17;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -35,10 +35,12 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
           
     _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 0, false, 4);			//puerta situada entre nodo 3 y 5 pasillo 4
     _puertas[1] = new Puerta(2,12.5*mult,0*mult, 21.155*mult, 0, false, 6); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
+	_puertas[2] = new Puerta(3, 77.5*mult,0*mult, 88.75*mult, 0, false, 6); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
 
 	
 	_llaves[0] = new Llave(0, 35*mult, 0*mult, 55*mult,_puertas[0]->get_id());	//Lave situada en nodo 18, abre la puerta situada en pasillo 4
-	_llaves[1] = new Llave(0, 12.5*mult, 0*mult, 17*mult,_puertas[1]->get_id());  // Llave situada en el nodo 1, abre puerta de pasillo 6
+	_llaves[1] = new Llave(1, 12.5*mult, 0*mult, 17*mult,_puertas[1]->get_id());  // Llave situada en el nodo 1, abre puerta de pasillo 6
+	_llaves[2] = new Llave(3, 14*mult, 0*mult, 102*mult,_puertas[2]->get_id());  // Llave situada en el nodo 1, abre puerta de pasillo 6
 
 
 
@@ -75,21 +77,28 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_puertas_pincho[14] = new Puerta_Pincho(0, 78.53*mult, 0, 66.5*mult, true, 180, 31);
 
 
+	// PUERA 1 SOLO USO ENTRE SALAS 14 Y 16
+	_puertas_pincho[15] = new Puerta_Pincho(0, 6.5*mult, 0, 92.5*mult, true, 180, 13);
+
+
+	// ZONA COLISEO 28
+	_puertas_pincho[16] = new Puerta_Pincho(0, 65*mult, 0, 101.5*mult, false, 270, 27);
+
 
 	// ------------------------------------ INTERRUPTORES ------------------------------------
  
 	// INTERRUPTOR DE UN SOLO USO EN ZONA 3
-	_interrutores.push_back(new Interruptor_Un_Uso(0,30*mult,21.2*mult,90));
+	_interrutores.push_back(new Interruptor_Un_Uso(0, 29*mult, 21.4*mult, 90));
 	_interrutores[0]->agregar_puerta(_puertas_pincho[2]);
 
 
 	// INTERRUPTOR DE UN SOLO USO EN ZONA 22
-	_interrutores.push_back(new Interruptor_Un_Uso(0,33.5*mult,96.5*mult,0));
+	_interrutores.push_back(new Interruptor_Un_Uso(0, 33.5*mult, 96.5*mult, 0));
 	_interrutores[1]->agregar_puerta(_puertas_pincho[5]);
 
 
 	// INTERRUPTOR TIEMPO EN ZONA 5
-	_interrutores.push_back(new Interruptor_Tiempo(0,45*mult,40*mult,0, 17000));
+	_interrutores.push_back(new Interruptor_Tiempo(0, 42*mult, 44.75*mult, 270, 17000));
 	_interrutores[2]->agregar_puerta(_puertas_pincho[5]);
 	_interrutores[2]->agregar_puerta(_puertas_pincho[3]);
 
@@ -123,17 +132,28 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_interrutores[6]->agregar_interruptor(_interrutores[3]);
 
 
-	//Zona 7
+	// INTERRUPTOR 1 USO EN ZONA 26
+	_interrutores.push_back(new Interruptor_Un_Uso(0, 61.5*mult, 70.5*mult, 90));
+	_interrutores[9]->agregar_puerta(_puertas_pincho[15]);
+
+
+
+
+	// Zona 7
 	_todas_las_zonas[2]->set_puerta_pincho_asociada(_puertas_pincho[0]);
 	_todas_las_zonas[2]->set_puerta_pincho_asociada(_puertas_pincho[1]);
 	_todas_las_zonas[2]->set_puerta_pincho_asociada(_puertas_pincho[3]);
 
 
-	//Zona 16
+	// Zona 16
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[4]);
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[6]);
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[7]);
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[8]);
+
+
+	// Zona 
+	_todas_las_zonas[7]->set_puerta_pincho_asociada(_puertas_pincho[16]);
 }
 
 Interactuable_Manager::~Interactuable_Manager() {
