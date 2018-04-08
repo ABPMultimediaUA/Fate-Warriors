@@ -161,6 +161,21 @@ uint8_t Zona::get_num_npc_en_zona(){
 
 }
 
+void Zona::restaurar_vida_enemigos_zona(){
+    Game* game 		= Game::game_instancia();
+	Datos_Partida * _datos	= game->game_get_datos();
+    Character** todos_personajes = _datos->get_characters();
+	uint16_t _num_characters = _datos->get_num_characters();
+    Motor* motor = Motor::Motor_GetInstance();
+
+
+    for (uint16_t num_character=0; num_character<_num_characters-1; num_character++){
+       if(todos_personajes[num_character]->get_vida_actual()>0 && motor->comprobar_colision(_rb, todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
+            todos_personajes[num_character]->set_vida(todos_personajes[num_character]->get_vida_maxima());
+       }   
+    }
+}
+
 //Pausa el tiempo que necesita para conquistar un territorio
 void Zona::set_tiempo_restante_para_conquistar(){
     _tiempo_restante_conquista = _tiempo_restante_conquista - (_reloj->get_current() - _tiempo_inicio_conquista);

@@ -57,6 +57,7 @@ protected:
     float distancia_player_a_zona();
     void activar_todas_las_puerta_pincho();
     void desactivar_todas_las_puerta_pincho();
+    void restaurar_vida_enemigos_zona();
 
     btRigidBody *_rb;
     Enum_Equipo _equipo;
