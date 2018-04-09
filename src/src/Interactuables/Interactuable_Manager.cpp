@@ -93,7 +93,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 
 	// INTERRUPTOR DE UN SOLO USO EN ZONA 22
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 33.5*mult, 96.5*mult, 0));
+	_interrutores.push_back(new Interruptor_Un_Uso(0, 47.25*mult, 97.5*mult, 90));
 	_interrutores[1]->agregar_puerta(_puertas_pincho[5]);
 
 
