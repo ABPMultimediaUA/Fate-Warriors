@@ -33,151 +33,152 @@ master*/
 Motor* Motor::_Motor=0;
 
 Motor* Motor::Motor_GetInstance(){
-	if(_Motor == 0){
-        _Motor= new Motor(1280, 720);
-    }
-    return _Motor;
+	if(_Motor==0){
+		_Motor	=  new Motor();
+	}
+	return _Motor;
 }
 
 
-Motor::Motor(uint16_t width, uint16_t height){
-    //configuracion_irlitch();
-	configuracion_ME(width, height, false, false);
+
+Motor::Motor(){
+    configuracion_irlitch();
     configuracion_bullet();
     preparar_depuracion_mundo();
 
-	//const char* cstr = "ColisionesNivel1";
-	//importarEscenario(cstr, 0,0,0);
-//meter modelos pa irlitch
-	const char* cstr = "suelo_t_1";
+	//meter modelos pa irlitch
+	const char* cstr = "models/Entorno/Suelo/suelo_t_1/suelo_t_1.obj";
 	importarEscenario(cstr, 0,0,0);
-	const char* cstr2 = "suelo_t_2";
+	const char* cstr2 = "models/Entorno/Suelo/suelo_t_2/suelo_t_2.obj";
 	importarEscenario(cstr2, 0,0,0);
-	const char* cstr3 = "suelo_t_3";
+	const char* cstr3 = "models/Entorno/Suelo/suelo_t_3/suelo_t_3.obj";
 	importarEscenario(cstr3, 0,0,0);
-	const char* cstr4 = "suelo_t_4";
+	const char* cstr4 = "models/Entorno/Suelo/suelo_t_4/suelo_t_4.obj";
 	importarEscenario(cstr4, 0,0,0);
-	const char* cstr5 = "suelo_t_5";
+	const char* cstr5 = "models/Entorno/Suelo/suelo_t_5/suelo_t_5.obj";
 	importarEscenario(cstr5, 0,0,0);
-	const char* cstr6 = "suelo_exterior_1";
+	const char* cstr6 = "models/Entorno/Suelo/suelo_exterior_1/suelo_exterior_1.obj";
 	importarEscenario(cstr6, 0,0,0);
-	const char* cstr7 = "suelo_exterior_2";
+	/*const char* cstr7 = "models/Entorno/Suelo/suelo_exterior_2/suelo_exterior_2.obj";
 	importarEscenario(cstr7, 0,0,0);
-	const char* cstr8 = "suelo_exterior_3";
-	importarEscenario(cstr8, 0,0,0);
+	const char* cstr8 = "models/Entorno/Suelo/suelo_exterior_3/suelo_exterior_3.obj";
+	importarEscenario(cstr8, 0,0,0);*/
     
-	const char* cstr9 = "Duna";
+	const char* cstr9 = "models/Entorno/Duna/Duna.obj";
 	importarEscenario(cstr9, 0,0,0);
-	const char* cstr10 = "Arbol";
+	const char* cstr10 = "models/Entorno/Arbol/Arbol.obj";
 	importarEscenario(cstr10, 0,0,0);
-	const char* cstr11 = "Bidones1";
+	const char* cstr11 = "models/Entorno/Bidones1/Bidones1.obj";
 	importarEscenario(cstr11, 0,0,0);
-	const char* cstr12 = "Bidones2";
+	const char* cstr12 = "models/Entorno/Bidones2/Bidones2.obj";
 	importarEscenario(cstr12, 0,0,0);
-	const char* cstr13 = "Ruinas1";
+	const char* cstr13 = "models/Entorno/Ruinas1/Ruinas1.obj";
 	importarEscenario(cstr13, 0,0,0);
-	const char* cstr14 = "Ruinas1";
+	const char* cstr14 = "models/Entorno/Ruinas1/Ruinas1.obj";
 	importarEscenario(cstr14, 0,0,0);
-	const char* cstr15 = "Muralla";
+	const char* cstr15 = "models/Entorno/Muralla/Muralla.obj";
 	importarEscenario(cstr15, 0,0,0);
-	const char* cstr16 = "Lenyos";
+	const char* cstr16 = "models/Entorno/Leños/Lenyos.obj";
 	importarEscenario(cstr16, 0,0,0);
-	const char* cstr17 = "EdificioPuente";
+	const char* cstr17 = "models/Entorno/EdificioPuente/EdificioPuente.obj";
 	importarEscenario(cstr17, 0,0,0);
-	const char* cstr18 = "RuinaPuerta";
+	const char* cstr18 = "models/Entorno/RuinaPuerta/RuinaPuerta.obj";
 	importarEscenario(cstr18, 0,0,0);
-	const char* cstr19 = "Valla1";
+	const char* cstr19 = "models/Entorno/Valla/Valla1/Valla1.obj";
 	importarEscenario(cstr19, 0,0,0);
-	const char* cstr20 = "Valla2";
+	const char* cstr20 = "models/Entorno/Valla/Valla2/Valla2.obj";
 	importarEscenario(cstr20, 0,0,0);
-	const char* cstr21 = "PinchosFoso";
+	const char* cstr21 = "models/Entorno/PinchosFoso/PinchosFoso.obj";
 	importarEscenario(cstr21, 0,0,0);
-	const char* cstr22 = "ApoyoEdificio1";
+	const char* cstr22 = "models/Entorno/ApoyoEdificio1/ApoyoEdificio1.obj";
 	importarEscenario(cstr22, 0,0,0);
-	const char* cstr23 = "ApoyoEdificio2";
+	const char* cstr23 = "models/Entorno/ApoyoEdificio2/ApoyoEdificio2.obj";
 	importarEscenario(cstr23, 0,0,0);
-	const char* cstr24 = "ApoyoEdificio3";
+	const char* cstr24 = "models/Entorno/ApoyoEdificio3/ApoyoEdificio3.obj";
 	importarEscenario(cstr24, 0,0,0);
-	const char* cstr25 = "ApoyoEdificio4";
+	const char* cstr25 = "models/Entorno/ApoyoEdificio4/ApoyoEdificio4.obj";
 	importarEscenario(cstr25, 0,0,0);
-	const char* cstr26 = "ApoyoEdificio5";
+	const char* cstr26 = "models/Entorno/ApoyoEdificio5/ApoyoEdificio5.obj";
 	importarEscenario(cstr26, 0,0,0);
-	const char* cstr27 = "CajasHoguera";
+	const char* cstr27 = "models/Entorno/CajasHoguera/CajasHoguera.obj";
 	importarEscenario(cstr27, 0,0,0);
-	const char* cstr28 = "Campamento2";
+	const char* cstr28 = "models/Entorno/Campamento2/Campamento2.obj";
 	importarEscenario(cstr28, 0,0,0);
-	const char* cstr29 = "EdificioGrande";
+	const char* cstr29 = "models/Entorno/EdificioGrande/EdificioGrande.obj";
 	importarEscenario(cstr29, 0,0,0);
-	const char* cstr30 = "EdificioLejos1";
+	const char* cstr30 = "models/Entorno/EdificioLejos1/EdificioLejos1.obj";
 	importarEscenario(cstr30, 0,0,0);
-	const char* cstr31 = "EdificioLejos2";
+	const char* cstr31 = "models/Entorno/EdificioLejos2/EdificioLejos2.obj";
 	importarEscenario(cstr31, 0,0,0);
-	const char* cstr32 = "EdificioLejos3";
+	const char* cstr32 = "models/Entorno/EdificioLejos3/EdificioLejos3.obj";
 	importarEscenario(cstr32, 0,0,0);
-	const char* cstr33 = "EdificioLejos4";
+	const char* cstr33 = "models/Entorno/EdificioLejos4/EdificioLejos4.obj";
 	importarEscenario(cstr33, 0,0,0);
-	const char* cstr34 = "EdificioLejos5";
+	const char* cstr34 = "models/Entorno/EdificioLejos5/EdificioLejos5.obj";
 	importarEscenario(cstr34, 0,0,0);
-	const char* cstr35 = "EdificioRuinas1";
+	const char* cstr35 = "models/Entorno/EdificioRuinas1/EdificioRuinas1.obj";
 	importarEscenario(cstr35, 0,0,0);
-	const char* cstr36 = "Hoguera";
+	const char* cstr36 = "models/Entorno/Hoguera/Hoguera.obj";
 	importarEscenario(cstr36, 0,0,0);
-	const char* cstr37 = "Hoguerads";
+	const char* cstr37 = "models/Entorno/Hoguerads/Hoguerads.obj";
 	importarEscenario(cstr37, 0,0,0);
-	const char* cstr38 = "PiedraPoste";
+	const char* cstr38 = "models/Entorno/PiedraPoste/PiedraPoste.obj";
 	importarEscenario(cstr38, 0,0,0);
-	const char* cstr39 = "PosteLuz";
+	const char* cstr39 = "models/Entorno/PosteLuz/PosteLuz.obj";
 	importarEscenario(cstr39, 0,0,0);
-	const char* cstr40 = "Presa";
-	importarEscenario(cstr40, 0,0,0);
-	const char* cstr41 = "RuinaEdificio1";
+	//const char* cstr40 = "models/Entorno/Presa/Presa.obj";
+	//importarEscenario(cstr40, 0,0,0);
+	const char* cstr41 = "models/Entorno/RuinaEdificio1/RuinaEdificio1.obj";
 	importarEscenario(cstr41, 0,0,0);
-	const char* cstr42 = "RuinaEdificio2";
+	const char* cstr42 = "models/Entorno/RuinaEdificio2/RuinaEdificio2.obj";
 	importarEscenario(cstr42, 0,0,0);
-	const char* cstr43 = "RuinaEdificio3";
+	const char* cstr43 = "models/Entorno/RuinaEdificio3/RuinaEdificio3.obj";
 	importarEscenario(cstr43, 0,0,0);
-	const char* cstr44 = "RuinaEdificio4";
+	const char* cstr44 = "models/Entorno/RuinaEdificio4/RuinaEdificio4.obj";
 	importarEscenario(cstr44, 0,0,0);
-	const char* cstr45 = "RuinaEdificio5";
+	const char* cstr45 = "models/Entorno/RuinaEdificio5/RuinaEdificio5.obj";
 	importarEscenario(cstr45, 0,0,0);
-	const char* cstr46 = "SueloEdificio1";
+	const char* cstr46 = "models/Entorno/SueloEdificio1/SueloEdificio1.obj";
 	importarEscenario(cstr46, 0,0,0);
-	const char* cstr47 = "SueloEdificio2";
+	const char* cstr47 = "models/Entorno/SueloEdificio2/SueloEdificio2.obj";
 	importarEscenario(cstr47, 0,0,0);
-	const char* cstr48 = "SueloEdificio3";
+	const char* cstr48 = "models/Entorno/SueloEdificio3/SueloEdificio3.obj";
 	importarEscenario(cstr48, 0,0,0);
-	const char* cstr49 = "SueloEdificio4";
+	const char* cstr49 = "models/Entorno/SueloEdificio4/SueloEdificio4.obj";
 	importarEscenario(cstr49, 0,0,0);
-	const char* cstr50 = "TiendaCampanya1";
+	const char* cstr50 = "models/Entorno/TiendaCampaña1/TiendaCampanya1.obj";
 	importarEscenario(cstr50, 0,0,0);
-	const char* cstr51 = "tuberia_1";
+	const char* cstr51 = "models/Entorno/Tuberia1/tuberia_1.obj";
 	importarEscenario(cstr51, 0,0,0);
-	const char* cstr52 = "tuberia_2";
+	const char* cstr52 = "models/Entorno/Tuberia2/tuberia_2.obj";
 	importarEscenario(cstr52, 0,0,0);
-	const char* cstr53 = "tuberia_3";
+	const char* cstr53 = "models/Entorno/Tuberia3/tuberia_3.obj";
 	importarEscenario(cstr53, 0,0,0);
-	const char* cstr54 = "tuberia_4";
-	importarEscenario(cstr54, 0,0,0);
-	const char* cstr55 = "uberia_5";
+	/*const char* cstr54 = "models/Entorno/Tuberia4/tuberia_4.obj";
+	importarEscenario(cstr54, 0,0,0);*/
+	/*const char* cstr55 = "models/Entorno/Tuberia5/tuberia_5.obj";
 	importarEscenario(cstr55, 0,0,0);
-	const char* cstr56 = "tuberia_6";
-	importarEscenario(cstr56, 0,0,0);
-	const char* cstr57 = "VallaCampamento2";
+	const char* cstr56 = "models/Entorno/Tuberia6/tuberia_6.obj";
+	importarEscenario(cstr56, 0,0,0);*/
+	const char* cstr57 = "models/Entorno/VallaCampamento2/VallaCampamento2.obj";
 	importarEscenario(cstr57, 0,0,0);
-	const char* cstr58 = "VallaPubli";
+	const char* cstr58 = "models/Entorno/VallaPubli/VallaPubli.obj";
 	importarEscenario(cstr58, 0,0,0);
-	const char* cstr59 = "Vertedero";
+	const char* cstr59 = "models/Entorno/Vertedero/Vertedero.obj";
 	importarEscenario(cstr59, 0,0,0);
-    desp_x = desp_z = 0;
+	
+	
+	
+	
+	
+	
+	
+	desp_x = desp_z = 0;
 
 	camara = new Camara(true);
-	//crear camara
-
-
 	angulo = 0;
 	_velocidad = 1;
 	_debug = false;
-	_id_jugador = 0;
 
 	rayOrigen = new Vector3(0,0,0);
 	rayDestino = new Vector3(0,0,0);
@@ -223,7 +224,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 
 
 	_nodo->remove();
-    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);cubeBody
+    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);
     if ( ite2 != nodes.end()){
         nodes.erase(ite2);
         //delete _nodo;
@@ -242,7 +243,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 
 
 /*
-    std::vector<iNodoModelado*>::iterator it;
+    std::vector<ISceneNode*>::iterator it;
     it = std::find(nodes.begin(), nodes.end(), _nodo);
     if ( it != nodes.end()){
         nodes.erase(it);
@@ -308,7 +309,7 @@ _Motor=0;
 	delete mapa;
 	
 	delete world; 
-	//delete camara; 
+	delete camara; 
 	delete debugDraw; 
 	delete collisionConfiguration; 
 	delete broadPhase; 
@@ -317,13 +318,13 @@ _Motor=0;
 	delete fileLoader; 
 
 	//Irrlitch
-	//delete _GUI;
-	//driver->drop();
-	//device->drop();
+	delete _GUI;
+	driver->drop();
+	device->drop();
 
 
 	world = nullptr;
-	//camara = nullptr;
+	camara = nullptr;
 	debugDraw = nullptr;
 	collisionConfiguration = nullptr;
 	broadPhase = nullptr;
@@ -334,22 +335,19 @@ _Motor=0;
 
 
 void Motor::apagar(){
-	//device->closeDevice();
+	device->closeDevice();
 }
 
 
 
 void Motor::preparar_depuracion_mundo(){
-	
+	debugDraw = new DebugDraw(device);
+	debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+	world->setDebugDrawer(debugDraw);
 }
 
-
-void Motor::configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync){
-    _me = TMooseEngine::get_instancia();
-}
-
-void Motor::configuracion_bullet(){
-    collisionConfiguration = new btDefaultCollisionConfiguration();
+void Motor::configuracion_bullet(){	
+	collisionConfiguration = new btDefaultCollisionConfiguration();
 	broadPhase = new btDbvtBroadphase(new btHashedOverlappingPairCache());
 	collisionDispatcher = new btCollisionDispatcher(collisionConfiguration);
 	constraintSolver = new btSequentialImpulseConstraintSolver();
@@ -369,15 +367,10 @@ void Motor::configuracion_bullet(){
 	for(short i = 0; i<num;i++){
 
 		btTransform trans = fileLoader->getRigidBodyByIndex(i)->getWorldTransform();
-		
 
 		escenario = fileLoader->getRigidBodyByIndex(i)->getCollisionShape();
 		cubeMotionState = new btDefaultMotionState(trans);
 		btRigidBody* _objeto_esceario = new btRigidBody(0, cubeMotionState, escenario);
-
-		fileLoader->getRigidBodyByIndex(i)->setCollisionFlags(fileLoader->getRigidBodyByIndex(i)->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
-
-		rotar(_objeto_esceario,180);
 		_objeto_esceario->setFriction(0);
 		world->addRigidBody(_objeto_esceario,COL_ESCENARIO, escenario_colisiona_con);
 
@@ -385,24 +378,18 @@ void Motor::configuracion_bullet(){
 		//proxy->m_collisionFilterGroup = 4;
 		//proxy->m_collisionFilterMask = 4;
 	}	
+	
+	
     world->setGravity(btVector3(0,-9.8*18,0));
 }
 
-void Motor::render(){
-	_me->draw();
-}
-
-bool Motor::ventana_abierta(){
-    return !_me->ventana_abierta();
-}
-
-/*
 void Motor::configuracion_irlitch(){
 // Configuracion de Irrlicht
-	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16, 
-    					  false, false, false); 
+	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1024, 768), 16, 
+    					  false, false, false);
+						   
 
-	device->setWindowCaption(L"Feito Güarriorusuu");
+	device->setWindowCaption(L"Fate Warriors");
 
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
@@ -417,10 +404,10 @@ void Motor::configuracion_irlitch(){
 	_GUI = new GUI(device);
 	
 }
-*/
+
 
 unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso){
-	/*iNodoModelado *cubeNode = crearModelado(ruta, x,y,z);
+	/*ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
 	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
 	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
 	*/
@@ -428,63 +415,24 @@ unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, 
 	return 1;
 }
 
-iNodoModelado* Motor::crearModelado(const char* ruta){
-    iNodoModelado* nodo = new iNodoModelado(ruta);
-    lista_i_nodo.push_back(nodo);
-    return nodo;
-}
+ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
+	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
 
-iNodoModelado* Motor::crearModelado(const char* ruta, float x, float y, float z){
-    iNodoModelado* nodo = new iNodoModelado(ruta, x, y, z);
-    lista_i_nodo.push_back(nodo);
-    return nodo;
-}
-
-Camara* Motor::crearCamara(bool activa){
-    iNodoCamara* nodo = new iNodoCamara(activa);
-    lista_i_nodo.push_back(nodo);
-    Camara* camara = new Camara(activa);
-	return camara;
-}
-
-Camara* Motor::crearCamara(bool activa, float x, float y, float z){
-    iNodoCamara* nodo = new iNodoCamara(activa, x, y, z);
-    lista_i_nodo.push_back(nodo);
-	Camara* camara = new Camara(activa);
-    return camara;
-}
-
-iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
-									   Vector3 ambient,
-									   Vector3 specular,
-									   Vector3 diffuse){
-    iNodoLuz* nodo = new iNodoLuz(activa, intensidad,
-								  ambient,
-								  specular,
-								  diffuse);
-    lista_i_nodo.push_back(nodo);
-    return nodo;
-}
-
-iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
-									   Vector3 ambient,
-									   Vector3 specular,
-									   Vector3 diffuse,
-			  						   float x, float y, float z){
-    iNodoLuz* nodo = new iNodoLuz(activa, intensidad, 
-								  ambient,   
-								  specular,
-								  diffuse,   
-								  x, y, z);
-    lista_i_nodo.push_back(nodo);
-    return nodo;
+	if(cubeNode){
+		cubeNode->setMaterialFlag(EMF_LIGHTING, true);
+	}
+	
+	cubeNode->setPosition(vector3df(x, y, z));
+	
+	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
+	return cubeNode;
 }
 
 void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 	_objetos_motor.push_back(_i_objeto_motor);
 }
 
-btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode){
+btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
 		
 	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
@@ -501,7 +449,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 	switch(tipo){
 		case E_BoundingCapsule: 
-			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
+			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5);
 
 					break;
 		case E_BoundingBox:
@@ -548,6 +496,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	else if(dynamic_cast<Puerta*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
+		cubeBody->setFriction(0);
 	}
 
 	else if(dynamic_cast<Puerta_Pincho*>(_i_objeto)!=NULL){
@@ -608,8 +557,35 @@ btRigidBody* Motor::crear_rb_ataque(){
 	return rb_ataque;
 }
 
-void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
-	/*
+btRigidBody* Motor::crear_rb_vision(){
+	float mult = 4.9212625;
+
+	btTransform ghostTransform;
+	
+	ghostTransform.setIdentity();
+	ghostTransform.setOrigin(btVector3(1, 1 ,1));
+
+	btDefaultMotionState *cubeMotionState = new btDefaultMotionState(ghostTransform);
+
+	float cubeMass = 0;
+
+	btConeShape *cubeShape = new btConeShape(8,2);
+
+	btVector3 cubeLocalInertia;
+	cubeShape->calculateLocalInertia(cubeMass, cubeLocalInertia);
+
+	btRigidBody* rb_ataque = new btRigidBody(cubeMass, cubeMotionState, cubeShape, cubeLocalInertia);
+	
+	rb_ataque->setCollisionFlags(rb_ataque->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	int grupo_colision   = COL_OTRO;
+	int mascara_colision = otros_colisiona_con;
+	
+	world->addRigidBody(rb_ataque,grupo_colision,mascara_colision);
+
+	return rb_ataque;
+}
+
+void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
 	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
 	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
 	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
@@ -632,16 +608,6 @@ void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, f
 	profundidad = (edges[6].X - edges[2].X);
 
 	delete edges;
-	*/
-	
-	//de forma temporal hasta que el ME tenga forma de calcular bounding
-	Vector3 cosas = node->getBB();
-	anchura = cosas._z;
-	altura = cosas._y;
-	profundidad = cosas._x;
-
-	std::cout << "-----------------------------------------------------" << anchura << altura << profundidad << std::endl;
-	//profundidad = anchura = altura = 8;
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
@@ -652,13 +618,13 @@ void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
 void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
 	btBroadphaseProxy* proxy = _i_rigidbody->getBroadphaseProxy();
 	proxy->m_collisionFilterMask = mask;
+
 }
 
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
 	iNodoModelado *cubeNode = _objeto_motor->getNodo();
 	camara->Camara_setProta(cubeNode);
-	_id_jugador = 0;
-
+	_objeto_que_sigue_la_camara = _objeto_motor; 
 	camara->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
 }
 
@@ -688,16 +654,17 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 	return rayCallback;
 }
 
+IVideoDriver* Motor::getDriver(){
+	return driver;
+}
 
-iNodoModelado* Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
-	iNodoModelado* modelado = crearModelado(rutaObj, x, y, z);
-	
-	//modelado->rotar(-1,0,0,180);
-	modelado->escalar(1,-1,1);
-	modelado->rotar(0,0,1,180);
+void Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
 
-
-	return modelado;
+	mapa = smgr->addMeshSceneNode(smgr->getMesh(rutaObj));
+	if(mapa) {
+		mapa->setMaterialFlag(EMF_LIGHTING, false);
+		mapa->setPosition(core::vector3df(x,y,z));
+	}
 }
 
 void Motor::update(double dt){
@@ -707,7 +674,7 @@ void Motor::update(double dt){
 	}
 
 	mdt = dt;
-   	//if(device->isWindowActive()) {
+   	if(device->isWindowActive()) {
 
         world->stepSimulation(dt * 0.001f,5);
 
@@ -721,25 +688,25 @@ void Motor::update(double dt){
 
 		// Update de la posicion de la camara (despues de actualizar la del jugador)
 		updateCamaraColision();
-    //} 
+    } 
 
-    //else {
-    //    device->yield();
-    //}
+    else {
+        device->yield();
+    }
        // device->drop();
 }
 
 void Motor::interpola_posiciones(float _i_interpolacion) {
 
 	uint16_t _tam = _objetos_motor.size();
-	for(uint16_t i=0; i<_tam; i++){		
-		if(i == _id_jugador) {
-			Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
-			camara->interpola_target(_posicion_interpolada);
+	for(uint16_t i=0; i<_tam; i++){
+		
+		Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
+
+ 	if(_objetos_motor[i] == _objeto_que_sigue_la_camara) { 
+	 		camara->interpola_target(_posicion_interpolada);
 		}	
 	}
-	//std::cout << "se interpola la camara\n";
-
 	camara->interpola_posicion(_i_interpolacion);
 }
 
@@ -772,7 +739,7 @@ bool Motor::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
 
 void Motor::updateCamaraColision(){
 		btTransform t;
-		btVector3 pos = _objetos_motor[0]->getRigidBody()->getCenterOfMassPosition();
+		btVector3 pos = _objeto_que_sigue_la_camara->getRigidBody()->getCenterOfMassPosition();
 		
         float miX = pos[0];
         float miY = pos[1];
@@ -780,9 +747,10 @@ void Motor::updateCamaraColision(){
         
 		camara->Camara_Update();
 
+		//core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
 		Vector3 camPosI(camara->Camara_getPosition()._x,camara->Camara_getPosition()._y,camara->Camara_getPosition()._z);
 		btVector3 camaraPos(camPosI._x, camPosI._y, camPosI._z);
-		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con);
+		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con2);
 		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
 		//->getUserPointer();
 		if(rayCallback.hasHit()){
@@ -791,25 +759,24 @@ void Motor::updateCamaraColision(){
 			const btCollisionObject *object = rayCallback.m_collisionObject;
 			camara->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
 				
-			for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
-				if(fileLoader->getRigidBodyByIndex(i) == object){
-					// Set posicion colision
-					camara->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
-				}
-			}
+			//for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
+			//	if(fileLoader->getRigidBodyByIndex(i) == object){
+			//		// Set posicion colision
+			//		//camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
+			//	}
+			//}
 		}
 
 		angulo = camara->Camara_getAngleRad();
-
 }
 
 
 
 void Motor::resetear_camara(){
-	//camara->Camara_reset(_objetos_motor[0]->getInterpolacion()->get_direccion_actual());
+	camara->Camara_reset(_objeto_que_sigue_la_camara->getInterpolacion()->get_direccion_actual());
 }
 
-/*
+
 void Motor::render(){
 
 	driver->beginScene(true, true, SColor(255,100,101,140));
@@ -838,14 +805,18 @@ void Motor::render(){
 	_GUI->draw();
     driver->endScene();
 }
-*/
+
 //Metodos set
 
 void Motor::set_text_vida(int _i_vida){
-	//_GUI->set_text_vida(_i_vida);
+	_GUI->set_text_vida(_i_vida);
 	_vida = (_i_vida*300)/500;
 }
 
+
+IrrlichtDevice* Motor::getIrrlichtDevice(){
+	return device;
+}
 
 void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);
@@ -896,9 +867,9 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	// Rotacion
 	rbTransform.setIdentity();
 	rbTransform.setOrigin(rb->getCenterOfMassPosition());
-	btQuaternion incline;
-	incline.setRotation(btVector3(0, 1, 0), gTilt);
-	rbTransform.setRotation(incline);
+ 	btQuaternion incline; 
+  	incline.setRotation(btVector3(0, 1, 0), gTilt); 
+  	rbTransform.setRotation(incline); 
 	//std::cout << rotacion << std::endl;
 
 	// Escalado
@@ -907,11 +878,12 @@ void Motor::posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, b
 	// Traslacion
 	rbTransform.setOrigin(posicion);
 
-	//Se aplican las transformaciones
+//Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
 }
 
-void Motor::rotar(btRigidBody *rb, uint16_t rotacion){
+
+void Motor::posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion){
 	float mult = 4.9212625;
 	btScalar gTilt = rotacion*SIMD_PI / (180.0f); 
 	btTransform rbTransform;
@@ -919,14 +891,51 @@ void Motor::rotar(btRigidBody *rb, uint16_t rotacion){
 	// Rotacion
 	rbTransform.setIdentity();
 	rbTransform.setOrigin(rb->getCenterOfMassPosition());
-	btQuaternion incline;
-	incline.setRotation(btVector3(0, 1, 0), gTilt);
-	rbTransform.setRotation(incline);
+	btQuaternion incline(btVector3(0, 1, 0), gTilt);
+ 	gTilt = 90*SIMD_PI / (180.0f); 
+	btQuaternion miau(btVector3(0, 0, 1), gTilt);
+ 	gTilt = 270*SIMD_PI / (180.0f); 
+	btQuaternion bee(btVector3(1, 0, 0), gTilt);
+
+	rbTransform.setRotation(incline*miau*bee);
 	//std::cout << rotacion << std::endl;
+
+	// Escalado
+	rb->getCollisionShape()->setLocalScaling(escala);
+
+	// Traslacion
+	rbTransform.setOrigin(posicion);
 
 //Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
 }
 
+iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
+									   Vector3 ambient,
+									   Vector3 specular,
+									   Vector3 diffuse){
+    iNodoLuz* nodo = new iNodoLuz(activa, intensidad,
+								  ambient,
+								  specular,
+								  diffuse);
+    lista_i_nodo.push_back(nodo);
+    return nodo;
+}
 
+iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
+									   Vector3 ambient,
+									   Vector3 specular,
+									   Vector3 diffuse,
+			  						   float x, float y, float z){
+    iNodoLuz* nodo = new iNodoLuz(activa, intensidad, 
+								  ambient,   
+								  specular,
+								  diffuse,   
+								  x, y, z);
+    lista_i_nodo.push_back(nodo);
+    return nodo;
+}
 
+bool Motor::ventana_abierta(){
+    return !_me->ventana_abierta();
+}
