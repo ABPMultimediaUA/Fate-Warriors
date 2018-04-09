@@ -4,6 +4,7 @@
 
 #include "irrlicht/irrlicht.h"
 #include "../Utilidades/Vector.h"
+#include "../Moose_Engine/src/iNodoModelado.h"
 #include "EnumTiposBoundingBox.h"
 
 #include <cstdint>

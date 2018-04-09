@@ -168,7 +168,7 @@ private:
       uint8_t _numcubos;
 
       //Irlitch
-      ISceneNode *mapa;
+      //ISceneNode *mapa;
 	IrrlichtDevice *device;
       IVideoDriver* driver;
 	ISceneManager* smgr;
@@ -177,6 +177,13 @@ private:
        
       Objeto_Motor *_objeto_que_sigue_la_camara;
       std::vector<Objeto_Motor*> _objetos_motor;
+
+      //ME
+      TMooseEngine* _me;
+      iNodoModelado* mapa;
+      uint16_t _id_jugador;
+      std::vector<iNodo*> lista_i_nodo;
+
 };
 
 
