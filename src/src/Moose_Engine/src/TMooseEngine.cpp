@@ -95,11 +95,13 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(-1);
     }  
+    //culling
     glEnable(GL_DEPTH_TEST);
     glViewport(0,0,width,height);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK); //Hay que usar el front, asi que mirare el modelado.
     glFrontFace(GL_CCW);
+    //texturas
 }
 
 float TMooseEngine::getMouseOffsetX(){
@@ -160,6 +162,11 @@ TModelado* TMooseEngine::crearModelado(const char* _i_path){
     //_gestorRecursos->getRecursoModelo(fichero);
     return malla;
 }
+TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){ 
+    TAnimacion* animacion = new TAnimacion(_i_path); 
+    //_gestorRecursos->getRecursoModelo(fichero); 
+    return animacion; 
+} 
 
 void TMooseEngine::clear(){
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){

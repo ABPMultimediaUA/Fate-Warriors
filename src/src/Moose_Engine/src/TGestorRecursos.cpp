@@ -152,7 +152,6 @@ void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std:
     std::vector<TRecursoMalla*> _modelos;
     cargarNodo(scene->mRootNode, scene, _modelos, path_text);
     int width, height, nrChannels;
-    
     unsigned int texture1, texture2;
     glGenTextures(1,&texture1);
     glBindTexture(GL_TEXTURE_2D,texture1);

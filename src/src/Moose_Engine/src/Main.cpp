@@ -51,7 +51,7 @@ void interfazTest(){
 */
 void recorrerArbol(){
 
-/*    
+  
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
     //resurseManajer->getRecursoModelo("Enemigo.obj");
@@ -67,16 +67,19 @@ void recorrerArbol(){
     TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "suelo_t_1";
     TModelado* malla1 = motor->crearModelado(cstr);
-    const char cstr2[] = "Anim_disparar_ametralladora_npc2";
+    const char cstr2[] = "Anim_idle_npc2";
     TAnimacion* Animacion1 = motor->crearAnimacion(cstr2);
 
-    const char cstr3[] = "Anim_ataque_d1_npc2";
+    const char cstr3[] = "Anim_idle_pistola_objetos";
     TAnimacion* Animacion2 = motor->crearAnimacion(cstr3);
+
+  /*  const char cstr3[] = "Anim_ataque_d1_npc2";
+    TAnimacion* Animacion2 = motor->crearAnimacion(cstr3);*/
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
     trans2->rotar(0,1,0,90);
-    trans3->trasladar(0,10,15);
+    trans3->trasladar(0,5,15);
     trans4->rotar(0,1,1,1);
     //trans5->rotar(0,1,0,10);
     
@@ -122,7 +125,7 @@ void recorrerArbol(){
 
 
 
-/*
+
 
     while(!motor->ventana_abierta()){
 
@@ -141,10 +144,10 @@ void recorrerArbol(){
         //model = glm::translate(model, glm::vec3(0.0f, 1.75f, 50.0f)); // translate it down so it's at the center of the scene
         //model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));	// it's a bit too big for our scene, so scale it down
         //shader.setMat4("model", model);
-  //      motor->draw();
+        motor->draw();
 
 
-    //}
+    }
     /*glm::mat4 algo=glm::mat4(1.0f);
     algo[0]=glm::vec4( 3.0, 4.0, 0.0, 1.0 );
     glm::mat4 algo2=glm::mat4(1.0f);
@@ -157,7 +160,7 @@ void recorrerArbol(){
     motor->setCamaraActiva(nCamara);
     int nLuz=motor->registrarLuz(nodoLuz);
     motor->setLuzActiva(nLuz);*/
- //   delete motor;
+    delete motor;
 
 }
 
