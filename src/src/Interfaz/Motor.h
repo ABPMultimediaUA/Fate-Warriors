@@ -67,8 +67,8 @@ public:
   
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
-    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
-    ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
+    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
+    iNodoModelado* crearModelado(const char*  ruta,float x, float y, float z);
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     btRigidBody* crear_rb_vision();
@@ -102,7 +102,7 @@ public:
 
     void interpola_posiciones(float _i_interpolacion);
     void resetear_camara();
-    void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
+    void getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad);
 
     void borrar_objeto(Objeto_Motor* _objeto_motor);
     void borrar_rb(btRigidBody* rb); // Mejorar
@@ -174,7 +174,6 @@ private:
 	ISceneManager* smgr;
       GUI* _GUI;
 
-       
       Objeto_Motor *_objeto_que_sigue_la_camara;
       std::vector<Objeto_Motor*> _objetos_motor;
 
@@ -183,7 +182,6 @@ private:
       iNodoModelado* mapa;
       uint16_t _id_jugador;
       std::vector<iNodo*> lista_i_nodo;
-
 };
 
 
