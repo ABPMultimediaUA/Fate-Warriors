@@ -7,7 +7,7 @@ class Interfaz_Fisica;
 class Input;
 class Motor;
 class Interfaz_sonido;
-
+class Cono_Vision;
 
 class Player : public Character{
 public:
@@ -22,7 +22,6 @@ public:
 	void aumentar_especial();
 	void disminuir_especial();
 	void gestion_dash()					override;
-	void preparar_ataque_objetivo_mas_proximo_con_impulso();
 
 	//ckeyboardman* _KeyMan;
 private:
@@ -34,19 +33,8 @@ private:
 	Interfaz_Fisica* _interface_fisica;
 	//Time * _tiempo;
 	Input* _input;
-	btRigidBody *_rb_apuntado;
-	Character * _apuntando;
 	// double _tiempobloqueo; BORRAME
-
-
-	Character* objetivo_mas_proximo_angulo();
-
-	void rotar_en_funcion_de_un_punto(Character* _objetivo);
-
-	//uint16_t rotar_en_funcion_de_un_punto_direccion(Character* _objetivo);
-	void set_apuntando_a_objetivo_mas_proximo();
-	void rotar_en_funcion_de_ese_objetivo();
-
+	Cono_Vision* _cono_vision;
 };
 
 #endif /* SRC_PLAYER_H_ */
