@@ -37,7 +37,7 @@ void Zona_Coliseo::actualizar_zona(){
 void Zona_Coliseo::iniciar_coliseo(){
     
     Respawn* _respawn = Respawn::posiciones_instancia();
-    _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
+    _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true, this);
     activar_todas_las_puerta_pincho();
     _coliseo_iniciado=true;
     _rondas--;
@@ -48,7 +48,7 @@ void Zona_Coliseo::update_coliseo(){
     if(get_num_npc_en_zona()==0){
         if( _rondas>0){
             Respawn* _respawn = Respawn::posiciones_instancia();
-            _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true);
+            _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, true, this);
             _rondas--;
         }
 

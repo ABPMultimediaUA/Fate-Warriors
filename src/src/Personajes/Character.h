@@ -11,6 +11,7 @@ class Inventario;
 class Time;
 class Arma;
 class Consumible_Power_Up;
+class Zona;
 
 class Character : public Objeto{
 public:
@@ -120,6 +121,10 @@ public:
 
 	bool _bloqueado; // Si se encuentra bloqueado por el Tipo_Accion
 
+	void set_zona_en_la_que_se_encuentra(Zona * _zona);
+	Zona* get_zona();
+
+
 protected:
 	
 	int16_t _vida_maxima;
@@ -144,6 +149,8 @@ protected:
 	uint16_t _direccion_actual;
 	bool _inmortal;
 	Enum_Equipo _equipo;
+	Zona* _zona_en_la_que_se_encuentra;
+
 	int _npcs_persiguiendome;
 };
 

@@ -28,6 +28,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
     _tiene_arma_larga(false){
 
+    _zona_en_la_que_se_encuentra = nullptr;
     _inmortal = false;
     _inventario = new Inventario();
     _tiempo = Time::Instance();
@@ -332,6 +333,7 @@ void Character::morir(){ // SE SOBRESCRIBE EN NPC!!
     //std::cout << "He muerto :("<< std::endl;
     //_inventario->soltar_armas(getX(), getZ()); BORRAME
 
+    _zona_en_la_que_se_encuentra = nullptr;
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
     //setY(99999999999);
 
@@ -768,6 +770,11 @@ void Character::gestion_interactuar(){
     }
 }
 
+void Character::set_zona_en_la_que_se_encuentra(Zona* _zona){
+   _zona_en_la_que_se_encuentra = _zona;
+}
+
+
 void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVERRIDE
 
     if(this->get_accion() == Accion_pre_atacar){
@@ -874,4 +881,9 @@ void Character::rotar_cuerpo(uint16_t _i_valor){
 
 void Character::rotar_cuerpo_sin_interpolacion(uint16_t _i_valor){
     _objeto_motor->rotar_nodo_sin_interpolacion(_i_valor);
+}
+
+
+Zona* Character::get_zona() {
+    return _zona_en_la_que_se_encuentra;
 }

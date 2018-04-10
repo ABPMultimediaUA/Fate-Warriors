@@ -10,6 +10,7 @@
 
 class Character;
 class Nivel;
+class Zona;
 
 class Respawn {
 
@@ -33,7 +34,7 @@ public:
     Vector2 generar_posicion_del_bando(Enum_Equipo _i_bando);
     std::map<Character*, double> jugadores_a_revivir();
     void renacer_personaje_en_posicion(Character* _i_personaje, Vector2 posicion);
-    std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, bool inmediatamente);
+    std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, bool inmediatamente, Zona* _zona);
 
 
 private:
