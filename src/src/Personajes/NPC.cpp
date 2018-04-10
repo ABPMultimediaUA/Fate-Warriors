@@ -48,17 +48,6 @@ void NPC::morir(){
         _blackboard->_distancia_enemigo_mas_cerca =  10000000000;
     }
 
-    if(_blackboard->_interruptor_cerca_util != nullptr){
-        //_blackboard->_interruptor_cerca_util->decrementar_npcs_persiguiendome();
-        _blackboard->_interruptor_cerca_util = nullptr;
-    }
-
-    if(_blackboard->_zona_actual != nullptr){
-        _blackboard->_zona_actual->decrementar_npcs_persiguiendome();
-        _blackboard->_zona_actual = nullptr;
-    }
-        
-
 }
 
 void NPC::stop() {

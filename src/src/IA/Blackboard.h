@@ -22,11 +22,7 @@ public:
 
 	//FUNCIONES DE REFRESCO Y OBTENCION DE DATOS
 	void actualiza_datos();									//Actualiza los datos del blackboard para cada iteracion
-	void actualizar_zonas();
 	void actualizar_characteres();
-	void actualizar_objetos();
-	void actualizar_interruptores();
-	void actualizar_datos_npc_padre();
 	void actualizar_pseudo_azar();
 
 	void equipar_arma_larga_distancia();
@@ -34,8 +30,6 @@ public:
 
 	//FUNCIONES DE TOMA DE DECISION
 	void set_decision(enum Enum_Decisiones _i_decision);	//Set la decision actual
-
-	void generar_habilidades();
 
 	//setters
 	inline void set_nodo_blackboard(Nodo_blackboard* _i_blackboard){
@@ -63,8 +57,6 @@ public:
 
 	// Datos de identidad del NPC
 	NPC * _npc_padre;
-	bool _tengo_arma_corta_distancia;
-	bool _tengo_arma_larga_distancia;
 	Enum_Tipo_Ataque _ataque_a_realizar; // Se lee en el Action Manager
 	bool _puedo_esquivar;
 	
@@ -84,31 +76,6 @@ public:
 	float _distancia_enemigo_mas_cerca;
 	bool _enemigo_mas_cerca_esta_cerca;
 	bool _enemigo_mas_cerca_esta_muy_cerca;
-
-	// INTERACTUABLES (ARMAS, POWER UPS, CONSUMIBLES)
-
-	Objeto* _objeto_mas_cerca; // Arma, power up o consumible 
-	bool _objeto_mas_cerca_que_enemigo_mas_cerca;
-	bool _objeto_mas_cerca_esta_cerca;
-	bool _objeto_mas_cerca_esta_muy_cerca;
-
-	// ZONAS
-
-	Zona* _zona_actual; // Zona actual en la que se encuentra, puede no estar en ninguna (nullptr) 
-	// Zonas mas cercanas sin contar la actual:
-		Zona* _zona_mas_cerca; 
-		Zona* _zona_enemiga_mas_cerca; 
-		Zona* _zona_aliada_mas_cerca; 
-
-	// INTERRUPTORES
-	Interruptor* _interruptor_cerca_util;
-	bool _interruptor_esta_cerca;
-
-	// HABILIDADES
-	//bool _habilidad_coger_objeto;
-	//bool _habilidad_defender;
-	//bool _habilidad_activar_interruptor;
-
 
 	//Con informacion de la zona
 	Nodo_blackboard* _zona;					// Blackbaord de la zona
