@@ -45,11 +45,13 @@ std::string TAnimacion::get_nombre(){
     return _animacion->GetNombre();
 }
 void TAnimacion::update_anim(){
-    if(_reloj->get_current()-_tiempo_aux>=55){
-        _tiempo_aux=_reloj->get_current();
-        ++_contador_anim;
-        if(_contador_anim==_animacion->get_anim_cont()){
-            _contador_anim=0;
+    if(!_reloj->get_esta_pausado()){
+        if(_reloj->get_current()-_tiempo_aux>=55){
+            _tiempo_aux=_reloj->get_current();
+            ++_contador_anim;
+            if(_contador_anim==_animacion->get_anim_cont()){
+                _contador_anim=0;
+            }
         }
     }
 }
