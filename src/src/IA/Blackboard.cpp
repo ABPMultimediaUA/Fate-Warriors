@@ -29,23 +29,11 @@ Blackboard::Blackboard(NPC * npc_padre) {
 	_decision = Decision_Quieto;
 	_porcentaje_vida = 100;
 
-
 	_enemigo_mas_cerca = nullptr;
 	_distancia_enemigo_mas_cerca = 10000000;
 
 	_enemigo_mas_cerca_esta_cerca = false;
 	_enemigo_mas_cerca_esta_muy_cerca = false;
-
-	_interruptor_cerca_util = nullptr;
-	_interruptor_esta_cerca = false;
-
-	_zona_actual = nullptr;
-	_zona_mas_cerca = nullptr;
-	_zona_enemiga_mas_cerca = nullptr;
-	_zona_aliada_mas_cerca = nullptr;
-
-	// Se generan al azar las habilidades
-	generar_habilidades();
 
 }
 
@@ -58,10 +46,7 @@ void Blackboard::actualiza_datos() {
 
 	// Actualizar siempre:
 	actualizar_pseudo_azar();
-	actualizar_datos_npc_padre();
 	actualizar_characteres();
-	actualizar_objetos();
-	actualizar_interruptores();
 	
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
@@ -234,7 +219,7 @@ void Blackboard::actualizar_characteres(){
 
 } 
 
-
+/*
 void Blackboard::actualizar_zonas(){
 	Zonas_Manager * zonas_manager = Game::game_instancia()->game_get_datos()->get_zonas_manager();
 	Zona** zonas = zonas_manager->get_zonas();
@@ -375,7 +360,9 @@ void Blackboard::actualizar_zonas(){
 	
 	
 }
+*/
 
+/*
 void Blackboard::actualizar_objetos(){
 
 	Objeto * objeto_mas_cerca_aux = nullptr;
@@ -437,6 +424,8 @@ void Blackboard::actualizar_objetos(){
 	_objeto_mas_cerca = objeto_mas_cerca_aux;
 
 }
+
+
 
 void Blackboard::actualizar_interruptores(){
 
@@ -551,7 +540,7 @@ void Blackboard::actualizar_interruptores(){
 		_interruptor_cerca_util = nullptr;
 		_interruptor_esta_cerca = false;
 	}
-	*/
+	
 }
 
 void Blackboard::actualizar_datos_npc_padre(){
@@ -574,7 +563,7 @@ void Blackboard::actualizar_datos_npc_padre(){
 		_tengo_arma_corta_distancia = false;
 	}
 }
-
+*/
 void Blackboard::equipar_arma_larga_distancia(){
 	_npc_padre->get_inventario()->seleccionar_arma_distancia_NPC();
 }
@@ -598,26 +587,3 @@ void Blackboard::actualizar_pseudo_azar(){
 		//std::cout <<"Entra 2 \n";
 	}
 }
-
-
-void Blackboard::generar_habilidades(){
-/*
-	if(rand() % 2 == 0)
-		_habilidad_coger_objeto = false;
-	else
-		_habilidad_coger_objeto = true;
-
-	if(rand() % 2 == 0)
-		_habilidad_defender = false;
-	else
-		_habilidad_defender = true;
-
-	if(rand() % 2 == 0)
-		_habilidad_activar_interruptor = false;
-	else
-		_habilidad_activar_interruptor = true;
-		*/
-	
-}
-
-

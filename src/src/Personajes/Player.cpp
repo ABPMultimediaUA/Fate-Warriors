@@ -162,12 +162,7 @@ void Player::update(){
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
     }
     else{
-        //std::cout<<"sigo muerto" << std::endl;
-        //Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(this);
-
-        Vector2 pos = Respawn::posiciones_instancia()->generar_posicion_del_bando(get_equipo());
-        revivir(pos);
-        Respawn::posiciones_instancia()->eliminar_character_a_reaparecer(this);
+        morir();
     }
 
 
@@ -223,4 +218,8 @@ void Player::aumentar_especial(){
 
 void Player::disminuir_especial(){
     _especial-=1;
+}
+
+void Player::morir() {
+    Game::game_instancia()->cambio_a_update_lose();
 }
