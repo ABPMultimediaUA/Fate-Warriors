@@ -47,125 +47,125 @@ Motor::Motor(){
     preparar_depuracion_mundo();
 
 	//meter modelos pa irlitch
-	const char* cstr = "models/Entorno/Suelo/suelo_t_1/suelo_t_1.obj";
+	const char* cstr = "suelo_t_1";
 	importarEscenario(cstr, 0,0,0);
-	const char* cstr2 = "models/Entorno/Suelo/suelo_t_2/suelo_t_2.obj";
+	const char* cstr2 = "suelo_t_2";
 	importarEscenario(cstr2, 0,0,0);
-	const char* cstr3 = "models/Entorno/Suelo/suelo_t_3/suelo_t_3.obj";
+	const char* cstr3 = "suelo_t_3";
 	importarEscenario(cstr3, 0,0,0);
-	const char* cstr4 = "models/Entorno/Suelo/suelo_t_4/suelo_t_4.obj";
+	const char* cstr4 = "suelo_t_4";
 	importarEscenario(cstr4, 0,0,0);
-	const char* cstr5 = "models/Entorno/Suelo/suelo_t_5/suelo_t_5.obj";
+	const char* cstr5 = "suelo_t_5";
 	importarEscenario(cstr5, 0,0,0);
-	const char* cstr6 = "models/Entorno/Suelo/suelo_exterior_1/suelo_exterior_1.obj";
+	const char* cstr6 = "suelo_exterior_1";
 	importarEscenario(cstr6, 0,0,0);
 	/*const char* cstr7 = "models/Entorno/Suelo/suelo_exterior_2/suelo_exterior_2.obj";
 	importarEscenario(cstr7, 0,0,0);
 	const char* cstr8 = "models/Entorno/Suelo/suelo_exterior_3/suelo_exterior_3.obj";
 	importarEscenario(cstr8, 0,0,0);*/
     
-	const char* cstr9 = "models/Entorno/Duna/Duna.obj";
+	const char* cstr9 = "Duna";
 	importarEscenario(cstr9, 0,0,0);
-	const char* cstr10 = "models/Entorno/Arbol/Arbol.obj";
+	const char* cstr10 = "Arbol";
 	importarEscenario(cstr10, 0,0,0);
-	const char* cstr11 = "models/Entorno/Bidones1/Bidones1.obj";
+	const char* cstr11 = "Bidones1";
 	importarEscenario(cstr11, 0,0,0);
-	const char* cstr12 = "models/Entorno/Bidones2/Bidones2.obj";
+	const char* cstr12 = "Bidones2";
 	importarEscenario(cstr12, 0,0,0);
-	const char* cstr13 = "models/Entorno/Ruinas1/Ruinas1.obj";
+	const char* cstr13 = "Ruinas1";
 	importarEscenario(cstr13, 0,0,0);
-	const char* cstr14 = "models/Entorno/Ruinas1/Ruinas1.obj";
+	const char* cstr14 = "Ruinas1";
 	importarEscenario(cstr14, 0,0,0);
-	const char* cstr15 = "models/Entorno/Muralla/Muralla.obj";
+	const char* cstr15 = "Muralla";
 	importarEscenario(cstr15, 0,0,0);
-	const char* cstr16 = "models/Entorno/Leños/Lenyos.obj";
-	importarEscenario(cstr16, 0,0,0);
-	const char* cstr17 = "models/Entorno/EdificioPuente/EdificioPuente.obj";
+	//const char* cstr16 = "Lenyos";
+	//importarEscenario(cstr16, 0,0,0);
+	const char* cstr17 = "EdificioPuente";
 	importarEscenario(cstr17, 0,0,0);
-	const char* cstr18 = "models/Entorno/RuinaPuerta/RuinaPuerta.obj";
+	const char* cstr18 = "RuinaPuerta";
 	importarEscenario(cstr18, 0,0,0);
-	const char* cstr19 = "models/Entorno/Valla/Valla1/Valla1.obj";
-	importarEscenario(cstr19, 0,0,0);
-	const char* cstr20 = "models/Entorno/Valla/Valla2/Valla2.obj";
-	importarEscenario(cstr20, 0,0,0);
-	const char* cstr21 = "models/Entorno/PinchosFoso/PinchosFoso.obj";
+	//const char* cstr19 = "Valla1";
+	//importarEscenario(cstr19, 0,0,0);
+	//const char* cstr20 = "Valla2";
+	//importarEscenario(cstr20, 0,0,0);
+	const char* cstr21 = "PinchosFoso";
 	importarEscenario(cstr21, 0,0,0);
-	const char* cstr22 = "models/Entorno/ApoyoEdificio1/ApoyoEdificio1.obj";
+	const char* cstr22 = "ApoyoEdificio1";
 	importarEscenario(cstr22, 0,0,0);
-	const char* cstr23 = "models/Entorno/ApoyoEdificio2/ApoyoEdificio2.obj";
+	const char* cstr23 = "ApoyoEdificio2";
 	importarEscenario(cstr23, 0,0,0);
-	const char* cstr24 = "models/Entorno/ApoyoEdificio3/ApoyoEdificio3.obj";
+	const char* cstr24 = "ApoyoEdificio3";
 	importarEscenario(cstr24, 0,0,0);
-	const char* cstr25 = "models/Entorno/ApoyoEdificio4/ApoyoEdificio4.obj";
+	const char* cstr25 = "ApoyoEdificio4";
 	importarEscenario(cstr25, 0,0,0);
-	const char* cstr26 = "models/Entorno/ApoyoEdificio5/ApoyoEdificio5.obj";
+	const char* cstr26 = "ApoyoEdificio5";
 	importarEscenario(cstr26, 0,0,0);
-	const char* cstr27 = "models/Entorno/CajasHoguera/CajasHoguera.obj";
+	const char* cstr27 = "CajasHoguera";
 	importarEscenario(cstr27, 0,0,0);
-	const char* cstr28 = "models/Entorno/Campamento2/Campamento2.obj";
+	const char* cstr28 = "Campamento2";
 	importarEscenario(cstr28, 0,0,0);
-	const char* cstr29 = "models/Entorno/EdificioGrande/EdificioGrande.obj";
+	const char* cstr29 = "EdificioGrande";
 	importarEscenario(cstr29, 0,0,0);
-	const char* cstr30 = "models/Entorno/EdificioLejos1/EdificioLejos1.obj";
+	const char* cstr30 = "EdificioLejos1";
 	importarEscenario(cstr30, 0,0,0);
-	const char* cstr31 = "models/Entorno/EdificioLejos2/EdificioLejos2.obj";
+	const char* cstr31 = "EdificioLejos2";
 	importarEscenario(cstr31, 0,0,0);
-	const char* cstr32 = "models/Entorno/EdificioLejos3/EdificioLejos3.obj";
+	const char* cstr32 = "EdificioLejos3";
 	importarEscenario(cstr32, 0,0,0);
-	const char* cstr33 = "models/Entorno/EdificioLejos4/EdificioLejos4.obj";
+	const char* cstr33 = "EdificioLejos4";
 	importarEscenario(cstr33, 0,0,0);
-	const char* cstr34 = "models/Entorno/EdificioLejos5/EdificioLejos5.obj";
+	const char* cstr34 = "EdificioLejos5";
 	importarEscenario(cstr34, 0,0,0);
-	const char* cstr35 = "models/Entorno/EdificioRuinas1/EdificioRuinas1.obj";
+	const char* cstr35 = "EdificioRuinas1";
 	importarEscenario(cstr35, 0,0,0);
-	const char* cstr36 = "models/Entorno/Hoguera/Hoguera.obj";
+	const char* cstr36 = "Hoguera";
 	importarEscenario(cstr36, 0,0,0);
-	const char* cstr37 = "models/Entorno/Hoguerads/Hoguerads.obj";
+	const char* cstr37 = "Hoguerads";
 	importarEscenario(cstr37, 0,0,0);
-	const char* cstr38 = "models/Entorno/PiedraPoste/PiedraPoste.obj";
+	const char* cstr38 = "PiedraPoste";
 	importarEscenario(cstr38, 0,0,0);
-	const char* cstr39 = "models/Entorno/PosteLuz/PosteLuz.obj";
+	const char* cstr39 = "PosteLuz";
 	importarEscenario(cstr39, 0,0,0);
 	//const char* cstr40 = "models/Entorno/Presa/Presa.obj";
 	//importarEscenario(cstr40, 0,0,0);
-	const char* cstr41 = "models/Entorno/RuinaEdificio1/RuinaEdificio1.obj";
+	const char* cstr41 = "RuinaEdificio1";
 	importarEscenario(cstr41, 0,0,0);
-	const char* cstr42 = "models/Entorno/RuinaEdificio2/RuinaEdificio2.obj";
+	const char* cstr42 = "RuinaEdificio2";
 	importarEscenario(cstr42, 0,0,0);
-	const char* cstr43 = "models/Entorno/RuinaEdificio3/RuinaEdificio3.obj";
+	const char* cstr43 = "RuinaEdificio3";
 	importarEscenario(cstr43, 0,0,0);
-	const char* cstr44 = "models/Entorno/RuinaEdificio4/RuinaEdificio4.obj";
+	const char* cstr44 = "RuinaEdificio4";
 	importarEscenario(cstr44, 0,0,0);
-	const char* cstr45 = "models/Entorno/RuinaEdificio5/RuinaEdificio5.obj";
+	const char* cstr45 = "RuinaEdificio5";
 	importarEscenario(cstr45, 0,0,0);
-	const char* cstr46 = "models/Entorno/SueloEdificio1/SueloEdificio1.obj";
+	const char* cstr46 = "SueloEdificio1";
 	importarEscenario(cstr46, 0,0,0);
-	const char* cstr47 = "models/Entorno/SueloEdificio2/SueloEdificio2.obj";
+	const char* cstr47 = "SueloEdificio2";
 	importarEscenario(cstr47, 0,0,0);
-	const char* cstr48 = "models/Entorno/SueloEdificio3/SueloEdificio3.obj";
+	const char* cstr48 = "SueloEdificio3";
 	importarEscenario(cstr48, 0,0,0);
-	const char* cstr49 = "models/Entorno/SueloEdificio4/SueloEdificio4.obj";
+	const char* cstr49 = "SueloEdificio4";
 	importarEscenario(cstr49, 0,0,0);
-	const char* cstr50 = "models/Entorno/TiendaCampaña1/TiendaCampanya1.obj";
-	importarEscenario(cstr50, 0,0,0);
-	const char* cstr51 = "models/Entorno/Tuberia1/tuberia_1.obj";
-	importarEscenario(cstr51, 0,0,0);
-	const char* cstr52 = "models/Entorno/Tuberia2/tuberia_2.obj";
-	importarEscenario(cstr52, 0,0,0);
-	const char* cstr53 = "models/Entorno/Tuberia3/tuberia_3.obj";
-	importarEscenario(cstr53, 0,0,0);
+	//const char* cstr50 = "TiendaCampanya1";
+	//importarEscenario(cstr50, 0,0,0);
+	//const char* cstr51 = "tuberia_1";
+	//importarEscenario(cstr51, 0,0,0);
+	//const char* cstr52 = "tuberia_2";
+	//importarEscenario(cstr52, 0,0,0);
+	//const char* cstr53 = "tuberia_3";
+	//importarEscenario(cstr53, 0,0,0);
 	/*const char* cstr54 = "models/Entorno/Tuberia4/tuberia_4.obj";
 	importarEscenario(cstr54, 0,0,0);*/
 	/*const char* cstr55 = "models/Entorno/Tuberia5/tuberia_5.obj";
 	importarEscenario(cstr55, 0,0,0);
 	const char* cstr56 = "models/Entorno/Tuberia6/tuberia_6.obj";
 	importarEscenario(cstr56, 0,0,0);*/
-	const char* cstr57 = "models/Entorno/VallaCampamento2/VallaCampamento2.obj";
-	importarEscenario(cstr57, 0,0,0);
-	const char* cstr58 = "models/Entorno/VallaPubli/VallaPubli.obj";
-	importarEscenario(cstr58, 0,0,0);
-	const char* cstr59 = "models/Entorno/Vertedero/Vertedero.obj";
-	importarEscenario(cstr59, 0,0,0);
+	//const char* cstr57 = "VallaCampamento2.obj";
+	//importarEscenario(cstr57, 0,0,0);
+	//const char* cstr58 = "VallaPubli.obj";
+	//importarEscenario(cstr58, 0,0,0);
+	//const char* cstr59 = "Vertedero.obj";
+	//importarEscenario(cstr59, 0,0,0);
 	
 	
 	
@@ -415,16 +415,17 @@ unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, 
 	return 1;
 }
 
-ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
-	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
+iNodoModelado* Motor::crearModelado(const char* ruta,float x, float y, float z){
+	iNodoModelado *cubeNode = new iNodoModelado(ruta, x, y, z);
 
-	if(cubeNode){
-		cubeNode->setMaterialFlag(EMF_LIGHTING, true);
-	}
+	//if(cubeNode){
+	//	cubeNode->setMaterialFlag(EMF_LIGHTING, true);
+	//}
+	//
+	//cubeNode->setPosition(vector3df(x, y, z));
+	//
+	//cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
 	
-	cubeNode->setPosition(vector3df(x, y, z));
-	
-	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
 	return cubeNode;
 }
 
@@ -432,7 +433,7 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 	_objetos_motor.push_back(_i_objeto_motor);
 }
 
-btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode){
 		
 	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
@@ -585,29 +586,11 @@ btRigidBody* Motor::crear_rb_vision(){
 	return rb_ataque;
 }
 
-void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
-	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
-	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	altura = (edges[1].Y - edges[0].Y);
-	delete edges;
-
-
-	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	anchura = (edges[2].Z - edges[0].Z);
-
-	delete edges;
-
-
-	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	profundidad = (edges[6].X - edges[2].X);
-
-	delete edges;
+void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
+	Vector3 cosas = node->getBB();
+	anchura = cosas._z;
+	altura = cosas._y;
+	profundidad = cosas._x;
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
@@ -660,11 +643,11 @@ IVideoDriver* Motor::getDriver(){
 
 void Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
 
-	mapa = smgr->addMeshSceneNode(smgr->getMesh(rutaObj));
-	if(mapa) {
-		mapa->setMaterialFlag(EMF_LIGHTING, false);
-		mapa->setPosition(core::vector3df(x,y,z));
-	}
+	mapa = crearModelado(rutaObj, x, y, z);
+	//if(mapa) {
+	//	mapa->setMaterialFlag(EMF_LIGHTING, false);
+	//	mapa->setPosition(core::vector3df(x,y,z));
+	//}
 }
 
 void Motor::update(double dt){

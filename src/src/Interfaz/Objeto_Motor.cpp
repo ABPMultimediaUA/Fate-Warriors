@@ -44,14 +44,17 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
-	_nodo->setPosition(vector3df(x,btt.getOrigin().getY(),z));
+	_nodo->mover(x,btt.getOrigin().getY(),z);
 
 	const btQuaternion &quat = _rigidbody->getOrientation();
 	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
 	vector3df euler;
 	q.toEuler(euler);
 	euler *= RADTODEG;
-	_nodo->setRotation(euler);
+	//_nodo->setRotation(euler);
+	_nodo->rotacionDirecta(1, 0, 0, euler.X);
+	_nodo->rotacionDirecta(0, 1, 0, euler.Y);
+	_nodo->rotacionDirecta(0, 0, 1, euler.Z);
 }
 
 
@@ -67,7 +70,7 @@ void Objeto_Motor::setPositionY(float y){
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
-	_nodo->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+	_nodo->mover(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ());
 }
 
 
@@ -173,7 +176,7 @@ float Objeto_Motor::getZ(){
 }
 
 void Objeto_Motor::colorear_nodo(short r,short g, short b){
-	_nodo->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
+	//_nodo->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
 }
 
 //Manu NO miro esta cosa.com
@@ -190,7 +193,7 @@ void Objeto_Motor::abrir_puerta1(){
 
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
-	_nodo->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+	_nodo->mover(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ());
 }
 
 void Objeto_Motor::abrir_puerta2(){
@@ -205,7 +208,7 @@ void Objeto_Motor::abrir_puerta2(){
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 		
-	_nodo->setPosition(vector3df(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
+	_nodo->mover(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ());
 }
 
 void Objeto_Motor::abrir_puerta(){
@@ -222,7 +225,7 @@ float Objeto_Motor::getVelocidadY(){
 
 void Objeto_Motor::updateDynamicBody() {
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
-	_nodo->setPosition(vector3df(pos[0], pos[1], pos[2]));
+	_nodo->mover(pos[0], pos[1], pos[2]);
 
 	Vector3 vector(pos[0], pos[1], pos[2]);
 	_interpolacion->actualiza_posicion(vector);
@@ -238,9 +241,11 @@ void Objeto_Motor::updateDynamicBody() {
 Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 	Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
 	
-	_nodo->setPosition(vector3df(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z));
+	_nodo->mover(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z);
 
-	_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
+	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
+
+	_nodo->rotacionDirecta(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
 
 	return _posicion_interpolada;
 }
@@ -276,7 +281,7 @@ void Objeto_Motor::rotar_nodo(uint16_t rotacion){
 	_rigidbody->setWorldTransform(rbTransform);
 
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
-	_nodo->setPosition(vector3df(pos[0], pos[1], pos[2]));
+	_nodo->mover(pos[0], pos[1], pos[2]);
 	
 	_interpolacion->actualiza_direccion(rotacion);
 
