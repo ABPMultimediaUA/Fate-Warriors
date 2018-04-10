@@ -25,6 +25,7 @@ Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z, bool a
         desactivar();
     }
 
+    _bloqueado = false;
 }
 
 Puerta_Pincho::~Puerta_Pincho() {
@@ -32,15 +33,29 @@ Puerta_Pincho::~Puerta_Pincho() {
 }
 
 void Puerta_Pincho::activar() {
-    _activado = true;
-    setY(6);
-    Nivel::nivel_instancia()->nivel_cerrar_pasillo(_pasillo_asociado);
+    if(!_bloqueado) {
+        _activado = true;
+        setY(6);
+        Nivel::nivel_instancia()->nivel_cerrar_pasillo(_pasillo_asociado);
+    }
 }
 
 void Puerta_Pincho::desactivar() {
-    _activado = false;   
-    setY(-5.95);
-    Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
+    if(!_bloqueado) {
+        _activado = false;   
+        setY(-5.95);
+        Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
+    }
+}
+
+void Puerta_Pincho::desactivar_bloquear() {
+    if(!_bloqueado) {
+        _activado = false;   
+        setY(-5.95);
+        Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
+
+        _bloqueado = true;
+    }
 }
 
 void Puerta_Pincho::cambiar_estado() {

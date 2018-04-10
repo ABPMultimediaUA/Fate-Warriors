@@ -20,6 +20,8 @@
 #include "../Consumibles/Consumible_Patata.h"
 #include "../Consumibles/Consumible_Carne.h"
 
+#include <iostream>
+
 Blackboard::Blackboard(NPC * npc_padre) {
 
 	_accion = Nada;

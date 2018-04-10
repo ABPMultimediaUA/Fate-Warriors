@@ -18,10 +18,16 @@ public:
     void desactivar();
     void cambiar_estado();
 
+    void desactivar_bloquear();
+
+    inline void desbloquea() { _bloqueado = false;}
+
     inline bool get_activado() { return _activado;}
+    inline bool get_bloqueado() { return _bloqueado;}
 
 private:
     bool _activado;
+    bool _bloqueado;
 
     uint8_t _pasillo_asociado;
     
