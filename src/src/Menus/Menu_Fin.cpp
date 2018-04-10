@@ -40,7 +40,7 @@ Menu_Fin::~Menu_Fin() {
 void Menu_Fin::update(double _i_tiempo) {
 	_opcion_actual = _opcion_actual->update(_i_tiempo, _opcion_actual);
 
-	//pinta_estado();
+	pinta_estado();
 }
 
 
@@ -54,6 +54,7 @@ void Menu_Fin::set_tiempo_fin() {
 
 // Pinta por terminal el estado actual
 void Menu_Fin::pinta_estado() {
+	std::cout << "Menu Fin Partida\n";
 	if(_opcion_actual == _opciones[0])
 		std::cout << "Opción Reiniciar\n";
 	if(_opcion_actual == _opciones[1])

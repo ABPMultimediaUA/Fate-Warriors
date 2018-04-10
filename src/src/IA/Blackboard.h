@@ -2,7 +2,6 @@
 #define SRC_BLACKBOARD_H_
 
 #include <cstdlib>
-#include <iostream>
 
 #include "Enums_Decisiones.h"
 #include "Enum_Acciones.h"

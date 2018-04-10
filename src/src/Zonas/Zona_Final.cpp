@@ -42,7 +42,7 @@ void Zona_Final::actualizar_zona(){
         for (uint16_t num_character=0; num_character<_num_characters; num_character++){
             if(motor->comprobar_colision(_rb, todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
                // personajes_de_la_zona.push_back(todos_personajes[num_character]);
-               std::cout << "HAS GANADO \n";
+               game->cambio_a_update_win();
             }   
         }
    
