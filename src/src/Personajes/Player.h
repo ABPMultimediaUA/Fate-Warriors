@@ -23,6 +23,8 @@ public:
 	void disminuir_especial();
 	void gestion_dash()					override;
 
+	void morir() override;
+
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
