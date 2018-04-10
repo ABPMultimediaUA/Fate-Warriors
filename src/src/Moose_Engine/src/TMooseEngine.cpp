@@ -120,11 +120,24 @@ void TMooseEngine::setMouseOffsetY(float offset){
     _offsetY = offset;
 }
 
-TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){     
+void TMooseEngine::borrarNodo(uint16_t nodo){
+    TNodo* aux=_escena->encontrarNodo(nodo);
+    if(aux==nullptr){
+        std::cout<<"ERROR ARBOL ESCENA: nodo no encontrado"<<"\n";
+    }
+    if(aux->get_padre()->get_hijos_size()>1){
+        aux->borrar_nodo();
+    }else{
+        aux=aux->get_padre();
+    }
+}
+
+
+TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){
+    ++_contadorIDEntidad;     
     TNodo* nodo = new TNodo(_contadorIDEntidad,padre);
     nodo->set_entidad(ent);
     padre->agrega_hijo(nodo);
-    ++_contadorIDEntidad;
     return nodo;
 }
 
@@ -165,6 +178,7 @@ TModelado* TMooseEngine::crearModelado(const char* _i_path){
 TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){ 
     TAnimacion* animacion = new TAnimacion(_i_path); 
     //_gestorRecursos->getRecursoModelo(fichero); 
+    _animaciones.push_back(animacion);
     return animacion; 
 } 
 
@@ -263,3 +277,12 @@ void TMooseEngine::drawCamaras(){
 bool TMooseEngine::ventana_abierta(){
     return glfwWindowShouldClose(window);
 }
+/*
+void TMooseEngine::stop_anim(const char* _i_path){
+    for(std::vector<TAnimacion*>::iterator it = _animaciones.begin(); it != _animaciones.end(); it++){
+        if((*it)->get_nombre()==_i_path){
+            _animaciones.erase(it);
+            break; 
+        }
+    }
+}*/

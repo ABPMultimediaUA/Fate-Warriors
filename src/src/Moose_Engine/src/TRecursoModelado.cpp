@@ -7,7 +7,7 @@ TRecursoModelado::TRecursoModelado(std::vector<TRecursoMalla*> _i_mallas, const 
 }
 
 TRecursoModelado::~TRecursoModelado(){
-
+    _mallas.clear();
 }
 
 void TRecursoModelado::SetNombre(std::string nombre){

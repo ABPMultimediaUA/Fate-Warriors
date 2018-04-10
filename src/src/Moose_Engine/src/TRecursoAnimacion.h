@@ -14,6 +14,9 @@ public:
     std::string GetNombre() override;
     void  SetNombre(std::string nombre) override;
     void  draw(Shader* shader, uint8_t num);
+    inline uint8_t get_anim_cont(){
+        return _modelos.size();
+    }
 private:
     std::vector<TRecursoModelado*> _modelos;
 

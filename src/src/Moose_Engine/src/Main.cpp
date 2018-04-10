@@ -67,11 +67,16 @@ void recorrerArbol(){
     TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "suelo_t_1";
     TModelado* malla1 = motor->crearModelado(cstr);
-    const char cstr2[] = "Anim_idle_npc2";
+    const char cstr2[] = "Anim_ataque_d1_npc2";
     TAnimacion* Animacion1 = motor->crearAnimacion(cstr2);
 
     const char cstr3[] = "Anim_idle_pistola_objetos";
     TAnimacion* Animacion2 = motor->crearAnimacion(cstr3);
+
+   /* const char cstr4[] = "Anim_idle_ametrallador_objetos";
+    TAnimacion* Animacion3 = motor->crearAnimacion(cstr4);*/
+
+    //motor->stop_anim(cstr3);
 
   /*  const char cstr3[] = "Anim_ataque_d1_npc2";
     TAnimacion* Animacion2 = motor->crearAnimacion(cstr3);*/
@@ -98,7 +103,7 @@ void recorrerArbol(){
    
 
     TNodo* Escena=motor->nodoRaiz();
-
+    motor->borrarNodo(6);
     /*TNodo *RotaLuz= new TNodo();
     TNodo *RotaCam= new TNodo();
     TNodo* RotaCoche = new TNodo();
