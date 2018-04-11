@@ -40,6 +40,7 @@ TNodo* TNodo::encontrarNodo(uint16_t nodo){
             return aux;
         } 
     }
+    return nullptr;
 }
 void TNodo::borrar_nodo(){
     _padre->borrar_hijo(this);
