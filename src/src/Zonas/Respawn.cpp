@@ -69,51 +69,6 @@ Vector2 Respawn::generar_posicion_al_azar_xz(){
     return Vector2(posiciones[posicion_al_azar][0],posiciones[posicion_al_azar][1]);
 }
 
-// GENERAR POSICION DEL BANDO
-
-Vector2 Respawn::generar_posicion_del_bando(Enum_Equipo _i_bando){
-	
-    Game* puntero 		= Game::game_instancia();
-	Datos_Partida * datitos	= puntero->game_get_datos();
-
-	std::vector<Zona*> zona_bando;
-    
-    if(_i_bando == Enum_Equipo_A){
-        zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_a_no_siendo_conquistadas();
-        if(zona_bando.size()==0){
-            zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_a();
-        }
-    }
-    else if (_i_bando == Enum_Equipo_B){
-        zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_b_no_siendo_conquistadas();
-        if(zona_bando.size()==0){
-            zona_bando = datitos->get_zonas_manager()->get_zonas_equipo_b();
-        }
-    }
-
-    if(zona_bando.size()>0){
-    uint8_t posicion_al_azar;
-    posicion_al_azar=rand() % zona_bando.size();
-
-    int8_t zona_al_azar_exactamente_x = (rand() % 50) - 25;
-    int8_t zona_al_azar_exactamente_z = (rand() % 50) - 25;
-
-
-    return Vector2(zona_bando[posicion_al_azar]->getX() + zona_al_azar_exactamente_x, zona_bando[posicion_al_azar]->getZ() + zona_al_azar_exactamente_z);
-    }
-    else{
-      return Vector2(0, 0);
-    }
-}
-
-// REVIVIR PERSONAJES EN POSICION DEL BANDO
-
-void Respawn::comprobar_si_renace_y_renacer_personaje(Character* _i_personaje){
-    if(Time::Instance()->get_current()>_character_a_reaparecer[_i_personaje]){
-        Vector2 pos = generar_posicion_del_bando(_i_personaje->get_equipo());
-        renacer_personaje_en_posicion(_i_personaje, pos);
-    }
-}
 
 // REVIVIR DADA UNA POSICION
 

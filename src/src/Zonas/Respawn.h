@@ -23,15 +23,12 @@ public:
 	
     void anyadir_character_y_tiempo_para_reaparecer(Character* _i_character, double _i_tiempo);
     void eliminar_character_a_reaparecer(Character* _i_character);
-    void comprobar_si_renace_y_renacer_personaje(Character* _i_personaje);
 
     void eliminar_datos();
     void eliminar_puntos();
     void vaciar_map();
 
-
     Vector2 generar_posicion_al_azar_xz();
-    Vector2 generar_posicion_del_bando(Enum_Equipo _i_bando);
     std::map<Character*, double> jugadores_a_revivir();
     void renacer_personaje_en_posicion(Character* _i_personaje, Vector2 posicion);
     std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, bool inmediatamente, Zona* _zona);

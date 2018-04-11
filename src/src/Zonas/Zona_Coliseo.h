@@ -15,7 +15,7 @@ class Player;
 
 class Zona_Coliseo : public Zona{
 public:
-	Zona_Coliseo(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo equipo, uint16_t num_enemigos,  int rondas);
+	Zona_Coliseo(float _i_x, float _i_y, float _i_z, int long_x, int long_y, uint16_t num_enemigos,  int rondas);
     ~Zona_Coliseo();
     void actualizar_zona() override;
 

@@ -10,7 +10,7 @@
 #include "../Game.h"
 #include "../Personajes/Player.h"
 
-Zona_Coliseo::Zona_Coliseo(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo i_equipo, uint16_t num_enemigos, int rondas) : Zona(_i_x, _i_y, _i_z, long_x, long_y, i_equipo){
+Zona_Coliseo::Zona_Coliseo(float _i_x, float _i_y, float _i_z, int long_x, int long_y, uint16_t num_enemigos, int rondas) : Zona(_i_x, _i_y, _i_z, long_x, long_y){
     _num_enemigos = num_enemigos;
     _rondas = rondas;
     _coliseo_iniciado=false;
