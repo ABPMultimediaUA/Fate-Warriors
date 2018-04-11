@@ -1,0 +1,21 @@
+newmtl NPC2:ojos
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd ojos_Base_Color.png
+Ni 1.50
+Ks 0.00 0.00 0.00
+map_Ks ojos_Metallic.png
+Ns 10.00
+newmtl phong1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd NPC2_Base_Color.png
+bump NPC2_Normal_OpenGL.png -bm 1
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks NPC2_Metallic.png
+Ns 18.00

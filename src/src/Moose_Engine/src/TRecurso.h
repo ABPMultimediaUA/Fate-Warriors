@@ -7,10 +7,10 @@ class TRecurso {
 public:
     TRecurso() = default;
     virtual ~TRecurso() = default;
-	virtual std::string GetNombre() = 0;
-    virtual void  SetNombre(std::string) = 0;
+	virtual char* GetNombre() = 0;
+    virtual void  SetNombre(char*) = 0;
 protected:
-	std::string _nombre;
+	char* _nombre;
 };
 
 #endif /* SRC_TRECURSO_H_ */

@@ -53,7 +53,7 @@ void Grafo::grafo_set_lod(int _i_id){
 		//dos mas al siguiente del pasado = 3
 		//el resto 4
 	}else{
-		std::cout<<"ERROR SET_LOD: esta fuera del nivel"<<std::endl;
+		//std::cout<<"ERROR SET_LOD: esta fuera del nivel"<<std::endl;
 	}
 }
 

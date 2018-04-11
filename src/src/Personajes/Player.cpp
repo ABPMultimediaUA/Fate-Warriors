@@ -64,6 +64,7 @@ void Player::update(){
         while(_direccion_buena >= 360) _direccion_buena -= 360;
         mover(_direccion_buena);
         //s_sonido->Play_ambiente(2);
+        std::cout<< "direccion: " << _direccion << "\n";
     }
 
     if(_input->get_dash()){

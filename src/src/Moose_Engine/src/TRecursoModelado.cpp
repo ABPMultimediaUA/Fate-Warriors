@@ -3,18 +3,18 @@
 
 TRecursoModelado::TRecursoModelado(std::vector<TRecursoMalla*> _i_mallas, const char* _i_nombre):
     _mallas(std::move(_i_mallas)){
-    _nombre=_i_nombre;
+    _nombre=(char*)_i_nombre;
 }
 
 TRecursoModelado::~TRecursoModelado(){
-    _mallas.clear();
+
 }
 
-void TRecursoModelado::SetNombre(std::string nombre){
+void TRecursoModelado::SetNombre(char* nombre){
     _nombre = nombre;
 }
 
-std::string TRecursoModelado::GetNombre(){
+char* TRecursoModelado::GetNombre(){
     return _nombre;
 }
 void TRecursoModelado::draw(Shader* _i_shader){

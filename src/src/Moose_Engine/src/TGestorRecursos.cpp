@@ -1,9 +1,9 @@
 #include "TGestorRecursos.h"
 #include "TRecurso.h"
 #include "TRecursoMalla.h"
+#include "TRecursoTextura.h"
 #include "TRecursoMaterial.h"
 #include "TRecursoModelado.h"
-#include "TRecursoAnimacion.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 //
@@ -21,6 +21,11 @@ struct Vertex {
     glm::vec3 Bitangent;*/
 };
 
+struct Texture {
+    unsigned int id;
+    std::string type;
+    std::string path;
+};
 
 TGestorRecursos* TGestorRecursos::_instancia = 0;
 
@@ -46,19 +51,6 @@ TRecurso* TGestorRecursos::getRecurso(const char* nombre){
         }
     }
     return nullptr;
-}
-TRecursoAnimacion* TGestorRecursos::getRecursoAnim(const char* nombre){
-    TRecurso* rec;
-    rec=getRecurso(nombre);
-
-    if(rec==nullptr){
-        std::string s(nombre);
-        std::vector<TRecursoModelado*> modelos;
-        cargarAnim(s,modelos);
-        //_recursos.back()->SetNombre((char*)nombre);
-        return static_cast<TRecursoAnimacion*>(_recursos.back());
-    }
-    return static_cast<TRecursoAnimacion*>(rec);
 }
 
 TRecursoModelado* TGestorRecursos::getRecursoModelo(const char* nombre){
@@ -89,20 +81,18 @@ TRecursoModelado* TGestorRecursos::getRecursoModelo_sinBB(const char* nombre){
 }
 
 
-TRecursoMaterial* TGestorRecursos::getRecursoMaterial(char* nombre){
+TRecurso* TGestorRecursos::getRecursoMaterial(char* nombre){
     TRecurso* rec;
+    TRecursoMaterial* rec_aux;
     rec=getRecurso(nombre);
 
-    if(rec==nullptr){
-        //std::cout<<"3 veces   "<<nombre<<std::endl;
-        std::string s(nombre);
-        rec = new TRecursoMaterial(nombre);
-        _recursos.push_back(rec);
-        //_recursos.back()->SetNombre((char*)s.c_str());
-        return static_cast<TRecursoMaterial*>(rec);
+    if(rec_aux==nullptr){
+        rec_aux = new TRecursoMaterial();
+        rec_aux ->cargarFichero(nombre);
+        _recursos.push_back(rec_aux);
     }
 
-    return static_cast<TRecursoMaterial*>(rec);
+    return rec_aux;
 }
 void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado*> &_i_modelados){
     Assimp::Importer importer;
@@ -110,7 +100,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
     std::string path2 = path.substr(path.find_last_of('_')+1, path.size()-path.find_last_of('_')-1);
     std::string aux="animaciones/"+path2+"/"+path+"/"+path;
     std::string path_obj=aux;
-    const std::string path_text="animaciones/"+path2+"/";
+    const std::string path_text="animaciones/"+path2+"/"+path+"/";
     
     path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
         
@@ -128,6 +118,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
         }else{
             path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
         }
+        
     }
     while(scene){//bucle para cargar todos los modelos de la animacion
         cargarModelo(path_obj, scene, _i_modelados, path_text);
@@ -143,21 +134,21 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
             path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
         }
         scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-        
     }
-    _recursos.push_back(new TRecursoAnimacion(_i_modelados,path.c_str()));
 }
 void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std::vector<TRecursoModelado*> &_i_modelados, const std::string &path_text){
 
     std::vector<TRecursoMalla*> _modelos;
     cargarNodo(scene->mRootNode, scene, _modelos, path_text);
     int width, height, nrChannels;
+    
     unsigned int texture1, texture2;
     glGenTextures(1,&texture1);
     glBindTexture(GL_TEXTURE_2D,texture1);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
+    _recursos.push_back(modelado);
     _i_modelados.push_back(modelado);
 }
 void TGestorRecursos::cargarModelo(std::string &path){
@@ -226,7 +217,7 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<TRecursoMaterial*> textures;
+    std::vector<Texture> textures;
     // Walk through each of the mesh's vertices
     glm::vec3 Vmax;
     glm::vec3 Vmin;
@@ -281,17 +272,14 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
 
     //maps
     //diffuse maps
-    std::vector<TRecursoMaterial*> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "_diffuse", path);
-    //std::cout<<"Textura difusa: "<<path<<std::endl;
+    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", path);
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     //specular maps
-    std::vector<TRecursoMaterial*> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "_specular", path);
-    //std::cout<<"Textura specular: "<<path<<std::endl;
+    std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", path);
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     //shininess maps
-    std::vector<TRecursoMaterial*> abmientMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "_ambient", path);
-    //std::cout<<"Textura ambiente: "<<path<<std::endl;
-    textures.insert(textures.end(), abmientMaps.begin(), abmientMaps.end());
+    std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_SHININESS, "texture_shininess", path);
+    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 
     //devolver la malla creada a partir de los datos obtenidos*/
     TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
@@ -299,21 +287,66 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
     malla->set_max(Vmax);
     return malla;
 }
-std::vector<TRecursoMaterial*> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string& path)
+std::vector<Texture> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string& path)
 {
-    std::vector<TRecursoMaterial*> materiales;
+    std::vector<Texture> textures;
     for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
+        Texture texture;
         std::string aux(path);
         aux+=str.C_Str();
-        std::string aux2(aux+typeName);
-        TRecursoMaterial* material=getRecursoMaterial((char*)aux2.c_str());
-        //std::cout<<"Textura : "<<aux<<std::endl;
-        materiales.push_back(material);
+        texture.id = TextureFromFile(aux.c_str() ,true);
+        texture.type = typeName;
+        texture.path = str.C_Str();
+        textures.push_back(texture);
     }
-    return materiales;
+    return textures;
+}
+unsigned int TGestorRecursos::TextureFromFile(const char *path, bool gamma)
+{
+
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+    
+    int width=0, height=0, nrComponents=0;
+    //unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    unsigned char *data = stbi_load(path, &width, &height, &nrComponents, 0);
+    /*std::cout <<nrComponents<<std::endl;
+    std::cout <<width<<"         "<<height<<std::endl;
+    std::cout <<"data:   "<<data<<std::endl;*/
+    if (data)
+    {
+        GLenum format;
+        if (nrComponents == 1){
+            format = GL_RED;
+        }
+        else if (nrComponents == 3){
+            format = GL_RGB;
+        }
+        else if (nrComponents == 4){
+            format = GL_RGBA;
+        }
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        //glGenerateMipmap(GL_TEXTURE_2D);
+//preguntar acerca del glGenerateMimmap
+//p
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        stbi_image_free(data);
+    }
+    else
+    {
+        std::cout << "Texture failed to load at path: " << path << std::endl;
+        stbi_image_free(data);
+    }
+
+    return textureID;
 }
 
 void TGestorRecursos::cargarModelo_sinBB(std::string &path){
@@ -360,7 +393,7 @@ TRecursoMalla* TGestorRecursos::cargarMalla_sinBB(aiMesh *mesh, const aiScene *s
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<TRecursoMaterial*> textures;
+    std::vector<Texture> textures;
     // Walk through each of the mesh's vertices
     for(unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -406,13 +439,13 @@ TRecursoMalla* TGestorRecursos::cargarMalla_sinBB(aiMesh *mesh, const aiScene *s
 
     //maps
     //diffuse maps
-    std::vector<TRecursoMaterial*> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", path);
+    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", path);
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     //specular maps
-    std::vector<TRecursoMaterial*> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", path);
+    std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", path);
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     //shininess maps
-    std::vector<TRecursoMaterial*> normalMaps = loadMaterialTextures(material, aiTextureType_SHININESS, "texture_shininess", path);
+    std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_SHININESS, "texture_shininess", path);
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 
     //devolver la malla creada a partir de los datos obtenidos*/

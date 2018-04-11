@@ -18,7 +18,6 @@ class TNodo{
         TNodo* get_nodo_padre();
         void set_nodo_padre(TNodo* nodo_padre);
 
-        TNodo* encontrarNodo(uint16_t nodo);
         void borrar_nodo();
         bool borrar_hijo(TNodo *hijo);
 
@@ -36,8 +35,7 @@ class TNodo{
         uint16_t get_entidad_id();
         void     set_entidad_id(uint16_t id);
 
-        inline std::vector<TNodo*>& get_hijos(){return _hijos;}
-        inline uint8_t get_hijos_size(){return _hijos.size();}
+        std::vector<TNodo*>& get_hijos(){return _hijos;}
 
     private:
         TEntidad *_entidad;

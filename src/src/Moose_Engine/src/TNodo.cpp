@@ -11,7 +11,6 @@ TNodo::TNodo(uint16_t entidadID, TNodo* nodo_padre) : _visible(true){
 }
 
 TNodo::~TNodo(){
-    std::cout<<"id: "<<_entidadID<<std::endl;
     for(auto it = _hijos.begin(); it!=_hijos.end(); it++){ //itera por el vector eliminando
         delete *it;
     }
@@ -29,24 +28,11 @@ void TNodo::agrega_hijo(TEntidad* entidad){
 void TNodo::set_nodo_padre(TNodo* nodo_padre){
     _padre = nodo_padre;
 }
-TNodo* TNodo::encontrarNodo(uint16_t nodo){
-    TNodo* aux=nullptr;
-    if(_entidadID==nodo){
-        return this;
-    }
-    for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
-        aux=(*it)->encontrarNodo(nodo); 
-        if(aux!=nullptr){
-            return aux;
-        } 
-    }
-    return nullptr;
-}
+
 void TNodo::borrar_nodo(){
     _padre->borrar_hijo(this);
     set_nodo_padre(nullptr);
     delete this;
-    
 }
 
 bool TNodo::borrar_hijo(TNodo* hijo){

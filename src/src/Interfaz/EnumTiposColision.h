@@ -18,6 +18,5 @@ const int jugador_colisiona_con    =    COL_JUGADOR | COL_NPC | COL_ESCENARIO | 
 const int npc_colisiona_con        =    COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA | COL_OTRO| COL_RAY;
 const int ray_colisiona_con        =	COL_JUGADOR | COL_NPC | COL_ESCENARIO | COL_PUERTA;
 const int puerta_colisiona_con     =	COL_ESCENARIO | COL_JUGADOR | COL_NPC | COL_RAY;
-const int ray_colisiona_con2       =    COL_JUGADOR | COL_ESCENARIO | COL_PUERTA;
 const int ataque_colisiona_con     =	COL_NPC | COL_JUGADOR;
 const int otros_colisiona_con      =    COL_ESCENARIO | COL_JUGADOR | COL_NPC;

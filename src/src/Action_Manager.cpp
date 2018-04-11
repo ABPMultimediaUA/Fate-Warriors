@@ -103,7 +103,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 
 			//	std::cout << (int)_nueva_direccion << std::endl;
-			    //Motor::Motor_GetInstance()->rotar_rb(_i_npc->get_objeto_motor()->getRigidBody(), angulo_giro);
+			//	Motor::Motor_GetInstance()->rotar_rb(_i_npc->get_objeto_motor()->getRigidBody(), angulo_giro);
 				_i_npc->rotar_cuerpo(_nueva_direccion);
 				_i_npc->set_direccion_actual(_nueva_direccion);
 				_i_npc->esquivar(_nueva_direccion);

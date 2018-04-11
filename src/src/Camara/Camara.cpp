@@ -195,6 +195,7 @@ void Camara::Camara_Update() {
 
 
 void Camara::update_position() {
+	
 	// Antes de nada nos aseguramos de que el prota ha sido inicializado 
 	if (_Prota != nullptr) {
 		// Posicion estándar del jugador que usaremos para el seguimiento de la camara
@@ -274,13 +275,16 @@ void Camara::update_position() {
 		//std::cout<<"ANGLE RAD: " << _angleRad << "\n";
 
 	}
+	
 }
 
 float Camara::Camara_getAngle(){
+	//std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angle << "\n";
 	return(_angle);
 }
 
 float Camara::Camara_getAngleRad(){
+	//std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angleRad << "\n";
 	return(_angleRad);
 }
 

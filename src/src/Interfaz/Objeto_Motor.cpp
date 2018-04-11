@@ -51,7 +51,7 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 	vector3df euler;
 	q.toEuler(euler);
 	euler *= RADTODEG;
-	//_nodo->setRotation(euler);
+
 	_nodo->rotacionDirecta(1, 0, 0, euler.X);
 	_nodo->rotacionDirecta(0, 1, 0, euler.Y);
 	_nodo->rotacionDirecta(0, 0, 1, euler.Z);
@@ -82,22 +82,11 @@ void Objeto_Motor::setPositionY(float y){
 void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt){  // Direccion
 
 	// Actualiza la rotacion del personaje
-	_interpolacion->actualiza_direccion(_i_direccion);
+	//_interpolacion->actualiza_direccion(_i_direccion);
 
 	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
     desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
-
-    setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
-}
-
-// Funcion de mover para los personajes
-void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt, uint16_t _i_direccion_mirar){  // Direccion
-
-	// Actualiza la rotacion del personaje
-	_interpolacion->actualiza_direccion(_i_direccion_mirar);
-
-	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
-    desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
+	std::cout<< "direccion : " << _i_direccion << "\n " << "desp_z: " << desp_z << "\n " << "desp_x: " << desp_x << "\n";
 
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }
@@ -142,8 +131,7 @@ void Objeto_Motor::saltar(){
 }
 
 void Objeto_Motor::Dash(uint16_t _i_direccion){
-	VelocidadDireccion(_i_direccion,1.5,80);
-	float potencia = 0.1;
+	short potencia = 6000;
 	Impulso(_i_direccion, potencia);
 }
 
@@ -176,7 +164,7 @@ float Objeto_Motor::getZ(){
 }
 
 void Objeto_Motor::colorear_nodo(short r,short g, short b){
-	//_nodo->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
+	
 }
 
 //Manu NO miro esta cosa.com
@@ -244,8 +232,10 @@ Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 	_nodo->mover(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z);
 
 	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
+	
+	_nodo->rotar(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
 
-	_nodo->rotacionDirecta(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
+
 
 	return _posicion_interpolada;
 }
