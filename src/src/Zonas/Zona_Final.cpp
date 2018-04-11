@@ -45,9 +45,5 @@ void Zona_Final::actualizar_zona(){
                game->cambio_a_update_win();
             }   
         }
-   
     }
-
-
-
 }
