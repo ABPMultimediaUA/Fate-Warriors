@@ -59,12 +59,12 @@ void Player::update(){
     uint16_t _direccion;
 
     if(_input->get_mover(_direccion)){
+        std::cout<< "Direccion input: " << (int) _direccion << "\n";
         // Direccion buena con respecto de la camara
-        uint16_t _direccion_buena = _direccion + Motor::Motor_GetInstance()->angulo_camara();
+        uint16_t _direccion_buena = _direccion /*+ Motor::Motor_GetInstance()->angulo_camara()*/;
         while(_direccion_buena >= 360) _direccion_buena -= 360;
         mover(_direccion_buena);
         //s_sonido->Play_ambiente(2);
-        std::cout<< "direccion: " << _direccion << "\n";
     }
 
     if(_input->get_dash()){

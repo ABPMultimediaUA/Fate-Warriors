@@ -34,7 +34,7 @@ Motor* Motor::_Motor=0;
 
 Motor* Motor::Motor_GetInstance(){
 	if(_Motor == 0){
-        _Motor= new Motor(1280, 720);
+        _Motor= new Motor(400, 400);
     }
     return _Motor;
 }
