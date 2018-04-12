@@ -35,6 +35,9 @@ Blackboard::Blackboard(NPC * npc_padre) {
 	_enemigo_mas_cerca_esta_cerca = false;
 	_enemigo_mas_cerca_esta_muy_cerca = false;
 
+	_zona_actual = nullptr;
+	_estoy_en_mi_zona = false;
+
 }
 
 Blackboard::~Blackboard() {
@@ -47,6 +50,7 @@ void Blackboard::actualiza_datos() {
 	// Actualizar siempre:
 	actualizar_pseudo_azar();
 	actualizar_characteres();
+	actualizar_zonas();
 	
 	// AQUI NO PUEDEN IR GETS
 	// EN LUGAR DE GETS DEBE HABER PUNTEROS
@@ -117,7 +121,7 @@ void Blackboard::actualizar_characteres(){
 			_enemigo_mas_cerca->incrementar_npcs_persiguiendome();
 			_distancia_enemigo_mas_cerca = distancia_enemigo_mas_cercano;
 
-			if(distancia_enemigo_mas_cercano < 60){
+			if(distancia_enemigo_mas_cercano < 100000){
 				_enemigo_mas_cerca_esta_cerca = true;
 			}
 			else{
@@ -138,7 +142,7 @@ void Blackboard::actualizar_characteres(){
 			float _distancia_enemigo_mas_cercano = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), _enemigo_mas_cerca->getX(), _enemigo_mas_cerca->getZ());
 
 			// Esta lejos
-			if(_distancia_enemigo_mas_cercano >= 60){
+			if(_distancia_enemigo_mas_cercano >= 100000){
 				_enemigo_mas_cerca->decrementar_npcs_persiguiendome();
 				_enemigo_mas_cerca = nullptr;
 				_enemigo_mas_cerca_esta_cerca = false;
@@ -149,7 +153,7 @@ void Blackboard::actualizar_characteres(){
 			else{
 				_distancia_enemigo_mas_cerca =  _distancia_enemigo_mas_cercano;
 
-				if(_distancia_enemigo_mas_cercano < 60){
+				if(_distancia_enemigo_mas_cercano < 100000){
 					_enemigo_mas_cerca_esta_cerca = true;
 				}
 				else{
@@ -191,7 +195,7 @@ void Blackboard::actualizar_characteres(){
 
 		if(_enemigo_mas_cerca != nullptr){
 
-			if(_distancia_enemigo_mas_cercano < 60){
+			if(_distancia_enemigo_mas_cercano < 100000){
 				_distancia_enemigo_mas_cerca =  _distancia_enemigo_mas_cercano;
 				_enemigo_mas_cerca->incrementar_npcs_persiguiendome();
 				_enemigo_mas_cerca_esta_cerca = true;
@@ -219,148 +223,19 @@ void Blackboard::actualizar_characteres(){
 
 } 
 
-/*
+
 void Blackboard::actualizar_zonas(){
-	Zonas_Manager * zonas_manager = Game::game_instancia()->game_get_datos()->get_zonas_manager();
-	Zona** zonas = zonas_manager->get_zonas();
-	unsigned long num_zonas = zonas_manager->get_n_zonas();
-
 	Objeto_Motor * objeto_npc = _npc_padre->get_objeto_motor();
-	bool encontrado = false;
 
-	Zona * zona_mas_cerca_aux = nullptr;
-	Zona * zona_enemiga_mas_cerca_aux = nullptr;
-	Zona * zona_aliada_mas_cerca_aux = nullptr;
-	float distancia_zona_mas_cerca = 10000000000000;
-	float distancia_zona_enemiga_mas_cerca = 10000000000000;
-	float distancia_zona_aliada_mas_cerca = 10000000000000;
-
-	Zona * zona_mas_cerca_aux_util = nullptr;
-	Zona * zona_enemiga_mas_cerca_aux_util = nullptr;
-	Zona * zona_aliada_mas_cerca_aux_util = nullptr;
-	float distancia_zona_mas_cerca_util = 10000000000000;
-	float distancia_zona_enemiga_mas_cerca_util = 10000000000000;
-	float distancia_zona_aliada_mas_cerca_util = 10000000000000;
-
-
-	if(_zona_actual != nullptr){
-
-		//Salgo de la zona
-		if(Motor::Motor_GetInstance()->comprobar_colision(objeto_npc->getRigidBody(), _zona_actual->getRigidBody()) == false){
-			_zona_actual->decrementar_npcs_persiguiendome();
-			_zona_actual = nullptr;
-		}
+	//Salgo de la zona
+	if(Motor::Motor_GetInstance()->comprobar_colision(objeto_npc->getRigidBody(), _npc_padre->get_zona()->getRigidBody()) == true){
+		_estoy_en_mi_zona = true;
 	}
-	else{ // Actualizo zonas
-
-		Zona * zona_actual_aux = nullptr; // Es la zona en la que esta, la otra es la zona util (_zona_actual)
-
-		for (uint16_t cont=0; cont < num_zonas && encontrado == false; cont++){
-			if(Motor::Motor_GetInstance()->comprobar_colision(objeto_npc->getRigidBody(), zonas[cont]->getRigidBody()) == true
-			){
-				encontrado = true;
-				zona_actual_aux = zonas[cont];
-
-				if(zona_actual_aux->get_npcs_persiguiendome() < 3){
-					_zona_actual = zonas[cont];
-					_zona_actual->incrementar_npcs_persiguiendome();
-				}
-				else{
-					_zona_actual = nullptr;
-				}
-					
-			}   
-		}
-
-		for (uint16_t cont=0; cont < num_zonas; cont++){
-
-			if(zonas[cont] != zona_actual_aux){
-
-				int num_aliados_en_zona;
-
-				if(_npc_padre->get_equipo() == Enum_Equipo_A){
-					num_aliados_en_zona =zonas[cont]->_num_characters_equipo_A;
-				}
-				else{
-					num_aliados_en_zona =zonas[cont]->_num_characters_equipo_B;
-				}
-
-				float distancia_a_zona = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), zonas[cont]->getX(), zonas[cont]->getY());
-
-				//Zona mas cerca
-				if(distancia_a_zona < distancia_zona_mas_cerca){
-					distancia_zona_mas_cerca = distancia_a_zona;
-					zona_mas_cerca_aux = zonas[cont];
-				}
-
-				if(distancia_a_zona < distancia_zona_mas_cerca_util
-				&& num_aliados_en_zona < 3){
-					distancia_zona_mas_cerca_util = distancia_a_zona;
-					zona_mas_cerca_aux_util = zonas[cont];
-				}
-
-				//FIN Zona mas cerca
-
-				//Zona enemiga mas cerca
-				if(zonas[cont]->get_equipo() != _npc_padre->get_equipo() && distancia_a_zona < distancia_zona_enemiga_mas_cerca){
-					distancia_zona_enemiga_mas_cerca = distancia_a_zona;
-					zona_enemiga_mas_cerca_aux = zonas[cont];
-				}
-
-				if(zonas[cont]->get_equipo() != _npc_padre->get_equipo() 
-				&& distancia_a_zona < distancia_zona_enemiga_mas_cerca_util
-				&& num_aliados_en_zona < 3){
-					distancia_zona_enemiga_mas_cerca_util = distancia_a_zona;
-					zona_enemiga_mas_cerca_aux_util = zonas[cont];
-				}
-
-				//FIN Zona enemiga mas cerca
-
-				//Zona aliada mas cerca
-				if(zonas[cont]->get_equipo() == _npc_padre->get_equipo() && distancia_a_zona < distancia_zona_aliada_mas_cerca){
-					distancia_zona_aliada_mas_cerca = distancia_a_zona;
-					zona_aliada_mas_cerca_aux = zonas[cont];
-				}
-
-				if(zonas[cont]->get_equipo() == _npc_padre->get_equipo() 
-				&& distancia_a_zona < distancia_zona_aliada_mas_cerca_util
-				&& num_aliados_en_zona < 3){
-					distancia_zona_aliada_mas_cerca_util = distancia_a_zona;
-					zona_aliada_mas_cerca_aux_util = zonas[cont];
-				}
-				//FIN Zona aliada mas cerca
-			}
-		}
-
-
-		if(zona_mas_cerca_aux_util != nullptr)
-			_zona_mas_cerca = zona_mas_cerca_aux_util;
-		else
-			_zona_mas_cerca = zona_mas_cerca_aux;
-
-		if(zona_enemiga_mas_cerca_aux_util != nullptr)
-			_zona_enemiga_mas_cerca = zona_enemiga_mas_cerca_aux_util;
-		else
-			_zona_enemiga_mas_cerca = zona_enemiga_mas_cerca_aux;
-
-		if(zona_aliada_mas_cerca_aux_util != nullptr)
-			_zona_aliada_mas_cerca = zona_aliada_mas_cerca_aux_util;
-		else
-			_zona_aliada_mas_cerca = zona_aliada_mas_cerca_aux;
-
-		// En caso de que solo quede 1 zona por conquistar y estes en ella
-		if(_zona_mas_cerca == nullptr)
-			_zona_mas_cerca = zona_actual_aux;
-		if(_zona_enemiga_mas_cerca == nullptr)
-			_zona_enemiga_mas_cerca = zona_actual_aux;
-		if(_zona_aliada_mas_cerca == nullptr)
-			_zona_aliada_mas_cerca = zona_actual_aux;
-
+	else{
+		_estoy_en_mi_zona = false;
 	}
-	
-	
 }
-*/
+
 
 /*
 void Blackboard::actualizar_objetos(){

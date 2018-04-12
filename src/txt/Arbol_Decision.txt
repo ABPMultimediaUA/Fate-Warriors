@@ -1,8 +1,12 @@
-1
+3
 
-- 0 Final Nada Nada LOD 0
+- 0 Final Andar Atacar ND_0 0
+- 1 Izq Andar 0 ND_1 0
+- 2 Izq Andar 1 ND_2 0
 
 Fin
+
+
 
 18
 

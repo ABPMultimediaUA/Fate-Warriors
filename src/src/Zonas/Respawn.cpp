@@ -143,15 +143,16 @@ std::vector <Character*> Respawn::revivir_enemigos_en_zona(uint8_t num_npc, floa
         zona_al_azar_exactamente_z = (rand() % 50) - 25;
 
         if(_inmediatamente){
+            (it->first)->set_zona_en_la_que_se_encuentra(_zona);
             renacer_personaje_en_posicion(it->first, Vector2(_pos_x+zona_al_azar_exactamente_x, _pos_y+zona_al_azar_exactamente_z));
             _enemigos_que_creo.push_back(it->first);
-            (it->first)->set_zona_en_la_que_se_encuentra(_zona);
-            it=_character_a_reaparecer.begin();
+            
+            //it=_character_a_reaparecer.begin();
             cont++;
         }
         else if(Time::Instance()->get_current()>it->second){
             renacer_personaje_en_posicion(it->first, Vector2(_pos_x+zona_al_azar_exactamente_x, _pos_y+zona_al_azar_exactamente_z));
-            it=_character_a_reaparecer.begin();
+            //it=_character_a_reaparecer.begin();
         }
         he_podido_revivir++;
         

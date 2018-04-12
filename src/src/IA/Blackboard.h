@@ -23,6 +23,7 @@ public:
 	void actualiza_datos();									//Actualiza los datos del blackboard para cada iteracion
 	void actualizar_characteres();
 	void actualizar_pseudo_azar();
+	void actualizar_zonas();
 
 	void equipar_arma_larga_distancia();
 	void equipar_arma_corta_distancia();
@@ -75,6 +76,9 @@ public:
 	float _distancia_enemigo_mas_cerca;
 	bool _enemigo_mas_cerca_esta_cerca;
 	bool _enemigo_mas_cerca_esta_muy_cerca;
+
+	Zona * _zona_actual;
+	bool _estoy_en_mi_zona;
 
 	//Con informacion de la zona
 	Nodo_blackboard* _zona;					// Blackbaord de la zona
