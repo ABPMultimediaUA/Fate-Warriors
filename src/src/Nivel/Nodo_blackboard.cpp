@@ -47,7 +47,7 @@ int Nodo_blackboard::get_zonas_enemigas(){
     return _n_zonas_ady_enemigas;
 }
 void Nodo_blackboard::set_lod(int _i_lod){
-    _lod=_i_lod;
+    _lod=1;
 }
 void Nodo_blackboard::declarar_zonas_ady(int _i_size){//unsigned necesario para declarar el array
     _zonas_ady = new int[_i_size];
