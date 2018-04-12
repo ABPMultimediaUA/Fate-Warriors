@@ -16,7 +16,7 @@ Zonas_Manager::Zonas_Manager() {
 
     // tener xml con la informacion de todos los objetos
     
-	_n_zonas = 8;
+	_n_zonas = 9;
 	_zonas = new Zona*[_n_zonas];
 
     unsigned short _cont;
@@ -40,7 +40,8 @@ Zonas_Manager::Zonas_Manager() {
 	_zonas[6]  = new Zona_Final(72*mult, 0*mult, 42*mult,(25*mult)/2,(30*mult)/2);								// Zona 32
 	//_zonas[7]  = new Zona(57*mult, 0*mult, 101*mult,(9*mult)/2,(7*mult)/2);									// Zona 24 desmasiado peque
 	_zonas[7]   = new Zona_Coliseo(73.5*mult, 0*mult, 99*mult,(15*mult)/2,(20*mult)/2, 8, 1);					// Zona 28
-	
+
+	_zonas[8]	= new Zona_Coliseo(61.5*mult, 0*mult, 77.5*mult,(15*mult)/2,(15*mult)/2, 6, 1);
 
 	/*
 	_zonas[2]  = new Zona(38*mult, 0*mult, 35*mult,8*mult,10*mult, Enum_Equipo_B);

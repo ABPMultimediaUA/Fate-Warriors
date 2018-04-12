@@ -23,7 +23,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	_n_llaves = 3;
 	_n_puertas = 3;
-	_n_puertas_pincho = 17;
+	_n_puertas_pincho = 18;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -58,7 +58,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 
 	// PUERTA TIEMPO/1 USO ENTRE SALAS 16 Y 22
-	_puertas_pincho[5] = new Puerta_Pincho(0,41.5*mult,0,87.5*mult, true, 0, 21);	//Entre la sala 16 y 22
+	_puertas_pincho[5] = new Puerta_Pincho(0,41.45*mult,0,87.5*mult, true, 0, 21);	//Entre la sala 16 y 22
 
 
 	// ZONA COLISEO 16
@@ -83,6 +83,10 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 	// ZONA COLISEO 28
 	_puertas_pincho[16] = new Puerta_Pincho(0, 65*mult, 0, 101.5*mult, false, 270, 27);
+
+
+	// ZONA COLISEO 26
+	_puertas_pincho[17] = new Puerta_Pincho(0, 57.45*mult, 0, 86.5*mult, false, 180, 25);
 
 
 	// ------------------------------------ INTERRUPTORES ------------------------------------
@@ -152,8 +156,12 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_todas_las_zonas[5]->set_puerta_pincho_asociada(_puertas_pincho[8]);
 
 
-	// Zona 
+	// Zona 28
 	_todas_las_zonas[7]->set_puerta_pincho_asociada(_puertas_pincho[16]);
+
+
+	// Zona 26
+	_todas_las_zonas[8]->set_puerta_pincho_asociada(_puertas_pincho[17]);
 }
 
 Interactuable_Manager::~Interactuable_Manager() {
