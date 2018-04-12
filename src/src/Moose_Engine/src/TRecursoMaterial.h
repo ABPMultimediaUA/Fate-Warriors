@@ -6,15 +6,18 @@ class aiMaterial;
 class TRecursoMaterial : public TRecurso{
 
 public:
-    TRecursoMaterial();
-    TRecursoMaterial(aiMaterial* _i_material);
+    TRecursoMaterial(std::string nombre);
     ~TRecursoMaterial();
 
-    char* GetNombre() override;
-    void  SetNombre(char* nombre) override;
-    void cargarFichero(char* nombre);
+    std::string GetNombre() override;
+    void  SetNombre(std::string nombre) override;
+    inline unsigned int Get_id(){return _id;}
+    inline std::string Get_type(){return _type;}
 private:
-    aiMaterial* _material;
+    unsigned int _id;
+    std::string _type;
+    std::string _path;
+    void cargarFichero(const char* path);
 };
 
 #endif /* SRC_TRECURSOMATERIAL_H_ */

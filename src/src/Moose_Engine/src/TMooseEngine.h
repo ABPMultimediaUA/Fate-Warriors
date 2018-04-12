@@ -11,6 +11,7 @@ class TTransform;
 class TCamara;
 class TLuz;
 class TModelado;
+class TAnimacion;
 class Mapeado;
 class Shader;
 class GLFWwindow;
@@ -21,6 +22,7 @@ class TMooseEngine{
         ~TMooseEngine();
         static TMooseEngine* get_instancia();
 
+        void        borrarNodo(uint16_t nodo);
         TNodo*      crearNodo(TNodo *padre, TEntidad *ent);
         TNodo*      crearNodoCamara(TNodo *padre, TEntidad *ent);
         TNodo*      crearNodoLuz(TNodo *padre, TEntidad *ent);
@@ -28,6 +30,8 @@ class TMooseEngine{
         TCamara*    crearCamara(bool activa);
         TLuz*       crearLuz(glm::vec3 ambiente, glm::vec3 especular, glm::vec3 difusa);
         TModelado*  crearModelado(const char* _i_path);
+        TAnimacion* crearAnimacion(const char* _i_path);
+
 
         inline GLFWwindow* getWindow(){ return window;}
 
@@ -77,6 +81,10 @@ class TMooseEngine{
 	    bool _firstMouse;
 
         //atributos para camaras, luces y demás
+
+
+        //reproductor animaciones
+        std::vector<TAnimacion*> _animaciones;
 };
 
 

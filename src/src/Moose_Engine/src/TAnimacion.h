@@ -1,9 +1,9 @@
 #ifndef SRC_TANIMACION_H_
 #define SRC_TANIMACION_H_
 #include "TEntidad.h"
-#include <vector>
-class TRecursoModelado;
 class Shader;
+class TRecursoAnimacion;
+class Time;
 class TAnimacion : public TEntidad{
     public:
         TAnimacion(const char* path);
@@ -11,12 +11,15 @@ class TAnimacion : public TEntidad{
         void beginDraw(Shader* _i_shader) override;
         void draw(Shader* _i_shader);
         void endDraw();
-        std::vector<TRecursoModelado*> _modelos;
+        std::string get_nombre();
         
     private:
-        std::string _path;     
-
-        void leerAnimacion(std::string &path);
+        TRecursoAnimacion* _animacion;
+        void leerAnimacion(const char* path);
+        void update_anim();
+        uint8_t _contador_anim;
+        double _tiempo_aux;
+        Time* _reloj;
 
 };
 

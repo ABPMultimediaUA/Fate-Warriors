@@ -9,10 +9,9 @@ class TRecursoModelado : public TRecurso{
 public:
     TRecursoModelado(std::vector<TRecursoMalla*> _i_mallas, const char* _i_nombre);
     ~TRecursoModelado();
-    void cargarMalla(const char* path);
     void draw(Shader* _i_shader);
-    char* GetNombre() override;
-    void  SetNombre(char* nombre) override;
+    std::string GetNombre() override;
+    void  SetNombre(std::string nombre) override;
     void set_BB(glm::vec3 _i_BB);
     glm::vec3 get_BB();
 private:
