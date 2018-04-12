@@ -99,7 +99,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glViewport(0,0,width,height);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT); //Hay que usar el front, asi que mirare el modelado.
-    glFrontFace(GL_CCW);
+    glFrontFace(GL_CW);
 }
 
 float TMooseEngine::getMouseOffsetX(){

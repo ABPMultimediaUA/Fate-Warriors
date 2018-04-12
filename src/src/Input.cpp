@@ -14,7 +14,7 @@ Input::Input() {
 	_ex_saltar = false;
 
 	_camara_con_teclado = false;
-	_invertir_x = true;
+	_invertir_x = false;
 	_invertir_y = true;
 
 	_joystick_mover = new Vector2(0,0);

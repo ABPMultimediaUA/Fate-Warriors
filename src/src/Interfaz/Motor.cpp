@@ -148,7 +148,7 @@ Motor::Motor(uint16_t width, uint16_t height){
 	importarEscenario(cstr48, 0,0,0);
 	const char* cstr49 = "SueloEdificio4";
 	importarEscenario(cstr49, 0,0,0);
-	const char* cstr50 = "TiendaCampanya1";
+	const char* cstr50 = "TiendaCampanya";
 	importarEscenario(cstr50, 0,0,0);
 	const char* cstr51 = "tuberia_1";
 	importarEscenario(cstr51, 0,0,0);
@@ -158,7 +158,7 @@ Motor::Motor(uint16_t width, uint16_t height){
 	importarEscenario(cstr53, 0,0,0);
 	const char* cstr54 = "tuberia_4";
 	importarEscenario(cstr54, 0,0,0);
-	const char* cstr55 = "uberia_5";
+	const char* cstr55 = "tuberia_5";
 	importarEscenario(cstr55, 0,0,0);
 	const char* cstr56 = "tuberia_6";
 	importarEscenario(cstr56, 0,0,0);
@@ -501,7 +501,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 	switch(tipo){
 		case E_BoundingCapsule: 
-			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.5); // new btSphereShape(0.5);
+			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5);
 
 					break;
 		case E_BoundingBox:
