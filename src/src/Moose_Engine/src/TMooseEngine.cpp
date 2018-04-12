@@ -99,7 +99,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glViewport(0,0,width,height);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT); //Hay que usar el front, asi que mirare el modelado.
-    glFrontFace(GL_CW);
+    glFrontFace(GL_CCW);
 }
 
 float TMooseEngine::getMouseOffsetX(){
@@ -227,6 +227,8 @@ void TMooseEngine::drawCamaras(){
             matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
             _shader->setView(matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
+            //projection = glm::scale(-1,1,1);
+            projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
             _shader->setProjection(projection);
             
             /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
