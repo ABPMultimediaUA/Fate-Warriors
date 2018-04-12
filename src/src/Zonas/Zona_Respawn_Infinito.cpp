@@ -7,7 +7,7 @@
 #include "../Personajes/Player.h"
 
 
-Zona_Respawn_Infinito::Zona_Respawn_Infinito(float _i_x, float _i_y, float _i_z, int long_x, int long_y, Enum_Equipo i_equipo, uint16_t num_enemigos, float _i_distancia) : Zona(_i_x, _i_y, _i_z, long_x, long_y, i_equipo){
+Zona_Respawn_Infinito::Zona_Respawn_Infinito(float _i_x, float _i_y, float _i_z, int long_x, int long_y, uint16_t num_enemigos, float _i_distancia) : Zona(_i_x, _i_y, _i_z, long_x, long_y){
     _num_enemigos = num_enemigos;
     _distancia_reaparecer = _i_distancia;
    Respawn* _respawn = Respawn::posiciones_instancia();
