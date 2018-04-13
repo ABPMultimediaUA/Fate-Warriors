@@ -45,7 +45,7 @@ Motor::Motor(uint16_t width, uint16_t height){
 	configuracion_ME(width, height, false, false);
     configuracion_bullet();
     preparar_depuracion_mundo();
-
+    
 	const char* cstr = "suelo_t_1";
 	importarEscenario(cstr, 0,0,0);
 	const char* cstr2 = "suelo_t_2";
