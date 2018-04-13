@@ -46,9 +46,6 @@ Motor::Motor(uint16_t width, uint16_t height){
     configuracion_bullet();
     preparar_depuracion_mundo();
 
-	//const char* cstr = "ColisionesNivel1";
-	//importarEscenario(cstr, 0,0,0);
-//meter modelos pa irlitch
 	const char* cstr = "suelo_t_1";
 	importarEscenario(cstr, 0,0,0);
 	const char* cstr2 = "suelo_t_2";
@@ -63,9 +60,7 @@ Motor::Motor(uint16_t width, uint16_t height){
 	importarEscenario(cstr6, 0,0,0);
 	const char* cstr7 = "suelo_exterior_2";
 	importarEscenario(cstr7, 0,0,0);
-	const char* cstr8 = "suelo_exterior_3";
-	importarEscenario(cstr8, 0,0,0);
-    
+
 	const char* cstr9 = "Duna";
 	importarEscenario(cstr9, 0,0,0);
 	const char* cstr10 = "Arbol";
