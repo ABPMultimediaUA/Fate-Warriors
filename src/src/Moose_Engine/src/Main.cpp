@@ -65,12 +65,12 @@ void recorrerArbol(){
 
 	TLuz* luz = motor->crearLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
     TCamara* camara = motor->crearCamara(true);
-    const char cstr[] = "suelo_t_1";
+    const char cstr[] = "EscenarioSombras";
     TModelado* malla1 = motor->crearModelado(cstr);
     const char cstr2[] = "Anim_ataque_d1_npc2";
     TAnimacion* Animacion1 = motor->crearAnimacion(cstr2);
 
-    const char cstr3[] = "Anim_idle_pistola_objetos";
+    /*const char cstr3[] = "Anim_idle_pistola_objetos";
     TAnimacion* Animacion2 = motor->crearAnimacion(cstr3);
 
    /* const char cstr4[] = "Anim_idle_ametrallador_objetos";
@@ -83,8 +83,8 @@ void recorrerArbol(){
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
-    trans2->rotar(0,1,0,90);
-    trans3->trasladar(0,5,15);
+    trans2->trasladar(1,0,-100000);//luz
+    trans3->trasladar(0,5,25);//camara
     trans4->rotar(0,1,1,1);
     //trans5->rotar(0,1,0,10);
     
@@ -96,14 +96,14 @@ void recorrerArbol(){
     TNodo* nodoTrans4 = motor->crearNodo(nodoTrans1, trans4);
     
     TNodo* nodoMalla  = motor->crearNodo(nodoTrans4, Animacion1);
-    TNodo* nodoMalla2  = motor->crearNodo(nodoTrans4, Animacion2);
+    TNodo* nodoMalla2  = motor->crearNodo(nodoTrans4, malla1);
     TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
     TNodo* nodoCamara = motor->crearNodoCamara(nodoTrans3, camara);
    
 
     TNodo* Escena=motor->nodoRaiz();
-    motor->borrarNodo(6);
+    //motor->borrarNodo(6);
     /*TNodo *RotaLuz= new TNodo();
     TNodo *RotaCam= new TNodo();
     TNodo* RotaCoche = new TNodo();
