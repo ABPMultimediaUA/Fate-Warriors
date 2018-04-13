@@ -10,6 +10,12 @@
 #include "../Interactuables/Interruptor.h"
 #include "../Tiempo/Time.h"
 
+#include "../Game.h"
+#include "../Datos_Partida.h"
+#include "../Consumibles/Consumible_Manager.h"
+
+
+
 #include <iostream>
 
 NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
@@ -38,11 +44,19 @@ void NPC::morir(){
     _inventario->soltar_armas(getX(), getZ()); 
 
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
-    setY(99999999999);
+
     
     if(_zona_en_la_que_se_encuentra != nullptr){
         _zona_en_la_que_se_encuentra->eliminar_npc_de_zona(this);
+
+        Game* punterito 		= Game::game_instancia();
+        Datos_Partida * datos	= punterito->game_get_datos();
+        Consumible_Manager* _consumibles_manager 	= datos->get_Consumible_Manager();
+        _consumibles_manager->anyadir_consumible(Vector2(getX(), getZ()));
+
     }
+  
+    setY(99999999999);
 
     _zona_en_la_que_se_encuentra = nullptr;
 

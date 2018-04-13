@@ -21,7 +21,6 @@ GUI::~GUI(){
 
 
 void GUI::set_text_vida(int _i_vida){
-	int vida = 12;
 	core::stringw str = L"Salud: ";     
     str += _i_vida;     
 
