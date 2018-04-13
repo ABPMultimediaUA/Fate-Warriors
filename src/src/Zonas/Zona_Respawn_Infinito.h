@@ -23,7 +23,8 @@ private:
     float _distancia_reaparecer;
     uint16_t _num_enemigos;
     void comprobar_si_reaparecer_npcs();
-  
+    void anyadir_npc_a_zona(const std::vector<Character*> & characters);
+
 };
 
 #endif /* ZONA_RESPAWN_INFINITO_H_ */

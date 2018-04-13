@@ -29,7 +29,7 @@ Zonas_Manager::Zonas_Manager() {
 	
 	_zonas[1]  = new Zona_Respawn_Infinito(29.5*mult, 0*mult, 28.5*mult,(15*mult)/2,(15*mult)/2, 8, 125); 		//Zona 3
 	
-	_zonas[2]  = new Zona_Coliseo(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2,4,1);					//Zona 7
+	_zonas[2]  = new Zona_Coliseo(10.5*mult, 0*mult, 34.5*mult,(15*mult)/2,(15*mult)/2,4,2);					//Zona 7
 		
 	_zonas[3]  = new Zona_Respawn_Infinito(10.5*mult, 0*mult, 56.5*mult,(15*mult)/2,(15*mult)/2, 5, 125);   	//Zona 10
 	

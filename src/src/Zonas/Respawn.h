@@ -18,7 +18,8 @@ public:
 	static Respawn* posiciones_instancia();
 	~Respawn();
 
-    void crear_zonas_respawn(Nivel* _i_nivel);
+    
+    void leer_posiciones_de_respawn_del_nivel();
     void eliminar_zonas_respawn();
 	
     void anyadir_character_y_tiempo_para_reaparecer(Character* _i_character, double _i_tiempo);
@@ -26,17 +27,16 @@ public:
 
     void eliminar_datos();
     void eliminar_puntos();
-    void vaciar_map();
+    void vaciar_vector_personajes_muertos();
 
     Vector2 generar_posicion_al_azar_xz();
-    std::map<Character*, double> jugadores_a_revivir();
+    std::vector<Character*> jugadores_a_revivir();
     void renacer_personaje_en_posicion(Character* _i_personaje, Vector2 posicion);
-    std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, bool inmediatamente, Zona* _zona);
+    std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, Zona* _zona);
 
 
 private:
 
-    std::map<Character*, double> _character_a_reaparecer;
     std::vector<Character*> _personajes_muertos;
     Respawn();
 	static Respawn* instancia;

@@ -40,6 +40,12 @@ void NPC::morir(){
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
     setY(99999999999);
     
+    if(_zona_en_la_que_se_encuentra != nullptr){
+        _zona_en_la_que_se_encuentra->eliminar_npc_de_zona(this);
+    }
+
+    _zona_en_la_que_se_encuentra = nullptr;
+
     if(_blackboard->_enemigo_mas_cerca != nullptr){
         _blackboard->_enemigo_mas_cerca->decrementar_npcs_persiguiendome();
         _blackboard->_enemigo_mas_cerca = nullptr;

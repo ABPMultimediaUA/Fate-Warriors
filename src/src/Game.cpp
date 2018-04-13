@@ -67,6 +67,8 @@ Game::~Game(){
 
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
+
+	Respawn::posiciones_instancia()->leer_posiciones_de_respawn_del_nivel();
 	_datos 				= new Datos_Partida(_input_jugador);
 	_action_manager 	= new Action_Manager();
 	_decision_manager 	= new Decision_Manager(_action_manager);
@@ -106,8 +108,9 @@ void Game::fin_partida() {
 	_input_jugador->asignar_teclas_menu();
 
 	//_motor->vaciar_motor();
-	Respawn* pointer = Respawn::posiciones_instancia();
-	delete pointer;
+	Respawn::posiciones_instancia()->eliminar_datos();
+
+
 	//Respawn::posiciones_instancia()->eliminar_datos();
 }
 

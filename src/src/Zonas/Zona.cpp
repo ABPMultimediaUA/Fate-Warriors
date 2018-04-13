@@ -61,7 +61,8 @@ bool Zona::esta_jugador_en_zona(){
 uint8_t Zona::get_num_npc_en_zona(){
     
     uint8_t num_npc = 0;
-
+    num_npc = _npc_en_la_zona.size();
+    /*
     Game* game 		= Game::game_instancia();
 	Datos_Partida * _datos	= game->game_get_datos();
     Character** todos_personajes = _datos->get_characters();
@@ -74,6 +75,7 @@ uint8_t Zona::get_num_npc_en_zona(){
             num_npc++;
        }   
     }
+    */
     return num_npc;
 
 }
@@ -121,5 +123,13 @@ void Zona::desactivar_todas_las_puerta_pincho(){
     uint8_t num_interruptores = _puerta_pincho_asociados.size();
     for (uint8_t cont=0; cont<num_interruptores; cont++){
        _puerta_pincho_asociados[cont]->desactivar();
+    }
+}
+
+void Zona::eliminar_npc_de_zona(Character* _i_npc){
+    std::vector<Character*>::iterator it;
+    it = std::find(_npc_en_la_zona.begin(), _npc_en_la_zona.end(), _i_npc);
+    if ( it != _npc_en_la_zona.end()){
+        _npc_en_la_zona.erase(it);
     }
 }

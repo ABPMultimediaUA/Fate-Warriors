@@ -37,6 +37,7 @@ public:
     uint8_t get_num_npc_en_zona();
 
     void set_puerta_pincho_asociada(Puerta_Pincho* _i_puerta_pincho);
+    void eliminar_npc_de_zona(Character* _i_npc);
 
 protected:
 
@@ -55,6 +56,7 @@ protected:
     float _long_x;
     float _long_y;
 
+    std::vector<Character*> _npc_en_la_zona;
     int _npcs_persiguiendome;
     std::vector<Interruptor*> _interruptores_asociados;
     std::vector<Puerta_Pincho*> _puerta_pincho_asociados;
