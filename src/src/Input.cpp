@@ -14,7 +14,7 @@ Input::Input() {
 	_ex_saltar = false;
 
 	_camara_con_teclado = false;
-	_invertir_x = true;
+	_invertir_x = false;
 	_invertir_y = true;
 
 	_joystick_mover = new Vector2(0,0);
@@ -532,7 +532,7 @@ void Input::procesa_direccion() {
 void Input::procesa_direccion_mando() {
 	if(std::abs(_joystick_mover->_x) > 20 || std::abs(_joystick_mover->_y) > 20) {
 		_mover = true;
-        _direccion = lib_math_angulo_2_puntos(_joystick_mover->_y, _joystick_mover->_x, 0, 0);
+        _direccion = lib_math_angulo_2_puntos(_joystick_mover->_y, -_joystick_mover->_x, 0, 0);
     }
     else {
     	_mover = false;
@@ -544,10 +544,10 @@ void Input::procesa_direccion_teclado(){
 		_mover = true;
 	
 	    if(_arriba){
-	        if(_izquierda){
+	        if(_derecha){
 	            _direccion = 45;
 	        }
-	        else if(_derecha){
+	        else if(_izquierda){
 	            _direccion = 315;
 	        }
 	        else {
@@ -556,10 +556,10 @@ void Input::procesa_direccion_teclado(){
 	    }
 
 	    else if(_abajo){
-	        if(_izquierda){
+	        if(_derecha){
 	            _direccion = 135;
 	        }
-	        else if(_derecha){
+	        else if(_izquierda){
 	            _direccion = 225;
 	        }
 	        else {
@@ -567,13 +567,14 @@ void Input::procesa_direccion_teclado(){
 	        }
 	    } 
 
-	    else if(_izquierda){
+	    else if(_derecha){
 	        _direccion = 90;
 	    }
 
-	    else if(_derecha){
+	    else if(_izquierda){
 	        _direccion = 270;
 	    }
+
 	}
 }
 

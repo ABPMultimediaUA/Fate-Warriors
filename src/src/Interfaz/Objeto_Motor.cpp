@@ -82,11 +82,12 @@ void Objeto_Motor::setPositionY(float y){
 void Objeto_Motor::VelocidadDireccion(uint16_t _i_direccion, float _i_velocidad, double mdt){  // Direccion
 
 	// Actualiza la rotacion del personaje
-	//_interpolacion->actualiza_direccion(_i_direccion);
+	_interpolacion->actualiza_direccion(_i_direccion);
 
 	desp_z = cos(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
     desp_x = sin(_i_direccion*std::acos(-1)/180) * _i_velocidad * mdt;
-	std::cout<< "direccion : " << _i_direccion << "\n " << "desp_z: " << desp_z << "\n " << "desp_x: " << desp_x << "\n";
+    if(desp_z < 0.001 && desp_z > -0.001) desp_z = 0;
+    if(desp_x < 0.001 && desp_x > -0.001) desp_x = 0;
 
     setVelocidad(desp_x,_rigidbody->getLinearVelocity()[1],desp_z);
 }
@@ -229,11 +230,11 @@ void Objeto_Motor::updateDynamicBody() {
 Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 	Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
 	
-	_nodo->mover(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z);
+	//std::cout << "La X es " << _posicion_interpolada._x << "\nLa Z es " << _posicion_interpolada._z << "\n";
 
-	//_nodo->setRotation(core::vector3df(0,_interpolacion->interpola_direccion(_i_interpolacion),0));
+	_nodo->mover(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z);
 	
-	_nodo->rotar(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
+	_nodo->rotacionDirecta(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
 
 
 
