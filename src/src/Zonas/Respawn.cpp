@@ -94,7 +94,7 @@ void Respawn::anyadir_character_y_tiempo_para_reaparecer(Character* _i_character
 }
 
 // REVIVIR X ENEMIGOS DEVUELVE LA CANTIDAD DE ENEMIGOS QUE HA PODIDO REVIVIR
-std::vector <Character*> Respawn::revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_y,  Zona* _zona){
+std::vector <Character*> Respawn::revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_y, float _ancho, float _alto, Zona* _zona){
 
    int8_t zona_al_azar_exactamente_x;
    int8_t zona_al_azar_exactamente_z;
@@ -105,9 +105,8 @@ std::vector <Character*> Respawn::revivir_enemigos_en_zona(uint8_t num_npc, floa
 
 
     for(uint8_t cont = 0; cont < num_npc && cont <  _personajes_muertos.size(); cont++){
-        zona_al_azar_exactamente_x = (rand() % 50) - 25;
-        zona_al_azar_exactamente_z = (rand() % 50) - 25;
-       
+
+        asignar_posicion_XZ_al_azar_para_zona(zona_al_azar_exactamente_x, zona_al_azar_exactamente_z, _ancho, _alto);
         _enemigos_que_creo.push_back(_personajes_muertos[0]);
         _personajes_muertos[0]->set_zona_en_la_que_se_encuentra(_zona);
          renacer_personaje_en_posicion(_personajes_muertos[0], Vector2(_pos_x+zona_al_azar_exactamente_x, _pos_y+zona_al_azar_exactamente_z));
@@ -115,6 +114,11 @@ std::vector <Character*> Respawn::revivir_enemigos_en_zona(uint8_t num_npc, floa
     }
    
     return _enemigos_que_creo;
+}
+
+void Respawn::asignar_posicion_XZ_al_azar_para_zona(int8_t& _i_pos_x, int8_t& _i_pos_z, float _ancho, float _alto){
+    _i_pos_x = (rand() % (int16_t)_ancho *2) - _ancho;
+    _i_pos_z = (rand() % (int16_t)_alto*2) - _alto;
 }
 
 // GET ENEMIGOS MUERTOS

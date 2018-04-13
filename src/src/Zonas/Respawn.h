@@ -30,9 +30,11 @@ public:
     void vaciar_vector_personajes_muertos();
 
     Vector2 generar_posicion_al_azar_xz();
+
+    void asignar_posicion_XZ_al_azar_para_zona(int8_t& _i_pos_x, int8_t& _i_pos_z, float _i_ancho, float _i_alto);
     std::vector<Character*> jugadores_a_revivir();
     void renacer_personaje_en_posicion(Character* _i_personaje, Vector2 posicion);
-    std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, Zona* _zona);
+    std::vector<Character*> revivir_enemigos_en_zona(uint8_t num_npc, float _pos_x, float _pos_z, float _ancho, float _alto, Zona* _zona);
 
 
 private:
