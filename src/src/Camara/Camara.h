@@ -32,6 +32,9 @@ public:
 	void interpola_posicion(float _i_interpolacion);
 	void interpola_target(Vector3 _i_posicion_interpolada);
 	void Camara_reset(short _i_direccion);
+
+	void rota_camara_sin_interpolacion(short _i_direccion_x, short _rotacion_en_y);		// Rota la camara a una posicion
+
 private:
 	scene::ISceneNode* _Prota;         //personaje protagonista A.K.A Target
 	core::vector3df _ProtaBoundingCenter; 	   //centro de la bounding box del personaje
@@ -63,6 +66,7 @@ private:
 	Interpolacion* _interpolacion_colision;
 	
 	void set_position_interpolada(core::vector3df position); //Pone la nueva posicion interpolada para renderizar
+	
 };
 
 

@@ -271,7 +271,7 @@ bool Character::interactuar_con_objeto(){
 		if( comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _interruptores[_cont]->get_vector(), 3) == true){
             // Encuentra palanca e intenta accionarla
             
-            _interruptores[_cont]->accionar();
+            _interruptores[_cont]->iniciar_interruptor();
             objeto_encontrado = true;
        //     std::cout << "Usa palanca"<< std::endl;
         }

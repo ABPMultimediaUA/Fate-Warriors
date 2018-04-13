@@ -271,3 +271,17 @@ void Camara::interpola_posicion(float _i_interpolacion) {
 void Camara::interpola_target(Vector3 _i_posicion_interpolada) {
 	Camara_setTarget(core::vector3df(_i_posicion_interpolada._x, _i_posicion_interpolada._y, _i_posicion_interpolada._z));
 }
+
+void Camara::rota_camara_sin_interpolacion(short _rotacion_en_x, short _rotacion_en_y){
+	_direction = _rotacion_en_x;
+	_zdirection = _rotacion_en_y * -1; // DEbe ir entre -5 (abajo) y -60 (arriba)
+
+	if (_zdirection < -60)
+		_zdirection = -60; 
+	else if (_zdirection > -5)
+		_zdirection = -5; 
+
+	Vector3* _posicion = _interpolacion->get_posicion_actual();
+	_interpolacion->actualiza_posicion(Vector3(_posicion->_x,_posicion->_y,_posicion->_z));
+	_interpolacion->actualiza_posicion(Vector3(_posicion->_x,_posicion->_y,_posicion->_z));
+}

@@ -517,7 +517,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	}
 	if(vertice_origen->get_id()==vertice_destino->get_id()){//caso de que no se encuentren los nodos
 		float angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen, _i_xdestino, _i_ydestino);
-		std::cout << "ERRORdbikvrgvbiuw" << std::endl;
+		//std::cout << "ERRORdbikvrgvbiuw" << std::endl;
 		return angulo;
 	}
 	else{

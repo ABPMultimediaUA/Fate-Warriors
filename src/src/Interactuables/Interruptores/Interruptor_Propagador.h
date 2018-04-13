@@ -8,6 +8,7 @@ public:
 	Interruptor_Propagador(short _i_id, float _i_x, float _i_z, float _i_rotacion);
 	virtual ~Interruptor_Propagador();
 
+	void iniciar_interruptor() override;
 	void accionar();				// Acciona el interruptor y le cambia el estado (si es posible) y propaga a sus puertas asociadas
 	void accionar_sin_propagar() override;	// Acciona el interruptor y sus puertas, pero no propaga
 

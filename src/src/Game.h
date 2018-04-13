@@ -17,10 +17,13 @@ class Player;
 class Interfaz_sonido;
 class Zonas_Manager;
 class Interactuable_Manager;
+class Interruptor;
 
 class Menu_Principal;
 class Menu_Pausa;
 class Menu_Fin;
+
+class Animacion_Interruptor;
 
 class Game{
 
@@ -47,6 +50,7 @@ public:
     void cambio_a_update_pausa();
     void cambio_a_update_win();
     void cambio_a_update_lose();
+    void cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short _rotacion_x, short _rotacion_y, short _distancia);
 	Consumible_Action* get_consumibles_action();
 
 private:
@@ -60,6 +64,7 @@ private:
 	void update_partida(double _i_tiempo_desde_ultimo_update);		// Update de partida
 	void update_pausa(double _i_tiempo_desde_ultimo_update);		// Update de pausa
 	void update_fin_partida(double _i_tiempo_desde_ultimo_update);	// Update de fin de partida
+	void update_mirar(double _i_tiempo_desde_ultimo_update);		// Update de mirar a un objetivo
 
 	void render_menu(float _i_interpolacion);						// Render del menu
 	void render_partida(float _i_interpolacion);					// Render de partida
@@ -81,11 +86,11 @@ private:
 	Trampas_action* _trampas_action;
 	Input* _input_jugador;
 
-	double 	_tiempo_final_de_partida;
-
 	Menu_Principal* _menu_principal;		// Menu Principal
 	Menu_Pausa* _menu_pausa;				// Menu Pausa
 	Menu_Fin*	_menu_fin;					// Menu Fin Partida
+
+	Animacion_Interruptor* _animacion_interruptor;
 };
 
 

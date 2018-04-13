@@ -487,17 +487,17 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 		mascara_colision = npc_colisiona_con;
 	}
 
+/*
 	else if(dynamic_cast<Puerta*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
 		cubeBody->setFriction(0);
 	}
-
 	else if(dynamic_cast<Puerta_Pincho*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
 	}
-
+*/
 	else if(dynamic_cast<Interruptor*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
@@ -803,7 +803,7 @@ void Motor::render(){
 
 void Motor::set_text_vida(int _i_vida){
 	_GUI->set_text_vida(_i_vida);
-	_vida = (_i_vida*300)/500;
+	_vida = (_i_vida*300)/3000;
 }
 
 
@@ -901,4 +901,9 @@ void Motor::posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posic
 
 //Se aplican las transformaciones
 	rb->setWorldTransform(rbTransform);
+}
+
+
+void Motor::gira_camara(short _rotacion_en_x, short _rotacion_en_y) {
+	camara->rota_camara_sin_interpolacion(_rotacion_en_x, _rotacion_en_y);
 }

@@ -1,6 +1,10 @@
 #include "Interruptor.h"
 
 #include "Puerta_Pincho.h"
+
+#include "../Game.h"
+#include "../Tiempo/Time.h"
+
 #include <iostream>
 
 Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion) : Objeto(_i_id, _i_x, 0, _i_z){
@@ -14,6 +18,8 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion)
     _palito->rotar_nodo(_i_rotacion);
 
     _estado = false;
+
+	_reloj = Time::Instance();
 }
 
 Interruptor::~Interruptor() {
@@ -36,4 +42,13 @@ void Interruptor::agregar_interruptor(Interruptor* _interruptor) {
 
 
 void Interruptor::update(){
+}
+
+void Interruptor::iniciar_interruptor(){
+    if(!_estado)
+	    Game::game_instancia()->cambio_a_update_mirar(Time::Instance()->get_current() + 4000, this, 90, 30, 20);
+}
+
+Puerta_Pincho* Interruptor::get_puerta_asociada(){
+    return _puertas_asociadas[0];
 }

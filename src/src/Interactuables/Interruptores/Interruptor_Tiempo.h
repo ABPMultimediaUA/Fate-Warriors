@@ -3,8 +3,6 @@
 
 #include "../Interruptor.h"
 
-class Time;
-
 class Interruptor_Tiempo : public Interruptor{
 public:
 	Interruptor_Tiempo(short _i_id, float _i_x, float _i_z, float _i_rotacion, uint16_t _t_duracion);
@@ -17,7 +15,6 @@ public:
 private:
 	uint32_t _duracion;
 	uint64_t _t_final_activacion;
-	Time* _reloj;
 
 	void cambiar_estado_puertas();
 };

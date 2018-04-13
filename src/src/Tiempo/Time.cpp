@@ -51,8 +51,10 @@ void Time::pausar_reloj() {
 }
 
 void Time::reanudar_reloj() {
-  	_esta_pausado = false;
-	_tiempo_inicio_pausa = sf::milliseconds(_reloj->getElapsedTime().asMilliseconds() - _tiempo_inicio_pausa.asMilliseconds());
-	_tiempo_pausa += _tiempo_inicio_pausa;
-	_tiempo_inicio_pausa = sf::milliseconds(_reloj->getElapsedTime().asMilliseconds());
+	if(_esta_pausado) {
+		_esta_pausado = false;
+		_tiempo_inicio_pausa = sf::milliseconds(_reloj->getElapsedTime().asMilliseconds() - _tiempo_inicio_pausa.asMilliseconds());
+		_tiempo_pausa += _tiempo_inicio_pausa;
+		_tiempo_inicio_pausa = sf::milliseconds(_reloj->getElapsedTime().asMilliseconds());
+	}
 }

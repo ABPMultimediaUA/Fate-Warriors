@@ -18,6 +18,9 @@
 #include "Interactuables/Interactuable_Manager.h"
 #include "Zonas/Respawn.h"
 
+#include "Interactuables/Animacion_Interruptor.h"
+#include "Interactuables/Interruptor.h"
+
 #include <iostream>
 #include <stack>
 
@@ -77,6 +80,7 @@ void Game::crea_partida() {
 	_interactuable_manager = _datos->get_interactuable_manager();
 
 	_player = _datos->get_player();
+
 	_datos->inserta_npc_nivel();
 	
 	_consumibles_action = new Consumible_Action();	
@@ -89,10 +93,11 @@ void Game::crea_partida() {
 
 	_input_jugador->asignar_teclas_partida();
 
-	_tiempo_final_de_partida = Time::Instance()->get_current()+600000;
+	_animacion_interruptor = new Animacion_Interruptor();
 }
 
 void Game::fin_partida() {
+
 	delete _datos;
 
 	delete _decision_manager;
@@ -110,8 +115,7 @@ void Game::fin_partida() {
 	//_motor->vaciar_motor();
 	Respawn::posiciones_instancia()->eliminar_datos();
 
-
-	//Respawn::posiciones_instancia()->eliminar_datos();
+	delete _animacion_interruptor;
 }
 
 // ------------------------------------ FUNCIONES DE UPDATE ------------------------------------
@@ -141,28 +145,15 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
     	cambio_a_update_pausa();
     }
     else {
-			_player->update();
-			_nivel->Update();
-			_consumibles_action->comprobar_consumibles();
-			_trampas_action->update();
+		_player->update();
+		_nivel->Update();
+		_consumibles_action->comprobar_consumibles();
+		_trampas_action->update();
 
-			_motor->update(_i_tiempo_desde_ultimo_update);
-			_interactuable_manager->update_interruptores();
-			_decision_manager->toma_decisiones();
-			_zonas_manager->actualizar_zonas();
-
-		/*	if(Time::Instance()->get_current()>_tiempo_final_de_partida){
-				_zonas_manager->comprobar_victoria_fin_tiempo_partida();
-				cambio_a_update_menu();
-				//Fin de partida
-			}
-			else{
-				if(_zonas_manager->comprobar_victoria()!=Enum_Equipo_Ninguno){
-					cambio_a_update_menu();
-				}
-				//if equipo!=neutro Fin partida
-			}
-			*/
+		_motor->update(_i_tiempo_desde_ultimo_update);
+		_interactuable_manager->update_interruptores();
+		_decision_manager->toma_decisiones();
+		_zonas_manager->actualizar_zonas();
     }
 }
 
@@ -186,6 +177,14 @@ void Game::update_fin_partida(double _i_tiempo_desde_ultimo_update){
     }
 }
 
+
+void Game::update_mirar(double _i_tiempo_desde_ultimo_update){
+	//std::cout << "Update Mirar" << std::endl;
+	if(_animacion_interruptor->update(_i_tiempo_desde_ultimo_update) == true) {
+		Motor::Motor_GetInstance()->poner_camara_a_entidad(_player->get_objeto_motor());
+		cambio_a_update_partida();
+	}
+}
 
 // ------------------------------------ FUNCIONES DE RENDER ------------------------------------
 
@@ -239,10 +238,12 @@ void Game::cambio_a_update_partida() {
 }
 
 void Game::cambio_a_update_pausa() {
-	update_actual = &Game::update_pausa;
-	render_actual = &Game::render_pausa;
-	_menu_pausa->set_tiempo_pausa();
-	_input_jugador->asignar_teclas_menu();
+	if(update_actual != &Game::update_mirar) {
+		update_actual = &Game::update_pausa;
+		render_actual = &Game::render_pausa;
+		_menu_pausa->set_tiempo_pausa();
+		_input_jugador->asignar_teclas_menu();
+	}
 }
 
 void Game::cambio_a_update_win() {
@@ -257,6 +258,14 @@ void Game::cambio_a_update_lose() {
 	render_actual = &Game::render_lose;
 	_menu_pausa->set_tiempo_pausa();
 	_input_jugador->asignar_teclas_menu();
+}
+
+
+void Game::cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short _rotacion_x, short _rotacion_y, short _distancia) {
+	update_actual = &Game::update_mirar;
+	render_actual = &Game::render_partida;
+
+	_animacion_interruptor->empieza(_t_fin, _objetivo, _rotacion_x, _rotacion_y, 20);
 }
 
 
