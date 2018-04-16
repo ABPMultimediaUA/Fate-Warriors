@@ -21,8 +21,7 @@
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Moose_Engine/src/iNodoLuz.h"
 
-/*
-#include "Entidad.h"
+/*#include "Entidad.h"
 #include "../Input.h"
 #include "../Utilidades/Vector.h"
 master*/

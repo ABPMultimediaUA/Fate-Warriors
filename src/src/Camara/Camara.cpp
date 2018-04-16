@@ -43,8 +43,8 @@ Camara::Camara(bool activa) {
 	_xf = 0; 
 	_yf = 0; 
 	_zf = 0; 
-	_sensibilidadX = 256; 
-	_sensibilidadY = 256; 
+	_sensibilidadX = 10; 
+	_sensibilidadY = 10; 
 	_changeX = 0; 
 	_changeY = 0; 			
 	_dot = _det = _angle = _angleRad = 0;
