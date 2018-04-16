@@ -5,7 +5,7 @@
 
 class Interruptor_Tiempo : public Interruptor{
 public:
-	Interruptor_Tiempo(short _i_id, float _i_x, float _i_z, float _i_rotacion, uint16_t _t_duracion);
+	Interruptor_Tiempo(short _i_id, float _i_x, float _i_z, float _i_rotacion, uint16_t _t_duracion, short _i_rotacion_x, short _i_rotacion_y, short _i_distancia);
 	virtual ~Interruptor_Tiempo();
 
 	void accionar();	// Acciona el interruptor y le cambia el estado (si es posible)

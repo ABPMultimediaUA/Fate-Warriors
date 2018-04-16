@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion) : Objeto(_i_id, _i_x, 0, _i_z){
+Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion, short _i_rotacion_x, short _i_rotacion_y, short _i_distancia) : Objeto(_i_id, _i_x, 0, _i_z){
 	 
     const char* cstr  = "models/Interactuables/Interruptor/BaseInterruptor.obj";
     _objeto_motor = new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,0,_i_z,0);
@@ -20,6 +20,11 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion)
     _estado = false;
 
 	_reloj = Time::Instance();
+
+    _rotacion_x = _i_rotacion_x;
+    _rotacion_y = _i_rotacion_y;
+    _distancia = _i_distancia;
+
 }
 
 Interruptor::~Interruptor() {
@@ -51,4 +56,18 @@ void Interruptor::iniciar_interruptor(){
 
 Puerta_Pincho* Interruptor::get_puerta_asociada(){
     return _puertas_asociadas[0];
+}
+
+
+short Interruptor::get_rotacion_x(){
+    return _rotacion_x;
+}
+
+
+short Interruptor::get_rotacion_y(){
+    return _rotacion_y;
+}
+
+short Interruptor::get_distancia(){
+    return _distancia;
 }

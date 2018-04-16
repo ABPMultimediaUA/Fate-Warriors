@@ -25,7 +25,7 @@ void Cono_Vision::update_direccion(uint16_t _direccion){
 
 
     if(_personaje_fijado!=nullptr){
-        if(_personaje_fijado->get_vida_actual()<1 || get_distancia_con_apuntado()>40){
+        if(_personaje_fijado->get_vida_actual()<1 || get_distancia_con_apuntado()>60){
             _personaje_fijado = nullptr;
         }
         else{
@@ -89,6 +89,14 @@ void Cono_Vision::preparar_ataque_objetivo_mas_proximo_con_impulso(){
         if (distance>6){
             _asociado->get_objeto_motor()->Impulso(_asociado->get_direccion_actual(), 9000);
         }
+    }
+}
+
+void Cono_Vision::impulso_hacia_apuntando(){
+    if(_personaje_fijado!=nullptr){
+        uint16_t direccion = _asociado->get_direccion_actual()+180;
+        if (direccion>360) direccion-=360;
+       _asociado->get_objeto_motor()->Impulso(direccion, 19000);
     }
 }
 

@@ -28,6 +28,7 @@ public:
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor
+	bool _hace_cinta;
 	Motor* _motor;
 	Interfaz_sonido* _sonido;
 	uint8_t _especial;

@@ -92,28 +92,28 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	// ------------------------------------ INTERRUPTORES ------------------------------------
  
 	// INTERRUPTOR DE UN SOLO USO EN ZONA 3
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 29*mult, 21.4*mult, 90));
+	_interrutores.push_back(new Interruptor_Un_Uso(0, 29*mult, 21.4*mult, 90, 90, 90, 20));
 	_interrutores[0]->agregar_puerta(_puertas_pincho[2]);
 
 
 	// INTERRUPTOR DE UN SOLO USO EN ZONA 22
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 47.25*mult, 97.5*mult, 90));
+	_interrutores.push_back(new Interruptor_Un_Uso(0, 47.25*mult, 97.5*mult, 90, 90, 90, 20));
 	_interrutores[1]->agregar_puerta(_puertas_pincho[5]);
 
 
 	// INTERRUPTOR TIEMPO EN ZONA 5
-	_interrutores.push_back(new Interruptor_Tiempo(0, 42*mult, 44.75*mult, 270, 17000));
+	_interrutores.push_back(new Interruptor_Tiempo(0, 42*mult, 44.75*mult, 270, 17000, 90, 90, 20));
 	_interrutores[2]->agregar_puerta(_puertas_pincho[5]);
 	_interrutores[2]->agregar_puerta(_puertas_pincho[3]);
 
 
 	// INTERRUPTORES DE ZONA FINAL
-	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 67.8*mult, 180));	// 3
-	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 71*mult, 0));		// 2
-	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 74.2*mult, 180));	// 1
-	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 67.8*mult, 0));	// 6
-	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 71*mult, 180));	// 5
-	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 74.2*mult, 0));	// 4
+	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 67.8*mult, 180, 90, 90, 20));	// 3
+	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 71*mult, 0, 90, 90, 20));		// 2
+	_interrutores.push_back(new Interruptor_Propagador(0, 80.5*mult, 74.2*mult, 180, 90, 90, 20));	// 1
+	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 67.8*mult, 0, 90, 90, 20));	// 6
+	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 71*mult, 180, 90, 90, 20));	// 5
+	_interrutores.push_back(new Interruptor_Propagador(0, 75.5*mult, 74.2*mult, 0, 90, 90, 20));	// 4
 
 	_interrutores[3]->agregar_puerta(_puertas_pincho[12]);
 	_interrutores[4]->agregar_puerta(_puertas_pincho[13]);
@@ -137,7 +137,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 
 	// INTERRUPTOR 1 USO EN ZONA 26
-	_interrutores.push_back(new Interruptor_Un_Uso(0, 61.5*mult, 70.5*mult, 90));
+	_interrutores.push_back(new Interruptor_Un_Uso(0, 61.5*mult, 70.5*mult, 90, 90, 90, 20));
 	_interrutores[9]->agregar_puerta(_puertas_pincho[15]);
 
 

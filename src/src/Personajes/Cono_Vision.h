@@ -27,6 +27,7 @@ public:
 	uint16_t get_rotacion_con_apuntando();						//DEVUELVE LA ROTACION CON EL CHARACTER FIJADO
 
 	void preparar_ataque_objetivo_mas_proximo_con_impulso();	//REALIZA UN IMPULSO EN EL CASO DE QUE HAYA UN PERSONAJE SELECCIONADO HACE ESE IMPULSO TAMBIEN SOBRE ESTE
+	void impulso_hacia_apuntando();
 	void set_apuntando_a_objetivo_mas_proximo();				//MARCA DESMARCA EL OBJETIVO MAS PROXIMO
 
 	Character* objetivo_mas_proximo_angulo();					//DEVUELVE EL ENEMIGO MAS CERCANO

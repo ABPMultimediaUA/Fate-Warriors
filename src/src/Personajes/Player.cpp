@@ -43,6 +43,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _input = _i_input;
     _motor->set_text_vida(_vida);
     _especial = 0;
+    _hace_cinta = false;
     //_sonido->Play_ambiente(2);
 }    
 
@@ -83,15 +84,19 @@ void Player::update(){
       
         if(_input->get_dash()){
             _sonido->Play_personaje(0);
-          //  int16_t _direccion_incremento = (int16_t)_direccion_previa_movimiento-(int16_t)_direccion_posterior;
-            //if(_direccion_incremento>-45 && _direccion_incremento<45){
-               // _cono_vision->set_apuntando_a_objetivo_mas_proximo();
-            //}
-            
+            if(_cono_vision->get_apuntando() != nullptr) {
+
+                uint16_t _direccion_posterior =  _cono_vision->get_rotacion_con_apuntando();
+                int16_t _direccion_incremento = (int16_t)_direccion_previa_movimiento-(int16_t)_direccion_posterior;
+                if(_direccion_incremento>-45 && _direccion_incremento<45){
+                // _cono_vision->set_apuntando_a_objetivo_mas_proximo();
+                std::cout << "va a hacer cinta \n";
+                _hace_cinta = true;
+                _cono_vision->rotar_mirando_a_apuntando();
+
+                }
+            }         
             esquivar(_direccion_buena); // Habra que pasar la direccion buena
-
-                        _cono_vision->rotar_mirando_a_apuntando();
-
         }
     }
 
@@ -177,6 +182,10 @@ void Player::gestion_dash(){
         if(esta_bloqueado() == false){
             this->set_accion(Accion_Correr);
             _objeto_motor->colorear_nodo(255,255,255);
+            if(_hace_cinta){
+                //_cono_vision->impulso_hacia_apuntando();
+                _hace_cinta = false;
+            }
         }
     }
 }
