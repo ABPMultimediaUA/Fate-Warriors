@@ -1,6 +1,8 @@
 #ifndef SRC_INTERFAZ_SONIDO_H_
 #define SRC_INTERFAZ_SONIDO_H_
 
+#include <string>
+
 #include "FMOD/fmod_studio.hpp"
 class Evento_pasos;
 class Evento_ambiente;

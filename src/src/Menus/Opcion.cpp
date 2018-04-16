@@ -36,12 +36,13 @@ Opcion* Opcion::comprueba_cambio_opcion(Opcion* _this) {
 	if(_t > (_tiempo_cambio+200) && std::get<0>(_dir) == true) {
 		uint16_t _direccion = std::get<1>(_dir);
 
-		_tiempo_cambio = _t;
-
-		if(_direccion < 90 || _direccion >= 270)
-			return _opcion_anterior;
-		else
-			return _opcion_siguiente;
+		if(_direccion == 0 || _direccion == 180) {
+			_tiempo_cambio = _t;
+			if(_direccion == 0)
+				return _opcion_anterior;
+			else
+				return _opcion_siguiente;
+		}
 	}
 
 	// Si no se cumple se devuelve a si mismo

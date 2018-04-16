@@ -37,9 +37,6 @@ Menu_Principal::~Menu_Principal() {
 
 // Se hace el update de la opción actual
 void Menu_Principal::update(double _i_tiempo) {
-	//Comprueba si se pulsa para salir del juego
-	if(_input->get_pausa())
-		Motor::Motor_GetInstance()->apagar();
 
 	_opcion_actual = _opcion_actual->update(_i_tiempo, _opcion_actual);
 
