@@ -4,6 +4,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <glad/glad.h>
+
 
 #include <iostream>
 

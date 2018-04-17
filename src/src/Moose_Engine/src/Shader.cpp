@@ -5,8 +5,18 @@
 
 #include "Shader.h"
 
+GLuint Shader::Programs[Shader_count];
+GLuint Shader::Program=0;
+
+
 Shader::Shader(const char* vertex_path, const char* fragment_path){
-    // 1. retrieve the vertex/fragment source code from filePath
+    LoadShader(eSkybox, "shaders/SkyboxVertexShader.vs", "shaders/SkyboxFragmentShader.frag");
+    LoadShader(Default,vertex_path, fragment_path);
+}
+
+
+void Shader::LoadShader(ShaderType type,const char* vertex_path, const char* fragment_path){
+   // 1. retrieve the vertex/fragment source code from filePath
     std::string vertex_Code;
     std::string fragment_Code;
     std::ifstream vShaderFile;
@@ -51,6 +61,7 @@ Shader::Shader(const char* vertex_path, const char* fragment_path){
     glCompileShader(fragment);
     checkCompileErrors(fragment, "Fragment_shader");
     // shader Program
+
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
@@ -61,9 +72,12 @@ Shader::Shader(const char* vertex_path, const char* fragment_path){
     glDeleteShader(fragment);
 }
 
-void Shader::use(){ 
-    glUseProgram(ID); 
-}
+
+
+void Shader::use(ShaderType type){ 
+    Program=Programs[type];
+    glUseProgram(ID);
+   }
 
 void Shader::setBool(const std::string &name, bool value){         
     glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value); 

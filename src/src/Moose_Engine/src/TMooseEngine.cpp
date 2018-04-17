@@ -1,4 +1,6 @@
 #include "TMooseEngine.h"
+
+#include "TMooseEngine.h"
 #include "TNodo.h"
 #include "TTransform.h"
 #include "TCamara.h"
@@ -10,6 +12,16 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+
+#include "Skybox.h"
+
+/*
+// GLEW
+#define GLEW_STATIC
+#include <GL/glew.h>
+// GLFW
+#include <GLFW/glfw3.h>
+*/
 
 TMooseEngine* TMooseEngine::_instancia = 0;
 
@@ -34,7 +46,7 @@ TMooseEngine::TMooseEngine(){
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
     _escena = nodo;
     _shader = new Shader("src/Moose_Engine/Shaders/vertex_basic.glsl", "src/Moose_Engine/Shaders/fragment_basic.glsl");
-
+    _skybox = new Skybox();
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
 }
 
@@ -171,7 +183,7 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
-    _shader->use();
+    _shader->use(Default);
     drawCamaras();
     drawLuces();
     _escena->draw(_shader);
@@ -230,6 +242,9 @@ void TMooseEngine::drawCamaras(){
             //projection = glm::scale(-1,1,1);
             projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
             _shader->setProjection(projection);
+            
+            _skybox->draw(_shader, matriz_view,projection);
+
             
             /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
             while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz

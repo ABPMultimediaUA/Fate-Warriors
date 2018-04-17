@@ -17,7 +17,6 @@
 #include <fstream>
 
 //OPEN GL 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 /*
 #include "../../Interfaz/Motor.h"

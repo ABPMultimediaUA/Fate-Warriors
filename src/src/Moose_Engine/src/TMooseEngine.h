@@ -14,6 +14,7 @@ class TModelado;
 class Mapeado;
 class Shader;
 class GLFWwindow;
+class Skybox;
 
 class TMooseEngine{
 
@@ -77,6 +78,8 @@ class TMooseEngine{
 	    bool _firstMouse;
 
         //atributos para camaras, luces y demás
+
+        Skybox *_skybox;
 };
 
 

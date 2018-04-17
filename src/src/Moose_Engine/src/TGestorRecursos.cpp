@@ -5,13 +5,13 @@
 #include "TRecursoMaterial.h"
 #include "TRecursoModelado.h"
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 //
 #include "stb_image.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <iostream>
+#include <GLFW/glfw3.h>
 
 struct Vertex {
     glm::vec3 Position;
