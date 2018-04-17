@@ -21,6 +21,8 @@ public:
 
 	virtual void actualiza_valores();
 
+	virtual bool get_dentro();
+
 protected:
 	Opcion *_opcion_anterior;		// Opcion anterior (arriba) en el menu
 	Opcion *_opcion_siguiente;		// Opcion siguiente (debajo) en el menu1

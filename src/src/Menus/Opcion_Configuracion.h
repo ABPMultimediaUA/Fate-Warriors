@@ -13,6 +13,8 @@ public:
 	Opcion* comprueba_cambio_opcion(Opcion* _this) override;
 	Opcion* update_opcion(double _i_tiempo, Opcion* _this);
 
+	bool get_dentro();
+
 private:
 	bool _dentro_menu;	// Indica si está dentro del menu de configuración
 

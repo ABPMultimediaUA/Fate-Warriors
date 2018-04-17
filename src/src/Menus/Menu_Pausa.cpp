@@ -43,7 +43,7 @@ Menu_Pausa::~Menu_Pausa() {
 // Se hace el update de la opción actual
 void Menu_Pausa::update(double _i_tiempo) {
 	//Comprueba si se pulsa para salir de la pausa
-    if(_input->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200){
+    if(_input->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200 && _opciones[1]->get_dentro() == false){
     	Game::game_instancia()->cambio_a_update_partida();
     }
 

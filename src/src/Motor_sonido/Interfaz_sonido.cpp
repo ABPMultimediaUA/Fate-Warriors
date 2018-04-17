@@ -646,15 +646,19 @@ void Interfaz_sonido::Stop_game(){
 
 void Interfaz_sonido::set_volumen_musica(float _i_v){
     ERRCHECK(_bus_musica->setVolume(_i_v));
+    system_update();
 }
 void Interfaz_sonido::set_volumen_voces(float _i_v){
     ERRCHECK(_bus_voces->setVolume(_i_v));
+    system_update();
 }
 void Interfaz_sonido::set_volumen_sfx(float _i_v){
     ERRCHECK(_bus_sfx->setVolume(_i_v));
+    system_update();
 }
 void Interfaz_sonido::set_volumen_menu(float _i_v){
     ERRCHECK(_bus_menu->setVolume(_i_v));
+    system_update();
 }
 
 

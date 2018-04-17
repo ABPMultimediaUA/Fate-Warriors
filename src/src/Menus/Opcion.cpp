@@ -70,5 +70,9 @@ void Opcion::set_tiempo(double _t) {
 	_tiempo_cambio = _t;
 }
 
+bool Opcion::get_dentro() {
+	return false;
+}
+
 void Opcion::actualiza_valores() {
 }
