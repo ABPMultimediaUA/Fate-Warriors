@@ -31,7 +31,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
     _blackboard = new Blackboard(this);
     
     _objeto_motor =new Objeto_Motor(this,E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
-
+    //exit(0);
 }
 
 NPC::~NPC() {

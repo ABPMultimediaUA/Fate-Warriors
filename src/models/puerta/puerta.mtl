@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 13.03.2018 21:05:31
+# File Created: 30.03.2018 18:08:09
 
 newmtl PuertaBidones
 	Ns 10.0000
@@ -14,6 +14,3 @@ newmtl PuertaBidones
 	Ke 0.0000 0.0000 0.0000
 	map_Ka wire_177028149_Base_Color.png
 	map_Kd wire_177028149_Base_Color.png
-	map_Ks wire_177028149_Metallic.png
-	map_bump wire_177028149_Normal_OpenGL.png
-	bump wire_177028149_Normal_OpenGL.png
