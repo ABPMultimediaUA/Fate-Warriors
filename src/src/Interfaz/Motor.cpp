@@ -487,7 +487,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 		mascara_colision = npc_colisiona_con;
 	}
 
-/*
+
 	else if(dynamic_cast<Puerta*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
@@ -497,7 +497,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
 	}
-*/
+
 	else if(dynamic_cast<Interruptor*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
