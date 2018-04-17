@@ -19,6 +19,8 @@ public:
 	void set_opciones(Opcion* _i_opcion_anterior, Opcion* _i_opcion_siguiente);		// Agrega las opciones anterior y siguiente
 	void set_tiempo(double _t);	// Pone el tiempo de cambio a cierto tiempo
 
+	virtual void actualiza_valores();
+
 protected:
 	Opcion *_opcion_anterior;		// Opcion anterior (arriba) en el menu
 	Opcion *_opcion_siguiente;		// Opcion siguiente (debajo) en el menu1

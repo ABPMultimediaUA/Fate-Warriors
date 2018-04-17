@@ -14,6 +14,7 @@ public:
 
 protected:
 	virtual void set_volumen(float _i_vol) = 0;		// Funcion virtual pura de cambiar el volumen propio que cada hijo implementa
+	virtual void guarda_volumen() = 0;				// Funcion virtual que guarda el volumen en la interfaz de sonido
 
 	uint8_t _volumen;								// De 0 a 9
 	Interfaz_sonido *_motor_sonido;					// Motor de Sonido

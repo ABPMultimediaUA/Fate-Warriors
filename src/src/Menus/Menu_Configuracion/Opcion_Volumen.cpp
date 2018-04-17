@@ -30,8 +30,6 @@ Opcion* Opcion_Volumen::update_opcion(double _i_tiempo, Opcion* _this) {
 		if(_direccion == 90 || _direccion == 270) {
 			_tiempo_cambio = _t;
 
-			std::cout << "Volumen " << (int)_volumen << "\n";
-
 			if(_direccion == 90 && _volumen < 9)
 				_volumen++;
 			else if(_direccion == 270 &&_volumen > 0)
@@ -39,6 +37,9 @@ Opcion* Opcion_Volumen::update_opcion(double _i_tiempo, Opcion* _this) {
 
 			float _vol = _volumen / 9.0;
 			set_volumen(_vol);
+			guarda_volumen();
+
+			std::cout << "Volumen " << (int)_volumen << "\n";
 		}
 	}
 

@@ -3,6 +3,8 @@
 #include "Opcion_Musica.h"
 #include "Opcion_SFX.h"
 #include "Opcion_Voz.h"
+#include "Opcion_Eje_X.h"
+#include "Opcion_Eje_Y.h"
 
 #include "../../Input/Input.h"
 
@@ -20,14 +22,14 @@ Menu_Configuracion::Menu_Configuracion(Input* _i_input) {
 	_opciones[0] = new Opcion_Musica(_i_input);		// Opcion Musica
 	_opciones[1] = new Opcion_SFX(_i_input); 		// Opción Sound Effects
 	_opciones[2] = new Opcion_Voz(_i_input); 		// Opcion Voces
-	/*_opciones[1] = new Opcion_Eje_X(_i_input); 		// Opción Eje X
-	_opciones[2] = new Opcion_Eje_Y(_i_input); 		// Opcion Eje Y
-*/
-	_opciones[0]->set_opciones(_opciones[2], _opciones[1]);
+	_opciones[3] = new Opcion_Eje_X(_i_input); 		// Opción Eje X
+	_opciones[4] = new Opcion_Eje_Y(_i_input); 		// Opcion Eje Y
+
+	_opciones[0]->set_opciones(_opciones[4], _opciones[1]);
 	_opciones[1]->set_opciones(_opciones[0], _opciones[2]);
-	_opciones[2]->set_opciones(_opciones[1], _opciones[0]);
-	/*_opciones[3]->set_opciones(_opciones[2], _opciones[4]);
-	_opciones[4]->set_opciones(_opciones[3], _opciones[0]);*/
+	_opciones[2]->set_opciones(_opciones[1], _opciones[3]);
+	_opciones[3]->set_opciones(_opciones[2], _opciones[4]);
+	_opciones[4]->set_opciones(_opciones[3], _opciones[0]);
 
 	_opcion_actual = _opciones[0];
 
@@ -48,16 +50,26 @@ void Menu_Configuracion::update(double _i_tiempo) {
 	pinta_estado();
 }
 
+
+void Menu_Configuracion::actualiza() {
+	for(uint8_t i=0; i<_n_opciones_principal; i++) {
+		_opciones[i]->actualiza_valores();
+	}
+	
+	_opcion_actual = _opciones[0];
+}
+
+
 // Pinta por terminal el estado actual
 void Menu_Configuracion::pinta_estado() {
 	if(_opcion_actual == _opciones[0])
 		std::cout << "Opción Music\n";
-	if(_opcion_actual == _opciones[1])
+	else if(_opcion_actual == _opciones[1])
 		std::cout << "Opción SFX\n";
-	if(_opcion_actual == _opciones[2])
+	else if(_opcion_actual == _opciones[2])
 		std::cout << "Opción Voice\n";
-	/*if(_opcion_actual == _opciones[3])
+	else if(_opcion_actual == _opciones[3])
 		std::cout << "Opción Eje X\n";
-	if(_opcion_actual == _opciones[4])
-		std::cout << "Opción Eje Y\n";*/
+	else if(_opcion_actual == _opciones[4])
+		std::cout << "Opción Eje Y\n";
 }

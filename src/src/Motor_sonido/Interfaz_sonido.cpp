@@ -186,6 +186,10 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
 		}*/
     }
     _sonidos_txt.close();//cierre del fichero
+
+    _volumen_musica = 5;
+    _volumen_sfx = 5;
+    _volumen_voces = 5;
 }
 
 Interfaz_sonido::~Interfaz_sonido(){

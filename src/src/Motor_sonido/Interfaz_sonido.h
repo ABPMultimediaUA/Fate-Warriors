@@ -1,6 +1,7 @@
 #ifndef SRC_INTERFAZ_SONIDO_H_
 #define SRC_INTERFAZ_SONIDO_H_
 
+#include <cstdint>
 #include <string>
 
 #include "FMOD/fmod_studio.hpp"
@@ -62,6 +63,14 @@ public:
     void system_update();
 
 
+    inline uint8_t get_volumen_musica() { return _volumen_musica;}
+    inline uint8_t get_volumen_sfx() { return _volumen_sfx;}
+    inline uint8_t get_volumen_voces() { return _volumen_voces;}
+
+    inline void guarda_volumen_musica(uint8_t _i_vol) { _volumen_musica = _i_vol;}
+    inline void guarda_volumen_sfx(uint8_t _i_vol) { _volumen_sfx = _i_vol;}
+    inline void guarda_volumen_voces(uint8_t _i_vol) { _volumen_voces = _i_vol;}
+
 private:
     static Interfaz_sonido* instancia;
 
@@ -106,8 +115,10 @@ private:
     Evento_musica **_eventos_musica;
 
 
-
-	
+    // Variables de la configuracion
+    uint8_t _volumen_musica;
+    uint8_t _volumen_sfx;
+    uint8_t _volumen_voces;	
 };
 
 #endif /* SRC_INTERFAZ_SONIDO_H_ */

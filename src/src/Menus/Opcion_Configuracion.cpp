@@ -54,6 +54,7 @@ Opcion* Opcion_Configuracion::update_opcion(double _i_tiempo, Opcion* _this) {
 	}
 	else if(_input->get_saltar()) {			// Entrar al menu
 		_dentro_menu = true;
+		_configuracion->actualiza();
 		std::cout << "Entrar a CONFIG\n";
 	}
 

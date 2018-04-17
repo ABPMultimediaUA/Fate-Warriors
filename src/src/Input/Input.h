@@ -51,6 +51,9 @@ public:
 	void invierte_eje_x();
 	void invierte_eje_y();
 
+	inline bool get_inversion_eje_x() { return _invertir_x;}
+	inline bool get_inversion_eje_y() { return _invertir_y;}
+
 	bool get_mover(uint16_t& _i_direccion);
 	inline bool get_saltar() 					{ return _saltar;}
 	inline bool get_interactuar()				{ return _interactuar;}

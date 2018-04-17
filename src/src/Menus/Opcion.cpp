@@ -69,3 +69,6 @@ void Opcion::set_opcion_siguiente(Opcion* _i_opcion) {
 void Opcion::set_tiempo(double _t) {
 	_tiempo_cambio = _t;
 }
+
+void Opcion::actualiza_valores() {
+}
