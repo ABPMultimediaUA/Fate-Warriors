@@ -1,7 +1,0 @@
-Banks/Ambiente.bank
-5
-event:/Ambiente/Cuervos
-event:/Ambiente/Lluvia
-event:/Ambiente/Radio
-event:/Ambiente/VientoC
-event:/Ambiente/VientoD

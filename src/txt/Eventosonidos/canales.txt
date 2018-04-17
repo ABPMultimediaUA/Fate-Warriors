@@ -1,5 +1,0 @@
-bus:/Musica
-bus:/Voces
-bus:/SFX
-bus:/Menu
-Fin

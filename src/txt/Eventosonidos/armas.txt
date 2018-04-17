@@ -1,9 +1,0 @@
-Banks/Armas.bank
-7
-event:/Armas/Ametralladora
-event:/Armas/Bate
-event:/Armas/Katana
-event:/Armas/Latigo
-event:/Armas/Mangual
-event:/Armas/Pistola
-event:/Armas/Señal
