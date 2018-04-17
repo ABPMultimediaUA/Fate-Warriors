@@ -2,6 +2,7 @@
 #include "stb_image.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
+
 TRecursoMaterial::TRecursoMaterial(std::string nombre){
     //_nombre=&nombre[0];
     _path=nombre;

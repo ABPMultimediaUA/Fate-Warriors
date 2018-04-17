@@ -48,6 +48,7 @@ class TMooseEngine{
         
         float getMouseOffsetX();
         float getMouseOffsetY();
+        void apagar();
 
     private:
 

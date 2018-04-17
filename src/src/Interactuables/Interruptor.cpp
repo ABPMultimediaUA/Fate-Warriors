@@ -9,11 +9,11 @@
 
 Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion, short _i_rotacion_x, short _i_rotacion_y, short _i_distancia) : Objeto(_i_id, _i_x, 0, _i_z){
 	 
-    const char* cstr  = "models/Interactuables/Interruptor/BaseInterruptor.obj";
+    const char* cstr  = "BaseInterruptor";
     _objeto_motor = new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,0,_i_z,0);
     _objeto_motor->rotar_nodo(_i_rotacion);
 
-    const char* cstr_2  = "models/Interactuables/Interruptor/PalancaInterruptor.obj";
+    const char* cstr_2  = "PalancaInterruptor";
 	_palito = new Objeto_Motor(this,E_BoundingBox, cstr_2, _i_x,-1.8,_i_z,0);
     _palito->rotar_nodo(_i_rotacion);
 

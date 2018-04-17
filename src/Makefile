@@ -7,7 +7,7 @@ OBJFILES:=$(patsubst $(SDIR)%, $(ODIR)%, $(SRCFILES:%.cpp=%.o))
 SOURCES := $(wildcard $(SDIR)/*.cpp)
 DELOBJ:= $(wildcard $(ODIR)/*)
 OBJECTS := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SOURCES))
-LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader -lfmod -lfmodstudio 
+LIBS := -L/usr/local/lib -lsfml-window -lsfml-graphics -lsfml-system -lRakNetDLL -lIrrlicht -lBulletDynamics -lBulletCollision -lLinearMath -lBulletWorldImporter -lBulletSoftBody -lBulletFileLoader -lfmod -lfmodstudio -lassimp -ldl -lGL -lGLU -lGLEW -lglut -lglfw
 INCLUDE := -I. -I/usr/include/bullet 
 CC      := g++
 CCFLAGS := -g -std=c++11
@@ -41,7 +41,7 @@ endef
 
 .PHONY: all
 all: dir $(ODIR) $(TARGET)
-	chmod a+x $(TARGET)
+	chmod +x $(TARGET)
 .PHONY: release
 release: opt all
 comw:
@@ -57,7 +57,7 @@ opt:
 	$(eval CCFLAGS:=-O2)
 	$(info $(CCFLAGS))
 $(TARGET): $(OBJFILES)
-	$(CC) -o $@ $^ $(INCLUDE) $(LIBS) $(CCFLAGS)
+	$(CC) -o $@ $^ glad.o GL/gl3w.o $(INCLUDE) $(LIBS) $(CCFLAGS)
 
 ## CREATING SUBDIRS OF THE OBJDIR
 #dir:

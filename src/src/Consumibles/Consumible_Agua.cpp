@@ -4,7 +4,7 @@
 #include "../Interfaz/Motor.h"
 
 Consumible_Agua::Consumible_Agua(short _id, float _i_x, float _i_y, float _i_z) : Consumible(_id,_i_x, _i_y, _i_z, 1){
-    const char* cstr = "models/Consumibles/Agua/Agua.obj";
+    const char* cstr = "Agua";
     
     _objeto_motor =new Objeto_Motor(this, E_BoundingBox, cstr, _i_x,_i_y,_i_z,0);
 

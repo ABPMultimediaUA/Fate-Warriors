@@ -50,7 +50,7 @@ class Motor{
 public:
 
     static Motor* Motor_GetInstance();
-
+    void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
    ~Motor();
    void vaciar_motor();
    
@@ -78,9 +78,20 @@ public:
     bool x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision); //traza un rayo entre dos posiciones X e Y y comprueba si pueden verse 
                                          //teniendo en cuenta unicamente el escenario (no el resto de objetos)
 
+    iNodoLuz* crearLuz(bool activa, float intensidad, 
+                                    Vector3 ambient,
+                                    Vector3 specular,
+                                    Vector3 diffuse);
+
+    iNodoLuz* crearLuz(bool activa, float intensidad, 
+                                    Vector3 ambient,
+                                    Vector3 specular,
+                                    Vector3 diffuse,  
+                                    float x, float y, float z);
+
+    bool ventana_abierta();
+    inline TMooseEngine* getEngine(){ return _me;}
     //void simulationUpdate();
-
-
       //bool    colision_entre_dos_puntos(Vector3 inicio, Vector3 fin);
 
 

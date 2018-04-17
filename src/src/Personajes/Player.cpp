@@ -28,7 +28,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     //_tiempo = Time::Instance();
     //crear nodo de personaje del motor
 
-    const char* cstr  = "models/Personajes/Jugador/Personaje.obj";
+    const char* cstr  = "Personaje";
 
     _objeto_motor = new Objeto_Motor(this, E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,80);
     
@@ -41,7 +41,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
 
     _input = _i_input;
-    _motor->set_text_vida(_vida);
+    //_motor->set_text_vida(_vida);
     _especial = 0;
     _hace_cinta = false;
     //_sonido->Play_ambiente(2);
@@ -201,18 +201,18 @@ void Player::modificar_vida_en(short _i_vida){
     else{
         _vida+=_i_vida;
     }
-    _motor->set_text_vida(_vida);
+    //_motor->set_text_vida(_vida);
 }
 
 void Player::danyar(short _danyo){
     danyar_comun(_danyo);
     
-    _motor->set_text_vida(_vida);
+    //_motor->set_text_vida(_vida);
 }
 
 void Player::set_vida(short _i_vida){
 	_vida=_i_vida;
-    _motor->set_text_vida(_vida);
+   // _motor->set_text_vida(_vida);
 }
 
 bool Player::puede_subir_especial(){

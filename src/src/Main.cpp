@@ -36,11 +36,14 @@ int main(){
 	Time* _time = Time::Instance();
 
     Motor* _motor = Motor::Motor_GetInstance();
+	
+	_motor->crearLuz(true, 100, Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(1, 1, 1), 0, 20, 0);
+	
 
     //uint8_t _frames = 0;
     //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
 
-	while(_motor->getIrrlichtDevice()->run()){
+	while(_motor->ventana_abierta()){
 		//Evento para cerrar la ventana
 
 		// Recoge inputs
