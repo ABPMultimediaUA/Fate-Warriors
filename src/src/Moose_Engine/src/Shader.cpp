@@ -10,7 +10,7 @@ GLuint Shader::Program=0;
 
 
 Shader::Shader(const char* vertex_path, const char* fragment_path){
-    LoadShader(eSkybox, "shaders/SkyboxVertexShader.vs", "shaders/SkyboxFragmentShader.frag");
+    LoadShader(eSkybox, "src/Moose_Engine/Shaders/vertex_skybox.glsl", "src/Moose_Engine/Shaders/fragment_skybox.glsl");
     LoadShader(Default,vertex_path, fragment_path);
 }
 
@@ -67,6 +67,7 @@ void Shader::LoadShader(ShaderType type,const char* vertex_path, const char* fra
     glAttachShader(ID, fragment);
     glLinkProgram(ID);
     checkCompileErrors(ID, "Program_shader");
+    Programs[type] = ID;
     // delete the shaders (estan linkeados a si que ya no nos sirven)
     glDeleteShader(vertex);
     glDeleteShader(fragment);
@@ -76,7 +77,7 @@ void Shader::LoadShader(ShaderType type,const char* vertex_path, const char* fra
 
 void Shader::use(ShaderType type){ 
     Program=Programs[type];
-    glUseProgram(ID);
+    glUseProgram(Program);
    }
 
 void Shader::setBool(const std::string &name, bool value){         

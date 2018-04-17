@@ -113,7 +113,7 @@ void Skybox::draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection){
         // Draw skybox as last
     glDepthFunc(GL_LEQUAL); // Change depth function so depth test passes when values are equal to depth buffer's content
     
-    _i_shader->use(Default);
+    _i_shader->use(eSkybox);
     glm::mat4 n_view = glm::mat4(glm::mat3(view)); // Remove any translation component of the view matrix
     glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "view"), 1, GL_FALSE, glm::value_ptr(n_view));
     glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -125,5 +125,6 @@ void Skybox::draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection){
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
     glDepthFunc(GL_LESS); // Set depth function back to default
-    
+    _i_shader->use(Default);
+
 }

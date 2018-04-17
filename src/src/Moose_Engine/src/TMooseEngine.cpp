@@ -243,7 +243,7 @@ void TMooseEngine::drawCamaras(){
             projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
             _shader->setProjection(projection);
             
-            _skybox->draw(_shader, matriz_view,projection);
+            _skybox->draw(_shader, matriz_view, projection);
 
             
             /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
