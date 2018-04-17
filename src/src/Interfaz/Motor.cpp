@@ -15,6 +15,16 @@
 #include "../Interactuables/Puerta_Pincho.h"
 #include "../Game.h"
 
+#include "../Moose_Engine/src/TMooseEngine.h"
+#include "../Moose_Engine/src/TModelado.h"
+#include "../Moose_Engine/src/TTransform.h"
+#include "../Moose_Engine/src/TNodo.h"
+#include "../Moose_Engine/src/TCamara.h"
+#include "../Moose_Engine/src/TLuz.h"
+#include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodoCamara.h"
+#include "../Moose_Engine/src/iNodoLuz.h"
+
 /*
 #include "Entidad.h"
 #include "../Input.h"
@@ -169,7 +179,7 @@ Motor::Motor(){
 	
 	desp_x = desp_z = 0;
 
-	camara = new Camara(smgr, device);
+	camara = new Camara(true);
 	angulo = 0;
 	_velocidad = 1;
 	_debug = false;
@@ -311,10 +321,10 @@ _Motor=0;
 	delete constraintSolver; 
 	delete fileLoader; 
 
-	//Irrlitch
-	delete _GUI;
-	driver->drop();
-	device->drop();
+	////Irrlitch
+	//delete _GUI;
+	//driver->drop();
+	//device->drop();
 
 
 	world = nullptr;
@@ -329,15 +339,15 @@ _Motor=0;
 
 
 void Motor::apagar(){
-	device->closeDevice();
+	//device->closeDevice();
 }
 
 
 
 void Motor::preparar_depuracion_mundo(){
-	debugDraw = new DebugDraw(device);
-	debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
-	world->setDebugDrawer(debugDraw);
+	//debugDraw = new DebugDraw(device);
+	//debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+	//world->setDebugDrawer(debugDraw);
 }
 
 void Motor::configuracion_bullet(){	
@@ -377,48 +387,25 @@ void Motor::configuracion_bullet(){
     world->setGravity(btVector3(0,-9.8*18,0));
 }
 
-void Motor::configuracion_irlitch(){
-// Configuracion de Irrlicht
-	device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1024, 768), 16, 
-    					  false, false, false);
-						   
-
-	device->setWindowCaption(L"Fate Warriors");
-
-	driver = device->getVideoDriver();
-	smgr = device->getSceneManager();
-	smgr->setAmbientLight(video::SColorf(1,1,1,1));
-	smgr->addSkyBoxSceneNode(
-		driver->getTexture("media/irrlicht2_up.jpg"),
-		driver->getTexture("media/irrlicht2_dn.jpg"),
-		driver->getTexture("media/irrlicht2_lf.jpg"),
-		driver->getTexture("media/irrlicht2_rt.jpg"),
-		driver->getTexture("media/irrlicht2_ft.jpg"),
-		driver->getTexture("media/irrlicht2_bk.jpg"));
-	_GUI = new GUI(device);
-	
-}
-
 
 unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso){
 	/*ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
 	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
-	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode);
+	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode); ;;
 	*/
 
 	return 1;
 }
 
-ISceneNode* Motor::crearModelado(const char* ruta,float x, float y, float z){
-	ISceneNode *cubeNode = smgr->addMeshSceneNode(smgr->getMesh(ruta));
+iNodoModelado* Motor::crearModelado(const char* ruta,float x, float y, float z){
+	iNodoModelado* cubeNode = new iNodoModelado(ruta, x, y, z);
+	lista_i_nodo.push_back(cubeNode);
+	return cubeNode;
+}
 
-	if(cubeNode){
-		cubeNode->setMaterialFlag(EMF_LIGHTING, true);
-	}
-	
-	cubeNode->setPosition(vector3df(x, y, z));
-	
-	cubeNode->getMaterial(0).AmbientColor.set(255,255,255,255); //r,g,b
+iNodoModelado* Motor::crearModelado(const char* ruta){
+	iNodoModelado* cubeNode = new iNodoModelado(ruta);
+	lista_i_nodo.push_back(cubeNode);
 	return cubeNode;
 }
 
@@ -426,7 +413,7 @@ void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 	_objetos_motor.push_back(_i_objeto_motor);
 }
 
-btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode){
+btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode){
 		
 	float altura,anchura,profundidad;
 	btCollisionShape *cubeShape;
@@ -443,7 +430,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 	switch(tipo){
 		case E_BoundingCapsule: 
-			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5);
+			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5)
 
 					break;
 		case E_BoundingBox:
@@ -579,29 +566,11 @@ btRigidBody* Motor::crear_rb_vision(){
 	return rb_ataque;
 }
 
-void Motor::getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad){
-	core::vector3d<f32> * edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	core::aabbox3d<f32> boundingbox ; //Mesh's bounding box
-	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	altura = (edges[1].Y - edges[0].Y);
-	delete edges;
-
-
-	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	anchura = (edges[2].Z - edges[0].Z);
-
-	delete edges;
-
-
-	edges = new core::vector3d<f32>[8]; //Bounding BOX edges
-	boundingbox=node->getTransformedBoundingBox(); //Let's get BB...
-	boundingbox.getEdges(edges);
-	profundidad = (edges[6].X - edges[2].X);
-
-	delete edges;
+void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
+	Vector3 cosas = node->getBB();
+	anchura = cosas._z;
+	altura = cosas._y;
+	profundidad = cosas._x;
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
@@ -616,9 +585,9 @@ void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
 }
 
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
-	ISceneNode *cubeNode = _objeto_motor->getNodo();
+	iNodoModelado *cubeNode = _objeto_motor->getNodo();
 	camara->Camara_setProta(cubeNode);
-	_objeto_que_sigue_la_camara = _objeto_motor; 
+	_objeto_que_sigue_la_camara = _objeto_motor;
 	camara->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
 }
 
@@ -648,17 +617,13 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 	return rayCallback;
 }
 
-IVideoDriver* Motor::getDriver(){
-	return driver;
-}
-
-void Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
-
-	mapa = smgr->addMeshSceneNode(smgr->getMesh(rutaObj));
-	if(mapa) {
-		mapa->setMaterialFlag(EMF_LIGHTING, false);
-		mapa->setPosition(core::vector3df(x,y,z));
-	}
+iNodoModelado* Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
+	iNodoModelado* modelado = crearModelado(rutaObj, x, y, z);
+	
+	//modelado->rotar(-1,0,0,180);
+	//modelado->escalar(1,-1,1);
+	//modelado->rotar(0,0,1,180);
+	return modelado;
 }
 
 void Motor::update(double dt){
@@ -668,7 +633,7 @@ void Motor::update(double dt){
 	}
 
 	mdt = dt;
-   	if(device->isWindowActive()) {
+   	//if(device->isWindowActive()) {
 
         world->stepSimulation(dt * 0.001f,5);
 
@@ -682,12 +647,12 @@ void Motor::update(double dt){
 
 		// Update de la posicion de la camara (despues de actualizar la del jugador)
 		updateCamaraColision();
-    } 
+    //} 
 
-    else {
-        Game::game_instancia()->cambio_a_update_pausa();
-    }
-       // device->drop();
+    //else {
+    //    Game::game_instancia()->cambio_a_update_pausa();
+    //}
+       
 }
 
 void Motor::interpola_posiciones(float _i_interpolacion) {
@@ -741,8 +706,8 @@ void Motor::updateCamaraColision(){
         
 		camara->Camara_Update();
 
-		core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
-		btVector3 camaraPos(camPosI.X, camPosI.Y, camPosI.Z);
+		//core::vector3df camPosI(camara->Camara_getPosition().X,camara->Camara_getPosition().Y,camara->Camara_getPosition().Z);
+		btVector3 camaraPos(camara->Camara_getPosition()._x, camara->Camara_getPosition()._y, camara->Camara_getPosition()._z);
 		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con2);
 		//dynamic_cast<const btRigidBody*>(rayCallback.m_collisionObject)->getUserPointer();
 		//->getUserPointer();
@@ -750,7 +715,7 @@ void Motor::updateCamaraColision(){
 			btVector3 point = rayCallback.m_hitPointWorld;
 			btVector3 normal = rayCallback.m_hitNormalWorld;
 			const btCollisionObject *object = rayCallback.m_collisionObject;
-			camara->Camara_setPositionColision(core::vector3df(point[0],point[1],point[2]));
+			camara->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
 				
 			//for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
 			//	if(fileLoader->getRigidBodyByIndex(i) == object){
@@ -770,53 +735,28 @@ void Motor::resetear_camara(){
 }
 
 
-void Motor::render(){
 
-	driver->beginScene(true, true, SColor(255,100,101,140));
-    smgr->drawAll();
-
-    SMaterial debugMat;
-    debugMat.Lighting = false;
-    driver->setMaterial(debugMat);
-    driver->setTransform(ETS_WORLD, IdentityMatrix);
-
-	driver->draw2DImage( driver->getTexture( "media/barra_muerte.png" ), core::position2d<s32>( 50, 50 ), core::rect<s32>( 50, 50, 350, 80), 0 );
-	driver->draw2DImage( driver->getTexture( "media/barra_vida.png" ), core::position2d<s32>( 50, 50 ), core::rect<s32>( 50, 50, 50+_vida, 80), 0 );
-	
-
-    if(_debug){
-		
-		world->debugDrawWorld();
-		float mult = 4.9212625;
-		btVector3 a(rayOrigen->_x,rayOrigen->_y,rayOrigen->_z);
-		btVector3 b(rayDestino->_x,rayDestino->_y,rayDestino->_z);
-		debugDraw->drawLine(a,b,btVector4(0,0,0,1));
-	
-	}
-
-	//guienv->drawAll();
-	_GUI->draw();
-    driver->endScene();
-}
 
 //Metodos set
 
-void Motor::set_text_vida(int _i_vida){
-	_GUI->set_text_vida(_i_vida);
-	_vida = (_i_vida*300)/3000;
-}
+//void Motor::set_text_vida(int _i_vida){
+//	_GUI->set_text_vida(_i_vida);
+//	_vida = (_i_vida*300)/3000;
+//}
 
 
-IrrlichtDevice* Motor::getIrrlichtDevice(){
-	return device;
-}
+//IrrlichtDevice* Motor::getIrrlichtDevice(){
+//	return device;
+//}
 
 void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);
 	render();
 }
 
-
+void Motor::render(){
+	_me->draw();
+}
 
 float Motor::angulo_camara(){
 	return camara->Camara_getAngle();

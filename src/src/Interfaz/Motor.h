@@ -14,7 +14,9 @@
 #include "EnumTiposBoundingBox.h"
 #include <btBulletCollisionCommon.h>
 #include "../Utilidades/Vector.h"
-
+#include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodoCamara.h"
+#include "../Moose_Engine/src/iNodoLuz.h"
 
 
 
@@ -40,6 +42,7 @@ class btBulletWorldImporter;
 class btPairCachingGhostObject;
 class btRigidBody;
 class btVector3;
+class TMooseEngine;
 
 
 class Motor{
@@ -56,13 +59,14 @@ public:
     void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
-    void importarEscenario(const char* rutaObj, float x, float y, float z);
+    iNodoModelado* importarEscenario(const char* rutaObj, float x, float y, float z);
 
   
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
-    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, ISceneNode *cubeNode);
-    ISceneNode* crearModelado(const char*  ruta,float x, float y, float z);
+    btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
+    iNodoModelado* crearModelado(const char* ruta,float x, float y, float z);
+    iNodoModelado* crearModelado(const char* ruta);
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     btRigidBody* crear_rb_vision();
@@ -96,11 +100,10 @@ public:
 
     void interpola_posiciones(float _i_interpolacion);
     void resetear_camara();
-    void getDimensiones(ISceneNode* node, float &anchura, float &altura, float &profundidad);
+    void getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad);
 
     void borrar_objeto(Objeto_Motor* _objeto_motor);
     void borrar_rb(btRigidBody* rb); // Mejorar
-    IVideoDriver* getDriver();
     float angulo_camara();
     float angulo_camaraRAD();
     
@@ -153,16 +156,16 @@ private:
       Time* _tiempo;
       uint8_t _numcubos;
 
-      //Irlitch
-      ISceneNode *mapa;
-	IrrlichtDevice *device;
-      IVideoDriver* driver;
-	ISceneManager* smgr;
-      GUI* _GUI;
-
-       
-      Objeto_Motor *_objeto_que_sigue_la_camara;
+      
+      
+      //ME
+      TMooseEngine* _me;
+      iNodoModelado* mapa;
+      uint16_t _id_jugador;
       std::vector<Objeto_Motor*> _objetos_motor;
+      std::vector<iNodo*> lista_i_nodo;
+
+      Objeto_Motor* _objeto_que_sigue_la_camara;
 };
 
 

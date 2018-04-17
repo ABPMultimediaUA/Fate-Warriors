@@ -5,7 +5,7 @@
 #include "irrlicht/irrlicht.h"
 #include "../Utilidades/Vector.h"
 #include "EnumTiposBoundingBox.h"
-
+#include "../Moose_Engine/src/iNodoModelado.h"
 #include <cstdint>
 
 using namespace irr;
@@ -21,6 +21,7 @@ class Interpolacion;
 class btRigidBody;
 class btVector3;
 class Character;
+class iNodoModelado;
 
 class Objeto_Motor{
 public:
@@ -54,7 +55,7 @@ public:
       float getY();
       float getZ();
 
-      ISceneNode*    getNodo();
+      iNodoModelado*    getNodo();
       Interpolacion* getInterpolacion();
       btRigidBody*   getRigidBody();
 
@@ -65,7 +66,7 @@ public:
 
 
 private:
-      ISceneNode*       _nodo;
+      iNodoModelado*       _nodo;
       Interpolacion*    _interpolacion;
       btRigidBody*      _rigidbody;
       double desp_z;
