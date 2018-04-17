@@ -78,7 +78,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    window = glfwCreateWindow(width, height, "MooseEngine", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Fate Warriors", NULL, NULL);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, micallback);
 
