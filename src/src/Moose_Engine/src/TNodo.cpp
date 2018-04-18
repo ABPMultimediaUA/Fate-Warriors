@@ -43,10 +43,13 @@ TNodo* TNodo::encontrarNodo(uint16_t nodo){
     return nullptr;
 }
 void TNodo::borrar_nodo(){
-    _padre->borrar_hijo(this);
-    set_nodo_padre(nullptr);
-    delete this;
-    
+    if(_padre->get_hijos_size()>1){
+        _padre->borrar_hijo(this);
+        set_nodo_padre(nullptr);
+        delete this;
+    }else{
+        _padre->borrar_nodo();
+    }
 }
 
 bool TNodo::borrar_hijo(TNodo* hijo){

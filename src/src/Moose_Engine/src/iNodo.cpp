@@ -37,3 +37,7 @@ Vector3 iNodo::getPosition(){
     Vector3 position(transformacion[3][0], transformacion[3][1], transformacion[3][2]);
     return position;
 }
+
+void iNodo::borrarNodo(){
+    _nodo_motor->borrar_nodo();
+}

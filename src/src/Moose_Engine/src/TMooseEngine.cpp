@@ -157,6 +157,7 @@ void TMooseEngine::setMouseOffsetY(float offset){
 
 void TMooseEngine::borrarNodo(uint16_t nodo){
     TNodo* aux=_escena->encontrarNodo(nodo);
+    
     if(aux==nullptr){
         std::cout<<"ERROR ARBOL ESCENA: nodo no encontrado"<<"\n";
     }
