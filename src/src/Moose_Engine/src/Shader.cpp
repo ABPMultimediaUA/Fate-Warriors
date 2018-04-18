@@ -150,6 +150,6 @@ void Shader::setLuz(const glm::vec3 _i_luces[], unsigned int cantidad_luces){
     cAux=s.c_str();
     glUniform3fv(glGetUniformLocation(ID, cAux),1,&_i_luces[3][0]);
     ++cantidad_luces;
-    std::cout<<"luces: "<<cantidad_luces<<std::endl;
+    //std::cout<<"luces: "<<cantidad_luces<<std::endl;
     setInt("cantidad_luces",cantidad_luces);
 }
