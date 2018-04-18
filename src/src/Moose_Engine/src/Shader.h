@@ -28,6 +28,9 @@ class Shader{
         void setModel(const glm::mat4 &mat);
         void setProjection(const glm::mat4 &mat);
 
+        inline glm::mat4 getProjection(){ return _projection;};
+        inline glm::mat4 getView(){ return _view;};
+
         static GLuint Program;
 
 

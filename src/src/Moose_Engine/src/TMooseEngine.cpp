@@ -107,11 +107,13 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(-1);
     }  
+    
     glEnable(GL_DEPTH_TEST);
     glViewport(0,0,width,height);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT); //Hay que usar el front, asi que mirare el modelado.
     glFrontFace(GL_CW);
+    
 }
 
 float TMooseEngine::getMouseOffsetX(){
@@ -186,9 +188,10 @@ void TMooseEngine::draw(){
     _shader->use(Default);
     drawCamaras();
     drawLuces();
-    _escena->draw(_shader);
-    glfwSwapBuffers(window);
     glfwPollEvents();
+    _escena->draw(_shader);
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    glfwSwapBuffers(window);
 }
 
 void TMooseEngine::drawLuces(){
@@ -242,8 +245,6 @@ void TMooseEngine::drawCamaras(){
             //projection = glm::scale(-1,1,1);
             projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
             _shader->setProjection(projection);
-            
-            _skybox->draw(_shader, matriz_view, projection);
 
             
             /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
