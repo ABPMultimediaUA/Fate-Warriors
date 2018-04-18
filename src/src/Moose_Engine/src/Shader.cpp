@@ -120,3 +120,23 @@ void Shader::setModel(const glm::mat4 &mat){
 void Shader::setProjection(const glm::mat4 &mat){
     _projection=mat;
 }
+void Shader::setLuz(const glm::vec3 _i_luces[], unsigned int cantidad_luces){
+    //pasamos cada uno de los parametros de las luces al vertex
+    
+    const char*cAux;
+    std::string s="Light["+std::to_string(cantidad_luces)+']'+".Diffuse";//se pasa cada uno a string de manera individual para evitar el error de falta de conversion de array de char a char*
+    cAux=s.c_str();
+    glUniform3fv(glGetUniformLocation(ID, cAux),1,&_i_luces[0][0]);
+    s="Light["+std::to_string(cantidad_luces)+']'+".Specular";
+    cAux=s.c_str();
+    glUniform3fv(glGetUniformLocation(ID, cAux),1,&_i_luces[1][0]);
+    s="Light["+std::to_string(cantidad_luces)+']'+".Ambient";
+    cAux=s.c_str();
+    glUniform3fv(glGetUniformLocation(ID, cAux),1,&_i_luces[2][0]);
+    s="Light["+std::to_string(cantidad_luces)+']'+".Position";
+    cAux=s.c_str();
+    glUniform3fv(glGetUniformLocation(ID, cAux),1,&_i_luces[3][0]);
+    ++cantidad_luces;
+    std::cout<<"luces: "<<cantidad_luces<<std::endl;
+    setInt("cantidad_luces",cantidad_luces);
+}

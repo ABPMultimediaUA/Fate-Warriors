@@ -15,7 +15,7 @@ void main()
 {
     	//TRANSFORMAR VERTICE Y NORMAL A COORDENADAS DE VISTA
 	Position = vec3 (modelView * aPos);
-	Normal = vec3 (normalize (normal * aNormal));
+	//Normal = vec3 (normalize (normal * aNormal));
     TexCoords = aTexCoords;    
     gl_Position = MVP * aPos;
 }

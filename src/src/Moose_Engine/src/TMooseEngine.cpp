@@ -31,11 +31,42 @@ TMooseEngine::TMooseEngine(){
     _n_c_actual=0;
     _n_l_actual=0;
     _gestorRecursos = TGestorRecursos::get_instancia();
-    TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);
+    TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);//raiz del arbol de escena
     _escena = nodo;
-    _shader = new Shader("src/Moose_Engine/Shaders/vertex_basic.glsl", "src/Moose_Engine/Shaders/fragment_basic.glsl");
+    _shader = new Shader("src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
+   
+    SHADOW_WIDTH = 1024;
+    SHADOW_HEIGHT = 1024;
+
+}
+
+void TMooseEngine::PreparacionSombras(){
+    glGenFramebuffers(1, &depthMapFBO);  
+   //generacion de la textura del mapeado de sombras
+    glGenTextures(1, &depthMap);
+    glBindTexture(GL_TEXTURE_2D, depthMap);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);  
+
+    //bind del mapeado de sombras
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+}
+
+void TMooseEngine::ConfigurarSombras(){
+    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.5f, 100.0f);  
+
+    glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),glm::vec3( 0.0f, 0.0f,  0.0f),glm::vec3( 0.0f, 1.0f,  0.0f));  
+
+
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -198,25 +229,49 @@ void TMooseEngine::draw(){
     _escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
+
+
+
+
+    /*//cosa
+    // 1. first render to depth map
+    glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+        glClear(GL_DEPTH_BUFFER_BIT);
+        ConfigureShaderAndMatrices();
+        RenderScene();
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    // 2. then render scene as normal with shadow mapping (using depth map)
+    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    ConfigureShaderAndMatrices();
+    glBindTexture(GL_TEXTURE_2D, depthMap);
+    RenderScene();*/
+
 }
 
 void TMooseEngine::apagar(){
-    glfwSetWindowShouldClose(window, true);
+   glfwSetWindowShouldClose(window, true);
 }
+
 
 void TMooseEngine::drawLuces(){
     u_int16_t cont = 0;
     glm::vec3 position;
     std::stack<glm::mat4> pila_matriz_luz;
+    glm::vec3 luz_aux[4];
     matriz_luz=glm::mat4(1.0f);
     TNodo* aux;
     for(uint16_t i = 0; i < _mapping_luces.size(); i++){
         if(_mapping_luces[i]->activa){
             TNodo* this_node = _mapping_luces[i]->nodo;
             //std::cout<<static_cast<TLuz*>(this_node->get_entidad())->get_especular().y<<std::endl;
-            _shader->setvec3("Light.Diffuse",static_cast<TLuz*>(this_node->get_entidad())->get_difusa());
-            _shader->setvec3("Light.Specular",static_cast<TLuz*>(this_node->get_entidad())->get_especular());
-            _shader->setvec3("Light.Ambient",static_cast<TLuz*>(this_node->get_entidad())->get_ambiente());
+            luz_aux[0]=static_cast<TLuz*>(this_node->get_entidad())->get_difusa();
+            luz_aux[1]=static_cast<TLuz*>(this_node->get_entidad())->get_especular();
+            luz_aux[2]=static_cast<TLuz*>(this_node->get_entidad())->get_ambiente();
+            //_shader->setvec3("Light.Diffuse",static_cast<TLuz*>(this_node->get_entidad())->get_difusa());
+            //_shader->setvec3("Light.Specular",static_cast<TLuz*>(this_node->get_entidad())->get_especular());
+            //_shader->setvec3("Light.Ambient",static_cast<TLuz*>(this_node->get_entidad())->get_ambiente());
             while(this_node->get_padre()!=nullptr){
                 this_node = this_node->get_padre();
                 if(this_node->get_entidad()!=nullptr){
@@ -231,13 +286,17 @@ void TMooseEngine::drawLuces(){
             for(u_int16_t a = 0; a < cont; a++){
                matriz_luz = matriz_luz * pila_matriz_luz.top();
                if(a==cont-1){
-                   position = glm::vec3(pila_matriz_luz.top()[0][0],
-                                                  pila_matriz_luz.top()[1][1],
-                                                  pila_matriz_luz.top()[2][2]);
+                   position = glm::vec3(pila_matriz_luz.top()[3][0],
+                                                  pila_matriz_luz.top()[3][1],
+                                                  pila_matriz_luz.top()[3][2]);
+
+                    luz_aux[3]=position;
+                    _shader->setLuz(luz_aux,i);
                }
-               _shader->setvec3("Light.Position",position);
+               //_shader->setvec3("Light.Position",position);
                pila_matriz_luz.pop();
             } 
+            cont=0;
         }
     }
 }

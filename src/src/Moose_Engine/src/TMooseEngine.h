@@ -48,6 +48,7 @@ class TMooseEngine{
         
         float getMouseOffsetX();
         float getMouseOffsetY();
+
         void apagar();
 
     private:
@@ -75,6 +76,8 @@ class TMooseEngine{
 
 
         void init_opengl(uint16_t width, uint16_t height);
+        void PreparacionSombras();
+        void ConfigurarSombras();
         void clear();
         
         //GLFW mouse input
@@ -82,7 +85,9 @@ class TMooseEngine{
 	    bool _firstMouse;
 
         //atributos para camaras, luces y demás
-
+        unsigned int depthMapFBO;
+        unsigned int depthMap;
+        unsigned int SHADOW_WIDTH,SHADOW_HEIGHT;
 
         //reproductor animaciones
         std::vector<TAnimacion*> _animaciones;

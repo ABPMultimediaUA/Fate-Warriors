@@ -288,10 +288,14 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
     std::vector<TRecursoMaterial*> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "_specular", path);
     //std::cout<<"Textura specular: "<<path<<std::endl;
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-    //shininess maps
+    //ambient maps
     std::vector<TRecursoMaterial*> abmientMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "_ambient", path);
     //std::cout<<"Textura ambiente: "<<path<<std::endl;
-    textures.insert(textures.end(), abmientMaps.begin(), abmientMaps.end());
+    textures.insert(textures.end(), abmientMaps.begin(), abmientMaps.end()); 
+    //normales mpas
+    std::vector<TRecursoMaterial*> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "_normales", path);
+    //std::cout<<"Textura ambiente: "<<path<<std::endl;
+    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 
     //devolver la malla creada a partir de los datos obtenidos*/
     TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);

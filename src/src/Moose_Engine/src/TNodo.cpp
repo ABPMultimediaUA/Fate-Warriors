@@ -11,7 +11,7 @@ TNodo::TNodo(uint16_t entidadID, TNodo* nodo_padre) : _visible(true){
 }
 
 TNodo::~TNodo(){
-    std::cout<<"id: "<<_entidadID<<std::endl;
+    //std::cout<<"id: "<<_entidadID<<std::endl;
     for(auto it = _hijos.begin(); it!=_hijos.end(); it++){ //itera por el vector eliminando
         delete *it;
     }

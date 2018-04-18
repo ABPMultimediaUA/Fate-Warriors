@@ -49,9 +49,10 @@ void TRecursoMalla::draw(Shader* shader){
         }	
 		else if(name == "_specular"){
             shader->setInt("Material.Specular",i);//pasar la texutra especular
+            shader->setInt("Material.Shininess",i);
         }	
-        else if(name == "texture_shininess"){
-            shader->setInt("Material.Shininess",i);//pasar el brillo
+        else if(name == "_normales"){
+            shader->setInt("Material.Normal",i);//pasar el brillo
         }
         //bind texture
         glBindTexture(GL_TEXTURE_2D, textures[i]->Get_id());
