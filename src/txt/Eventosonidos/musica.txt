@@ -1,0 +1,16 @@
+Banks/Musica.bank
+14
+event:/Musica/Menu/Menu
+event:/Musica/Online/Online1
+event:/Musica/Online/Online2
+event:/Musica/Lose/Lose1
+event:/Musica/Lose/Lose2
+event:/Musica/Lose/Lose3
+event:/Musica/Win/Win1
+event:/Musica/Win/Win2
+event:/Musica/Win/Win3
+event:/Musica/Equilibrado/Equilibrado1
+event:/Musica/Equilibrado/Equilibrado2
+event:/Musica/Equilibrado/Equilibrado3
+event:/Musica/Equilibrado/Equilibrado4
+event:/Musica/Equilibrado/Equilibrado5

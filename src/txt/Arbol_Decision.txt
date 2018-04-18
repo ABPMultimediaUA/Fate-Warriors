@@ -1,0 +1,74 @@
+3
+
+- 0 Final Andar Atacar ND_0 0
+- 1 Izq Andar 0 ND_1 0
+- 2 Izq Andar 1 ND_2 0
+
+Fin
+
+
+
+18
+
+- 0 Final Andar Atacar ND_11 0
+- 1 Final Atacar Atacar ND_5 0
+- 2 Final Atacar Esquivar ND_6 0
+- 3 Medio 1 2 ND_12 0
+- 4 Medio 0 3 ND_15 0
+- 5 Final Andar Interactuar ND_16 0
+- 6 Medio 4 5 ND_18 0
+
+- 7 Final Andar Andar ND_2 0
+- 8 Der 7 Andar ND_7 0
+- 9 Medio 8 5 ND_13 0
+
+- 10 Final Andar Interactuar ND_0 0
+- 11 Izq Andar 10 ND_3 0
+- 12 Medio 11 6 ND_9 0
+
+- 13 Izq Andar 5 ND_4 0
+- 14 Medio 13 6 ND_9 0
+
+- 15 Medio 12 14 ND_14 0
+
+- 16 Medio 9 15 ND_17 0
+
+- 17 Medio 16 6 ND_19 0
+
+Fin
+
+11
+
+- 0 Final Andar Andar ND_23 0
+- 1 Final Nada Nada ND_Distancia_Objetivo 0
+- 2 Medio 1 0 ND_Hay_Enemigos_En_Mi_Zona 0
+- 3 Final Andar Andar ND_Hay_Enemigos_En_Mi_Zona 0
+- 4 Medio 2 3 ND_Situado_En_Zona_Aliada 0
+- 5 Final Andar Andar ND_Zona_Mas_Cercana_Siendo_Capturada 0
+- 6 Final Andar Andar ND_Distancia_Objetivo 0
+- 7 Medio 5 6 ND_Zona_Mas_Cercana_Es_Enemiga 0
+- 8 Medio 7 4 ND_Situado_En_Zona 0
+- 9 Final Andar Atacar ND_Enemigo_Muy_Cerca 0
+- 10 Medio 8 9 ND_Enemigo_Cerca 0
+
+_____________________
+
+
+#- 0 Final Atacar Andar   ND_Distancia_Objetivo 6
+#- 1 Final Nada Nada      ND_Distancia_Objetivo 1
+#- 2 Medio 0      1       ND_Set_Objetivo_Personaje_Enemigo_Cerca  30
+
+# ID TIPO_NODO CATEGORIA NODOS (Final->Finales/Medio->ID) VALOR_CORTE
+# IF VALOR>=VALOR_CORTE -> DERECHA
+# IF VALOR< VALOR_CORTE -> IZQUIERDA
+# ANGEL: booleanas 0 false, 1 true. Si es false, nodo izq, true derecho
+# ANGEL: Hay algunos nodos que da igual que valor le pases, porque usan variables que leen de partida
+
+# El primer digito es el id del nodo 
+# El segundo indica la situacion en el arbol (Si esta al final o a mitad de arbol)
+# Los 2 siguientes indican
+#    En caso de nodo Final -> Las acciones
+#    En caso de nodo Medio -> Los id de los nodos
+# El siguiente es el tipo de nodo (valores que pide al blackboard)
+# El ultimo valor es el valor de corte que decide para que nodo ir
+

@@ -1,0 +1,12 @@
+INIT
+txt/Eventosonidos/ambiente.txt
+txt/Eventosonidos/armas.txt
+txt/Eventosonidos/consumibles.txt
+txt/Eventosonidos/escenario.txt
+txt/Eventosonidos/menu.txt
+txt/Eventosonidos/pasos.txt
+txt/Eventosonidos/personaje.txt
+txt/Eventosonidos/voces.txt
+txt/Eventosonidos/musica.txt
+txt/Eventosonidos/canales.txt
+Fin
