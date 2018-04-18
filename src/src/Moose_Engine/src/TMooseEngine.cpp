@@ -11,6 +11,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "Skybox.h"
+
+
 TMooseEngine* TMooseEngine::_instancia = 0;
 
 struct Mapeado{//declaracion de los parametros
@@ -34,6 +37,7 @@ TMooseEngine::TMooseEngine(){
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);//raiz del arbol de escena
     _escena = nodo;
     _shader = new Shader("src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
+    _skybox = new Skybox();
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
@@ -223,10 +227,11 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
-    _shader->use();
+    _shader->use(Default);
     drawCamaras();
     drawLuces();
     _escena->draw(_shader);
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     glfwSwapBuffers(window);
     glfwPollEvents();
 

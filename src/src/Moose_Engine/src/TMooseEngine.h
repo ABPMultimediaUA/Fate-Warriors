@@ -15,6 +15,7 @@ class TAnimacion;
 class Mapeado;
 class Shader;
 class GLFWwindow;
+class Skybox;
 
 class TMooseEngine{
 
@@ -91,6 +92,8 @@ class TMooseEngine{
 
         //reproductor animaciones
         std::vector<TAnimacion*> _animaciones;
+        
+        Skybox* _skybox;
 };
 
 

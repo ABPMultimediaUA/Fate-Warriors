@@ -5,8 +5,18 @@
 
 #include "Shader.h"
 
+GLuint Shader::Programs[Shader_count];
+GLuint Shader::Program=0;
+
+
 Shader::Shader(const char* vertex_path, const char* fragment_path){
-    // 1. retrieve the vertex/fragment source code from filePath
+    LoadShader(eSkybox, "src/Moose_Engine/Shaders/vertex_skybox.glsl", "src/Moose_Engine/Shaders/fragment_skybox.glsl");
+    LoadShader(Default,vertex_path, fragment_path);
+}
+
+
+void Shader::LoadShader(ShaderType type,const char* vertex_path, const char* fragment_path){
+   // 1. retrieve the vertex/fragment source code from filePath
     std::string vertex_Code;
     std::string fragment_Code;
     std::ifstream vShaderFile;
@@ -51,18 +61,21 @@ Shader::Shader(const char* vertex_path, const char* fragment_path){
     glCompileShader(fragment);
     checkCompileErrors(fragment, "Fragment_shader");
     // shader Program
+
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
     glLinkProgram(ID);
     checkCompileErrors(ID, "Program_shader");
+    Programs[type] = ID;
     // delete the shaders (estan linkeados a si que ya no nos sirven)
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 }
 
-void Shader::use(){ 
-    glUseProgram(ID); 
+void Shader::use(ShaderType type){ 
+    Program=Programs[type];
+    glUseProgram(Program);
 }
 
 void Shader::setBool(const std::string &name, bool value){         
