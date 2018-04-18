@@ -14,7 +14,8 @@ class iNodo{
         void rotacionDirecta(float x, float y, float z, float w);
         void escalar(float x, float y, float z);
         Vector3 getPosition();
-    
+        void borrarNodo();
+
     protected:
         TNodo* _nodo_motor; //nodo interno del ME
 };

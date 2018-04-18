@@ -50,6 +50,7 @@ class Motor{
 public:
 
     static Motor* Motor_GetInstance();
+    void CargaMapa();
     void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
    ~Motor();
    void vaciar_motor();
@@ -118,14 +119,11 @@ public:
     float angulo_camara();
     float angulo_camaraRAD();
     
-      bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
-      void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
-      void posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
-
-      //bool comprobar_colision_ataque(btRigidBody *character_atacado);
-
-      void gira_camara(short _rotacion_x, short _rotacion_en_y);
-    
+    bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
+    void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
+    void posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
+    //bool comprobar_colision_ataque(btRigidBody *character_atacado);
+    void gira_camara(short _rotacion_x, short _rotacion_en_y);
 
 private:
 
