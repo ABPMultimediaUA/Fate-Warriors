@@ -65,12 +65,12 @@ Skybox::Skybox() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof (GLfloat), (GLvoid*) 0);
     glBindVertexArray(0);
     // Cubemap (Skybox)
-    faces.push_back("Skybox_Images/right.png"); //right
-    faces.push_back("Skybox_Images/left.png"); //left
-    faces.push_back("Skybox_Images/top.png"); //top
-    faces.push_back("Skybox_Images/bottom.png"); //bottom
-    faces.push_back("Skybox_Images/back.png"); //back   
-    faces.push_back("Skybox_Images/front.png"); //front
+    faces.push_back("Skybox_Images/left.jpg"); //left
+    faces.push_back("Skybox_Images/right.jpg"); //right
+    faces.push_back("Skybox_Images/top.jpg"); //top
+    faces.push_back("Skybox_Images/bottom.jpg"); //bottom
+    faces.push_back("Skybox_Images/back.jpg"); //back   
+    faces.push_back("Skybox_Images/front.jpg"); //front
     cubemapTexture = loadCubemap(faces);
 }
  

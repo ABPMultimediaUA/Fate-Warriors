@@ -227,11 +227,11 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
     drawLuces();
     _escena->draw(_shader);
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     glfwSwapBuffers(window);
     glfwPollEvents();
 
