@@ -65,12 +65,13 @@ void TMooseEngine::PreparacionSombras(){
     glBindFramebuffer(GL_FRAMEBUFFER, 0);  
 }
 
-void TMooseEngine::ConfigurarSombras(){
+void TMooseEngine::ConfigurarSombrasMapeado(){
     glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.5f, 100.0f);  
-
     glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),glm::vec3( 0.0f, 0.0f,  0.0f),glm::vec3( 0.0f, 1.0f,  0.0f));  
+}
 
-
+void TMooseEngine::ConfigurarSombrasProyectadas(){
+      
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -232,6 +233,7 @@ void TMooseEngine::draw(){
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+
     glfwSwapBuffers(window);
     glfwPollEvents();
 
@@ -253,6 +255,11 @@ void TMooseEngine::draw(){
     glBindTexture(GL_TEXTURE_2D, depthMap);
     RenderScene();*/
 
+}
+
+void TMooseEngine::drawSombras(){
+    //y yasta MUCHO PIDES TU HOY EH!
+    //y yasta2
 }
 
 void TMooseEngine::apagar(){

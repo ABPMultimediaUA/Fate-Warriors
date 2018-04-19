@@ -74,15 +74,19 @@ uint16_t TNodo::get_entidad_id(){
 }
 
 void TNodo::draw(Shader* _i_shader){
-            if(_entidad != nullptr){
-                _entidad->beginDraw(_i_shader);
-                for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
-                    (*it)->draw(_i_shader);
-                }
-                _entidad->endDraw();
-            }else{
-                for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
-                    (*it)->draw(_i_shader);
-                }
-            }
+    if(_entidad != nullptr){
+        _entidad->beginDraw(_i_shader);
+        for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
+            (*it)->draw(_i_shader);
+        }
+        _entidad->endDraw();
+    }else{
+        for(std::vector<TNodo*>::iterator it = _hijos.begin(); it != _hijos.end(); it++){
+            (*it)->draw(_i_shader);
+        }
+    }
+}
+
+void TNodo::drawSombrasProyectadas(Shader* _i_shader){
+
 }

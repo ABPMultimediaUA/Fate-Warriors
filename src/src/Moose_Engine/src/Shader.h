@@ -40,6 +40,8 @@ class Shader{
         unsigned int ID;
         glm::mat4 _view,_projection;
         void checkCompileErrors(unsigned int shader, std::string type);
+        glm::vec3 posicion_luz;
+
 };
 
 #endif

@@ -44,6 +44,7 @@ class TMooseEngine{
         }
 
         void draw();
+        void drawSombras();
         bool ventana_abierta();
 	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);
         
@@ -78,7 +79,8 @@ class TMooseEngine{
 
         void init_opengl(uint16_t width, uint16_t height);
         void PreparacionSombras();
-        void ConfigurarSombras();
+        void ConfigurarSombrasMapeado();
+        void ConfigurarSombrasProyectadas();
         void clear();
         
         //GLFW mouse input
