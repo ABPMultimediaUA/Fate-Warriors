@@ -9,13 +9,14 @@
 enum ShaderType {
     Default = 0,
     eSkybox,
+    sombras_proyectadas,
     Shader_count
 };
 
 
 class Shader{
     public:
-        Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
+        Shader();
         ~Shader()=default;
 
         void LoadShader(ShaderType type,const char* vertexPath, const char* fragmentPath);
@@ -37,7 +38,6 @@ class Shader{
     private:
 
         static GLuint Programs[Shader_count];
-        unsigned int ID;
         glm::mat4 _view,_projection;
         void checkCompileErrors(unsigned int shader, std::string type);
         glm::vec3 posicion_luz;

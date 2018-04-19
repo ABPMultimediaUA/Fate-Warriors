@@ -36,7 +36,7 @@ TMooseEngine::TMooseEngine(){
     _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);//raiz del arbol de escena
     _escena = nodo;
-    _shader = new Shader("src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
+    _shader = new Shader();
     _skybox = new Skybox();
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
@@ -90,7 +90,6 @@ void micallback(GLFWwindow* oglwindow, double _i_xpos, double _i_ypos){
 
 void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    //std::cout<<"FUNCIONO \n";
     if (_firstMouse)
     {
         _lastX = xpos;
@@ -233,7 +232,8 @@ void TMooseEngine::draw(){
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-
+    _shader->use(sombras_proyectadas);
+    _escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
 
@@ -304,6 +304,9 @@ void TMooseEngine::drawLuces(){
 
                     luz_aux[3]=position;
                     _shader->setLuz(luz_aux,i);
+                    _shader->use(sombras_proyectadas);
+                    _shader->setvec3("luz_posicion",position);
+                    _shader->use(Default);
                }
                //_shader->setvec3("Light.Position",position);
                pila_matriz_luz.pop();
