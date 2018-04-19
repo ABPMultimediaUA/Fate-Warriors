@@ -63,7 +63,7 @@ public:
       btVector3 get_posicion_rb();
       void rotar_nodo(uint16_t rotacion);                   // Interpola la rotacion
       void rotar_nodo_sin_interpolacion(uint16_t rotacion); // NO interpola la rotacion
-
+      void cambiar_modelado(const char* _ruta);
 
 private:
       iNodoModelado*       _nodo;

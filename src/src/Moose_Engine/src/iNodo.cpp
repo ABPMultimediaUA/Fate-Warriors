@@ -9,7 +9,7 @@ iNodo::iNodo(){
 }
 
 iNodo::~iNodo(){
-
+    
 }
 
 void iNodo::mover(float x, float y, float z){

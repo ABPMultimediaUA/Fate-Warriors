@@ -250,6 +250,8 @@ void Camara::update_position() {
 		
 		// Calculo de la direccion de la camara
 		_camaraDir = _target - _position;
+		std::cout << "target " << _target.x << "\n";
+		std::cout << "position " << _position.x << "\n";
 		//_camaraDir = glm::normalize(_camaraDir);
 
 		glm::vec3 inicial(0,0,1); //v1
@@ -260,6 +262,11 @@ void Camara::update_position() {
 
         _dot = inicial.x * _camaraDir.x + inicial.z * _camaraDir.z;
         _det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
+
+		std::cout << "X inicial " << inicial.x << "\ncamaraDir.x " << inicial.z << "\ncamaraDir.z" << _camaraDir.z << "\n";
+
+		std::cout<<"_dot: " << _dot << "\n";
+		std::cout<<"_det: " << _det << "\n";
 
         _angle = -(atan2f(_det,_dot)/M_PI)*180;
 		//std::cout<<"inicial X: "<< inicial.x << "Z: " << inicial.z << "\n";

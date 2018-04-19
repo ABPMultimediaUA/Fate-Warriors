@@ -20,7 +20,6 @@ bool Consumible_Fuerza::usar(Character* _i_personaje){
         if(comprobar_tiempo_power_up()){
             _personaje->disminuir_danyo_ataque_fuerte(50);
             _personaje->eliminar_power_up_puntero();
-            std::cout << "YO SOY EL " << this << std::endl;
           return true;
         }
         //std::cout << _personaje->get_danyo_ataque_fuerte()<< "pupa que hace\n";
@@ -48,4 +47,14 @@ bool Consumible_Fuerza::comprobar_tiempo_power_up(){
         return true;
     }    
     return false;
+}
+
+
+
+void Consumible_Fuerza::cambiar_modelado(){
+    if(!_esta_lejos){
+        _esta_lejos=true;
+    }else{
+        _esta_lejos=false;
+    }
 }

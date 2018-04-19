@@ -46,11 +46,10 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 		
 	_nodo->mover(x,btt.getOrigin().getY(),z);
 
-	const btQuaternion &quat = _rigidbody->getOrientation();
-	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
-	vector3df euler;
-	q.toEuler(euler);
-	euler *= RADTODEG;
+	btScalar xx, yy, zz;
+	_rigidbody->getCenterOfMassTransform().getBasis().getEulerZYX(zz, yy, xx);
+	vector3df euler(zz,yy,xx);
+	euler *= 180.0f / SIMD_PI;
 
 	_nodo->rotacionDirecta(1, 0, 0, euler.X);
 	_nodo->rotacionDirecta(0, 1, 0, euler.Y);
@@ -285,4 +284,8 @@ void Objeto_Motor::rotar_nodo_sin_interpolacion(uint16_t rotacion) {
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	_nodo->mover(Vector3(pos[0], pos[1], pos[2]));
 
+}
+
+void Objeto_Motor::cambiar_modelado(const char* _ruta){
+	_nodo->cambiar_modelado(_ruta);
 }

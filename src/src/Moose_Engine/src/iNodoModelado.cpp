@@ -42,6 +42,15 @@ iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
     _nodo_motor = nodoModelado; //almacenamos el puntero al nodo del ME
 }
 
+
+void iNodoModelado::cambiar_modelado(const char * _i_ruta){
+    TMooseEngine* motor =  TMooseEngine::get_instancia();
+    TModelado* _modelado = motor->crearModelado(_i_ruta);
+    TNodo* nodoModelado = motor->crearNodo(_nodo_motor->get_padre(), _modelado);
+    borrarNodo();
+    _nodo_motor=nodoModelado;
+}
+
 Vector3 iNodoModelado::getBB(){
     glm::vec3 bb = static_cast<TModelado*>(_nodo_motor->get_entidad())->get_BB();
     return Vector3(bb.x, bb.y, bb.z);
