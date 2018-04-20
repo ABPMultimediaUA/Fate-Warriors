@@ -204,7 +204,7 @@ void Camara::update_position() {
 			float az = _Prota-> getPosition()._z; 
 			Vector3 playerPos(
 					_Prota-> getPosition()._x, 
-					_Prota-> getPosition()._y - _ProtaBoundingCenter._y,  //falta el -protaboundingcenter Y 
+					_Prota-> getPosition()._y + 20,  //falta el -protaboundingcenter Y 
 					_Prota-> getPosition()._z); 
 		
 		float distancia;
@@ -226,12 +226,12 @@ void Camara::update_position() {
 			//std::cout << playerPos.Y << std::endl; 
 			this->Camara_setPosition(
 					Vector3(xf, 
-							yf + _ProtaBoundingCenter._y, 
+							yf + _ProtaBoundingCenter._y - 10, 
 							zf)); 
 			
 			this->Camara_setTarget(	
 					Vector3(_Prota-> getPosition()._x, 
-							_Prota-> getPosition()._y + _ProtaBoundingCenter._y * 1.5f, 
+							_Prota-> getPosition()._y + _ProtaBoundingCenter._y + 25.0f, 
 							_Prota-> getPosition()._z)); 
 				
 		}
@@ -239,11 +239,11 @@ void Camara::update_position() {
 		else {	// Calculos de la camara para una Y negativa
 			this->Camara_setPosition(
 					Vector3(xf, 
-							yf - _ProtaBoundingCenter._y - _Prota->getPosition()._y, zf)); 
+							yf - _ProtaBoundingCenter._y - _Prota->getPosition()._y - 10, zf)); 
 			
 			this->Camara_setTarget(
 					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
-							(_ProtaBoundingCenter._y * 0.5), 
+							(_ProtaBoundingCenter._y + 25.0f), 
 							_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
 		}
 		

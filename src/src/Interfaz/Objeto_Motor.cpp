@@ -30,12 +30,13 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
 	desp_z = 0;
     desp_x = 0;
 }
-Objeto_Motor::Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
+Objeto_Motor::Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj, const char* rutaAnim, float x, float y, float z, int16_t peso){
 	Motor* _motor = Motor::Motor_GetInstance();
-   _nodo            = _motor->crearAnimacion(bucle, rutaObj, x, y, z);
+   _nodo            = _motor->crearModelado(rutaObj, x, y, z);
    _interpolacion   = _motor->crear_interpolacion(x, y, z);
    _rigidbody       = _motor->crearRigidBody(_objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
-
+   _nodo->borrarNodo();
+   _nodo 			= _motor->crearAnimacion(true, rutaAnim, x, y, z);
    _motor->crear_ObjetoMotor(this);
 
 	desp_z = 0;
@@ -239,6 +240,22 @@ void Objeto_Motor::updateDynamicBody() {
 	_nodo->mover(pos[0], pos[1], pos[2]);
 
 	Vector3 vector(pos[0], pos[1], pos[2]);
+	_interpolacion->actualiza_posicion(vector);
+
+	if(!_interpolacion->get_cambio_direccion()) {
+		_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
+	}
+
+	_interpolacion->cambio_direccion(false);
+
+}
+
+
+void Objeto_Motor::updateDynamicBodyCharacter() {
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+	_nodo->mover(pos[0], 0, pos[2]);
+
+	Vector3 vector(pos[0], 0, pos[2]);
 	_interpolacion->actualiza_posicion(vector);
 
 	if(!_interpolacion->get_cambio_direccion()) {

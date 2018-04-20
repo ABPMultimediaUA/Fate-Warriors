@@ -18,7 +18,7 @@ class Objeto_Motor{
 public:
 
       Objeto_Motor(Objeto* objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
-      Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
+      Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj, const char* rutaAnimfloat ,float x, float y, float z, int16_t peso);
       ~Objeto_Motor();
     
       void setPositionXZ(float x, float z);
@@ -40,6 +40,7 @@ public:
       void abrir_puerta1();
       void abrir_puerta2();
       void updateDynamicBody();
+      void updateDynamicBodyCharacter();
 
       void setPositionY(float y);
 

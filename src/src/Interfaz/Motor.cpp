@@ -199,9 +199,10 @@ Motor::Motor(){
 void Motor::vaciar_motor(){
 	for(uint16_t i = 0; i < lista_i_nodo.size(); i++){
 		lista_i_nodo[i]->borrarNodo();
+		
 		//std::cout<< "dir: " << lista_i_nodo[i] << "\n";
 	}
-
+	lista_i_nodo.clear();
 	//for(short a=0; a<_objetos_motor.size();a++){
 	//	delete _objetos_motor[a];
 	//}
@@ -477,6 +478,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	switch(tipo){
 		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5)
+			std::cout << anchura << "anchura " << altura << " altura " << profundidad << "\n";
 
 					break;
 		case E_BoundingBox:
@@ -614,9 +616,12 @@ btRigidBody* Motor::crear_rb_vision(){
 
 void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
 	Vector3 cosas = node->getBB();
+
+
 	anchura = cosas._z;
 	altura = cosas._y;
 	profundidad = cosas._x;
+
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
@@ -686,7 +691,14 @@ void Motor::update(double dt){
 		short tamanio = _objetos_motor.size();
 		for(short i=0; i<tamanio; i++){
 			// Actualiza el cuerpo dinamico de la caja
-			_objetos_motor[i]->updateDynamicBody();
+			Objeto * puntero = (Objeto*)_objetos_motor[i]->getRigidBody()->getUserPointer();
+			if(dynamic_cast<Character*>(puntero) !=nullptr){
+				_objetos_motor[i]->updateDynamicBodyCharacter();
+			}
+			else{
+				_objetos_motor[i]->updateDynamicBody();
+			}
+
 			_objetos_motor[i]->setVelocidad(0,_objetos_motor[i]->getVelocidadY(),0);
 		
 		}

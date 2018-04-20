@@ -23,14 +23,17 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
     : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte, equipo){
 
     const char* cstr;
-    if(equipo == Enum_Equipo_B)
-        cstr = "Anim_idle_npc2";
-    else
-        cstr = "Anim_idle_npc2";
-
+    const char* cstr2;
+    if(equipo == Enum_Equipo_B){
+        cstr = "NPC2";
+        cstr2 = "Anim_idle_npc2";}
+    else{
+        cstr = "NPC2";
+        cstr2 = "Anim_idle_npc2";
+    }
     _blackboard = new Blackboard(this);
     
-    _objeto_motor =new Objeto_Motor(true,this,E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
+    _objeto_motor =new Objeto_Motor(true, this,E_BoundingCapsule, cstr, cstr2, _i_x,_i_y,_i_z,69);
     //exit(0);
 }
 
