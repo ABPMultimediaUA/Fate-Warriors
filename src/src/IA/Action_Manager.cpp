@@ -72,7 +72,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				z=_i_npc->getZ();
 				Character* enemigo = _blackboard->_enemigo_mas_cerca;
 				float angulo_giro = atan2(x-enemigo->getX(), z-enemigo->getZ());
-				int  result = angulo_giro * 180 / PI;
+				int  result = angulo_giro * 180 / PIs;
 				result = (result+180)%360;
 				
 				_i_npc->rotar_cuerpo(result);

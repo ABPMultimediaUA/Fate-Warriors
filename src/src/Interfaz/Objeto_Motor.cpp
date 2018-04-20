@@ -60,12 +60,12 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 
 	btScalar xx, yy, zz;
 	_rigidbody->getCenterOfMassTransform().getBasis().getEulerZYX(zz, yy, xx);
-	vector3df euler(zz,yy,xx);
+	Vector3 euler(zz,yy,xx);
 	euler *= 180.0f / SIMD_PI;
 
-	_nodo->rotacionDirecta(1, 0, 0, euler.X);
-	_nodo->rotacionDirecta(0, 1, 0, euler.Y);
-	_nodo->rotacionDirecta(0, 0, 1, euler.Z);
+	_nodo->rotacionDirecta(1, 0, 0, euler._x);
+	_nodo->rotacionDirecta(0, 1, 0, euler._y);
+	_nodo->rotacionDirecta(0, 0, 1, euler._z);
 }
 
 

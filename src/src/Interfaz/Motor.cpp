@@ -791,10 +791,6 @@ void Motor::resetear_camara(){
 //}
 
 
-//IrrlichtDevice* Motor::getIrrlichtDevice(){
-//	return device;
-//}
-
 void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);
 	render();

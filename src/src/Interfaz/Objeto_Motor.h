@@ -2,17 +2,9 @@
 #ifndef OBJETO_MOTOR_H_
 #define OBJETO_MOTOR_H_
 
-#include "irrlicht/irrlicht.h"
 #include "../Utilidades/Vector.h"
 #include "EnumTiposBoundingBox.h"
 #include <cstdint>
-
-using namespace irr;
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
 
 class Objeto;
 class Motor;
