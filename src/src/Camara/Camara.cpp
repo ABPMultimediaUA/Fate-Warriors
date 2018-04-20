@@ -88,7 +88,7 @@ void Camara::Camara_setTarget(Vector3 targetPos){
 
 void Camara::Camara_setProta(iNodoModelado* prota) {
 	_Prota = prota; 
-	//_ProtaBoundingCenter = 0;//_Prota-> getBoundingBox().getCenter(); 
+	_ProtaBoundingCenter = prota->getBB();//_Prota-> getBoundingBox().getCenter(); 
 }
 
 Vector3 Camara::Camara_getPosition(){
@@ -204,7 +204,7 @@ void Camara::update_position() {
 			float az = _Prota-> getPosition()._z; 
 			Vector3 playerPos(
 					_Prota-> getPosition()._x, 
-					_Prota-> getPosition()._y,  //falta el -protaboundingcenter Y 
+					_Prota-> getPosition()._y - _ProtaBoundingCenter._y,  //falta el -protaboundingcenter Y 
 					_Prota-> getPosition()._z); 
 		
 		float distancia;
@@ -230,9 +230,9 @@ void Camara::update_position() {
 							zf)); 
 			
 			this->Camara_setTarget(	
-					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
+					Vector3(_Prota-> getPosition()._x, 
 							_Prota-> getPosition()._y + _ProtaBoundingCenter._y * 1.5f, 
-							_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
+							_Prota-> getPosition()._z)); 
 				
 		}
 		
