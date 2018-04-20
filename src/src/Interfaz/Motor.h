@@ -14,9 +14,8 @@
 #include "EnumTiposBoundingBox.h"
 #include <btBulletCollisionCommon.h>
 #include "../Utilidades/Vector.h"
-#include "../Moose_Engine/src/iNodoModelado.h"
-#include "../Moose_Engine/src/iNodoCamara.h"
-#include "../Moose_Engine/src/iNodoLuz.h"
+//#include "../Moose_Engine/src/iNodoModelado.h"
+
 
 
 
@@ -30,8 +29,13 @@ class Interpolacion;
 class Time;
 class Input;
 class Objeto;
-class DebugDraw;    
-      
+class DebugDraw;
+class iNodo;  
+class iNodoModelado;  
+class iNodoCamara;
+class iNodoLuz;
+class iNodoAnimacion;
+
       //Bullet
 class btCollisionConfiguration;
 class btBroadphaseInterface;
@@ -66,8 +70,13 @@ public:
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
+    
     iNodoModelado* crearModelado(const char* ruta,float x, float y, float z);
     iNodoModelado* crearModelado(const char* ruta);
+    
+    iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta,float x, float y, float z);
+    iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta);
+    
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     btRigidBody* crear_rb_vision();

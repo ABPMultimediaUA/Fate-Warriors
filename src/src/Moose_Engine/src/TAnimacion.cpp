@@ -12,6 +12,7 @@ TAnimacion::TAnimacion(const char* path){
     _contador_anim=0;
     _reloj=Time::Instance();
     _tiempo_aux=_reloj->get_tiempo_inicio_pausa();
+    _bucle=false;
 }
 
 TAnimacion::~TAnimacion(){
@@ -48,8 +49,9 @@ void TAnimacion::update_anim(){
     if(!_reloj->get_esta_pausado()){
         if(_reloj->get_current()-_tiempo_aux>=55){
             _tiempo_aux=_reloj->get_current();
-            ++_contador_anim;
-            if(_contador_anim==_animacion->get_anim_cont()){
+            if(_contador_anim!=_animacion->get_anim_cont()){
+                ++_contador_anim;
+            }else if(_bucle){
                 _contador_anim=0;
             }
         }

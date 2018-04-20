@@ -5,12 +5,13 @@
 
 class iNodoModelado : public iNodo{
     public:
+        iNodoModelado();
         iNodoModelado(const char* ruta);
         iNodoModelado(const char* ruta, float x, float y, float z);
-        void cambiar_modelado(const char * _i_ruta);
+        virtual void cambiar_modelado(const char * _i_ruta);
         void remove();
         Vector3 getBB();
-        ~iNodoModelado();
+        virtual ~iNodoModelado();
     private:
 };
 

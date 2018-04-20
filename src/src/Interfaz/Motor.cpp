@@ -22,6 +22,7 @@
 #include "../Moose_Engine/src/TCamara.h"
 #include "../Moose_Engine/src/TLuz.h"
 #include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodoAnimacion.h"
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Moose_Engine/src/iNodoLuz.h"
 
@@ -440,6 +441,18 @@ iNodoModelado* Motor::crearModelado(const char* ruta){
 	iNodoModelado* cubeNode = new iNodoModelado(ruta);
 	lista_i_nodo.push_back(cubeNode);
 	return cubeNode;
+}
+
+iNodoAnimacion* Motor::crearAnimacion(bool bucle, const char* ruta,float x, float y, float z){
+	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta, x, y, z);
+	lista_i_nodo.push_back(animNode);
+	return animNode;
+}
+
+iNodoAnimacion* Motor::crearAnimacion(bool bucle, const char* ruta){
+	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta);
+	lista_i_nodo.push_back(animNode);
+	return animNode;
 }
 
 void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){

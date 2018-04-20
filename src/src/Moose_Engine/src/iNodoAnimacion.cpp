@@ -1,17 +1,16 @@
-#include "iNodoModelado.h"
-#include "TModelado.h"
+#include "iNodoAnimacion.h"
+#include "TAnimacion.h"
 #include "TMooseEngine.h"
 #include "TTransform.h"
 #include "TNodo.h"
 
-iNodoModelado::iNodoModelado(){
-    
-}
-iNodoModelado::iNodoModelado(const char* ruta){
+iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta){
     //referencia al ME
     TMooseEngine* motor =  TMooseEngine::get_instancia();
 
-    TModelado* _modelado = motor->crearModelado(ruta);
+    TAnimacion* _animacion = motor->crearAnimacion(ruta);
+    _animacion->set_bucle(bucle);
+
     TTransform* transTraslacion = motor->crearTransform();
     TTransform* transRotacion   = motor->crearTransform();
     TTransform* transEscalado   = motor->crearTransform();
@@ -20,16 +19,19 @@ iNodoModelado::iNodoModelado(const char* ruta){
     TNodo* nodoEscalado   = motor->crearNodo(nodoRotacion, transEscalado);
     TNodo* nodoTraslacion = motor->crearNodo(nodoEscalado, transTraslacion);
 
-    TNodo* nodoModelado = motor->crearNodo(nodoTraslacion, _modelado);
+    TNodo* nodoAnimacion = motor->crearNodo(nodoTraslacion, _animacion);
 
-    _nodo_motor = nodoModelado; //almacenamos el puntero al nodo del ME
+    _nodo_motor = nodoAnimacion; //almacenamos el puntero al nodo del ME
 }
 
-iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
+iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta, float x, float y, float z){
+    
     //referencia al ME
     TMooseEngine* motor =  TMooseEngine::get_instancia();
 
-    TModelado* _modelado = motor->crearModelado(ruta);
+    TAnimacion* _animacion = motor->crearAnimacion(ruta);
+    _animacion->set_bucle(bucle);
+
     TTransform* transTraslacion = motor->crearTransform();
     TTransform* transRotacion   = motor->crearTransform();
     TTransform* transEscalado   = motor->crearTransform();
@@ -40,29 +42,19 @@ iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
     TNodo* nodoEscalado   = motor->crearNodo(nodoRotacion, transEscalado);
     TNodo* nodoTraslacion = motor->crearNodo(nodoEscalado, transTraslacion);
 
-    TNodo* nodoModelado = motor->crearNodo(nodoTraslacion, _modelado);
+    TNodo* nodoAnimacion = motor->crearNodo(nodoTraslacion, _animacion);
 
-    _nodo_motor = nodoModelado; //almacenamos el puntero al nodo del ME
+    _nodo_motor = nodoAnimacion; //almacenamos el puntero al nodo del ME
 }
 
-
-void iNodoModelado::cambiar_modelado(const char * _i_ruta){
+void iNodoAnimacion::cambiar_modelado(const char * _i_ruta){
     TMooseEngine* motor =  TMooseEngine::get_instancia();
-    TModelado* _modelado = motor->crearModelado(_i_ruta);
-    TNodo* nodoModelado = motor->crearNodo(_nodo_motor->get_padre(), _modelado);
+    TAnimacion* _Animacion = motor->crearAnimacion(_i_ruta);
+    TNodo* nodoAnimacion = motor->crearNodo(_nodo_motor->get_padre(), _Animacion);
     borrarNodo();
-    _nodo_motor=nodoModelado;
+    _nodo_motor=nodoAnimacion;
 }
 
-Vector3 iNodoModelado::getBB(){
-    glm::vec3 bb = static_cast<TModelado*>(_nodo_motor->get_entidad())->get_BB();
-    return Vector3(bb.x, bb.y, bb.z);
-}
-
-iNodoModelado::~iNodoModelado(){
+iNodoAnimacion::~iNodoAnimacion(){
     
-}
-
-void iNodoModelado::remove(){
-    delete this;
 }
