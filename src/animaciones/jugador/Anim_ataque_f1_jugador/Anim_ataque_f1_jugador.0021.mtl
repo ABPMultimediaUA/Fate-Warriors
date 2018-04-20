@@ -1,0 +1,24 @@
+newmtl Prota:Personaje1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Personaje_Base_Color.png
+map_Ka Personaje_Base_Color.png
+bump Personaje_Normal_OpenGL.png -bm 0
+Ni 1.50
+Ks 0.00 0.00 0.00
+map_Ks Personaje_Metallic.png
+Ns 10.00
+newmtl Prota:ojos_personaje
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd ojos_Base_Color.png
+map_Ka ojos_Base_Color.png
+bump ojos_Normal_OpenGL.png -bm 0
+Ni 1.50
+Ks 0.00 0.00 0.00
+map_Ks ojos_Metallic.png
+Ns 10.00

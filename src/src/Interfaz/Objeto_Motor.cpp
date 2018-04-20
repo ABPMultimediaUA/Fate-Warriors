@@ -12,6 +12,8 @@
 #include "GUI.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Personajes/Character.h"
+#include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodoAnimacion.h"
 
 #include "EnumTiposColision.h"
 
@@ -28,7 +30,17 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
 	desp_z = 0;
     desp_x = 0;
 }
+Objeto_Motor::Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso){
+	Motor* _motor = Motor::Motor_GetInstance();
+   _nodo            = _motor->crearAnimacion(bucle, rutaObj, x, y, z);
+   _interpolacion   = _motor->crear_interpolacion(x, y, z);
+   _rigidbody       = _motor->crearRigidBody(_objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
 
+   _motor->crear_ObjetoMotor(this);
+
+	desp_z = 0;
+    desp_x = 0;
+}
 Objeto_Motor::~Objeto_Motor(){
 	Motor* _motor = Motor::Motor_GetInstance();
    _motor->borrar_objeto(this);

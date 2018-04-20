@@ -5,7 +5,6 @@
 #include "irrlicht/irrlicht.h"
 #include "../Utilidades/Vector.h"
 #include "EnumTiposBoundingBox.h"
-#include "../Moose_Engine/src/iNodoModelado.h"
 #include <cstdint>
 
 using namespace irr;
@@ -26,7 +25,8 @@ class iNodoModelado;
 class Objeto_Motor{
 public:
 
-      Objeto_Motor(Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
+      Objeto_Motor(Objeto* objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
+      Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
       ~Objeto_Motor();
     
       void setPositionXZ(float x, float z);
