@@ -214,11 +214,11 @@ void Camara::update_position() {
 		else{
 			distancia = 200.0f;}
 
-		float xf = playerPos._x - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * distancia; 
+		float xf = playerPos._x - cos(_zdirection * PIs / 180.0f) * cos(_direction * PIs / 180.0f) * distancia; 
 		
-		float yf = playerPos._y - sin(_zdirection * irr::core::PI / 180.0f) * distancia; 
+		float yf = playerPos._y - sin(_zdirection * PIs / 180.0f) * distancia; 
 
-		float zf = playerPos._z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * distancia; 
+		float zf = playerPos._z + cos(_zdirection * PIs / 180.0f) * sin(_direction * PIs / 180.0f) * distancia; 
 
 		if (_Prota-> getPosition()._y >= 0) {	// Calculos de la camara para una Y positiva
 			

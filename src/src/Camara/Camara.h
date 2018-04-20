@@ -1,5 +1,3 @@
-#include "irrlicht/irrlicht.h"
-using namespace irr;
 #include "../Utilidades/Vector.h"
 #include <glm/ext.hpp>
 

@@ -19,12 +19,6 @@
 #include "../Moose_Engine/src/iNodoLuz.h"
 
 
-
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#endif
-
 class Objeto_Motor;
 class Interpolacion;
 class Time;
@@ -105,9 +99,7 @@ public:
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
-
-    IrrlichtDevice* getIrrlichtDevice();    
-    
+  
     void updateCamaraColision();
 
     void interpola_posiciones(float _i_interpolacion);
@@ -140,8 +132,6 @@ private:
       float _velocidad;
       
       double mdt;
-
-      u32 then;
 
       float x;
       float z;
