@@ -779,11 +779,10 @@ void Motor::updateCamaraColision(){
 		camara->Camara_Update();
 		
 		Objeto * puntero = (Objeto*)_objeto_que_sigue_la_camara->getRigidBody()->getUserPointer();
-		if(dynamic_cast<Character*>(puntero) !=nullptr){
+		if(dynamic_cast<Character*>(puntero) == nullptr){
 			miY = 5.18;
 		}
 		pos = btVector3(miX, miY, miZ);
-
 
 		btVector3 camaraPos(camara->Camara_getPosition()._x, camara->Camara_getPosition()._y, camara->Camara_getPosition()._z);
 		btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(pos, camaraPos,ray_colisiona_con2);

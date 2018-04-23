@@ -12,7 +12,6 @@
 //asdasdsda
 #include <iostream> 
 
-static int  a= 0;
 
 Camara::Camara(bool activa) {
 	//_Camara = smgr-> addCameraSceneNode(0, 
@@ -33,7 +32,6 @@ Camara::Camara(bool activa) {
 	float fy = _inicial.y;
 	float fz = _inicial.z;
 	
-	a = 0;
 	_posicion_interpolable = true;
 	Vector3 _inicial_aux(fx,fy,fz);
 
@@ -71,7 +69,6 @@ void Camara::Camara_setPosition(Vector3 position) {
 
 void Camara::Camara_setPositionColision(Vector3 position) {
 	
-	if(_posicion_interpolable){
 		_hay_colision = true;
 		
 		_position = glm::vec3(position._x, position._y, position._z); 
@@ -79,7 +76,7 @@ void Camara::Camara_setPositionColision(Vector3 position) {
 
 		Vector3 posicion(_position.x,_position.y,_position.z);
 		_interpolacion_colision->actualiza_posicion(posicion);
-	}
+
 }
 
 void Camara::set_position_interpolada(Vector3 position) {
@@ -125,13 +122,7 @@ void Camara::Camara_Update() {
 	_changeX = 0;
 	_changeY = 0;
 	
-	//input de raton de openGL BOIIIII
-	//glfwSetInputMode(_OGLWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	//glfwSetCursorPosCallback(_OGLWindow, mouse_callback);  
-	//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	 
 
-	
 
 	// Esto se hace hasta que se pueda usar el de Input sin que se choque con los bordes de pantalla y se quede atascado el raton
 	if(_input->get_posiciona_camara() && _input->get_mover_camara()) {
@@ -240,10 +231,7 @@ void Camara::update_position() {
 					Vector3(_Prota-> getPosition()._x, 
 							_Prota-> getPosition()._y + _ProtaBoundingCenter._y + 25.0f, 
 							_Prota-> getPosition()._z)); 
-				std::cout<< " JUGADOR \n";
 
-				if (a==-1)
-				exit(0);
 			}
 			else{
 				this->Camara_setPosition(
@@ -255,8 +243,6 @@ void Camara::update_position() {
 					Vector3(_Prota-> getPosition()._x, 
 								40, 
 							_Prota-> getPosition()._z)); 
-				std::cout<< " PUERTA \n";
-				a = -1;
 			}	
 		}
 		
@@ -291,7 +277,6 @@ void Camara::update_position() {
 					Vector3(_Prota-> getPosition()._x, 
 								40, 
 							_Prota-> getPosition()._z)); 
-			a = -1;
 			}
 		}
 		
@@ -315,10 +300,6 @@ void Camara::update_position() {
 
 		std::cout<<"_dot: " << _dot << "\n";
 		std::cout<<"_det: " << _det << "\n";
-
-
-
-
 
 
 
