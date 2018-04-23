@@ -36,7 +36,7 @@ TMooseEngine::TMooseEngine(){
     _gestorRecursos = TGestorRecursos::get_instancia();
     TNodo* nodo     = new TNodo(_contadorIDEntidad,nullptr);//raiz del arbol de escena
     _escena = nodo;
-    _shader = new Shader("src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
+    _shader = new Shader();
     _skybox = new Skybox();
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
@@ -65,12 +65,13 @@ void TMooseEngine::PreparacionSombras(){
     glBindFramebuffer(GL_FRAMEBUFFER, 0);  
 }
 
-void TMooseEngine::ConfigurarSombras(){
+void TMooseEngine::ConfigurarSombrasMapeado(){
     glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.5f, 100.0f);  
-
     glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),glm::vec3( 0.0f, 0.0f,  0.0f),glm::vec3( 0.0f, 1.0f,  0.0f));  
+}
 
-
+void TMooseEngine::ConfigurarSombrasProyectadas(){
+      
 }
 
 TMooseEngine::~TMooseEngine(){
@@ -89,7 +90,6 @@ void micallback(GLFWwindow* oglwindow, double _i_xpos, double _i_ypos){
 
 void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    //std::cout<<"FUNCIONO \n";
     if (_firstMouse)
     {
         _lastX = xpos;
@@ -233,6 +233,9 @@ void TMooseEngine::draw(){
     drawCamaras();
     drawLuces();
     _escena->draw(_shader);
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    _shader->use(sombras_proyectadas);
+    _escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
 
@@ -254,6 +257,11 @@ void TMooseEngine::draw(){
     glBindTexture(GL_TEXTURE_2D, depthMap);
     RenderScene();*/
 
+}
+
+void TMooseEngine::drawSombras(){
+    //y yasta MUCHO PIDES TU HOY EH!
+    //y yasta2
 }
 
 void TMooseEngine::apagar(){
@@ -297,7 +305,14 @@ void TMooseEngine::drawLuces(){
                                                   pila_matriz_luz.top()[3][2]);
 
                     luz_aux[3]=position;
+                    glm::mat4 mat(position[1],-position[2],0,0,
+                                  0,0,0,0,
+                                  0,-position[2],position[1],0,
+                                  0,-1,0,position[1]);
                     _shader->setLuz(luz_aux,i);
+                    _shader->use(sombras_proyectadas);
+                    _shader->setMat4("luz_proyeccion",mat);
+                    _shader->use(Default);
                }
                //_shader->setvec3("Light.Position",position);
                pila_matriz_luz.pop();

@@ -26,6 +26,7 @@ class TNodo{
         void agrega_hijo(TEntidad* entidad);
 
         void draw(Shader* _i_shader);
+        void drawSombrasProyectadas(Shader* _i_shader);
 
         TEntidad* get_entidad();
         void set_entidad(TEntidad* entidad);
