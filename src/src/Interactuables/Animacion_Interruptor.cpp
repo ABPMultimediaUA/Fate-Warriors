@@ -30,6 +30,7 @@ void Animacion_Interruptor::empieza(uint32_t _t_fin, Interruptor* _i_interruptor
     
 	_motor->poner_camara_a_entidad(_interruptor->get_puerta_asociada()->get_objeto_motor());
 	_motor->gira_camara(_interruptor->get_rotacion_x(), _interruptor->get_rotacion_y());
+ //   _motor->interpolar_altura(false);
 
 	_motor->update(0);
 	_motor->update(0);
@@ -48,5 +49,7 @@ bool Animacion_Interruptor::update(double _i_tiempo_desde_ultimo_update) {
         return false;
 	}
     _accionado = false;
+   // _motor->interpolar_altura(true);
+
     return true;
 }

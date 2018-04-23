@@ -38,6 +38,8 @@ public:
 
 	void rota_camara_sin_interpolacion(short _i_direccion_x, short _rotacion_en_y);		// Rota la camara a una posicion
 
+	inline void set_posicion_interpolable(bool estado) { _posicion_interpolable = estado; };
+
 private:
 	//las nuevas variables de escena del ME
 	GLFWwindow* _OGLWindow;
@@ -71,6 +73,7 @@ private:
 	float _sensibilidadY;
 	float _changeX;
 	float _changeY;
+	bool _posicion_interpolable;
 	glm::vec3 _camaraDir; //direccion hacia la que mira la camara que se actualiza en el update
 	float cursorPos;
 	unsigned short _gradosRotacion;

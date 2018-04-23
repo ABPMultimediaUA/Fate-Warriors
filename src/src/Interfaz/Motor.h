@@ -126,6 +126,8 @@ public:
     //bool comprobar_colision_ataque(btRigidBody *character_atacado);
     void gira_camara(short _rotacion_x, short _rotacion_en_y);
 
+    void interpolar_altura(bool estado);
+
 private:
 
       static Motor* _Motor;

@@ -12,6 +12,7 @@
 //asdasdsda
 #include <iostream> 
 
+static int  a= 0;
 
 Camara::Camara(bool activa) {
 	//_Camara = smgr-> addCameraSceneNode(0, 
@@ -32,6 +33,8 @@ Camara::Camara(bool activa) {
 	float fy = _inicial.y;
 	float fz = _inicial.z;
 	
+	a = 0;
+	_posicion_interpolable = true;
 	Vector3 _inicial_aux(fx,fy,fz);
 
 	_Prota = 0; 
@@ -67,21 +70,25 @@ void Camara::Camara_setPosition(Vector3 position) {
 }
 
 void Camara::Camara_setPositionColision(Vector3 position) {
-	_hay_colision = true;
-	_position = glm::vec3(position._x, position._y, position._z); 
-	_Camara->mover(position);
+	
+	if(_posicion_interpolable){
+		_hay_colision = true;
+		
+		_position = glm::vec3(position._x, position._y, position._z); 
+		_Camara->mover(position);
 
-	Vector3 posicion(_position.x,_position.y,_position.z);
-	_interpolacion_colision->actualiza_posicion(posicion);
+		Vector3 posicion(_position.x,_position.y,_position.z);
+		_interpolacion_colision->actualiza_posicion(posicion);
+	}
 }
 
 void Camara::set_position_interpolada(Vector3 position) {
-	_position = glm::vec3(position._x, position._y, position._z); 
+	_position = glm::vec3(position._x, position._y + 50, position._z); 
 	_Camara->mover(position);
 }
 
 void Camara::Camara_setTarget(Vector3 targetPos){
-	_target = glm::vec3(targetPos._x, targetPos._y, targetPos._z); 
+	_target = glm::vec3(targetPos._x, targetPos._y + 50, targetPos._z); 
 	_Camara->setTarget(targetPos);
 	//this->setTarget(targetPos); 
 }
@@ -224,27 +231,68 @@ void Camara::update_position() {
 			
 		//std::cout<<"llego loko"<<std::endl;
 			//std::cout << playerPos.Y << std::endl; 
-			this->Camara_setPosition(
-					Vector3(xf, 
-							yf + _ProtaBoundingCenter._y - 10, 
-							zf)); 
-			
-			this->Camara_setTarget(	
+			if(_posicion_interpolable){
+				this->Camara_setPosition(
+						Vector3(xf, 
+								yf + _ProtaBoundingCenter._y - 10, 
+								zf));
+				this->Camara_setTarget(	
 					Vector3(_Prota-> getPosition()._x, 
 							_Prota-> getPosition()._y + _ProtaBoundingCenter._y + 25.0f, 
 							_Prota-> getPosition()._z)); 
-				
+				std::cout<< " JUGADOR \n";
+
+				if (a==-1)
+				exit(0);
+			}
+			else{
+				this->Camara_setPosition(
+						Vector3(xf,
+								40,
+								zf)
+				);
+				this->Camara_setTarget(	
+					Vector3(_Prota-> getPosition()._x, 
+								40, 
+							_Prota-> getPosition()._z)); 
+				std::cout<< " PUERTA \n";
+				a = -1;
+			}	
 		}
 		
 		else {	// Calculos de la camara para una Y negativa
-			this->Camara_setPosition(
-					Vector3(xf, 
-							yf - _ProtaBoundingCenter._y - _Prota->getPosition()._y - 10, zf)); 
 			
-			this->Camara_setTarget(
-					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
-							(_ProtaBoundingCenter._y + 25.0f), 
-							_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
+			//this->Camara_setPosition(
+			//		Vector3(xf, 
+			//				yf - _ProtaBoundingCenter._y - _Prota->getPosition()._y - 10, zf)); 
+			//
+			//this->Camara_setTarget(
+			//		Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
+			//				(_ProtaBoundingCenter._y + 25.0f), 
+			//				_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
+			if(_posicion_interpolable){
+				this->Camara_setPosition(
+						Vector3(xf, 
+								yf + _ProtaBoundingCenter._y - 10, 
+								zf));
+				 //std::cout<< "Entra"
+				this->Camara_setTarget(	
+					Vector3(_Prota-> getPosition()._x, 
+							_Prota-> getPosition()._y + _ProtaBoundingCenter._y + 25.0f, 
+							_Prota-> getPosition()._z));
+			}
+			else{
+				this->Camara_setPosition(
+						Vector3(xf,
+								40,
+								zf)
+				);
+				this->Camara_setTarget(	
+					Vector3(_Prota-> getPosition()._x, 
+								40, 
+							_Prota-> getPosition()._z)); 
+			a = -1;
+			}
 		}
 		
 		
@@ -267,6 +315,12 @@ void Camara::update_position() {
 
 		std::cout<<"_dot: " << _dot << "\n";
 		std::cout<<"_det: " << _det << "\n";
+
+
+
+
+
+
 
         _angle = -(atan2f(_det,_dot)/M_PI)*180;
 		//std::cout<<"inicial X: "<< inicial.x << "Z: " << inicial.z << "\n";
