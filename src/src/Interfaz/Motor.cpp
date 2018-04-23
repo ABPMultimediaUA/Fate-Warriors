@@ -22,6 +22,7 @@
 #include "../Moose_Engine/src/TCamara.h"
 #include "../Moose_Engine/src/TLuz.h"
 #include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodoAnimacion.h"
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Moose_Engine/src/iNodoLuz.h"
 
@@ -43,14 +44,7 @@ Motor* Motor::Motor_GetInstance(){
 	return _Motor;
 }
 
-
-
-Motor::Motor(){
-    //configuracion_irlitch();
-	configuracion_ME(400, 400, false, false);
-    configuracion_bullet();
-    preparar_depuracion_mundo();
-    
+void Motor::CargaMapa(){
 	const char* cstr = "suelo_t_1";
 	importarEscenario(cstr, 0,0,0);
 	const char* cstr2 = "suelo_t_2";
@@ -168,6 +162,16 @@ Motor::Motor(){
 	importarEscenario(cstr58, 0,0,0);
 	const char* cstr59 = "Vertedero";
 	importarEscenario(cstr59, 0,0,0);
+}
+
+Motor::Motor(){
+    //configuracion_irlitch();
+	configuracion_ME(400, 400, false, false);
+    configuracion_bullet();
+    preparar_depuracion_mundo();
+    
+	//cargaMapa();
+
 	desp_x = desp_z = 0;
 
 	camara = new Camara(true);
@@ -185,10 +189,24 @@ Motor::Motor(){
 	rayDestino._x = 0;
 	rayDestino._y = 0;
 	rayDestino._z = 0;
-	*/
+*/
+	
 	//esto no debe ir aqui y se cambia despues de la presentacion
 	_vida = 300;
 	_maxvida = 300;
+}
+
+void Motor::vaciar_motor(){
+	for(uint16_t i = 0; i < lista_i_nodo.size(); i++){
+		lista_i_nodo[i]->borrarNodo();
+		
+		//std::cout<< "dir: " << lista_i_nodo[i] << "\n";
+	}
+	lista_i_nodo.clear();
+	//for(short a=0; a<_objetos_motor.size();a++){
+	//	delete _objetos_motor[a];
+	//}
+	//_objetos_motor.clear();
 }
 
 //void Motor::crear_partida(){}
@@ -250,13 +268,6 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
 	*/
 }
 
-
-void Motor::vaciar_motor(){
-	for(short a=0; a<_objetos_motor.size();a++){
-		delete _objetos_motor[a];
-	}
-	_objetos_motor.clear();
-}
 
 /*bool Motor::colision_entre_dos_puntos(Vector3 inicio, Vector3 fin){
 	return _entidad->colision_entre_dos_puntos(inicio,fin);
@@ -390,7 +401,7 @@ iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
 								  ambient,
 								  specular,
 								  diffuse);
-    lista_i_nodo.push_back(nodo);
+    //lista_i_nodo.push_back(nodo);
     return nodo;
 }
 
@@ -404,7 +415,7 @@ iNodoLuz* Motor::crearLuz(bool activa, float intensidad,
 								  specular,
 								  diffuse,   
 								  x, y, z);
-    lista_i_nodo.push_back(nodo);
+    //lista_i_nodo.push_back(nodo);
     return nodo;
 }
 
@@ -433,6 +444,18 @@ iNodoModelado* Motor::crearModelado(const char* ruta){
 	return cubeNode;
 }
 
+iNodoAnimacion* Motor::crearAnimacion(bool bucle, const char* ruta,float x, float y, float z){
+	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta, x, y, z);
+	lista_i_nodo.push_back(animNode);
+	return animNode;
+}
+
+iNodoAnimacion* Motor::crearAnimacion(bool bucle, const char* ruta){
+	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta);
+	lista_i_nodo.push_back(animNode);
+	return animNode;
+}
+
 void Motor::crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor){
 	_objetos_motor.push_back(_i_objeto_motor);
 }
@@ -455,6 +478,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	switch(tipo){
 		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5)
+			std::cout << anchura << "anchura " << altura << " altura " << profundidad << "\n";
 
 					break;
 		case E_BoundingBox:
@@ -592,9 +616,12 @@ btRigidBody* Motor::crear_rb_vision(){
 
 void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
 	Vector3 cosas = node->getBB();
+
+
 	anchura = cosas._z;
 	altura = cosas._y;
 	profundidad = cosas._x;
+
 }
 
 void Motor::setCollisionGroup(int group, btRigidBody *_i_rigidbody ) {
@@ -643,7 +670,7 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 
 iNodoModelado* Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
 	iNodoModelado* modelado = crearModelado(rutaObj, x, y, z);
-	
+
 	//modelado->rotar(-1,0,0,180);
 	//modelado->escalar(1,-1,1);
 	//modelado->rotar(0,0,1,180);
@@ -664,7 +691,14 @@ void Motor::update(double dt){
 		short tamanio = _objetos_motor.size();
 		for(short i=0; i<tamanio; i++){
 			// Actualiza el cuerpo dinamico de la caja
-			_objetos_motor[i]->updateDynamicBody();
+			Objeto * puntero = (Objeto*)_objetos_motor[i]->getRigidBody()->getUserPointer();
+			if(dynamic_cast<Character*>(puntero) !=nullptr){
+				_objetos_motor[i]->updateDynamicBodyCharacter();
+			}
+			else{
+				_objetos_motor[i]->updateDynamicBody();
+			}
+
 			_objetos_motor[i]->setVelocidad(0,_objetos_motor[i]->getVelocidadY(),0);
 		
 		}
@@ -768,10 +802,6 @@ void Motor::resetear_camara(){
 //	_vida = (_i_vida*300)/3000;
 //}
 
-
-//IrrlichtDevice* Motor::getIrrlichtDevice(){
-//	return device;
-//}
 
 void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);

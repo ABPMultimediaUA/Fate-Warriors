@@ -12,6 +12,8 @@
 #include "GUI.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Personajes/Character.h"
+#include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodoAnimacion.h"
 
 #include "EnumTiposColision.h"
 
@@ -28,7 +30,18 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
 	desp_z = 0;
     desp_x = 0;
 }
+Objeto_Motor::Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj, const char* rutaAnim, float x, float y, float z, int16_t peso){
+	Motor* _motor = Motor::Motor_GetInstance();
+   _nodo            = _motor->crearModelado(rutaObj, x, y, z);
+   _interpolacion   = _motor->crear_interpolacion(x, y, z);
+   _rigidbody       = _motor->crearRigidBody(_objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
+   _nodo->borrarNodo();
+   _nodo 			= _motor->crearAnimacion(true, rutaAnim, x, y, z);
+   _motor->crear_ObjetoMotor(this);
 
+	desp_z = 0;
+    desp_x = 0;
+}
 Objeto_Motor::~Objeto_Motor(){
 	Motor* _motor = Motor::Motor_GetInstance();
    _motor->borrar_objeto(this);
@@ -46,15 +59,14 @@ void Objeto_Motor::setPositionXZ(float x, float z){
 		
 	_nodo->mover(x,btt.getOrigin().getY(),z);
 
-	const btQuaternion &quat = _rigidbody->getOrientation();
-	quaternion q(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
-	vector3df euler;
-	q.toEuler(euler);
-	euler *= RADTODEG;
+	btScalar xx, yy, zz;
+	_rigidbody->getCenterOfMassTransform().getBasis().getEulerZYX(zz, yy, xx);
+	Vector3 euler(zz,yy,xx);
+	euler *= 180.0f / SIMD_PI;
 
-	_nodo->rotacionDirecta(1, 0, 0, euler.X);
-	_nodo->rotacionDirecta(0, 1, 0, euler.Y);
-	_nodo->rotacionDirecta(0, 0, 1, euler.Z);
+	_nodo->rotacionDirecta(1, 0, 0, euler._x);
+	_nodo->rotacionDirecta(0, 1, 0, euler._y);
+	_nodo->rotacionDirecta(0, 0, 1, euler._z);
 }
 
 
@@ -238,6 +250,22 @@ void Objeto_Motor::updateDynamicBody() {
 
 }
 
+
+void Objeto_Motor::updateDynamicBodyCharacter() {
+	btVector3 pos = _rigidbody->getCenterOfMassPosition();
+	_nodo->mover(pos[0], 0, pos[2]);
+
+	Vector3 vector(pos[0], 0, pos[2]);
+	_interpolacion->actualiza_posicion(vector);
+
+	if(!_interpolacion->get_cambio_direccion()) {
+		_interpolacion->actualiza_direccion(_interpolacion->get_direccion_actual());
+	}
+
+	_interpolacion->cambio_direccion(false);
+
+}
+
 Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 	Vector3 _posicion_interpolada = _interpolacion->interpola_posicion(_i_interpolacion);
 	
@@ -285,4 +313,8 @@ void Objeto_Motor::rotar_nodo_sin_interpolacion(uint16_t rotacion) {
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
 	_nodo->mover(Vector3(pos[0], pos[1], pos[2]));
 
+}
+
+void Objeto_Motor::cambiar_modelado(const char* _ruta){
+	_nodo->cambiar_modelado(_ruta);
 }

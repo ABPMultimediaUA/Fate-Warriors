@@ -14,24 +14,22 @@
 #include "EnumTiposBoundingBox.h"
 #include <btBulletCollisionCommon.h>
 #include "../Utilidades/Vector.h"
-#include "../Moose_Engine/src/iNodoModelado.h"
-#include "../Moose_Engine/src/iNodoCamara.h"
-#include "../Moose_Engine/src/iNodoLuz.h"
+//#include "../Moose_Engine/src/iNodoModelado.h"
 
 
-
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#endif
 
 class Objeto_Motor;
 class Interpolacion;
 class Time;
 class Input;
 class Objeto;
-class DebugDraw;    
-      
+class DebugDraw;
+class iNodo;  
+class iNodoModelado;  
+class iNodoCamara;
+class iNodoLuz;
+class iNodoAnimacion;
+
       //Bullet
 class btCollisionConfiguration;
 class btBroadphaseInterface;
@@ -50,6 +48,7 @@ class Motor{
 public:
 
     static Motor* Motor_GetInstance();
+    void CargaMapa();
     void configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync);
    ~Motor();
    void vaciar_motor();
@@ -65,8 +64,13 @@ public:
     unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
+    
     iNodoModelado* crearModelado(const char* ruta,float x, float y, float z);
     iNodoModelado* crearModelado(const char* ruta);
+    
+    iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta,float x, float y, float z);
+    iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta);
+    
     Interpolacion* crear_interpolacion(float x, float y, float z);
     btRigidBody* crear_rb_ataque();
     btRigidBody* crear_rb_vision();
@@ -104,9 +108,7 @@ public:
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
-
-    IrrlichtDevice* getIrrlichtDevice();    
-    
+  
     void updateCamaraColision();
 
     void interpola_posiciones(float _i_interpolacion);
@@ -118,14 +120,11 @@ public:
     float angulo_camara();
     float angulo_camaraRAD();
     
-      bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
-      void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
-      void posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
-
-      //bool comprobar_colision_ataque(btRigidBody *character_atacado);
-
-      void gira_camara(short _rotacion_x, short _rotacion_en_y);
-    
+    bool comprobar_colision(btRigidBody *rb1, btRigidBody *rb2);
+    void posicionar_rotar_y_escalar_rb(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
+    void posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posicion, btVector3 escala, uint16_t rotacion);
+    //bool comprobar_colision_ataque(btRigidBody *character_atacado);
+    void gira_camara(short _rotacion_x, short _rotacion_en_y);
 
 private:
 
@@ -142,8 +141,6 @@ private:
       float _velocidad;
       
       double mdt;
-
-      u32 then;
 
       float x;
       float z;

@@ -4,6 +4,9 @@
 #include "TTransform.h"
 #include "TNodo.h"
 
+iNodoModelado::iNodoModelado(){
+    
+}
 iNodoModelado::iNodoModelado(const char* ruta){
     //referencia al ME
     TMooseEngine* motor =  TMooseEngine::get_instancia();
@@ -40,6 +43,15 @@ iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
     TNodo* nodoModelado = motor->crearNodo(nodoTraslacion, _modelado);
 
     _nodo_motor = nodoModelado; //almacenamos el puntero al nodo del ME
+}
+
+
+void iNodoModelado::cambiar_modelado(const char * _i_ruta){
+    TMooseEngine* motor =  TMooseEngine::get_instancia();
+    TModelado* _modelado = motor->crearModelado(_i_ruta);
+    TNodo* nodoModelado = motor->crearNodo(_nodo_motor->get_padre(), _modelado);
+    borrarNodo();
+    _nodo_motor=nodoModelado;
 }
 
 Vector3 iNodoModelado::getBB(){

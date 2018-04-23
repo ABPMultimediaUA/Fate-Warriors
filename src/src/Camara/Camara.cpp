@@ -88,7 +88,7 @@ void Camara::Camara_setTarget(Vector3 targetPos){
 
 void Camara::Camara_setProta(iNodoModelado* prota) {
 	_Prota = prota; 
-	//_ProtaBoundingCenter = 0;//_Prota-> getBoundingBox().getCenter(); 
+	_ProtaBoundingCenter = prota->getBB();//_Prota-> getBoundingBox().getCenter(); 
 }
 
 Vector3 Camara::Camara_getPosition(){
@@ -204,7 +204,7 @@ void Camara::update_position() {
 			float az = _Prota-> getPosition()._z; 
 			Vector3 playerPos(
 					_Prota-> getPosition()._x, 
-					_Prota-> getPosition()._y,  //falta el -protaboundingcenter Y 
+					_Prota-> getPosition()._y + 20,  //falta el -protaboundingcenter Y 
 					_Prota-> getPosition()._z); 
 		
 		float distancia;
@@ -214,11 +214,11 @@ void Camara::update_position() {
 		else{
 			distancia = 200.0f;}
 
-		float xf = playerPos._x - cos(_zdirection * irr::core::PI / 180.0f) * cos(_direction * irr::core::PI / 180.0f) * distancia; 
+		float xf = playerPos._x - cos(_zdirection * PIs / 180.0f) * cos(_direction * PIs / 180.0f) * distancia; 
 		
-		float yf = playerPos._y - sin(_zdirection * irr::core::PI / 180.0f) * distancia; 
+		float yf = playerPos._y - sin(_zdirection * PIs / 180.0f) * distancia; 
 
-		float zf = playerPos._z + cos(_zdirection * irr::core::PI / 180.0f) * sin(_direction * irr::core::PI / 180.0f) * distancia; 
+		float zf = playerPos._z + cos(_zdirection * PIs / 180.0f) * sin(_direction * PIs / 180.0f) * distancia; 
 
 		if (_Prota-> getPosition()._y >= 0) {	// Calculos de la camara para una Y positiva
 			
@@ -226,30 +226,32 @@ void Camara::update_position() {
 			//std::cout << playerPos.Y << std::endl; 
 			this->Camara_setPosition(
 					Vector3(xf, 
-							yf + _ProtaBoundingCenter._y, 
+							yf + _ProtaBoundingCenter._y - 10, 
 							zf)); 
 			
 			this->Camara_setTarget(	
-					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
-							_Prota-> getPosition()._y + _ProtaBoundingCenter._y * 1.5f, 
-							_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
+					Vector3(_Prota-> getPosition()._x, 
+							_Prota-> getPosition()._y + _ProtaBoundingCenter._y + 25.0f, 
+							_Prota-> getPosition()._z)); 
 				
 		}
 		
 		else {	// Calculos de la camara para una Y negativa
 			this->Camara_setPosition(
 					Vector3(xf, 
-							yf - _ProtaBoundingCenter._y - _Prota->getPosition()._y, zf)); 
+							yf - _ProtaBoundingCenter._y - _Prota->getPosition()._y - 10, zf)); 
 			
 			this->Camara_setTarget(
 					Vector3(_Prota-> getPosition()._x + _ProtaBoundingCenter._x, 
-							(_ProtaBoundingCenter._y * 0.5), 
+							(_ProtaBoundingCenter._y + 25.0f), 
 							_Prota-> getPosition()._z + _ProtaBoundingCenter._z)); 
 		}
 		
 		
 		// Calculo de la direccion de la camara
 		_camaraDir = _target - _position;
+		std::cout << "target " << _target.x << "\n";
+		std::cout << "position " << _position.x << "\n";
 		//_camaraDir = glm::normalize(_camaraDir);
 
 		glm::vec3 inicial(0,0,1); //v1
@@ -260,6 +262,11 @@ void Camara::update_position() {
 
         _dot = inicial.x * _camaraDir.x + inicial.z * _camaraDir.z;
         _det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
+
+		std::cout << "X inicial " << inicial.x << "\ncamaraDir.x " << inicial.z << "\ncamaraDir.z" << _camaraDir.z << "\n";
+
+		std::cout<<"_dot: " << _dot << "\n";
+		std::cout<<"_det: " << _det << "\n";
 
         _angle = -(atan2f(_det,_dot)/M_PI)*180;
 		//std::cout<<"inicial X: "<< inicial.x << "Z: " << inicial.z << "\n";

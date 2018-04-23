@@ -11,6 +11,8 @@ public:
 	bool usar(Character* _personaje) override;
 	void activar_tiempo();
 	bool comprobar_tiempo_power_up();
+	void cambiar_modelado() override;
+
 };
 
 #endif /* SRC_Consumible_Vida_Infinita_H_ */

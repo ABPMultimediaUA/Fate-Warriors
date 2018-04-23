@@ -12,9 +12,11 @@ class TAnimacion : public TEntidad{
         void draw(Shader* _i_shader);
         void endDraw();
         std::string get_nombre();
+        inline void set_bucle(bool _i_bucle){_bucle=_i_bucle;}
         
     private:
         TRecursoAnimacion* _animacion;
+        bool _bucle;
         void leerAnimacion(const char* path);
         void update_anim();
         uint8_t _contador_anim;

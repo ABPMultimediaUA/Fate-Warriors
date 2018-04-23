@@ -22,3 +22,16 @@ bool Consumible_Carne::usar(Character* _personaje){
     }
 	return false;	
 }
+
+
+void Consumible_Carne::cambiar_modelado(){
+    if(!_esta_lejos){
+        const char* cstr  = "Carne_low";
+        _objeto_motor->cambiar_modelado(cstr);
+        _esta_lejos=true;
+    }else{
+        const char* cstr  = "Carne";
+        _objeto_motor->cambiar_modelado(cstr);
+        _esta_lejos=false;
+    }
+}

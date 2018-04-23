@@ -9,7 +9,7 @@ iNodo::iNodo(){
 }
 
 iNodo::~iNodo(){
-
+    
 }
 
 void iNodo::mover(float x, float y, float z){
@@ -36,4 +36,8 @@ Vector3 iNodo::getPosition(){
     glm::mat4 transformacion = static_cast<TTransform*>(_nodo_motor->get_padre()->get_entidad())->get_t_matriz();
     Vector3 position(transformacion[3][0], transformacion[3][1], transformacion[3][2]);
     return position;
+}
+
+void iNodo::borrarNodo(){
+    _nodo_motor->borrar_nodo();
 }

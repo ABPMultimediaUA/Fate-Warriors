@@ -157,6 +157,7 @@ void TMooseEngine::setMouseOffsetY(float offset){
 
 void TMooseEngine::borrarNodo(uint16_t nodo){
     TNodo* aux=_escena->encontrarNodo(nodo);
+    
     if(aux==nullptr){
         std::cout<<"ERROR ARBOL ESCENA: nodo no encontrado"<<"\n";
     }
@@ -227,6 +228,7 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
     drawLuces();

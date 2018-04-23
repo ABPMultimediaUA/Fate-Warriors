@@ -17,6 +17,7 @@ public:
 
 	void comprobar_consumibles();
 	void borrar_power_up(Consumible_Power_Up* _i_power_up);
+	bool update_lod(Consumible* _consumible);
 
 private:
 	std::vector<Consumible*>* _consumibles;

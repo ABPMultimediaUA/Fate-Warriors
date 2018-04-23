@@ -9,6 +9,8 @@ public:
 	~Consumible_Carne();
 
 	bool usar(Character* _personaje) override;
+	void cambiar_modelado() override;
+
 };
 
 #endif /* SRC_CONSUMIBLE_CARNE_H_ */
