@@ -447,13 +447,13 @@ iNodoModelado* Motor::crearModelado(const char* ruta){
 }
 
 iNodoAnimacion* Motor::crearAnimacion(bool bucle, const char* ruta,float x, float y, float z){
-	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta, x, y, z);
+	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta, x, y, z, 0);
 	lista_i_nodo.push_back(animNode);
 	return animNode;
 }
 
 iNodoAnimacion* Motor::crearAnimacion(bool bucle, const char* ruta){
-	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta);
+	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta, 0);
 	lista_i_nodo.push_back(animNode);
 	return animNode;
 }

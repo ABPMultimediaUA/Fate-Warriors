@@ -190,6 +190,8 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
     _volumen_musica = 5;
     _volumen_sfx = 5;
     _volumen_voces = 5;
+
+    _loop_pasos = false;
 }
 
 Interfaz_sonido::~Interfaz_sonido(){
@@ -585,14 +587,21 @@ void Interfaz_sonido::Play_voces(uint8_t _i_n){
     _eventos_voces[_i_n]->start();
     system_update();
 }
+
 void Interfaz_sonido::Play_pasos(uint8_t _i_n){
     if(_i_n>=_n_pasos){
         std::cout<<"ERROR SONIDO: paso solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
     }
-    _eventos_pasos[_i_n]->start();
-    system_update();
+    if(!_loop_pasos || _i_n != _pasos_actual) {
+        Stop_pasos();
+        _eventos_pasos[_i_n]->start();
+        system_update();
+        _loop_pasos = true;
+        _pasos_actual = _i_n;
+    }
 }
+
 void Interfaz_sonido::Play_musica(uint8_t _i_n){
     if(_i_n>=_n_musica){
         std::cout<<"ERROR SONIDO: musica solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -605,14 +614,22 @@ void Interfaz_sonido::Play_musica(uint8_t _i_n){
 
 /***************************************STOP SONIDOS***********************************************/
 
-/*void Interfaz_sonido::Stop_pasos(uint8_t _i_n){
+void Interfaz_sonido::Stop_pasos(){
+    if(_loop_pasos) {
+        _eventos_pasos[_pasos_actual]->stop();
+        _loop_pasos = false;
+        system_update();
+    }
+}
+void Interfaz_sonido::Stop_pasos(uint8_t _i_n){
     if(_i_n>=_n_pasos){
         std::cout<<"ERROR SONIDO: paso solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
     }
     _eventos_pasos[_i_n]->stop();
     system_update();
-}*/
+    _loop_pasos = false;
+}
 void Interfaz_sonido::Stop_ambiente(uint8_t _i_n){
     if(_i_n>=_n_ambiente){
         std::cout<<"ERROR SONIDO: ambiente solicitado no existente: "<<(int)_i_n<<std::endl;

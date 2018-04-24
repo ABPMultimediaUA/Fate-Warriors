@@ -6,5 +6,6 @@ class Evento_pasos: public Evento_sonido{
         Evento_pasos(std::string _i_ruta, FMOD::Studio::System *sys);
         ~Evento_pasos();
         void start() override;
+        void stop();
 };
 #endif 

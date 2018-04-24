@@ -26,11 +26,11 @@ bool Consumible_Patata::usar(Character* _personaje){
 void Consumible_Patata::cambiar_modelado(){
     if(!_esta_lejos){
         const char* cstr  = "Patatas_low";
-        _objeto_motor->cambiar_modelado(cstr);
+        _objeto_motor->cambiar_modelado(cstr, 0);
         _esta_lejos=true;
     }else{
         const char* cstr  = "Patatas";
-        _objeto_motor->cambiar_modelado(cstr);
+        _objeto_motor->cambiar_modelado(cstr, 0);
         _esta_lejos=false;
     }
 }
