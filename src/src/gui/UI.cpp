@@ -142,11 +142,11 @@ void UI::update(){
                                         ImGuiWindowFlags_NoMove);
 
         
-      // COMENTADO PARA QUE COMPILE  ImGui::ImageButton(this->read_image("media/algo.png"), ImVec2(32, 32), ImVec2(0, 0), ImVec2(32.0f, 32.0f), 2, ImColor(0, 0, 0, 255));
+        ImGui::ImageButton((GLuint*)read_image("media/algo.png"), ImVec2(32, 32), ImVec2(0, 0), ImVec2(32.0f, 32.0f), 2, ImColor(0, 0, 0, 255));
         ImGui::Button("Jugar", ImVec2(_boton_ancho,_boton_alto));
         ImGui::Button("Ajustes", ImVec2(_boton_ancho,_boton_alto));
         ImGui::Button("Salir", ImVec2(_boton_ancho,_boton_alto));
-      // COMENTADO PARA QUE COMPILE   ImGui::Image
+      // COMENTADO PARA QUE COMPILE  ImGui::Image
         //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         
         ImGui::End();
@@ -176,7 +176,7 @@ bool UI::get_cerrar(){
     return _cierratePuto;
 }
 
-GLuint read_image(const char* imagen){
+GLuint UI::read_image(const char* imagen){
     GLuint textureID;
 
     glGenTextures(1, &textureID);
