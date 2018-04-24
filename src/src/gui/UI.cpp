@@ -102,74 +102,11 @@ void UI::cargar_res_1920(){
 }
 
 void UI::update(){
-    //if(glfwWindowShouldClose(_window)){
-    //    _cierratePuto = true;
-    //}
-//
-    //glfwPollEvents();
-    ImGui_ImplGlfwGL3_NewFrame();
-    // 1. Show a simple window.
-    // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets automatically appears in a window called "Debug".
-    
    
-    ImGuiStyle& style = ImGui::GetStyle();
-
-    
-    //style.WindowRounding = 5.3f;
-    //style.FrameRounding = 2.3f;
-    style.ScrollbarRounding = 0;
-    //style.ColumnsMinSpacing = 200.0f;
-    style.ItemSpacing = ImVec2(0, 20);
-    style.Colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-    //style.Colors[ImGuiCol_TextDisabled]          = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
-   // style.Colors[ImGuiCol_WindowBg]              = ImVec4(0.09f, 0.09f, 0.15f, 0.00f);
-    style.Colors[ImGuiCol_Button] = ImVec4(0.85f, 0.0f, 0.00f, 1.f);
-    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.85f, 0.3f, 0.3f, 1.f);
-    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.0f, 0.00f, 0.00f, 1.f);
-    
-   // ImFont* fuente = ImGui::GetIO().Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 14);
-    
-    //ImGui::GetIO().Fonts->Clear();
-    //fuente = ImGui::GetIO().Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 14);
-
-
-        
-    {
-        //ImGui::SetNextWindowPos(ImVec2(_posicion_menu_std_X,_posicion_menu_std_Y));
-        ImGui::Begin("Menu principal",0,ImGuiWindowFlags_NoTitleBar|
-                                        ImGuiWindowFlags_NoResize|
-                                        ImGuiWindowFlags_AlwaysAutoResize|
-                                        ImGuiWindowFlags_NoMove);
-
-        
-        ImGui::ImageButton((GLuint*)read_image("media/algo.png"), ImVec2(32, 32), ImVec2(0, 0), ImVec2(32.0f, 32.0f), 2, ImColor(0, 0, 0, 255));
-        ImGui::Button("Jugar", ImVec2(_boton_ancho,_boton_alto));
-        ImGui::Button("Ajustes", ImVec2(_boton_ancho,_boton_alto));
-        ImGui::Button("Salir", ImVec2(_boton_ancho,_boton_alto));
-      // COMENTADO PARA QUE COMPILE  ImGui::Image
-        //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        
-        ImGui::End();
-    }
-    
-    // 3. Show the ImGui demo window. Most of the sample code is in ImGui::ShowDemoWindow(). Read its code to learn more about Dear ImGui!
-    //if (_show_demo_window)
-    //{
-    //    ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver); // Normally user code doesn't need/want to call this because positions are saved in .ini file anyway. Here we just want to make the demo initial state a bit more friendly!
-    //    ImGui::ShowDemoWindow(&_show_demo_window);
-    //}
-    
 }
 
 void UI::render(){
-    // Rendering
-    int display_w, display_h;
-    glfwGetFramebufferSize(_window, &display_w, &display_h);
-    glViewport(0, 0, display_w, display_h);
-    glClearColor(_clear_color.x, _clear_color.y, _clear_color.z, _clear_color.w);
-    glClear(GL_COLOR_BUFFER_BIT);
-    ImGui::Render();
-    glfwSwapBuffers(_window);
+
 }
 
 bool UI::get_cerrar(){
