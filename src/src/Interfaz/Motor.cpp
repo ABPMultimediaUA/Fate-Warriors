@@ -25,7 +25,7 @@
 #include "../Moose_Engine/src/iNodoAnimacion.h"
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Moose_Engine/src/iNodoLuz.h"
-
+#include "../gui/UI.h"
 /*
 #include "Entidad.h"
 #include "../Input.h"
@@ -170,6 +170,8 @@ Motor::Motor(){
     configuracion_bullet();
     preparar_depuracion_mundo();
     
+	_ui = UI::ui_instancia(1920,1080, _me->getWindow());
+
 	//cargaMapa();
 
 	desp_x = desp_z = 0;
@@ -912,4 +914,12 @@ void Motor::posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posic
 
 void Motor::gira_camara(short _rotacion_en_x, short _rotacion_en_y) {
 	camara->rota_camara_sin_interpolacion(_rotacion_en_x, _rotacion_en_y);
+}
+
+void Motor::updateUI(){
+	_ui->update();
+}
+
+void Motor::renderUI(){
+	_ui->render();
 }
