@@ -14,6 +14,7 @@
 #include "EnumTiposBoundingBox.h"
 #include <btBulletCollisionCommon.h>
 #include "../Utilidades/Vector.h"
+
 //#include "../Moose_Engine/src/iNodoModelado.h"
 
 
@@ -29,7 +30,7 @@ class iNodoModelado;
 class iNodoCamara;
 class iNodoLuz;
 class iNodoAnimacion;
-
+class UI;
       //Bullet
 class btCollisionConfiguration;
 class btBroadphaseInterface;
@@ -105,6 +106,9 @@ public:
     void update();
     void render();
 
+    void updateUI();
+    void renderUI();
+
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
@@ -170,6 +174,7 @@ private:
       
       //ME
       TMooseEngine* _me;
+      UI* _ui;
       iNodoModelado* mapa;
       uint16_t _id_jugador;
       std::vector<Objeto_Motor*> _objetos_motor;

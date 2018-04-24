@@ -7,8 +7,8 @@
 
 class UI{
     public: 
-        static UI* ui_instancia(uint16_t ancho_ventana, uint16_t alto_ventana);
-        UI(uint16_t ancho_ventana, uint16_t alto_ventana);
+        static UI* ui_instancia(uint16_t ancho_ventana, uint16_t alto_ventana, GLFWwindow* window);
+        UI(uint16_t ancho_ventana, uint16_t alto_ventana, GLFWwindow* window);
         ~UI();
         void update();
         void render();
@@ -16,12 +16,12 @@ class UI{
         void cargar_res_1920();
     private:
         //static void error_callback(int error, const char* description);
+        GLFWwindow* _window;
         static UI* _instancia;
         uint16_t _ancho_ventana;
         uint16_t _alto_ventana;
         bool _show_demo_window;
         ImVec4 _clear_color;
-        GLFWwindow* _window;
         bool _cierratePuto;
         uint16_t _boton_ancho;
         uint16_t _boton_alto;

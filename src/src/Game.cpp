@@ -39,7 +39,6 @@ Game::Game() : _datos(nullptr),
 			   _consumibles_action(nullptr),
 			   _trampas_action(nullptr) {
 	_motor = Motor::Motor_GetInstance();
-	_ui = UI::ui_instancia(1920,1080);
     _sonido= Interfaz_sonido::GetInstancia();
 	_sonido->Play_musica(0);
 	_input_jugador = new Input();
@@ -139,8 +138,8 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Menu" << std::endl;
 	_menu_principal->update(_i_tiempo_desde_ultimo_update);
-	_ui->update();
-	_ui->render();
+	_motor->updateUI();
+	_motor->renderUI();
 }
 
 
@@ -198,6 +197,8 @@ void Game::render(float _i_interpolacion){
 }
 
 void Game::render_menu(float _i_interpolacion){
+	_motor->updateUI();
+	_motor->renderUI();
 }
 
 void Game::render_partida(float _i_interpolacion){

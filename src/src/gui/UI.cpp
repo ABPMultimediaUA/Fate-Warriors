@@ -9,9 +9,9 @@
 
 UI* UI::_instancia = 0;
 
-UI* UI::ui_instancia(uint16_t ancho_ventana, uint16_t alto_ventana){
+UI* UI::ui_instancia(uint16_t ancho_ventana, uint16_t alto_ventana, GLFWwindow* window){
 	if(_instancia == 0)
-		_instancia= new UI(ancho_ventana, alto_ventana);
+		_instancia= new UI(ancho_ventana, alto_ventana, window);
 	return _instancia;
 }
 static void error_callback(int error, const char* description)
@@ -35,9 +35,9 @@ Tresolution2func UI_mapping[] = {//definicion de los parametros
         {640, &UI::cargar_res_640},
 		{0, &UI::cargar_res_default}*/
 };
-UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
+UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana, GLFWwindow* window){
     _cierratePuto = false;
-    
+    _window = window;
     // Setup window
     glfwSetErrorCallback(error_callback);
     if (!glfwInit()){
@@ -46,17 +46,17 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     _ancho_ventana = ancho_ventana;
     _alto_ventana = alto_ventana;
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    _window = glfwCreateWindow(ancho_ventana, alto_ventana, "GUI TEST", NULL, NULL);
-    glfwMakeContextCurrent(_window);
-    gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-    glfwSwapInterval(1); // Enable vsync
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //_window = glfwCreateWindow(ancho_ventana, alto_ventana, "GUI TEST", NULL, NULL);
+    //glfwMakeContextCurrent(_window);
+    //gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+    //glfwSwapInterval(1); // Enable vsync
     
 
     // Setup ImGui binding
-    ImGui_ImplGlfwGL3_Init(_window, true);
+    ImGui_ImplGlfwGL3_Init(window, true);
     // Setup style
     //ImGui::StyleColorsDark();
     ImGui::StyleColorsClassic();
@@ -64,8 +64,8 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     _clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     
-    ImGuiIO& io = ImGui::GetIO();
-    ImFont* pFont = io.Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 30.0f);
+    //ImGuiIO& io = ImGui::GetIO();
+    //ImFont* pFont = io.Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 30.0f);
     //io.FontDefault = pFont;
     //unsigned char* pixels;
     //int width, height;
@@ -84,6 +84,8 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana){
     if (! _next->_n_res){
         (this->*_next->pmet)();
     }
+
+    //cargar_res_1920();
 }
 
 UI::~UI(){
@@ -132,7 +134,7 @@ void UI::update(){
 
         
     {
-        ImGui::SetNextWindowPos(ImVec2(_posicion_menu_std_X,_posicion_menu_std_Y));
+        //ImGui::SetNextWindowPos(ImVec2(_posicion_menu_std_X,_posicion_menu_std_Y));
         ImGui::Begin("Menu principal",0,ImGuiWindowFlags_NoTitleBar|
                                         ImGuiWindowFlags_NoResize|
                                         ImGuiWindowFlags_AlwaysAutoResize|
@@ -158,13 +160,13 @@ void UI::update(){
 
 void UI::render(){
     // Rendering
-    //int display_w, display_h;
-    //glfwGetFramebufferSize(_window, &display_w, &display_h);
-    //glViewport(0, 0, display_w, display_h);
-    //glClearColor(_clear_color.x, _clear_color.y, _clear_color.z, _clear_color.w);
-    //glClear(GL_COLOR_BUFFER_BIT);
+    int display_w, display_h;
+    glfwGetFramebufferSize(_window, &display_w, &display_h);
+    glViewport(0, 0, display_w, display_h);
+    glClearColor(_clear_color.x, _clear_color.y, _clear_color.z, _clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
     ImGui::Render();
-    //glfwSwapBuffers(_window);
+    glfwSwapBuffers(_window);
 }
 
 bool UI::get_cerrar(){
