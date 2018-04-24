@@ -23,6 +23,8 @@ class Menu_Principal;
 class Menu_Pausa;
 class Menu_Fin;
 
+class UI;
+
 class Animacion_Interruptor;
 
 class Game{
@@ -57,6 +59,8 @@ private:
 	static Game* instancia;
 	Game();
 
+	
+
 	void (Game::*update_actual)(double);
 	void (Game::*render_actual)(float);
 
@@ -73,7 +77,7 @@ private:
 	void render_lose(float _i_interpolacion);						// Render de fin de partida (lose)
 
 	Player* _player;
-
+	UI* _ui;
 	Nivel* _nivel;
 	Zonas_Manager* _zonas_manager;
 	Interactuable_Manager* _interactuable_manager;
