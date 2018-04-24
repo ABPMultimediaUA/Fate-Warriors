@@ -140,10 +140,12 @@ void UI::update(){
                                         ImGuiWindowFlags_AlwaysAutoResize|
                                         ImGuiWindowFlags_NoMove);
 
+        
+        ImGui::ImageButton(this->read_image("media/algo.png"), ImVec2(32, 32), ImVec2(0, 0), ImVec2(32.0f, 32.0f), 2, ImColor(0, 0, 0, 255));
         ImGui::Button("Jugar", ImVec2(_boton_ancho,_boton_alto));
         ImGui::Button("Ajustes", ImVec2(_boton_ancho,_boton_alto));
         ImGui::Button("Salir", ImVec2(_boton_ancho,_boton_alto));
-        
+        ImGui::Image
         //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         
         ImGui::End();
@@ -171,4 +173,23 @@ void UI::render(){
 
 bool UI::get_cerrar(){
     return _cierratePuto;
+}
+
+GLuint read_image(const char* imagen){
+    GLuint textureID;
+
+    glGenTextures(1, &textureID);
+    
+    int width, height;
+    unsigned char* image;
+ 
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+    image = SOIL_load_image(imagen, &width, &height, 0, SOIL_LOAD_RGB);
+        
+    if (!image) {
+        std::cout << "Failed to load texture: " << sizeof(image) << std::endl;
+    }
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+        SOIL_free_image_data(image);
+    return textureID;
 }

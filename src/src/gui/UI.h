@@ -13,6 +13,7 @@ class UI{
         void update();
         void render();
         bool get_cerrar();
+        GLuint read_image(const char* imagen);
         void cargar_res_1920();
     private:
         //static void error_callback(int error, const char* description);
