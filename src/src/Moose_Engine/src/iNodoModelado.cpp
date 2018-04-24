@@ -46,7 +46,7 @@ iNodoModelado::iNodoModelado(const char* ruta, float x, float y, float z){
 }
 
 
-void iNodoModelado::cambiar_modelado(const char * _i_ruta){
+void iNodoModelado::cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta){
     TMooseEngine* motor =  TMooseEngine::get_instancia();
     TModelado* _modelado = motor->crearModelado(_i_ruta);
     TNodo* nodoModelado = motor->crearNodo(_nodo_motor->get_padre(), _modelado);

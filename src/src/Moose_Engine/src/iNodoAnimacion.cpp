@@ -4,7 +4,9 @@
 #include "TTransform.h"
 #include "TNodo.h"
 
-iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta){
+#include <iostream>
+
+iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta, uint8_t _num_ruta){
     //referencia al ME
     TMooseEngine* motor =  TMooseEngine::get_instancia();
 
@@ -22,9 +24,11 @@ iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta){
     TNodo* nodoAnimacion = motor->crearNodo(nodoTraslacion, _animacion);
 
     _nodo_motor = nodoAnimacion; //almacenamos el puntero al nodo del ME
+
+    _ruta_actual = _num_ruta;
 }
 
-iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta, float x, float y, float z){
+iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta, float x, float y, float z, uint8_t _num_ruta){
     
     //referencia al ME
     TMooseEngine* motor =  TMooseEngine::get_instancia();
@@ -45,14 +49,24 @@ iNodoAnimacion::iNodoAnimacion(bool bucle, const char* ruta, float x, float y, f
     TNodo* nodoAnimacion = motor->crearNodo(nodoTraslacion, _animacion);
 
     _nodo_motor = nodoAnimacion; //almacenamos el puntero al nodo del ME
+
+    _ruta_actual = _num_ruta;
 }
 
-void iNodoAnimacion::cambiar_modelado(const char * _i_ruta){
-    TMooseEngine* motor =  TMooseEngine::get_instancia();
-    TAnimacion* _Animacion = motor->crearAnimacion(_i_ruta);
-    TNodo* nodoAnimacion = motor->crearNodo(_nodo_motor->get_padre(), _Animacion);
-    borrarNodo();
-    _nodo_motor=nodoAnimacion;
+void iNodoAnimacion::cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta){
+    
+    if(_num_ruta != _ruta_actual) {
+        TMooseEngine* motor =  TMooseEngine::get_instancia();
+        TAnimacion* _Animacion = motor->crearAnimacion(_i_ruta);
+        TNodo* nodoAnimacion = motor->crearNodo(_nodo_motor->get_padre(), _Animacion);
+        borrarNodo();
+        _nodo_motor = nodoAnimacion;
+        _ruta_actual = _num_ruta;
+
+        if(_num_ruta < 3) {
+            _Animacion->set_bucle(true);
+        }
+    }
 }
 
 iNodoAnimacion::~iNodoAnimacion(){

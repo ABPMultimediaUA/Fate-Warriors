@@ -42,6 +42,7 @@ public:
     void Play_pasos(uint8_t _i_n);
     void Play_musica(uint8_t _i_n);
 
+    void Stop_pasos();
     void Stop_pasos(uint8_t _i_n);
     void Stop_ambiente(uint8_t _i_n);
     void Stop_musica(uint8_t _i_n);
@@ -119,6 +120,10 @@ private:
     uint8_t _volumen_musica;
     uint8_t _volumen_sfx;
     uint8_t _volumen_voces;	
+
+    // Variables de control de sonido
+    bool _loop_pasos;
+    uint8_t _pasos_actual;
 };
 
 #endif /* SRC_INTERFAZ_SONIDO_H_ */

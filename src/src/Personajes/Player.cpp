@@ -63,6 +63,8 @@ void Player::update(){
     // Recoge si ha habido movimiento y la direccion de el mismo
     uint16_t _direccion;
 
+    bool solo_andar = false;
+    bool _apuntando_enemigo = false;
     
     if(_input->get_mover(_direccion)){
         // Direccion buena con respecto de la camara
@@ -76,29 +78,38 @@ void Player::update(){
 
        if(_cono_vision->get_apuntando() != nullptr) {
             mover_direccion(_direccion_buena, _cono_vision->get_rotacion_con_apuntando());
+            _apuntando_enemigo = true;
         }
         else {
             mover(_direccion_buena);
         }
 
+        solo_andar = true;
+
         //s_sonido->Play_ambiente(2);
       
         if(_input->get_dash()){
             _sonido->Play_personaje(0);
-            if(_cono_vision->get_apuntando() != nullptr) {
-
+            if(_apuntando_enemigo) {
                 uint16_t _direccion_posterior =  _cono_vision->get_rotacion_con_apuntando();
                 int16_t _direccion_incremento = (int16_t)_direccion_previa_movimiento-(int16_t)_direccion_posterior;
                 if(_direccion_incremento>-45 && _direccion_incremento<45){
                 // _cono_vision->set_apuntando_a_objetivo_mas_proximo();
-                std::cout << "va a hacer cinta \n";
+                std::cout << "va a hacer finta \n";
                 _hace_cinta = true;
                 _cono_vision->rotar_mirando_a_apuntando();
 
                 }
             }         
             esquivar(_direccion_buena); // Habra que pasar la direccion buena
+
+            solo_andar = false;
         }
+    }
+    else { // Idle
+        std::cout << "IDLE\n";
+        _objeto_motor->cambiar_modelado("Anim_idle_jugador", 0);
+        _sonido->Stop_pasos();
     }
 
     if(_input->get_interactuar()){
@@ -114,6 +125,7 @@ void Player::update(){
         else{
            // std::cout<< "No puede INTERACTUAR "<< std::endl;
         }
+        solo_andar = false;
     }
 
     if(_input->get_centrar_camara()) {
@@ -140,14 +152,15 @@ void Player::update(){
         else if(std::get<2>(_ataques)){      // Ataque normal
             atacar(Ataque_Normal);
             _sonido->Play_personaje(1);
-            //std::cout << "Ataque Normal\n";
+            _sonido->Play_voces(6);
             _cono_vision->preparar_ataque_objetivo_mas_proximo_con_impulso();
         }
         else {                          // Ataque fuerte
             this->atacar(Ataque_Fuerte);
             _sonido->Play_personaje(1);
-            //std::cout << "Ataque Fuerte\n";
+            _sonido->Play_voces(6);
         }
+        solo_andar = false;
     }
   
 
@@ -166,11 +179,24 @@ void Player::update(){
     Nivel* nivel=Nivel::nivel_instancia();
     nivel->nivel_set_lod(nivel->nivel_get_id_vertice(getX(),getZ()));
     //std::cout << "id vertice set lod: " <<nivel->nivel_get_id_vertice(getX(),getZ()) << std::endl;
+
+    if(solo_andar) {
+        if(_accion == Andar || _apuntando_enemigo) {                          // Andar
+            _sonido->Play_pasos(0); 
+            std::cout << "ANDAR\n";
+            _objeto_motor->cambiar_modelado("Anim_andar_jugador", 1);
+        }
+        else if(_accion == Accion_Correr) {  // Correr
+            _sonido->Play_pasos(1);
+            std::cout << "CORRER\n";
+            _objeto_motor->cambiar_modelado("Anim_correr_jugador", 2);
+        }
+    }
+
     }
     else{
         morir();
     }
-
 
 }
 

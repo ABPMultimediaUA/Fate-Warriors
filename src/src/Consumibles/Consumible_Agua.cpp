@@ -28,11 +28,11 @@ bool Consumible_Agua::usar(Character* _personaje){
 void Consumible_Agua::cambiar_modelado(){
     if(!_esta_lejos){
         const char* cstr  = "Agua_low";
-        _objeto_motor->cambiar_modelado(cstr);
+        _objeto_motor->cambiar_modelado(cstr, 0);
         _esta_lejos=true;
     }else{
         const char* cstr  = "Agua";
-        _objeto_motor->cambiar_modelado(cstr);
+        _objeto_motor->cambiar_modelado(cstr, 0);
         _esta_lejos=false;
     }
 }

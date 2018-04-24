@@ -245,6 +245,7 @@ void Game::cambio_a_update_pausa() {
 		render_actual = &Game::render_pausa;
 		_menu_pausa->set_tiempo_pausa();
 		_input_jugador->asignar_teclas_menu();
+        _sonido->Stop_pasos();
 	}
 }
 

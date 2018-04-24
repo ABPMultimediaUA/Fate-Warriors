@@ -315,6 +315,6 @@ void Objeto_Motor::rotar_nodo_sin_interpolacion(uint16_t rotacion) {
 
 }
 
-void Objeto_Motor::cambiar_modelado(const char* _ruta){
-	_nodo->cambiar_modelado(_ruta);
+void Objeto_Motor::cambiar_modelado(const char* _ruta, uint8_t _num_ruta){
+	_nodo->cambiar_modelado(_ruta, _num_ruta);
 }

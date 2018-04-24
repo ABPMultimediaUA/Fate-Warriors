@@ -124,7 +124,6 @@ public:
 	void set_zona_en_la_que_se_encuentra(Zona * _zona);
 	Zona* get_zona();
 
-
 protected:
 	
 	int16_t _vida_maxima;
