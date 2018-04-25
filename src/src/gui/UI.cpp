@@ -1,12 +1,10 @@
 #include "UI.h"
-#include "imgui.h"
-#include "imgui_impl_glfw_gl3.h"
 #include <stdio.h>
 #include <glad/glad.h>    // This example is using gl3w to access OpenGL functions (because it is small). You may use glew/glad/glLoadGen/etc. whatever already works for you.
 #include <GLFW/glfw3.h>
 #include <cstdint>
 #include <iostream>
-#include "SOIL.h"
+
 
 UI* UI::_instancia = 0;
 
@@ -37,41 +35,10 @@ Tresolution2func UI_mapping[] = {//definicion de los parametros
 		{0, &UI::cargar_res_default}*/
 };
 UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana, GLFWwindow* window){
-    _cierratePuto = false;
+
     _window = window;
-    // Setup window
-    glfwSetErrorCallback(error_callback);
-    if (!glfwInit()){
-    //std::cout<<"algo nbo va bien"<<std::endl;
-    }
     _ancho_ventana = ancho_ventana;
     _alto_ventana = alto_ventana;
-
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //_window = glfwCreateWindow(ancho_ventana, alto_ventana, "GUI TEST", NULL, NULL);
-    //glfwMakeContextCurrent(_window);
-    //gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-    //glfwSwapInterval(1); // Enable vsync
-    
-
-    // Setup ImGui binding
-    ImGui_ImplGlfwGL3_Init(window, true);
-    // Setup style
-    //ImGui::StyleColorsDark();
-    ImGui::StyleColorsClassic();
-    _show_demo_window = true;
-    _clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-    
-    //ImGuiIO& io = ImGui::GetIO();
-    //ImFont* pFont = io.Fonts->AddFontFromFileTTF("Goalthink-Regular.ttf", 30.0f);
-    //io.FontDefault = pFont;
-    //unsigned char* pixels;
-    //int width, height;
-    //io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-
 
     Tresolution2func* _next=UI_mapping;
 	//std::cout<<_iteracion<<std::endl;
@@ -90,8 +57,7 @@ UI::UI(uint16_t ancho_ventana, uint16_t alto_ventana, GLFWwindow* window){
 }
 
 UI::~UI(){
-    ImGui_ImplGlfwGL3_Shutdown();
-    glfwTerminate();
+
 }
 
 void UI::cargar_res_1920(){
@@ -109,25 +75,6 @@ void UI::render(){
 
 }
 
-bool UI::get_cerrar(){
-    return _cierratePuto;
-}
-
 GLuint UI::read_image(const char* imagen){
-    GLuint textureID;
 
-    glGenTextures(1, &textureID);
-    
-    int width, height;
-    unsigned char* image;
- 
-    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
-    image = SOIL_load_image(imagen, &width, &height, 0, SOIL_LOAD_RGB);
-        
-    if (!image) {
-        std::cout << "Failed to load texture: " << sizeof(image) << std::endl;
-    }
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-        SOIL_free_image_data(image);
-    return textureID;
 }

@@ -1,5 +1,4 @@
-#include "imgui.h"
-#include "imgui_impl_glfw_gl3.h"
+
 #include <stdio.h>
 #include <glad/glad.h>    // This example is using gl3w to access OpenGL functions (because it is small). You may use glew/glad/glLoadGen/etc. whatever already works for you.
 #include <GLFW/glfw3.h>
@@ -12,7 +11,7 @@ class UI{
         ~UI();
         void update();
         void render();
-        bool get_cerrar();
+
         GLuint read_image(const char* imagen);
         void cargar_res_1920();
     private:
@@ -21,9 +20,7 @@ class UI{
         static UI* _instancia;
         uint16_t _ancho_ventana;
         uint16_t _alto_ventana;
-        bool _show_demo_window;
-        ImVec4 _clear_color;
-        bool _cierratePuto;
+
         uint16_t _boton_ancho;
         uint16_t _boton_alto;
         uint16_t _posicion_menu_std_X;   //posicion para el menu principal
