@@ -178,12 +178,14 @@ TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){
 }
 
 TNodo* TMooseEngine::crearNodoCamara(TNodo *padre, TEntidad *ent){
+    ++_contadorIDEntidad;     
     TNodo* aux=crearNodo(padre,ent);
     _mapping_camaras.push_back(new Mapeado({true,aux}));
     ++_n_c_actual;
     return aux;
 }
 TNodo* TMooseEngine::crearNodoLuz(TNodo *padre, TEntidad *ent){
+    ++_contadorIDEntidad;     
     TNodo* aux=crearNodo(padre,ent);
     _mapping_luces.push_back(new Mapeado({true,aux}));
     ++_n_l_actual;

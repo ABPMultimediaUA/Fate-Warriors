@@ -32,7 +32,7 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
 }
 Objeto_Motor::Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj, const char* rutaAnim, float x, float y, float z, int16_t peso){
 	Motor* _motor = Motor::Motor_GetInstance();
-   _nodo            = _motor->crearModelado(rutaObj, x, y, z);
+   _nodo            = _motor->crearModeladoSinLista(rutaObj, x, y, z);
    _interpolacion   = _motor->crear_interpolacion(x, y, z);
    _rigidbody       = _motor->crearRigidBody(_objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
    _nodo->borrarNodo();

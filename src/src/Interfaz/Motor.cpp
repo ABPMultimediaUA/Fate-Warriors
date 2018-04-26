@@ -440,6 +440,11 @@ iNodoModelado* Motor::crearModelado(const char* ruta,float x, float y, float z){
 	return cubeNode;
 }
 
+iNodoModelado* Motor::crearModeladoSinLista(const char* ruta,float x, float y, float z){
+	iNodoModelado* cubeNode = new iNodoModelado(ruta, x, y, z);
+	return cubeNode;
+}
+
 iNodoModelado* Motor::crearModelado(const char* ruta){
 	iNodoModelado* cubeNode = new iNodoModelado(ruta);
 	lista_i_nodo.push_back(cubeNode);

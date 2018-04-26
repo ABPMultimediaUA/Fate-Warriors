@@ -67,6 +67,7 @@ public:
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
     
     iNodoModelado* crearModelado(const char* ruta,float x, float y, float z);
+    iNodoModelado* crearModeladoSinLista(const char* ruta,float x, float y, float z);
     iNodoModelado* crearModelado(const char* ruta);
     
     iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta,float x, float y, float z);
