@@ -253,9 +253,9 @@ void Objeto_Motor::updateDynamicBody() {
 
 void Objeto_Motor::updateDynamicBodyCharacter() {
 	btVector3 pos = _rigidbody->getCenterOfMassPosition();
-	_nodo->mover(pos[0], 0, pos[2]);
+	_nodo->mover(pos[0], pos[1]-(3), pos[2]);
 
-	Vector3 vector(pos[0], 0, pos[2]);
+	Vector3 vector(pos[0], pos[1]-(3), pos[2]);
 	_interpolacion->actualiza_posicion(vector);
 
 	if(!_interpolacion->get_cambio_direccion()) {
