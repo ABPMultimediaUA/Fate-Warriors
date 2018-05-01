@@ -74,6 +74,8 @@ public:
     iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta);
     
     Interpolacion* crear_interpolacion(float x, float y, float z);
+    Interpolacion* crear_interpolacion_palanca(float x, float y, float z, int16_t _rotacion);
+
     btRigidBody* crear_rb_ataque();
     btRigidBody* crear_rb_vision();
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);

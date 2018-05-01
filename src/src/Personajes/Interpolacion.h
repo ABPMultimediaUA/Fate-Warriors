@@ -10,7 +10,7 @@
 class Interpolacion {
 public:
 	Interpolacion(Vector3 _i_posicion_inicial);
-	~Interpolacion();
+	virtual ~Interpolacion();
 
 
 	void actualiza_posicion(Vector3 _i_posicion_actual); 	// Hace la posicion anterior la antigua posicion actual y pone la nueva actual
@@ -26,6 +26,10 @@ public:
 	inline int16_t get_direccion_actual() { return _direccion_actual; }
 
 	inline bool get_cambio_direccion() { return _cambio_direccion; }
+
+
+	virtual void actualiza_rotacion_palanca(int16_t _i_rotacion_actual);	// Interpola la rotacion de la palanca
+	virtual int16_t interpola_rotacion_palanca(float _i_interpolacion);		// Devuelve la rotacion interpolada
 
 private:
 	Vector3* _posicion_actual;								// Posicion en el ciclo de update actual (el ultimo realizado)

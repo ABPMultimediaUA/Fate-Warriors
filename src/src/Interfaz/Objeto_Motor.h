@@ -18,6 +18,7 @@ class Objeto_Motor{
 public:
 
       Objeto_Motor(Objeto* objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso);
+      Objeto_Motor(Objeto* objeto,BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso, int16_t _rotacion_x);
       Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj, const char* rutaAnimfloat ,float x, float y, float z, int16_t peso);
       ~Objeto_Motor();
     

@@ -74,3 +74,13 @@ int16_t Interpolacion::interpola_direccion(float _i_interpolacion){
 
     return _direccion_interpolada;
 }
+
+
+
+void Interpolacion::actualiza_rotacion_palanca(int16_t _i_rotacion_actual) {
+}
+
+
+int16_t Interpolacion::interpola_rotacion_palanca(float _i_interpolacion){
+	return 0;
+}

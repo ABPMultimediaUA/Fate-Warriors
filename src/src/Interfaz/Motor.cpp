@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "../Personajes/Interpolacion.h"
+#include "../Personajes/Interpolacion_Palanca.h"
 #include "Objeto_Motor.h"
 #include "../Objeto.h"
 #include "../Personajes/Player.h"
@@ -563,6 +564,12 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 Interpolacion* Motor::crear_interpolacion(float x, float y, float z){
 	Vector3 posicion(x,y,z);
 	Interpolacion* _interpolacion = new Interpolacion(posicion);
+	return _interpolacion;
+}
+
+Interpolacion* Motor::crear_interpolacion_palanca(float x, float y, float z, int16_t _rotacion){
+	Vector3 posicion(x,y,z);
+	Interpolacion* _interpolacion = new Interpolacion_Palanca(posicion, _rotacion);
 	return _interpolacion;
 }
 

@@ -30,6 +30,17 @@ Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaOb
 	desp_z = 0;
     desp_x = 0;
 }
+Objeto_Motor::Objeto_Motor(Objeto* objeto, BoundingBoxes tipo,const char* rutaObj,float x, float y, float z, int16_t peso, int16_t _rotacion_x){
+   Motor* _motor = Motor::Motor_GetInstance();
+   _nodo            = _motor->crearModelado(rutaObj, x, y, z);
+   _interpolacion   = _motor->crear_interpolacion_palanca(x, y, z, _rotacion_x);
+   _rigidbody       = _motor->crearRigidBody(objeto, tipo ,rutaObj ,x ,y ,z ,peso ,_nodo);
+
+   _motor->crear_ObjetoMotor(this);
+
+	desp_z = 0;
+    desp_x = 0;
+}
 Objeto_Motor::Objeto_Motor(bool bucle, Objeto* _objeto,BoundingBoxes tipo,const char* rutaObj, const char* rutaAnim, float x, float y, float z, int16_t peso){
 	Motor* _motor = Motor::Motor_GetInstance();
    _nodo            = _motor->crearModeladoSinLista(rutaObj, x, y, z);
@@ -271,6 +282,7 @@ Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 	
 	_nodo->mover(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z);
 	_nodo->rotacionDirecta(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
+	_nodo->rotar(1, 0, 0, _interpolacion->interpola_rotacion_palanca(_i_interpolacion));
 	return _posicion_interpolada;
 }
 

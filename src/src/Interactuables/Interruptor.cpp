@@ -14,7 +14,7 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion,
     _objeto_motor->rotar_nodo(_i_rotacion);
 
     const char* cstr_2  = "PalancaInterruptor";
-	_palito = new Objeto_Motor(this,E_BoundingBox, cstr_2, _i_x,-1.8,_i_z,0);
+	_palito = new Objeto_Motor(this, E_BoundingBox, cstr_2, _i_x, -1.8, _i_z, 0, 35);
     _palito->rotar_nodo(_i_rotacion);
 
     _estado = false;
