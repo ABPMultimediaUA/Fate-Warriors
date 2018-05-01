@@ -7,6 +7,7 @@
 #include "TAnimacion.h"
 #include "TGestorRecursos.h"
 #include "Shader.h"
+#include "ParticleGenerator.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -38,6 +39,7 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader();
     _skybox = new Skybox();
+    _particulas = new ParticleGenerator(_shader,"", 1);
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
@@ -82,6 +84,7 @@ TMooseEngine::~TMooseEngine(){
     delete _shader;
     _contadorIDEntidad=0;
     glfwTerminate();
+    delete _particulas;
 }
 
 void micallback(GLFWwindow* oglwindow, double _i_xpos, double _i_ypos){
@@ -230,14 +233,16 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
+    _particulas->Draw(); 
+    /*_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     //_shader->use(sombras_proyectadas);
     //_escena->draw(_shader);
+    */
     glfwSwapBuffers(window);
     glfwPollEvents();
 

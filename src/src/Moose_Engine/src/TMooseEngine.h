@@ -16,6 +16,7 @@ class Mapeado;
 class Shader;
 class GLFWwindow;
 class Skybox;
+class ParticleGenerator;
 
 class TMooseEngine{
 
@@ -96,6 +97,7 @@ class TMooseEngine{
         std::vector<TAnimacion*> _animaciones;
         
         Skybox* _skybox;
+        ParticleGenerator* _particulas;
 };
 
 

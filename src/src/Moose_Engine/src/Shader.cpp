@@ -13,6 +13,7 @@ Shader::Shader(){
     LoadShader(eSkybox, "src/Moose_Engine/Shaders/vertex_skybox.glsl", "src/Moose_Engine/Shaders/fragment_skybox.glsl");
     LoadShader(Default,"src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
     LoadShader(sombras_proyectadas,"src/Moose_Engine/Shaders/vertex_proyeccion_sombras.glsl", "src/Moose_Engine/Shaders/fragment_proyeccion_sombras.glsl");
+    LoadShader(particulas,"src/Moose_Engine/Shaders/texture.vs", "src/Moose_Engine/Shaders/texture.fs"); 
 }
 
 

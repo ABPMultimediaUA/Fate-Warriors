@@ -10,6 +10,7 @@ enum ShaderType {
     Default = 0,
     eSkybox,
     sombras_proyectadas,
+    particulas,
     Shader_count
 };
 
