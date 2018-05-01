@@ -16,5 +16,7 @@ void Interruptor_Un_Uso::accionar() {
         for(uint8_t i=0; i<size; i++) {
         	_puertas_asociadas[i]->desactivar_bloquear();
         }
+
+	    cambia_palito();
     }
 }

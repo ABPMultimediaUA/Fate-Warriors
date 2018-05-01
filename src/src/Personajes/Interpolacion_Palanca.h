@@ -11,6 +11,8 @@ public:
 	void actualiza_rotacion_palanca(int16_t _i_rotacion_actual);	// Interpola la rotacion de la palanca
 	int16_t interpola_rotacion_palanca(float _i_interpolacion);		// Devuelve la rotacion interpolada
 
+	inline int16_t get_rotacion_palanca()			{ return _rotacion_actual;}
+
 private:
 	int16_t _rotacion_actual;								// Dirección en el ciclo de update actual (el ultimo realizado)					
 	int16_t _rotacion_anterior;							// Dirección en el ciclo de update anterior (el anterior)

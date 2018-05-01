@@ -3,6 +3,8 @@
 Interpolacion_Palanca::Interpolacion_Palanca(Vector3 _i_posicion_inicial, int16_t _rotacion) : Interpolacion( _i_posicion_inicial) {
 	_rotacion_anterior = _rotacion;
 	_rotacion_actual = _rotacion;
+
+	_cambio_rotacion = false;
 }
 
 Interpolacion_Palanca::~Interpolacion_Palanca() {
@@ -29,6 +31,8 @@ void Interpolacion_Palanca::actualiza_rotacion_palanca(int16_t _i_rotacion_actua
 		_rotacion_anterior -= 360;
 		//std::cout << "Rotacion anterior modificada " << (int)_rotacion_anterior << "\n\n";
 	}
+
+	_cambio_rotacion = true;
 }
 
 

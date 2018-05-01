@@ -107,7 +107,7 @@ void Player::update(){
         }
     }
     else { // Idle
-        std::cout << "IDLE\n";
+        //std::cout << "IDLE\n";
         _objeto_motor->cambiar_modelado("Anim_idle_jugador", 0);
         _sonido->Stop_pasos();
     }
@@ -183,12 +183,12 @@ void Player::update(){
     if(solo_andar) {
         if(_accion == Andar || _apuntando_enemigo) {                          // Andar
             _sonido->Play_pasos(0); 
-            std::cout << "ANDAR\n";
+            //std::cout << "ANDAR\n";
             _objeto_motor->cambiar_modelado("Anim_andar_jugador", 1);
         }
         else if(_accion == Accion_Correr) {  // Correr
             _sonido->Play_pasos(1);
-            std::cout << "CORRER\n";
+            //std::cout << "CORRER\n";
             _objeto_motor->cambiar_modelado("Anim_correr_jugador", 2);
         }
     }

@@ -31,6 +31,13 @@ public:
 	virtual void actualiza_rotacion_palanca(int16_t _i_rotacion_actual);	// Interpola la rotacion de la palanca
 	virtual int16_t interpola_rotacion_palanca(float _i_interpolacion);		// Devuelve la rotacion interpolada
 
+	virtual inline int16_t get_rotacion_palanca()				{ return 0;}
+	inline void set_cambio_rotacion(bool _i_cambio) 	{ _cambio_rotacion = _i_cambio;}
+	inline bool get_cambio_rotacion() 					{ return _cambio_rotacion; }
+
+protected:
+	bool _cambio_rotacion;
+
 private:
 	Vector3* _posicion_actual;								// Posicion en el ciclo de update actual (el ultimo realizado)
 	Vector3* _posicion_anterior;							// Posicion en el ciclo de update anterior (el anterior)

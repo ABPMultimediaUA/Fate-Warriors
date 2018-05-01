@@ -21,6 +21,7 @@ void Interruptor_Propagador::accionar() {
 }
 
 void Interruptor_Propagador::accionar_sin_propagar() {
+    cambia_palito();
     _estado = !_estado;
     cambiar_estado_puertas();
 }

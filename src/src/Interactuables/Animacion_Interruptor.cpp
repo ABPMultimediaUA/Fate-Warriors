@@ -38,7 +38,7 @@ void Animacion_Interruptor::empieza(uint32_t _t_fin, Interruptor* _i_interruptor
 
 
 bool Animacion_Interruptor::update(double _i_tiempo_desde_ultimo_update) {
-    std::cout <<  _t_fin_mirar-_reloj->get_current() << " -- tiempo -- " << std::endl;
+    //std::cout <<  _t_fin_mirar-_reloj->get_current() << " -- tiempo -- " << std::endl;
     if(_accionado == false && _reloj->get_current() > _t_fin_mirar-2000) {
         _interruptor->accionar();
         _accionado = true;

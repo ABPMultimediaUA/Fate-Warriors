@@ -13,7 +13,7 @@ public:
 	Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion, short _rotacion_x, short _rotacion_y, short _distancia);
 	virtual ~Interruptor();
 
-	virtual void iniciar_interruptor();					// Inicia el cambio de objetivo de camara del interruptor
+	virtual void iniciar_interruptor();			// Inicia el cambio de objetivo de camara del interruptor
 	virtual void accionar() = 0;				// Acciona el interruptor y le cambia el estado (si es posible)
 	virtual void accionar_sin_propagar();		// Acciona el interruptor sin propagar
 
@@ -23,6 +23,8 @@ public:
 	virtual void update();
 
 	Puerta_Pincho* get_puerta_asociada();
+
+	void cambia_palito();		// Inclina el palito para el otro lado
 
 	short get_rotacion_x();
 	short get_rotacion_y();
@@ -38,6 +40,7 @@ protected:
 
 private:
 	Objeto_Motor* _palito;								// Modelado del Palo del interruptor (hay que animarlo)
+	int16_t _inclinacion_palito;						// Inclinacion del palito
 };
 
 #endif /* INTERRUPTOR_H_ */

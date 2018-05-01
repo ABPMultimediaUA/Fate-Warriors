@@ -7,14 +7,15 @@
 
 #include <iostream>
 
-Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion, short _i_rotacion_x, short _i_rotacion_y, short _i_distancia) : Objeto(_i_id, _i_x, 0, _i_z){
-	 
+Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion, short _i_rotacion_x, short _i_rotacion_y, short _i_distancia) : Objeto(_i_id, _i_x, 0, _i_z){ 
+    _inclinacion_palito = 35;
+
     const char* cstr  = "BaseInterruptor";
     _objeto_motor = new Objeto_Motor(this,E_BoundingBox, cstr, _i_x,0,_i_z,0);
     _objeto_motor->rotar_nodo(_i_rotacion);
 
     const char* cstr_2  = "PalancaInterruptor";
-	_palito = new Objeto_Motor(this, E_BoundingBox, cstr_2, _i_x, -1.8, _i_z, 0, 35);
+	_palito = new Objeto_Motor(this, E_BoundingBox, cstr_2, _i_x, -1.8, _i_z, 0, _inclinacion_palito);
     _palito->rotar_nodo(_i_rotacion);
 
     _estado = false;
@@ -56,6 +57,16 @@ void Interruptor::iniciar_interruptor(){
 
 Puerta_Pincho* Interruptor::get_puerta_asociada(){
     return _puertas_asociadas[0];
+}
+
+
+void Interruptor::cambia_palito() {
+    if(_inclinacion_palito == 35)
+        _inclinacion_palito = 325;
+    else
+        _inclinacion_palito = 35;
+
+    _palito->rota_palanca(_inclinacion_palito);
 }
 
 

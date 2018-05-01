@@ -59,6 +59,8 @@ public:
       void rotar_nodo_sin_interpolacion(uint16_t rotacion); // NO interpola la rotacion
       void cambiar_modelado(const char* _ruta, uint8_t _num_ruta);
 
+      void rota_palanca(int16_t _i_rotacion_actual);
+
 private:
       iNodoModelado*       _nodo;
       Interpolacion*    _interpolacion;

@@ -259,6 +259,12 @@ void Objeto_Motor::updateDynamicBody() {
 
 	_interpolacion->cambio_direccion(false);
 
+
+	if(_interpolacion->get_cambio_rotacion()) {
+		_interpolacion->actualiza_rotacion_palanca(_interpolacion->get_rotacion_palanca());
+		_interpolacion->set_cambio_rotacion(false);
+	}
+
 }
 
 
@@ -285,6 +291,8 @@ Vector3 Objeto_Motor::interpola_posiciones(float _i_interpolacion){
 	
 	_nodo->mover(_posicion_interpolada._x, _posicion_interpolada._y, _posicion_interpolada._z);
 	_nodo->rotacionDirecta(0, 1, 0, _interpolacion->interpola_direccion(_i_interpolacion));
+	//if(_interpolacion->interpola_rotacion_palanca(_i_interpolacion) != 0)
+		//std::cout << "Rotacion Palanca : " << (int)_interpolacion->interpola_rotacion_palanca(_i_interpolacion) << "\n";
 	_nodo->rotar(1, 0, 0, _interpolacion->interpola_rotacion_palanca(_i_interpolacion));
 	return _posicion_interpolada;
 }
@@ -332,4 +340,8 @@ void Objeto_Motor::rotar_nodo_sin_interpolacion(uint16_t rotacion) {
 
 void Objeto_Motor::cambiar_modelado(const char* _ruta, uint8_t _num_ruta){
 	_nodo->cambiar_modelado(_ruta, _num_ruta);
+}
+
+void Objeto_Motor::rota_palanca(int16_t _i_rotacion_actual) {
+	_interpolacion->actualiza_rotacion_palanca(_i_rotacion_actual);
 }

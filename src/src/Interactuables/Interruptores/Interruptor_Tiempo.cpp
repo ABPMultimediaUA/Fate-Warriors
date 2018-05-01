@@ -35,4 +35,6 @@ void Interruptor_Tiempo::cambiar_estado_puertas() {
     for(uint8_t i=0; i<size; i++) {
     	_puertas_asociadas[i]->cambiar_estado();
     }
+    
+    cambia_palito();
 }
