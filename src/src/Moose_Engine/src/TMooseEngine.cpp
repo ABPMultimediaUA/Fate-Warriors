@@ -29,7 +29,7 @@ TMooseEngine* TMooseEngine::get_instancia(){
 }
 
 TMooseEngine::TMooseEngine(){
-    init_opengl(1280, 720);
+    init_opengl(640, 480);
     uint16_t _contadorIDEntidad = 0;
     _n_c_actual=0;
     _n_l_actual=0;
@@ -229,15 +229,15 @@ void TMooseEngine::clear(){
     }
 }
 void TMooseEngine::draw(){
-    
+    //clear();
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    _shader->use(Default);
+    drawCamaras();
+    drawLuces();
+    _escena->draw(_shader);
     //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    //_shader->use(Default);
-    //drawCamaras();
-    //drawLuces();
-    //_escena->draw(_shader);
-    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    ////_shader->use(sombras_proyectadas);
-    ////_escena->draw(_shader);
+    _shader->use(sombras_proyectadas);
+    _escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
 
