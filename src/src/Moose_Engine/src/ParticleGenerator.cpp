@@ -83,7 +83,7 @@ void ParticleGenerator::Draw()
         glm::vec3 posicion(61.5158,12, 44.2914);
 
 
-        update_model_matrix(posicion, 288, glm::vec3(0,1,0), glm::vec3(1,1,1));
+        update_model_matrix(posicion, 288, glm::vec3(0,0,1), glm::vec3(1,1,1));
         
         glm::mat4 MVP = projection*view*ModelMatrix;
 
@@ -173,7 +173,7 @@ void ParticleGenerator::update_model_matrix(glm::vec3 position, float grados, gl
     ModelMatrix[1][2] = view[2][1];
     ModelMatrix[2][2] = view[2][2];
 
-
+    ModelMatrix = glm::rotate(ModelMatrix, glm::radians(grados), rotation);
 }
 
 
