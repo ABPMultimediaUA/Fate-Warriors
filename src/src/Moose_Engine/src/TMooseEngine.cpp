@@ -238,7 +238,7 @@ void TMooseEngine::draw(){
     _particulas->Draw(); 
         _shader->use(Default);
 
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
