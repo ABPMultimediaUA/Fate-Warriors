@@ -19,6 +19,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
   	_zonas_manager       	=  new Zonas_Manager();
 	Vector2 pos 			=  _zonas_manager->get_posicion_zona_inicial();
   	_jugador 				= new Player( 0, pos._x, 1, pos._y, _i_input); 
+	std::cout << pos._x << "   ---   " << pos._y << std::endl;
     _consumibles_manager 	= new Consumible_Manager(); 
   	_trampas_manager 		= new Trampas_manager(); 
   	_armas_manager  		=  new Armas_Manager(); 

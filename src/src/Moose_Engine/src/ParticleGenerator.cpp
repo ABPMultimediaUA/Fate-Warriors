@@ -79,7 +79,13 @@ void ParticleGenerator::Draw()
 
         glm::mat4 projection = shader->getProjection();
         glm::mat4 view = shader->getView();
+        float mult = 4.9212625;
+        glm::vec3 posicion(61.5158,12, 44.2914);
 
+
+        update_model_matrix(posicion, 288, glm::vec3(0,1,0), glm::vec3(1,1,1));
+        
+        glm::mat4 MVP = projection*view*ModelMatrix;
 
        /* std::cout << projection[0].x  << "\n";
         std::cout << projection[0].y  << "\n";
@@ -112,8 +118,6 @@ void ParticleGenerator::Draw()
 
         */
         
-        float mult = 4.9212625;
-        glm::vec3 posicion(61,0, 44);
 
 
         glm::vec3 CameraRight_worldspace = {view[0][0], view[1][0], view[2][0]};
@@ -125,7 +129,7 @@ void ParticleGenerator::Draw()
         + CameraUp_worldspace * -0.5f * 10;
         
 
-        glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
         glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniform2fv(glGetUniformLocation(Shader::Program, "offset"), 1, glm::value_ptr(posicion));
 
@@ -149,10 +153,10 @@ void ParticleGenerator::Draw()
 }
 
 void ParticleGenerator::update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado){
-    _traslacion = glm::translate(position);
     _rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(grados), rotation);
     _escalado = glm::scale(escalado);
-    ModelMatrix = _rotacion * _escalado * _traslacion;
+    _traslacion = glm::translate(position);
+    ModelMatrix =  _traslacion * _rotacion * _escalado;
 }
 
 

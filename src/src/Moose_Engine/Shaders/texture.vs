@@ -13,5 +13,5 @@ void main()
     float scale = 10.0f;
     TexCoords = aTexCoord;
     ParticleColor = color;
-    gl_Position = vec4((aPos), 1.0);
+    gl_Position = MVP * vec4((aPos), 1.0);
 }
