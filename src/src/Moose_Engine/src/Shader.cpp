@@ -10,9 +10,11 @@ GLuint Shader::Program=0;
 
 
 Shader::Shader(){
-    LoadShader(eSkybox, "src/Moose_Engine/Shaders/vertex_skybox.glsl", "src/Moose_Engine/Shaders/fragment_skybox.glsl");
-    LoadShader(Default,"src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
-    LoadShader(sombras_proyectadas,"src/Moose_Engine/Shaders/vertex_proyeccion_sombras.glsl", "src/Moose_Engine/Shaders/fragment_proyeccion_sombras.glsl");
+    LoadShader(eSkybox, "Shaders/vertex_skybox.glsl", "Shaders/fragment_skybox.glsl");
+    LoadShader(Default, "Shaders/vertex_prueba.glsl", "Shaders/fragment_prueba.glsl");
+    LoadShader(sombras_proyectadas,"Shaders/vertex_proyeccion_sombras.glsl", "Shaders/fragment_proyeccion_sombras.glsl");
+    LoadShader(texturas_menu,"Shaders/4.2.texture.vs", "Shaders/4.2.texture.fs");
+
 }
 
 

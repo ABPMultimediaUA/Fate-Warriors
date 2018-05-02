@@ -5,7 +5,7 @@
 #include "TTransform.h"
 #include "TCamara.h"
 #include "TModelado.h"
-#include "TAnimacion.h"
+//#include "TAnimacion.h"
 #include "TLuz.h"
 #include "Shader.h"
 #include <iostream>
@@ -16,6 +16,8 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+
+#include "Image.h"
 
 //OPEN GL 
 #include <glad/glad.h>
@@ -50,7 +52,7 @@ void interfazTest(){
 }
 */
 void recorrerArbol(){
-
+/*
   
 
     //TGestorRecursos* resurseManajer = new TGestorRecursos();
@@ -80,7 +82,7 @@ void recorrerArbol(){
 
   /*  const char cstr3[] = "Anim_ataque_d1_npc2";
     TAnimacion* Animacion2 = motor->crearAnimacion(cstr3);*/
-
+/*
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
     trans2->trasladar(1,0,-100000);//luz
@@ -95,7 +97,7 @@ void recorrerArbol(){
     TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
     TNodo* nodoTrans4 = motor->crearNodo(nodoTrans1, trans4);
     
-    TNodo* nodoMalla  = motor->crearNodo(nodoTrans4, Animacion1);
+    //TNodo* nodoMalla  = motor->crearNodo(nodoTrans4, Animacion1);
     TNodo* nodoMalla2  = motor->crearNodo(nodoTrans4, malla1);
     TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
@@ -128,7 +130,7 @@ void recorrerArbol(){
     NCam->set_entidad(EntCam);
     NChasis->set_entidad(MallaChasis);*/
 
-
+/*
 
 
 
@@ -149,7 +151,7 @@ void recorrerArbol(){
         //model = glm::translate(model, glm::vec3(0.0f, 1.75f, 50.0f)); // translate it down so it's at the center of the scene
         //model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));	// it's a bit too big for our scene, so scale it down
         //shader.setMat4("model", model);
-        motor->draw();
+       /* motor->draw();
 
 
     }
@@ -165,7 +167,7 @@ void recorrerArbol(){
     motor->setCamaraActiva(nCamara);
     int nLuz=motor->registrarLuz(nodoLuz);
     motor->setLuzActiva(nLuz);*/
-    delete motor;
+    //delete motor;
 
 }
 
@@ -358,10 +360,158 @@ void main_tamanyofloat(){
     std::cout<<sizeof(algo)<<"       "<<sizeof(result)<<std::endl; 
 }
 
+void test_imagenes(){
+    /*
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "MooseEngine", NULL, NULL);
+    
+    if (window == NULL){
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        //return -1;
+    }
+    
+    glfwMakeContextCurrent(window);
 
-int main2(){
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        //return -1;
+    }    
+
+    //buffers
+    unsigned int VBO;
+    glGenBuffers(1,&VBO);
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+    //vertex array object
+    unsigned int VAO;
+    glGenVertexArrays(1,&VAO);
+    glBindVertexArray(VAO);
+
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
+
+
+    glViewport(0, 0, 1280, 720);
+    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // 3. then set our vertex attributes pointers
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);  
+    glVertexAttribPointer(1,3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    //leer los programas vertex y fragment shader
+    std::ifstream vShaderFile;
+    std::ifstream fShaderFile;
+    std::string vertex_Code;
+    std::string fragment_Code;
+
+    vShaderFile.exceptions(std::ifstream::badbit);
+    fShaderFile.exceptions(std::ifstream::badbit);
+
+    const GLchar* vertex_path = "Shaders/vertex_basic.glsl";
+    const GLchar* fragment_path = "Shaders/fragment_basic.glsl";
+
+
+
+    try {
+        // Open files
+        vShaderFile.open(vertex_path);
+        fShaderFile.open(fragment_path);
+        std::stringstream vShaderStream, fShaderStream;
+        // Read file's buffer contents into streams
+        vShaderStream << vShaderFile.rdbuf();
+        fShaderStream << fShaderFile.rdbuf();
+        // close file handlers
+        vShaderFile.close();
+        fShaderFile.close();
+        // Convert stream into string
+        vertex_Code = vShaderStream.str();
+        fragment_Code = fShaderStream.str();
+    } catch (std::ifstream::failure e) {
+        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+    }
+
+    const GLchar* vShaderCode = vertex_Code.c_str();
+    const GLchar* fShaderCode = fragment_Code.c_str();
+    
+
+    unsigned int vertexShader;
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vShaderCode, NULL);
+    glCompileShader(vertexShader);
+
+    int  success;
+    char infoLog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+
+    if(!success){
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+
+    //compilar fragment shader
+    unsigned int fragmentShader;
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fShaderCode, NULL);
+    glCompileShader(fragmentShader);
+
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+
+    if(!success){
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+    
+    //crear programa shader
+    unsigned int shaderProgram;
+    shaderProgram = glCreateProgram();
+
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    //comprobar que todo ha ido bien
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+
+    if(!success){
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }    
+
+    //asignar el programa shader y borramos los pequeños que ya han sido linkados
+    glUseProgram(shaderProgram);
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader); 
+
+    Shader* shader = new Shader();
+*/
+    TMooseEngine* motor= TMooseEngine::get_instancia();
+    Image* imagen = new Image(motor->getShader(), "src/back.jpg", -0.5f, -0.5f, 1, 1);
+    
+
+    while(!motor->ventana_abierta()){
+        //std::cout<< "HOLA AMIGOS VENTANA DE OPENGL ACA COMENTANDO" << "\n";
+        //glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+        
+        glDisable(GL_CULL_FACE);
+        imagen->Draw();
+        motor->draw();    
+        glEnable(GL_CULL_FACE);
+    }
+}
+
+int main(){
     //dibujarOpenGL();
-    recorrerArbol();
+    //recorrerArbol();
     //interfazTest();
+    test_imagenes();
     return 0;
 }

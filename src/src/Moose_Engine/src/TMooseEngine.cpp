@@ -4,7 +4,7 @@
 #include "TCamara.h"
 #include "TLuz.h"
 #include "TModelado.h"
-#include "TAnimacion.h"
+//#include "TAnimacion.h"
 #include "TGestorRecursos.h"
 #include "Shader.h"
 #include <glad/glad.h>
@@ -213,12 +213,12 @@ TModelado* TMooseEngine::crearModelado(const char* _i_path){
     //_gestorRecursos->getRecursoModelo(fichero);
     return malla;
 }
-TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){ 
-    TAnimacion* animacion = new TAnimacion(_i_path); 
-    //_gestorRecursos->getRecursoModelo(fichero); 
-    _animaciones.push_back(animacion);
-    return animacion; 
-} 
+//TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){ 
+//    //TAnimacion* animacion = new TAnimacion(_i_path); 
+//    ////_gestorRecursos->getRecursoModelo(fichero); 
+//    //_animaciones.push_back(animacion);
+//    return animacion; 
+//} 
 
 void TMooseEngine::clear(){
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
@@ -229,15 +229,15 @@ void TMooseEngine::clear(){
     }
 }
 void TMooseEngine::draw(){
-    clear();
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    _shader->use(Default);
-    drawCamaras();
-    drawLuces();
-    _escena->draw(_shader);
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    //_shader->use(sombras_proyectadas);
+    
+    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    //_shader->use(Default);
+    //drawCamaras();
+    //drawLuces();
     //_escena->draw(_shader);
+    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    ////_shader->use(sombras_proyectadas);
+    ////_escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
 

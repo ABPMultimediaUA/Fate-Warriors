@@ -50,6 +50,7 @@
         "utility": "cpp",
         "valarray": "cpp",
         "__config": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "algorithm": "cpp"
     }
 }

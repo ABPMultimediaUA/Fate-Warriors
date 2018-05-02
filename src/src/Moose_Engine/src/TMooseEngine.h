@@ -53,6 +53,8 @@ class TMooseEngine{
 
         void apagar();
 
+        inline Shader* getShader(){ return _shader;}
+
     private:
 
         void setMouseOffsetX(float offset);
