@@ -51,7 +51,7 @@ private:
     GLuint VAO;
     GLuint VBO;
     GLuint EBO;
-
+    void update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado);
 
     // Initializes buffer and vertex attributes
     void init();
@@ -60,6 +60,12 @@ private:
     // Respawns particle
     void respawnParticle(Particle &particle, GameObject &object, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
     void load_texture();
+
+    glm::mat4 _traslacion;
+    glm::mat4 _rotacion;
+    glm::mat4 _escalado;
+    glm::mat4 ModelMatrix;
+    
 
     GLuint ID;
 

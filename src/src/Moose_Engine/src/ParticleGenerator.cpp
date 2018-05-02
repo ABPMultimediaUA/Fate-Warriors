@@ -148,6 +148,13 @@ void ParticleGenerator::Draw()
 
 }
 
+void ParticleGenerator::update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado){
+    _traslacion = glm::translate(position);
+    _rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(grados), rotation);
+    _escalado = glm::scale(escalado);
+    ModelMatrix = _rotacion * _escalado * _traslacion;
+}
+
 
 void ParticleGenerator::load_texture(){
     
