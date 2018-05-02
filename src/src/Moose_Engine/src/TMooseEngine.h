@@ -16,6 +16,7 @@ class Mapeado;
 class Shader;
 class GLFWwindow;
 class Skybox;
+class UI;
 
 class TMooseEngine{
 
@@ -32,6 +33,7 @@ class TMooseEngine{
         TLuz*       crearLuz(glm::vec3 ambiente, glm::vec3 especular, glm::vec3 difusa);
         TModelado*  crearModelado(const char* _i_path);
         TAnimacion* crearAnimacion(const char* _i_path);
+        void        renderUIMenu();
 
 
         inline GLFWwindow* getWindow(){ return window;}
@@ -56,7 +58,7 @@ class TMooseEngine{
         inline Shader* getShader(){ return _shader;}
 
     private:
-
+        UI* _ui;
         void setMouseOffsetX(float offset);
         void setMouseOffsetY(float offset);
 

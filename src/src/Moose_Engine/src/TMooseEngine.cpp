@@ -10,7 +10,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-
+#include "UI.h"
 #include "Skybox.h"
 
 
@@ -43,7 +43,12 @@ TMooseEngine::TMooseEngine(){
    
     SHADOW_WIDTH = 1024;
     SHADOW_HEIGHT = 1024;
-
+    //UI
+    _ui = new UI();
+    _ui->crear_imagen(_shader, "src/back.jpg", -1, 1, 1, 1);
+    _ui->crear_imagen(_shader, "src/back.jpg", 0, 0, 0.25, 0.25);
+    _ui->crear_imagen(_shader, "src/back.jpg", 0, -0.25, 0.25, 0.25);
+    _ui->crear_imagen(_shader, "src/back.jpg", 0, -0.5, 0.25, 0.25);
 }
 
 void TMooseEngine::PreparacionSombras(){
@@ -229,7 +234,8 @@ void TMooseEngine::clear(){
     }
 }
 void TMooseEngine::draw(){
-    //clear();
+    clear();
+    renderUIMenu();
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
@@ -374,3 +380,9 @@ void TMooseEngine::stop_anim(const char* _i_path){
         }
     }
 }*/
+
+void TMooseEngine::renderUIMenu(){
+    glDisable(GL_CULL_FACE);
+    _ui->drawMenu();
+    glEnable(GL_CULL_FACE);
+}

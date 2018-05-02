@@ -499,18 +499,16 @@ void test_imagenes(){
     //Image* imagen2 = new Image(motor->getShader(), "src/back.jpg", 0, -0.25, 0.25, 0.25);
     //Image* imagen3 = new Image(motor->getShader(), "src/back.jpg", 0, -0.5, 0.25, 0.25);
 
-    UI* _ui = new UI();
-    _ui->crear_imagen(motor->getShader(), "src/back.jpg", 0, 0, 0.25, 0.25);
-    _ui->crear_imagen(motor->getShader(), "src/back.jpg", 0, -0.25, 0.25, 0.25);
-    _ui->crear_imagen(motor->getShader(), "src/back.jpg", 0, -0.5, 0.25, 0.25);
+    //UI* _ui = new UI();
+    //_ui->crear_imagen(motor->getShader(), "src/back.jpg", 0, 0, 0.25, 0.25);
+    //_ui->crear_imagen(motor->getShader(), "src/back.jpg", 0, -0.25, 0.25, 0.25);
+    //_ui->crear_imagen(motor->getShader(), "src/back.jpg", 0, -0.5, 0.25, 0.25);
 
     while(!motor->ventana_abierta()){
         //std::cout<< "HOLA AMIGOS VENTANA DE OPENGL ACA COMENTANDO" << "\n";
         //glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glDisable(GL_CULL_FACE);
-        _ui->drawMenu();
+        
+        
         motor->draw();  
        
     }
