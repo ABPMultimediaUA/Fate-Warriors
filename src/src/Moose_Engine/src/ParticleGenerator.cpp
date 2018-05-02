@@ -96,7 +96,7 @@ void ParticleGenerator::Draw()
 
         std::cout << projection[1].x  << "\n";
         std::cout << projection[1].y  << "\n";
-        std::cout << projection[1].z  << "\n";
+        std::cout << projection[1].z  << "\n";  
         std::cout << projection[1].w  << "\n";
 
                 std::cout << "projection[1].x"  << "\n";
@@ -156,7 +156,24 @@ void ParticleGenerator::update_model_matrix(glm::vec3 position, float grados, gl
     _rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(grados), rotation);
     _escalado = glm::scale(escalado);
     _traslacion = glm::translate(position);
+  
     ModelMatrix =  _traslacion * _rotacion * _escalado;
+    glm::mat4 view = shader->getView();
+
+   
+    ModelMatrix[0][0] = view[0][0]; 
+    ModelMatrix[1][0] = view[0][1];
+    ModelMatrix[2][0] = view[0][2];
+
+    ModelMatrix[0][1] = view[1][0];
+    ModelMatrix[1][1] = view[1][1];
+    ModelMatrix[2][1] = view[1][2];
+
+    ModelMatrix[0][2] = view[2][0];
+    ModelMatrix[1][2] = view[2][1];
+    ModelMatrix[2][2] = view[2][2];
+
+
 }
 
 
