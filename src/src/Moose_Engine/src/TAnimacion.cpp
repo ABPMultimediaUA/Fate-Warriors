@@ -1,18 +1,18 @@
 #include "TAnimacion.h"
+
 #include "TGestorRecursos.h"
 #include "TRecursoAnimacion.h"
 #include "Shader.h"
-#include "../../Tiempo/Time.h"
-//#include "Time.h"
+
+#include "TNodo.h"
+#include "iNodoAnimacion.h"
+
 #include <iostream>
 
 
 TAnimacion::TAnimacion(const char* path){
     leerAnimacion(path);
-    _contador_anim=0;
-    _reloj=Time::Instance();
-    _tiempo_aux=_reloj->get_tiempo_inicio_pausa();
-    _bucle=false;
+    _contador_anim = 0;
 }
 
 TAnimacion::~TAnimacion(){
@@ -28,7 +28,6 @@ void TAnimacion::draw(Shader* _i_shader){
     }
     _i_shader->setModel(_matriz);
     _animacion->draw(_i_shader,_contador_anim);
-    update_anim();
 }
 
 void TAnimacion::endDraw(){   
@@ -42,17 +41,14 @@ void TAnimacion::leerAnimacion(const char* path){
 std::string TAnimacion::get_nombre(){
     return _animacion->GetNombre();
 }
-void TAnimacion::update_anim(){
-    if(!_reloj->get_esta_pausado()){
-        if(_reloj->get_current()-_tiempo_aux>=55){
-            _tiempo_aux=_reloj->get_current();
-            if(_contador_anim!=(_animacion->get_anim_cont()-1)){
-                ++_contador_anim;
-            }else if(_bucle){
-                _contador_anim=0;
-            }
-        }
-    }
+
+
+void TAnimacion::set_cont_animaciones(uint8_t _i_cont) {
+    _contador_anim = _i_cont;
+}
+
+uint8_t TAnimacion::get_max_anim() {
+    return _animacion->get_anim_cont() - 1;
 }
 glm::vec3 TAnimacion::get_BB(){
     return _animacion->get_BB();

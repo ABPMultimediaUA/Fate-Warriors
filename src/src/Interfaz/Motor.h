@@ -113,6 +113,8 @@ public:
     void update();
     void render();
 
+    void cambia_animaciones();
+
     void updateUI();
     void renderUI();
 

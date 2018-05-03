@@ -41,3 +41,6 @@ Vector3 iNodo::getPosition(){
 void iNodo::borrarNodo(){
     _nodo_motor->borrar_nodo();
 }
+
+void iNodo::update_anim() {
+}

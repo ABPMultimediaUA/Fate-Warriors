@@ -714,6 +714,10 @@ void Character::set_accion(Enum_Acciones _i_accion){
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
         set_tipo_ataque(Ataque_Ninguno);
     }
+
+    // ANIMACIONES
+    if(_i_accion == Accion_pre_atacar)
+        _objeto_motor->cambiar_modelado("Anim_ataque_d1_jugador", 10);
 }
 
 void Character::gestion_acciones(){

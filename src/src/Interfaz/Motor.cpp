@@ -845,10 +845,17 @@ void Motor::resetear_camara(){
 void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);
 	render();
+	cambia_animaciones();
 }
 
 void Motor::render(){
 	_me->draw();
+}
+
+void Motor::cambia_animaciones() {
+	for(uint16_t i=0; i<lista_i_nodo.size(); i++) {
+		lista_i_nodo[i]->update_anim();
+	}
 }
 
 float Motor::angulo_camara(){
