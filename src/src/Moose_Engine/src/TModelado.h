@@ -10,9 +10,9 @@ class Shader;
 class TModelado : public TEntidad{
     public:
         TModelado(const char* path);
-        ~TModelado();
+        virtual ~TModelado();
         
-        void draw(Shader* _i_shader);
+        virtual void draw(Shader* _i_shader);
         void beginDraw(Shader* _i_shader) override;
         void endDraw();
         glm::vec3 get_BB();

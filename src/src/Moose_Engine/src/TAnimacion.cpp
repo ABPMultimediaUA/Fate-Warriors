@@ -23,15 +23,12 @@ void TAnimacion::beginDraw(Shader* _i_shader){
 }
 
 void TAnimacion::draw(Shader* _i_shader){
+    if(_i_shader->check_program(sombras_proyectadas)){
+        _matriz[3][1]=_matriz[3][1]+_animacion->get_BB().y/8;
+    }
     _i_shader->setModel(_matriz);
     _animacion->draw(_i_shader,_contador_anim);
     update_anim();
-    //seleccionar de entre todos los modelados el correspondiente para dibujar
-    /*
-    _i_shader->setModel(_matriz);
-    for(std::vector<TModelado*>::iterator it = _modelos.begin(); it != _modelos.end(); it++){
-        (*it)->draw(_i_shader);
-    }*/
 }
 
 void TAnimacion::endDraw(){   
