@@ -23,6 +23,7 @@
 #include "../Moose_Engine/src/TCamara.h"
 #include "../Moose_Engine/src/TLuz.h"
 #include "../Moose_Engine/src/iNodoModelado.h"
+#include "../Moose_Engine/src/iNodoModeladoEscenario.h"
 #include "../Moose_Engine/src/iNodoAnimacion.h"
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Moose_Engine/src/iNodoLuz.h"
@@ -452,6 +453,18 @@ iNodoModelado* Motor::crearModelado(const char* ruta){
 	return cubeNode;
 }
 
+iNodoModeladoEscenario* Motor::crearModeladoEscenario(const char* ruta,float x, float y, float z){
+	iNodoModeladoEscenario* cubeNode = new iNodoModeladoEscenario(ruta, x, y, z);
+	lista_i_nodo.push_back(cubeNode);
+	return cubeNode;
+}
+
+iNodoModeladoEscenario* Motor::crearModeladoEscenario(const char* ruta){
+	iNodoModeladoEscenario* cubeNode = new iNodoModeladoEscenario(ruta);
+	lista_i_nodo.push_back(cubeNode);
+	return cubeNode;
+}
+
 iNodoAnimacion* Motor::crearAnimacion(bool bucle, const char* ruta,float x, float y, float z){
 	iNodoAnimacion* animNode = new iNodoAnimacion(bucle, ruta, x, y, z, 0);
 	lista_i_nodo.push_back(animNode);
@@ -683,7 +696,7 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 }
 
 iNodoModelado* Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
-	iNodoModelado* modelado = crearModelado(rutaObj, x, y, z);
+	iNodoModelado* modelado = crearModeladoEscenario(rutaObj, x, y, z);
 
 	//modelado->rotar(-1,0,0,180);
 	//modelado->escalar(1,-1,1);

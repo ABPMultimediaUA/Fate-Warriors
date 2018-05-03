@@ -17,6 +17,8 @@ public:
     inline uint8_t get_anim_cont(){
         return _modelos.size();
     }
+    glm::vec3 get_BB();
+
 private:
     std::vector<TRecursoModelado*> _modelos;
 

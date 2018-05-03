@@ -4,6 +4,7 @@
 #include "TCamara.h"
 #include "TLuz.h"
 #include "TModelado.h"
+#include "TModeladoEscenario.h"
 #include "TAnimacion.h"
 #include "TGestorRecursos.h"
 #include "Shader.h"
@@ -210,12 +211,14 @@ TLuz* TMooseEngine::crearLuz(glm::vec3 ambiente, glm::vec3 especular, glm::vec3 
 
 TModelado* TMooseEngine::crearModelado(const char* _i_path){
     TModelado* malla = new TModelado(_i_path);
-    //_gestorRecursos->getRecursoModelo(fichero);
+    return malla;
+}
+TModeladoEscenario* TMooseEngine::crearModeladoEscenario(const char* _i_path){
+    TModeladoEscenario* malla = new TModeladoEscenario(_i_path);
     return malla;
 }
 TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){ 
     TAnimacion* animacion = new TAnimacion(_i_path); 
-    //_gestorRecursos->getRecursoModelo(fichero); 
     _animaciones.push_back(animacion);
     return animacion; 
 } 
