@@ -72,3 +72,8 @@ void iNodoAnimacion::cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta){
 iNodoAnimacion::~iNodoAnimacion(){
     
 }
+
+Vector3 iNodoAnimacion::getBB(){
+    glm::vec3 bb = static_cast<TAnimacion*>(_nodo_motor->get_entidad())->get_BB();
+    return Vector3(bb.x, bb.y, bb.z);
+}

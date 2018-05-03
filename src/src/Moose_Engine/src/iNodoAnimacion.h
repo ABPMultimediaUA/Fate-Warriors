@@ -9,6 +9,7 @@ class iNodoAnimacion : public iNodoModelado{
         iNodoAnimacion(bool bucle, const char* ruta, float x, float y, float z, uint8_t _num_ruta);
         void cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta) override;
         ~iNodoAnimacion();
+        Vector3 getBB() override;
     private:
         bool _i_bucle;
         uint8_t _ruta_actual;
