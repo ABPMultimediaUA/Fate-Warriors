@@ -53,7 +53,7 @@ void Grafo::grafo_set_lod(int _i_id){
 		//dos mas al siguiente del pasado = 3
 		//el resto 4
 	}else{
-		std::cout<<"ERROR SET_LOD: esta fuera del nivel"<<std::endl;
+		//std::cout<<"ERROR SET_LOD: esta fuera del nivel"<<std::endl;
 	}
 }
 
@@ -214,7 +214,7 @@ void Grafo::inserta_arista(Vertice *_i_origen, Vertice *_i_destino, int _i_id){
 			_nueva->set_ady(_i_destino);
 		}
 	}else{
-		std::cout << "no se crea arista por nulos Id: "<<_i_id << std::endl;
+		//std::cout << "no se crea arista por nulos Id: "<<_i_id << std::endl;
 	}
 
 }
@@ -226,14 +226,14 @@ void Grafo::grafo_lista_adyacencia(){
 	_VertAux = _h;
 
 	while(_VertAux != nullptr){
-		std::cout << _VertAux->get_id() << " -> ";
+		//std::cout << _VertAux->get_id() << " -> ";
 		_ArisAux = _VertAux->get_ady();
 		while(_ArisAux != nullptr){
-			std::cout << _ArisAux->get_ady()->get_id() << " -> " ;
+			//std::cout << _ArisAux->get_ady()->get_id() << " -> " ;
 			_ArisAux = _ArisAux->get_sig();
 		}
 		_VertAux = _VertAux->get_sig();
-		std::cout<<std::endl;
+		//std::cout<<std::endl;
 	}
 }
 
@@ -296,7 +296,7 @@ void Grafo::grafo_eliminar_arista(Vertice *_i_origen, Vertice *_i_destino){
 
 		}
 	}else{
-		std::cout << "Vertices no na por nulos" << std::endl;
+		//std::cout << "Vertices no na por nulos" << std::endl;
 	}
 
 }
@@ -593,7 +593,7 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	}
 
 
-    std::cout <<"ERROR 2" << std::endl;
+    //std::cout <<"ERROR 2" << std::endl;
 	return 361;
 }
 void Grafo::actualiza_NPC(){
@@ -624,7 +624,7 @@ void Grafo::grafo_inserta_NPC(NPC* _i_npc){//si el npc se sale del nivel se pier
 		black_aux->inserta_NPC(_i_npc);
 		_i_npc->get_blackboard()->set_nodo_blackboard(black_aux);
 	}else{
-		std::cout<<"ERROR NPC_POSICION: npc fuera del mapa"<<std::endl;
+		//std::cout<<"ERROR NPC_POSICION: npc fuera del mapa"<<std::endl;
 		_i_npc->setPositionXZ(grafo_get_vertice(1)->get_coord_x()+1*metro,grafo_get_vertice(1)->get_coord_y()+1*metro);
 	}
 }
@@ -669,7 +669,7 @@ void Grafo::set_tipo_zona(uint8_t _id, Enum_zonas _i_zona){
 	Vertice* vert_aux=nullptr;
 	vert_aux=grafo_get_vertice(_id);
 	if(vert_aux==nullptr){
-		std::cout<<"No existe vertice para poner el tipo de zona"<<std::endl;
+		//std::cout<<"No existe vertice para poner el tipo de zona"<<std::endl;
 	}
 	vert_aux->set_tipo(_i_zona);
 }
@@ -677,7 +677,7 @@ Enum_zonas Grafo::get_tipo_zona(uint8_t _id, Enum_zonas _i_zona){
 	Vertice* vert_aux=nullptr;
 	vert_aux=grafo_get_vertice(_id);
 	if(vert_aux==nullptr){
-		std::cout<<"No existe vertice para coger el tipo de zona"<<std::endl;
+		//std::cout<<"No existe vertice para coger el tipo de zona"<<std::endl;
 	}
 	return vert_aux->get_tipo();
 }
@@ -685,7 +685,7 @@ NPC** Grafo::get_array_NPC(uint8_t _id){
 	Vertice* vert_aux=nullptr;
 	vert_aux=grafo_get_vertice(_id);
 	if(vert_aux==nullptr){
-		std::cout<<"No existe vertice para coger el array de NPC"<<std::endl;
+		//std::cout<<"No existe vertice para coger el array de NPC"<<std::endl;
 	}
 	return vert_aux->get_blackboard()->get_array_NPC();
 }

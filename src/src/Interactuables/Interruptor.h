@@ -7,6 +7,7 @@
 
 class Puerta_Pincho;
 class Time;
+class Interfaz_sonido;
 
 class Interruptor : public Objeto{
 public:
@@ -37,6 +38,7 @@ protected:
     short _rotacion_x;
     short _rotacion_y;
     short _distancia;
+    Interfaz_sonido* _sonido;
 
 private:
 	Objeto_Motor* _palito;								// Modelado del Palo del interruptor (hay que animarlo)

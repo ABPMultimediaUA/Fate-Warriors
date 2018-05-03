@@ -4,6 +4,8 @@
 
 #include "../../Tiempo/Time.h"
 
+#include "../../Motor_sonido/Interfaz_sonido.h"
+
 Interruptor_Tiempo::Interruptor_Tiempo(short _i_id, float _i_x, float _i_z, float _i_rotacion, uint16_t _t_duracion, short _i_rotacion_x, short _i_rotacion_y, short _i_distancia) : Interruptor(_i_id, _i_x, _i_z, _i_rotacion, _i_rotacion_x, _i_rotacion_y, _i_distancia){
 	_t_final_activacion = 0;
 	_duracion = _t_duracion;
@@ -26,6 +28,7 @@ void Interruptor_Tiempo::update() {
 		_estado = false;
        
        cambiar_estado_puertas();
+        _sonido->Play_escenario(6);
 	}
 }
 

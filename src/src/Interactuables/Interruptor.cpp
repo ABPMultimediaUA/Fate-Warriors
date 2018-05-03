@@ -4,6 +4,7 @@
 
 #include "../Game.h"
 #include "../Tiempo/Time.h"
+#include "../Motor_sonido/Interfaz_sonido.h"
 
 #include <iostream>
 
@@ -26,6 +27,8 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion,
     _rotacion_y = _i_rotacion_y;
     _distancia = _i_distancia;
 
+
+    _sonido = Interfaz_sonido::GetInstancia();
 }
 
 Interruptor::~Interruptor() {
@@ -51,8 +54,10 @@ void Interruptor::update(){
 }
 
 void Interruptor::iniciar_interruptor(){
-    if(!_estado)
+    if(!_estado) {
+        _sonido->Play_escenario(6);
 	    Game::game_instancia()->cambio_a_update_mirar(Time::Instance()->get_current() + 4000, this, 90, 30, 20);
+    }
 }
 
 Puerta_Pincho* Interruptor::get_puerta_asociada(){
@@ -67,6 +72,8 @@ void Interruptor::cambia_palito() {
         _inclinacion_palito = 35;
 
     _palito->rota_palanca(_inclinacion_palito);
+
+    _sonido->Play_escenario(5);
 }
 
 

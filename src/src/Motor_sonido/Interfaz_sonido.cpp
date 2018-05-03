@@ -43,8 +43,8 @@ CogerLLave = 1
 explosionMina = 2
 generadorOff = 3
 generadorOn = 4
-interruptor = 5
-pinchos = 6
+pinchos = 5
+interruptor = 6
 pisarMina = 7
 puertaBestia = 8
 
