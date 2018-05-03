@@ -25,7 +25,8 @@ class Input;
 class Objeto;
 class DebugDraw;
 class iNodo;  
-class iNodoModelado;  
+class iNodoModelado;
+class iNodoModeladoEscenario;  
 class iNodoCamara;
 class iNodoLuz;
 class iNodoAnimacion;
@@ -67,6 +68,9 @@ public:
     
     iNodoModelado* crearModelado(const char* ruta,float x, float y, float z);
     iNodoModelado* crearModelado(const char* ruta);
+
+    iNodoModeladoEscenario* crearModeladoEscenario(const char* ruta,float x, float y, float z);
+    iNodoModeladoEscenario* crearModeladoEscenario(const char* ruta);
     
     iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta,float x, float y, float z);
     iNodoAnimacion* crearAnimacion(bool bucle, const char* ruta);

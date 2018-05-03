@@ -54,3 +54,6 @@ void TAnimacion::update_anim(){
         }
     }
 }
+glm::vec3 TAnimacion::get_BB(){
+    return _animacion->get_BB();
+}

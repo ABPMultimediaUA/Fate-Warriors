@@ -13,6 +13,7 @@ class TAnimacion : public TEntidad{
         void endDraw();
         std::string get_nombre();
         inline void set_bucle(bool _i_bucle){_bucle=_i_bucle;}
+        glm::vec3 get_BB();
         
     private:
         TRecursoAnimacion* _animacion;

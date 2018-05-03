@@ -10,7 +10,7 @@ class iNodoModelado : public iNodo{
         iNodoModelado(const char* ruta, float x, float y, float z);
         virtual void cambiar_modelado(const char * _i_ruta);
         void remove();
-        Vector3 getBB();
+        virtual Vector3 getBB();
         virtual ~iNodoModelado();
     private:
 };

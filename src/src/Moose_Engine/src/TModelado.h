@@ -17,7 +17,7 @@ class TModelado : public TEntidad{
         void endDraw();
         glm::vec3 get_BB();
         
-    private:
+    protected:
         
         TRecursoModelado* _modelado;
         std::string _path;
