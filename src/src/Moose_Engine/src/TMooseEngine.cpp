@@ -239,8 +239,8 @@ void TMooseEngine::draw(){
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    //_shader->use(sombras_proyectadas);
-    //_escena->draw(_shader);
+    _shader->use(sombras_proyectadas);
+    _escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
 

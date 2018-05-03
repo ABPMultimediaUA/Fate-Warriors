@@ -24,7 +24,7 @@ void TAnimacion::beginDraw(Shader* _i_shader){
 
 void TAnimacion::draw(Shader* _i_shader){
     if(_i_shader->check_program(sombras_proyectadas)){
-        _matriz[3][1]=_matriz[3][1]+_animacion->get_BB().y/8;
+        _matriz[3][1]=_matriz[3][1]+0.1;
     }
     _i_shader->setModel(_matriz);
     _animacion->draw(_i_shader,_contador_anim);
