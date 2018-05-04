@@ -853,7 +853,8 @@ void Motor::render(){
 }
 
 void Motor::cambia_animaciones() {
-	for(uint16_t i=0; i<lista_i_nodo.size(); i++) {
+	int x=lista_i_nodo.size();
+	for(uint16_t i=0; i<lista_i_nodo.size()&&i<172; i++) {
 		lista_i_nodo[i]->update_anim();
 	}
 }
