@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../Moose_Engine/src/Shader.h"
+#include "src/Moose_Engine/src/Shader.h"
 
 class Shader;
 
@@ -15,11 +15,15 @@ class Shader;
 class Image{
 public:
     // Constructor
-    Image(Shader* shader, const char* ruta, float x, float y, float width, float height); 
+    Image(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height); 
+    void setSelected(bool selected);
+    bool getSelected();
     ~Image();
     // Render all particles
     void Draw();
 private:
+    //controla si se dibuja o no la version seleccionada de la imagen
+    bool _selected;
 
     // Render state
     Shader* shader;
@@ -30,8 +34,8 @@ private:
     // Initializes buffer and vertex attributes
     void init();
     void load_texture(const char* ruta);
-
-    GLuint ID;
+    void load_texture2(const char* ruta);
+    GLuint ID,ID2;
 
     float _x, _y, _width, _height;
 

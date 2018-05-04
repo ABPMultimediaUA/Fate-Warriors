@@ -11,6 +11,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "UI.h"
 #include "Skybox.h"
 
 
@@ -43,7 +44,16 @@ TMooseEngine::TMooseEngine(){
    
     SHADOW_WIDTH = 1024;
     SHADOW_HEIGHT = 1024;
+    initUI();
+}
 
+void TMooseEngine::initUI(){
+    _ui = new UI();
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Fondo.png", "Imagenes_Menu/Fondo.png", -1, 1, 2, 2);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec", -0.95, 0.20, 0.83, 0.5);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec", -0.85, -0.30, 0.55, 0.55);
+    //_ui->crear_imagen(_shader, "Imagenes_Menu/Fondo.png", -1, 1, 2, 2);
 }
 
 void TMooseEngine::PreparacionSombras(){
@@ -242,8 +252,6 @@ void TMooseEngine::draw(){
     glfwPollEvents();
 
 
-
-
     /*//cosa
     // 1. first render to depth map
     glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
@@ -264,6 +272,14 @@ void TMooseEngine::draw(){
 void TMooseEngine::drawSombras(){
     //y yasta MUCHO PIDES TU HOY EH!
     //y yasta2
+}
+
+void TMooseEngine::renderUIMenu(){
+    clear();
+    glDisable(GL_CULL_FACE);
+    _ui->drawMenu(0);
+    glfwSwapBuffers(window);
+    glEnable(GL_CULL_FACE);
 }
 
 void TMooseEngine::apagar(){

@@ -16,6 +16,7 @@ class Mapeado;
 class Shader;
 class GLFWwindow;
 class Skybox;
+class UI;
 
 class TMooseEngine{
 
@@ -45,6 +46,9 @@ class TMooseEngine{
 
         void draw();
         void drawSombras();
+        void initUI();
+        void renderUIMenu();
+
         bool ventana_abierta();
 	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);
         
@@ -94,7 +98,7 @@ class TMooseEngine{
 
         //reproductor animaciones
         std::vector<TAnimacion*> _animaciones;
-        
+        UI* _ui;
         Skybox* _skybox;
 };
 

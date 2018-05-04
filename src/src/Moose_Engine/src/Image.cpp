@@ -11,22 +11,31 @@
 
 #include "Image.h"
 #include "SOIL.h"
-#include "../Moose_Engine/src/Shader.h"
+#include "src/Moose_Engine/src/Shader.h"
 #include <iostream>
 
 
 
-Image::Image(Shader* shader,const char* ruta, float x, float y, float width, float height)
+Image::Image(Shader* shader,const char* ruta, const char* ruta2, float x, float y, float width, float height)
     : shader(shader)
 {
+    _selected = false;
     _x = x;
     _y = y;
     _width = width;
     _height = height;
     init();
     load_texture(ruta);
+    load_texture2(ruta2);
 }
 
+void Image::setSelected(bool selected){
+    _selected = selected;
+}
+
+bool Image::getSelected(){
+    return _selected;
+}
 
 Image::~Image(){
     glDeleteVertexArrays(1, &VAO);
@@ -34,80 +43,17 @@ Image::~Image(){
     glDeleteBuffers(1, &EBO);
 }
 
-
-// Render all particles
-void Image::Draw()
-{
-    // Use additive blending to give it a 'glow' effect
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
-    shader->use(texturas_menu);
-
-    /*
-    glUniform1i(glGetUniformLocation(shader->ID, "texture"), 0);
-    glUniform2fv(glGetUniformLocation(shader->ID, "offset"), 1, &particle.Position[0]);
-    glUniform4fv(glGetUniformLocation(shader->ID, "color"), 1, &particle.Color[0]);
-    */
-
-        
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, ID);
-
-
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-    
-
-    // Don't forget to reset to default blending mode
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-}
-
-
-void Image::load_texture(const char* ruta){
-    
-    glGenTextures(1, &ID);
-    glBindTexture(GL_TEXTURE_2D, ID); 
-     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char *data = SOIL_load_image("back.jpg", &width, &height, 0, SOIL_LOAD_RGB);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    SOIL_free_image_data(data);
-
-   glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), 0);
-   glUniform1i(glGetUniformLocation(Shader::Program, "texture2"), 0);
-    
-}
-
-
-
 void Image::init()
 {
+    glEnable(GL_BLEND);
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
         // positions          // colors           // texture coords
-         _x + _width,  _y, 0.0f,   1.0f, 0.0f, 0.0f,   0.0f, 0.0f, // top right
-         _x + _width, _y - _height, 0.0f,   0.0f, 1.0f, 0.0f,   0.0f, 1.0f,  // bottom right
-         _x, _y - _height, 0.0f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f, // bottom left
-         _x,  _y, 0.0f,   1.0f, 1.0f, 0.0f,   1.0f, 0.0f // top left 
+         _x + _width,  _y,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
+         _x + _width, _y - _height, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
+         _x, _y - _height,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
+         _x,  _y,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
     };
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -136,4 +82,108 @@ void Image::init()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
+}
+
+void Image::load_texture(const char* ruta){
+    
+    glGenTextures(1, &ID);
+    glBindTexture(GL_TEXTURE_2D, ID); 
+     // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    //nrChannels = 4;
+  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    SOIL_free_image_data(data);
+    
+    glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID);
+    
+}
+
+void Image::load_texture2(const char* ruta){
+    
+    glGenTextures(1, &ID2);
+    glBindTexture(GL_TEXTURE_2D, ID2); 
+     // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    //nrChannels = 4;
+  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    SOIL_free_image_data(data);
+
+    glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID2);
+}
+
+// Render image
+void Image::Draw()
+{
+    
+    shader->use(texturas_menu);
+    //glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID);
+    //std::cout << "UNIFORM: " << glGetUniformLocation(Shader::Program, "texture1") << "\n";
+    
+    //shader->setInt("texture1", ID);
+    glDepthMask(false);
+    // Don't forget to reset to default blending mode
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    // Use additive blending to give it a 'glow' effect
+    
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+    
+
+    /*
+    glUniform1i(glGetUniformLocation(shader->ID, "texture"), 0);
+    glUniform2fv(glGetUniformLocation(shader->ID, "offset"), 1, &particle.Position[0]);
+    glUniform4fv(glGetUniformLocation(shader->ID, "color"), 1, &particle.Color[0]);
+    */
+
+        
+    glActiveTexture(GL_TEXTURE0);
+    if(!_selected){
+        glBindTexture(GL_TEXTURE_2D, ID); 
+    }
+
+    else{
+        glBindTexture(GL_TEXTURE_2D, ID2);    
+    }
+    
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
+    // Don't forget to reset to default blending mode
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDepthMask(true);
 }
