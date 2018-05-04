@@ -47,7 +47,7 @@ class TMooseEngine{
         void draw();
         void drawSombras();
         void initUI();
-        void renderUIMenu();
+        void renderUIMenu(uint16_t opcion);
 
         bool ventana_abierta();
 	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);

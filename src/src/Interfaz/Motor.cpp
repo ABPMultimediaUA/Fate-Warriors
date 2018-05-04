@@ -15,6 +15,7 @@
 #include "EnumTiposColision.h"
 #include "../Interactuables/Puerta_Pincho.h"
 #include "../Game.h"
+#include "../Menus/Menu_Principal.h"
 
 #include "../Moose_Engine/src/TMooseEngine.h"
 #include "../Moose_Engine/src/TModelado.h"
@@ -928,5 +929,7 @@ void Motor::gira_camara(short _rotacion_en_x, short _rotacion_en_y) {
 }
 
 void Motor::render_Menu(){
-	_me->renderUIMenu();
+	Game* game = Game::game_instancia();
+	uint8_t num_opcion = game->get_menu_principal()->get_i_opcion();
+	_me->renderUIMenu(num_opcion);
 }

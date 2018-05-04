@@ -55,6 +55,8 @@ public:
     void cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short _rotacion_x, short _rotacion_y, short _distancia);
 	Consumible_Action* get_consumibles_action();
 
+	inline Menu_Principal* get_menu_principal(){ return _menu_principal; }
+
 private:
 	static Game* instancia;
 	Game();
@@ -75,6 +77,7 @@ private:
 	void render_pausa(float _i_interpolacion);						// Render de pausa
 	void render_win(float _i_interpolacion);						// Render de fin de partida (win)
 	void render_lose(float _i_interpolacion);						// Render de fin de partida (lose)
+
 
 	Player* _player;
 	UI* _ui;
