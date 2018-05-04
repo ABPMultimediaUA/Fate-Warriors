@@ -2,6 +2,7 @@
 #define SRC_OPCION_H_
 
 class Input;
+class Interfaz_sonido;
 
 #include <cstdint>
 
@@ -33,6 +34,7 @@ protected:
 
 	static uint32_t _tiempo_cambio;						// Tiempo (momento) en el que se cambio entre opcinoes
 
+	Interfaz_sonido* _sonido;
 
 private: 
 	void set_opcion_anterior(Opcion* _i_opcion);		// Set opcion anterior

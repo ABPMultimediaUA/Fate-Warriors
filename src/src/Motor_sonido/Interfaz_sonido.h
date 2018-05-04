@@ -39,6 +39,7 @@ public:
     void Play_menu(uint8_t _i_n);
     void Play_personaje(uint8_t _i_n);
     void Play_voces(uint8_t _i_n);
+    void Play_voces_sin_random(uint8_t _i_n);
     void Play_pasos(uint8_t _i_n);
     void Play_musica(uint8_t _i_n);
 
@@ -60,17 +61,19 @@ public:
     void set_volumen_musica(float _i_v);
     void set_volumen_voces(float _i_v);
     void set_volumen_sfx(float _i_v);
-    void set_volumen_menu(float _i_v);
+    void set_volumen_sonido_menu(float _i_v);
     void system_update();
 
 
     inline uint8_t get_volumen_musica() { return _volumen_musica;}
     inline uint8_t get_volumen_sfx() { return _volumen_sfx;}
     inline uint8_t get_volumen_voces() { return _volumen_voces;}
+    inline uint8_t get_volumen_sonido_menu() { return _volumen_sonido_menu;}
 
     inline void guarda_volumen_musica(uint8_t _i_vol) { _volumen_musica = _i_vol;}
     inline void guarda_volumen_sfx(uint8_t _i_vol) { _volumen_sfx = _i_vol;}
     inline void guarda_volumen_voces(uint8_t _i_vol) { _volumen_voces = _i_vol;}
+    inline void guarda_volumen_sonido_menu(uint8_t _i_vol) { _volumen_sonido_menu = _i_vol;}
 
 private:
     static Interfaz_sonido* instancia;
@@ -120,10 +123,12 @@ private:
     uint8_t _volumen_musica;
     uint8_t _volumen_sfx;
     uint8_t _volumen_voces;	
+    uint8_t _volumen_sonido_menu;	
 
     // Variables de control de sonido
     bool _loop_pasos;
     uint8_t _pasos_actual;
+    uint8_t _random;
 };
 
 #endif /* SRC_INTERFAZ_SONIDO_H_ */

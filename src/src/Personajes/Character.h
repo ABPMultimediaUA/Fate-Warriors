@@ -12,6 +12,7 @@ class Time;
 class Arma;
 class Consumible_Power_Up;
 class Zona;
+class Interfaz_sonido;
 
 class Character : public Objeto{
 public:
@@ -149,6 +150,8 @@ protected:
 	bool _inmortal;
 	Enum_Equipo _equipo;
 	Zona* _zona_en_la_que_se_encuentra;
+
+	Interfaz_sonido* _sonido;
 
 	int _npcs_persiguiendome;
 };

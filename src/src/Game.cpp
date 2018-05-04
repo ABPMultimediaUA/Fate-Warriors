@@ -70,6 +70,7 @@ Game::~Game(){
 
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
+	_sonido= Interfaz_sonido::GetInstancia();
 	_motor->CargaMapa();
 	Respawn::posiciones_instancia()->leer_posiciones_de_respawn_del_nivel();
 	_datos 				= new Datos_Partida(_input_jugador);
@@ -94,6 +95,10 @@ void Game::crea_partida() {
 	_input_jugador->asignar_teclas_partida();
 
 	_animacion_interruptor = new Animacion_Interruptor();
+
+	//sonidos ambiente
+	_sonido->Play_ambiente(3);
+	_sonido->Play_ambiente(0);
 }
 
 void Game::fin_partida() {
@@ -272,6 +277,7 @@ void Game::cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short 
 	update_actual = &Game::update_mirar;
 	render_actual = &Game::render_partida;
 
+	_sonido->Stop_pasos();
 	_animacion_interruptor->empieza(_t_fin, _objetivo, _rotacion_x, _rotacion_y, 20);
 }
 

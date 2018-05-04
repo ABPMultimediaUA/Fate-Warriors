@@ -7,7 +7,7 @@ class Input;
 #include <cstdint>
 
 // 5 opciones en este menu
-const uint8_t _n_opciones_principal = 5;
+const uint8_t _n_opciones_principal = 6;
 
 class Menu_Configuracion {
 public:

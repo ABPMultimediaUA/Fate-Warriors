@@ -2,6 +2,7 @@
 #define SRC_CONSUMIBLE_AGUA_H_
 
 #include "Consumible.h"
+class Interfaz_sonido;
 
 class Consumible_Agua : public Consumible{
 public:
@@ -10,6 +11,7 @@ public:
 
 	bool usar(Character* _personaje) override;
 	void cambiar_modelado() override;
+	Interfaz_sonido* _sonido;
 };
 
 #endif /* SRC_CONSUMIBLE_AGUA_H_ */

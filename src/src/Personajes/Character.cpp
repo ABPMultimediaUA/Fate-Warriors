@@ -20,6 +20,9 @@
 #include "../Consumibles/Consumible_Power_Up.h"
 #include "../Zonas/Respawn.h"
 
+#include "../Motor_sonido/Interfaz_sonido.h"
+
+
 #include <iostream>
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
@@ -43,6 +46,8 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
     _bloqueado = false;
     _npcs_persiguiendome = 0;
        
+
+    _sonido= Interfaz_sonido::GetInstancia();
 }
 
 Character::~Character() {
@@ -292,6 +297,7 @@ bool Character::interactuar_con_objeto(){
             _llaves[_cont]->set_visible(false);
             
             objeto_encontrado = true;
+            _sonido->Play_escenario(1);
             std::cout << "Llave recogida"<< std::endl;
             std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
         }

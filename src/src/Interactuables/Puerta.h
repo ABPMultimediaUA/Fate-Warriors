@@ -2,6 +2,7 @@
 #define PUERTA_H_
 
 #include "../Objeto.h"
+class Interfaz_sonido;
 
 class Puerta : public Objeto{
 public:
@@ -14,6 +15,7 @@ public:
 private:
 	bool _abierta;
 	uint8_t _id_pasillo_que_abre;
+	Interfaz_sonido* _sonido;
 };
 
 #endif /* PUERTA_H_ */

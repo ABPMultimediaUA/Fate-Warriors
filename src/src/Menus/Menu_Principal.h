@@ -15,6 +15,7 @@ public:
 	~Menu_Principal();
 
 	void update(double _i_tiempo);
+	uint8_t get_i_opcion();
 
 private: 
 	Opcion** _opciones;
