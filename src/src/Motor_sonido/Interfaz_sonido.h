@@ -124,6 +124,7 @@ private:
     // Variables de control de sonido
     bool _loop_pasos;
     uint8_t _pasos_actual;
+    uint8_t _random;
 };
 
 #endif /* SRC_INTERFAZ_SONIDO_H_ */

@@ -70,6 +70,7 @@ Game::~Game(){
 
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
+	_sonido= Interfaz_sonido::GetInstancia();
 	_motor->CargaMapa();
 	Respawn::posiciones_instancia()->leer_posiciones_de_respawn_del_nivel();
 	_datos 				= new Datos_Partida(_input_jugador);
@@ -94,6 +95,10 @@ void Game::crea_partida() {
 	_input_jugador->asignar_teclas_partida();
 
 	_animacion_interruptor = new Animacion_Interruptor();
+
+	//sonidos ambiente
+	_sonido->Play_ambiente(3);
+	_sonido->Play_ambiente(0);
 }
 
 void Game::fin_partida() {

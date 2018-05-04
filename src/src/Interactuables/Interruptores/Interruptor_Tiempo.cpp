@@ -20,6 +20,7 @@ void Interruptor_Tiempo::accionar() {
 
 		cambiar_estado_puertas();
         _t_final_activacion = _reloj->get_current() + _duracion;
+        _sonido->Play_escenario(9);
     }
 }
 

@@ -47,6 +47,7 @@ pinchos = 5
 interruptor = 6
 pisarMina = 7
 puertaBestia = 8
+timer = 9
 
 Menu:
 acceptar = 0
@@ -584,8 +585,11 @@ void Interfaz_sonido::Play_voces(uint8_t _i_n){
         std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
     }
-    _eventos_voces[_i_n]->start();
-    system_update();
+    _random = rand() % 4;
+    if(_random == 3){
+        _eventos_voces[_i_n]->start();
+        system_update();
+    }
 }
 
 void Interfaz_sonido::Play_pasos(uint8_t _i_n){
