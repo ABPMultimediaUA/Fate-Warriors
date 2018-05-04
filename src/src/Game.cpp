@@ -277,6 +277,7 @@ void Game::cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short 
 	update_actual = &Game::update_mirar;
 	render_actual = &Game::render_partida;
 
+	_sonido->Stop_pasos();
 	_animacion_interruptor->empieza(_t_fin, _objetivo, _rotacion_x, _rotacion_y, 20);
 }
 
