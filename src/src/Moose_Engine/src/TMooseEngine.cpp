@@ -49,11 +49,18 @@ TMooseEngine::TMooseEngine(){
 
 void TMooseEngine::initUI(){
     _ui = new UI();
+    
+    //MENU PRINCIPAL
     _ui->crear_imagen(_shader, "Imagenes_Menu/Fondo.png", "Imagenes_Menu/Fondo.png", -1, 1, 2, 2);
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
-    //_ui->crear_imagen(_shader, "Imagenes_Menu/Fondo.png", -1, 1, 2, 2);
+
+    //MENU PAUSA
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
+    
 }
 
 void TMooseEngine::PreparacionSombras(){
@@ -278,6 +285,14 @@ void TMooseEngine::renderUIMenu(uint16_t opcion){
     clear();
     glDisable(GL_CULL_FACE);
     _ui->drawMenu(opcion);
+    glfwSwapBuffers(window);
+    glEnable(GL_CULL_FACE);
+}
+
+void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
+    clear();
+    glDisable(GL_CULL_FACE);
+    _ui->drawMenuPausa(opcion);
     glfwSwapBuffers(window);
     glEnable(GL_CULL_FACE);
 }
