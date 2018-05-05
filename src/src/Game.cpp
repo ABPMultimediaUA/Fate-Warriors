@@ -151,6 +151,7 @@ void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Partida" << std::endl;
 	if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200) {
+		_sonido->Play_menu(3);
     	cambio_a_update_pausa();
     }
     else {
@@ -172,6 +173,7 @@ void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
 	_menu_pausa->update(_i_tiempo_desde_ultimo_update);
 
     if(update_actual == &Game::update_partida) {
+		_sonido->Play_menu(1);
 		update_partida(_i_tiempo_desde_ultimo_update);	
     }
 }
