@@ -40,8 +40,6 @@ void ParticleGenerator::Reuse_Particles(GameObject &object, GLuint newParticles,
     for (GLuint i = 0; i < newParticles; ++i)
     {
         int unusedParticle = this->firstUnusedParticle();
-                std::cout <<  _direccion << std::endl;
-
         this->respawnParticle(this->particles[unusedParticle], _direccion, offset);
     }
 }
@@ -159,7 +157,7 @@ void ParticleGenerator::load_texture(){
     int width, height, nrChannels;
   //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char *data = SOIL_load_image("Skybox_Images/Opcion_1.png", &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char *data = SOIL_load_image("Skybox_Images/Sangre.png", &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
 
@@ -192,10 +190,10 @@ void ParticleGenerator::init()
     // ------------------------------------------------------------------
     float vertices[] = {
         // positions          // colors           // texture coords
-         _x + _width,  _y,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
-         _x + _width, _y - _height, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
-         _x, _y - _height,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
-         _x,  _y,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
+         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   0.0f, 0.0f, // top right
+         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.0f, 1.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f, // bottom left
+        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   1.0f, 0.0f // top left 
     };
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -263,12 +261,12 @@ void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, gl
            // std::cout << particle.Position.x << " " << particle.Position.y << " " << particle.Position.z << "\n " ;
     GLfloat random = ((rand() % 100) - 50) / 10.0f;
     GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-    particle.Position = glm::vec3(offset.x, 12, offset.y);
+    particle.Position = glm::vec3(offset.x, 10, offset.y);
     particle.Color = glm::vec4(rColor, rColor, rColor, 1.0f);
-    particle.Life = 50.0f;
+    particle.Life = 15.0f;
     particle.Velocity = glm::vec3(0,1,0) * 0.1f;
-    particle.Velocity.x = -desp_x * 0.5;
-    particle.Velocity.z = -desp_z * 0.5;
+    particle.Velocity.x = -desp_x / 2;
+    particle.Velocity.z = -desp_z / 2;
 
 }
 

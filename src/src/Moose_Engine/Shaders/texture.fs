@@ -1,13 +1,13 @@
-#version 450 core
 
-out vec4 FragColor;
-in vec4 ourColor;
-in vec2 TexCoord;
 
-// texture samplers
+#version 330 core
+in vec2 TexCoords;
+in vec4 ParticleColor;
+out vec4 color;
+
 uniform sampler2D sprite;
 
 void main()
 {
-	FragColor = texture(sprite, TexCoord);
-}
+    color = texture(sprite, TexCoords);
+} 

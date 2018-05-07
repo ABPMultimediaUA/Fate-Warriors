@@ -233,17 +233,16 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
-    _particulas->Draw(); 
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
-    _shader->use(Default);
-
-    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-  //  drawLuces();
-  //  _escena->draw(_shader);
+    drawLuces();
+    _escena->draw(_shader);
+_skybox->draw(_shader, _shader->getView(), _shader->getProjection());
    // _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    //_shader->use(sombras_proyectadas);
-    //_escena->draw(_shader);
+  //_shader->use(sombras_proyectadas);
+ // _escena->draw(_shader);
+    _particulas->Draw(); 
    // */
     glfwSwapBuffers(window);
     glfwPollEvents();

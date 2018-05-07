@@ -807,7 +807,8 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 {
 
                     _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
-            
+                    Motor::Motor_GetInstance()->_interfaz->Crear_particulas( _characters[_cont]->getX(),15,  _characters[_cont]->getZ(),  _characters[_cont]->get_direccion_actual());
+
                     //std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
 
                     // Impulsa al atacado
