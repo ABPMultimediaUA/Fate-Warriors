@@ -43,6 +43,13 @@ void Menu_Principal::update(double _i_tiempo) {
 	pinta_estado();
 }
 
+uint8_t Menu_Principal::get_i_opcion() { 
+  for(uint8_t i=0; i<_n_opciones_principal; i++) { 
+    if(_opcion_actual == _opciones[i]) 
+      return i; 
+  } 
+}
+
 // Pinta por terminal el estado actual
 void Menu_Principal::pinta_estado() {
 	if(_opcion_actual == _opciones[0])

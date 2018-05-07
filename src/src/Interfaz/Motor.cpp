@@ -15,6 +15,8 @@
 #include "EnumTiposColision.h"
 #include "../Interactuables/Puerta_Pincho.h"
 #include "../Game.h"
+#include "../Menus/Menu_Principal.h"
+#include "../Menus/Menu_Pausa.h"
 
 #include "../Moose_Engine/src/TMooseEngine.h"
 #include "../Moose_Engine/src/TModelado.h"
@@ -27,7 +29,7 @@
 #include "../Moose_Engine/src/iNodoAnimacion.h"
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Moose_Engine/src/iNodoLuz.h"
-#include "../gui/UI.h"
+
 /*
 #include "Entidad.h"
 #include "../Input.h"
@@ -172,7 +174,6 @@ Motor::Motor(){
     configuracion_bullet();
     preparar_depuracion_mundo();
     
-	_ui = UI::ui_instancia(1920,1080, _me->getWindow());
 
 	//cargaMapa();
 
@@ -849,7 +850,8 @@ void Motor::render(float _i_interpolacion){
 }
 
 void Motor::render(){
-	_me->draw();
+	//_me->draw();
+	_me->render_estado_Partida();
 }
 
 void Motor::cambia_animaciones() {
@@ -949,10 +951,14 @@ void Motor::gira_camara(short _rotacion_en_x, short _rotacion_en_y) {
 	camara->rota_camara_sin_interpolacion(_rotacion_en_x, _rotacion_en_y);
 }
 
-void Motor::updateUI(){
-	_ui->update();
+void Motor::render_Menu(){
+	Game* game = Game::game_instancia();
+	uint8_t num_opcion = game->get_menu_principal()->get_i_opcion();
+	_me->renderUIMenu(num_opcion);
 }
 
-void Motor::renderUI(){
-	_ui->render();
+void Motor::render_Pausa(){
+	Game* game = Game::game_instancia();
+	uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
+	_me->renderUIMenuPausa(num_opcion);	
 }

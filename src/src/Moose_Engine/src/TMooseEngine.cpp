@@ -12,6 +12,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "UI.h"
 #include "Skybox.h"
 
 
@@ -44,7 +45,23 @@ TMooseEngine::TMooseEngine(){
    
     SHADOW_WIDTH = 1024;
     SHADOW_HEIGHT = 1024;
+    initUI();
+}
 
+void TMooseEngine::initUI(){
+    _ui = new UI();
+    
+    //MENU PRINCIPAL
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Fondo.png", "Imagenes_Menu/Fondo.png", -1, 1, 2, 2);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
+
+    //MENU PAUSA
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
+    
 }
 
 void TMooseEngine::PreparacionSombras(){
@@ -232,19 +249,17 @@ void TMooseEngine::clear(){
     }
 }
 void TMooseEngine::draw(){
-    clear();
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+
     _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-
-
+    //glfwSwapBuffers(window);
+    //glfwPollEvents();
 
 
     /*//cosa
@@ -267,6 +282,31 @@ void TMooseEngine::draw(){
 void TMooseEngine::drawSombras(){
     //y yasta MUCHO PIDES TU HOY EH!
     //y yasta2
+}
+
+
+void TMooseEngine::render_estado_Partida(){
+    clear();
+    draw();
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+void TMooseEngine::renderUIMenu(uint16_t opcion){
+    clear();
+    glDisable(GL_CULL_FACE);
+    _ui->drawMenu(opcion);
+    glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
+}
+
+void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
+    clear();
+    draw();
+    glDisable(GL_CULL_FACE);
+    _ui->drawMenuPausa(opcion);
+    glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
 }
 
 void TMooseEngine::apagar(){

@@ -113,11 +113,9 @@ public:
     void update();
     void render();
 
+
     void cambia_animaciones();
-
-    void updateUI();
-    void renderUI();
-
+  
     inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
@@ -140,7 +138,8 @@ public:
     void gira_camara(short _rotacion_x, short _rotacion_en_y);
 
     void interpolar_altura(bool estado);
-
+    void render_Menu();
+    void render_Pausa();
 private:
 
       static Motor* _Motor;
@@ -183,7 +182,6 @@ private:
       
       //ME
       TMooseEngine* _me;
-      UI* _ui;
       iNodoModelado* mapa;
       uint16_t _id_jugador;
       std::vector<Objeto_Motor*> _objetos_motor;

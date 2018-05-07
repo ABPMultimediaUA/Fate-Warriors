@@ -17,7 +17,6 @@
 #include "Zonas/Zonas_Manager.h"
 #include "Interactuables/Interactuable_Manager.h"
 #include "Zonas/Respawn.h"
-#include "gui/UI.h"
 
 #include "Interactuables/Animacion_Interruptor.h"
 #include "Interactuables/Interruptor.h"
@@ -143,8 +142,6 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Menu" << std::endl;
 	_menu_principal->update(_i_tiempo_desde_ultimo_update);
-	_motor->updateUI();
-	_motor->renderUI();
 }
 
 
@@ -204,8 +201,7 @@ void Game::render(float _i_interpolacion){
 }
 
 void Game::render_menu(float _i_interpolacion){
-	_motor->updateUI();
-	_motor->renderUI();
+	_motor->render_Menu();
 }
 
 void Game::render_partida(float _i_interpolacion){
@@ -213,7 +209,7 @@ void Game::render_partida(float _i_interpolacion){
 }
 
 void Game::render_pausa(float _i_interpolacion){
-	_motor->render(1);
+	_motor->render_Pausa();
 }
 
 void Game::render_win(float _i_interpolacion){
