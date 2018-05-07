@@ -241,12 +241,8 @@ TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){
 } 
 
 void TMooseEngine::clear(){
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
-        //glfwSetWindowShouldClose(window, true);
-    }else{
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void TMooseEngine::draw(){
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
