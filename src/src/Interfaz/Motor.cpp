@@ -16,6 +16,7 @@
 #include "../Interactuables/Puerta_Pincho.h"
 #include "../Game.h"
 #include "../Menus/Menu_Principal.h"
+#include "../Menus/Menu_Pausa.h"
 
 #include "../Moose_Engine/src/TMooseEngine.h"
 #include "../Moose_Engine/src/TModelado.h"
@@ -835,7 +836,8 @@ void Motor::render(float _i_interpolacion){
 }
 
 void Motor::render(){
-	_me->draw();
+	//_me->draw();
+	_me->render_estado_Partida();
 }
 
 float Motor::angulo_camara(){
@@ -932,4 +934,11 @@ void Motor::render_Menu(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_principal()->get_i_opcion();
 	_me->renderUIMenu(num_opcion);
+}
+
+void Motor::render_Pausa(){
+	Game* game = Game::game_instancia();
+	uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
+	//this->render();
+	_me->renderUIMenuPausa(num_opcion);	
 }

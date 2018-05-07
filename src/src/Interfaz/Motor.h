@@ -132,7 +132,7 @@ public:
 
     void interpolar_altura(bool estado);
     void render_Menu();
-
+    void render_Pausa();
 private:
 
       static Motor* _Motor;

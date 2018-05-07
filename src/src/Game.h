@@ -56,6 +56,7 @@ public:
 	Consumible_Action* get_consumibles_action();
 
 	inline Menu_Principal* get_menu_principal(){ return _menu_principal; }
+	inline Menu_Pausa* get_menu_pausa(){ return _menu_pausa; }
 
 private:
 	static Game* instancia;

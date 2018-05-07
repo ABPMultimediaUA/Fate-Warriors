@@ -202,7 +202,7 @@ void Game::render_partida(float _i_interpolacion){
 }
 
 void Game::render_pausa(float _i_interpolacion){
-	_motor->render(1);
+	_motor->render_Pausa();
 }
 
 void Game::render_win(float _i_interpolacion){

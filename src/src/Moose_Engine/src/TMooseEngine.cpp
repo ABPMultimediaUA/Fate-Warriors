@@ -246,7 +246,6 @@ void TMooseEngine::clear(){
     }
 }
 void TMooseEngine::draw(){
-    clear();
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
@@ -255,8 +254,8 @@ void TMooseEngine::draw(){
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     //_shader->use(sombras_proyectadas);
     //_escena->draw(_shader);
-    glfwSwapBuffers(window);
-    glfwPollEvents();
+    //glfwSwapBuffers(window);
+    //glfwPollEvents();
 
 
     /*//cosa
@@ -281,6 +280,13 @@ void TMooseEngine::drawSombras(){
     //y yasta2
 }
 
+
+void TMooseEngine::render_estado_Partida(){
+    clear();
+    draw();
+    glfwSwapBuffers(window);
+}
+
 void TMooseEngine::renderUIMenu(uint16_t opcion){
     clear();
     glDisable(GL_CULL_FACE);
@@ -291,10 +297,12 @@ void TMooseEngine::renderUIMenu(uint16_t opcion){
 
 void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
     clear();
+    draw();
     glDisable(GL_CULL_FACE);
     _ui->drawMenuPausa(opcion);
-    glfwSwapBuffers(window);
     glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void TMooseEngine::apagar(){

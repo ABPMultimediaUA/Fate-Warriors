@@ -55,28 +55,28 @@ void UI::drawMenu(uint16_t opcion){
 //dibujar menu del juego
 void UI::drawMenuPausa(uint16_t opcion){
     switch(opcion){
-        case 0:     _lista_imagenes_pausa[1]->setSelected(true);
+        case 0:     _lista_imagenes_pausa[0]->setSelected(true);
+                    _lista_imagenes_pausa[1]->setSelected(false);
                     _lista_imagenes_pausa[2]->setSelected(false);
-                    _lista_imagenes_pausa[3]->setSelected(false);
                     break;
 
-        case 1:     _lista_imagenes_pausa[1]->setSelected(false);
+        case 1:     _lista_imagenes_pausa[0]->setSelected(false);
+                    _lista_imagenes_pausa[1]->setSelected(true);
+                    _lista_imagenes_pausa[2]->setSelected(false);
+                    break;
+
+        case 2:     _lista_imagenes_pausa[0]->setSelected(false);
+                    _lista_imagenes_pausa[1]->setSelected(false);
                     _lista_imagenes_pausa[2]->setSelected(true);
-                    _lista_imagenes_pausa[3]->setSelected(false);
-                    break;
-
-        case 2:     _lista_imagenes_pausa[1]->setSelected(false);
-                    _lista_imagenes_pausa[2]->setSelected(false);
-                    _lista_imagenes_pausa[3]->setSelected(true);
                     break;
         
-        default:    _lista_imagenes_pausa[1]->setSelected(true);
+        default:    _lista_imagenes_pausa[0]->setSelected(true);
+                    _lista_imagenes_pausa[1]->setSelected(false);
                     _lista_imagenes_pausa[2]->setSelected(false);
-                    _lista_imagenes_pausa[3]->setSelected(false);
                     break;
     }
 
-    for(u_int16_t i = 0; i<_lista_imagenes.size(); i++){
+    for(u_int16_t i = 0; i<_lista_imagenes_pausa.size(); i++){
         _lista_imagenes_pausa[i]->Draw();
     }
 }
