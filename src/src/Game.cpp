@@ -149,6 +149,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
     	cambio_a_update_pausa();
     }
     else {
+		_motor->_interfaz->Update(_i_tiempo_desde_ultimo_update);
 		_player->update();
 		_nivel->Update();
 		_consumibles_action->comprobar_consumibles();

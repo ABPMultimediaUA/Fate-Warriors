@@ -31,7 +31,7 @@ Interfaz_Particulas::~Interfaz_Particulas(){
 
 
 void Interfaz_Particulas::Update(float dt){
-  //  _particulas->update(dt);
+    _particulas->Update(dt/1000);
 }
 
 void Interfaz_Particulas::Crear_particulas(float pos_x, float pos_y, float pos_z, uint16_t _direccion){

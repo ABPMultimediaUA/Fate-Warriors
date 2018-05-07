@@ -58,8 +58,14 @@ void ParticleGenerator::Update(GLfloat dt)
         p.Life -= dt; // reduce life
         if (p.Life > 0.0f)
         {	// particle is alive, thus update
+            std::cout << dt << std::endl;
             p.Position -= p.Velocity * dt; 
+            if(p.Color.a  > 0)
             p.Color.a -= dt * 2.5;
+            else{
+                 p.Color.a = 0;
+            }
+            std::cout <<  p.Color.a << " a " << std::endl; 
         }
     }
 }
@@ -73,8 +79,7 @@ void ParticleGenerator::Draw()
     
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader->use(particulas);
-        Update(2);
-    
+   
     for (Particle particle : this->particles)
     {
       if (particle.Life > 0.0f)
@@ -85,17 +90,19 @@ void ParticleGenerator::Draw()
         glm::mat4 projection = shader->getProjection();
         glm::mat4 view = shader->getView();
         
-        update_model_matrix(particle.Position, 288, glm::vec3(0,0,1), glm::vec3(1,1,1));
+        update_model_matrix(particle.Position, 288, glm::vec3(0,0,1), glm::vec3(3,3,1));
         
         glm::mat4 MVP = projection*view*ModelMatrix;      
 
+        /*
         GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
         GLfloat aColor = 0.5 + ((rand() % 100) / 100.0f);
         particle.Color = glm::vec4(1.0, 1.0, 1.0, 1);
+        */
 
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-      //  glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, glm::value_ptr(particle.Color));
+        glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, glm::value_ptr(particle.Color));
 
         glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
 
@@ -140,6 +147,7 @@ void ParticleGenerator::update_model_matrix(glm::vec3 position, float grados, gl
     ModelMatrix[2][2] = view[2][2];
 
     ModelMatrix = glm::rotate(ModelMatrix, glm::radians(grados), rotation);
+    ModelMatrix = glm::scale(ModelMatrix, escalado);
 }
 
 
@@ -261,9 +269,9 @@ void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, gl
            // std::cout << particle.Position.x << " " << particle.Position.y << " " << particle.Position.z << "\n " ;
     GLfloat random = ((rand() % 100) - 50) / 10.0f;
     GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-    particle.Position = glm::vec3(offset.x, 10, offset.y);
+    particle.Position = glm::vec3(offset.x, 9, offset.y);
     particle.Color = glm::vec4(rColor, rColor, rColor, 1.0f);
-    particle.Life = 15.0f;
+    particle.Life = .5f;
     particle.Velocity = glm::vec3(0,1,0) * 0.1f;
     particle.Velocity.x = -desp_x / 2;
     particle.Velocity.z = -desp_z / 2;
