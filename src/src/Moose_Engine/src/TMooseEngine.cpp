@@ -58,7 +58,7 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
 
     //MENU PAUSA
-    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_resume.png", "Imagenes_Menu/Opcion_resume_Selec.png", -0.9, 0.8, 0.7, 0.6);
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
     
@@ -241,12 +241,8 @@ TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){
 } 
 
 void TMooseEngine::clear(){
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
-        //glfwSetWindowShouldClose(window, true);
-    }else{
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void TMooseEngine::draw(){
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
