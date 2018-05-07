@@ -76,6 +76,8 @@ void Player::update(){
         
         uint16_t _direccion_previa_movimiento = _direccion_buena;
 
+        _motor->_interfaz->Crear_particulas(getX(),15, getZ(), _direccion_buena);
+
        if(_cono_vision->get_apuntando() != nullptr) {
             mover_direccion(_direccion_buena, _cono_vision->get_rotacion_con_apuntando());
             _apuntando_enemigo = true;

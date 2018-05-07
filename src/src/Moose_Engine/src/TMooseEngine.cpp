@@ -39,7 +39,7 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader();
     _skybox = new Skybox();
-    _particulas = new ParticleGenerator(_shader,"", 1);
+    _particulas = new ParticleGenerator(_shader,"", 200);
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
@@ -233,15 +233,15 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
+    _particulas->Draw(); 
     _shader->use(Default);
     drawCamaras();
-    _particulas->Draw(); 
-        _shader->use(Default);
+    _shader->use(Default);
 
     //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    drawLuces();
-    _escena->draw(_shader);
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+  //  drawLuces();
+  //  _escena->draw(_shader);
+   // _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     //_shader->use(sombras_proyectadas);
     //_escena->draw(_shader);
    // */
@@ -372,6 +372,12 @@ void TMooseEngine::drawCamaras(){
 bool TMooseEngine::ventana_abierta(){
     return glfwWindowShouldClose(window);
 }
+
+
+ParticleGenerator* TMooseEngine::get_gestor_particulas(){
+    return _particulas;
+}
+
 /*
 void TMooseEngine::stop_anim(const char* _i_path){
     for(std::vector<TAnimacion*>::iterator it = _animaciones.begin(); it != _animaciones.end(); it++){

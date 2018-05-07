@@ -10,11 +10,14 @@ class Shader;
 
 // Represents a single particle and its state
 struct Particle {
-    glm::vec2 Position, Velocity;
+    glm::vec3 Position;
+    glm::vec3 Velocity;
     glm::vec4 Color;
     GLfloat Life;
 
     Particle() : Position(0.0f), Velocity(0.0f), Color(1.0f), Life(0.0f) { }
+    Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, glm::vec4 _i_Color, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(_i_Color), Life(_i_Life) { }
+    Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(1.0f), Life(_i_Life) { }
 };
 
 
@@ -38,9 +41,10 @@ public:
     ~ParticleGenerator();
 
     // Update all particles
-    void Update(GLfloat dt, GameObject &object, GLuint newParticles, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
+    void Update(GLfloat dt);
     // Render all particles
     void Draw();
+    void Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec2 offset, GLint _direccion);
 private:
     // State
     std::vector<Particle> particles;
@@ -58,7 +62,7 @@ private:
     // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle is currently inactive
     GLuint firstUnusedParticle();
     // Respawns particle
-    void respawnParticle(Particle &particle, GameObject &object, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
+    void respawnParticle(Particle &particle, GLint _direccion, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
     void load_texture();
 
     glm::mat4 _traslacion;

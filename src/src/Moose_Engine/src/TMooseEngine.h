@@ -52,6 +52,8 @@ class TMooseEngine{
         float getMouseOffsetX();
         float getMouseOffsetY();
 
+        ParticleGenerator* get_gestor_particulas();
+
         void apagar();
 
     private:

@@ -34,14 +34,25 @@ ParticleGenerator::~ParticleGenerator(){
 }
 
 
-void ParticleGenerator::Update(GLfloat dt, GameObject &object, GLuint newParticles, glm::vec2 offset)
-{
-    // Add new particles 
+
+void ParticleGenerator::Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec2 offset, GLint _direccion){
+        // Add new particles 
     for (GLuint i = 0; i < newParticles; ++i)
     {
         int unusedParticle = this->firstUnusedParticle();
-        this->respawnParticle(this->particles[unusedParticle], object, offset);
+                std::cout <<  _direccion << std::endl;
+
+        this->respawnParticle(this->particles[unusedParticle], _direccion, offset);
     }
+}
+
+
+
+
+
+
+void ParticleGenerator::Update(GLfloat dt)
+{
     // Update all particles
     for (GLuint i = 0; i < this->amount; ++i)
     {
@@ -59,79 +70,34 @@ void ParticleGenerator::Update(GLfloat dt, GameObject &object, GLuint newParticl
 void ParticleGenerator::Draw()
 {
     // Use additive blending to give it a 'glow' effect
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
+    glDepthMask(false);
+    // Don't forget to reset to default blending mode
+    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader->use(particulas);
+        Update(2);
     
     for (Particle particle : this->particles)
     {
-    
-      /*  if (particle.Life > 0.0f)
-        {*/
-            /*
-            glUniform1i(glGetUniformLocation(Shader::Program, "texture"), 0);
-            glUniform2fv(glGetUniformLocation(Shader::Program, "offset"), 1, &particle.Position[0]);
-            glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, &particle.Color[0]);
-            */
+      if (particle.Life > 0.0f)
+        {
 
-            glDisable(GL_CULL_FACE);
-
-
+        glDisable(GL_CULL_FACE);
+        
         glm::mat4 projection = shader->getProjection();
         glm::mat4 view = shader->getView();
-        float mult = 4.9212625;
-        glm::vec3 posicion(61.5158,12, 44.2914);
-
-
-        update_model_matrix(posicion, 288, glm::vec3(0,0,1), glm::vec3(1,1,1));
         
-        glm::mat4 MVP = projection*view*ModelMatrix;
-
-       /* std::cout << projection[0].x  << "\n";
-        std::cout << projection[0].y  << "\n";
-        std::cout << projection[0].z  << "\n";
-        std::cout << projection[0].w  << "\n";
-
-                std::cout << "projection[0].x"  << "\n";
-
-        std::cout << projection[1].x  << "\n";
-        std::cout << projection[1].y  << "\n";
-        std::cout << projection[1].z  << "\n";  
-        std::cout << projection[1].w  << "\n";
-
-                std::cout << "projection[1].x"  << "\n";
-
-
-        std::cout << projection[2].x  << "\n";
-        std::cout << projection[2].y  << "\n";
-        std::cout << projection[2].z  << "\n";
-        std::cout << projection[2].w  << "\n";
+        update_model_matrix(particle.Position, 288, glm::vec3(0,0,1), glm::vec3(1,1,1));
         
-                std::cout << "projection[2].x"  << "\n";
+        glm::mat4 MVP = projection*view*ModelMatrix;      
 
+        GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
+        GLfloat aColor = 0.5 + ((rand() % 100) / 100.0f);
+        particle.Color = glm::vec4(1.0, 1.0, 1.0, 1);
 
-        std::cout << projection[3].x  << "\n";
-        std::cout << projection[3].y  << "\n";
-        std::cout << projection[3].z  << "\n";
-        std::cout << projection[3].w  << "\n";
-                        std::cout << "projection[3].x"  << "\n";
-
-        */
-        
-
-
-        glm::vec3 CameraRight_worldspace = {view[0][0], view[1][0], view[2][0]};
-        glm::vec3 CameraUp_worldspace = {view[0][1], view[1][1], view[2][1]};
-
-        glm::vec3 vertexPosition_worldspace =
-        posicion
-        + CameraRight_worldspace * -0.5f * 10
-        + CameraUp_worldspace * -0.5f * 10;
-        
-
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-        glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-        glUniform2fv(glGetUniformLocation(Shader::Program, "offset"), 1, glm::value_ptr(posicion));
+      //  glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, glm::value_ptr(particle.Color));
 
         glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
 
@@ -145,10 +111,12 @@ void ParticleGenerator::Draw()
         glEnable(GL_CULL_FACE);
 
 
-       // }
+        }
     }
     // Don't forget to reset to default blending mode
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+   // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+       glDepthMask(true);
+
 
 }
 
@@ -191,13 +159,11 @@ void ParticleGenerator::load_texture(){
     int width, height, nrChannels;
   //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char *data = SOIL_load_image("Skybox_Images/left.png", &width, &height, 0, SOIL_LOAD_RGB);
+    unsigned char *data = SOIL_load_image("Skybox_Images/Opcion_1.png", &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        std::cout << "wwww "<< width << "\n";
-        std::cout << "hhhhh "<< height << "\n";
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
@@ -214,14 +180,22 @@ void ParticleGenerator::load_texture(){
 
 void ParticleGenerator::init()
 {
+        glEnable(GL_BLEND);
+
+        float _x = 0.5;
+        float _y = 0.5;
+        float _width = 0.5;
+        float _height = 0.5;
+
+
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
         // positions          // colors           // texture coords
-         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   0.0f, 0.0f, // top right
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.0f, 1.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f, // bottom left
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   1.0f, 0.0f // top left 
+         _x + _width,  _y,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
+         _x + _width, _y - _height, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
+         _x, _y - _height,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
+         _x,  _y,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
     };
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -253,7 +227,8 @@ void ParticleGenerator::init()
 
     // Create this->amount default particle instances
     for (GLuint i = 0; i < this->amount; ++i)
-        this->particles.push_back(Particle());
+
+        this->particles.push_back(Particle( glm::vec3(61.5158, 12, 44.2914), glm::vec3(0,1,0) * 0.1f, 50));
 }
 
 // Stores the index of the last particle used (for quick access to next dead particle)
@@ -279,13 +254,21 @@ GLuint ParticleGenerator::firstUnusedParticle()
     return 0;
 }
 
-void ParticleGenerator::respawnParticle(Particle &particle, GameObject &object, glm::vec2 offset)
+void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, glm::vec2 offset)
 {
+    GLfloat desp_x, desp_z;
+
+	desp_z = cos((_direccion*std::acos(-1)/180));
+    desp_x = sin((_direccion*std::acos(-1)/180));
+           // std::cout << particle.Position.x << " " << particle.Position.y << " " << particle.Position.z << "\n " ;
     GLfloat random = ((rand() % 100) - 50) / 10.0f;
     GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-    particle.Position = object.Position + random + offset;
+    particle.Position = glm::vec3(offset.x, 12, offset.y);
     particle.Color = glm::vec4(rColor, rColor, rColor, 1.0f);
-    particle.Life = 1.0f;
-    particle.Velocity = object.Velocity * 0.1f;
+    particle.Life = 50.0f;
+    particle.Velocity = glm::vec3(0,1,0) * 0.1f;
+    particle.Velocity.x = -desp_x * 0.5;
+    particle.Velocity.z = -desp_z * 0.5;
+
 }
 

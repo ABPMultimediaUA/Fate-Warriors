@@ -197,6 +197,8 @@ Motor::Motor(){
 	//esto no debe ir aqui y se cambia despues de la presentacion
 	_vida = 300;
 	_maxvida = 300;
+
+	_interfaz = new Interfaz_Particulas();
 }
 
 void Motor::vaciar_motor(){

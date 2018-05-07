@@ -15,6 +15,7 @@
 #include <btBulletCollisionCommon.h>
 #include "../Utilidades/Vector.h"
 
+#include "../Moose_Engine/src/Interfaz_Particulas.h"
 //#include "../Moose_Engine/src/iNodoModelado.h"
 
 
@@ -42,6 +43,8 @@ class btPairCachingGhostObject;
 class btRigidBody;
 class btVector3;
 class TMooseEngine;
+
+//class Interfaz_Particulas;
 
 
 class Motor{
@@ -134,6 +137,7 @@ public:
     void gira_camara(short _rotacion_x, short _rotacion_en_y);
 
     void interpolar_altura(bool estado);
+    Interfaz_Particulas* _interfaz;
 
 private:
 

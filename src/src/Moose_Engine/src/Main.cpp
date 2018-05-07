@@ -332,12 +332,12 @@ int dibujarOpenGL(){
         float colorSinValue = (sin(timeValue) / 2.0f) + 0.5f;
         int vertexLocation = glGetUniformLocation(shaderProgram, "vertex_Color");
         glUniform4f(vertexLocation, 1-colorSinValue, 0.0f, colorSinValue, 1.0f);
-        // ..:: Drawing code (in render loop) :: ..
-        // 4. draw the object
+
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        
         //call events
         glfwSwapBuffers(window);
         glfwPollEvents();
