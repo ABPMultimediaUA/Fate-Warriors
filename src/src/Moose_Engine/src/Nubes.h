@@ -5,14 +5,14 @@
 
 class Shader;
  
-class Billboards {
+class Nubes {
 public:
-    Billboards();
+    Nubes();
     void draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection);
-    ~Billboards();
+    ~Nubes();
  
 private:
-    GLuint loadTexture(const GLchar* faces);
+    GLuint loadCubemap(std::vector<const GLchar*> faces);
     std::vector<const GLchar*> faces;
     GLuint skyboxVAO, skyboxVBO;
     GLuint cubemapTexture;

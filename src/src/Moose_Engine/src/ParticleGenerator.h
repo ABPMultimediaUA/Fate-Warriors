@@ -44,7 +44,7 @@ public:
     void Update(GLfloat dt);
     // Render all particles
     void Draw();
-    void Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec2 offset, GLint _direccion);
+    void Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion);
 private:
     // State
     std::vector<Particle> particles;
@@ -62,7 +62,7 @@ private:
     // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle is currently inactive
     GLuint firstUnusedParticle();
     // Respawns particle
-    void respawnParticle(Particle &particle, GLint _direccion, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
+    void respawnParticle(Particle &particle, GLint _direccion, glm::vec3 offset = glm::vec3(0.0f, 0.0f, 0.0f));
     void load_texture();
 
     glm::mat4 _traslacion;

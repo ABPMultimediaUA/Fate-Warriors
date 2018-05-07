@@ -35,7 +35,7 @@ ParticleGenerator::~ParticleGenerator(){
 
 
 
-void ParticleGenerator::Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec2 offset, GLint _direccion){
+void ParticleGenerator::Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion){
         // Add new particles 
     for (GLuint i = 0; i < newParticles; ++i)
     {
@@ -234,7 +234,7 @@ void ParticleGenerator::init()
     // Create this->amount default particle instances
     for (GLuint i = 0; i < this->amount; ++i)
 
-        this->particles.push_back(Particle( glm::vec3(61.5158, 12, 44.2914), glm::vec3(0,1,0) * 0.1f, 50));
+        this->particles.push_back(Particle( glm::vec3(61.5158, 12, 44.2914), glm::vec3(0,1,0) * 0.1f, 0));
 }
 
 // Stores the index of the last particle used (for quick access to next dead particle)
@@ -260,16 +260,15 @@ GLuint ParticleGenerator::firstUnusedParticle()
     return 0;
 }
 
-void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, glm::vec2 offset)
+void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, glm::vec3 offset)
 {
     GLfloat desp_x, desp_z;
 
 	desp_z = cos((_direccion*std::acos(-1)/180));
     desp_x = sin((_direccion*std::acos(-1)/180));
-           // std::cout << particle.Position.x << " " << particle.Position.y << " " << particle.Position.z << "\n " ;
     GLfloat random = ((rand() % 100) - 50) / 10.0f;
     GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-    particle.Position = glm::vec3(offset.x, 9, offset.y);
+    particle.Position = glm::vec3(offset.x, offset.y, offset.z);
     particle.Color = glm::vec4(rColor, rColor, rColor, 1.0f);
     particle.Life = .5f;
     particle.Velocity = glm::vec3(0,1,0) * 0.1f;

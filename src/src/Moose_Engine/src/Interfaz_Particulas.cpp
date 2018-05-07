@@ -37,5 +37,5 @@ void Interfaz_Particulas::Update(float dt){
 void Interfaz_Particulas::Crear_particulas(float pos_x, float pos_y, float pos_z, uint16_t _direccion){
    // _particulas->respawnParticle(float pos_x, float pos_y, float pos_z, uint16_t _direccion);
         GameObject obje =  GameObject();
-   _particulas->Reuse_Particles(obje, 1, glm::vec2(pos_x, pos_z), _direccion);
+   _particulas->Reuse_Particles(obje, 1, glm::vec3(pos_x, pos_y, pos_z), _direccion);
 }

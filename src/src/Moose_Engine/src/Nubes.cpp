@@ -1,6 +1,6 @@
-#include "Skybox.h"
+#include "Nubes.h"
 
-#include "Billboards.h"
+#include "Shader.h"
 
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
@@ -10,7 +10,7 @@
 //#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-Billboards::Billboards() {
+Nubes::Nubes() {
     GLfloat skyboxVertices[] = {
         // Positions          
         -1.0f, 1.0f, -1.0f,
@@ -65,24 +65,22 @@ Billboards::Billboards() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof (GLfloat), (GLvoid*) 0);
     glBindVertexArray(0);
     // Cubemap (Skybox)
-
-    
     faces.push_back("Skybox_Images/left.jpg"); //left
     faces.push_back("Skybox_Images/right.jpg"); //right
     faces.push_back("Skybox_Images/top.jpg"); //top
     faces.push_back("Skybox_Images/bottom.jpg"); //bottom
     faces.push_back("Skybox_Images/back.jpg"); //back   
     faces.push_back("Skybox_Images/front.jpg"); //front
-    cubemapTexture = loadTexture(nullptr);
+    cubemapTexture = loadCubemap(faces);
 }
  
-Billboards::~Billboards() {
+Nubes::~Nubes() {
  
 }
  
-GLuint Billboards::loadTexture(const GLchar* faces) {
+GLuint Nubes::loadCubemap(std::vector<const GLchar*> faces) {
+    
     GLuint textureID;
-    /*
     glGenTextures(1, &textureID);
  
     
@@ -106,13 +104,13 @@ GLuint Billboards::loadTexture(const GLchar* faces) {
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
     glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
- */
+ 
     return textureID;
 }
 
 
-void Billboards::draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection){
-        /*
+void Nubes::draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection){
+        
     // Draw skybox as last
     glDepthFunc(GL_LEQUAL); // Change depth function so depth test passes when values are equal to depth buffer's content
     glDisable(GL_CULL_FACE);
@@ -131,7 +129,7 @@ void Billboards::draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection){
     glDepthFunc(GL_LESS); // Set depth function back to default
         
     //_i_shader->use(Default);
-*/
+
 }
 
 
