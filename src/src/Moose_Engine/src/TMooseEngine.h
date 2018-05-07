@@ -38,15 +38,12 @@ class TMooseEngine{
 
         inline GLFWwindow* getWindow(){ return window;}
 
-        void        drawLuces();
-        void        drawCamaras();
 
         inline TNodo* nodoRaiz(){
             return _escena;
         }
 
         void draw();
-        void drawSombras();
         bool ventana_abierta();
 	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);
         
@@ -57,9 +54,12 @@ class TMooseEngine{
 
     private:
 
+        void drawLuces();
+        void drawCamaras();
+        void setLuzView();
         void setMouseOffsetX(float offset);
         void setMouseOffsetY(float offset);
-
+        bool _sombras_proyectadas,_mapeado_sombras;
         float _offsetX, _offsetY;
 
         TMooseEngine();
@@ -69,6 +69,7 @@ class TMooseEngine{
         TNodo* _escena;
         TGestorRecursos* _gestorRecursos;
         uint16_t _contadorIDEntidad;
+        uint16_t SCR_WIDTH,SCR_HEIGHT;
         uint8_t  _n_c_actual;
         uint8_t  _n_l_actual;
 
@@ -82,7 +83,6 @@ class TMooseEngine{
         void init_opengl(uint16_t width, uint16_t height);
         void PreparacionSombras();
         void ConfigurarSombrasMapeado();
-        void ConfigurarSombrasProyectadas();
         void clear();
         
         //GLFW mouse input
