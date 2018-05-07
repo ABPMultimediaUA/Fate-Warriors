@@ -231,19 +231,17 @@ void Game::cambio_a_update_menu() {
 	render_actual = &Game::render_menu;
 	fin_partida();
 
-	_sonido->Stop_musica(3);
-	_sonido->Play_musica(0);
+	_sonido->play_music(0);
 }
 
 
 void Game::cambio_a_update_partida() {
+	_sonido->start_game_music();
+
 	update_actual = &Game::update_partida;
 	render_actual = &Game::render_partida;
 	Time::Instance()->reanudar_reloj();
 	_input_jugador->asignar_teclas_partida();
-
-	_sonido->Stop_musica(0);
-	_sonido->Play_musica(3);
 }
 
 void Game::cambio_a_update_pausa() {
@@ -261,6 +259,9 @@ void Game::cambio_a_update_win() {
 	render_actual = &Game::render_win;
 	_menu_pausa->set_tiempo_pausa();
 	_input_jugador->asignar_teclas_menu();
+
+    _sonido->Stop_pasos();
+	_sonido->play_music(9);
 }
 
 void Game::cambio_a_update_lose() {
@@ -268,6 +269,9 @@ void Game::cambio_a_update_lose() {
 	render_actual = &Game::render_lose;
 	_menu_pausa->set_tiempo_pausa();
 	_input_jugador->asignar_teclas_menu();
+
+    _sonido->Stop_pasos();
+	_sonido->play_music(13);
 }
 
 

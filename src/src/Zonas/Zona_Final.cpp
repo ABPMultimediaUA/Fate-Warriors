@@ -1,27 +1,19 @@
 #include "Zona_Final.h"
 
-#include "../Interfaz/Motor.h"
+#include "Respawn.h"
 #include "../Personajes/Character.h"
-#include "../Datos_Partida.h"
-#include "../Interfaz/Motor.h"
+#include "../Motor_sonido/Interfaz_sonido.h"
 #include "../Game.h"
-#include "../Tiempo/Time.h"
 
 
-Zona_Final::Zona_Final(float _i_x, float _i_y, float _i_z, int long_x, int long_y) : Zona(_i_x, _i_y, _i_z, long_x, long_y){
-/*
-_reloj=Time::Instance();
-    _equipo = i_equipo;
-    _rb = Motor::Motor_GetInstance()->crear_rb_ataque();
-    Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb,btVector3(_i_x,_i_y,_i_z), btVector3(long_x,10,long_y), 0);
-    _conquistando = false;
-    _tiempo_inicio_conquista = 0;
-    _pos_x = _i_x;
-    _pos_y = _i_z;
-    _tiempo_restante_conquista = 10000;
+Zona_Final::Zona_Final(float _i_x, float _i_y, float _i_z, int long_x, int long_y, uint16_t num_enemigos, int rondas, uint8_t crec_enem, uint8_t music_ini) : Zona(_i_x, _i_y, _i_z, long_x, long_y){
+    _num_enemigos = num_enemigos;
+    _rondas = rondas;
+    _zona_fina_iniciado = false;
+    
+    _crecimiento_enemigos = crec_enem;
 
-    _npcs_persiguiendome = 0;
-    */
+    _musica_inicio = music_ini;
 }
 
 Zona_Final::~Zona_Final() {
@@ -32,18 +24,42 @@ Zona_Final::~Zona_Final() {
 /*Metodo para actualizar los valores de la zona*/
 
 void Zona_Final::actualizar_zona(){
-    Game* game 		= Game::game_instancia();
-	Datos_Partida * _datos	= game->game_get_datos();
-    Character** todos_personajes = _datos->get_characters();
-	uint16_t _num_characters = _datos->get_num_characters();
-    Motor* motor = Motor::Motor_GetInstance();
-
     if(esta_jugador_en_zona()){
-        for (uint16_t num_character=0; num_character<_num_characters; num_character++){
-            if(motor->comprobar_colision(_rb, todos_personajes[num_character]->get_objeto_motor()->getRigidBody()) == true){
-               // personajes_de_la_zona.push_back(todos_personajes[num_character]);
-               game->cambio_a_update_win();
-            }   
+        if(!_zona_fina_iniciado){
+            iniciar_zona_final();
         }
+        else{
+            update_zona_fina();
+        }
+    }
+}
+
+void Zona_Final::iniciar_zona_final(){
+    Respawn* _respawn = Respawn::posiciones_instancia();
+    _npc_en_la_zona = _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, _long_x, _long_y, this);
+    activar_todas_las_puerta_pincho();
+    _zona_fina_iniciado=true;
+    _rondas--;
+
+    _sonido->play_music(_musica_inicio);
+}
+
+
+void Zona_Final::update_zona_fina(){
+    if(get_num_npc_en_zona()==0){
+        if( _rondas>0){
+            _num_enemigos += _crecimiento_enemigos;
+
+            Respawn* _respawn = Respawn::posiciones_instancia();
+            _npc_en_la_zona = _respawn->revivir_enemigos_en_zona(_num_enemigos, _pos_x, _pos_y, _long_x, _long_y, this);
+            _rondas--;
+        }
+
+        else if(_rondas==0){
+            desactivar_todas_las_puerta_pincho();
+            _rondas--; //Valdra -1 asi no se podra meter en ninguno de los dos metodos
+            Game::game_instancia()->cambio_a_update_win();
+        }
+    
     }
 }

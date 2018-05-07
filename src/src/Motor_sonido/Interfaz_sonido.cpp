@@ -57,20 +57,20 @@ Up = 3
 
 Musica:
 
-Menu = 0
-Online1 = 1
-Online2 = 2
-Lose1 = 3
-Lose2 = 4
-Lose3 = 5
-Win1 = 6
-Win2 = 7
-Win3 = 8
-Equilibrado1 = 9
-Equilibrado2 = 10
-Equilibrado3 = 11
-Equilibrado4 = 12
-Equilibrado5 = 13
+Menu (the front line)               = 0     -
+Online 1 (force majeure)            = 1
+Online 2 (furagu death)             = 2     -
+Lose 1 (gekiretu 1000)              = 3     -
+Lose 2 (maraku he no)               = 4     -
+Lose 3 (single combat)              = 5     -
+Win 1 (ima koso)                    = 6     -
+Win 2 (tension)                     = 7     -
+Win 3 (ulta super heroes)           = 8     -
+Equilibrado 1 (doping highway)      = 9     -
+Equilibrado 2 (gekitotsu 10000)     = 10    -
+Equilibrado 3 (into the domin)      = 11    -
+Equilibrado 4 (mayonaka no)         = 12
+Equilibrado 5 (tsuiseki 23)         = 13    -
 
 Pasos:
 arena = 0
@@ -194,6 +194,8 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
     _volumen_sfx = 5;
     _volumen_voces = 5;
     _volumen_sonido_menu = 5;
+
+    _musica_actual = 0;
 
     _loop_pasos = false;
 }
@@ -543,6 +545,7 @@ void Interfaz_sonido::Play_ambiente(uint8_t _i_n){
     _eventos_ambiente[_i_n]->start();
     system_update();
 }
+
 void Interfaz_sonido::Play_armas(uint8_t _i_n){
     if(_i_n>=_n_armas){
         std::cout<<"ERROR SONIDO: armas solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -551,6 +554,7 @@ void Interfaz_sonido::Play_armas(uint8_t _i_n){
     _eventos_armas[_i_n]->start();
     system_update();
 }
+
 void Interfaz_sonido::Play_consumibles(uint8_t _i_n){
     if(_i_n>=_n_consumibles){
         std::cout<<"ERROR SONIDO: consumible solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -559,6 +563,7 @@ void Interfaz_sonido::Play_consumibles(uint8_t _i_n){
     _eventos_consumibles[_i_n]->start();
     system_update();
 }
+
 void Interfaz_sonido::Play_escenario(uint8_t _i_n){
     if(_i_n>=_n_escenario){
         std::cout<<"ERROR SONIDO: escenario solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -567,6 +572,7 @@ void Interfaz_sonido::Play_escenario(uint8_t _i_n){
     _eventos_escenario[_i_n]->start();
     system_update();
 }
+
 void Interfaz_sonido::Play_menu(uint8_t _i_n){
     if(_i_n>=_n_menu){
         std::cout<<"ERROR SONIDO: menu solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -575,6 +581,7 @@ void Interfaz_sonido::Play_menu(uint8_t _i_n){
     _eventos_menu[_i_n]->start();
     system_update();
 }
+
 void Interfaz_sonido::Play_personaje(uint8_t _i_n){
     if(_i_n>=_n_personaje){
         std::cout<<"ERROR SONIDO: personaje solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -583,6 +590,7 @@ void Interfaz_sonido::Play_personaje(uint8_t _i_n){
     _eventos_personaje[_i_n]->start();
     system_update();
 }
+
 void Interfaz_sonido::Play_voces(uint8_t _i_n){
     if(_i_n>=_n_voces){
         std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
@@ -625,9 +633,28 @@ void Interfaz_sonido::Play_musica(uint8_t _i_n){
         exit(0);
     }
     _eventos_musica[_i_n]->start();
+    _musica_actual = _i_n;
     system_update();
 }
 
+void Interfaz_sonido::play_music(uint8_t _i_musica) {
+    if(_i_musica>=_n_musica){
+        std::cout<<"ERROR SONIDO: musica solicitado no existente: "<<(int)_i_musica<<std::endl;
+        exit(0);
+    }
+    if(_musica_actual != _i_musica) {
+        Stop_musica(_musica_actual);
+        _eventos_musica[_i_musica]->start();
+        _musica_actual = _i_musica;
+        system_update();
+    }
+}
+
+void Interfaz_sonido::start_game_music() {
+    if(_musica_actual == 0 || _musica_actual == 9 || _musica_actual == 13) {
+        play_music(10);
+    }
+}
 
 /***************************************STOP SONIDOS***********************************************/
 

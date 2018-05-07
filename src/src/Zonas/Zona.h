@@ -9,6 +9,7 @@ class Character;
 class Time;
 class Interruptor;
 class Puerta_Pincho;
+class Interfaz_sonido;
 
 class Zona{
 public:
@@ -60,6 +61,8 @@ protected:
     int _npcs_persiguiendome;
     std::vector<Interruptor*> _interruptores_asociados;
     std::vector<Puerta_Pincho*> _puerta_pincho_asociados;
+
+    Interfaz_sonido* _sonido;
 };
 
 #endif /* ZONA_H_ */
