@@ -232,8 +232,9 @@ void Player::modificar_vida_en(short _i_vida){
 }
 
 void Player::danyar(short _danyo){
-    danyar_comun(_danyo);
-    
+    //hacer random de sonido
+    _sonido->Play_voces(8);
+    danyar_comun(_danyo);   
     //_motor->set_text_vida(_vida);
 }
 
@@ -257,5 +258,7 @@ void Player::disminuir_especial(){
 }
 
 void Player::morir() {
+    //hacer random de sonido
+    _sonido->Play_voces(7);
     Game::game_instancia()->cambio_a_update_lose();
 }

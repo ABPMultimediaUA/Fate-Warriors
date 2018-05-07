@@ -43,14 +43,17 @@ CogerLLave = 1
 explosionMina = 2
 generadorOff = 3
 generadorOn = 4
-interruptor = 5
-pinchos = 6
+pinchos = 5
+interruptor = 6
 pisarMina = 7
 puertaBestia = 8
+timer = 9
 
 Menu:
-acceptar = 0
-mover = 1
+Aceptar = 0
+Down = 1
+Mover = 2
+Up = 3
 
 Musica:
 
@@ -190,6 +193,7 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
     _volumen_musica = 5;
     _volumen_sfx = 5;
     _volumen_voces = 5;
+    _volumen_sonido_menu = 5;
 
     _loop_pasos = false;
 }
@@ -584,8 +588,21 @@ void Interfaz_sonido::Play_voces(uint8_t _i_n){
         std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
     }
-    _eventos_voces[_i_n]->start();
-    system_update();
+    _random = rand() % 4;
+    if(_random == 3){
+        _eventos_voces[_i_n]->start();
+        system_update();
+    }
+}
+
+void Interfaz_sonido::Play_voces_sin_random(uint8_t _i_n){
+    if(_i_n>=_n_voces){
+        std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
+        exit(0);
+    }
+    
+        _eventos_voces[_i_n]->start();
+        system_update();
 }
 
 void Interfaz_sonido::Play_pasos(uint8_t _i_n){
@@ -673,7 +690,7 @@ void Interfaz_sonido::set_volumen_sfx(float _i_v){
     ERRCHECK(_bus_sfx->setVolume(_i_v));
     system_update();
 }
-void Interfaz_sonido::set_volumen_menu(float _i_v){
+void Interfaz_sonido::set_volumen_sonido_menu(float _i_v){
     ERRCHECK(_bus_menu->setVolume(_i_v));
     system_update();
 }

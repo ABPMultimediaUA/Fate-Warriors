@@ -22,3 +22,6 @@ std::string TRecursoAnimacion::GetNombre(){
     
     return _nombre;
 }
+glm::vec3 TRecursoAnimacion::get_BB(){
+     return _modelos[0]->get_BB();
+}

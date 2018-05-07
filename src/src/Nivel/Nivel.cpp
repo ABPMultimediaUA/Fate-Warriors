@@ -35,7 +35,7 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 		_grafo_txt.open(_i_iteracion);//apertura del fichero
 		std::string _iteracion;
 		if(_grafo_txt.fail()){//comprobacion de la apertura del fichero
-			std::cout << "Error al abrir el archivo del grafo " << _i_iteracion << std::endl;
+			//std::cout << "Error al abrir el archivo del grafo " << _i_iteracion << std::endl;
 			exit(0);
 		}
 		_grafo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
@@ -68,7 +68,7 @@ void Nivel::nivel_crear_grafo(std::ifstream& _i_nivel_txt, std::string& _i_itera
 			
 			_grafo_txt >> _iteracion;//se guarda el siguiente valor de nombre*/
 		}
-		std::cout << "cierro el txt del lod1 " <<_i_iteracion<< std::endl;
+		//std::cout << "cierro el txt del lod1 " <<_i_iteracion<< std::endl;
 		_grafo_txt.close();
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
@@ -172,7 +172,7 @@ void Nivel::nivel_crear_objetos(std::ifstream& _i_nivel_txt, std::string& _i_ite
 		_nodo_txt.open(_i_iteracion);//apertura del fichero
 		std::string _iteracion;
 		if(_nodo_txt.fail()){//comprobacion de la apertura del fichero
-			std::cout << "Error al abrir el archivo de nodo" << _i_iteracion << std::endl;
+			//std::cout << "Error al abrir el archivo de nodo" << _i_iteracion << std::endl;
 			exit(0);
 		}
 		_nodo_txt >> _iteracion;//primera lectura de nombre de clase a introducir
@@ -242,8 +242,8 @@ void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_
 		nodo->get_blackboard()->anyadir_zona(_id_a);
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
-	std::cout<<_i_iteracion<<std::endl;
-	std::cout << "tamano"<< nodo->get_blackboard()->get_zonas_enemigas() << std::endl;
+	//std::cout<<_i_iteracion<<std::endl;
+	//std::cout << "tamano"<< nodo->get_blackboard()->get_zonas_enemigas() << std::endl;
 }
 
 
@@ -290,7 +290,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt.open(_i_fichero);//apertura del fichero
 	std::string _iteracion;
 		if(_nivel_txt.fail()){//comprobacion de la apertura del fichero
-			std::cout<<"Error al abrir el archivo " << _i_fichero <<std::endl;
+			//std::cout<<"Error al abrir el archivo " << _i_fichero <<std::endl;
 			exit(0);
 		}
 	_nivel_txt >> _iteracion;//primera lectura de nombre de clase a introducir

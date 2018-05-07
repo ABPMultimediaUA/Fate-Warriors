@@ -11,6 +11,7 @@ class TTransform;
 class TCamara;
 class TLuz;
 class TModelado;
+class TModeladoEscenario;
 class TAnimacion;
 class Mapeado;
 class Shader;
@@ -32,6 +33,7 @@ class TMooseEngine{
         TCamara*    crearCamara(bool activa);
         TLuz*       crearLuz(glm::vec3 ambiente, glm::vec3 especular, glm::vec3 difusa);
         TModelado*  crearModelado(const char* _i_path);
+        TModeladoEscenario* crearModeladoEscenario(const char* _i_paht);
         TAnimacion* crearAnimacion(const char* _i_path);
 
 

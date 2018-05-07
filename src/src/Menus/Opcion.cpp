@@ -3,11 +3,14 @@
 #include "../Game.h"
 #include "../Tiempo/Time.h"
 
+#include "../Motor_sonido/Interfaz_sonido.h"
+
 // En principio el momento de cambio es 0
 uint32_t Opcion::_tiempo_cambio = 0;
 
 Opcion::Opcion(Input* _i_input) : _opcion_anterior(nullptr), _opcion_siguiente(nullptr) {
 	_input = _i_input;
+	 _sonido= Interfaz_sonido::GetInstancia();
 }
 
 Opcion::~Opcion() {
@@ -38,10 +41,14 @@ Opcion* Opcion::comprueba_cambio_opcion(Opcion* _this) {
 
 		if(_direccion == 0 || _direccion == 180) {
 			_tiempo_cambio = _t;
-			if(_direccion == 0)
+			//sonido
+			_sonido->Play_menu(2);
+			if(_direccion == 0){				
 				return _opcion_anterior;
-			else
+			}
+			else{
 				return _opcion_siguiente;
+			}
 		}
 	}
 

@@ -69,6 +69,7 @@ Game::~Game(){
 
 void Game::crea_partida() {	
 	_nivel = Nivel::nivel_instancia();
+	_sonido= Interfaz_sonido::GetInstancia();
 	_motor->CargaMapa();
 	Respawn::posiciones_instancia()->leer_posiciones_de_respawn_del_nivel();
 	_datos 				= new Datos_Partida(_input_jugador);
@@ -93,6 +94,10 @@ void Game::crea_partida() {
 	_input_jugador->asignar_teclas_partida();
 
 	_animacion_interruptor = new Animacion_Interruptor();
+
+	//sonidos ambiente
+	_sonido->Play_ambiente(3);
+	_sonido->Play_ambiente(0);
 }
 
 void Game::fin_partida() {
@@ -143,6 +148,7 @@ void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Partida" << std::endl;
 	if(_input_jugador->get_pausa() && Time::Instance()->get_tiempo_inicio_pausa() > 200) {
+		_sonido->Play_menu(3);
     	cambio_a_update_pausa();
     }
     else {
@@ -164,6 +170,7 @@ void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
 	_menu_pausa->update(_i_tiempo_desde_ultimo_update);
 
     if(update_actual == &Game::update_partida) {
+		_sonido->Play_menu(1);
 		update_partida(_i_tiempo_desde_ultimo_update);	
     }
 }
@@ -268,6 +275,7 @@ void Game::cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short 
 	update_actual = &Game::update_mirar;
 	render_actual = &Game::render_partida;
 
+	_sonido->Stop_pasos();
 	_animacion_interruptor->empieza(_t_fin, _objetivo, _rotacion_x, _rotacion_y, 20);
 }
 

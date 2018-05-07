@@ -35,6 +35,7 @@ class Shader{
 
         inline glm::mat4 getProjection(){ return _projection;};
         inline glm::mat4 getView(){ return _view;};
+        inline bool check_program(ShaderType type){if(Programs[type]==Program) return true; else return false;}
         
     private:
 

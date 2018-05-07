@@ -18,4 +18,6 @@ void Opcion_SFX::actualiza_valores() {
 
 void Opcion_SFX::guarda_volumen() {
 	_motor_sonido->guarda_volumen_sfx(_volumen);
+
+	_sonido->Play_personaje(1);
 }

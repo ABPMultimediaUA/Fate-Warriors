@@ -18,4 +18,6 @@ void Opcion_Voz::actualiza_valores() {
 
 void Opcion_Voz::guarda_volumen() {
 	_motor_sonido->guarda_volumen_voces(_volumen);
+
+	_sonido->Play_voces_sin_random(6);
 }

@@ -5,6 +5,8 @@
 
 #include "Menu_Configuracion/Menu_Configuracion.h"
 
+#include "../Motor_sonido/Interfaz_sonido.h"
+
 #include <iostream>
 
 Opcion_Configuracion::Opcion_Configuracion(Input* _i_input) : Opcion(_i_input) {
@@ -31,6 +33,7 @@ Opcion* Opcion_Configuracion::comprueba_cambio_opcion(Opcion* _this) {
 
 			_tiempo_cambio = _t;
 
+			_sonido->Play_menu(2);
 			if(_direccion == 0)
 				return _opcion_anterior;
 			else if(_direccion == 180)
@@ -45,6 +48,7 @@ Opcion* Opcion_Configuracion::comprueba_cambio_opcion(Opcion* _this) {
 Opcion* Opcion_Configuracion::update_opcion(double _i_tiempo, Opcion* _this) {
 	if(_dentro_menu == true) {			// Esta en el menu de config
 		 if(_input->get_dash()) { 			// Salir del menu
+			_sonido->Play_menu(1);
 		 	_dentro_menu = false;
 		 	std::cout << "Salir de CONFIG\n";
 		 }
@@ -53,6 +57,7 @@ Opcion* Opcion_Configuracion::update_opcion(double _i_tiempo, Opcion* _this) {
 		 }
 	}
 	else if(_input->get_saltar()) {			// Entrar al menu
+		_sonido->Play_menu(0);
 		_dentro_menu = true;
 		_configuracion->actualiza();
 		std::cout << "Entrar a CONFIG\n";
