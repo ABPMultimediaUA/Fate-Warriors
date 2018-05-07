@@ -939,6 +939,5 @@ void Motor::render_Menu(){
 void Motor::render_Pausa(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
-	//this->render();
 	_me->renderUIMenuPausa(num_opcion);	
 }

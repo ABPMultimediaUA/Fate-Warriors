@@ -285,14 +285,15 @@ void TMooseEngine::render_estado_Partida(){
     clear();
     draw();
     glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void TMooseEngine::renderUIMenu(uint16_t opcion){
     clear();
     glDisable(GL_CULL_FACE);
     _ui->drawMenu(opcion);
-    glfwSwapBuffers(window);
     glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
 }
 
 void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
@@ -302,7 +303,6 @@ void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
     _ui->drawMenuPausa(opcion);
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
-    glfwPollEvents();
 }
 
 void TMooseEngine::apagar(){

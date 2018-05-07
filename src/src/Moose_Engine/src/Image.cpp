@@ -148,9 +148,16 @@ void Image::load_texture2(const char* ruta){
 // Render image
 void Image::Draw()
 {
-    
     shader->use(texturas_menu);
-    //glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID);
+
+    //shader->setUniform("width", _width);
+    //shader->setUniform("scale", 0);
+
+    glUniform1f(glGetUniformLocation(Shader::Program, "width"), _width);
+   // glUniform1f(glGetUniformLocation(Shader::Program, "scale"), a);
+    
+  //  glUniform1f(glGetUniformLocation(Shader::Program, "width"), a));
+
     //std::cout << "UNIFORM: " << glGetUniformLocation(Shader::Program, "texture1") << "\n";
     
     //shader->setInt("texture1", ID);
@@ -161,13 +168,16 @@ void Image::Draw()
     
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
-    
-
+    //glm::mat4 _escalado = glm::scale(glm::vec3(1,1,1));
+/*
+    _traslacion = glm::translate(position);
+  
+ModelMatrix = _traslacion * _rotacion * _escalado;
     /*
     glUniform1i(glGetUniformLocation(shader->ID, "texture"), 0);
-    glUniform2fv(glGetUniformLocation(shader->ID, "offset"), 1, &particle.Position[0]);
-    glUniform4fv(glGetUniformLocation(shader->ID, "color"), 1, &particle.Color[0]);
     */
+  //  glUniform2fv(glGetUniformLocation(shader->ID, "offset"), 1, &particle.Position[0]);
+  //  glUniform4fv(glGetUniformLocation(Shader::Program, "scala"), 1, glm::value_ptr(_escalado));
 
         
     glActiveTexture(GL_TEXTURE0);
@@ -186,4 +196,36 @@ void Image::Draw()
     // Don't forget to reset to default blending mode
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDepthMask(true);
+}
+
+void Image::setSizeX(float sizeX){
+    _sizeX = sizeX;
+    float auxWidth = _width;
+    _width = auxWidth * _sizeX;
+
+    float vertices[] = {
+        // positions          // colors           // texture coords
+         _x + _width,  _y,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
+         _x + _width, _y - _height, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
+         _x, _y - _height,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
+         _x,  _y,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
+    };
+        
+    _width = auxWidth; 
+
+    unsigned int indices[] = {
+        0, 1, 3, // first triangle
+        1, 2, 3  // second triangle
+    };
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 }

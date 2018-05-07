@@ -21,10 +21,11 @@ public:
     ~Image();
     // Render all particles
     void Draw();
+    void setSizeX(float sizeX); //0-> tamaño original, 1 -> reduccion 100%
 private:
     //controla si se dibuja o no la version seleccionada de la imagen
     bool _selected;
-
+    float _sizeX; 
     // Render state
     Shader* shader;
     GLuint VAO;
