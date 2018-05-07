@@ -37,7 +37,7 @@ Camara::Camara(bool activa) {
 
 	_Prota = 0; 
 	_direction = 0; 
-	_zdirection = -20;
+	_zdirection = 20;
 	_position = glm::vec3(0,0,0); 
 	_target = glm::vec3(1,1,1);
 	
@@ -112,7 +112,7 @@ Vector3 Camara::Camara_getDirection(){
 
 void Camara::Camara_reset(short _i_direccion){
 	_direction = _i_direccion-90;
-	_zdirection = -20;
+	_zdirection = 20;
 }
 
 void Camara::Camara_Update() {
@@ -139,7 +139,6 @@ void Camara::Camara_Update() {
 //
 		//_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
 	}
-
 	else {
 		if(_input->get_mover_camara()) {
 			Vector2* _vector_movimiento = _input->get_vector_camara();
@@ -162,12 +161,11 @@ void Camara::Camara_Update() {
 	_gradosRotacion = 35; 
 
 	if(!_unlocked){
-		if (_zdirection < -60) {
-			_zdirection = -60; 
+		if (_zdirection < -10) {
+			_zdirection = -10; 
 		}
-
-		else if (_zdirection > -5) {
-			_zdirection = -5; 
+		else if (_zdirection > 35) {
+			_zdirection =35; 
 		}
 
 		if(_direction >= 360)
@@ -366,10 +364,12 @@ void Camara::rota_camara_sin_interpolacion(short _rotacion_en_x, short _rotacion
 	_direction = _rotacion_en_x;
 	_zdirection = _rotacion_en_y * -1; // DEbe ir entre -5 (abajo) y -60 (arriba)
 
-	if (_zdirection < -60)
-		_zdirection = -60; 
-	else if (_zdirection > -5)
-		_zdirection = -5; 
+	if (_zdirection < -10) {
+		_zdirection = -10; 
+	}
+	else if (_zdirection > 35) {
+		_zdirection = 35; 
+	}
 
 	Vector3* _posicion = _interpolacion->get_posicion_actual();
 	_interpolacion->actualiza_posicion(Vector3(_posicion->_x,_posicion->_y,_posicion->_z));
