@@ -17,6 +17,7 @@ class Shader;
 class GLFWwindow;
 class Skybox;
 class ParticleGenerator;
+class Nubes;
 
 class TMooseEngine{
 
@@ -100,6 +101,7 @@ class TMooseEngine{
         
         Skybox* _skybox;
         ParticleGenerator* _particulas;
+        Nubes*  _nubes;
 };
 
 

@@ -8,11 +8,14 @@
 #include "TGestorRecursos.h"
 #include "Shader.h"
 #include "ParticleGenerator.h"
+#include "Nubes.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
 #include "Skybox.h"
+
 
 
 TMooseEngine* TMooseEngine::_instancia = 0;
@@ -39,7 +42,8 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader();
     _skybox = new Skybox();
-    _particulas = new ParticleGenerator(_shader,"", 200);
+    _particulas = new ParticleGenerator(_shader, 200);
+    _nubes = new Nubes(_shader);
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
@@ -243,6 +247,7 @@ _skybox->draw(_shader, _shader->getView(), _shader->getProjection());
   //_shader->use(sombras_proyectadas);
  // _escena->draw(_shader);
     _particulas->Draw(); 
+    _nubes->draw();
    // */
     glfwSwapBuffers(window);
     glfwPollEvents();

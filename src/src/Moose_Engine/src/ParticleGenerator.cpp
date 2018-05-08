@@ -17,8 +17,8 @@
 
 
 
-ParticleGenerator::ParticleGenerator(Shader* shader,const char* texture, GLuint amount)
-    : shader(shader), texture(texture), amount(amount)
+ParticleGenerator::ParticleGenerator(Shader* shader, GLuint amount)
+    : shader(shader), amount(amount)
 {
     init();
     load_texture();

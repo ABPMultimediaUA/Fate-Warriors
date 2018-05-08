@@ -37,7 +37,7 @@ class ParticleGenerator
 {
 public:
     // Constructor
-    ParticleGenerator(Shader* shader, const char* texture, GLuint amount);
+    ParticleGenerator(Shader* shader,  GLuint amount);
     ~ParticleGenerator();
 
     // Update all particles
@@ -51,7 +51,7 @@ private:
     GLuint amount;
     // Render state
     Shader* shader;
-    const char* texture;
+
     GLuint VAO;
     GLuint VBO;
     GLuint EBO;
