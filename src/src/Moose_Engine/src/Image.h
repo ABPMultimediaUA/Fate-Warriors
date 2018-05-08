@@ -15,8 +15,8 @@ class Shader;
 class Image{
 public:
     // Constructor
-    Image(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height); 
-    void setSelected(bool selected);
+    Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height); 
+    void setSelected(int selected);
     bool getSelected();
     ~Image();
     // Render all particles
@@ -24,7 +24,7 @@ public:
     void setSizeX(float sizeX); //0-> tamaño original, 1 -> reduccion 100%
 private:
     //controla si se dibuja o no la version seleccionada de la imagen
-    bool _selected;
+    int _selected;
     float _sizeX; 
     // Render state
     Shader* shader;
@@ -36,7 +36,8 @@ private:
     void init();
     void load_texture(const char* ruta);
     void load_texture2(const char* ruta);
-    GLuint ID,ID2;
+    void load_texture3(const char* ruta);
+    GLuint ID,ID2,ID3;
 
     float _x, _y, _width, _height;
 

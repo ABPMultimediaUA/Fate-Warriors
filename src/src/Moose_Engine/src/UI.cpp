@@ -12,38 +12,58 @@ UI::~UI(){
 }
 
 Image* UI::crear_imagen(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
-    Image* imagen = new Image(shader, ruta, ruta2, x, y, width, height);
+    Image* imagen = new Image(shader, 2, ruta, ruta2, ruta2, x, y, width, height);
     _lista_imagenes.push_back(imagen);
     return imagen;
 }
 
 Image* UI::crear_imagen_pausa(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
-    Image* imagen = new Image(shader, ruta, ruta2, x, y, width, height);
+    Image* imagen = new Image(shader, 2, ruta, ruta2, ruta2, x, y, width, height);
     _lista_imagenes_pausa.push_back(imagen);
     return imagen;
 }
 
+Image* UI::crear_imagenHUD(Shader* shader, const char* ruta, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 1, ruta, ruta, ruta, x, y, width, height);
+    _lista_imagenes_hud.push_back(imagen);
+    return imagen;
+}
+
+Image* UI::crear_imagenHUD(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 2, ruta, ruta2, ruta, x, y, width, height);
+    _lista_imagenes_hud.push_back(imagen);
+    return imagen;
+}
+
+Image* UI::crear_imagenHUD(Shader* shader, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 3, ruta, ruta2, ruta3, x, y, width, height);
+    _lista_imagenes_hud.push_back(imagen);
+    return imagen;
+}
+
+
+
 //dibujar menu del juego
 void UI::drawMenu(uint16_t opcion){
     switch(opcion){
-        case 0:     _lista_imagenes[1]->setSelected(true);
-                    _lista_imagenes[2]->setSelected(false);
-                    _lista_imagenes[3]->setSelected(false);
+        case 0:     _lista_imagenes[1]->setSelected(2);
+                    _lista_imagenes[2]->setSelected(1);
+                    _lista_imagenes[3]->setSelected(1);
                     break;
 
-        case 1:     _lista_imagenes[1]->setSelected(false);
-                    _lista_imagenes[2]->setSelected(true);
-                    _lista_imagenes[3]->setSelected(false);
+        case 1:     _lista_imagenes[1]->setSelected(1);
+                    _lista_imagenes[2]->setSelected(2);
+                    _lista_imagenes[3]->setSelected(1);
                     break;
 
-        case 2:     _lista_imagenes[1]->setSelected(false);
-                    _lista_imagenes[2]->setSelected(false);
-                    _lista_imagenes[3]->setSelected(true);
+        case 2:     _lista_imagenes[1]->setSelected(1);
+                    _lista_imagenes[2]->setSelected(1);
+                    _lista_imagenes[3]->setSelected(2);
                     break;
         
-        default:    _lista_imagenes[1]->setSelected(true);
-                    _lista_imagenes[2]->setSelected(false);
-                    _lista_imagenes[3]->setSelected(false);
+        default:    _lista_imagenes[1]->setSelected(2);
+                    _lista_imagenes[2]->setSelected(1);
+                    _lista_imagenes[3]->setSelected(1);
                     break;
     }
 
@@ -55,24 +75,24 @@ void UI::drawMenu(uint16_t opcion){
 //dibujar menu del juego
 void UI::drawMenuPausa(uint16_t opcion){
     switch(opcion){
-        case 0:     _lista_imagenes_pausa[0]->setSelected(true);
-                    _lista_imagenes_pausa[1]->setSelected(false);
-                    _lista_imagenes_pausa[2]->setSelected(false);
+        case 0:     _lista_imagenes_pausa[0]->setSelected(2);
+                    _lista_imagenes_pausa[1]->setSelected(1);
+                    _lista_imagenes_pausa[2]->setSelected(1);
                     break;
 
-        case 1:     _lista_imagenes_pausa[0]->setSelected(false);
-                    _lista_imagenes_pausa[1]->setSelected(true);
-                    _lista_imagenes_pausa[2]->setSelected(false);
+        case 1:     _lista_imagenes_pausa[0]->setSelected(1);
+                    _lista_imagenes_pausa[1]->setSelected(2);
+                    _lista_imagenes_pausa[2]->setSelected(1);
                     break;
 
-        case 2:     _lista_imagenes_pausa[0]->setSelected(false);
-                    _lista_imagenes_pausa[1]->setSelected(false);
-                    _lista_imagenes_pausa[2]->setSelected(true);
+        case 2:     _lista_imagenes_pausa[0]->setSelected(1);
+                    _lista_imagenes_pausa[1]->setSelected(1);
+                    _lista_imagenes_pausa[2]->setSelected(2);
                     break;
         
-        default:    _lista_imagenes_pausa[0]->setSelected(true);
-                    _lista_imagenes_pausa[1]->setSelected(false);
-                    _lista_imagenes_pausa[2]->setSelected(false);
+        default:    _lista_imagenes_pausa[0]->setSelected(2);
+                    _lista_imagenes_pausa[1]->setSelected(1);
+                    _lista_imagenes_pausa[2]->setSelected(1);
                     break;
     }
 
@@ -82,6 +102,24 @@ void UI::drawMenuPausa(uint16_t opcion){
 }
 
 //dibujar HUD y elementos durante el gameplay
-void UI::drawUI(){
+void UI::drawHUD(){
+    
+    for(u_int16_t i = 0; i<_lista_imagenes_hud.size(); i++){
+        _lista_imagenes_hud[i]->Draw();
+    }
+}
 
+void UI::set_escala_vida(float escala){
+    _lista_imagenes_hud[0]->setSizeX(escala);      //sabemos que es la 1 porque la barra de vida es la 1 en el hud
+    if(escala>=0.66){
+        _lista_imagenes_hud[0]->setSelected(1); //barra verde
+    }
+
+    else if(escala<0.66 && escala>=0.33){
+        _lista_imagenes_hud[0]->setSelected(2); //barra amarilla
+    }
+
+    else{
+        _lista_imagenes_hud[0]->setSelected(3); //barra roja
+    }
 }

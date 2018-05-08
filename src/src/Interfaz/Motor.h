@@ -140,6 +140,7 @@ public:
     void interpolar_altura(bool estado);
     void render_Menu();
     void render_Pausa();
+    void recibir_Danyo(float vida, float vida_maxima);
 private:
 
       static Motor* _Motor;

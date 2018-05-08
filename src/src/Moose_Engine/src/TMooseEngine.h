@@ -52,6 +52,7 @@ class TMooseEngine{
         void render_estado_Partida();
         void renderUIMenu(uint16_t opcion);
         void renderUIMenuPausa(uint16_t opcion);
+        void renderUIHUD();
 
         bool ventana_abierta();
 	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -60,6 +61,8 @@ class TMooseEngine{
         float getMouseOffsetY();
 
         void apagar();
+
+        inline UI* getUI(){ return _ui; }
 
     private:
 

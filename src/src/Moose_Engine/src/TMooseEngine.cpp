@@ -62,6 +62,10 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
     
+    //MENU HUD
+    _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Barra_1.png", "Imagenes_HUD/HUD_Barra_2.png", "Imagenes_HUD/HUD_Barra_3.png", -0.72, 0.78, 0.578, 0.122);
+    _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Superior.png", -0.95, 0.85, 0.6, 0.5);
+    
 }
 
 void TMooseEngine::PreparacionSombras(){
@@ -284,6 +288,7 @@ void TMooseEngine::drawSombras(){
 void TMooseEngine::render_estado_Partida(){
     clear();
     draw();
+    renderUIHUD();
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
@@ -291,6 +296,7 @@ void TMooseEngine::render_estado_Partida(){
 void TMooseEngine::renderUIMenu(uint16_t opcion){
     clear();
     glDisable(GL_CULL_FACE);
+    
     _ui->drawMenu(opcion);
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
@@ -303,6 +309,15 @@ void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
     _ui->drawMenuPausa(opcion);
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
+}
+
+void TMooseEngine::renderUIHUD(){
+    clear();
+    draw();
+    glDisable(GL_CULL_FACE);
+    _ui->drawHUD();
+    glEnable(GL_CULL_FACE);
+    //glfwSwapBuffers(window);
 }
 
 void TMooseEngine::apagar(){

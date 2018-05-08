@@ -15,9 +15,11 @@
 #include "EnumTiposColision.h"
 #include "../Interactuables/Puerta_Pincho.h"
 #include "../Game.h"
+#include "../Datos_Partida.h"
 #include "../Menus/Menu_Principal.h"
 #include "../Menus/Menu_Pausa.h"
 
+#include "../Moose_Engine/src/UI.h"
 #include "../Moose_Engine/src/TMooseEngine.h"
 #include "../Moose_Engine/src/TModelado.h"
 #include "../Moose_Engine/src/TTransform.h"
@@ -961,4 +963,11 @@ void Motor::render_Pausa(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
 	_me->renderUIMenuPausa(num_opcion);	
+}
+
+void Motor::recibir_Danyo(float vida, float vida_maxima){
+	float escala_de_salud;
+	
+	escala_de_salud = vida / vida_maxima;
+	_me->getUI()->set_escala_vida(escala_de_salud);
 }
