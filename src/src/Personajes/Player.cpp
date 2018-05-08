@@ -154,9 +154,7 @@ void Player::update(){
             _cono_vision->preparar_ataque_objetivo_mas_proximo_con_impulso();
         }
         else {                          // Ataque fuerte
-            this->atacar(Ataque_Fuerte);
-            _sonido->Play_personaje(1);
-            _sonido->Play_voces(6);
+            atacar(Ataque_Fuerte);
         }
         solo_andar = false;
     }

@@ -105,6 +105,7 @@ void Character::danyar_comun(short _danyo){
         }
 
         set_accion(Recibir_danyo);
+        play_animaciones_recibir_danyo();
 
         if(_vida <= 0){
             morir();
@@ -172,8 +173,8 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         )
         ){
 
-        this->set_tipo_ataque(_i_tipo_ataque);
-        this->set_accion(Accion_pre_atacar);
+        set_tipo_ataque(_i_tipo_ataque);
+        set_accion(Accion_pre_atacar);
         play_animaciones_ataque();
     }
     else if(
@@ -188,8 +189,9 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         Enum_Tipo_Ataque _ataque_combo;
         _ataque_combo = get_tipo_ataque_combo(_i_tipo_ataque);
 
-        set_accion(Accion_pre_atacar);
         set_tipo_ataque(_ataque_combo);
+        set_accion(Accion_pre_atacar);
+        
         play_animaciones_ataque();      // Sirve para los combos
         
         std::cout << "ENLAZA ATAQUE: ";
@@ -446,7 +448,6 @@ void Character::impulso_danyar(Character * atacante, Character * atacado, int im
 
 }
 
-
 int Character::getTiempoAccion(Enum_Acciones _accion){
 
     Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
@@ -454,42 +455,22 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
 
     if(_accion == Accion_pre_atacar){
 
-        if(tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
-            return 1;
-        }
-        else if(tipo_arma == Tipo_Arma_cerca){
-
-            if(nombre_arma == Nombre_Arma_Katana){
-
-                if(_tipo_ataque == Ataque_Normal){
-                    return 150;
-                }
-                else if(_tipo_ataque == Ataque_Fuerte){
-                    return 250;
-                }
-                else if(_tipo_ataque == Ataque_Salto){
-                    return 200;
-                }
-                else if(_tipo_ataque == Ataque_Especial){
-                    return 200;
-                }
-                else{
-                    std::cout<< "No debe entrar 1 \n";
-                    return 200;
-                }   
-            }
-
-        }
-        else if(_tipo_ataque == Ataque_Normal){
-            return 150;
+        if(_tipo_ataque == Ataque_Normal){
+            return 600;
         }
         else if(_tipo_ataque == Ataque_Fuerte){
-            return 250;
+            return 400;
         }
-        else if(_tipo_ataque == Ataque_Salto){
+        else if(_tipo_ataque == Ataque_Normal_Normal){
+            return 100;
+        }
+        else if(_tipo_ataque == Ataque_Normal_Fuerte){
             return 200;
         }
-        else if(_tipo_ataque == Ataque_Especial){
+        else if(_tipo_ataque == Ataque_Fuerte_Normal){
+            return 200;
+        }
+        else if(_tipo_ataque == Ataque_Fuerte_Fuerte){
             return 200;
         }
         else{
@@ -505,46 +486,28 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
 
     else if(_accion == Accion_post_atacar){
 
-        if(tipo_arma == Tipo_Arma_distancia && _tipo_ataque == Ataque_Normal){
-            return 1;
-        }
-        else if(tipo_arma == Tipo_Arma_cerca){
-
-            if(nombre_arma == Nombre_Arma_Katana){
-
-                if(_tipo_ataque == Ataque_Normal){
-                    return 150;
-                }
-                else if(_tipo_ataque == Ataque_Fuerte){
-                    return 250;
-                }
-                else if(_tipo_ataque == Ataque_Salto){
-                    return 200;
-                }
-                else if(_tipo_ataque == Ataque_Especial){
-                    return 200;
-                }
-                else{
-                    //std::cout<< "No debe entrar 3 \n";
-                    return 200;
-                }
-                    
-            }
-        }
-        else if(_tipo_ataque == Ataque_Normal){
-            return 150;
+        if(_tipo_ataque == Ataque_Normal){
+            return 400;
         }
         else if(_tipo_ataque == Ataque_Fuerte){
-            return 250;
+            return 400;
         }
-        else if(_tipo_ataque == Ataque_Salto){
+        else if(_tipo_ataque == Ataque_Normal_Normal){
+            return 400;
+        }
+        else if(_tipo_ataque == Ataque_Normal_Fuerte){
             return 200;
         }
-        else if(_tipo_ataque == Ataque_Especial){
+        else if(_tipo_ataque == Ataque_Fuerte_Normal){
             return 200;
         }
-        else
-            return 500;
+        else if(_tipo_ataque == Ataque_Fuerte_Fuerte){
+            return 200;
+        }
+        else{
+            std::cout<< "No debe entrar \n";
+            return 200;
+        }
     }
     else if(_accion == Accion_Dash){
         return 200;
@@ -905,38 +868,36 @@ void Character::play_voces_ataque() {
 
 void Character::play_animaciones_ataque() {
     // ANIMACIONES
-
+    _sonido->Stop_pasos();
     switch(_tipo_ataque)  
     {  
         case Ataque_Normal:
             _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc2", 10);
-            std::cout << "NIMACION NORMAL\n";
             break;
 
         case Ataque_Fuerte:
             _objeto_motor->cambiar_modelado("Anim_ataque_f1_npc2", 11);
-            std::cout << "ANIMACION FUERTE\n";
             break;
 
         case Ataque_Normal_Normal:
-            _objeto_motor->cambiar_modelado("Anim_ataque_d2_npc2", 12);
-            std::cout << "COMBO EN ANIMACION NORMAL NORMAL\n";
+            _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc1", 12);
             break;
 
-        case Ataque_Normal_Fuerte:
-            _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc2", 13);
-            std::cout << "COMBO EN ANIMACION NORMAL FUERTE\n";
+        case Ataque_Normal_Fuerte:// FALTAA
+            _objeto_motor->cambiar_modelado("Anim_ataque_d3_jugador", 13);
             break;
 
-        case Ataque_Fuerte_Normal:
-            _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc2", 14);
-            std::cout << "COMBO EN ANIMACION FUERTE NORMAL\n";
+        case Ataque_Fuerte_Normal: 
+            _objeto_motor->cambiar_modelado("Anim_ataque_f2_npc2", 14); //esta animacion pero no esta bien exportada
             break;
 
         case Ataque_Fuerte_Fuerte:
-            _objeto_motor->cambiar_modelado("Anim_ataque_f2_npc2", 15);
-            std::cout << "COMBO EN ANIMACION FUERTE FUERTE\n";
+            _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc2", 15);
             break;
     }
     
+}
+
+void Character::play_animaciones_recibir_danyo() {
+    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_jugador", 16);
 }

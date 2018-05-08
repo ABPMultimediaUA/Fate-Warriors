@@ -127,6 +127,7 @@ public:
 
 	virtual void play_voces_ataque();
 	virtual void play_animaciones_ataque();
+	virtual void play_animaciones_recibir_danyo();
 
 protected:
 	
