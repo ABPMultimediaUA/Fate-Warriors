@@ -9,6 +9,8 @@
 #include "Shader.h"
 #include "ParticleGenerator.h"
 #include "Nubes.h"
+#include "Vegetacion.h"
+
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -44,6 +46,7 @@ TMooseEngine::TMooseEngine(){
     _skybox = new Skybox();
     _particulas = new ParticleGenerator(_shader, 200);
     _nubes = new Nubes(_shader);
+    _vegetacion = new Vegetacion(_shader);
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
@@ -89,6 +92,8 @@ TMooseEngine::~TMooseEngine(){
     _contadorIDEntidad=0;
     glfwTerminate();
     delete _particulas;
+    delete _vegetacion;
+    delete _nubes;
 }
 
 void micallback(GLFWwindow* oglwindow, double _i_xpos, double _i_ypos){
@@ -248,6 +253,7 @@ _skybox->draw(_shader, _shader->getView(), _shader->getProjection());
  // _escena->draw(_shader);
     _particulas->Draw(); 
     _nubes->draw();
+    _vegetacion->draw();
    // */
     glfwSwapBuffers(window);
     glfwPollEvents();

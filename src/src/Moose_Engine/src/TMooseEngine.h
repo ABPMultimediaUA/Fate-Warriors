@@ -18,6 +18,7 @@ class GLFWwindow;
 class Skybox;
 class ParticleGenerator;
 class Nubes;
+class Vegetacion;
 
 class TMooseEngine{
 
@@ -102,6 +103,7 @@ class TMooseEngine{
         Skybox* _skybox;
         ParticleGenerator* _particulas;
         Nubes*  _nubes;
+        Vegetacion* _vegetacion;
 };
 
 

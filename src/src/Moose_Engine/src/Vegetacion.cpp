@@ -1,4 +1,4 @@
-#include "Nubes.h"
+#include "Vegetacion.h"
 #include "SOIL.h"
 #include "Shader.h"
 #include "glm/ext.hpp"
@@ -6,20 +6,23 @@
 
 
 
-Nubes::Nubes(Shader* _i_shader) : shader(_i_shader){
+Vegetacion::Vegetacion(Shader* _i_shader) : shader(_i_shader){
 
     init();
     load_texture();
 
-    for (GLuint i = 0; i < 1; ++i)
-        clouds.push_back(Nube(glm::vec3(61.5158, 12, 44.2914)));
+    float rotacion = 0;
+    for (GLuint i = 0; i < 8; ++i){
+        clouds.push_back(Vegetal(glm::vec3(61.5158, 4, 44.2914), rotacion));
+        rotacion+=45;
+    }
 }
  
-Nubes::~Nubes() {
+Vegetacion::~Vegetacion() {
  
 }
  
-void Nubes::init(){
+void Vegetacion::init(){
         glEnable(GL_BLEND);
 
         float _x = 0.5;
@@ -68,7 +71,7 @@ void Nubes::init(){
 }
 
 
-GLuint Nubes::load_texture() {
+GLuint Vegetacion::load_texture() {
   
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID); 
@@ -82,7 +85,7 @@ GLuint Nubes::load_texture() {
     int width, height, nrChannels;
   //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char *data = SOIL_load_image("Skybox_Images/Nube.png", &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char *data = SOIL_load_image("Skybox_Images/vegeta.PNG", &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
 
@@ -100,34 +103,25 @@ GLuint Nubes::load_texture() {
 }
 
 
-void Nubes::update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado){
+void Vegetacion::update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado){
     _rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(grados), rotation);
     _escalado = glm::scale(escalado);
     _traslacion = glm::translate(position);
   
+
     ModelMatrix =  _traslacion * _rotacion * _escalado;
+  /*
     glm::mat4 view = shader->getView();
 
    
-    ModelMatrix[0][0] = view[0][0]; 
-    ModelMatrix[1][0] = view[0][1];
-    ModelMatrix[2][0] = view[0][2];
-
-    ModelMatrix[0][1] = view[1][0];
-    ModelMatrix[1][1] = view[1][1];
-    ModelMatrix[2][1] = view[1][2];
-
-    ModelMatrix[0][2] = view[2][0];
-    ModelMatrix[1][2] = view[2][1];
-    ModelMatrix[2][2] = view[2][2];
-
     ModelMatrix = glm::rotate(ModelMatrix, glm::radians(grados), rotation);
     ModelMatrix = glm::scale(ModelMatrix, escalado);
+    */
 }
 
 
 
-void Nubes::draw(){
+void Vegetacion::draw(){
         
         // Use additive blending to give it a 'glow' effect
     glDepthMask(false);
@@ -136,7 +130,7 @@ void Nubes::draw(){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader->use(particulas);
    
-    for (Nube particle : this->clouds)
+    for (Vegetal particle : this->clouds)
     {
       
         glDisable(GL_CULL_FACE);
@@ -144,7 +138,7 @@ void Nubes::draw(){
         glm::mat4 projection = shader->getProjection();
         glm::mat4 view = shader->getView();
         
-        update_model_matrix(particle.Position, 0, glm::vec3(0,0,1), glm::vec3(3,3,1));
+        update_model_matrix(particle.Position, particle._rotacion, glm::vec3(0,1,0), glm::vec3(4,4,4));
         
         glm::mat4 MVP = projection*view*ModelMatrix;      
 
