@@ -25,6 +25,9 @@ public:
 
 	void morir() override;
 
+	void play_voces_ataque() override;
+	void play_animaciones_recibir_danyo() override;
+
 	//ckeyboardman* _KeyMan;
 private:
 	short _nodoId; //ID del nodo del modelado del motor

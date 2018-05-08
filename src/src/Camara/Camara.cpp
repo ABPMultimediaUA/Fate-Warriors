@@ -206,7 +206,7 @@ void Camara::update_position() {
 		float distancia;
 
 		if(!_unlocked){
-			distancia = 20.0f;}
+			distancia = 25.0f;}
 		else{
 			distancia = 200.0f;}
 

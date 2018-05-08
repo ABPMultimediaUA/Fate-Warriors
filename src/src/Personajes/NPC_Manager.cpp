@@ -11,45 +11,45 @@ NPC_Manager::NPC_Manager() {
 	_npc = new NPC*[_n_npc];
 	_npc[0] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
 	
-	_npc[1] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
+	_npc[1] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
 	
-	_npc[2] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[3] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[4] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[5] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[6] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[7] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[8] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[9] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
+	_npc[2] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[3] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[4] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[5] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[6] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[7] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[8] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[9] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
 	
-	_npc[10] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[11] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[12] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[13] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
+	_npc[10] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[11] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[12] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[13] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
 	
-	_npc[14] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[15] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[16] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[17] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
-	_npc[18] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
+	_npc[14] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[15] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[16] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[17] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
+	_npc[18] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
 	
-	_npc[19] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_A);
+	_npc[19] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 10, 20, Enum_Equipo_B);
 	
-	_npc[20] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[21] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[22] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[23] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[24] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
+	_npc[20] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[21] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[22] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[23] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[24] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
 	
-	_npc[25] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[26] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[27] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[28] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[29] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[30] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[31] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[32] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
-	_npc[33] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
+	_npc[25] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[26] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[27] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[28] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[29] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[30] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[31] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[32] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
+	_npc[33] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_B);
 	_npc[34] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[35] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);
 	_npc[36] = new NPC(0, 34*metro, 0, 34*metro, 100, .15, 1, 10, Enum_Equipo_A);

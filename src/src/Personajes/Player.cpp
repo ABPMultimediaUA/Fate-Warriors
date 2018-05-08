@@ -255,7 +255,16 @@ void Player::disminuir_especial(){
 }
 
 void Player::morir() {
-    //hacer random de sonido
     _sonido->Play_voces(7);
     Game::game_instancia()->cambio_a_update_lose();
+}
+
+void Player::play_voces_ataque() {
+    _sonido->Play_voces(6);
+} 
+
+void Player::play_animaciones_recibir_danyo() {
+    _sonido->Play_personaje(1);
+    //_sonido->Play_voces(8);
+    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_jugador", 16);
 }

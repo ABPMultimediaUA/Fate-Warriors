@@ -22,8 +22,14 @@ public:
 	void set_blackboard(Blackboard* _i_blackboard);
 	inline Blackboard* get_blackboard() { return _blackboard;}
 
+	void play_voces_ataque() override;
+	void play_animaciones_recibir_danyo() override;
+
 protected:
 	Blackboard* _blackboard; //Informacion de la memoria almacenada en el Blackboard
+
+private:
+	uint8_t _tipo_npc;
 };
 
 #endif /* SRC_NPC_H_ */

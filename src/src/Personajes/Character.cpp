@@ -525,7 +525,7 @@ static bool getSiAccionBloqueaInput(Enum_Acciones _accion){
         case Saltar:
             return false;
         case Recibir_danyo:
-            return false;
+            return true;
         default:
             return false;
     }
@@ -608,11 +608,11 @@ btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
 
         if(_tipo_ataque == Ataque_Normal){
             //std::cout<< "cuerpo a cuerpo normal" <<std::endl;
-            return btVector3(2,1,2);
+            return btVector3(4,1,4);
         }
         else if(_tipo_ataque == Ataque_Fuerte){
             //std::cout<< "cuerpo a cuerpo  fuerte" <<std::endl;
-            return btVector3(2.5,1,2);
+            return btVector3(4,1,4.5);
         }
         else if(_tipo_ataque == Ataque_Salto){
             //std::cout<< "cuerpo a cuerpo salto" <<std::endl;
@@ -846,12 +846,6 @@ Zona* Character::get_zona() {
     return _zona_en_la_que_se_encuentra;
 }
 
-
-void Character::play_voces_ataque() {
-    _sonido->Play_personaje(1);
-    _sonido->Play_voces(6);
-}
-
 void Character::play_animaciones_ataque() {
     // ANIMACIONES
     _sonido->Stop_pasos();
@@ -882,8 +876,4 @@ void Character::play_animaciones_ataque() {
             break;
     }
     
-}
-
-void Character::play_animaciones_recibir_danyo() {
-    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_jugador", 16);
 }
