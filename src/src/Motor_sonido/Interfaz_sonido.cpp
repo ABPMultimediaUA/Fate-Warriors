@@ -596,8 +596,8 @@ void Interfaz_sonido::Play_voces(uint8_t _i_n){
         std::cout<<"ERROR SONIDO: voce solicitado no existente: "<<(int)_i_n<<std::endl;
         exit(0);
     }
-    _random = rand() % 4;
-    if(_random == 3){
+    _random = rand() % 3;
+    if(_random == 1){
         _eventos_voces[_i_n]->start();
         system_update();
     }

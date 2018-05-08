@@ -151,8 +151,6 @@ void Player::update(){
         }
         else if(std::get<2>(_ataques)){      // Ataque normal
             atacar(Ataque_Normal);
-            _sonido->Play_personaje(1);
-            _sonido->Play_voces(6);
             _cono_vision->preparar_ataque_objetivo_mas_proximo_con_impulso();
         }
         else {                          // Ataque fuerte

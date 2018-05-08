@@ -125,6 +125,9 @@ public:
 	void set_zona_en_la_que_se_encuentra(Zona * _zona);
 	Zona* get_zona();
 
+	virtual void play_voces_ataque();
+	virtual void play_animaciones_ataque();
+
 protected:
 	
 	int16_t _vida_maxima;

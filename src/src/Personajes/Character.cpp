@@ -174,6 +174,7 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
 
         this->set_tipo_ataque(_i_tipo_ataque);
         this->set_accion(Accion_pre_atacar);
+        play_animaciones_ataque();
     }
     else if(
             _accion == Accion_post_atacar && _tipo_ataque != Ataque_Salto && _tipo_ataque != Ataque_Especial && _tipo_ataque != Ataque_Normal_Normal 
@@ -189,8 +190,8 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
 
         set_accion(Accion_pre_atacar);
         set_tipo_ataque(_ataque_combo);
-
-        /*
+        play_animaciones_ataque();      // Sirve para los combos
+        
         std::cout << "ENLAZA ATAQUE: ";
 
         if(_ataque_combo == Ataque_Normal_Normal)
@@ -203,7 +204,7 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
             std::cout << "Ataque FUERTE - FUERTE";
 
         std::cout << std::endl;
-        */
+        
     }
     
 }
@@ -720,10 +721,6 @@ void Character::set_accion(Enum_Acciones _i_accion){
     if(_i_accion != Accion_pre_atacar && _i_accion != Accion_post_atacar && _i_accion != Atacar){
         set_tipo_ataque(Ataque_Ninguno);
     }
-
-    // ANIMACIONES
-    if(_i_accion == Accion_pre_atacar)
-        _objeto_motor->cambiar_modelado("Anim_ataque_d1_jugador", 10);
 }
 
 void Character::gestion_acciones(){
@@ -799,6 +796,8 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         }
     }
     else if(this->get_accion() == Atacar){
+
+        play_voces_ataque();
 
         Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
 
@@ -896,4 +895,48 @@ void Character::rotar_cuerpo_sin_interpolacion(uint16_t _i_valor){
 
 Zona* Character::get_zona() {
     return _zona_en_la_que_se_encuentra;
+}
+
+
+void Character::play_voces_ataque() {
+    _sonido->Play_personaje(1);
+    _sonido->Play_voces(6);
+}
+
+void Character::play_animaciones_ataque() {
+    // ANIMACIONES
+
+    switch(_tipo_ataque)  
+    {  
+        case Ataque_Normal:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc2", 10);
+            std::cout << "NIMACION NORMAL\n";
+            break;
+
+        case Ataque_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_f1_npc2", 11);
+            std::cout << "ANIMACION FUERTE\n";
+            break;
+
+        case Ataque_Normal_Normal:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d2_npc2", 12);
+            std::cout << "COMBO EN ANIMACION NORMAL NORMAL\n";
+            break;
+
+        case Ataque_Normal_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc2", 13);
+            std::cout << "COMBO EN ANIMACION NORMAL FUERTE\n";
+            break;
+
+        case Ataque_Fuerte_Normal:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc2", 14);
+            std::cout << "COMBO EN ANIMACION FUERTE NORMAL\n";
+            break;
+
+        case Ataque_Fuerte_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_f2_npc2", 15);
+            std::cout << "COMBO EN ANIMACION FUERTE FUERTE\n";
+            break;
+    }
+    
 }
