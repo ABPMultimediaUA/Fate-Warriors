@@ -44,11 +44,15 @@ TMooseEngine::TMooseEngine(){
    
     SHADOW_WIDTH = 1024;
     SHADOW_HEIGHT = 1024;
-    _mapeado_sombras=false;
-    _sombras_proyectadas=true;
+    _mapeado_sombras=true;
+    _sombras_proyectadas=false;
+    if(_mapeado_sombras){
+        PreparacionSombras();
+    }
 }
 
 void TMooseEngine::PreparacionSombras(){
+    _shader->use(mapeado_sombras_default);
     glGenFramebuffers(1, &depthMapFBO);  
    //generacion de la textura del mapeado de sombras
     glGenTextures(1, &depthMap);
@@ -65,6 +69,7 @@ void TMooseEngine::PreparacionSombras(){
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+    _shader->setInt("shadowMap",1);
 }
 
 void TMooseEngine::ConfigurarSombrasMapeado(){

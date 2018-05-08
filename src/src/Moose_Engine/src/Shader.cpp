@@ -13,8 +13,8 @@ Shader::Shader(){
     LoadShader(eSkybox, "src/Moose_Engine/Shaders/vertex_skybox.glsl", "src/Moose_Engine/Shaders/fragment_skybox.glsl");
     LoadShader(Default,"src/Moose_Engine/Shaders/vertex_basic.glsl", "src/Moose_Engine/Shaders/fragment_basic.glsl");
     LoadShader(sombras_proyectadas,"src/Moose_Engine/Shaders/vertex_proyeccion_sombras.glsl", "src/Moose_Engine/Shaders/fragment_proyeccion_sombras.glsl");
-    LoadShader(sombras_proyectadas,"src/Moose_Engine/Shaders/vertex_basic_shadowmapping.glsl", "src/Moose_Engine/Shaders/fragment_basic_shadowmapping.glsl");
-    LoadShader(sombras_proyectadas,"src/Moose_Engine/Shaders/vertex_depth_shadowmapping.glsl", "src/Moose_Engine/Shaders/fragment_depth_shadowmapping.glsl");
+    LoadShader(mapeado_sombras_default,"src/Moose_Engine/Shaders/vertex_basic_shadowmapping.glsl", "src/Moose_Engine/Shaders/fragment_basic_shadowmapping.glsl");
+    LoadShader(mapeado_sombras_depth,"src/Moose_Engine/Shaders/vertex_depth_shadowmapping.glsl", "src/Moose_Engine/Shaders/fragment_depth_shadowmapping.glsl");
     
 }
 
