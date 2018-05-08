@@ -234,7 +234,8 @@ void Player::modificar_vida_en(short _i_vida){
 void Player::danyar(short _danyo){
     //hacer random de sonido
     _sonido->Play_voces(8);
-    danyar_comun(_danyo);   
+    danyar_comun(_danyo);
+    _motor->recibir_Danyo(_vida, _vida_maxima);   
     //_motor->set_text_vida(_vida);
 }
 
