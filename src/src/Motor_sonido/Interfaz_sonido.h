@@ -43,6 +43,9 @@ public:
     void Play_pasos(uint8_t _i_n);
     void Play_musica(uint8_t _i_n);
 
+    void play_music(uint8_t _i_musica);
+    void start_game_music();
+
     void Stop_pasos();
     void Stop_pasos(uint8_t _i_n);
     void Stop_ambiente(uint8_t _i_n);
@@ -129,6 +132,8 @@ private:
     bool _loop_pasos;
     uint8_t _pasos_actual;
     uint8_t _random;
+
+    uint8_t _musica_actual;
 };
 
 #endif /* SRC_INTERFAZ_SONIDO_H_ */

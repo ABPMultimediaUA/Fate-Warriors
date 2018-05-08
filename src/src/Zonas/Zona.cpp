@@ -10,6 +10,7 @@
 #include "../Tiempo/Time.h"
 #include "../Interactuables/Interruptor.h"
 #include "../Interactuables/Puerta_Pincho.h"
+#include "../Motor_sonido/Interfaz_sonido.h"
 
 Zona::Zona(float _i_x, float _i_y, float _i_z, int long_x, int long_y){
 _reloj=Time::Instance();
@@ -22,6 +23,8 @@ _reloj=Time::Instance();
     _pos_y = _i_z;
 
     _npcs_persiguiendome = 0;
+
+    _sonido = Interfaz_sonido::GetInstancia();
 }
 
 Zona::~Zona() {
@@ -117,6 +120,7 @@ void Zona::activar_todas_las_puerta_pincho(){
     for (uint8_t cont=0; cont<num_interruptores; cont++){
        _puerta_pincho_asociados[cont]->activar();
     }
+    _sonido->Play_escenario(5);
 }
 
 void Zona::desactivar_todas_las_puerta_pincho(){
@@ -124,6 +128,7 @@ void Zona::desactivar_todas_las_puerta_pincho(){
     for (uint8_t cont=0; cont<num_interruptores; cont++){
        _puerta_pincho_asociados[cont]->desactivar();
     }
+    _sonido->Play_escenario(5);
 }
 
 void Zona::eliminar_npc_de_zona(Character* _i_npc){

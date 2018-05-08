@@ -33,11 +33,14 @@ Opcion* Opcion_Configuracion::comprueba_cambio_opcion(Opcion* _this) {
 
 			_tiempo_cambio = _t;
 
-			_sonido->Play_menu(2);
-			if(_direccion == 0)
+			if(_direccion == 0) {
+				_sonido->Play_menu(2);
 				return _opcion_anterior;
-			else if(_direccion == 180)
+			}
+			else if(_direccion == 180) {
+				_sonido->Play_menu(2);
 				return _opcion_siguiente;
+			}
 		}
 	}	
 

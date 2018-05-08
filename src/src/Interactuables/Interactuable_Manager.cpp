@@ -162,6 +162,10 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 	// Zona 26
 	_todas_las_zonas[8]->set_puerta_pincho_asociada(_puertas_pincho[17]);
+
+
+	// Zona 32
+	_todas_las_zonas[6]->set_puerta_pincho_asociada(_puertas_pincho[9]);
 }
 
 Interactuable_Manager::~Interactuable_Manager() {
