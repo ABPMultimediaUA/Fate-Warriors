@@ -194,27 +194,13 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
         
         play_animaciones_ataque();      // Sirve para los combos
         
-        std::cout << "ENLAZA ATAQUE: ";
-
-        if(_ataque_combo == Ataque_Normal_Normal)
-            std::cout << "Ataque NORMAL - NORMAL";
-        if(_ataque_combo == Ataque_Normal_Fuerte)
-            std::cout << "Ataque NORMAL - FUERTE";
-        if(_ataque_combo == Ataque_Fuerte_Normal)
-            std::cout << "Ataque FUERTE - NORMAL";
-        if(_ataque_combo == Ataque_Fuerte_Fuerte)
-            std::cout << "Ataque FUERTE - FUERTE";
-
-        std::cout << std::endl;
-        
     }
-    
 }
 
 void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
-
+        _objeto_motor->cambiar_modelado("Anim_dash_jugador", 17);
         //_objeto_motor->Dash(_direccion);
     }
     
@@ -510,7 +496,7 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
         }
     }
     else if(_accion == Accion_Dash){
-        return 200;
+        return 300;
     }
     else if(_accion == Accion_Interactuar){
         return 25;
