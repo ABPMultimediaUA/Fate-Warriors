@@ -154,7 +154,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
     else {
 		_player->update();
 		_nivel->Update();
-		_consumibles_action->comprobar_consumibles();
+		//_consumibles_action->comprobar_consumibles();
 		_trampas_action->update();
 
 		_motor->update(_i_tiempo_desde_ultimo_update);
@@ -284,6 +284,6 @@ void Game::cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short 
 }
 
 
-Consumible_Action* Game::get_consumibles_action(){
+/*Consumible_Action* Game::get_consumibles_action(){
 	return _consumibles_action;
-}
+}*/

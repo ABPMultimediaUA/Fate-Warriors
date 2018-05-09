@@ -858,7 +858,7 @@ void Motor::render(){
 
 void Motor::cambia_animaciones() {
 	int x=lista_i_nodo.size();
-	for(uint16_t i=0; i<lista_i_nodo.size()&&i<172; i++) {
+	for(uint16_t i=0; i<lista_i_nodo.size(); i++) {
 		lista_i_nodo[i]->update_anim();
 	}
 }

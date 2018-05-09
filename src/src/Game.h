@@ -53,7 +53,7 @@ public:
     void cambio_a_update_win();
     void cambio_a_update_lose();
     void cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short _rotacion_x, short _rotacion_y, short _distancia);
-	Consumible_Action* get_consumibles_action();
+	//Consumible_Action* get_consumibles_action();
 
 	inline Menu_Principal* get_menu_principal(){ return _menu_principal; }
 	inline Menu_Pausa* get_menu_pausa(){ return _menu_pausa; }
