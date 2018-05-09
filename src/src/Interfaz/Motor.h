@@ -140,6 +140,7 @@ public:
     void interpolar_altura(bool estado);
     void render_Menu();
     void render_Pausa();
+    void render_Menu_Config();
     void recibir_Danyo(float vida, float vida_maxima);
 private:
 

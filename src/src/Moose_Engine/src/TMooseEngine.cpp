@@ -62,10 +62,42 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
     
+    //MENU CONFIG
+        //textos de opciones
+        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
+        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
+        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.1, 0.4, 0.3);    //voces
+        //(4) 
+        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, -0.1, 0.4, 0.3);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, -0.3, 0.4, 0.3);    //voces
+
+        //barra opcion 1 (6)
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.60, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.60, 0.3, 0.1);     //voces
+        //barra opcion 2 (8)
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.40, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.40, 0.3, 0.1);     //voces
+        //barra opcion 3 (10)
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.20, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.20, 0.3, 0.1);     //voces
+        //barra opcion 4 (12)
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.0, 0.4, 0.1);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.0, 0.3, 0.1);    //voces
+        
+        //boton on/off 1 (14)
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Special_1.png", "Imagenes_HUD/HUD_Special_1.png",  0.3, -0.15, 0.2, 0.2);
+        //boton on/off 2 (15)
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Special_1.png", "Imagenes_HUD/HUD_Special_1.png",  0.3, -0.35, 0.2, 0.2);
+            
+        
+    
     //MENU HUD
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Inferior.png", -0.722, 0.78, 0.326, 0.1);
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Barra_1.png", "Imagenes_HUD/HUD_Barra_2.png", "Imagenes_HUD/HUD_Barra_3.png", -0.722, 0.78, 0.326, 0.1);
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Superior.png", -0.95, 0.85, 0.6, 0.5);
+
+    
     
 }
 
@@ -299,8 +331,10 @@ void TMooseEngine::renderUIMenu(uint16_t opcion){
     glDisable(GL_CULL_FACE);
     
     _ui->drawMenu(opcion);
+    renderUIMenuConfig(opcion);
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
+    
 }
 
 void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
@@ -310,6 +344,13 @@ void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
     _ui->drawMenuPausa(opcion);
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
+}
+
+void TMooseEngine::renderUIMenuConfig(uint16_t opcion){
+    //glDisable(GL_CULL_FACE);
+    _ui->drawMenuConfig(opcion);
+    //glEnable(GL_CULL_FACE);
+    //glfwSwapBuffers(window);
 }
 
 void TMooseEngine::renderUIHUD(){

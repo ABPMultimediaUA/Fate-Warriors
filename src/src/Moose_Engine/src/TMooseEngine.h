@@ -52,6 +52,7 @@ class TMooseEngine{
         void render_estado_Partida();
         void renderUIMenu(uint16_t opcion);
         void renderUIMenuPausa(uint16_t opcion);
+        void renderUIMenuConfig(uint16_t opcion);
         void renderUIHUD();
 
         bool ventana_abierta();

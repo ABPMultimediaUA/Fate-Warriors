@@ -957,6 +957,13 @@ void Motor::render_Menu(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_principal()->get_i_opcion();
 	_me->renderUIMenu(num_opcion);
+	_me->renderUIMenuConfig(0);
+}
+
+void Motor::render_Menu_Config(){
+	Game* game = Game::game_instancia();
+	//uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
+	//_me->renderUIMenuConfig(0);	
 }
 
 void Motor::render_Pausa(){
