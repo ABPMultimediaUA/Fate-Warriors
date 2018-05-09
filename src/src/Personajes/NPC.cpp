@@ -208,3 +208,27 @@ void NPC::aparecer_muerto() {
         _blackboard->_distancia_enemigo_mas_cerca =  10000000000;
     }
 }
+
+void NPC::animacion_andar() {
+    switch(_tipo_npc) {
+        case 1:
+            _objeto_motor->cambiar_modelado("Anim_andar_npc1", 1);
+        break;
+
+        case 2:
+            _objeto_motor->cambiar_modelado("Anim_andar_npc2", 1);
+        break;
+    }
+}
+
+void NPC::animacion_correr() {
+    switch(_tipo_npc) {
+        case 1:
+            _objeto_motor->cambiar_modelado("Anim_correr_npc1", 2);
+        break;
+
+        case 2:
+            _objeto_motor->cambiar_modelado("Anim_correr_npc2", 2);
+        break;
+    }
+}

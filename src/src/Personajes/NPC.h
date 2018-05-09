@@ -26,6 +26,9 @@ public:
 	void play_animaciones_ataque() override;
 	void play_animaciones_recibir_danyo() override;
 
+	void animacion_andar() override;
+	void animacion_correr() override;
+
 	void aparecer_muerto();
 
 protected:
