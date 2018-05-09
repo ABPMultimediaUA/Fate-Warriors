@@ -326,12 +326,13 @@ void TMooseEngine::render_estado_Partida(){
     glfwPollEvents();
 }
 
-void TMooseEngine::renderUIMenu(uint16_t opcion){
+void TMooseEngine::renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_abierta){
     clear();
     glDisable(GL_CULL_FACE);
     
     _ui->drawMenu(opcion);
-    renderUIMenuConfig(opcion);
+    if(config_abierta)
+        renderUIMenuConfig(opcion2);
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
     

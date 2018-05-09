@@ -50,7 +50,7 @@ class TMooseEngine{
         void drawSombras();
         void initUI();
         void render_estado_Partida();
-        void renderUIMenu(uint16_t opcion);
+        void renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_abierta);
         void renderUIMenuPausa(uint16_t opcion);
         void renderUIMenuConfig(uint16_t opcion);
         void renderUIHUD();

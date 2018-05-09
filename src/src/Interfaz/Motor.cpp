@@ -956,8 +956,10 @@ void Motor::gira_camara(short _rotacion_en_x, short _rotacion_en_y) {
 void Motor::render_Menu(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_principal()->get_i_opcion();
-	_me->renderUIMenu(num_opcion);
-	_me->renderUIMenuConfig(0);
+	uint8_t num_opcion2 = game->get_menu_principal()->get_i_configuracion();
+	bool config_abierta = game->get_menu_principal()->menu_opciones_abierto();
+	_me->renderUIMenu(num_opcion, num_opcion2, config_abierta);
+	//_me->renderUIMenuConfig(0);
 }
 
 void Motor::render_Menu_Config(){
