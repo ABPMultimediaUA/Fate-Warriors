@@ -126,7 +126,7 @@ public:
 	Zona* get_zona();
 
 	virtual void play_voces_ataque() = 0;
-	virtual void play_animaciones_ataque();
+	virtual void play_animaciones_ataque() = 0;
 	virtual void play_animaciones_recibir_danyo() = 0;
 
 protected:

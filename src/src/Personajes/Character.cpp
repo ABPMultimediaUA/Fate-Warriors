@@ -324,14 +324,9 @@ bool Character::interactuar_con_objeto(){
 }
 
 void Character::morir(){ // SE SOBRESCRIBE EN NPC!!
-    //float mult = 4.9212625;
-    //std::cout << "He muerto :("<< std::endl;
-    //_inventario->soltar_armas(getX(), getZ()); BORRAME
-
     _zona_en_la_que_se_encuentra = nullptr;
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
     //setY(99999999999);
-
 }
 
 
@@ -844,36 +839,4 @@ void Character::rotar_cuerpo_sin_interpolacion(uint16_t _i_valor){
 
 Zona* Character::get_zona() {
     return _zona_en_la_que_se_encuentra;
-}
-
-void Character::play_animaciones_ataque() {
-    // ANIMACIONES
-    _sonido->Stop_pasos();
-    switch(_tipo_ataque)  
-    {  
-        case Ataque_Normal:
-            _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc2", 10);
-            break;
-
-        case Ataque_Fuerte:
-            _objeto_motor->cambiar_modelado("Anim_ataque_f1_npc2", 11);
-            break;
-
-        case Ataque_Normal_Normal:
-            _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc1", 12);
-            break;
-
-        case Ataque_Normal_Fuerte:// FALTAA
-            _objeto_motor->cambiar_modelado("Anim_ataque_d3_jugador", 13);
-            break;
-
-        case Ataque_Fuerte_Normal: 
-            _objeto_motor->cambiar_modelado("Anim_ataque_f2_npc2", 14); //esta animacion pero no esta bien exportada
-            break;
-
-        case Ataque_Fuerte_Fuerte:
-            _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc2", 15);
-            break;
-    }
-    
 }

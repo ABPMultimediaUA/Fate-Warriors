@@ -263,8 +263,39 @@ void Player::play_voces_ataque() {
     _sonido->Play_voces(6);
 } 
 
+void Player::play_animaciones_ataque() {
+    // ANIMACIONES
+    _sonido->Stop_pasos();
+    switch(_tipo_ataque)  
+    {  
+        case Ataque_Normal:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d1_jugador", 10);
+            break;
+
+        case Ataque_Normal_Normal:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d2_jugador", 12);
+            break;
+
+        case Ataque_Normal_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d3_jugador", 13);
+            break;
+
+        case Ataque_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_f1_jugador", 11);
+            break;
+
+        case Ataque_Fuerte_Normal: 
+            _objeto_motor->cambiar_modelado("Anim_ataque_f2_jugador", 14);
+            break;
+
+        case Ataque_Fuerte_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_f3_jugador", 15);
+            break;
+    }
+}
+
 void Player::play_animaciones_recibir_danyo() {
     _sonido->Play_personaje(1);
-    //_sonido->Play_voces(8);
+    _sonido->Play_voces(8);
     _objeto_motor->cambiar_modelado("Anim_recibirdanyo_jugador", 16);
 }
