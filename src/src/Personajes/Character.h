@@ -129,6 +129,9 @@ public:
 	virtual void play_animaciones_ataque() = 0;
 	virtual void play_animaciones_recibir_danyo() = 0;
 
+	virtual void animacion_andar();
+	virtual void animacion_correr();
+
 protected:
 	
 	int16_t _vida_maxima;

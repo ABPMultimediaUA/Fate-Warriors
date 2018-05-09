@@ -222,21 +222,25 @@ void Character::mover_direccion(uint16_t _i_direccion, uint16_t _i_direccion_mov
 
         _direccion_actual = _i_direccion;
             
-        if(this->get_accion() == Nada){
+        if(get_accion() == Nada){
             set_accion(Andar);
             _velocidad = _velocidadAndar;
+            animacion_andar();
         }
-        else if(this->get_accion() == Andar){
+        else if(get_accion() == Andar){
             //std::cout << "Andando" << std::endl;
             if(_velocidad<_velocidadAndar){
                 _velocidad += 0.05;
+                animacion_andar();
             }
             if(accion_en_curso() == false){
-                this->set_accion(Accion_Correr);
+                set_accion(Accion_Correr);
+                animacion_correr();
             }
         }
         else if(_accion == Accion_Correr){
             //std::cout << "CORRIENDO" << std::endl;
+            animacion_correr();
             if(_velocidad<_velocidadCorrer){
                 _velocidad += 0.1;
             }
@@ -839,4 +843,10 @@ void Character::rotar_cuerpo_sin_interpolacion(uint16_t _i_valor){
 
 Zona* Character::get_zona() {
     return _zona_en_la_que_se_encuentra;
+}
+
+void Character::animacion_andar() {
+}
+
+void Character::animacion_correr() {
 }

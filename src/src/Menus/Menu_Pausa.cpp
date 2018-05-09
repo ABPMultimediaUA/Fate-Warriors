@@ -72,8 +72,18 @@ void Menu_Pausa::pinta_estado() {
 }
 
 uint8_t Menu_Pausa::get_i_opcion() { 
-  for(uint8_t i=0; i<_n_opciones_pausa; i++) { 
-    if(_opcion_actual == _opciones[i]) 
-      return i; 
-  } 
+  	for(uint8_t i=0; i<_n_opciones_pausa; i++) { 
+    	if(_opcion_actual == _opciones[i]) 
+     		return i; 
+  	} 
+}
+
+// Indica si el menu de opciones esta abierto (Se esta dentro de el)
+bool Menu_Pausa::menu_opciones_abierto() {
+	return _opciones[1]->get_dentro();
+}
+
+// Devuelve la opcion del menu principal
+uint8_t Menu_Pausa::get_i_configuracion() {
+	_opciones[1]->get_i_configuracion();
 }

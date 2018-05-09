@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-// Crea las 3 opciones del menu principal
+// Crea las 6 opciones del menu de configuracion
 // Musica 		-> Cambia el volumen de la musica
 // SFX 			-> Cambia el volumen de los SFX
 // Voz 	   		-> Cambia el volumen de las voces
@@ -19,7 +19,7 @@
 // Eje X 		-> Invierte el Eje X
 // Eje Y 		-> Invierte el Eje Y
 Menu_Configuracion::Menu_Configuracion(Input* _i_input) {
-	_opciones = new Opcion*[_n_opciones_principal];
+	_opciones = new Opcion*[_n_opciones_configuracion];
 
 	_opciones[0] = new Opcion_Musica(_i_input);			// Opcion Musica
 	_opciones[1] = new Opcion_SFX(_i_input); 			// Opción Sound Effects
@@ -41,7 +41,7 @@ Menu_Configuracion::Menu_Configuracion(Input* _i_input) {
 }
 
 Menu_Configuracion::~Menu_Configuracion() {
-	for(uint8_t i=0; i<_n_opciones_principal; i++)
+	for(uint8_t i=0; i<_n_opciones_configuracion; i++)
 		delete _opciones[i];
 
 	delete [] _opciones;
@@ -56,7 +56,7 @@ void Menu_Configuracion::update(double _i_tiempo) {
 
 
 void Menu_Configuracion::actualiza() {
-	for(uint8_t i=0; i<_n_opciones_principal; i++) {
+	for(uint8_t i=0; i<_n_opciones_configuracion; i++) {
 		_opciones[i]->actualiza_valores();
 	}
 	
@@ -78,4 +78,11 @@ void Menu_Configuracion::pinta_estado() {
 		std::cout << "Opción Eje X\n";
 	else if(_opcion_actual == _opciones[5])
 		std::cout << "Opción Eje Y\n";
+}
+
+uint8_t Menu_Configuracion::get_i_configuracion() { 
+	for(uint8_t i=0; i<_n_opciones_configuracion; i++) { 
+    	if(_opcion_actual == _opciones[i]) 
+    		return i; 
+  	} 
 }

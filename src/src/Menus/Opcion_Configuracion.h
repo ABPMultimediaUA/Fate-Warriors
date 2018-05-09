@@ -14,6 +14,7 @@ public:
 	Opcion* update_opcion(double _i_tiempo, Opcion* _this);
 
 	bool get_dentro();
+	uint8_t get_i_configuracion();
 
 private:
 	bool _dentro_menu;	// Indica si está dentro del menu de configuración
