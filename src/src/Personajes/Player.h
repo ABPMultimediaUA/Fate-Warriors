@@ -29,7 +29,8 @@ public:
 	void play_animaciones_ataque() override;
 	void play_animaciones_recibir_danyo() override;
 
-	//ckeyboardman* _KeyMan;
+	void carga_animaciones();
+
 private:
 	short _nodoId; //ID del nodo del modelado del motor
 	bool _hace_cinta;

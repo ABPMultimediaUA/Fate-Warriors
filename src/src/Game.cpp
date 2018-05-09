@@ -95,6 +95,8 @@ void Game::crea_partida() {
 
 	_animacion_interruptor = new Animacion_Interruptor();
 
+	_player->carga_animaciones();
+
 	//sonidos ambiente
 	_sonido->Play_ambiente(3);
 	_sonido->Play_ambiente(0);
