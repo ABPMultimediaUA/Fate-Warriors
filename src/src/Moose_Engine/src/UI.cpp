@@ -110,16 +110,16 @@ void UI::drawHUD(){
 }
 
 void UI::set_escala_vida(float escala){
-    _lista_imagenes_hud[0]->setSizeX(escala);      //sabemos que es la 1 porque la barra de vida es la 1 en el hud
+    _lista_imagenes_hud[1]->setSizeX(escala);      //sabemos que es la 1 porque la barra de vida es la 1 en el hud
     if(escala>=0.66){
-        _lista_imagenes_hud[0]->setSelected(1); //barra verde
+        _lista_imagenes_hud[1]->setSelected(1); //barra verde
     }
 
     else if(escala<0.66 && escala>=0.33){
-        _lista_imagenes_hud[0]->setSelected(2); //barra amarilla
+        _lista_imagenes_hud[1]->setSelected(2); //barra amarilla
     }
 
     else{
-        _lista_imagenes_hud[0]->setSelected(3); //barra roja
+        _lista_imagenes_hud[1]->setSelected(3); //barra roja
     }
 }
