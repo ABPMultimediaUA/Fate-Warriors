@@ -15,7 +15,10 @@ public:
 	~Menu_Principal();
 
 	void update(double _i_tiempo);
+	
 	uint8_t get_i_opcion();
+	bool menu_opciones_abierto();
+	uint8_t get_i_configuracion();
 
 private: 
 	Opcion** _opciones;

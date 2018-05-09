@@ -23,6 +23,7 @@ public:
 	virtual void actualiza_valores();
 
 	virtual bool get_dentro();
+	virtual uint8_t get_i_configuracion();
 
 protected:
 	Opcion *_opcion_anterior;		// Opcion anterior (arriba) en el menu

@@ -81,5 +81,9 @@ bool Opcion::get_dentro() {
 	return false;
 }
 
+uint8_t Opcion::get_i_configuracion() {
+	return 0;
+}
+
 void Opcion::actualiza_valores() {
 }
