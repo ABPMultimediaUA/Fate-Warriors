@@ -104,6 +104,15 @@ void TMooseEngine::initUI(){
     _ui->set_escala_voz(5);
     _ui->set_escala_sonido_menu(5);
     
+    //MENU WIN
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", -0.95, 0.85, 0.6, 0.5);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.95, 0.85, 0.6, 0.5);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.95, 0.85, 0.6, 0.5);
+
+    //MENU LOSE
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", -0.95, 0.85, 0.6, 0.5);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.95, 0.85, 0.6, 0.5);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.95, 0.85, 0.6, 0.5);
     
 }
 

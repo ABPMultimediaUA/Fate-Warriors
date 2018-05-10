@@ -1010,3 +1010,11 @@ void Motor::set_eje_x(bool ejeX){
 void Motor::set_eje_y(bool ejeY){
 	_me->getUI()->set_eje_y(ejeY);
 }
+
+void Motor::render_Menu_Win(uint8_t opcion){
+	_me->getUI()->drawMenuFinWin(opcion);
+}
+
+void Motor::render_Menu_Lose(uint8_t opcion){
+	_me->getUI()->drawMenuFinLose(opcion);
+}

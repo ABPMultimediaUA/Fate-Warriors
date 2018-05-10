@@ -20,11 +20,19 @@ class UI{
         Image* crear_imagen_config(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
         Image* crear_imagen_config(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
+        Image* crear_imagen_fin_win(Shader* shader, const char* ruta, float x, float y, float width, float height);
+        Image* crear_imagen_fin_win(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
+
+        Image* crear_imagen_fin_lose(Shader* shader, const char* ruta, float x, float y, float width, float height);
+        Image* crear_imagen_fin_lose(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
+
 
         void drawMenu(uint16_t opcion);
         void drawMenuPausa(uint16_t opcion);
         void drawMenuConfig(uint16_t opcion);
         void drawHUD();
+        void drawMenuFinWin(uint16_t opcion);
+        void drawMenuFinLose(uint16_t opcion);
 
         void set_escala_vida(float escala);
 
@@ -36,6 +44,8 @@ class UI{
         void set_eje_x(bool ejeX);
         void set_eje_y(bool ejeY);
 
+
+
     private:
         
         //MENU PRINCIPAL
@@ -46,6 +56,10 @@ class UI{
         std::vector<Image*> _lista_imagenes_config;
         //HUD
         std::vector<Image*> _lista_imagenes_hud;
+        //MENU WIN
+        std::vector<Image*> _lista_imagenes_fin_win;
+        //MENU LOSE
+        std::vector<Image*> _lista_imagenes_fin_lose;
 };
 
 #endif /* SRC_UI_H_ */

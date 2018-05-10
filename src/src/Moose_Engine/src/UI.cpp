@@ -54,8 +54,29 @@ Image* UI::crear_imagen_config(Shader* shader, const char* ruta, float x, float 
     return imagen;
 }
 
+Image* UI::crear_imagen_fin_win(Shader* shader, const char* ruta, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 1, ruta, ruta, ruta, x, y, width, height);
+    _lista_imagenes_fin_win.push_back(imagen);
+    return imagen;
+}
 
+Image* UI::crear_imagen_fin_win(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 2, ruta, ruta2, ruta, x, y, width, height);
+    _lista_imagenes_fin_win.push_back(imagen);
+    return imagen;
+}
 
+Image* UI::crear_imagen_fin_lose(Shader* shader, const char* ruta, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 1, ruta, ruta, ruta, x, y, width, height);
+    _lista_imagenes_fin_lose.push_back(imagen);
+    return imagen;
+}
+
+Image* UI::crear_imagen_fin_lose(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 2, ruta, ruta2, ruta, x, y, width, height);
+    _lista_imagenes_fin_lose.push_back(imagen);
+    return imagen;
+}
 
 //dibujar menu del juego
 void UI::drawMenu(uint16_t opcion){
@@ -179,6 +200,48 @@ void UI::drawMenuConfig(uint16_t opcion){
 
     for(u_int16_t i = 0; i<_lista_imagenes_config.size(); i++){
         _lista_imagenes_config[i]->Draw();
+    }
+}
+
+//dibujar menu del juego
+void UI::drawMenuFinWin(uint16_t opcion){
+    switch(opcion){
+        case 0:     _lista_imagenes_fin_win[1]->setSelected(2);
+                    _lista_imagenes_fin_win[2]->setSelected(1);
+                    break;
+
+        case 1:     _lista_imagenes_fin_win[1]->setSelected(1);
+                    _lista_imagenes_fin_win[2]->setSelected(2);
+                    break;
+        
+        default:    _lista_imagenes_fin_win[1]->setSelected(2);
+                    _lista_imagenes_fin_win[2]->setSelected(1);
+                    break;
+    }
+
+    for(u_int16_t i = 0; i<_lista_imagenes_fin_win.size(); i++){
+        _lista_imagenes_fin_win[i]->Draw();
+    }
+}
+
+//dibujar menu del juego
+void UI::drawMenuFinLose(uint16_t opcion){
+    switch(opcion){
+        case 0:     _lista_imagenes_fin_lose[1]->setSelected(2);
+                    _lista_imagenes_fin_lose[2]->setSelected(1);
+                    break;
+
+        case 1:     _lista_imagenes_fin_lose[1]->setSelected(1);
+                    _lista_imagenes_fin_lose[2]->setSelected(2);
+                    break;
+        
+        default:    _lista_imagenes_fin_lose[1]->setSelected(2);
+                    _lista_imagenes_fin_lose[2]->setSelected(1);
+                    break;
+    }
+
+    for(u_int16_t i = 0; i<_lista_imagenes_fin_lose.size(); i++){
+        _lista_imagenes_fin_lose[i]->Draw();
     }
 }
 
