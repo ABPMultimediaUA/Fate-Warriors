@@ -80,6 +80,8 @@ public:
 	Zona * _zona_actual;
 	bool _estoy_en_mi_zona;
 
+	bool _muy_cerca_de_mi_posicion_respawn;
+
 	//Con informacion de la zona
 	Nodo_blackboard* _zona;					// Blackbaord de la zona
 };

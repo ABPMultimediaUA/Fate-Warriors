@@ -21,18 +21,6 @@ enum Enum_Acciones ND_1::toma_decision(Blackboard* _blackboard){
     return _nodo_der->toma_decision(_blackboard); 
   }  
 
-  if(_blackboard->_npc_padre->get_zona() != nullptr){
-    _blackboard->objetivo_x = _blackboard->_npc_padre->get_zona()->getX(); 
-    _blackboard->objetivo_y = _blackboard->_npc_padre->get_zona()->getZ(); 
-
-    //std::cout << _blackboard->_npc_padre->get_zona() <<"\n";
-
-    //std::cout << "NPC: "<< _blackboard->_npc_padre<<"\n";
-    //std::cout << "objetivo: "<<_blackboard->objetivo_x << "  "<<_blackboard->objetivo_y <<"\n";
-  }
-  else{
-    std::cout << "ERROR NODO 1 \n";
-  }
   if(_blackboard->_enemigo_mas_cerca != nullptr){ 
       _blackboard->_enemigo_mas_cerca->decrementar_npcs_persiguiendome(); 
       _blackboard->_enemigo_mas_cerca = nullptr; 

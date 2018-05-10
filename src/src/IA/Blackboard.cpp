@@ -84,7 +84,7 @@ float Blackboard::get_distancia_objetivo(){
 void Blackboard::actualizar_characteres(){
 	Character ** characters = Game::game_instancia()->game_get_datos()->get_characters();
 	unsigned long num_characters = Game::game_instancia()->game_get_datos()->get_num_characters();
-
+	
 	if(_enemigo_mas_cerca != nullptr && _enemigo_mas_cerca->get_vida() > 0){
 
 		bool otro_enemigo_mas_cerca = false;
@@ -92,6 +92,7 @@ void Blackboard::actualizar_characteres(){
 		float distancia_enemigo_mas_cercano = 10000000000;
 		Character * enemigo_mas_cercano = nullptr;
 
+		/*
 		//_distancia_enemigo_mas_cerca =  10000000000;
 		//_enemigo_mas_cerca = nullptr;
 
@@ -136,13 +137,13 @@ void Blackboard::actualizar_characteres(){
 			}
 
 		}
-
+		*/
 		if(otro_enemigo_mas_cerca == false){
 
 			float _distancia_enemigo_mas_cercano = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), _enemigo_mas_cerca->getX(), _enemigo_mas_cerca->getZ());
 
 			// Esta lejos
-			if(_distancia_enemigo_mas_cercano >= 100000){
+			if(_distancia_enemigo_mas_cercano >= 30){
 				_enemigo_mas_cerca->decrementar_npcs_persiguiendome();
 				_enemigo_mas_cerca = nullptr;
 				_enemigo_mas_cerca_esta_cerca = false;
@@ -153,7 +154,7 @@ void Blackboard::actualizar_characteres(){
 			else{
 				_distancia_enemigo_mas_cerca =  _distancia_enemigo_mas_cercano;
 
-				if(_distancia_enemigo_mas_cercano < 100000){
+				if(_distancia_enemigo_mas_cercano < 30){
 					_enemigo_mas_cerca_esta_cerca = true;
 				}
 				else{
@@ -171,6 +172,7 @@ void Blackboard::actualizar_characteres(){
 			
 		}
 	}
+	
 	else{ // En este caso analizara todos los enemigos que pueda perseguir
 
 		float _distancia_enemigo_mas_cercano = 10000000000;
@@ -195,7 +197,7 @@ void Blackboard::actualizar_characteres(){
 
 		if(_enemigo_mas_cerca != nullptr){
 
-			if(_distancia_enemigo_mas_cercano < 100000){
+			if(_distancia_enemigo_mas_cercano < 30){
 				_distancia_enemigo_mas_cerca =  _distancia_enemigo_mas_cercano;
 				_enemigo_mas_cerca->incrementar_npcs_persiguiendome();
 				_enemigo_mas_cerca_esta_cerca = true;
@@ -233,6 +235,17 @@ void Blackboard::actualizar_zonas(){
 	}
 	else{
 		_estoy_en_mi_zona = false;
+	}
+
+	// Distancia con su posicion de respawn
+
+	float _distancia = lib_math_distancia_2_puntos(_npc_padre->getX(), _npc_padre->getZ(), _npc_padre->get_pos_x_azar_en_zona(), _npc_padre->get_pos_y_azar_en_zona());
+	
+	if(_distancia < 2){
+		_muy_cerca_de_mi_posicion_respawn = true;
+	}
+	else{
+		_muy_cerca_de_mi_posicion_respawn = false;
 	}
 }
 

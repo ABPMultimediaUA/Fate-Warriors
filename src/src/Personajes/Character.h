@@ -129,6 +129,19 @@ public:
 	virtual void play_animaciones_ataque();
 	virtual void play_animaciones_recibir_danyo();
 
+	inline void set_pos_azar_en_zona(int x, int y) {
+		pos_x_azar_en_zona = x;
+		pos_y_azar_en_zona = y;
+	}
+
+	inline int get_pos_x_azar_en_zona() {
+		return pos_x_azar_en_zona;
+	}
+
+	inline int get_pos_y_azar_en_zona() {
+		return pos_y_azar_en_zona;
+	}
+
 protected:
 	
 	int16_t _vida_maxima;
@@ -158,6 +171,9 @@ protected:
 	Interfaz_sonido* _sonido;
 
 	int _npcs_persiguiendome;
+
+	int pos_x_azar_en_zona;
+	int pos_y_azar_en_zona;
 };
 
 #endif /* SRC_CHARACTER_H_ */
