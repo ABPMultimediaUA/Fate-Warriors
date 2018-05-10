@@ -432,8 +432,6 @@ unsigned short Grafo::grafo_pathfindinglod1(float _i_xorigen, float _i_yorigen, 
 	
 	if(!motor->x_ve_a_y(inicio,fin, ray_colisiona_con)){
 		angulo=lib_math_angulo_2_puntos(_i_xorigen,_i_yorigen,_i_xdestino,_i_ydestino);
-
-		std::cout << "LLEGOOOOOOOOOOOOOO" << std::endl;
 		return angulo;
 	}
 	
