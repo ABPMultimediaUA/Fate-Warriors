@@ -14,6 +14,10 @@ Shader::Shader(){
     LoadShader(Default,"src/Moose_Engine/Shaders/vertex_prueba.glsl", "src/Moose_Engine/Shaders/fragment_prueba.glsl");
     LoadShader(sombras_proyectadas,"src/Moose_Engine/Shaders/vertex_proyeccion_sombras.glsl", "src/Moose_Engine/Shaders/fragment_proyeccion_sombras.glsl");
     LoadShader(texturas_menu,"src/Moose_Engine/Shaders/4.2.texture.vs", "src/Moose_Engine/Shaders/4.2.texture.fs");
+    LoadShader(prueba,"src/Moose_Engine/Shaders/lighting.vs", "src/Moose_Engine/Shaders/lighting.frag");
+    LoadShader(lampara,"src/Moose_Engine/Shaders/lamp.vs", "src/Moose_Engine/Shaders/lamp.frag");
+
+
 }
 
 

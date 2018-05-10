@@ -30,11 +30,15 @@ uniform TLight Light;
 //FUNCION QUE CALCULA EL MODELO DE REFLEXION DE PHONG
 vec3  Phong () 
 {
+    Position = vec3(0,0,0);
+    Light.Position = vec3(0,0,0);
+    
     //CALCULAR LOS DIFERENTES VECTORES	 
 	vec3 n = normalize(Normal);
     vec3 s = normalize(Light.Position - Position);
 	vec3 v = normalize(-Position);
 	vec3 r = reflect(-s, n);
+
 
 	//COMPONENTE AMBIENTAL
     vec3 Ambient = Light.Ambient * vec3(texture(Material.Diffuse, TexCoords));
@@ -45,7 +49,7 @@ vec3  Phong ()
     //COMPONENTE ESPECULAR  
     vec3 Specular = Light.Specular * pow(max(dot(r, v), 0.0), 1) * vec3(texture(Material.Specular, TexCoords));//pow(max(dot(r, v), 0.0), 1): el 1 es un valor default ya que actualmente no hay brillos
         
-    return Ambient + Diffuse + Specular;  
+    return Ambient;  
 } 
 
 void main()

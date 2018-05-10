@@ -2,6 +2,8 @@
 #define SRC_TMOOSEENGINE_H_
 
 #include <vector>
+#include <glad/glad.h>
+
 #include <cstdint>
 #include <glm/ext.hpp>
 class TNodo;
@@ -54,6 +56,8 @@ class TMooseEngine{
         void renderUIMenuPausa(uint16_t opcion);
         void renderUIMenuConfig(uint16_t opcion);
         void renderUIHUD();
+        void drawprueba();
+        void initprueba();
 
         bool ventana_abierta();
 	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -108,6 +112,11 @@ class TMooseEngine{
         std::vector<TAnimacion*> _animaciones;
         UI* _ui;
         Skybox* _skybox;
+        GLuint VBO, boxVAO;
+        GLuint lightVAO;
+        GLuint diffuseMap, specularMap, emissionMap;
+
+
 };
 
 

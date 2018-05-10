@@ -15,6 +15,13 @@
 #include "UI.h"
 #include "Skybox.h"
 
+#include "../../Camara/Camara.h"
+#include "../../Interfaz/Motor.h"
+
+
+// Other Libs
+#include "SOIL.h"
+
 
 TMooseEngine* TMooseEngine::_instancia = 0;
 
@@ -40,6 +47,7 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader();
     _skybox = new Skybox();
+    initprueba();
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
@@ -282,15 +290,23 @@ void TMooseEngine::clear(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void TMooseEngine::draw(){
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
+    
+    /*
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+        glEnable( GL_DEPTH_TEST );
+
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
 
     _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
+    */
+    drawprueba();
+    glEnable(GL_CULL_FACE);
+    
     //glfwSwapBuffers(window);
     //glfwPollEvents();
 
@@ -309,6 +325,235 @@ void TMooseEngine::draw(){
     ConfigureShaderAndMatrices();
     glBindTexture(GL_TEXTURE_2D, depthMap);
     RenderScene();*/
+
+}
+
+
+void TMooseEngine::initprueba(){
+ GLfloat vertices[] =
+    {
+        // Positions            // Normals              // Texture Coords
+        -0.5f, -0.5f, -0.5f,    0.0f,  0.0f, -1.0f,     0.0f,  0.0f,
+        0.5f, -0.5f, -0.5f,     0.0f,  0.0f, -1.0f,     1.0f,  0.0f,
+        0.5f,  0.5f, -0.5f,     0.0f,  0.0f, -1.0f,     1.0f,  1.0f,
+        0.5f,  0.5f, -0.5f,     0.0f,  0.0f, -1.0f,     1.0f,  1.0f,
+        -0.5f,  0.5f, -0.5f,    0.0f,  0.0f, -1.0f,     0.0f,  1.0f,
+        -0.5f, -0.5f, -0.5f,    0.0f,  0.0f, -1.0f,     0.0f,  0.0f,
+        
+        -0.5f, -0.5f,  0.5f,    0.0f,  0.0f,  1.0f,     0.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,     0.0f,  0.0f,  1.0f,     1.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,     0.0f,  0.0f,  1.0f,     1.0f,  1.0f,
+        0.5f,  0.5f,  0.5f,     0.0f,  0.0f,  1.0f,  	1.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,    0.0f,  0.0f,  1.0f,     0.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,    0.0f,  0.0f,  1.0f,     0.0f,  0.0f,
+        
+        -0.5f,  0.5f,  0.5f,    -1.0f,  0.0f,  0.0f,    1.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,    -1.0f,  0.0f,  0.0f,    1.0f,  1.0f,
+        -0.5f, -0.5f, -0.5f,    -1.0f,  0.0f,  0.0f,    0.0f,  1.0f,
+        -0.5f, -0.5f, -0.5f,    -1.0f,  0.0f,  0.0f,    0.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,    -1.0f,  0.0f,  0.0f,    0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,    -1.0f,  0.0f,  0.0f,    1.0f,  0.0f,
+        
+        0.5f,  0.5f,  0.5f,     1.0f,  0.0f,  0.0f,     1.0f,  0.0f,
+        0.5f,  0.5f, -0.5f,     1.0f,  0.0f,  0.0f,     1.0f,  1.0f,
+        0.5f, -0.5f, -0.5f,     1.0f,  0.0f,  0.0f,     0.0f,  1.0f,
+        0.5f, -0.5f, -0.5f,     1.0f,  0.0f,  0.0f,     0.0f,  1.0f,
+        0.5f, -0.5f,  0.5f,     1.0f,  0.0f,  0.0f,     0.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,     1.0f,  0.0f,  0.0f,     1.0f,  0.0f,
+        
+        -0.5f, -0.5f, -0.5f,    0.0f, -1.0f,  0.0f,     0.0f,  1.0f,
+        0.5f, -0.5f, -0.5f,     0.0f, -1.0f,  0.0f,     1.0f,  1.0f,
+        0.5f, -0.5f,  0.5f,     0.0f, -1.0f,  0.0f,     1.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,     0.0f, -1.0f,  0.0f,     1.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,    0.0f, -1.0f,  0.0f,     0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,    0.0f, -1.0f,  0.0f,     0.0f,  1.0f,
+        
+        -0.5f,  0.5f, -0.5f,    0.0f,  1.0f,  0.0f,     0.0f,  1.0f,
+        0.5f,  0.5f, -0.5f,     0.0f,  1.0f,  0.0f,     1.0f,  1.0f,
+        0.5f,  0.5f,  0.5f,     0.0f,  1.0f,  0.0f,     1.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,     0.0f,  1.0f,  0.0f,     1.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,    0.0f,  1.0f,  0.0f,     0.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,    0.0f,  1.0f,  0.0f,     0.0f,  1.0f
+    };
+    
+
+
+
+        // First, set the container's VAO (and VBO)
+    glGenVertexArrays( 1, &boxVAO );
+    glGenBuffers( 1, &VBO );
+    
+    glBindBuffer( GL_ARRAY_BUFFER, VBO );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW );
+    
+    glBindVertexArray( boxVAO );
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid * )0 );
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid * )( 3 * sizeof( GLfloat ) ) );
+    glEnableVertexAttribArray( 1 );
+    glVertexAttribPointer( 2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid * )( 6 * sizeof( GLfloat ) ) );
+    glEnableVertexAttribArray( 2 );
+    glBindVertexArray( 0 );
+    
+    // Then, we set the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
+    glGenVertexArrays( 1, &lightVAO );
+    glBindVertexArray( lightVAO );
+    // We only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need.
+    glBindBuffer( GL_ARRAY_BUFFER, VBO );
+    // Set the vertex attributes (only position data for the lamp))
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid * )0 ); // Note that we skip over the other data in our buffer object (we don't need the normals/textures, only positions).
+    glEnableVertexAttribArray( 0 );
+    glBindVertexArray( 0 );
+    
+    // Load textures
+    glGenTextures( 1, &diffuseMap );
+    glGenTextures( 1, &specularMap );
+    glGenTextures( 1, &emissionMap );
+    
+    int imageWidth, imageHeight;
+    unsigned char *image;
+    
+    // Diffuse map
+    image = SOIL_load_image( "res/images/container2.png", &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB );
+    glBindTexture( GL_TEXTURE_2D, diffuseMap );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image );
+    glGenerateMipmap( GL_TEXTURE_2D );
+    SOIL_free_image_data( image );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST );
+    
+    // Specular map
+    image = SOIL_load_image( "res/images/container2_specular.png", &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB );
+    glBindTexture( GL_TEXTURE_2D, specularMap );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image );
+    glGenerateMipmap( GL_TEXTURE_2D );
+    SOIL_free_image_data( image );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST );
+    glBindTexture( GL_TEXTURE_2D, 0 );
+    
+    
+    // Set texture units
+    //lightingShader.Use( );
+    _shader->use(prueba);
+    
+    glUniform1i( glGetUniformLocation( Shader::Program, "material.diffuse" ), 0 );
+    glUniform1i( glGetUniformLocation( Shader::Program, "material.specular" ), 1 );
+
+}
+
+
+
+void TMooseEngine::drawprueba(){
+    // Use cooresponding shader when setting uniforms/drawing objects
+   // lightingShader.Use( );
+    _shader->use(prueba);
+    // Light attributes
+   // glm::vec3 lightPos( 1.2f, 1.0f, 2.0f ); 61.5158, 12, 44.2914
+    glm::vec3 lightPos( 61.5158, 6, 44.2914 );
+    glDisable(GL_CULL_FACE);
+   
+    GLint lightPosLoc = glGetUniformLocation( Shader::Program, "light.position" );
+    GLint viewPosLoc = glGetUniformLocation( Shader::Program, "viewPos" );
+    glUniform3f( lightPosLoc, lightPos.x, lightPos.y, lightPos.z ); // NO DEBERIA COMENTARSE
+    glm::vec3 camera = Motor::Motor_GetInstance()->get_camara()->get_position();
+    glm::mat4 camerapos = _shader->getView();
+
+    glUniform3f( viewPosLoc, camerapos[3][0],camerapos[3][1],camerapos[3][2] ); //NO DEBERIA COMENTARSE
+    // Set lights properties
+    glUniform3f( glGetUniformLocation( Shader::Program, "light.ambient" ), 1.0f, 1.0f, 1.0f );
+    glUniform3f( glGetUniformLocation( Shader::Program, "light.diffuse" ), 1.0f, 1.0f, 1.0f );
+    glUniform3f( glGetUniformLocation( Shader::Program, "light.specular" ), 1.0f, 1.0f, 1.0f );
+    glUniform1f( glGetUniformLocation( Shader::Program, "light.constant" ), 1.0f );
+    glUniform1f( glGetUniformLocation( Shader::Program, "light.linear" ), 0.09 );
+    glUniform1f( glGetUniformLocation( Shader::Program, "light.quadratic" ), 0.032 );
+    // Set material properties
+    glUniform1f( glGetUniformLocation( Shader::Program, "material.shininess"), 32.0f );
+    
+    // Create camera transformations
+   /* glm::mat4 view;
+    view = camera.GetViewMatrix( );
+    */
+
+    glm::mat4 view = _shader->getView();
+    glm::mat4 projection = _shader->getProjection();
+    
+    // Get the uniform locations
+    GLint modelLoc = glGetUniformLocation( Shader::Program, "model" );
+    GLint viewLoc  = glGetUniformLocation( Shader::Program, "view" );
+    GLint projLoc  = glGetUniformLocation( Shader::Program, "projection" );
+    // Pass the matrices to the shader
+    
+    glUniformMatrix4fv( viewLoc, 1, GL_FALSE, glm::value_ptr( view ) );
+    glUniformMatrix4fv( projLoc, 1, GL_FALSE, glm::value_ptr( projection ) );
+    
+    // Bind diffuse map
+    glActiveTexture( GL_TEXTURE0 );
+    glBindTexture( GL_TEXTURE_2D, diffuseMap );
+    // Bind specular map
+    glActiveTexture( GL_TEXTURE1 );
+    glBindTexture( GL_TEXTURE_2D, specularMap );
+    
+    // Draw 10 containers with the same VAO and VBO information; only their world space coordinates differ
+    glm::mat4 model;
+    glBindVertexArray( boxVAO );
+
+
+
+
+    // Positions all containers
+   glm::vec3 cubePositions[] = {
+        glm::vec3(  0.0f,   0.0f,   0.0f),
+        glm::vec3(  62.258, 6, 44.814),
+        glm::vec3(  61.5f,  6.0f,  42.5f),
+        glm::vec3(  62.8f,  -2.0f,  43.3f),
+        glm::vec3(  2.4f,   -0.4f,  -3.5f),
+        glm::vec3(  -1.7f,  3.0f,   -7.5f),
+        glm::vec3(  1.3f,   -2.0f,  -2.5f),
+        glm::vec3(  1.5f,   2.0f,   -2.5f),
+        glm::vec3(  1.5f,   0.2f,   -1.5f),
+        glm::vec3(  -1.3f,  1.0f,   -1.5f)
+    };
+
+
+    for ( GLuint i = 0; i < 10; i++ )
+    {
+        model = glm::mat4( );
+        model = glm::translate( model, cubePositions[i] );
+        GLfloat angle = 20.0f * i;
+        model = glm::rotate( model, angle, glm::vec3( 1.0f, 0.3f, 0.5f ) );
+        glUniformMatrix4fv( modelLoc, 1, GL_FALSE, glm::value_ptr( model ) );
+    _shader->setModel(model);
+        
+        glDrawArrays( GL_TRIANGLES, 0, 36 );
+    }
+    glBindVertexArray( 0 );
+    
+    
+
+    // Also draw the lamp object, again binding the appropriate shader  ESTA PARTE DIBUJA UN CUBO PEQUENYO QUE REPRESENTA DONDE ESTA SITUADA LA LUZ
+    _shader->use(lampara);
+    // Get location objects for the matrices on the lamp shader (these could be different on a different shader)
+    modelLoc = glGetUniformLocation( Shader::Program, "model" );
+    viewLoc = glGetUniformLocation( Shader::Program, "view" );
+    projLoc = glGetUniformLocation( Shader::Program, "projection" );
+    // Set matrices
+    glUniformMatrix4fv( viewLoc, 1, GL_FALSE, glm::value_ptr( view ) );
+    glUniformMatrix4fv( projLoc, 1, GL_FALSE, glm::value_ptr( projection ) );
+    model = glm::mat4( );
+    model = glm::translate( model, lightPos );
+    model = glm::scale( model, glm::vec3( 0.2f ) ); // Make it a smaller cube
+    
+    _shader->setModel(model);
+    glUniformMatrix4fv( modelLoc, 1, GL_FALSE, glm::value_ptr( model ) );
+    // Draw the light object (using light's vertex attributes)
+    glBindVertexArray( lightVAO );
+    glDrawArrays( GL_TRIANGLES, 0, 36 );
+    glBindVertexArray( 0 );
 
 }
 

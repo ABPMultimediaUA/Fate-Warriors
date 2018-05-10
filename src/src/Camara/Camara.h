@@ -39,6 +39,7 @@ public:
 	void rota_camara_sin_interpolacion(short _i_direccion_x, short _rotacion_en_y);		// Rota la camara a una posicion
 
 	inline void set_posicion_interpolable(bool estado) { _posicion_interpolable = estado; };
+	inline glm::vec3 get_position(){ return _position;};
 
 private:
 	//las nuevas variables de escena del ME

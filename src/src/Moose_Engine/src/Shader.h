@@ -11,6 +11,8 @@ enum ShaderType {
     eSkybox,
     sombras_proyectadas,
     texturas_menu,
+    prueba,
+    lampara,
     Shader_count
 };
 

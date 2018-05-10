@@ -142,6 +142,7 @@ public:
     void render_Pausa();
     void render_Menu_Config();
     void recibir_Danyo(float vida, float vida_maxima);
+    Camara* get_camara(){return camara;};
 private:
 
       static Motor* _Motor;
