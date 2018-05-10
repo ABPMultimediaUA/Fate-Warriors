@@ -407,10 +407,11 @@ void TMooseEngine::drawLuces(){
                                                   pila_matriz_luz.top()[3][2]);
 
                     luz_aux[3]=position;
-                    glm::mat4 mat(position[1],-position[2],0,0,
+                    glm::mat4 mat(20,0,0,0,
                                   0,0,0,0,
-                                  0,-position[2],position[1],0,
-                                  0,-1,0,position[1]);
+                                  0,0,20,0,
+                                  0,-1,0,20);
+                                  //std::cout<<glm::to_string(mat)<<std::endl;
                     _shader->setLuz(luz_aux,i);
                     _shader->use(sombras_proyectadas);
                     _shader->setMat4("luz_proyeccion",mat);
