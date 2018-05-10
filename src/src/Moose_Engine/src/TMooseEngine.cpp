@@ -290,23 +290,21 @@ void TMooseEngine::clear(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void TMooseEngine::draw(){
+     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
+//    drawLuces();
+    _shader->use(prueba);
+        drawprueba();
+    glDisable(GL_CULL_FACE);
     
-    /*
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-        glEnable( GL_DEPTH_TEST );
-
-    drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
 
-    _shader->use(sombras_proyectadas);
+   /* _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
-    */
-    drawprueba();
-    glEnable(GL_CULL_FACE);
     
+*/
     //glfwSwapBuffers(window);
     //glfwPollEvents();
 
