@@ -84,6 +84,7 @@ glm::mat4 TCamara::calculaView(){
 
     //_matriz_view = matrixA * matrixB;
     _matriz_view =  glm::lookAt(_position,_target, up);
+    //std::cout<<"viewa  "<<glm::to_string(_matriz_view)<<std::endl;
     return _matriz_view;
 }
 

@@ -18,8 +18,9 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 	float mult = 4.9212625; 
   	_zonas_manager       	=  new Zonas_Manager();
 	Vector2 pos 			=  _zonas_manager->get_posicion_zona_inicial();
-  	_jugador 				= new Player( 0, pos._x, 1, pos._y, _i_input); 
+
     _consumibles_manager 	= new Consumible_Manager(); 
+  	_jugador 				= new Player( 0, pos._x, 1, pos._y, _i_input); 
   	_trampas_manager 		= new Trampas_manager(); 
   	_armas_manager  		=  new Armas_Manager(); 
 	//  _respawn_Points      =  new Respawn_Points(); 

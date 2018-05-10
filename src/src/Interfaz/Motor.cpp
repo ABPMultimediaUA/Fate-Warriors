@@ -499,7 +499,6 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	switch(tipo){
 		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5)
-			std::cout << anchura << "anchura " << altura << " altura " << profundidad << "\n";
 
 					break;
 		case E_BoundingBox:

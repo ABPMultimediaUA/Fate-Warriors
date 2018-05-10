@@ -37,9 +37,7 @@ int main(){
 
     Motor* _motor = Motor::Motor_GetInstance();
 	
-	_motor->crearLuz(true, 100, Vector3(0.1, 0.1, 0.1), Vector3(1, 1, 1), Vector3(0.1, 0.1, 0.1), 0, 20, 0);
-	
-
+	_motor->crearLuz(true, 200, Vector3(0.1, 0.1, 0.1), Vector3(1, 1, 1), Vector3(0.1, 0.1, 0.1), 1000,11, -500);
     //uint8_t _frames = 0;
     //uint32_t _tiempo_por_frame = 0, _iteraciones = 0;
 

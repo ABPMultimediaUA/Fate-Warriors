@@ -8,6 +8,8 @@
 GLuint Shader::Programs[Shader_count];
 GLuint Shader::Program=0;
 
+//algo=0;
+
 
 Shader::Shader(){
     LoadShader(eSkybox, "src/Moose_Engine/Shaders/vertex_skybox.glsl", "src/Moose_Engine/Shaders/fragment_skybox.glsl");
@@ -135,26 +137,32 @@ void Shader::setModel(const glm::mat4 &mat){
     glUniformMatrix4fv(glGetUniformLocation(Program, "modelView"), 1, GL_FALSE, &mv[0][0]);
     glm::mat4 mvp=_projection*_view*mat;
     glUniformMatrix4fv(glGetUniformLocation(Program, "MVP"), 1, GL_FALSE, &mvp[0][0]);
+/*
+    if(algo==1){
+        algo=0;
+    }*/
+    
 }
 void Shader::setProjection(const glm::mat4 &mat){
     _projection=mat;
 }
+void Shader::setLuzPosition(const glm::mat4 &mat, unsigned int cantidad_luces){
+    
+    glm::vec4 aux=mat*glm::vec4(0,0,0,1);
+    std::string s="Light["+std::to_string(cantidad_luces)+']'+".Position";
+    glUniform3fv(glGetUniformLocation(Program, s.c_str()),1,&glm::vec3(aux[0],aux[1],aux[2])[0]);
+    std::cout<<(int)mat[3][0]<<"    "<<(int)mat[3][1]<<"    "<<(int)mat[3][2]<<std::endl;
+}
 void Shader::setLuz(const glm::vec3 _i_luces[], unsigned int cantidad_luces){
     //pasamos cada uno de los parametros de las luces al vertex
-    
+    std::string array_aux[3]={".Diffuse",".Specular",".Ambient"};
     const char*cAux;
-    std::string s="Light["+std::to_string(cantidad_luces)+']'+".Diffuse";//se pasa cada uno a string de manera individual para evitar el error de falta de conversion de array de char a char*
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[0][0]);
-    s="Light["+std::to_string(cantidad_luces)+']'+".Specular";
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[1][0]);
-    s="Light["+std::to_string(cantidad_luces)+']'+".Ambient";
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[2][0]);
-    s="Light["+std::to_string(cantidad_luces)+']'+".Position";
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[3][0]);
+    std::string s;
+    std::string s_aux="Light["+std::to_string(cantidad_luces)+']';
+    for(uint8_t cont=0;cont<3;cont++){
+        s=s_aux+array_aux[cont];
+        glUniform3fv(glGetUniformLocation(Program, s.c_str()),1,&_i_luces[cont][0]);
+    }
     ++cantidad_luces;
     //std::cout<<"luces: "<<cantidad_luces<<std::endl;
     setInt("cantidad_luces",cantidad_luces);

@@ -56,6 +56,7 @@ class TMooseEngine{
 
         void drawLuces();
         void drawCamaras();
+        void drawCamaras2();
         void setLuzView();
         void setMouseOffsetX(float offset);
         void setMouseOffsetY(float offset);

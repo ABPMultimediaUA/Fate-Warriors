@@ -44,8 +44,8 @@ TMooseEngine::TMooseEngine(){
    
     SHADOW_WIDTH = 1024;
     SHADOW_HEIGHT = 1024;
-    _mapeado_sombras=true;
-    _sombras_proyectadas=false;
+    _mapeado_sombras=false;
+    _sombras_proyectadas=true;
     if(_mapeado_sombras){
         PreparacionSombras();
     }
@@ -258,8 +258,8 @@ void TMooseEngine::draw(){
     }else{
         _shader->use(Default);
     }
-    drawCamaras();
     drawLuces();
+    drawCamaras();
     if(_mapeado_sombras){
         glBindTexture(GL_TEXTURE_2D, depthMap);
     }
@@ -310,17 +310,18 @@ void TMooseEngine::drawLuces(){
             for(u_int16_t a = 0; a < cont; a++){
                matriz_luz = matriz_luz * pila_matriz_luz.top();
                if(a==cont-1){
-                   position = glm::vec3(pila_matriz_luz.top()[3][0],
-                                                  pila_matriz_luz.top()[3][1],
-                                                  pila_matriz_luz.top()[3][2]);
+                   position = glm::vec3(matriz_luz[3][0],
+                                                  matriz_luz[3][1],
+                                                  matriz_luz[3][2]);
 
                     luz_aux[3]=position;
-                    glm::mat4 mat(position[1],-position[2],0,0,
+                    _shader->setLuz(luz_aux,i);
+                    _shader->setLuzPosition(matriz_luz,i);
+                    if(_sombras_proyectadas){
+                        glm::mat4 mat(position[1],-position[2],0,0,
                                   0,0,0,0,
                                   0,-position[2],position[1],0,
                                   0,-1,0,position[1]);
-                    _shader->setLuz(luz_aux,i);
-                    if(_sombras_proyectadas){
                         _shader->use(sombras_proyectadas);
                         _shader->setMat4("luz_proyeccion",mat);
                         _shader->use(Default);
@@ -342,12 +343,13 @@ void TMooseEngine::drawCamaras(){
         if(_mapping_camaras[i]->activa){ //recorremos el mapeado de camaras buscando la que este activa
             TNodo* this_node = _mapping_camaras[i]->nodo; //obtenemos su nodo
             matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
+            //std::cout<<"view: "<<glm::to_string(matriz_view)<<"\n";
             _shader->setView(matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
             //projection = glm::scale(-1,1,1);
             projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
             _shader->setProjection(projection);
-            
+            //std::cout<<"view: "<<glm::to_string(matriz_view)<<"\n";
             /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
             while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
                 this_node = this_node->get_padre();
@@ -369,6 +371,44 @@ void TMooseEngine::drawCamaras(){
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 1000.0f);
             _shader->setProjection(projection);
             */
+        }
+    }
+}
+void TMooseEngine::drawCamaras2(){
+    u_int16_t cont = 0;
+    std::stack<glm::mat4> pila_matriz_camara;
+    matriz_view=glm::mat4(1.0f); //inicializar la matriz view
+    for(uint16_t i = 0; i < _mapping_camaras.size(); i++){ 
+        if(_mapping_camaras[i]->activa){ //recorremos el mapeado de camaras buscando la que este activa
+            TNodo* this_node = _mapping_camaras[i]->nodo; //obtenemos su nodo
+            /*matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
+            _shader->setView(matriz_view); //la pasamos al shader
+            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
+            //projection = glm::scale(-1,1,1);
+            projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
+            _shader->setProjection(projection);*/
+            
+            //* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
+            while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
+                this_node = this_node->get_padre();
+                if(this_node->get_entidad()!=nullptr){ //para cada nodo salvo el raiz:
+                                                       //accedemos a la matriz de su transformacion y la apilamos para calcular la matriz view
+                    pila_matriz_camara.push(static_cast<TTransform*> (this_node->get_entidad())->get_t_matriz());
+                    cont++;//contamos el numero de veces que hemos apilado una matriz
+                }
+                
+            }
+
+            for(u_int16_t a = 0; a < cont; a++){ //por cada matriz apilada... 
+                matriz_view = matriz_view * pila_matriz_camara.top(); //construimos la matriz view multiplicando en orden inverso
+                pila_matriz_camara.pop();
+            }
+            //matriz_view = glm::inverse(matriz_view); //invertimos la matriz para obtener la matriz view final
+           // std::cout<<"view2: "<<glm::to_string(matriz_view)<<"\n";
+            _shader->setView(matriz_view); //la pasamos al shader
+            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 1000.0f);
+            _shader->setProjection(projection);
+            
         }
     }
 }

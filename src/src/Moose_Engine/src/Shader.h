@@ -18,6 +18,7 @@ enum ShaderType {
 
 class Shader{
     public:
+    static int algo;
         Shader();
         ~Shader()=default;
 
@@ -31,6 +32,7 @@ class Shader{
         void setView(const glm::mat4 &mat);
         void setModel(const glm::mat4 &mat);
         void setProjection(const glm::mat4 &mat);
+        void setLuzPosition(const glm::mat4 &mat, unsigned int cantidad_luces);
         void setLuz(const glm::vec3 _i_luces[], unsigned int cantidad_luces);
         static GLuint Program;
 
