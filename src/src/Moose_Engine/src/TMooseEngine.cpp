@@ -338,11 +338,14 @@ void TMooseEngine::renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_a
     
 }
 
-void TMooseEngine::renderUIMenuPausa(uint16_t opcion){
+void TMooseEngine::renderUIMenuPausa(uint16_t opcion, uint16_t opcion2, bool config_abierta){
     clear();
     draw();
     glDisable(GL_CULL_FACE);
     _ui->drawMenuPausa(opcion);
+    if(config_abierta){
+        renderUIMenuConfig(opcion2);
+    }
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
 }

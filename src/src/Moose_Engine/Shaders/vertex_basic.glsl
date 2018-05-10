@@ -1,21 +1,20 @@
 #version 450 core
-layout (location = 0) in vec4 aPos;
-layout (location = 1) in vec4 aNormal;
-layout (location = 2) in vec2 aTexCoords;
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoords;
 
+out vec3 Normal;
+out vec3 Position;
 out vec2 TexCoords;
-out vec3 Position;    //VERTICES EN COORDENADAS DE VISTA
-out vec3 Normal;      //NORMAL EN COORDENADAS DE VISTA
 
-uniform mat4 modelView;
-uniform mat4 normal;
-uniform mat4 MVP;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 void main()
 {
-    	//TRANSFORMAR VERTICE Y NORMAL A COORDENADAS DE VISTA
-	Position = vec3 (modelView * aPos);
-	Normal = vec3 (normalize (normal * aNormal));
-    TexCoords = aTexCoords;    
-    gl_Position = MVP * aPos;
+    gl_Position = projection * view *  model * vec4(position, 1.0f);
+    FragPos = vec3(model * vec4(position, 1.0f));
+    Normal = mat3(transpose(inverse(model))) * normal;
+    TexCoords = texCoords;
 }

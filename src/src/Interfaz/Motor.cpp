@@ -971,7 +971,9 @@ void Motor::render_Menu_Config(){
 void Motor::render_Pausa(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
-	_me->renderUIMenuPausa(num_opcion);	
+	uint8_t num_opcion2 = game->get_menu_pausa()->get_i_configuracion();
+	bool config_abierta = game->get_menu_pausa()->menu_opciones_abierto();
+	_me->renderUIMenuPausa(num_opcion, num_opcion2, config_abierta);	
 }
 
 void Motor::recibir_Danyo(float vida, float vida_maxima){
