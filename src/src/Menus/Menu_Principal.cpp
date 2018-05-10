@@ -40,14 +40,14 @@ void Menu_Principal::update(double _i_tiempo) {
 
 	_opcion_actual = _opcion_actual->update(_i_tiempo, _opcion_actual);
 
-	pinta_estado();
+	//pinta_estado();
 }
 
 uint8_t Menu_Principal::get_i_opcion() { 
-  for(uint8_t i=0; i<_n_opciones_principal; i++) { 
-    if(_opcion_actual == _opciones[i]) 
-      return i; 
-  } 
+  	for(uint8_t i=0; i<_n_opciones_principal; i++) { 
+    	if(_opcion_actual == _opciones[i]) 
+      		return i; 
+  	} 
 }
 
 // Pinta por terminal el estado actual
@@ -58,4 +58,14 @@ void Menu_Principal::pinta_estado() {
 		std::cout << "Opción Configuración\n";
 	if(_opcion_actual == _opciones[2])
 		std::cout << "Opción Salir\n";
+}
+
+// Indica si el menu de opciones esta abierto (Se esta dentro de el)
+bool Menu_Principal::menu_opciones_abierto() {
+	return _opciones[1]->get_dentro();
+}
+
+// Devuelve la opcion del menu principal
+uint8_t Menu_Principal::get_i_configuracion() {
+	_opciones[1]->get_i_configuracion();
 }

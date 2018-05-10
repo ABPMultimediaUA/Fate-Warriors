@@ -1,55 +1,58 @@
 #version 450 core
-out vec4 FragColor;
-
-in vec2 TexCoords;
-in vec3 Position;    //VERTICES EN COORDENADAS DE VISTA
-in vec3 Normal;
-
-
-//ESTRUCTURA PARA GUARDAR EL MATERIAL. AHORA UTILIZAMOS TEXTURAS PARA GUARDAR LAS PROPIEDADES DIFUSAS Y ESPECULARES DEL MATERIAL 
-struct TMaterial {
-    sampler2D Diffuse;
-    sampler2D Specular;
-    float     Shininess;
-};  
-
-//ESTRUCTURA PARA GUARDAR LAS LUCES (POSICION, Y PROPIEDADES AMBIENTAL, DIFUSA Y ESPECULAR DE LA LUZ)
-struct TLight {
-    vec3 Position;
-
-    vec3 Ambient;
-    vec3 Diffuse;
-    vec3 Specular;
+struct Material
+{
+    sampler2D diffuse;
+    sampler2D specular;
+    float     shininess;
 };
 
-//ESTADO DE OPENGL: MATERIAL Y LUZ (DEL TIPO DE LAS ESTRUCTURAS ANTERIORES)
-uniform TMaterial Material;
-uniform TLight Light;
-
-
-//FUNCION QUE CALCULA EL MODELO DE REFLEXION DE PHONG
-vec3  Phong () 
+struct Light
 {
-    //CALCULAR LOS DIFERENTES VECTORES	 
-	vec3 n = normalize(Normal);
-    vec3 s = normalize(Light.Position - Position);
-	vec3 v = normalize(-Position);
-	vec3 r = reflect(-s, n);
-
-	//COMPONENTE AMBIENTAL
-    vec3 Ambient = Light.Ambient * vec3(texture(Material.Diffuse, TexCoords));
-  	
-    //COMPONENTE DIFUSA 
-    vec3 Diffuse = Light.Diffuse * max(dot(s, n), 0.0) * vec3(texture(Material.Diffuse, TexCoords));  
+    vec3 position;
     
-    //COMPONENTE ESPECULAR  
-    vec3 Specular = Light.Specular * pow(max(dot(r, v), 0.0), 1) * vec3(texture(Material.Specular, TexCoords));//pow(max(dot(r, v), 0.0), 1): el 1 es un valor default ya que actualmente no hay brillos
-        
-    return Ambient + Diffuse + Specular;  
-} 
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    
+    float constant;
+    float linear;
+    float quadratic;
+};
+
+in vec3 FragPos;
+in vec3 Normal;
+in vec2 TexCoords;
+
+out vec4 color;
+
+uniform vec3 viewPos;
+uniform Material material;
+uniform Light light;
 
 void main()
 {
-    //FragColor = vec4(0,1,0, 1.0f);
-    FragColor = vec4 (Phong(), 1.0);
-} 
+    // Ambient
+    vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
+    
+    // Diffuse
+    vec3 norm = normalize(Normal);
+    vec3 lightDir = normalize(light.position - FragPos);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+    
+    // Specular
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
+    
+    // Attenuation
+    float distance    = length(light.position - FragPos);
+    float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+    
+    ambient  *= attenuation;
+    diffuse  *= attenuation;
+    specular *= attenuation;
+    
+    color = vec4(ambient + diffuse + specular, 1.0f);
+}

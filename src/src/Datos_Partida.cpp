@@ -28,16 +28,13 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
  
    
  
-  NPC ** _npcs = _npc_manager->get_npcs(); 
-  uint16_t _cont, _n_npcs; 
-  _n_npcs = _npc_manager->get_n_npc(); 
+	NPC ** _npcs = _npc_manager->get_npcs(); 
+	uint16_t _cont, _n_npcs; 
+	_n_npcs = _npc_manager->get_n_npc(); 
 
-  for(_cont = 0; _cont < _n_npcs; _cont++) { 
-    //_npcs[_cont]->comprobar_si_asignar_arma_y_asignarla(_armas_manager);
-	_npcs[_cont]->danyar(_npcs[_cont]->get_vida_actual());
-	_npcs[_cont]->morir();
-
-  } 
+	for(_cont = 0; _cont < _n_npcs; _cont++) { 
+		_npcs[_cont]->aparecer_muerto();
+	} 
 	_num_characters = _n_npcs + 1;
 	_characters = new Character*[_num_characters];
 

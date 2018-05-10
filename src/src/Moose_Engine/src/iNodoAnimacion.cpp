@@ -131,24 +131,47 @@ void iNodoAnimacion::cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta){
 // 13 - ATK F 1
 // 14 - ATK F 2
 // 15 - ATK F 3
+// 16 - 
+// 17 -
 
 void iNodoAnimacion::update_anim(){
-    if(!_reloj->get_esta_pausado() && _reloj->get_current()-_tiempo_aux>=55){
-        _tiempo_aux=_reloj->get_current();
+    //if(_ruta_actual == 0 || _ruta_actual == 1 || _ruta_actual == 2) {
+         if(!_reloj->get_esta_pausado() && _reloj->get_current()-_tiempo_aux>=55){
+            _tiempo_aux=_reloj->get_current();
 
-        if(_contador_anim < _max_anim){
-            ++_contador_anim;
-        }
-        else if(_bucle){
-            _contador_anim = 0;
-        }
-        else if(!_bucle) {
-            _fin_animacion = true;
-            cambiar_modelado(_ruta_idle, 0);
-        }
+            if(_contador_anim < _max_anim){
+                ++_contador_anim;
+            }
+            else if(_bucle){
+                _contador_anim = 0;
+            }
+            else if(!_bucle) {
+                _fin_animacion = true;
+                cambiar_modelado(_ruta_idle, 0);
+            }
 
-        _animacion->set_cont_animaciones(_contador_anim);
-    }
+            _animacion->set_cont_animaciones(_contador_anim);
+        }
+    /*}
+    else {
+        if(!_reloj->get_esta_pausado() && _reloj->get_current()-_tiempo_aux>=45){
+            _tiempo_aux=_reloj->get_current();
+
+            if(_contador_anim < _max_anim){
+                ++_contador_anim;
+            }
+            else if(_bucle){
+                _contador_anim = 0;
+            }
+            else if(!_bucle) {
+                _fin_animacion = true;
+                cambiar_modelado(_ruta_idle, 0);
+            }
+
+            _animacion->set_cont_animaciones(_contador_anim);
+        }
+    }*/
+
 }
 
 

@@ -255,7 +255,83 @@ void Player::disminuir_especial(){
 }
 
 void Player::morir() {
-    //hacer random de sonido
     _sonido->Play_voces(7);
     Game::game_instancia()->cambio_a_update_lose();
+}
+
+void Player::play_voces_ataque() {
+    _sonido->Play_voces(6);
+} 
+
+void Player::play_animaciones_ataque() {
+    // ANIMACIONES
+    _sonido->Stop_pasos();
+    switch(_tipo_ataque)  
+    {  
+        case Ataque_Normal:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d1_jugador", 10);
+            break;
+
+        case Ataque_Normal_Normal:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d2_jugador", 12);
+            break;
+
+        case Ataque_Normal_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_d3_jugador", 13);
+            break;
+
+        case Ataque_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_f1_jugador", 11);
+            break;
+
+        case Ataque_Fuerte_Normal: 
+            _objeto_motor->cambiar_modelado("Anim_ataque_f2_jugador", 14);
+            break;
+
+        case Ataque_Fuerte_Fuerte:
+            _objeto_motor->cambiar_modelado("Anim_ataque_f3_jugador", 15);
+            break;
+    }
+}
+
+void Player::play_animaciones_recibir_danyo() {
+    _sonido->Play_personaje(1);
+    _sonido->Play_voces(8);
+    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_jugador", 16);
+}
+
+// Anyadir animaciones que se quieran pre-cargar
+void Player::carga_animaciones() {
+    _objeto_motor->cambiar_modelado("Anim_andar_jugador", 1);
+    _objeto_motor->cambiar_modelado("Anim_correr_jugador", 2);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d1_jugador", 10);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d2_jugador", 12);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d3_jugador", 13);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f1_jugador", 11);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f2_jugador", 14);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f3_jugador", 15);
+    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_jugador", 16);
+    _objeto_motor->cambiar_modelado("Anim_dash_jugador", 17);
+
+    _objeto_motor->cambiar_modelado("Anim_andar_npc1", 1);
+    _objeto_motor->cambiar_modelado("Anim_correr_npc1", 2);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc1", 10);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d2_npc1", 12);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc1", 13);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f1_npc1", 11);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f2_npc1", 14);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc1", 15);
+    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_npc1", 16);
+
+    _objeto_motor->cambiar_modelado("Anim_andar_npc2jugador", 1);
+    _objeto_motor->cambiar_modelado("Anim_correr_npc2", 2);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc2", 10);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d2_npc2", 12);
+    _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc2", 13);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f1_npc2", 11);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f2_npc2", 14);
+    _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc2", 15);
+    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_1_npc2", 16);
+
+    _objeto_motor->cambiar_modelado("Anim_idle_jugador", 20);
 }

@@ -17,6 +17,7 @@ public:
 	void update(double _i_tiempo);
 
 	void set_tiempo_fin();
+	uint8_t get_i_opcion();
 
 private: 
 	Opcion** _opciones;

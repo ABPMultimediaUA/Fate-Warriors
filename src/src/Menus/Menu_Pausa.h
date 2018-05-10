@@ -18,6 +18,9 @@ public:
 
 	void set_tiempo_pausa();
 	uint8_t get_i_opcion();
+	bool menu_opciones_abierto();
+	uint8_t get_i_configuracion();
+
 private: 
 	Opcion** _opciones;
 	Opcion* _opcion_actual;

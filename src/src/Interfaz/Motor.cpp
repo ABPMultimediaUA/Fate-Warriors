@@ -858,7 +858,7 @@ void Motor::render(){
 
 void Motor::cambia_animaciones() {
 	int x=lista_i_nodo.size();
-	for(uint16_t i=0; i<lista_i_nodo.size()&&i<172; i++) {
+	for(uint16_t i=0; i<lista_i_nodo.size(); i++) {
 		lista_i_nodo[i]->update_anim();
 	}
 }
@@ -956,13 +956,24 @@ void Motor::gira_camara(short _rotacion_en_x, short _rotacion_en_y) {
 void Motor::render_Menu(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_principal()->get_i_opcion();
-	_me->renderUIMenu(num_opcion);
+	uint8_t num_opcion2 = game->get_menu_principal()->get_i_configuracion();
+	bool config_abierta = game->get_menu_principal()->menu_opciones_abierto();
+	_me->renderUIMenu(num_opcion, num_opcion2, config_abierta);
+	//_me->renderUIMenuConfig(0);
+}
+
+void Motor::render_Menu_Config(){
+	Game* game = Game::game_instancia();
+	//uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
+	//_me->renderUIMenuConfig(0);	
 }
 
 void Motor::render_Pausa(){
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
-	_me->renderUIMenuPausa(num_opcion);	
+	uint8_t num_opcion2 = game->get_menu_pausa()->get_i_configuracion();
+	bool config_abierta = game->get_menu_pausa()->menu_opciones_abierto();
+	_me->renderUIMenuPausa(num_opcion, num_opcion2, config_abierta);	
 }
 
 void Motor::recibir_Danyo(float vida, float vida_maxima){

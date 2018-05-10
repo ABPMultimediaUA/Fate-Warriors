@@ -60,3 +60,10 @@ void Menu_Fin::pinta_estado() {
 	if(_opcion_actual == _opciones[1])
 		std::cout << "Opción Salir Partida\n";
 }
+
+uint8_t Menu_Fin::get_i_opcion() { 
+  	for(uint8_t i=0; i<_n_opciones_fin; i++) { 
+    	if(_opcion_actual == _opciones[i]) 
+      		return i; 
+  	} 
+}

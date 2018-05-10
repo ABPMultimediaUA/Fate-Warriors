@@ -125,9 +125,12 @@ public:
 	void set_zona_en_la_que_se_encuentra(Zona * _zona);
 	Zona* get_zona();
 
-	virtual void play_voces_ataque();
-	virtual void play_animaciones_ataque();
-	virtual void play_animaciones_recibir_danyo();
+	virtual void play_voces_ataque() = 0;
+	virtual void play_animaciones_ataque() = 0;
+	virtual void play_animaciones_recibir_danyo() = 0;
+
+	virtual void animacion_andar();
+	virtual void animacion_correr();
 
 	inline void set_pos_azar_en_zona(int x, int y) {
 		pos_x_azar_en_zona = x;

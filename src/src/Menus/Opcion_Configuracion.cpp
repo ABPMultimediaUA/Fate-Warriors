@@ -73,3 +73,7 @@ Opcion* Opcion_Configuracion::update_opcion(double _i_tiempo, Opcion* _this) {
 bool Opcion_Configuracion::get_dentro() {
 	return _dentro_menu;
 }
+
+uint8_t Opcion_Configuracion::get_i_configuracion() { 
+	_configuracion->get_i_configuracion(); 
+}

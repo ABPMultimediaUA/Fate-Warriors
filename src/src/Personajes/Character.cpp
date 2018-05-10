@@ -53,7 +53,7 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vid
 Character::~Character() {
     delete _inventario;
     Motor::Motor_GetInstance()->borrar_rb(_rb_ataque);
-    Game::game_instancia()->get_consumibles_action()->borrar_power_up(_power_up);
+    //Game::game_instancia()->get_consumibles_action()->borrar_power_up(_power_up);
 }
 
 int16_t Character::get_vida(){
@@ -222,21 +222,25 @@ void Character::mover_direccion(uint16_t _i_direccion, uint16_t _i_direccion_mov
 
         _direccion_actual = _i_direccion;
             
-        if(this->get_accion() == Nada){
+        if(get_accion() == Nada){
             set_accion(Andar);
             _velocidad = _velocidadAndar;
+            animacion_andar();
         }
-        else if(this->get_accion() == Andar){
+        else if(get_accion() == Andar){
             //std::cout << "Andando" << std::endl;
             if(_velocidad<_velocidadAndar){
                 _velocidad += 0.05;
+                animacion_andar();
             }
             if(accion_en_curso() == false){
-                this->set_accion(Accion_Correr);
+                set_accion(Accion_Correr);
+                animacion_correr();
             }
         }
         else if(_accion == Accion_Correr){
             //std::cout << "CORRIENDO" << std::endl;
+            animacion_correr();
             if(_velocidad<_velocidadCorrer){
                 _velocidad += 0.1;
             }
@@ -324,14 +328,9 @@ bool Character::interactuar_con_objeto(){
 }
 
 void Character::morir(){ // SE SOBRESCRIBE EN NPC!!
-    //float mult = 4.9212625;
-    //std::cout << "He muerto :("<< std::endl;
-    //_inventario->soltar_armas(getX(), getZ()); BORRAME
-
     _zona_en_la_que_se_encuentra = nullptr;
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
     //setY(99999999999);
-
 }
 
 
@@ -525,7 +524,7 @@ static bool getSiAccionBloqueaInput(Enum_Acciones _accion){
         case Saltar:
             return false;
         case Recibir_danyo:
-            return false;
+            return true;
         default:
             return false;
     }
@@ -608,11 +607,11 @@ btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
 
         if(_tipo_ataque == Ataque_Normal){
             //std::cout<< "cuerpo a cuerpo normal" <<std::endl;
-            return btVector3(2,1,2);
+            return btVector3(4,1,4);
         }
         else if(_tipo_ataque == Ataque_Fuerte){
             //std::cout<< "cuerpo a cuerpo  fuerte" <<std::endl;
-            return btVector3(2.5,1,2);
+            return btVector3(4,1,4.5);
         }
         else if(_tipo_ataque == Ataque_Salto){
             //std::cout<< "cuerpo a cuerpo salto" <<std::endl;
@@ -846,44 +845,8 @@ Zona* Character::get_zona() {
     return _zona_en_la_que_se_encuentra;
 }
 
-
-void Character::play_voces_ataque() {
-    _sonido->Play_personaje(1);
-    _sonido->Play_voces(6);
+void Character::animacion_andar() {
 }
 
-void Character::play_animaciones_ataque() {
-    // ANIMACIONES
-    _sonido->Stop_pasos();
-    switch(_tipo_ataque)  
-    {  
-        case Ataque_Normal:
-            _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc2", 10);
-            break;
-
-        case Ataque_Fuerte:
-            _objeto_motor->cambiar_modelado("Anim_ataque_f1_npc2", 11);
-            break;
-
-        case Ataque_Normal_Normal:
-            _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc1", 12);
-            break;
-
-        case Ataque_Normal_Fuerte:// FALTAA
-            _objeto_motor->cambiar_modelado("Anim_ataque_d3_jugador", 13);
-            break;
-
-        case Ataque_Fuerte_Normal: 
-            _objeto_motor->cambiar_modelado("Anim_ataque_f2_npc2", 14); //esta animacion pero no esta bien exportada
-            break;
-
-        case Ataque_Fuerte_Fuerte:
-            _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc2", 15);
-            break;
-    }
-    
-}
-
-void Character::play_animaciones_recibir_danyo() {
-    _objeto_motor->cambiar_modelado("Anim_recibirdanyo_jugador", 16);
+void Character::animacion_correr() {
 }

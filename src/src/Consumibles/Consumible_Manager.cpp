@@ -17,7 +17,7 @@
 
 Consumible_Manager::Consumible_Manager() {
     
-    mult = 4.9212625;
+    //mult = 4.9212625;
 
 /*    _consumibles.push_back( new Consumible_Carne(5,mult*17, mult*0, mult*52));
 
@@ -34,11 +34,11 @@ Consumible_Manager::Consumible_Manager() {
     _consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*52));
     _consumibles.push_back( new Consumible_Agua(5,mult*6, mult*0, mult*50));
 */
-    _consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*50));
+    //_consumibles.push_back( new Consumible_Agua(5,mult*4, mult*0, mult*50));
  //   _consumibles.push_back( new Consumible_Fuerza(5,mult*6, mult*0, mult*52));
 
 
-    numero_max = 0;
+    //numero_max = 0;
 
 
 }
@@ -49,10 +49,10 @@ Consumible_Manager::Consumible_Manager() {
 
 Consumible_Manager::~Consumible_Manager(){
     
- for (short i = 0; i < _consumibles.size(); i++) {
+ /*for (short i = 0; i < _consumibles.size(); i++) {
     delete _consumibles[i];
   }
-  _consumibles.clear();
+  _consumibles.clear();*/
 
 }
 
@@ -62,29 +62,29 @@ Consumible_Manager::~Consumible_Manager(){
 // METODOS BORRAR
 
 void Consumible_Manager::borrar_consumible(Consumible_Power_Up* objeto){
-    std::vector<Consumible*>::iterator it;
+    /*std::vector<Consumible*>::iterator it;
     it = std::find(_consumibles.begin(), _consumibles.end(), objeto);
     
     if ( it != _consumibles.end()){
         _consumibles.erase(it);
         delete objeto;
-    }
+    }*/
    
 }
 
 void Consumible_Manager::borrar_consumible(short id){
-    delete _consumibles[id];
-    _consumibles.erase(_consumibles.begin() + id);
+    /*delete _consumibles[id];
+    _consumibles.erase(_consumibles.begin() + id);*/
 }
 
 // Metodo para crear los consumibles en posiciones al azar, crea la cantidad que esta determiannda por numero_max
 
 void Consumible_Manager::crear_todos_consumibles_que_faltan(){
   
-    for(uint16_t i=_consumibles.size(); i<numero_max; i++){
+    /*for(uint16_t i=_consumibles.size(); i<numero_max; i++){
         Vector2 posicion = crear_posiciones_aleatorias();
        anyadir_consumible(posicion);
-    }
+    }*/
 }
 
 
@@ -105,7 +105,7 @@ void Consumible_Manager::crear_todos_consumibles_que_faltan(){
 
 //Anyade un unico consumible al vector de consumibles generando uno de un tipo al azar con un rand
 void Consumible_Manager::anyadir_consumible(Vector2 posicion){
-
+    /*
     //Comprobar que power up va a crear 
     MapeadConsumibles *_mapeado_clase = mapping_tipo_consumible_creada;
 
@@ -129,6 +129,7 @@ void Consumible_Manager::anyadir_consumible(Vector2 posicion){
 		}
 		++_mapeado_clase;   
 	}
+    */
 }
 
 
@@ -136,24 +137,24 @@ void Consumible_Manager::anyadir_consumible(Vector2 posicion){
 
 
 void Consumible_Manager::anyadir_consumible_patata(Vector2 posicion){
-     _consumibles.push_back( new Consumible_Patata(5,posicion._x, 0, posicion._y));
+    //_consumibles.push_back( new Consumible_Patata(5,posicion._x, 0, posicion._y));
 }
 
 
 void Consumible_Manager::anyadir_consumible_carne(Vector2 posicion){
-     _consumibles.push_back( new Consumible_Carne(5,posicion._x, 0, posicion._y));
+    //_consumibles.push_back( new Consumible_Carne(5,posicion._x, 0, posicion._y));
 }
 
 void Consumible_Manager::anyadir_consumible_agua(Vector2 posicion){
-     _consumibles.push_back( new Consumible_Agua(5,posicion._x, 0, posicion._y));
+    //_consumibles.push_back( new Consumible_Agua(5,posicion._x, 0, posicion._y));
 }
 
 void Consumible_Manager::anyadir_consumible_fuerza(Vector2 posicion){
-     _consumibles.push_back( new Consumible_Fuerza(5,posicion._x, 0, posicion._y));
+    //_consumibles.push_back( new Consumible_Fuerza(5,posicion._x, 0, posicion._y));
 }
 
 void Consumible_Manager::anyadir_consumible_inmunidad(Vector2 posicion){
-     _consumibles.push_back( new Consumible_Vida_Infinita(5,posicion._x, 0, posicion._y));
+    //_consumibles.push_back( new Consumible_Vida_Infinita(5,posicion._x, 0, posicion._y));
 }
 
 Vector2 Consumible_Manager::crear_posiciones_aleatorias(){
