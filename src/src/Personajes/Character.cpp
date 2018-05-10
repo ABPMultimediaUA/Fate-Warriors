@@ -200,8 +200,9 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
 void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
+        _sonido->Stop_pasos();
+        _sonido->Play_personaje(0);
         _objeto_motor->cambiar_modelado("Anim_dash_jugador", 17);
-        //_objeto_motor->Dash(_direccion);
     }
     
 }
