@@ -63,12 +63,12 @@ void recorrerArbol(){
     TTransform* trans4 = motor->crearTransform();
     TTransform* trans5 = motor->crearTransform();
 
-	TLuz* luz = motor->crearLuz(glm::vec3(1,1,1),glm::vec3(1,1,1),glm::vec3(1,1,1));
+	TLuz* luz = motor->crearLuz(glm::vec3(0.1,0.1,0.1),glm::vec3(0.1,0.1,0.1),glm::vec3(1,1,1));
     TCamara* camara = motor->crearCamara(true);
     const char cstr[] = "EscenarioSombras";
     TModelado* malla1 = motor->crearModelado(cstr);
-    const char cstr2[] = "Anim_ataque_d1_npc2";
-    TAnimacion* Animacion1 = motor->crearAnimacion(cstr2);
+    const char cstr2[] = "Agua";
+    TModelado* malla2 = motor->crearModelado(cstr2);
 
     /*const char cstr3[] = "Anim_idle_pistola_objetos";
     TAnimacion* Animacion2 = motor->crearAnimacion(cstr3);
@@ -83,8 +83,8 @@ void recorrerArbol(){
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
-    trans2->trasladar(1,0,-100000);//luz
-    trans3->trasladar(0,5,25);//camara
+    trans2->trasladar(100,1,0);//luz
+    trans3->trasladar(0,5,200);//camara
     trans4->rotar(0,1,1,1);
     //trans5->rotar(0,1,0,10);
     
@@ -95,7 +95,7 @@ void recorrerArbol(){
     TNodo* nodoTrans3 = motor->crearNodo(motor->nodoRaiz(), trans3);
     TNodo* nodoTrans4 = motor->crearNodo(nodoTrans1, trans4);
     
-    TNodo* nodoMalla  = motor->crearNodo(nodoTrans4, Animacion1);
+    TNodo* nodoMalla  = motor->crearNodo(nodoTrans4, malla2);
     TNodo* nodoMalla2  = motor->crearNodo(nodoTrans4, malla1);
     TNodo* nodoLuz    = motor->crearNodoLuz(nodoTrans2, luz);
 
@@ -241,8 +241,8 @@ int dibujarOpenGL(){
     vShaderFile.exceptions(std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::badbit);
 
-    const GLchar* vertex_path = "src/Moose_Engine/Shaders/vertex_basic.glsl";
-    const GLchar* fragment_path = "src/Moose_Engine/Shaders/fragment_basic.glsl";
+    const GLchar* vertex_path = "Shaders/vertex_basic.glsl";
+    const GLchar* fragment_path = "Shaders/fragment_basic.glsl";
 
 
 
@@ -359,7 +359,7 @@ void main_tamanyofloat(){
 }
 
 
-int main2(){
+int main(){
     //dibujarOpenGL();
     recorrerArbol();
     //interfazTest();

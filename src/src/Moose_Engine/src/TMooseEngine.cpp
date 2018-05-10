@@ -231,14 +231,14 @@ void TMooseEngine::clear(){
 }
 void TMooseEngine::draw(){
     clear();
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
     drawCamaras();
     drawLuces();
     _escena->draw(_shader);
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    _shader->use(sombras_proyectadas);
-    _escena->draw(_shader);
+    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    //_shader->use(sombras_proyectadas);
+    //_escena->draw(_shader);
     glfwSwapBuffers(window);
     glfwPollEvents();
 
@@ -332,14 +332,14 @@ void TMooseEngine::drawCamaras(){
     for(uint16_t i = 0; i < _mapping_camaras.size(); i++){ 
         if(_mapping_camaras[i]->activa){ //recorremos el mapeado de camaras buscando la que este activa
             TNodo* this_node = _mapping_camaras[i]->nodo; //obtenemos su nodo
-            matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
+           /*matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
             _shader->setView(matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
             //projection = glm::scale(-1,1,1);
             projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
-            _shader->setProjection(projection);
+            _shader->setProjection(projection);*/
             
-            /* ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
+            // ESTA ZONA ES EL METODO LEGAL Y CORRECTO DE CALCULAR LAS CAMARAS, NO TOCAR
             while(this_node->get_padre()!=nullptr){ //subimos hacia arriba en el arbol hasta la raiz
                 this_node = this_node->get_padre();
                 if(this_node->get_entidad()!=nullptr){ //para cada nodo salvo el raiz:
@@ -359,7 +359,7 @@ void TMooseEngine::drawCamaras(){
             _shader->setView(matriz_view); //la pasamos al shader
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 1000.0f);
             _shader->setProjection(projection);
-            */
+            
         }
     }
 }

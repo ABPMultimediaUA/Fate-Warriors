@@ -5,13 +5,13 @@
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
  
-#include "SOIL.h"
+//#include <SOIL.h>
 
 //#include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
+//
 Skybox::Skybox() {
-    GLfloat skyboxVertices[] = {
+    /*GLfloat skyboxVertices[] = {
         // Positions          
         -1.0f, 1.0f, -1.0f,
         -1.0f, -1.0f, -1.0f,
@@ -71,7 +71,7 @@ Skybox::Skybox() {
     faces.push_back("Skybox_Images/bottom.jpg"); //bottom
     faces.push_back("Skybox_Images/back.jpg"); //back   
     faces.push_back("Skybox_Images/front.jpg"); //front
-    cubemapTexture = loadCubemap(faces);
+    cubemapTexture = loadCubemap(faces);*/
 }
  
 Skybox::~Skybox() {
@@ -81,7 +81,7 @@ Skybox::~Skybox() {
 GLuint Skybox::loadCubemap(std::vector<const GLchar*> faces) {
     
     GLuint textureID;
-    glGenTextures(1, &textureID);
+    /*glGenTextures(1, &textureID);
  
     
     int width, height;
@@ -103,14 +103,14 @@ GLuint Skybox::loadCubemap(std::vector<const GLchar*> faces) {
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);*/
  
     return textureID;
 }
 
 
 void Skybox::draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection){
-        
+    /*    
     // Draw skybox as last
     glDepthFunc(GL_LEQUAL); // Change depth function so depth test passes when values are equal to depth buffer's content
     glDisable(GL_CULL_FACE);
@@ -129,7 +129,7 @@ void Skybox::draw(Shader* _i_shader, glm::mat4 view, glm::mat4 projection){
     glDepthFunc(GL_LESS); // Set depth function back to default
         
     //_i_shader->use(Default);
-
+*/
 }
 
 

@@ -10,6 +10,8 @@ enum ShaderType {
     Default = 0,
     eSkybox,
     sombras_proyectadas,
+    mapeado_sombras_default,
+    mapeado_sombras_depth,
     Shader_count
 };
 
