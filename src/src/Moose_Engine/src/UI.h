@@ -33,6 +33,8 @@ class UI{
         void set_escala_voz(float escala);
         void set_escala_sonido_menu(float escala);
         
+        void set_eje_x(bool ejeX);
+        void set_eje_y(bool ejeY);
 
     private:
         

@@ -224,3 +224,21 @@ void UI::set_escala_sonido_menu(float escala){
     float _escala = escala/9;
     _lista_imagenes_config[13]->setSizeX(_escala); 
 }
+
+void UI::set_eje_x(bool ejeX){
+    if(ejeX == false){
+        _lista_imagenes_config[14]->setSelected(1);
+    }
+    else{
+        _lista_imagenes_config[14]->setSelected(2);
+    }
+}
+
+void UI::set_eje_y(bool ejeY){
+    if(ejeY == false){
+        _lista_imagenes_config[15]->setSelected(1);
+    }
+    else{
+        _lista_imagenes_config[15]->setSelected(2);
+    }
+}

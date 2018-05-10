@@ -146,6 +146,9 @@ public:
     void set_escala_sfx(uint8_t escala);
     void set_escala_voz(uint8_t escala);
     void set_escala_menu(uint8_t escala);
+
+    void set_eje_x(bool ejeX);
+    void set_eje_y(bool ejeY);
     
 private:
 

@@ -1002,3 +1002,11 @@ void Motor::set_escala_voz(uint8_t escala){
 void Motor::set_escala_menu(uint8_t escala){
 	_me->getUI()->set_escala_sonido_menu(escala);
 }
+
+void Motor::set_eje_x(bool ejeX){
+	_me->getUI()->set_eje_x(ejeX);
+}
+
+void Motor::set_eje_y(bool ejeY){
+	_me->getUI()->set_eje_y(ejeY);
+}
