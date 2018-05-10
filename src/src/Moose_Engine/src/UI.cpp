@@ -1,6 +1,7 @@
 #include "UI.h"
 #include "Image.h"
 
+#include <iostream>
 //#include "stdint.h"
 
 UI::UI(){
@@ -202,4 +203,24 @@ void UI::set_escala_vida(float escala){
     else{
         _lista_imagenes_hud[1]->setSelected(3); //barra roja
     }
+}
+
+void UI::set_escala_musica(float escala){
+    float _escala = escala/9;;
+    _lista_imagenes_config[7]->setSizeX(_escala); 
+}
+
+void UI::set_escala_sfx(float escala){
+    float _escala = escala/9;;
+    _lista_imagenes_config[9]->setSizeX(_escala); 
+}
+
+void UI::set_escala_voz(float escala){
+    float _escala = escala/9;;
+    _lista_imagenes_config[11]->setSizeX(_escala); 
+}
+
+void UI::set_escala_sonido_menu(float escala){
+    float _escala = escala/9;
+    _lista_imagenes_config[13]->setSizeX(_escala); 
 }

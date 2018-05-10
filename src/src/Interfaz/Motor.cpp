@@ -18,6 +18,7 @@
 #include "../Datos_Partida.h"
 #include "../Menus/Menu_Principal.h"
 #include "../Menus/Menu_Pausa.h"
+#include "../Motor_sonido/Interfaz_sonido.h"
 
 #include "../Moose_Engine/src/UI.h"
 #include "../Moose_Engine/src/TMooseEngine.h"
@@ -964,6 +965,9 @@ void Motor::render_Menu(){
 
 void Motor::render_Menu_Config(){
 	Game* game = Game::game_instancia();
+	Interfaz_sonido* sonido = Interfaz_sonido::GetInstancia();
+	//sonido->get_volumen_musica();
+	
 	//uint8_t num_opcion = game->get_menu_pausa()->get_i_opcion();
 	//_me->renderUIMenuConfig(0);	
 }
@@ -981,4 +985,20 @@ void Motor::recibir_Danyo(float vida, float vida_maxima){
 	
 	escala_de_salud = vida / vida_maxima;
 	_me->getUI()->set_escala_vida(escala_de_salud);
+}
+
+void Motor::set_escala_music(uint8_t escala){
+	_me->getUI()->set_escala_musica(escala);
+}
+
+void Motor::set_escala_sfx(uint8_t escala){
+	_me->getUI()->set_escala_sfx(escala);
+}
+
+void Motor::set_escala_voz(uint8_t escala){
+	_me->getUI()->set_escala_voz(escala);
+}
+
+void Motor::set_escala_menu(uint8_t escala){
+	_me->getUI()->set_escala_sonido_menu(escala);
 }

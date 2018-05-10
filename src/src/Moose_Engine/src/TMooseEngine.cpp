@@ -74,16 +74,16 @@ void TMooseEngine::initUI(){
 
         //barra opcion 1 (6)
         _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.60, 0.4, 0.1);     //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.60, 0.3, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.60, 0.4, 0.1);     //voces
         //barra opcion 2 (8)
         _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.40, 0.4, 0.1);     //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.40, 0.3, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.40, 0.4, 0.1);     //voces
         //barra opcion 3 (10)
         _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.20, 0.4, 0.1);     //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.20, 0.3, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.20, 0.4, 0.1);     //voces
         //barra opcion 4 (12)
         _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.0, 0.4, 0.1);    //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.0, 0.3, 0.1);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.0, 0.4, 0.1);    //voces
         
         //boton on/off 1 (14)
         _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Special_1.png", "Imagenes_HUD/HUD_Special_1.png",  0.3, -0.15, 0.2, 0.2);
@@ -97,6 +97,10 @@ void TMooseEngine::initUI(){
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Barra_1.png", "Imagenes_HUD/HUD_Barra_2.png", "Imagenes_HUD/HUD_Barra_3.png", -0.722, 0.78, 0.326, 0.1);
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Superior.png", -0.95, 0.85, 0.6, 0.5);
 
+    _ui->set_escala_musica(5);
+    _ui->set_escala_sfx(5);
+    _ui->set_escala_voz(5);
+    _ui->set_escala_sonido_menu(5);
     
     
 }

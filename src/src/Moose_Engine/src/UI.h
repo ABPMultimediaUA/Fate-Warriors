@@ -27,6 +27,11 @@ class UI{
         void drawHUD();
 
         void set_escala_vida(float escala);
+
+        void set_escala_musica(float escala);
+        void set_escala_sfx(float escala);
+        void set_escala_voz(float escala);
+        void set_escala_sonido_menu(float escala);
         
 
     private:

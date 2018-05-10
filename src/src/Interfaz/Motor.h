@@ -142,6 +142,11 @@ public:
     void render_Pausa();
     void render_Menu_Config();
     void recibir_Danyo(float vida, float vida_maxima);
+    void set_escala_music(uint8_t escala);
+    void set_escala_sfx(uint8_t escala);
+    void set_escala_voz(uint8_t escala);
+    void set_escala_menu(uint8_t escala);
+    
 private:
 
       static Motor* _Motor;

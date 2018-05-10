@@ -1,6 +1,7 @@
 #include "Opcion_SFX.h"
 
 #include "../../Motor_sonido/Interfaz_sonido.h"
+#include "../../Interfaz/Motor.h"
 
 Opcion_SFX::Opcion_SFX(Input* _i_input) : Opcion_Volumen(_i_input) {
 }
@@ -18,6 +19,7 @@ void Opcion_SFX::actualiza_valores() {
 
 void Opcion_SFX::guarda_volumen() {
 	_motor_sonido->guarda_volumen_sfx(_volumen);
-
+	Motor* _motor_interfaz = Motor::Motor_GetInstance();
+	_motor_interfaz->set_escala_sfx(_volumen);
 	_sonido->Play_personaje(1);
 }

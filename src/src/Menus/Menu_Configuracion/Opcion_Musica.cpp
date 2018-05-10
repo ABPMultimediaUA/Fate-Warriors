@@ -1,6 +1,7 @@
 #include "Opcion_Musica.h"
 
 #include "../../Motor_sonido/Interfaz_sonido.h"
+#include "../../Interfaz/Motor.h"
 
 Opcion_Musica::Opcion_Musica(Input* _i_input) : Opcion_Volumen(_i_input) {
 }
@@ -18,5 +19,7 @@ void Opcion_Musica::actualiza_valores() {
 }
 
 void Opcion_Musica::guarda_volumen() {
+	Motor* _motor_interfaz = Motor::Motor_GetInstance();
+	_motor_interfaz->set_escala_music(_volumen);
 	_motor_sonido->guarda_volumen_musica(_volumen);
 }
