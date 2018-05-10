@@ -9,6 +9,8 @@
 #include "../Tiempo/Time.h"
 #include "../Game.h"
 
+#include <iostream>
+
 Respawn* Respawn::instancia = 0;
 
 Respawn* Respawn::posiciones_instancia(){
@@ -106,11 +108,10 @@ std::vector <Character*> Respawn::revivir_enemigos_en_zona(uint8_t num_npc, floa
 
     for(uint8_t cont = 0; cont < num_npc && cont <  _personajes_muertos.size(); cont++){
 
-        asignar_posicion_XZ_al_azar_para_zona(zona_al_azar_exactamente_x, zona_al_azar_exactamente_z, _ancho, _alto);
+        asignar_posicion_XZ_al_azar_para_zona(zona_al_azar_exactamente_x, zona_al_azar_exactamente_z, _ancho*0.9, _alto*0.9);
         _enemigos_que_creo.push_back(_personajes_muertos[0]);
         _personajes_muertos[0]->set_zona_en_la_que_se_encuentra(_zona);
         renacer_personaje_en_posicion(_personajes_muertos[0], Vector2(_pos_x+zona_al_azar_exactamente_x, _pos_y+zona_al_azar_exactamente_z));
-        _personajes_muertos[0]->set_pos_azar_en_zona(_pos_x+zona_al_azar_exactamente_x-5, _pos_y+zona_al_azar_exactamente_z-5);
     }
    
     return _enemigos_que_creo;

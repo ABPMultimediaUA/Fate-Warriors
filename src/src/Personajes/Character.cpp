@@ -333,11 +333,14 @@ void Character::morir(){ // SE SOBRESCRIBE EN NPC!!
     //setY(99999999999);
 }
 
-
 void Character::revivir(Vector2 pos){ 
     set_vida(_vida_maxima);
     setY(2);
+    pos_x_azar_en_zona = pos._x;
+    pos_y_azar_en_zona = pos._y;
+
     setPositionXZ(pos._x, pos._y);
+    
     _npcs_persiguiendome = 0;
 }
 

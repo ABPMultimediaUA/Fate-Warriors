@@ -41,6 +41,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 				x=_i_npc->getX();
 				z=_i_npc->getZ();
 				_direccion = _path_manager->get_direccion_movimiento(x,z, _i_npc->get_blackboard()->objetivo_x, _i_npc->get_blackboard()->objetivo_y);
+				
 				//std::cout << _i_npc->get_blackboard()->objetivo_x<<" \n ";
 				//std::cout << _i_npc->get_blackboard()->objetivo_y<<" \n ";
 				if(_direccion<=360){
@@ -152,6 +153,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 			break;
 		case Nada:
+            _i_npc->animacion_idle();
 			//_i_npc->stop();
 		//	std::cout << "El enemigo " << _n_enemigo << " hace nada" << std::endl;
 			break;

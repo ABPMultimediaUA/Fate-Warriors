@@ -132,16 +132,16 @@ public:
 	virtual void animacion_andar();
 	virtual void animacion_correr();
 
-	inline void set_pos_azar_en_zona(int x, int y) {
+	inline void set_pos_azar_en_zona(int x, float y) {
 		pos_x_azar_en_zona = x;
 		pos_y_azar_en_zona = y;
 	}
 
-	inline int get_pos_x_azar_en_zona() {
+	inline float get_pos_x_azar_en_zona() {
 		return pos_x_azar_en_zona;
 	}
 
-	inline int get_pos_y_azar_en_zona() {
+	inline float get_pos_y_azar_en_zona() {
 		return pos_y_azar_en_zona;
 	}
 
@@ -175,8 +175,8 @@ protected:
 
 	int _npcs_persiguiendome;
 
-	int pos_x_azar_en_zona;
-	int pos_y_azar_en_zona;
+	float pos_x_azar_en_zona;
+	float pos_y_azar_en_zona;
 };
 
 #endif /* SRC_CHARACTER_H_ */
