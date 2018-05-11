@@ -102,7 +102,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 
 	// INTERRUPTOR TIEMPO EN ZONA 5
-	_interrutores.push_back(new Interruptor_Tiempo(0, 42*mult, 44.75*mult, 270, 17000, 270, 90, 20));
+	_interrutores.push_back(new Interruptor_Tiempo(0, 42*mult, 44.75*mult, 270, 20000, 270, 90, 20));
 	_interrutores[2]->agregar_puerta(_puertas_pincho[5]);
 	_interrutores[2]->agregar_puerta(_puertas_pincho[3]);
 
