@@ -235,7 +235,19 @@ void Objeto_Motor::abrir_puerta2(){
 }
 
 void Objeto_Motor::abrir_puerta(){
-	this->setPositionY(20);
+	setPositionY(20);
+	_rigidbody->forceActivationState(DISABLE_SIMULATION);
+}
+
+void Objeto_Motor::abrir_puerta(uint8_t _direccion){
+	if(_direccion == 0) {
+		setPositionXZ(getX()-6.9, getZ()+6.9);
+		rotar_nodo(270);
+	}
+	else if(_direccion == 1) {
+		setPositionXZ(getX()+6.9, getZ()-6.9);
+		rotar_nodo(90);
+	}
 	_rigidbody->forceActivationState(DISABLE_SIMULATION);
 }
 
