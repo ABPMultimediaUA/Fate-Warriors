@@ -89,7 +89,6 @@ void Player::update(){
         //s_sonido->Play_ambiente(2);
       
         if(_input->get_dash()){
-            _sonido->Play_personaje(0);
             if(_apuntando_enemigo) {
                 uint16_t _direccion_posterior =  _cono_vision->get_rotacion_con_apuntando();
                 int16_t _direccion_incremento = (int16_t)_direccion_previa_movimiento-(int16_t)_direccion_posterior;
@@ -186,6 +185,7 @@ void Player::update(){
             _sonido->Play_pasos(1);
             //std::cout << "CORRER\n";
             _objeto_motor->cambiar_modelado("Anim_correr_jugador", 2);
+            _motor->_interfaz->Crear_particulas(getX(),1, getZ(), get_direccion_actual()); 
         }
     }
 

@@ -15,12 +15,17 @@ Puerta::Puerta(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacio
     
     _objeto_motor->rotar_nodo(_i_rotacion);
     _sonido= Interfaz_sonido::GetInstancia();
+
+    if(_i_rotacion == 0) 
+        _rotacion = 0;
+    else if(_i_rotacion == 180)
+        _rotacion = 1;
 }
 
 void Puerta::set_abierta(){
 	_abierta = true;
     _sonido->Play_escenario(0);
-    _objeto_motor->abrir_puerta();
+    _objeto_motor->abrir_puerta(_rotacion);
     Nivel::nivel_instancia()->nivel_abrir_pasillo(_id_pasillo_que_abre);
 }
 

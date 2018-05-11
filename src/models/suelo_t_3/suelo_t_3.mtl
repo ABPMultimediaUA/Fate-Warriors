@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 13.04.2018 11:39:28
+# File Created: 11.05.2018 15:32:59
 
 newmtl Suelo3
 	Ns 10.0000
@@ -12,8 +12,8 @@ newmtl Suelo3
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Material__22_Base_Color.png
-	map_Kd Material__22_Base_Color.png
-	map_Ks Material__22_Metallic.png
-	map_bump Material__22_Normal_OpenGL.png
-	bump Material__22_Normal_OpenGL.png
+	map_Ka Suelo3_Base_Color.png
+	map_Kd Suelo3_Base_Color.png
+	map_Ks Suelo3_Metallic.png
+	map_bump Suelo3_Normal_DirectX.png
+	bump Suelo3_Normal_DirectX.png

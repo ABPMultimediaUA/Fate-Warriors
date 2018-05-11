@@ -200,8 +200,9 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
 void Character::esquivar(uint16_t _direccion){
     if(esta_bloqueado() == false){
         set_accion(Accion_Dash);
+        _sonido->Stop_pasos();
+        _sonido->Play_personaje(0);
         _objeto_motor->cambiar_modelado("Anim_dash_jugador", 17);
-        //_objeto_motor->Dash(_direccion);
     }
     
 }
@@ -767,7 +768,7 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
                 {
 
                     _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
-            
+                    Motor::Motor_GetInstance()->_interfaz->Crear_particulas( _characters[_cont]->getX(),9,  _characters[_cont]->getZ(), get_direccion_actual()); 
                     //std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
 
                     // Impulsa al atacado
