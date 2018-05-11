@@ -25,6 +25,8 @@ public:
 	void actualizar_pseudo_azar();
 	void actualizar_zonas();
 
+	bool estoy_mas_cerca_que_otro(Character * player, float distancia);
+
 	void equipar_arma_larga_distancia();
 	void equipar_arma_corta_distancia();
 
