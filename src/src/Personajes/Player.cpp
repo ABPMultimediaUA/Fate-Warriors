@@ -185,6 +185,7 @@ void Player::update(){
             _sonido->Play_pasos(1);
             //std::cout << "CORRER\n";
             _objeto_motor->cambiar_modelado("Anim_correr_jugador", 2);
+            _motor->_interfaz->Crear_particulas(getX(),1, getZ(), get_direccion_actual()); 
         }
     }
 

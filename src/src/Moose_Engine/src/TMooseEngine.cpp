@@ -12,6 +12,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "ParticleGenerator.h"
+
 #include "UI.h"
 #include "Skybox.h"
 
@@ -40,6 +42,7 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader();
     _skybox = new Skybox();
+    _particulas = new ParticleGenerator(_shader, 200);
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
@@ -135,6 +138,8 @@ TMooseEngine::~TMooseEngine(){
     _mapping_luces.clear();
     _mapping_camaras.clear();
     delete _shader;
+    delete _skybox;
+    delete _particulas;
     _contadorIDEntidad=0;
     glfwTerminate();
 }
@@ -143,8 +148,7 @@ void micallback(GLFWwindow* oglwindow, double _i_xpos, double _i_ypos){
     TMooseEngine::get_instancia()->mouse_callback(oglwindow, _i_xpos, _i_ypos);
 }
 
-void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
+void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos){
     if (_firstMouse)
     {
         _lastX = xpos;
@@ -291,6 +295,7 @@ void TMooseEngine::draw(){
 
     _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
+    _particulas->Draw();
     //glfwSwapBuffers(window);
     //glfwPollEvents();
 
@@ -475,3 +480,7 @@ void TMooseEngine::stop_anim(const char* _i_path){
         }
     }
 }*/
+
+ParticleGenerator* TMooseEngine::get_gestor_particulas(){
+    return _particulas;
+}
