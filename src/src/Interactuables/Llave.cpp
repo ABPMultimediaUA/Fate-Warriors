@@ -15,3 +15,7 @@ Llave::~Llave() {
 short Llave::get_id_puerta(){
     return _id_puerta;
 }
+
+std::tuple<float, float> Llave::get_posicion() {
+    return std::make_tuple(_objeto_motor->getX(), _objeto_motor->getZ());
+}

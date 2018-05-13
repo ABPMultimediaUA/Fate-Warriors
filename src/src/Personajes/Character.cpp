@@ -497,10 +497,10 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
         return 600;
     }
     else if(_accion == Accion_pre_Usar_Llave){
-        return 600;
+        return 800;
     }
     else if(_accion == Accion_post_Usar_Llave){
-        return 600;
+        return 400;
     }
     else{
         return 500;
@@ -738,7 +738,8 @@ void Character::gestion_coger_llave(){
     if(get_accion() == Accion_pre_Coger_Llave){
 
         if(esta_bloqueado() == false){
-            this->set_accion(Accion_post_Coger_Llave);
+            set_accion(Accion_post_Coger_Llave);
+
             get_inventario()->anadir_llave(_llave_aux_animacion);
             _llave_aux_animacion->set_visible(false);
             _sonido->Play_escenario(1);
@@ -747,7 +748,7 @@ void Character::gestion_coger_llave(){
     else if(get_accion() == Accion_post_Coger_Llave){
 
         if(esta_bloqueado() == false){
-            this->set_accion(Nada);
+            set_accion(Nada);
         }
     }
 }
@@ -756,7 +757,8 @@ void Character::gestion_usar_llave(){
     if(get_accion() == Accion_pre_Usar_Llave){
 
         if(esta_bloqueado() == false){
-            this->set_accion(Accion_post_Usar_Llave);
+            set_accion(Accion_post_Usar_Llave);
+
             get_inventario()->eliminar_llave(_llave_aux_animacion);
             _puerta_aux_animacion->set_abierta();
         }
@@ -764,7 +766,7 @@ void Character::gestion_usar_llave(){
     else if(get_accion() == Accion_post_Usar_Llave){
 
         if(esta_bloqueado() == false){
-            this->set_accion(Nada);
+            set_accion(Nada);
         }
     }
 }
@@ -896,9 +898,15 @@ void Character::animacion_correr() {
 }
 
 void Character::recoge_llave(Llave* _llave) {
-    //TO DO: Posicionar para coger la llave
     set_accion(Accion_pre_Coger_Llave);
 
+    auto _pos_llave = _llave->get_posicion();
+    float _distancia = 3.5;
+    uint16_t _angulo = lib_math_angulo_2_puntos(_objeto_motor->getZ(), _objeto_motor->getX(), std::get<1>(_pos_llave), std::get<0>(_pos_llave));
+    float _new_x = std::get<0>(_pos_llave) - sin(_angulo * PIs / 180) * _distancia;
+    float _new_z = std::get<1>(_pos_llave) - cos(_angulo * PIs / 180) * _distancia;
+    _objeto_motor->setPositionXZ(_new_x, _new_z);
+    _objeto_motor->rotar_nodo(_angulo);
     _objeto_motor->cambiar_modelado("Anim_coger_objeto_jugador", 19);
 
     _llave_aux_animacion = _llave;
@@ -908,16 +916,16 @@ void Character::recoge_llave(Llave* _llave) {
 }
 
 void Character::abrir_puerta(Puerta* _puerta, Llave* _llave) {
+    set_accion(Accion_pre_Usar_Llave);
+
     auto _pos_cerrojo = _puerta->get_posicion_cerrojo();
     _objeto_motor->setPositionXZ(std::get<0>(_pos_cerrojo), std::get<1>(_pos_cerrojo));
     _objeto_motor->rotar_nodo(_puerta->get_rotacion_cerrojo());
     _objeto_motor->cambiar_modelado("Anim_abrir_puerta_ok_jugador", 18);
 
-    set_accion(Accion_pre_Usar_Llave);
-    
     _puerta_aux_animacion = _puerta;
     _llave_aux_animacion = _llave;
 
-    std::cout << "Puerta abierta"<< std::endl;
-    std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
+    //std::cout << "Puerta abierta"<< std::endl;
+    //std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
 }
