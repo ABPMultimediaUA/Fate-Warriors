@@ -67,31 +67,31 @@ void TMooseEngine::initUI(){
     
     //MENU CONFIG
         //textos de opciones
-        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
-        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
-        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, 0.1, 0.4, 0.3);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Music.png", "Imagenes_Config/Config_Music_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_SFX.png", "Imagenes_Config/Config_SFX_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Voices.png", "Imagenes_Config/Config_Voices_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Menu.png", "Imagenes_Config/Config_Menu_Selec.png", -0.1, 0.1, 0.4, 0.3);    //voces
         //(4) 
-        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, -0.1, 0.4, 0.3);    //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.1, -0.3, 0.4, 0.3);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_X.png", "Imagenes_Config/Config_X_Selec.png", -0.1, -0.1, 0.4, 0.3);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Y.png", "Imagenes_Config/Config_Y_Selec.png", -0.1, -0.3, 0.4, 0.3);    //voces
 
         //barra opcion 1 (6)
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.60, 0.4, 0.1);     //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.60, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png", 0.35, 0.60, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png",  0.35, 0.60, 0.4, 0.1);     //voces
         //barra opcion 2 (8)
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.40, 0.4, 0.1);     //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.40, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png", 0.35, 0.40, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png",  0.35, 0.40, 0.4, 0.1);     //voces
         //barra opcion 3 (10)
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.20, 0.4, 0.1);     //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.20, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png",  0.35, 0.20, 0.4, 0.1);     //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png", 0.35, 0.20, 0.4, 0.1);     //voces
         //barra opcion 4 (12)
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Inferior.png", 0.35, 0.0, 0.4, 0.1);    //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Barra_2.png",  0.35, 0.0, 0.4, 0.1);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png",  0.35, 0.0, 0.4, 0.1);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png", 0.35, 0.0, 0.4, 0.1);    //voces
         
         //boton on/off 1 (14)
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Special_0.png", "Imagenes_HUD/HUD_Special_1.png",  0.3, -0.15, 0.2, 0.2);
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/OFF-ON_OFF.png", "Imagenes_Config/OFF-ON_ON.png",  0.4, -0.15, 0.4, 0.2);
         //boton on/off 2 (15)
-        _ui->crear_imagen_config(_shader, "Imagenes_HUD/HUD_Special_0.png", "Imagenes_HUD/HUD_Special_1.png",  0.3, -0.35, 0.2, 0.2);
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/OFF-ON_OFF.png", "Imagenes_Config/OFF-ON_ON.png",  0.4, -0.35, 0.4, 0.2);
         
         _ui->set_eje_x(false);
         _ui->set_eje_y(true);
