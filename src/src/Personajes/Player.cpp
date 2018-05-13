@@ -89,7 +89,6 @@ void Player::update(){
         //s_sonido->Play_ambiente(2);
       
         if(_input->get_dash()){
-            Game::game_instancia()->cambio_a_update_lose();
             _sonido->Play_personaje(0);
             if(_apuntando_enemigo) {
                 uint16_t _direccion_posterior =  _cono_vision->get_rotacion_con_apuntando();
