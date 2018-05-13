@@ -216,12 +216,12 @@ void Game::render_pausa(float _i_interpolacion){
 }
 
 void Game::render_win(float _i_interpolacion){
-	_motor->render_Menu_Win();
+	_motor->render_Menu_Win(0);
 	//_motor->render_texto_win();
 }
 
 void Game::render_lose(float _i_interpolacion){
-	_motor->render_Menu_Lose();
+	_motor->render_Menu_Lose(0);
 	//_motor->render_texto_lose();
 }
 
