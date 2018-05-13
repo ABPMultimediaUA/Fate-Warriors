@@ -333,6 +333,21 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 		_nodos_decision[_i_id] = new ND_2(*_i_izq, *_i_der, _valor); 
 		_n_nodos++;
 	}
+
+	void Arbol_Decision_Manager::crear_ND_3(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id){
+		//std::cout << std::endl << "NODO set_objetivo_personaje_enemigo_cerca" << std::endl;
+		float _valor;
+
+		// LECTURA DE VALOR DE CORTE
+		_i_arbol_txt >> _i_iteracion;			// Lectura valor de corte
+		//std::cout << _i_iteracion.c_str() << std::endl;
+
+		// Almacenamiento y procesado del valor
+		_valor = std::atof(_i_iteracion.c_str());
+
+		_nodos_decision[_i_id] = new ND_3(*_i_izq, *_i_der, _valor); 
+		_n_nodos++;
+	}
 	
 	void Arbol_Decision_Manager::crear_nodo_lod(std::ifstream& _i_arbol_txt, std::string& _i_iteracion, Nodo_Decision* _i_izq, Nodo_Decision* _i_der, uint8_t _i_id) {
 		//std::cout << std::endl << "NODO LOD" << std::endl;
@@ -364,6 +379,7 @@ enum Enum_Acciones Arbol_Decision_Manager::_tomar_decision(Blackboard* _blackboa
 
 	MapeadoClaseNodo mapping_clase_nodo[] = {	// Definicion de los parametros
 
+			{"ND_3", &Arbol_Decision_Manager::crear_ND_3},
 			{"ND_2", &Arbol_Decision_Manager::crear_ND_2},
 			{"ND_1", &Arbol_Decision_Manager::crear_ND_1},
 			{"ND_0", &Arbol_Decision_Manager::crear_ND_0},

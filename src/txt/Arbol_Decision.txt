@@ -1,8 +1,10 @@
-3
+4
 
-- 0 Final Andar Atacar ND_0 0
-- 1 Izq Andar 0 ND_1 0
-- 2 Izq Andar 1 ND_2 0
+- 0 Final Andar Nada ND_3 0
+- 1 Final Andar Atacar ND_0 0
+- 2 Medio 0 1 ND_1 0
+- 3 Medio 0 2 ND_2 0
+
 
 Fin
 

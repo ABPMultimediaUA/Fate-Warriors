@@ -16,6 +16,7 @@ private:
 	bool _abierta;
 	uint8_t _id_pasillo_que_abre;
 	Interfaz_sonido* _sonido;
+	uint8_t _rotacion;
 };
 
 #endif /* PUERTA_H_ */

@@ -93,7 +93,7 @@ iNodoAnimacion::~iNodoAnimacion(){
 
 void iNodoAnimacion::cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta){
     
-    if(_num_ruta != _ruta_actual && (_ruta_actual < 10 || _fin_animacion == true || (_ruta_actual >= 10 && _num_ruta >= 10))) {
+    if((_num_ruta != _ruta_actual || _num_ruta==17) && (_ruta_actual < 10 || _fin_animacion == true || (_ruta_actual >= 10 && _num_ruta >= 10))) {
         TMooseEngine* motor =  TMooseEngine::get_instancia();
         TAnimacion* _Animacion = motor->crearAnimacion(_i_ruta);
         TNodo* nodoAnimacion = motor->crearNodo(_nodo_motor->get_padre(), _Animacion);

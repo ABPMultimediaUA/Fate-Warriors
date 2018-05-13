@@ -235,7 +235,19 @@ void Objeto_Motor::abrir_puerta2(){
 }
 
 void Objeto_Motor::abrir_puerta(){
-	this->setPositionY(20);
+	setPositionY(20);
+	_rigidbody->forceActivationState(DISABLE_SIMULATION);
+}
+
+void Objeto_Motor::abrir_puerta(uint8_t _direccion){
+	if(_direccion == 0) {
+		setPositionXZ(getX()-6.9, getZ()+6.9);
+		rotar_nodo(270);
+	}
+	else if(_direccion == 1) {
+		setPositionXZ(getX()+6.9, getZ()-6.9);
+		rotar_nodo(90);
+	}
 	_rigidbody->forceActivationState(DISABLE_SIMULATION);
 }
 
@@ -274,7 +286,7 @@ void Objeto_Motor::updateDynamicBodyCharacter() {
 
 	float _altura_interpolacion = pos[1]-(3);
 	if(_altura_interpolacion < 10)
-		_altura_interpolacion = 0;
+		_altura_interpolacion = -0.4;
 	Vector3 vector(pos[0], _altura_interpolacion, pos[2]);
 	_interpolacion->actualiza_posicion(vector);
 

@@ -38,6 +38,7 @@ public:
       Vector3 interpola_posiciones(float _i_interpolacion);
 
       void abrir_puerta();
+      void abrir_puerta(uint8_t _direccion);
       void abrir_puerta1();
       void abrir_puerta2();
       void updateDynamicBody();

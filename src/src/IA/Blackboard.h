@@ -25,6 +25,8 @@ public:
 	void actualizar_pseudo_azar();
 	void actualizar_zonas();
 
+	bool estoy_mas_cerca_que_otro(Character * player, float distancia);
+
 	void equipar_arma_larga_distancia();
 	void equipar_arma_corta_distancia();
 
@@ -79,6 +81,8 @@ public:
 
 	Zona * _zona_actual;
 	bool _estoy_en_mi_zona;
+
+	bool _muy_cerca_de_mi_posicion_respawn;
 
 	//Con informacion de la zona
 	Nodo_blackboard* _zona;					// Blackbaord de la zona

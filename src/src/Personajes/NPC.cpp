@@ -209,6 +209,18 @@ void NPC::aparecer_muerto() {
     }
 }
 
+void NPC::animacion_idle() {
+    switch(_tipo_npc) {
+        case 1:
+            _objeto_motor->cambiar_modelado("Anim_idle_npc1", 0);
+        break;
+
+        case 2:
+            _objeto_motor->cambiar_modelado("Anim_idle_npc2", 0);
+        break;
+    }
+}
+
 void NPC::animacion_andar() {
     switch(_tipo_npc) {
         case 1:

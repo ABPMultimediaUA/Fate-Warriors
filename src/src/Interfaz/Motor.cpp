@@ -67,6 +67,9 @@ void Motor::CargaMapa(){
 	const char* cstr7 = "suelo_exterior_2";
 	importarEscenario(cstr7, 0,0,0);
 
+	const char* cstr8 = "barranco";
+	importarEscenario(cstr8, 0,0,0);
+
 	const char* cstr9 = "Duna";
 	importarEscenario(cstr9, 0,0,0);
 	const char* cstr10 = "Arbol";
@@ -109,7 +112,7 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr28, 0,0,0);
 	const char* cstr29 = "EdificioGrande";
 	importarEscenario(cstr29, 0,0,0);
-	const char* cstr30 = "EdificioLejos1";
+	/*const char* cstr30 = "EdificioLejos1";
 	importarEscenario(cstr30, 0,0,0);
 	const char* cstr31 = "EdificioLejos2";
 	importarEscenario(cstr31, 0,0,0);
@@ -118,7 +121,7 @@ void Motor::CargaMapa(){
 	const char* cstr33 = "EdificioLejos4";
 	importarEscenario(cstr33, 0,0,0);
 	const char* cstr34 = "EdificioLejos5";
-	importarEscenario(cstr34, 0,0,0);
+	importarEscenario(cstr34, 0,0,0);*/
 	const char* cstr35 = "EdificioRuinas1";
 	importarEscenario(cstr35, 0,0,0);
 	const char* cstr36 = "Hoguera";
@@ -159,10 +162,10 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr53, 0,0,0);
 	const char* cstr54 = "tuberia_4";
 	importarEscenario(cstr54, 0,0,0);
-	const char* cstr55 = "tuberia_5";
+	/*const char* cstr55 = "tuberia_5";
 	importarEscenario(cstr55, 0,0,0);
 	const char* cstr56 = "tuberia_6";
-	importarEscenario(cstr56, 0,0,0);
+	importarEscenario(cstr56, 0,0,0);*/
 	const char* cstr57 = "VallaCampamento2";
 	importarEscenario(cstr57, 0,0,0);
 	const char* cstr58 = "VallaPubli";
@@ -202,6 +205,7 @@ Motor::Motor(){
 	//esto no debe ir aqui y se cambia despues de la presentacion
 	_vida = 300;
 	_maxvida = 300;
+		_interfaz = new Interfaz_Particulas();
 }
 
 void Motor::vaciar_motor(){
@@ -502,7 +506,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 
 	switch(tipo){
 		case E_BoundingCapsule: 
-			cubeShape = new btCapsuleShape(anchura*0.7,altura*0.69); // new btSphereShape(0.5)
+			cubeShape = new btCapsuleShape(anchura*1.1,altura*0.69); // new btSphereShape(0.5)
 			std::cout << anchura << "anchura " << altura << " altura " << profundidad << "\n";
 
 					break;

@@ -16,7 +16,7 @@
 #include "../Utilidades/Vector.h"
 
 //#include "../Moose_Engine/src/iNodoModelado.h"
-
+#include "../Moose_Engine/src/Interfaz_Particulas.h"
 
 
 class Objeto_Motor;
@@ -142,6 +142,7 @@ public:
     void render_Pausa();
     void render_Menu_Config();
     void recibir_Danyo(float vida, float vida_maxima);
+     Interfaz_Particulas* _interfaz;
     void set_escala_music(uint8_t escala);
     void set_escala_sfx(uint8_t escala);
     void set_escala_voz(uint8_t escala);

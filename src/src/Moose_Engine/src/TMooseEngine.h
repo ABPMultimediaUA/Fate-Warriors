@@ -18,6 +18,7 @@ class Shader;
 class GLFWwindow;
 class Skybox;
 class UI;
+class ParticleGenerator;
 
 class TMooseEngine{
 
@@ -64,6 +65,7 @@ class TMooseEngine{
         void apagar();
 
         inline UI* getUI(){ return _ui; }
+        ParticleGenerator* get_gestor_particulas();
 
     private:
 
@@ -108,6 +110,7 @@ class TMooseEngine{
         std::vector<TAnimacion*> _animaciones;
         UI* _ui;
         Skybox* _skybox;
+        ParticleGenerator* _particulas;
 };
 
 
