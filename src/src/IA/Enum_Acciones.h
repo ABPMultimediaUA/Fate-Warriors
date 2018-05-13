@@ -11,8 +11,10 @@ enum Enum_Acciones{
 	Atacar,				// Usar ataque
 	Accion_Dash,
 	Accion_Interactuar,
-	Coger_Arma,			// Recoge un arma
-	Usar_Arma,			// Usa el arma equipado
+	Accion_pre_Coger_Llave,
+	Accion_post_Coger_Llave,
+	Accion_pre_Usar_Llave,
+	Accion_post_Usar_Llave,
 	Saltar,				// Salta
 	Accionar,			// Acciona un interruptor
 	Recibir_danyo,		// Recibe danyo

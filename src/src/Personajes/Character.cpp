@@ -308,10 +308,6 @@ bool Character::interactuar_con_objeto(){
         }
 	}
 
-    if(objeto_encontrado == true){
-        set_accion(Accion_Interactuar);
-    }
-
     return objeto_encontrado;
 }
 
@@ -494,6 +490,18 @@ int Character::getTiempoAccion(Enum_Acciones _accion){
     else if(_accion == Saltar){
         return 600;
     }
+    else if(_accion == Accion_pre_Coger_Llave){
+        return 700;
+    }
+    else if(_accion == Accion_post_Coger_Llave){
+        return 600;
+    }
+    else if(_accion == Accion_pre_Usar_Llave){
+        return 600;
+    }
+    else if(_accion == Accion_post_Usar_Llave){
+        return 600;
+    }
     else{
         return 500;
     }
@@ -515,6 +523,14 @@ static bool getSiAccionBloqueaInput(Enum_Acciones _accion){
         case Saltar:
             return false;
         case Recibir_danyo:
+            return true;
+        case Accion_pre_Coger_Llave:
+            return true;
+        case Accion_post_Coger_Llave:
+            return true;
+        case Accion_pre_Usar_Llave:
+            return true;
+        case Accion_post_Usar_Llave:
             return true;
         default:
             return false;
@@ -668,6 +684,8 @@ void Character::gestion_acciones(){
     gestion_interactuar();
     gestion_saltar();
     gestion_recibir_danyado();
+    gestion_coger_llave();
+    gestion_usar_llave();
     //gestion_mover();
 }
 
@@ -677,7 +695,7 @@ void Character::gestion_recibir_danyado(){
         _objeto_motor->colorear_nodo(255,0,0);
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
-            _objeto_motor->colorear_nodo(255,255,255);
+            //_objeto_motor->colorear_nodo(255,255,255);
         }
     }
 }
@@ -690,7 +708,7 @@ void Character::gestion_dash(){
         //_objeto_motor->colorear_nodo(0,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Accion_Correr);
-            _objeto_motor->colorear_nodo(255,255,255);
+            //_objeto_motor->colorear_nodo(255,255,255);
         }
     }
 }
@@ -709,6 +727,41 @@ void Character::gestion_saltar(){
 void Character::gestion_interactuar(){
     if(get_accion() == Accion_Interactuar){
         std::cout << "Interactuando..." << std::endl;
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_coger_llave(){
+    if(get_accion() == Accion_pre_Coger_Llave){
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Accion_post_Coger_Llave);
+            get_inventario()->anadir_llave(_llave_aux_animacion);
+            _llave_aux_animacion->set_visible(false);
+            _sonido->Play_escenario(1);
+        }
+    }
+    else if(get_accion() == Accion_post_Coger_Llave){
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Nada);
+        }
+    }
+}
+
+void Character::gestion_usar_llave(){
+    if(get_accion() == Accion_pre_Usar_Llave){
+
+        if(esta_bloqueado() == false){
+            this->set_accion(Accion_post_Usar_Llave);
+            get_inventario()->eliminar_llave(_llave_aux_animacion);
+            _puerta_aux_animacion->set_abierta();
+        }
+    }
+    else if(get_accion() == Accion_post_Usar_Llave){
 
         if(esta_bloqueado() == false){
             this->set_accion(Nada);
@@ -844,15 +897,14 @@ void Character::animacion_correr() {
 
 void Character::recoge_llave(Llave* _llave) {
     //TO DO: Posicionar para coger la llave
+    set_accion(Accion_pre_Coger_Llave);
+
     _objeto_motor->cambiar_modelado("Anim_coger_objeto_jugador", 19);
 
-    // Llamar al haber pasado cierto tiempo
-    get_inventario()->anadir_llave(_llave);
-    _llave->set_visible(false);
-    _sonido->Play_escenario(1);
-    
-    std::cout << "Llave recogida"<< std::endl;
-    std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
+    _llave_aux_animacion = _llave;
+
+    //std::cout << "Llave recogida"<< std::endl;
+    //std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
 }
 
 void Character::abrir_puerta(Puerta* _puerta, Llave* _llave) {
@@ -860,10 +912,11 @@ void Character::abrir_puerta(Puerta* _puerta, Llave* _llave) {
     _objeto_motor->setPositionXZ(std::get<0>(_pos_cerrojo), std::get<1>(_pos_cerrojo));
     _objeto_motor->rotar_nodo(_puerta->get_rotacion_cerrojo());
     _objeto_motor->cambiar_modelado("Anim_abrir_puerta_ok_jugador", 18);
+
+    set_accion(Accion_pre_Usar_Llave);
     
-    // Llamar al haber pasado cierto tiempo
-    _puerta->set_abierta();
-    get_inventario()->eliminar_llave(_llave);
+    _puerta_aux_animacion = _puerta;
+    _llave_aux_animacion = _llave;
 
     std::cout << "Puerta abierta"<< std::endl;
     std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;

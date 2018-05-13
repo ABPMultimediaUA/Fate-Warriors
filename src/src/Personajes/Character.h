@@ -111,6 +111,8 @@ public:
 	void gestion_interactuar();
 	void gestion_recibir_danyado();
 	void gestion_mover();
+	void gestion_coger_llave();
+	void gestion_usar_llave();
 	
 	void aumentar_danyo_ataque_fuerte(uint8_t _i_valor);
 	void aumentar_danyo_ataque_normal(uint8_t _i_valor);
@@ -182,6 +184,9 @@ protected:
 
 	float pos_x_azar_en_zona;
 	float pos_y_azar_en_zona;
+
+	Llave * _llave_aux_animacion;
+	Puerta * _puerta_aux_animacion;
 };
 
 #endif /* SRC_CHARACTER_H_ */
