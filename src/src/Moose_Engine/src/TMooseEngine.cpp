@@ -108,14 +108,14 @@ void TMooseEngine::initUI(){
     _ui->set_escala_sonido_menu(5);
     
     //MENU WIN
-    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", -0.95, 0.85, 0.6, 0.5);
-    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.95, 0.85, 0.6, 0.5);
-    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.95, 0.85, 0.6, 0.5);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.2, -0.2,  0.4, 0.2);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.2, -0.35, 0.4, 0.2);
 
     //MENU LOSE
-    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", -0.95, 0.85, 0.6, 0.5);
-    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.95, 0.85, 0.6, 0.5);
-    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.95, 0.85, 0.6, 0.5);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.2, -0.2,  0.4, 0.2);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.2, -0.35, 0.4, 0.2);
     
 }
 
@@ -377,6 +377,22 @@ void TMooseEngine::renderUIMenuConfig(uint16_t opcion){
     //glfwSwapBuffers(window);
 }
 
+void TMooseEngine::renderUIMenuWin(uint16_t opcion){
+    clear();
+    glDisable(GL_CULL_FACE);
+    _ui->drawMenuFinWin(opcion);
+    glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
+}
+
+void TMooseEngine::renderUIMenuLose(uint16_t opcion){
+    clear();
+    glDisable(GL_CULL_FACE);
+    _ui->drawMenuFinLose(opcion);
+    glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
+}
+
 void TMooseEngine::renderUIHUD(){
     clear();
     draw();
@@ -483,6 +499,7 @@ void TMooseEngine::drawCamaras(){
         }
     }
 }
+
 bool TMooseEngine::ventana_abierta(){
     return glfwWindowShouldClose(window);
 }

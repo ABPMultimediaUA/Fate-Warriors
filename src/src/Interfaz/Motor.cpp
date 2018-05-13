@@ -18,6 +18,7 @@
 #include "../Datos_Partida.h"
 #include "../Menus/Menu_Principal.h"
 #include "../Menus/Menu_Pausa.h"
+#include "../Menus/Menu_Fin.h"
 #include "../Motor_sonido/Interfaz_sonido.h"
 
 #include "../Moose_Engine/src/UI.h"
@@ -1015,10 +1016,14 @@ void Motor::set_eje_y(bool ejeY){
 	_me->getUI()->set_eje_y(ejeY);
 }
 
-void Motor::render_Menu_Win(uint8_t opcion){
-	_me->getUI()->drawMenuFinWin(opcion);
+void Motor::render_Menu_Win(){
+	Game* game = Game::game_instancia();
+	uint8_t num_opcion = game->get_menu_fin()->get_i_opcion();
+	_me->renderUIMenuWin(num_opcion);
 }
 
-void Motor::render_Menu_Lose(uint8_t opcion){
-	_me->getUI()->drawMenuFinLose(opcion);
+void Motor::render_Menu_Lose(){
+	Game* game = Game::game_instancia();
+	uint8_t num_opcion = game->get_menu_fin()->get_i_opcion();
+	_me->renderUIMenuLose(num_opcion);
 }

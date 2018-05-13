@@ -151,8 +151,8 @@ public:
     void set_eje_x(bool ejeX);
     void set_eje_y(bool ejeY);
 
-    void render_Menu_Win(uint8_t opcion);
-    void render_Menu_Lose(uint8_t opcion);
+    void render_Menu_Win();
+    void render_Menu_Lose();
     
 private:
 

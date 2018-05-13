@@ -55,6 +55,8 @@ class TMooseEngine{
         void renderUIMenuPausa(uint16_t opcion, uint16_t opcion2, bool config_abierta);
         void renderUIMenuConfig(uint16_t opcion);
         void renderUIHUD();
+        void renderUIMenuWin(uint16_t opcion);
+        void renderUIMenuLose(uint16_t opcion);
 
         bool ventana_abierta();
 	    void mouse_callback(GLFWwindow* window, double xpos, double ypos);
