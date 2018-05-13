@@ -12,10 +12,6 @@
 #include "../Interfaz/Motor.h"
 #include "../Zonas/Respawn.h"
 
-#include "Inventario.h"
-#include "../Interactuables/Llave.h"
-#include "../Interactuables/Puerta.h"
-
 #include "../Motor_sonido/Interfaz_sonido.h"
 
 #include "../Datos_Partida.h"
@@ -342,27 +338,4 @@ void Player::carga_animaciones() {
     _objeto_motor->cambiar_modelado("Anim_recibirdanyo_1_npc2", 16);
 
     _objeto_motor->cambiar_modelado("Anim_idle_jugador", 20);
-}
-
-void Player::recoge_llave(Llave* _llave) {
-    get_inventario()->anadir_llave(_llave);
-    _llave->set_visible(false);
-    
-    _sonido->Play_escenario(1);
-    _objeto_motor->cambiar_modelado("Anim_coger_objeto_jugador", 19);
-    std::cout << "Llave recogida"<< std::endl;
-    std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
-}
-
-void Player::abrir_puerta(Puerta* _puerta, Llave* _llave) {
-    auto _pos_cerrojo = _puerta->get_posicion_cerrojo();
-    _objeto_motor->setPositionXZ(std::get<0>(_pos_cerrojo), std::get<1>(_pos_cerrojo));
-    _objeto_motor->rotar_nodo(_puerta->get_rotacion_cerrojo());
-    _objeto_motor->cambiar_modelado("Anim_abrir_puerta_ok_jugador", 18);
-    
-    _puerta->set_abierta();
-    get_inventario()->eliminar_llave(_llave);
-
-    std::cout << "Puerta abierta"<< std::endl;
-    std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
 }

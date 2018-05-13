@@ -843,8 +843,28 @@ void Character::animacion_correr() {
 }
 
 void Character::recoge_llave(Llave* _llave) {
+    //TO DO: Posicionar para coger la llave
+    _objeto_motor->cambiar_modelado("Anim_coger_objeto_jugador", 19);
 
+    // Llamar al haber pasado cierto tiempo
+    get_inventario()->anadir_llave(_llave);
+    _llave->set_visible(false);
+    _sonido->Play_escenario(1);
+    
+    std::cout << "Llave recogida"<< std::endl;
+    std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
 }
 
 void Character::abrir_puerta(Puerta* _puerta, Llave* _llave) {
+    auto _pos_cerrojo = _puerta->get_posicion_cerrojo();
+    _objeto_motor->setPositionXZ(std::get<0>(_pos_cerrojo), std::get<1>(_pos_cerrojo));
+    _objeto_motor->rotar_nodo(_puerta->get_rotacion_cerrojo());
+    _objeto_motor->cambiar_modelado("Anim_abrir_puerta_ok_jugador", 18);
+    
+    // Llamar al haber pasado cierto tiempo
+    _puerta->set_abierta();
+    get_inventario()->eliminar_llave(_llave);
+
+    std::cout << "Puerta abierta"<< std::endl;
+    std::cout << "Llaves: "<< get_inventario()->get_llaves().size() << std::endl;
 }
