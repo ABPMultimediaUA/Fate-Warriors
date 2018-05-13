@@ -131,8 +131,11 @@ void iNodoAnimacion::cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta){
 // 13 - ATK F 1
 // 14 - ATK F 2
 // 15 - ATK F 3
-// 16 - 
-// 17 -
+// 16 - RECIBIR DANYO
+// 17 - DASH
+// 18 - ABRIR PUERTA
+// 19 - COGER OBJETO
+
 
 void iNodoAnimacion::update_anim(){
     //if(_ruta_actual == 0 || _ruta_actual == 1 || _ruta_actual == 2) {

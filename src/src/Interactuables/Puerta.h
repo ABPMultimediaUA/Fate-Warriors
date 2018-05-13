@@ -2,6 +2,9 @@
 #define PUERTA_H_
 
 #include "../Objeto.h"
+
+#include <tuple>
+
 class Interfaz_sonido;
 
 class Puerta : public Objeto{
@@ -11,6 +14,9 @@ public:
 
 	void set_abierta();
 	bool get_abierta();
+
+	std::tuple<float, float> get_posicion_cerrojo();
+	float get_rotacion_cerrojo(); 
 
 private:
 	bool _abierta;

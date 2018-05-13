@@ -13,6 +13,8 @@ class Arma;
 class Consumible_Power_Up;
 class Zona;
 class Interfaz_sonido;
+class Puerta;
+class Llave;
 
 class Character : public Objeto{
 public:
@@ -131,6 +133,9 @@ public:
 
 	virtual void animacion_andar();
 	virtual void animacion_correr();
+
+	virtual void recoge_llave(Llave* _llave);
+	virtual void abrir_puerta(Puerta* _puerta, Llave* _llave);
 
 	inline void set_pos_azar_en_zona(int x, float y) {
 		pos_x_azar_en_zona = x;

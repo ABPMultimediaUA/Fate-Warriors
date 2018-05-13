@@ -22,7 +22,6 @@
 
 #include "../Motor_sonido/Interfaz_sonido.h"
 
-
 #include <iostream>
 
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
@@ -286,14 +285,8 @@ bool Character::interactuar_con_objeto(){
             comprobar_colision_teniendo_tambien_radio(this->get_vector(), 3, _llaves[_cont]->get_vector(), 3) == true)
         {
             // Recoge llave y la anyade al inventario
-            
-            this->get_inventario()->anadir_llave(_llaves[_cont]);
-            _llaves[_cont]->set_visible(false);
-            
+            recoge_llave(_llaves[_cont]);
             objeto_encontrado = true;
-            _sonido->Play_escenario(1);
-            std::cout << "Llave recogida"<< std::endl;
-            std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
         }
 	}
 	
@@ -307,15 +300,9 @@ bool Character::interactuar_con_objeto(){
             std::vector<Llave*> _llaves_character = this->get_inventario()->get_llaves();
             
             for (short i = 0; i < _llaves_character.size(); ++i) {
-                if(_llaves_character[i]->get_id_puerta() == _puertas[_cont]->get_id()){
-                    // Abre puerta y elimina la llave del inventario
-
-                    _puertas[_cont]->set_abierta();
-                    this->get_inventario()->eliminar_llave(_llaves_character[i]);
+                if(_llaves_character[i]->get_id_puerta() == _puertas[_cont]->get_id()){ // Abre la puerta y elimina la llave del inventario
+                    abrir_puerta(_puertas[_cont], _llaves_character[i]);
                     objeto_encontrado = true;
-
-                    std::cout << "Puerta abierta"<< std::endl;
-                    std::cout << "Llaves: "<< this->get_inventario()->get_llaves().size() << std::endl;
                 }
             }
         }
@@ -853,4 +840,11 @@ void Character::animacion_andar() {
 }
 
 void Character::animacion_correr() {
+}
+
+void Character::recoge_llave(Llave* _llave) {
+
+}
+
+void Character::abrir_puerta(Puerta* _puerta, Llave* _llave) {
 }

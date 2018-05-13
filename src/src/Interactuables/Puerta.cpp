@@ -22,6 +22,9 @@ Puerta::Puerta(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacio
         _rotacion = 1;
 }
 
+Puerta::~Puerta() {
+}
+
 void Puerta::set_abierta(){
 	_abierta = true;
     _sonido->Play_escenario(0);
@@ -33,5 +36,16 @@ bool Puerta::get_abierta(){
     return _abierta;
 }
 
-Puerta::~Puerta() {
+std::tuple<float, float> Puerta::get_posicion_cerrojo() {
+    if(_rotacion == 0)
+        return std::make_tuple(_objeto_motor->getX()+5.25, _objeto_motor->getZ()-6.25);
+    else if(_rotacion == 1)
+        return std::make_tuple(_objeto_motor->getX()-5.25, _objeto_motor->getZ()+6.25);
+}
+
+float Puerta::get_rotacion_cerrojo() {
+    if(_rotacion == 0) 
+        return 0;
+    else if(_rotacion == 1)
+        return 180;
 }

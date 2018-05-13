@@ -8,6 +8,8 @@ class Input;
 class Motor;
 class Interfaz_sonido;
 class Cono_Vision;
+class Puerta;
+class Llave;
 
 class Player : public Character{
 public:
@@ -30,6 +32,9 @@ public:
 	void play_animaciones_recibir_danyo() override;
 
 	void carga_animaciones();
+
+	void recoge_llave(Llave* _llave);
+	void abrir_puerta(Puerta* _puerta, Llave* _llave);
 
 private:
 	short _nodoId; //ID del nodo del modelado del motor
