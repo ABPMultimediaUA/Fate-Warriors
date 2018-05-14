@@ -17,17 +17,31 @@ NPC_Manager::NPC_Manager() {
 
 		if(rand()%2 == 0) {
 			_equipo = Enum_Equipo_A;
+		}
+		else {
+			_equipo = Enum_Equipo_B;
+		}
 
+		if(rand()%2 == 0) {
 			_vida = 225;
+
+		}
+		else {
+			_vida = 120;
+		}
+
+		if(rand()%2 == 0) {
 			_velocidad = .14;
+		}
+		else {
+			_velocidad = .17;
+		}
+
+		if(rand()%2 == 0) {
 			_danyo_d = 20;
 			_danyo_f = 30;
 		}
 		else {
-			_equipo = Enum_Equipo_B;
-
-			_vida = 120;
-			_velocidad = .17;
 			_danyo_d = 15;
 			_danyo_f = 25;
 		}
