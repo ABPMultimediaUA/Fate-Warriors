@@ -153,6 +153,8 @@ public:
 
     void render_Menu_Win();
     void render_Menu_Lose();
+
+    void set_llave_hud(bool _i_tiene_llave);
     
 private:
 

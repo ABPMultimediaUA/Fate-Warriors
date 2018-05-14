@@ -743,6 +743,7 @@ void Character::gestion_coger_llave(){
             get_inventario()->anadir_llave(_llave_aux_animacion);
             _llave_aux_animacion->set_visible(false);
             _sonido->Play_escenario(1);
+            Game::game_instancia()->set_llave_hud(true);
         }
     }
     else if(get_accion() == Accion_post_Coger_Llave){
@@ -761,6 +762,7 @@ void Character::gestion_usar_llave(){
 
             get_inventario()->eliminar_llave(_llave_aux_animacion);
             _puerta_aux_animacion->set_abierta();
+            Game::game_instancia()->set_llave_hud(false);
         }
     }
     else if(get_accion() == Accion_post_Usar_Llave){

@@ -285,6 +285,9 @@ void Game::cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short 
 }
 
 
+void Game::set_llave_hud(bool _i_tiene_llave) {
+	_motor->set_llave_hud(_i_tiene_llave);
+}
 /*Consumible_Action* Game::get_consumibles_action(){
 	return _consumibles_action;
 }*/

@@ -44,10 +44,9 @@ class UI{
         void set_eje_x(bool ejeX);
         void set_eje_y(bool ejeY);
 
-
+        inline void set_tiene_llave(bool _i_tiene_llave) { _tiene_llave = _i_tiene_llave;}
 
     private:
-        
         //MENU PRINCIPAL
         std::vector<Image*> _lista_imagenes;
         //MENU PAUSA
@@ -60,6 +59,8 @@ class UI{
         std::vector<Image*> _lista_imagenes_fin_win;
         //MENU LOSE
         std::vector<Image*> _lista_imagenes_fin_lose;
+
+        bool _tiene_llave;
 };
 
 #endif /* SRC_UI_H_ */

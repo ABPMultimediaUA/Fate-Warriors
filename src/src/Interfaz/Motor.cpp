@@ -1027,3 +1027,7 @@ void Motor::render_Menu_Lose(){
 	uint8_t num_opcion = game->get_menu_fin()->get_i_opcion();
 	_me->renderUIMenuLose(num_opcion);
 }
+
+void Motor::set_llave_hud(bool _i_tiene_llave){
+	_me->getUI()->set_tiene_llave(_i_tiene_llave);
+}

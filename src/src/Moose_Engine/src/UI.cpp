@@ -5,7 +5,7 @@
 //#include "stdint.h"
 
 UI::UI(){
-
+    _tiene_llave = false;
 }
 
 UI::~UI(){
@@ -247,10 +247,12 @@ void UI::drawMenuFinLose(uint16_t opcion){
 
 //dibujar HUD y elementos durante el gameplay
 void UI::drawHUD(){
-    
-    for(u_int16_t i = 0; i<_lista_imagenes_hud.size(); i++){
+    uint16_t _tam = _lista_imagenes_hud.size();
+    for(u_int16_t i = 0; i < _tam-1; i++){
         _lista_imagenes_hud[i]->Draw();
     }
+    if(_tiene_llave == true)
+        _lista_imagenes_hud[_tam-1]->Draw();
 }
 
 void UI::set_escala_vida(float escala){

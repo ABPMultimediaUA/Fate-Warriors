@@ -59,6 +59,8 @@ public:
 	inline Menu_Pausa* get_menu_pausa(){ return _menu_pausa; }
 	inline Menu_Fin* get_menu_fin(){ return _menu_fin; }
 
+	void set_llave_hud(bool _i_tiene_llave);
+
 private:
 	static Game* instancia;
 	Game();
