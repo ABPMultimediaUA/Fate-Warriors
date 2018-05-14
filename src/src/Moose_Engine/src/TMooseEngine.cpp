@@ -42,7 +42,7 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader();
     _skybox = new Skybox();
-    _particulas = new ParticleGenerator(_shader, 200);
+    _particulas = new ParticleGenerator(_shader, 20);
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    

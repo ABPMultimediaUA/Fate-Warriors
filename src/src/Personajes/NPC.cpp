@@ -225,10 +225,12 @@ void NPC::animacion_andar() {
     switch(_tipo_npc) {
         case 1:
             _objeto_motor->cambiar_modelado("Anim_andar_npc1", 1);
+
         break;
 
         case 2:
             _objeto_motor->cambiar_modelado("Anim_andar_npc2", 1);
+
         break;
     }
 }
@@ -237,10 +239,12 @@ void NPC::animacion_correr() {
     switch(_tipo_npc) {
         case 1:
             _objeto_motor->cambiar_modelado("Anim_correr_npc1", 2);
+            Motor::Motor_GetInstance()->_interfaz->Crear_particulas_Suelo(getX(),1, getZ(), get_direccion_actual()); 
         break;
 
         case 2:
             _objeto_motor->cambiar_modelado("Anim_correr_npc2", 2);
+            Motor::Motor_GetInstance()->_interfaz->Crear_particulas_Suelo(getX(),1, getZ(), get_direccion_actual()); 
         break;
     }
 }

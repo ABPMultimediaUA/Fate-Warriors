@@ -14,10 +14,14 @@ struct Particle {
     glm::vec3 Velocity;
     glm::vec4 Color;
     GLfloat Life;
+    GLfloat Scale;
+    GLfloat Scale_Factor;
+    GLint grados;
+
 
     Particle() : Position(0.0f), Velocity(0.0f), Color(1.0f), Life(0.0f) { }
-    Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, glm::vec4 _i_Color, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(_i_Color), Life(_i_Life) { }
-    Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(1.0f), Life(_i_Life) { }
+    Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, glm::vec4 _i_Color, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(_i_Color), Life(_i_Life), Scale(3.f) { }
+    Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(1.0f), Life(_i_Life), Scale(3.f), Scale_Factor(3.f), grados(3.f) { }
 };
 
 
@@ -45,6 +49,7 @@ public:
     // Render all particles
     void Draw();
     void Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion);
+    void Reuse_Particles_Ground(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion);
 private:
     // State
     std::vector<Particle> particles;
@@ -61,8 +66,11 @@ private:
     void init();
     // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle is currently inactive
     GLuint firstUnusedParticle();
+    // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0
+    GLuint firstUnusedParticle_Active();
+
     // Respawns particle
-    void respawnParticle(Particle &particle, GLint _direccion, glm::vec3 offset = glm::vec3(0.0f, 0.0f, 0.0f));
+    void respawnParticle(Particle &particle, GLint _direccion, GLfloat scale_factor, glm::vec3 velocidad, glm::vec3 offset = glm::vec3(0.0f, 0.0f, 0.0f), GLfloat _i_duracion = .75f,  GLfloat red = 1, GLfloat green = 0, GLfloat blue = 0);
     void load_texture();
 
     glm::mat4 _traslacion;

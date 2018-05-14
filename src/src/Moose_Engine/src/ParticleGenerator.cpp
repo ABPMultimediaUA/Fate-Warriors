@@ -36,15 +36,26 @@ ParticleGenerator::~ParticleGenerator(){
 
 void ParticleGenerator::Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion){
         // Add new particles 
-    for (GLuint i = 0; i < newParticles; ++i)
+    for (GLuint i = 0; i < 2; ++i)
     {
+        GLfloat rVelocidad = 0.5 + ((rand() % 1000) / 100.0f);
+        GLfloat altura = 5 + ((rand() % 100) / 20.0f);
+        
         int unusedParticle = this->firstUnusedParticle();
-        this->respawnParticle(this->particles[unusedParticle], _direccion, offset);
+        this->respawnParticle(this->particles[unusedParticle], _direccion, -1, glm::vec3(rVelocidad, 9.0,rVelocidad), glm::vec3(offset.x,altura, offset.z));
     }
 }
 
 
-
+void ParticleGenerator::Reuse_Particles_Ground(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion){
+        // Add new particles 
+    for (GLuint i = 0; i < newParticles; ++i)
+    {
+        int unusedParticle = this->firstUnusedParticle_Active();
+        if(unusedParticle!=-1)
+        this->respawnParticle(this->particles[unusedParticle], _direccion, 4, glm::vec3(0.5f,-4.0,0.5f), offset, 1.75f, 0.6f,0.6f,0.6f);
+    }
+}
 
 
 
@@ -54,12 +65,15 @@ void ParticleGenerator::Update(GLfloat dt)
     for (GLuint i = 0; i < this->amount; ++i)
     {
         Particle &p = this->particles[i];
+        p.grados = rand() % 359;
+        std::cout << dt << std::endl;
         p.Life -= dt; // reduce life
+        p.Scale += dt * p.Scale_Factor;
         if (p.Life > 0.0f)
         {	// particle is alive, thus update
             p.Position -= p.Velocity * dt; 
             if(p.Color.a  > 0)
-            p.Color.a -= dt * 2.5;
+            p.Color.a -= dt * .5;
             else{
                  p.Color.a = 0;
             }
@@ -87,7 +101,7 @@ void ParticleGenerator::Draw()
         glm::mat4 projection = shader->getProjection();
         glm::mat4 view = shader->getView();
         
-        update_model_matrix(particle.Position, 288, glm::vec3(0,0,1), glm::vec3(3,3,1));
+        update_model_matrix(particle.Position, particle.grados, glm::vec3(0,0,1), glm::vec3(particle.Scale,particle.Scale,1));
         
         glm::mat4 MVP = projection*view*ModelMatrix;      
 
@@ -97,7 +111,7 @@ void ParticleGenerator::Draw()
         particle.Color = glm::vec4(1.0, 1.0, 1.0, 1);
         */
 
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
         glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, glm::value_ptr(particle.Color));
 
@@ -162,7 +176,7 @@ void ParticleGenerator::load_texture(){
     int width, height, nrChannels;
   //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char *data = SOIL_load_image("Particulas/Sangre.png", &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char *data = SOIL_load_image("Particulas/Polvo3.png", &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
 
@@ -257,7 +271,27 @@ GLuint ParticleGenerator::firstUnusedParticle()
     return 0;
 }
 
-void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, glm::vec3 offset)
+GLuint ParticleGenerator::firstUnusedParticle_Active()
+{
+    // First search from last used particle, this will usually return almost instantly
+    for (GLuint i = lastUsedParticle; i < this->amount; ++i){
+        if (this->particles[i].Life <= 0.0f){
+            lastUsedParticle = i;
+            return i;
+        }
+    }
+    // Otherwise, do a linear search
+    for (GLuint i = 0; i < lastUsedParticle; ++i){
+        if (this->particles[i].Life <= 0.0f){
+            lastUsedParticle = i;
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, GLfloat scale_factor, glm::vec3 velocidad, glm::vec3 offset, GLfloat _i_duracion, GLfloat red, GLfloat green, GLfloat blue)
 {
     GLfloat desp_x, desp_z;
 
@@ -265,12 +299,17 @@ void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, gl
     desp_x = sin((_direccion*std::acos(-1)/180));
     GLfloat random = ((rand() % 100) - 50) / 10.0f;
     GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-    particle.Position = glm::vec3(offset.x, offset.y, offset.z);
-    particle.Color = glm::vec4(rColor, rColor, rColor, 1.0f);
-    particle.Life = .5f;
-    particle.Velocity = glm::vec3(0,1,0) * 0.1f;
-    particle.Velocity.x = -desp_x / 2;
-    particle.Velocity.z = -desp_z / 2;
+    GLfloat offposition = -0.5 + ((rand() % 100) / 100.0f);
+
+    particle.Scale = 1 + (rand() % 2);
+    particle.Scale_Factor = scale_factor;
+    particle.Position = glm::vec3(offset.x + offposition, offset.y + offposition, offset.z + offposition);
+
+    particle.Color = glm::vec4(red, green, blue, .9f);
+    particle.Life = _i_duracion;
+    particle.Velocity.x = -desp_x * velocidad.x;
+    particle.Velocity.y = velocidad.y;
+    particle.Velocity.z = -desp_z * velocidad.z;
 
 }
  

@@ -21,6 +21,8 @@ public:
 
     //Crea las particulas para que se muevan en una direccion
     void Crear_particulas(float pos_x, float pos_y, float pos_z, uint16_t _direccion);
+    void Crear_particulas_Suelo(float pos_x, float pos_y, float pos_z, uint16_t _direccion);
+    
 
 
 private:
