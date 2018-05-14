@@ -24,8 +24,8 @@
 
 #include <iostream>
 
-Character::Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
-    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
+Character::Character(short _id, float _i_x, float _i_y, float _i_z, int16_t _i_vida, float _i_velocidad,
+    int16_t _i_danyo_ataque_normal, int16_t _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
     :Objeto(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
     _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
     _tiene_arma_larga(false){
@@ -81,7 +81,7 @@ void Character::desactivar_inmunidad_a_danyos(){
     _inmortal = false;
 }
 
-void Character::modificar_vida_en(short _i_vida){
+void Character::modificar_vida_en(int16_t _i_vida){
 
 	if(_vida+_i_vida>_vida_maxima){
         _vida=_vida_maxima;
@@ -94,7 +94,7 @@ void Character::modificar_vida_en(short _i_vida){
     }
 }
 
-void Character::danyar_comun(short _danyo){
+void Character::danyar_comun(int16_t _danyo){
 
     if(!_inmortal){
         _vida = _vida - _danyo;
@@ -112,7 +112,7 @@ void Character::danyar_comun(short _danyo){
     }
 }
 
-void Character::set_vida(short _i_vida){
+void Character::set_vida(int16_t _i_vida){
 	_vida=_i_vida;
 }
 
@@ -127,7 +127,7 @@ bool Character::isDead(){
     return true;
 }
 
-bool Character::puede_subir_vida_(short _i_vida){
+bool Character::puede_subir_vida_(int16_t _i_vida){
     if(_vida==_vida_maxima){
         return false;
     }
@@ -148,11 +148,11 @@ uint8_t* Character::get_ref_rango_arma_larga(){
     }
 }
 
-short Character::get_danyo_ataque_normal(){
+int16_t Character::get_danyo_ataque_normal(){
 	return _danyo_ataque_normal;
 }
 
-short Character::get_danyo_ataque_fuerte(){
+int16_t Character::get_danyo_ataque_fuerte(){
 	return _danyo_ataque_fuerte;
 }
 

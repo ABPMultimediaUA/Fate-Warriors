@@ -216,7 +216,7 @@ void Player::gestion_dash(){
 }
 
 
-void Player::modificar_vida_en(short _i_vida){
+void Player::modificar_vida_en(int16_t _i_vida){
 	if(_vida+_i_vida>_vida_maxima){
         _vida=_vida_maxima;
     }
@@ -229,7 +229,7 @@ void Player::modificar_vida_en(short _i_vida){
     //_motor->set_text_vida(_vida);
 }
 
-void Player::danyar(short _danyo){
+void Player::danyar(int16_t _danyo){
     //hacer random de sonido
     _sonido->Play_voces(8);
     danyar_comun(_danyo);
@@ -237,7 +237,7 @@ void Player::danyar(short _danyo){
     //_motor->set_text_vida(_vida);
 }
 
-void Player::set_vida(short _i_vida){
+void Player::set_vida(int16_t _i_vida){
 	_vida=_i_vida;
    // _motor->set_text_vida(_vida);
 }

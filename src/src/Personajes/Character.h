@@ -18,16 +18,16 @@ class Llave;
 
 class Character : public Objeto{
 public:
-	Character(short _id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad, short _i_danyo_ataque_normal, 
-	short _i_danyo_ataque_fuerte, Enum_Equipo equipo);
+	Character(short _id, float _i_x, float _i_y, float _i_z, int16_t _i_vida, float _i_velocidad, int16_t _i_danyo_ataque_normal, 
+	int16_t _i_danyo_ataque_fuerte, Enum_Equipo equipo);
 	virtual ~Character();
 
-	virtual void modificar_vida_en(short _i_vida); // este metodo debe derivar en danyar y curar
-	void danyar_comun(short _danyo); // el danyo es lo mismo que los puntos de vida que se le restan
-	virtual void danyar(short _danyo) = 0;
-	bool puede_subir_vida_(short _i_vida);
-	virtual void set_vida(short _i_vida);
-	short get_vida();
+	virtual void modificar_vida_en(int16_t _i_vida); // este metodo debe derivar en danyar y curar
+	void danyar_comun(int16_t _danyo); // el danyo es lo mismo que los puntos de vida que se le restan
+	virtual void danyar(int16_t _danyo) = 0;
+	bool puede_subir_vida_(int16_t _i_vida);
+	virtual void set_vida(int16_t _i_vida);
+	int16_t get_vida();
 	inline int16_t get_vida_maxima(){
 		return _vida_maxima;
 	}
@@ -65,8 +65,8 @@ public:
 	uint8_t* get_ref_rango_arma_larga();
     Inventario* get_inventario();
 	bool isDead();
-	short get_danyo_ataque_normal();
-	short get_danyo_ataque_fuerte();
+	int16_t get_danyo_ataque_normal();
+	int16_t get_danyo_ataque_fuerte();
 	bool interactuar_con_objeto();
 	void atacar(Enum_Tipo_Ataque _i_tipo_ataque);
 	virtual void morir();
@@ -161,8 +161,8 @@ protected:
 	float _velocidadCorrer;
 	uint8_t _rango_arma_corta;
 	uint8_t _rango_arma_larga;
-	short _danyo_ataque_normal;
-	short _danyo_ataque_fuerte;
+	int16_t _danyo_ataque_normal;
+	int16_t _danyo_ataque_fuerte;
 	double _tiempo_inicio_accion; // El tiempo cuando ha empezado a realizar el Tipo_Accion
     Inventario* _inventario;
 	bool _tiene_arma_corta;

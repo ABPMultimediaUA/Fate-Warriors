@@ -66,7 +66,7 @@ void ParticleGenerator::Update(GLfloat dt)
     {
         Particle &p = this->particles[i];
         p.grados = rand() % 359;
-        std::cout << dt << std::endl;
+        //std::cout << dt << std::endl;
         p.Life -= dt; // reduce life
         p.Scale += dt * p.Scale_Factor;
         if (p.Life > 0.0f)

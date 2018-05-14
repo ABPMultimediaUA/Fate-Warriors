@@ -15,9 +15,9 @@ public:
 	virtual ~Player();
 	void update();
 
-	void modificar_vida_en(short _i_vida)	override;
-	void danyar(short _danyo) 				override;
-	void set_vida(short _i_vida) 			override;
+	void modificar_vida_en(int16_t _i_vida)	override;
+	void danyar(int16_t _danyo) 				override;
+	void set_vida(int16_t _i_vida) 			override;
 	bool puede_subir_especial();
 	void aumentar_especial();
 	void disminuir_especial();

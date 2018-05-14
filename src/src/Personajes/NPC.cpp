@@ -18,9 +18,9 @@
 
 #include <iostream>
 
-NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _i_velocidad,
-    short _i_danyo_ataque_normal, short _i_danyo_ataque_fuerte, Enum_Equipo equipo) 
-    : Character(_i_id, _i_x, _i_y, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte, Enum_Equipo_A){
+NPC::NPC(float _i_x, float _i_z, int16_t _i_vida, float _i_velocidad,
+    int16_t _i_danyo_ataque_normal, int16_t _i_danyo_ataque_fuerte, Enum_Equipo equipo) 
+    : Character(0, _i_x, 0, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte, Enum_Equipo_A){
 
     const char* cstr;
     const char* cstr2;
@@ -36,7 +36,7 @@ NPC::NPC(short _i_id, float _i_x, float _i_y, float _i_z, short _i_vida, float _
     }
     _blackboard = new Blackboard(this);
     
-    _objeto_motor =new Objeto_Motor(true, this,E_BoundingCapsule, cstr, cstr2, _i_x,_i_y,_i_z,69);
+    _objeto_motor =new Objeto_Motor(true, this,E_BoundingCapsule, cstr, cstr2, _i_x, 0, _i_z, 69);
     //exit(0);
 }
 
@@ -79,7 +79,7 @@ void NPC::stop() {
     //_motor->Mover(_id_motor,0, 0, 0);
 }
 
-void NPC::danyar(short _danyo){
+void NPC::danyar(int16_t _danyo){
     danyar_comun(_danyo);
 }
 
