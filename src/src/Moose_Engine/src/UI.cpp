@@ -9,7 +9,8 @@ UI::UI(){
 }
 
 UI::~UI(){
-
+    if(_img_llave != nullptr)
+        delete _img_llave;
 }
 
 Image* UI::crear_imagen(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
@@ -23,6 +24,7 @@ Image* UI::crear_imagen_pausa(Shader* shader, const char* ruta, const char* ruta
     _lista_imagenes_pausa.push_back(imagen);
     return imagen;
 }
+
 
 Image* UI::crear_imagenHUD(Shader* shader, const char* ruta, float x, float y, float width, float height){
     Image* imagen = new Image(shader, 1, ruta, ruta, ruta, x, y, width, height);
@@ -41,6 +43,13 @@ Image* UI::crear_imagenHUD(Shader* shader, const char* ruta, const char* ruta2, 
     _lista_imagenes_hud.push_back(imagen);
     return imagen;
 }
+
+Image* UI::crear_imagenHUD_llave(Shader* shader, const char* ruta, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 1, ruta, ruta, ruta, x, y, width, height);
+    _img_llave = imagen;
+    return imagen;
+}
+
 
 Image* UI::crear_imagen_config(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
     Image* imagen = new Image(shader, 2, ruta, ruta2, ruta2, x, y, width, height);
@@ -248,11 +257,9 @@ void UI::drawMenuFinLose(uint16_t opcion){
 //dibujar HUD y elementos durante el gameplay
 void UI::drawHUD(){
     uint16_t _tam = _lista_imagenes_hud.size();
-    for(u_int16_t i = 0; i < _tam-1; i++){
+    for(u_int16_t i = 0; i < _tam; i++){
         _lista_imagenes_hud[i]->Draw();
     }
-    if(_tiene_llave == true)
-        _lista_imagenes_hud[_tam-1]->Draw();
 }
 
 void UI::set_escala_vida(float escala){
@@ -305,5 +312,16 @@ void UI::set_eje_y(bool ejeY){
     }
     else{
         _lista_imagenes_config[15]->setSelected(2);
+    }
+}
+
+void UI::set_tiene_llave(bool _i_tiene_llave){ 
+    if(_tiene_llave != _i_tiene_llave) {
+        _tiene_llave = _i_tiene_llave;
+
+        Image* _aux = _img_llave;
+        _img_llave = _lista_imagenes_hud[_lista_imagenes_hud.size()-1];
+        _lista_imagenes_hud.pop_back();
+        _lista_imagenes_hud.push_back(_aux);
     }
 }

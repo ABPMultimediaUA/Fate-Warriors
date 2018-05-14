@@ -16,6 +16,7 @@ class UI{
         Image* crear_imagenHUD(Shader* shader, const char* ruta, float x, float y, float width, float height);        
         Image* crear_imagenHUD(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
         Image* crear_imagenHUD(Shader* shader, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height);
+        Image* crear_imagenHUD_llave(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
         Image* crear_imagen_config(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
         Image* crear_imagen_config(Shader* shader, const char* ruta, float x, float y, float width, float height);
@@ -44,7 +45,7 @@ class UI{
         void set_eje_x(bool ejeX);
         void set_eje_y(bool ejeY);
 
-        inline void set_tiene_llave(bool _i_tiene_llave) { _tiene_llave = _i_tiene_llave;}
+        void set_tiene_llave(bool _i_tiene_llave);
 
     private:
         //MENU PRINCIPAL
@@ -61,6 +62,7 @@ class UI{
         std::vector<Image*> _lista_imagenes_fin_lose;
 
         bool _tiene_llave;
+        Image* _img_llave;
 };
 
 #endif /* SRC_UI_H_ */

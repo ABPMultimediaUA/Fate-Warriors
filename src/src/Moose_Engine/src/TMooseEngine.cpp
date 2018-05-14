@@ -101,7 +101,8 @@ void TMooseEngine::initUI(){
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Inferior.png", -0.722, 0.78, 0.326, 0.1);
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Barra_1.png", "Imagenes_HUD/HUD_Barra_2.png", "Imagenes_HUD/HUD_Barra_3.png", -0.722, 0.78, 0.326, 0.1);
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Superior.png", -0.95, 0.85, 0.6, 0.5);
-    _ui->crear_imagenHUD(_shader, "Imagenes_HUD/Llave.png", 0.75, 0.85, 0.15, 0.15); // Dejar la ultima
+    _ui->crear_imagenHUD(_shader, "Imagenes_HUD/Llave_Silueta.png", 0.75, 0.85, 0.15, 0.15); // Dejar la penultima
+    _ui->crear_imagenHUD_llave(_shader, "Imagenes_HUD/Llave.png", 0.75, 0.85, 0.15, 0.15); // Dejar la ultima
 
     _ui->set_escala_musica(5);
     _ui->set_escala_sfx(5);
