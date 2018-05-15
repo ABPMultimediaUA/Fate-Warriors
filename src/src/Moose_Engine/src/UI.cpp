@@ -2,6 +2,7 @@
 #include "Image.h"
 
 #include <iostream>
+#include "Mapa.h"
 //#include "stdint.h"
 
 UI::UI(){
@@ -254,13 +255,22 @@ void UI::drawMenuFinLose(uint16_t opcion){
     }
 }
 
+/*
+
+void UI::crear_mapa(Shader* shader){
+
+}
+*/
+
 //dibujar HUD y elementos durante el gameplay
 void UI::drawHUD(){
     uint16_t _tam = _lista_imagenes_hud.size();
     for(u_int16_t i = 0; i < _tam; i++){
         _lista_imagenes_hud[i]->Draw();
     }
+    //_mapa->Draw();
 }
+
 
 void UI::set_escala_vida(float escala){
     _lista_imagenes_hud[1]->setSizeX(escala);      //sabemos que es la 1 porque la barra de vida es la 1 en el hud

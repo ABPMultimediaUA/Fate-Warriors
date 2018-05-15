@@ -1,6 +1,7 @@
 #include "Mapa.h"
 #include "SOIL.h"
 #include "Shader.h"
+#include "Image_Map.h"
 #include "glm/ext.hpp"
 #include <iostream>
 
@@ -24,7 +25,7 @@ Mapa::~Mapa(){
 }
 
 
-void Mapa::eliminar_elemento_mapa(GameObject_Visual* objeto_a_eliminar){
+void Mapa::eliminar_elemento_mapa(Image_Map* objeto_a_eliminar){
 /*
     std::vector<GameObject_Visual>::iterator it;
     it = std::find(elementos_menu.begin(), elementos_menu.end(), objeto_a_eliminar);
@@ -37,8 +38,8 @@ void Mapa::eliminar_elemento_mapa(GameObject_Visual* objeto_a_eliminar){
 
 
 
-GameObject_Visual* Mapa::anyadir_elemento_al_mapa(float x, float y, Texture_ID_Map tipo){
-    GameObject_Visual* objeto_nuevo = new GameObject_Visual(x, y, tipo);
+Image_Map* Mapa::anyadir_elemento_al_mapa(float x, float y, Texture_ID_Map tipo){
+    Image_Map* objeto_nuevo = new Image_Map(shader, x, y, 1, 1);
     elementos_menu.push_back(objeto_nuevo);
     return objeto_nuevo;
 }
@@ -56,26 +57,8 @@ void Mapa::Draw()
    
     for (int a =0; a < elementos_menu.size(); a++)
     {
-        glDisable(GL_CULL_FACE);
-        
-        glm::mat4 projection = shader->getProjection();
-        glm::mat4 view = shader->getView();   
-        
-
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //    glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-    //    glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, glm::value_ptr(Color));
-
-        glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, elementos_menu[a]->ID_textura);
-
-
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-        glEnable(GL_CULL_FACE);
+        elementos_menu[a]->Draw();
+       
     }
     // Don't forget to reset to default blending mode
    // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
