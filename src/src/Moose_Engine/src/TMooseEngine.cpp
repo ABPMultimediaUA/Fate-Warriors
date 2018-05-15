@@ -320,8 +320,8 @@ void TMooseEngine::draw(){
     _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
     _particulas->Draw();
-    //glfwSwapBuffers(window);
-    //glfwPollEvents();
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 
 
     /*//cosa
