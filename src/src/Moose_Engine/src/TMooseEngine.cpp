@@ -186,7 +186,7 @@ void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos){
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
-    std::cout<<"loque \n";
+
 }
 
 void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
