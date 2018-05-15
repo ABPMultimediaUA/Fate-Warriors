@@ -30,15 +30,12 @@ public:
 	void animacion_correr() override;
 
 	void aparecer_muerto();
-	void desaparecer_de_pantalla();
-	bool ha_finalizado_animacion();
 
 protected:
 	Blackboard* _blackboard; //Informacion de la memoria almacenada en el Blackboard
 
 private:
 	uint8_t _tipo_npc;
-	double _tiempo_para_revivir;
 	void anim_ataque_tipo_1();
 	void anim_ataque_tipo_2();
 };
