@@ -19,6 +19,7 @@ class GLFWwindow;
 class Skybox;
 class UI;
 class ParticleGenerator;
+class Mapa;
 
 class TMooseEngine{
 
@@ -116,6 +117,7 @@ class TMooseEngine{
         UI* _ui;
         Skybox* _skybox;
         ParticleGenerator* _particulas;
+        Mapa* _mapa;
 };
 
 

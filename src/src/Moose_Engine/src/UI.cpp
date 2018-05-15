@@ -2,7 +2,6 @@
 #include "Image.h"
 
 #include <iostream>
-#include "Mapa.h"
 //#include "stdint.h"
 
 UI::UI(){

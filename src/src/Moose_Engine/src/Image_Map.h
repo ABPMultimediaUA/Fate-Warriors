@@ -15,12 +15,12 @@ class Shader;
 class Image_Map{
 public:
     // Constructor
-    Image_Map(Shader* shader, float x, float y, float width, float height); 
+    Image_Map(Shader* shader,const char* ruta, float x, float y, float width, float height); 
     ~Image_Map();
     // Render all particles
     void Draw();
-    void setSizeX(float sizeX); //0-> tamaño original, 1 -> reduccion 100%
     void setTextureposition(float x, float y);
+
 private:
     //controla si se dibuja o no la version seleccionada de la imagen
     int _selected;

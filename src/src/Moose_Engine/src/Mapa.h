@@ -24,9 +24,8 @@ public:
     Mapa(Shader* shader);
     ~Mapa();
 
-    Image_Map* anyadir_elemento_al_mapa(float x, float y, Texture_ID_Map tipo);
+    Image_Map* anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo);
     void eliminar_elemento_mapa(Image_Map* objeto_a_eliminar);
-    void actualizar_elemento_mapa(Image_Map* objeto_a_modificar);
     // Render all particles
     void Draw();
 
@@ -36,18 +35,7 @@ private:
    
     // Render state
     Shader* shader;
-
-    GLuint VAO;
-    GLuint VBO;
-    GLuint EBO;
-   
-    // Initializes buffer and vertex attributes
-    void init();
-    // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle is currently inactive
-    void load_texture(const char* ruta, Texture_ID_Map elemento);
-    
- GLuint Imagenes[Vegeta_count];
-    GLuint ID;
+    const char* Imagenes[Vegeta_count];
 
 };
 

@@ -16,6 +16,7 @@
 
 #include "UI.h"
 #include "Skybox.h"
+#include "Mapa.h"
 
 
 TMooseEngine* TMooseEngine::_instancia = 0;
@@ -42,6 +43,8 @@ TMooseEngine::TMooseEngine(){
     _escena = nodo;
     _shader = new Shader();
     _skybox = new Skybox();
+
+    _mapa = new Mapa(_shader);
     _particulas = new ParticleGenerator(_shader, 20);
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
@@ -352,6 +355,10 @@ void TMooseEngine::render_estado_Partida(){
     clear();
     draw();
     renderUIHUD();
+    glViewport(0, 0, 600, 600);
+    _mapa->Draw();
+    glViewport(0, 0, 1280, 720);
+
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
