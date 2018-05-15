@@ -232,6 +232,9 @@ void Game::cambio_a_update_menu() {
 	render_actual = &Game::render_menu;
 	fin_partida();
 
+    _sonido->Stop_pasos();
+	_sonido->Stop_ambiente(3);
+	_sonido->Stop_ambiente(4);
 	_sonido->play_music(0);
 }
 
