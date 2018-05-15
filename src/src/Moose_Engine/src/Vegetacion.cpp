@@ -12,10 +12,20 @@ Vegetacion::Vegetacion(Shader* _i_shader) : shader(_i_shader){
     load_texture();
 
     float rotacion = 0;
+    float posicion = 0;
+    
     for (GLuint i = 0; i < 8; ++i){
-        clouds.push_back(Vegetal(glm::vec3(61.5158, 4, 44.2914), rotacion));
+        clouds.push_back(new Vegetal(glm::vec3(61.5158, 4, 44.2914), rotacion));
         rotacion+=45;
     }
+
+
+     for (GLuint i = 0; i < 8; ++i){
+        clouds.push_back(new Cesped(glm::vec3(61.5158, 0, 44.2914+posicion), 0));
+        //clouds.push_back(new Cesped(glm::vec3(61.5158 + posicion, 1, 44.2914), 90));
+        posicion+=1;
+    }
+    
 }
  
 Vegetacion::~Vegetacion() {
@@ -70,6 +80,24 @@ void Vegetacion::init(){
     GLuint amount = 1;
 }
 
+void Vegetacion::update(float dt){
+
+        GLfloat pos = -10 + (rand() % 20) ;
+
+    // Update all particles
+    for (GLuint i = 0; i < clouds.size(); ++i)
+    {
+        Objeto_Vegetacion* p = clouds[i];
+        if (p->_rotacion_x > pos){
+            p->_rotacion_x = pos;
+        }
+        else{
+            p->_rotacion_x +=  dt; 
+        }
+    }
+
+}
+
 
 GLuint Vegetacion::load_texture() {
   
@@ -85,7 +113,7 @@ GLuint Vegetacion::load_texture() {
     int width, height, nrChannels;
   //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char *data = SOIL_load_image("Skybox_Images/vegeta.PNG", &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char *data = SOIL_load_image("Skybox_Images/cesped.png", &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
 
@@ -103,20 +131,16 @@ GLuint Vegetacion::load_texture() {
 }
 
 
-void Vegetacion::update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado){
+glm::mat4 Vegetacion::update_model_matrix(glm::vec3 position, float grados, float grados_y, glm::vec3 rotation, glm::vec3 escalado){
     _rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(grados), rotation);
+   glm::mat4 rotaciony =  glm::rotate(glm::mat4(1.0f), glm::radians(grados_y), glm::vec3(0,1,0));
+    
     _escalado = glm::scale(escalado);
     _traslacion = glm::translate(position);
   
 
-    ModelMatrix =  _traslacion * _rotacion * _escalado;
-  /*
-    glm::mat4 view = shader->getView();
-
-   
-    ModelMatrix = glm::rotate(ModelMatrix, glm::radians(grados), rotation);
-    ModelMatrix = glm::scale(ModelMatrix, escalado);
-    */
+    ModelMatrix =  _traslacion * rotaciony *  _rotacion * _escalado;    
+    return ModelMatrix;
 }
 
 
@@ -130,15 +154,16 @@ void Vegetacion::draw(){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader->use(particulas);
    
-    for (Vegetal particle : this->clouds)
+update(0.2);
+    for (int a =0; a < clouds.size(); a++)
     {
-      
         glDisable(GL_CULL_FACE);
         
         glm::mat4 projection = shader->getProjection();
         glm::mat4 view = shader->getView();
         
-        update_model_matrix(particle.Position, particle._rotacion, glm::vec3(0,1,0), glm::vec3(4,4,4));
+        update_model_matrix(clouds[a]->Position, clouds[a]->_rotacion_x, clouds[a]->_rotacion,  glm::vec3(1,0,0), glm::vec3(16,4,4));
+        clouds[a]->actualizar_visualizacion(ModelMatrix, view);
         
         glm::mat4 MVP = projection*view*ModelMatrix;      
 
@@ -162,13 +187,9 @@ void Vegetacion::draw(){
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glEnable(GL_CULL_FACE);
-
-
-        
     }
     // Don't forget to reset to default blending mode
    // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
        glDepthMask(true);
 }
-
 

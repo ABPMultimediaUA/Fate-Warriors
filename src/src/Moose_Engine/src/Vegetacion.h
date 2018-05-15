@@ -6,16 +6,11 @@
 #include <glm/glm.hpp>
 
 #include "Shader.h"
+#include "Vegetal.h"
+#include "Cesped.h"
+
 
 class Shader;
- 
- struct Vegetal {
-    glm::vec3 Position;
-    float _rotacion;
-    Vegetal() : Position(0.0f){ }
-    Vegetal(glm::vec3 _i_Position, float rotacion) : Position(_i_Position), _rotacion(rotacion){}
-};
-
 
 class Vegetacion {
 public:
@@ -27,12 +22,14 @@ private:
 
     void init();
     GLuint load_texture();
-    void update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado);
+    glm::mat4 update_model_matrix(glm::vec3 position, float grados, float grados_y, glm::vec3 rotation, glm::vec3 escalado);
 
     std::vector<const GLchar*> faces;
     GLuint cubemapTexture;
 
-    std::vector<Vegetal> clouds;
+    std::vector<Objeto_Vegetacion*> clouds;
+    void update(float dt);
+
 
     GLuint VAO;
     GLuint VBO;
