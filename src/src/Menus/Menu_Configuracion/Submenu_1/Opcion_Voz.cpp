@@ -1,7 +1,7 @@
 #include "Opcion_Voz.h"
 
-#include "../../Motor_sonido/Interfaz_sonido.h"
-#include "../../Interfaz/Motor.h"
+#include "../../../Motor_sonido/Interfaz_sonido.h"
+#include "../../../Interfaz/Motor.h"
 
 Opcion_Voz::Opcion_Voz(Input* _i_input) : Opcion_Volumen(_i_input) {
 }

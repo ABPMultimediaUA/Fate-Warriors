@@ -20,10 +20,11 @@ public:
 	void set_opciones(Opcion* _i_opcion_anterior, Opcion* _i_opcion_siguiente);		// Agrega las opciones anterior y siguiente
 	void set_tiempo(double _t);	// Pone el tiempo de cambio a cierto tiempo
 
+	// Funciones para las clases hijas
 	virtual void actualiza_valores();
-
 	virtual bool get_dentro();
 	virtual uint8_t get_i_configuracion();
+	virtual void agrega_submenus(Opcion* _i_opcion_izq, Opcion* _i_opcion_der) ;
 
 protected:
 	Opcion *_opcion_anterior;		// Opcion anterior (arriba) en el menu

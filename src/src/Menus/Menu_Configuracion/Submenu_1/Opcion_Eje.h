@@ -1,7 +1,7 @@
 #ifndef SRC_OPCION_EJE_H_
 #define SRC_OPCION_EJE_H_
 
-#include "../Opcion.h"
+#include "../../Opcion.h"
 
 class Opcion_Eje : public Opcion{
 public:
