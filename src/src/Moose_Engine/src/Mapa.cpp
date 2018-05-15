@@ -24,6 +24,25 @@ Mapa::~Mapa(){
 }
 
 
+void Mapa::eliminar_elemento_mapa(GameObject_Visual* objeto_a_eliminar){
+/*
+    std::vector<GameObject_Visual>::iterator it;
+    it = std::find(elementos_menu.begin(), elementos_menu.end(), objeto_a_eliminar);
+    if ( it != elementos_menu.end()){
+        elementos_menu.erase(it);
+        delete objeto_a_eliminar;
+    }
+    */
+}
+
+
+
+GameObject_Visual* Mapa::anyadir_elemento_al_mapa(float x, float y, Texture_ID_Map tipo){
+    GameObject_Visual* objeto_nuevo = new GameObject_Visual(x, y, tipo);
+    elementos_menu.push_back(objeto_nuevo);
+    return objeto_nuevo;
+}
+
 
 // Render all particles
 void Mapa::Draw()

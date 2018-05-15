@@ -18,11 +18,10 @@ enum Texture_ID_Map {
 
 // Represents a single particle and its state
 struct GameObject_Visual {
-    glm::vec2 Position, Velocity;
+    glm::vec2 Position;
     glm::vec4 Color;
-    GLfloat Life;
     GLint ID_textura;
-    GameObject_Visual(GLint textura) : ID_textura(textura), Position(0.0f), Velocity(0.0f), Color(1.0f), Life(0.0f) { }
+    GameObject_Visual(float x, float y, GLint textura) : ID_textura(textura), Position(glm::vec2(x,y)), Color(1.0f){ }
 };
 
 class Mapa
@@ -32,8 +31,8 @@ public:
     Mapa(Shader* shader);
     ~Mapa();
 
-    void anyadir_elemento_al_mapa();
-    void eliminar_elemento_mapa();
+    GameObject_Visual* anyadir_elemento_al_mapa(float x, float y, Texture_ID_Map tipo);
+    void eliminar_elemento_mapa(GameObject_Visual* objeto_a_eliminar);
     void actualizar_elemento_mapa(GameObject_Visual* objeto_a_modificar);
     // Render all particles
     void Draw();
