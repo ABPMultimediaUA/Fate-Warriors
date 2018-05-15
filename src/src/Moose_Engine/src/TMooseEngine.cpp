@@ -33,7 +33,7 @@ TMooseEngine* TMooseEngine::get_instancia(){
 }
 
 TMooseEngine::TMooseEngine(){
-    init_opengl(640, 480);
+    init_opengl(1280, 720);
     uint16_t _contadorIDEntidad = 0;
     _n_c_actual=0;
     _n_l_actual=0;
