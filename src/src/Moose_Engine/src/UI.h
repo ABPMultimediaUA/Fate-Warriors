@@ -5,6 +5,7 @@
 
 class Shader;
 class Image;
+class Mapa;
 
 class UI{
     public:
@@ -63,6 +64,8 @@ class UI{
 
         bool _tiene_llave;
         Image* _img_llave;
+
+        Mapa* _mapa;
 };
 
 #endif /* SRC_UI_H_ */

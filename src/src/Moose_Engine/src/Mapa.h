@@ -7,6 +7,7 @@
 #include "Shader.h"
 
 class Shader;
+class Image_Map;
 
 enum Texture_ID_Map {
     Enum_Mapa = 0,
@@ -16,14 +17,6 @@ enum Texture_ID_Map {
 };
 
 
-// Represents a single particle and its state
-struct GameObject_Visual {
-    glm::vec2 Position;
-    glm::vec4 Color;
-    GLint ID_textura;
-    GameObject_Visual(float x, float y, GLint textura) : ID_textura(textura), Position(glm::vec2(x,y)), Color(1.0f){ }
-};
-
 class Mapa
 {
 public:
@@ -31,15 +24,15 @@ public:
     Mapa(Shader* shader);
     ~Mapa();
 
-    GameObject_Visual* anyadir_elemento_al_mapa(float x, float y, Texture_ID_Map tipo);
-    void eliminar_elemento_mapa(GameObject_Visual* objeto_a_eliminar);
-    void actualizar_elemento_mapa(GameObject_Visual* objeto_a_modificar);
+    Image_Map* anyadir_elemento_al_mapa(float x, float y, Texture_ID_Map tipo);
+    void eliminar_elemento_mapa(Image_Map* objeto_a_eliminar);
+    void actualizar_elemento_mapa(Image_Map* objeto_a_modificar);
     // Render all particles
     void Draw();
 
 private:
     // State
-    std::vector<GameObject_Visual*> elementos_menu;
+    std::vector<Image_Map*> elementos_menu;
    
     // Render state
     Shader* shader;
