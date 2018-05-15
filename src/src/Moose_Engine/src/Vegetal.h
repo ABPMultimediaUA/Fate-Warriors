@@ -10,7 +10,7 @@
 
 
 struct Vegetal : public Objeto_Vegetacion {
-    Vegetal(glm::vec3 _i_Position, float rotacion, GLuint imagen) : Objeto_Vegetacion(_i_Position,rotacion, imagen) {}
+    Vegetal(glm::vec3 _i_Position, float rotacion, GLuint imagen) : Objeto_Vegetacion(_i_Position,rotacion, imagen, glm::vec3(4,4,4)) {}
     void actualizar_visualizacion(glm::mat4& ModelMatrix, glm::mat4 view) override{};
 };
 #endif 

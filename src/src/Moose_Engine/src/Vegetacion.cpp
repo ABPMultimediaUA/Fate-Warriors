@@ -10,15 +10,15 @@ Vegetacion::Vegetacion(Shader* _i_shader) : shader(_i_shader){
 
     init();
     const char* _ruta = "ninguna.png";
-    load_texture("Skybox_Images/cesped.png", Enum_Vegetal);
-    load_texture(_ruta, Enum_Cesped);
+    load_texture("Skybox_Images/cesped.png", Enum_Cesped);
+    load_texture("Skybox_Images/vegeta.PNG", Enum_Vegetal);
     
 
     float rotacion = 0;
     float posicion = 0;
     
     for (GLuint i = 0; i < 4; ++i){
-        clouds.push_back(new Vegetal(glm::vec3(61.5158, 4, 44.2914), rotacion, Imagenes[Enum_Vegetal]));
+        clouds.push_back(new Vegetal(glm::vec3(61.5158, 1, 68.2914), rotacion, Imagenes[Enum_Vegetal]));
         rotacion+=45;
     }
 
@@ -166,7 +166,7 @@ void Vegetacion::draw(){
         glm::mat4 projection = shader->getProjection();
         glm::mat4 view = shader->getView();
         
-        update_model_matrix(clouds[a]->Position, clouds[a]->_rotacion_x, clouds[a]->_rotacion,  glm::vec3(1,0,0), glm::vec3(16,4,4));
+        update_model_matrix(clouds[a]->Position, clouds[a]->_rotacion_x, clouds[a]->_rotacion,  glm::vec3(1,0,0), clouds[a]->_escala);
         clouds[a]->actualizar_visualizacion(ModelMatrix, view);
         
         glm::mat4 MVP = projection*view*ModelMatrix;      

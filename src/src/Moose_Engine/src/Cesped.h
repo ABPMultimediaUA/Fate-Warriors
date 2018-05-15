@@ -13,7 +13,7 @@
 
 
 struct Cesped : public Objeto_Vegetacion {
-    Cesped(glm::vec3 _i_Position, float rotacion, GLuint imagen) : Objeto_Vegetacion(_i_Position,rotacion, imagen) {}
+    Cesped(glm::vec3 _i_Position, float rotacion, GLuint imagen) : Objeto_Vegetacion(_i_Position,rotacion, imagen, glm::vec3(16,4,4)) {}
     void actualizar_visualizacion(glm::mat4& ModelMatrix, glm::mat4 view) override{
         /*
         ModelMatrix[0][0] = view[0][0]; 
