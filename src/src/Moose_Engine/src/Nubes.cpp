@@ -68,6 +68,29 @@ void Nubes::init(){
 }
 
 
+void Nubes::update(float dt){
+    // Update all particles
+    for (GLuint i = 0; i < clouds.size(); ++i)
+    {
+        Nube & p = clouds[i];
+
+        if (p.se_mueve_derecha && p.Position.x > 80){
+            p.se_mueve_derecha = false;
+        }
+        else if(!p.se_mueve_derecha && p.Position.x <= 22){
+            p.se_mueve_derecha = true;
+        }
+
+        if(p.se_mueve_derecha)
+            p.Position.x += dt;
+        else 
+            p.Position.x -= dt;
+        
+
+    }
+
+}
+
 GLuint Nubes::load_texture() {
   
     glGenTextures(1, &ID);
@@ -135,6 +158,7 @@ void Nubes::draw(){
     
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader->use(particulas);
+    update(0.02);
    
     for (Nube particle : this->clouds)
     {
