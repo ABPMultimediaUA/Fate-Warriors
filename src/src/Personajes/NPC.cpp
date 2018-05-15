@@ -62,6 +62,7 @@ void NPC::morir(){
         _consumibles_manager->anyadir_consumible(Vector2(getX(), getZ()));
     }
   
+    setY(99999999999); 
     //MIRAR AQUI (ANTES LLAMABA A SETY)
     _zona_en_la_que_se_encuentra = nullptr;
 
