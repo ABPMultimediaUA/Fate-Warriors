@@ -95,6 +95,8 @@ void Decision_Manager::toma_decisiones(){
 			_action_manager->realiza_accion(_npcs[_cont]);
 		}
 		else{
+			if(_npcs[_cont]->ha_finalizado_animacion())
+				_npcs[_cont]->desaparecer_de_pantalla();
 			//std::cout<<"sigo muerto" << std::endl;
 			//Respawn::posiciones_instancia()->comprobar_si_renace_y_renacer_personaje(_npcs[_cont]);
 		}

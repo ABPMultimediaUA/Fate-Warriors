@@ -37,6 +37,7 @@ NPC::NPC(float _i_x, float _i_z, int16_t _i_vida, float _i_velocidad,
     _blackboard = new Blackboard(this);
     
     _objeto_motor =new Objeto_Motor(true, this,E_BoundingCapsule, cstr, cstr2, _i_x, 0, _i_z, 69);
+    _tiempo_para_revivir = -1;
     //exit(0);
 }
 
@@ -62,7 +63,7 @@ void NPC::morir(){
         _consumibles_manager->anyadir_consumible(Vector2(getX(), getZ()));
     }
   
-    setY(99999999999);
+     _tiempo_para_revivir = _tiempo->get_current() + 5000;
 
     _zona_en_la_que_se_encuentra = nullptr;
 
@@ -73,6 +74,20 @@ void NPC::morir(){
         _blackboard->_enemigo_mas_cerca_esta_muy_cerca = false;
         _blackboard->_distancia_enemigo_mas_cerca =  10000000000;
     }
+}
+
+
+void NPC::desaparecer_de_pantalla(){
+    _tiempo_para_revivir = -1;
+    setY(99999999999);
+}
+
+
+bool NPC::ha_finalizado_animacion(){
+    if(_tiempo_para_revivir!=-1 && _tiempo->get_current()>_tiempo_para_revivir){
+        return true;
+    }
+    return false;
 }
 
 void NPC::stop() {
