@@ -9,19 +9,22 @@
 Vegetacion::Vegetacion(Shader* _i_shader) : shader(_i_shader){
 
     init();
-    load_texture();
+    const char* _ruta = "ninguna.png";
+    load_texture("Skybox_Images/cesped.png", Enum_Vegetal);
+    load_texture(_ruta, Enum_Cesped);
+    
 
     float rotacion = 0;
     float posicion = 0;
     
-    for (GLuint i = 0; i < 8; ++i){
-        clouds.push_back(new Vegetal(glm::vec3(61.5158, 4, 44.2914), rotacion));
+    for (GLuint i = 0; i < 4; ++i){
+        clouds.push_back(new Vegetal(glm::vec3(61.5158, 4, 44.2914), rotacion, Imagenes[Enum_Vegetal]));
         rotacion+=45;
     }
 
 
      for (GLuint i = 0; i < 8; ++i){
-        clouds.push_back(new Cesped(glm::vec3(61.5158, 0, 44.2914+posicion), 0));
+        clouds.push_back(new Cesped(glm::vec3(61.5158, 0, 44.2914+posicion), 0, Imagenes[Enum_Cesped]));
         //clouds.push_back(new Cesped(glm::vec3(61.5158 + posicion, 1, 44.2914), 90));
         posicion+=1;
     }
@@ -99,7 +102,7 @@ void Vegetacion::update(float dt){
 }
 
 
-GLuint Vegetacion::load_texture() {
+GLuint Vegetacion::load_texture(const char* ruta, VegataType vegetal) {
   
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID); 
@@ -113,7 +116,7 @@ GLuint Vegetacion::load_texture() {
     int width, height, nrChannels;
   //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char *data = SOIL_load_image("Skybox_Images/cesped.png", &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
 
@@ -126,6 +129,7 @@ GLuint Vegetacion::load_texture() {
     }
     SOIL_free_image_data(data);
 
+    Imagenes[vegetal] = ID;
    glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
     
 }
@@ -154,7 +158,7 @@ void Vegetacion::draw(){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader->use(particulas);
    
-update(0.2);
+    update(0.2);
     for (int a =0; a < clouds.size(); a++)
     {
         glDisable(GL_CULL_FACE);
@@ -180,7 +184,7 @@ update(0.2);
         glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, ID);
+        glBindTexture(GL_TEXTURE_2D, clouds[a]->_imagen);
 
 
         glBindVertexArray(VAO);

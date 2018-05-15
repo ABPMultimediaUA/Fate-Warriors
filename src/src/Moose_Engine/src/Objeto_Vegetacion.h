@@ -12,8 +12,9 @@ struct Objeto_Vegetacion {
     glm::vec3 Position;
     float _rotacion;
     float _rotacion_x;
+    GLuint _imagen;
     Objeto_Vegetacion() : Position(0.0f){ }
-    Objeto_Vegetacion(glm::vec3 _i_Position, float rotacion) : Position(_i_Position), _rotacion(rotacion), _rotacion_x(0){}
+    Objeto_Vegetacion(glm::vec3 _i_Position, float rotacion, GLuint imagen) : Position(_i_Position), _rotacion(rotacion), _rotacion_x(0), _imagen(imagen){}
     virtual void actualizar_visualizacion(glm::mat4& ModelMatrix, glm::mat4 view){};
 
 };

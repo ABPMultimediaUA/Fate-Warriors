@@ -12,6 +12,17 @@
 
 class Shader;
 
+
+// Types of loaded shaders
+enum VegataType {
+    Enum_Vegetal = 0,
+    Enum_Cesped,
+    Vegeta_count
+};
+
+
+
+
 class Vegetacion {
 public:
     Vegetacion(Shader* _i_shader);
@@ -21,7 +32,7 @@ public:
 private:
 
     void init();
-    GLuint load_texture();
+    GLuint load_texture(const char* ruta, VegataType vegetal);
     glm::mat4 update_model_matrix(glm::vec3 position, float grados, float grados_y, glm::vec3 rotation, glm::vec3 escalado);
 
     std::vector<const GLchar*> faces;
@@ -40,6 +51,9 @@ private:
     glm::mat4 _rotacion;
     glm::mat4 _escalado;
     glm::mat4 ModelMatrix;
+
+
+    GLuint Imagenes[Vegeta_count];
 
      GLuint ID;
 
