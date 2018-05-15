@@ -77,6 +77,9 @@ void Opcion::set_tiempo(double _t) {
 	_tiempo_cambio = _t;
 }
 
+void Opcion::actualiza_valores() {
+}
+
 bool Opcion::get_dentro() {
 	return false;
 }
@@ -85,5 +88,5 @@ uint8_t Opcion::get_i_configuracion() {
 	return 0;
 }
 
-void Opcion::actualiza_valores() {
+void Opcion::agrega_submenus(Opcion* _i_opcion_izq, Opcion* _i_opcion_der) {
 }

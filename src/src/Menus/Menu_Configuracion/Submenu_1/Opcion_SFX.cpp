@@ -1,7 +1,7 @@
 #include "Opcion_SFX.h"
 
-#include "../../Motor_sonido/Interfaz_sonido.h"
-#include "../../Interfaz/Motor.h"
+#include "../../../Motor_sonido/Interfaz_sonido.h"
+#include "../../../Interfaz/Motor.h"
 
 Opcion_SFX::Opcion_SFX(Input* _i_input) : Opcion_Volumen(_i_input) {
 }

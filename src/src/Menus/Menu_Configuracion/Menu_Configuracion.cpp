@@ -1,43 +1,74 @@
 #include "Menu_Configuracion.h"
 
-#include "Opcion_Musica.h"
-#include "Opcion_SFX.h"
-#include "Opcion_Voz.h"
-#include "Opcion_Sonido_Menu.h"
-#include "Opcion_Eje_X.h"
-#include "Opcion_Eje_Y.h"
+#include "Opcion_Cambio_Submenu.h"
+
+#include "Submenu_1/Opcion_Musica.h"
+#include "Submenu_1/Opcion_SFX.h"
+#include "Submenu_1/Opcion_Voz.h"
+#include "Submenu_1/Opcion_Sonido_Menu.h"
+#include "Submenu_1/Opcion_Eje_X.h"
+#include "Submenu_1/Opcion_Eje_Y.h"
+
+#include "Submenu_2/Opcion_Resolucion.h"
+#include "Submenu_2/Opcion_VSync.h"
+#include "Submenu_2/Opcion_Fullscreen.h"
 
 #include "../../Input/Input.h"
 
 #include <iostream>
 
-// Crea las 6 opciones del menu de configuracion
+// Crea las 11 opciones del menu de configuracion
+// Cambio Submenu 1	->	Cambia a los submenenus anterior (2) y siguiente (2)
 // Musica 		-> Cambia el volumen de la musica
 // SFX 			-> Cambia el volumen de los SFX
 // Voz 	   		-> Cambia el volumen de las voces
 // Sonido Menu 	-> Cambia el volumen del sonido del menu
 // Eje X 		-> Invierte el Eje X
 // Eje Y 		-> Invierte el Eje Y
+
+// Cambio Submenu 2	->	Cambia a los submenenus anterior (1) y siguiente (1)
+// Resolucion 	-> Cambia la resolucion entre las disponibles
+// V-SYNC 		-> Activa y desactiva el V-Sync
+// Fullscreen 	-> Activa y desactiva el Fullscreen
+
 Menu_Configuracion::Menu_Configuracion(Input* _i_input) {
 	_opciones = new Opcion*[_n_opciones_configuracion];
 
-	_opciones[0] = new Opcion_Musica(_i_input);			// Opcion Musica
-	_opciones[1] = new Opcion_SFX(_i_input); 			// Opción Sound Effects
-	_opciones[2] = new Opcion_Voz(_i_input); 			// Opcion Voces
-	_opciones[3] = new Opcion_Sonido_Menu(_i_input); 	// Opcion Sonido Menu
-	_opciones[4] = new Opcion_Eje_X(_i_input); 			// Opción Eje X
-	_opciones[5] = new Opcion_Eje_Y(_i_input); 			// Opcion Eje Y
+	_opciones[0] = new Opcion_Cambio_Submenu(_i_input);	// Opcion Cambio Submenu 1
+	_opciones[1] = new Opcion_Musica(_i_input);			// Opcion Musica
+	_opciones[2] = new Opcion_SFX(_i_input); 			// Opción Sound Effects
+	_opciones[3] = new Opcion_Voz(_i_input); 			// Opcion Voces
+	_opciones[4] = new Opcion_Sonido_Menu(_i_input); 	// Opcion Sonido Menu
+	_opciones[5] = new Opcion_Eje_X(_i_input); 			// Opción Eje X
+	_opciones[6] = new Opcion_Eje_Y(_i_input); 			// Opcion Eje Y
 
-	_opciones[0]->set_opciones(_opciones[5], _opciones[1]);
+	_opciones[0]->set_opciones(_opciones[6], _opciones[1]);
 	_opciones[1]->set_opciones(_opciones[0], _opciones[2]);
 	_opciones[2]->set_opciones(_opciones[1], _opciones[3]);
 	_opciones[3]->set_opciones(_opciones[2], _opciones[4]);
 	_opciones[4]->set_opciones(_opciones[3], _opciones[5]);
-	_opciones[5]->set_opciones(_opciones[4], _opciones[0]);
+	_opciones[5]->set_opciones(_opciones[4], _opciones[6]);
+	_opciones[6]->set_opciones(_opciones[5], _opciones[0]);
+
+
+	_opciones[7] = new Opcion_Cambio_Submenu(_i_input);	// Opcion Cambio Submenu 2
+	_opciones[8] = new Opcion_Resolucion(_i_input);		// Opcion Resolucion
+	_opciones[9] = new Opcion_VSync(_i_input);			// Opcion V-Sync
+	_opciones[10] = new Opcion_Fullscreen(_i_input);			// Opcion V-Sync
+
+	_opciones[7]->set_opciones(_opciones[10], _opciones[8]);
+	_opciones[8]->set_opciones(_opciones[7], _opciones[9]);
+	_opciones[9]->set_opciones(_opciones[8], _opciones[10]);
+	_opciones[10]->set_opciones(_opciones[9], _opciones[7]);
+
 
 	_opcion_actual = _opciones[0];
 
 	_input = _i_input;
+
+
+	_opciones[0]->agrega_submenus(_opciones[7], _opciones[7]);
+	_opciones[7]->agrega_submenus(_opciones[0], _opciones[0]);
 }
 
 Menu_Configuracion::~Menu_Configuracion() {
@@ -67,17 +98,27 @@ void Menu_Configuracion::actualiza() {
 // Pinta por terminal el estado actual
 void Menu_Configuracion::pinta_estado() {
 	if(_opcion_actual == _opciones[0])
-		std::cout << "Opción Music\n";
+		std::cout << "Opcion Cambio Submenu 1\n";
 	else if(_opcion_actual == _opciones[1])
-		std::cout << "Opción SFX\n";
+		std::cout << "Opción Music\n";
 	else if(_opcion_actual == _opciones[2])
-		std::cout << "Opción Voice\n";
+		std::cout << "Opción SFX\n";
 	else if(_opcion_actual == _opciones[3])
-		std::cout << "Opción Sonido Menu\n";
+		std::cout << "Opción Voice\n";
 	else if(_opcion_actual == _opciones[4])
-		std::cout << "Opción Eje X\n";
+		std::cout << "Opción Sonido Menu\n";
 	else if(_opcion_actual == _opciones[5])
+		std::cout << "Opción Eje X\n";
+	else if(_opcion_actual == _opciones[6])
 		std::cout << "Opción Eje Y\n";
+	else if(_opcion_actual == _opciones[7])
+		std::cout << "Opcion Cambio Submenu 2\n";
+	else if(_opcion_actual == _opciones[8])
+		std::cout << "Opcion Resolucion\n";
+	else if(_opcion_actual == _opciones[9])
+		std::cout << "Opcion V-Sync\n";
+	else if(_opcion_actual == _opciones[10])
+		std::cout << "Opcion Fullscreen\n";
 }
 
 uint8_t Menu_Configuracion::get_i_configuracion() { 

@@ -1,7 +1,7 @@
 #include "Opcion_Eje_X.h"
 
-#include "../../Input/Input.h"
-#include "../../Interfaz/Motor.h"
+#include "../../../Input/Input.h"
+#include "../../../Interfaz/Motor.h"
 
 Opcion_Eje_X::Opcion_Eje_X(Input* _i_input) : Opcion_Eje(_i_input) {
 	Motor::Motor_GetInstance()->set_eje_x(_invertido);

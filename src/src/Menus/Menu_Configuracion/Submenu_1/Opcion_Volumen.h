@@ -1,7 +1,7 @@
 #ifndef SRC_OPCION_VOLUMEN_H_
 #define SRC_OPCION_VOLUMEN_H_
 
-#include "../Opcion.h"
+#include "../../Opcion.h"
 
 class Interfaz_sonido;
 

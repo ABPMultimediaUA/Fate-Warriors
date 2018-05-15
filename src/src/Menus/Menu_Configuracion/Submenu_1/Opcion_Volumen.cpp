@@ -1,9 +1,9 @@
 #include "Opcion_Volumen.h"
 
-#include "../../Game.h"
-#include "../../Tiempo/Time.h"
+#include "../../../Input/Input.h"
+#include "../../../Tiempo/Time.h"
 
-#include "../../Motor_sonido/Interfaz_sonido.h"
+#include "../../../Motor_sonido/Interfaz_sonido.h"
 
 #include <iostream>
 

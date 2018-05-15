@@ -1,9 +1,9 @@
 #include "Opcion_Eje.h"
 
-#include "../../Game.h"
-#include "../../Tiempo/Time.h"
+#include "../../../Input/Input.h"
+#include "../../../Tiempo/Time.h"
 
-#include "../../Motor_sonido/Interfaz_sonido.h"
+#include "../../../Motor_sonido/Interfaz_sonido.h"
 
 #include <iostream>
 
@@ -29,7 +29,11 @@ Opcion* Opcion_Eje::update_opcion(double _i_tiempo, Opcion* _this) {
 		if(_direccion == 90 || _direccion == 270) {
 			_tiempo_cambio = _t;
 
-			if(_direccion == 90 && _invertido == true || _direccion == 270 && _invertido == false) {
+			if(_direccion == 90 && _invertido == true) {
+				_sonido->Play_menu(3);
+				invierte();
+			}
+			else if(_direccion == 270 && _invertido == false) {
 				_sonido->Play_menu(1);
 				invierte();
 			}
