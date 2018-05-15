@@ -1031,3 +1031,7 @@ void Motor::render_Menu_Lose(){
 void Motor::set_llave_hud(bool _i_tiene_llave){
 	_me->getUI()->set_tiene_llave(_i_tiene_llave);
 }
+
+void Motor::resize_window(int _i_width, int _i_height) {
+    _me->resize_window(_i_width, _i_height);
+}

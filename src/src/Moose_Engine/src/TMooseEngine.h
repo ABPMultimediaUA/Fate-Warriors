@@ -70,6 +70,8 @@ class TMooseEngine{
         inline UI* getUI(){ return _ui; }
         ParticleGenerator* get_gestor_particulas();
 
+        void resize_window(int _i_width, int _i_height);
+
     private:
 
         void setMouseOffsetX(float offset);

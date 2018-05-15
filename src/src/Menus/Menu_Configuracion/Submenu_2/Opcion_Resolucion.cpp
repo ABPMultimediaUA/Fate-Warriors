@@ -4,6 +4,7 @@
 #include "../../../Tiempo/Time.h"
 
 #include "../../../Motor_sonido/Interfaz_sonido.h"
+#include "../../../Interfaz/Motor.h"
 
 #include <iostream>
 
@@ -30,11 +31,21 @@ Opcion* Opcion_Resolucion::update_opcion(double _i_tiempo, Opcion* _this) {
 			_tiempo_cambio = _t;
 			_sonido->Play_menu(2);
 
-			if(_direccion == 90 && _resolucion < 3){
+			if(_direccion == 90){
+				if(_resolucion == 3) {
+					_resolucion = 0;
+				}
+				else {
 				_resolucion++;
+				}
 			}
-			else if(_direccion == 270 &&_resolucion > 0){
+			else if(_direccion == 270) {
+				if(_resolucion == 0) {
+					_resolucion = 3;
+				}
+				else {
 				_resolucion--;
+				}
 			}
 
 			set_resolucion();
@@ -47,5 +58,21 @@ Opcion* Opcion_Resolucion::update_opcion(double _i_tiempo, Opcion* _this) {
 }
 
 void Opcion_Resolucion::set_resolucion() {
-	// Haz lo que tengas que hacer con OPENGL
+	switch(_resolucion) {
+		case 0:
+			Motor::Motor_GetInstance()->resize_window(640, 480);
+		break;
+
+		case 1:
+			Motor::Motor_GetInstance()->resize_window(1024, 768);
+		break;
+
+		case 2:
+			Motor::Motor_GetInstance()->resize_window(1280, 720);
+		break;
+
+		case 3:
+			Motor::Motor_GetInstance()->resize_window(1920, 1080);
+		break;
+	}
 }

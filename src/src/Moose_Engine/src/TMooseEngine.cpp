@@ -529,3 +529,7 @@ void TMooseEngine::stop_anim(const char* _i_path){
 ParticleGenerator* TMooseEngine::get_gestor_particulas(){
     return _particulas;
 }
+
+void TMooseEngine::resize_window(int _i_width, int _i_height) {
+    glfwSetWindowSize(window, _i_width, _i_height);
+}
