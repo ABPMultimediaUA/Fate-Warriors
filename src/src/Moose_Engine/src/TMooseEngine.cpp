@@ -184,14 +184,21 @@ void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos){
     //camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height){
+    glViewport(0, 0, width, height);
+    std::cout<<"loque \n";
+}
+
 void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     window = glfwCreateWindow(width, height, "Fate Warriors", NULL, NULL);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPosCallback(window, micallback);
+    
+    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetCursorPosCallback(window, micallback);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     if (window == NULL){
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -357,7 +364,7 @@ void TMooseEngine::renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_a
         renderUIMenuConfig(opcion2);
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
-    
+    glfwPollEvents();
 }
 
 void TMooseEngine::renderUIMenuPausa(uint16_t opcion, uint16_t opcion2, bool config_abierta){
@@ -370,6 +377,7 @@ void TMooseEngine::renderUIMenuPausa(uint16_t opcion, uint16_t opcion2, bool con
     }
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void TMooseEngine::renderUIMenuConfig(uint16_t opcion){
