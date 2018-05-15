@@ -33,7 +33,7 @@ TMooseEngine* TMooseEngine::get_instancia(){
 }
 
 TMooseEngine::TMooseEngine(){
-    init_opengl(1280, 720);
+    init_opengl(640, 480);
     uint16_t _contadorIDEntidad = 0;
     _n_c_actual=0;
     _n_l_actual=0;
@@ -199,6 +199,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, micallback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSwapInterval(1);
 
     if (window == NULL){
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -389,6 +390,7 @@ void TMooseEngine::renderUIMenuConfig(uint16_t opcion){
 
 void TMooseEngine::renderUIMenuWin(uint16_t opcion){
     clear();
+    draw();
     glDisable(GL_CULL_FACE);
     _ui->drawMenuFinWin(opcion);
     glEnable(GL_CULL_FACE);
@@ -397,6 +399,7 @@ void TMooseEngine::renderUIMenuWin(uint16_t opcion){
 
 void TMooseEngine::renderUIMenuLose(uint16_t opcion){
     clear();
+    draw();
     glDisable(GL_CULL_FACE);
     _ui->drawMenuFinLose(opcion);
     glEnable(GL_CULL_FACE);
