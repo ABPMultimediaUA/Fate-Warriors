@@ -28,7 +28,7 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion,
     _rotacion_x = _i_rotacion_x;
     _rotacion_y = _i_rotacion_y;
     _distancia = _i_distancia;
-   // _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Interruptor);
+    _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Interruptor);
 
 
     _sonido = Interfaz_sonido::GetInstancia();

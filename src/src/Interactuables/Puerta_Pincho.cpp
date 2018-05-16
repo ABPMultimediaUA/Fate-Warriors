@@ -21,7 +21,7 @@ Puerta_Pincho::Puerta_Pincho(short id, float _i_x, float _i_y,float _i_z, bool a
     _basecita = new Objeto_Motor(this,E_BoundingBox, cstr_2, _i_x,_i_y,_i_z,0);
     _basecita->rotar_nodo(_i_rotacion);
 
-   // _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Puerta_Pincho);
+    _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Puerta_Pincho);
 
     if(activada){
         activar();
