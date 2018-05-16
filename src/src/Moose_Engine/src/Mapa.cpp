@@ -21,7 +21,7 @@ Mapa::Mapa(Shader* shader)
    Imagenes[Enum_Puerta_Desactivada] =  "Imagenes_HUD/Minimapa/Puerta_Desactivada.png";
    
 
-   anyadir_elemento_al_mapa(406/2, 554/2, 406, 554,Enum_Mapa);
+   anyadir_elemento_al_mapa(420/2, 560/2, 420, 560,Enum_Mapa);
       
 }
 
