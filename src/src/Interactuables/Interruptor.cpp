@@ -102,3 +102,12 @@ void Interruptor::eliminar_del_minimapa(){
     delete _objeto_visual_mapa;
     _objeto_visual_mapa = nullptr;
 }
+
+void Interruptor::cambiar_icono_ascociados(Texture_ID_Map textura) {
+    uint8_t size = _puertas_asociadas.size();
+
+    for(uint8_t i=0; i<size; i++) {
+    	_puertas_asociadas[i]->cambiar_icono_minimapa(50,50,textura);
+    }
+    
+}

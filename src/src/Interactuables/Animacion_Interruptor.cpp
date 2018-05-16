@@ -31,6 +31,7 @@ void Animacion_Interruptor::empieza(uint32_t _t_fin, Interruptor* _i_interruptor
 	_motor->poner_camara_a_entidad(_interruptor->get_puerta_asociada()->get_objeto_motor());
 	_motor->gira_camara(_interruptor->get_rotacion_x(), _interruptor->get_rotacion_y());
  //   _motor->interpolar_altura(false);
+    _interruptor->cambiar_icono_ascociados(Enum_Puerta_Desactivada);
 
 	_motor->update(0);
 	_motor->update(0);

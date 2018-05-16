@@ -41,13 +41,3 @@ void Interruptor_Tiempo::cambiar_estado_puertas() {
     
     cambia_palito();
 }
-
-
-void Interruptor_Tiempo::cambiar_icono_ascociados(Texture_ID_Map textura) {
-    uint8_t size = _puertas_asociadas.size();
-
-    for(uint8_t i=0; i<size; i++) {
-    	_puertas_asociadas[i]->cambiar_icono_minimapa(50,50,textura);
-    }
-    
-}

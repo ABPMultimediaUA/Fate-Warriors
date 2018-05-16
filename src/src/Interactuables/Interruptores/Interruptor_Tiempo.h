@@ -17,7 +17,6 @@ private:
 	uint64_t _t_final_activacion;
 
 	void cambiar_estado_puertas();
-	void cambiar_icono_ascociados(Texture_ID_Map textura);
 
 };
 

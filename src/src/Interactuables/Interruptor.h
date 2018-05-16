@@ -35,6 +35,8 @@ public:
 	short get_distancia();
 
 	void eliminar_del_minimapa();
+	void cambiar_icono_ascociados(Texture_ID_Map textura);
+
 
 
 protected:
