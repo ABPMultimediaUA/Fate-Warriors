@@ -18,7 +18,7 @@ Mapa::Mapa(Shader* shader)
    Imagenes[Enum_Interruptor] =  "Imagenes_HUD/Interruptor.png";
    Imagenes[Enum_Puerta_Pincho] =  "Imagenes_HUD/Puerta_Pincho.png";
 
-   anyadir_elemento_al_mapa(397/2,534/2,397,534,Enum_Mapa);
+   anyadir_elemento_al_mapa(406/2, 554/2, 406, 554,Enum_Mapa);
       
 }
 

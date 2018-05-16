@@ -371,7 +371,7 @@ void TMooseEngine::render_estado_Partida(){
     draw();
     renderUIHUD();
    // glViewport(_width*0.7, 0, 600, 600);
-    glViewport(800, 0, 397,534);
+    glViewport(800, 0, 406, 554);
    
     _mapa->Draw();
     glViewport(0, 0, _width, _height);

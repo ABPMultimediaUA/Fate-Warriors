@@ -29,11 +29,11 @@ void Image_Map::setTextureposition(float x, float y){
     _x = x;
     _y = y;
 
-    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(397,534); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexPosition_homoneneousspace /= glm::vec2(397,534);
+    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(406,554); // [0..800][0..600] -> [-400..400][-300..300]
+    vertexPosition_homoneneousspace /= glm::vec2(406,554);
                                                                 // 1280 720 ->640 360
     glm::vec2 vertexScale_homoneneousspace = glm::vec2(_width,_height); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexScale_homoneneousspace /= glm::vec2(397,534);
+    vertexScale_homoneneousspace /= glm::vec2(406,554);
     
     
     float _x = vertexPosition_homoneneousspace.x;
@@ -81,11 +81,11 @@ void Image_Map::init()
 */
     // ------------------------------------------------------------------  POSICIONES DEL MAPA VA DE LA 1190 - 1346
 
-    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(397,534); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexPosition_homoneneousspace /= glm::vec2(397,534);
+    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(406,554); // [0..800][0..600] -> [-400..400][-300..300]
+    vertexPosition_homoneneousspace /= glm::vec2(406,554);
                                                                 // 1280 720 ->640 360
     glm::vec2 vertexScale_homoneneousspace = glm::vec2(_width,_height); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexScale_homoneneousspace /= glm::vec2(397,534);
+    vertexScale_homoneneousspace /= glm::vec2(406,554);
     
     
     float _x = vertexPosition_homoneneousspace.x;
