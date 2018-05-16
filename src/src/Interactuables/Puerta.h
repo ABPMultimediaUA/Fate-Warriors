@@ -3,9 +3,11 @@
 
 #include "../Objeto.h"
 
+
 #include <tuple>
 
 class Interfaz_sonido;
+class iObjeto_Mapa;
 
 class Puerta : public Objeto{
 public:
@@ -14,11 +16,13 @@ public:
 
 	void set_abierta();
 	bool get_abierta();
+	void eliminar_del_minimapa();
 
 	std::tuple<float, float> get_posicion_cerrojo();
 	float get_rotacion_cerrojo(); 
 
 private:
+	iObjeto_Mapa* _objeto_visual_mapa;
 	bool _abierta;
 	uint8_t _id_pasillo_que_abre;
 	Interfaz_sonido* _sonido;

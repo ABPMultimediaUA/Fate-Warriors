@@ -6,6 +6,7 @@
 class Pinchos;
 class Time;
 class Zona;
+class iObjeto_Mapa;
 
 #include <cstdint>
 
@@ -19,6 +20,7 @@ public:
     void cambiar_estado();
 
     void desactivar_bloquear();
+    void eliminar_del_minimapa();
 
     inline void desbloquea() { _bloqueado = false;}
 
@@ -32,6 +34,8 @@ private:
     uint8_t _pasillo_asociado;
     
     Objeto_Motor* _basecita;
+    iObjeto_Mapa* _objeto_visual_mapa;
+
 };
 
 #endif /* HEADERS_PUERTA_PINCHO_H_ */

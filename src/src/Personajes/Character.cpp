@@ -764,7 +764,7 @@ void Character::gestion_usar_llave(){
             get_inventario()->eliminar_llave(_llave_aux_animacion);
             _puerta_aux_animacion->set_abierta();
             Game::game_instancia()->set_llave_hud(false);
-         //   _puerta_aux_animacion->eliminar_del_minimapa();   MIRAR AQUI
+            _puerta_aux_animacion->eliminar_del_minimapa(); 
         }
     }
     else if(get_accion() == Accion_post_Usar_Llave){

@@ -11,7 +11,7 @@ Interruptor_Un_Uso::~Interruptor_Un_Uso() {
 void Interruptor_Un_Uso::accionar() {
     if(_estado == false) {
         _estado = true;
-
+        eliminar_del_minimapa();
         uint8_t size = _puertas_asociadas.size();
         for(uint8_t i=0; i<size; i++) {
         	_puertas_asociadas[i]->desactivar_bloquear();

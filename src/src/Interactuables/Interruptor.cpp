@@ -5,6 +5,8 @@
 #include "../Game.h"
 #include "../Tiempo/Time.h"
 #include "../Motor_sonido/Interfaz_sonido.h"
+#include "../Moose_Engine/src/iObjeto_Mapa.h"
+
 
 #include <iostream>
 
@@ -26,6 +28,7 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion,
     _rotacion_x = _i_rotacion_x;
     _rotacion_y = _i_rotacion_y;
     _distancia = _i_distancia;
+    _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Interruptor);
 
 
     _sonido = Interfaz_sonido::GetInstancia();
@@ -35,6 +38,11 @@ Interruptor::~Interruptor() {
 	delete _palito;
 
     _puertas_asociadas.clear();
+
+    if (_objeto_visual_mapa !=nullptr){
+        eliminar_del_minimapa();
+    }
+
 }
 
 
@@ -88,4 +96,9 @@ short Interruptor::get_rotacion_y(){
 
 short Interruptor::get_distancia(){
     return _distancia;
+}
+
+void Interruptor::eliminar_del_minimapa(){
+    delete _objeto_visual_mapa;
+    _objeto_visual_mapa = nullptr;
 }

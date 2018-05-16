@@ -11,9 +11,12 @@ Mapa::Mapa(Shader* shader)
     : shader(shader)
 {
 
-    Imagenes[Enum_Llave] =  "Imagenes_HUD/Llave_Silueta.png";
-    Imagenes[Enum_Mapa] =  "Imagenes_HUD/mapa.png";
-    Imagenes[Enum_Player] =  "Imagenes_HUD/Player.png";
+   Imagenes[Enum_Llave] =  "Imagenes_HUD/Llave_Silueta.png";
+   Imagenes[Enum_Mapa] =  "Imagenes_HUD/mapa.png";
+   Imagenes[Enum_Player] =  "Imagenes_HUD/Player.png";
+   Imagenes[Enum_Puerta] =  "Imagenes_HUD/Puerta.png";
+   Imagenes[Enum_Interruptor] =  "Imagenes_HUD/Interruptor.png";
+   Imagenes[Enum_Puerta_Pincho] =  "Imagenes_HUD/Puerta_Pincho.png";
 
    anyadir_elemento_al_mapa(397/2,534/2,397,534,Enum_Mapa);
       
@@ -57,6 +60,7 @@ void Mapa::Draw()
     {
         elementos_menu[a]->Draw();
     }
+    elementos_menu[1]->Draw();
     glEnable(GL_CULL_FACE);
     // Don't forget to reset to default blending mode
    // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

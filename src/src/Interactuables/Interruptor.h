@@ -8,6 +8,8 @@
 class Puerta_Pincho;
 class Time;
 class Interfaz_sonido;
+class iObjeto_Mapa;
+
 
 class Interruptor : public Objeto{
 public:
@@ -31,6 +33,9 @@ public:
 	short get_rotacion_y();
 	short get_distancia();
 
+	void eliminar_del_minimapa();
+
+
 protected:
 	Time* _reloj;
 	std::vector<Puerta_Pincho*> _puertas_asociadas;		// Vector con todas las puertas asociadas
@@ -39,8 +44,10 @@ protected:
     short _rotacion_y;
     short _distancia;
     Interfaz_sonido* _sonido;
+	iObjeto_Mapa* _objeto_visual_mapa;
 
 private:
+
 	Objeto_Motor* _palito;								// Modelado del Palo del interruptor (hay que animarlo)
 	int16_t _inclinacion_palito;						// Inclinacion del palito
 };
