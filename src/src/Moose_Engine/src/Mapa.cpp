@@ -15,7 +15,7 @@ Mapa::Mapa(Shader* shader)
     Imagenes[Enum_Mapa] =  "Imagenes_HUD/mapa.png";
     Imagenes[Enum_Player] =  "Imagenes_HUD/Player.png";
 
-   anyadir_elemento_al_mapa(0,0,397,534,Enum_Mapa);
+   anyadir_elemento_al_mapa(397/2,534/2,397,534,Enum_Mapa);
       
 }
 
@@ -36,7 +36,7 @@ void Mapa::eliminar_elemento_mapa(Image_Map* objeto_a_eliminar){
         elementos_menu.erase(it);
         delete objeto_a_eliminar;
     }
-    
+
     
 }
 

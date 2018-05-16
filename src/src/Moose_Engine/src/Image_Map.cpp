@@ -41,13 +41,13 @@ void Image_Map::setTextureposition(float x, float y){
     float _width = vertexScale_homoneneousspace.x ;
     float _height = vertexScale_homoneneousspace.y;
     
-    
+ 
      float vertices[] = {
         // positions          // colors           // texture coords
-         _x + _width,  _y + _height,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
-         _x + _width, _y, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
-         _x, _y,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
-         _x,  _y + _height,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
+         _x + _width/2,  _y + _height/2,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
+         _x + _width/2, _y  - _height/2, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
+         _x - _width/2, _y - _height/2,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
+         _x - _width/2,  _y + _height/2,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
     };
 
 
@@ -96,10 +96,10 @@ void Image_Map::init()
     
      float vertices[] = {
         // positions          // colors           // texture coords
-         _x + _width,  _y + _height,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
-         _x + _width, _y, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
-         _x, _y,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
-         _x,  _y + _height,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
+         _x + _width/2,  _y + _height/2,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
+         _x + _width/2, _y  - _height/2, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
+         _x - _width/2, _y - _height/2,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
+         _x - _width/2,  _y + _height/2,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
     };
     unsigned int indices[] = {
         0, 1, 3, // first triangle
