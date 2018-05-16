@@ -92,12 +92,15 @@ class TMooseEngine{
         //atributos para camaras, luces y demás
         unsigned int depthMapFBO;
         unsigned int depthMap;
-        unsigned int SHADOW_WIDTH,SHADOW_HEIGHT;
+        unsigned int SHADOW_WIDTH,SHADOW_HEIGHT,SCR_WIDTH,SCR_HEIGHT;
 
         //reproductor animaciones
         std::vector<TAnimacion*> _animaciones;
         
         Skybox* _skybox;
+
+        bool _mapeado_sombras;
+        bool _sombras_proyectadas;
 };
 
 

@@ -3,6 +3,7 @@ out vec4 FragColor;
 
 in vec2 TexCoords;
 in vec3 Position;    //VERTICES EN COORDENADAS DE VISTA
+in vec4 FragPosLightSpace;
 
 
 //ESTRUCTURA PARA GUARDAR EL MATERIAL. AHORA UTILIZAMOS TEXTURAS PARA GUARDAR LAS PROPIEDADES DIFUSAS Y ESPECULARES DEL MATERIAL 
@@ -28,16 +29,12 @@ uniform TMaterial Material;
 uniform TLight Light[20];
 uniform int cantidad_luces;
 
-float CalculoSombras(vec3 LuzPos){
-    LuzPos = LuzPos*0.5+0.5;
-    float closestDepth = texture(shadowMap,LuzPos.xy).r;
-    float currentDepth = LuzPos.z;
-    float sombra;
-    if(currentDepth>closestDepth){
-        sombra=1.0;
-    }else{
-        sombra=0;
-    }
+float CalculoSombras(vec4 FragPosLightSpace){
+    vec3 projCoords = FragPosLightSpace.xyz/FragPosLightSpace.w;
+    projCoords = projCoords*0.5+0.5;
+    float closestDepth = texture(shadowMap,projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    float sombra = currentDepth > closestDepth  ? 1.0 : 0.0;
     return sombra;
 }
 //FUNCION QUE CALCULA EL MODELO DE REFLEXION DE PHONG
@@ -49,7 +46,7 @@ vec3  Phong ()
 	vec3 v = normalize(-Position);
 	
     //COMPONENTE AMBIENTAL
-    vec3 sumaLuces = Light[0].Ambient * vec3(texture(Material.Diffuse, TexCoords));
+    vec3 sumaLuces;
     
     //revisar en la teoria que hace cada cosa, porque algo nos estamos dejando
         for(int i=0;i<cantidad_luces;i++){
@@ -64,7 +61,7 @@ vec3  Phong ()
            
            
            
-           sumaLuces+= (Diffuse + Specular);  
+           sumaLuces = ((Light[0].Ambient * vec3(texture(Material.Diffuse, TexCoords)) + (1-CalculoSombras(FragPosLightSpace))) * (Diffuse + Specular)) * vec3(texture(Material.Diffuse, TexCoords));  
         }  
     return sumaLuces;  
 } 

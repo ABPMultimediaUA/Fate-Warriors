@@ -83,8 +83,8 @@ void recorrerArbol(){
 
     //trans1->escalar(0.5,0.25,0.5);
     trans1->trasladar(1,0,0);
-    trans2->trasladar(100,1,0);//luz
-    trans3->trasladar(0,5,200);//camara
+    trans2->trasladar(0,0,10);//luz
+    trans3->trasladar(0,0,10);//camara
     trans4->rotar(0,1,1,1);
     //trans5->rotar(0,1,0,10);
     

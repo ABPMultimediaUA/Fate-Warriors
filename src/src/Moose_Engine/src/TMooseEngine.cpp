@@ -42,9 +42,17 @@ TMooseEngine::TMooseEngine(){
 
     //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
    
+       //TAnimacion* anim=new TAnimacion("Anim_ataque_d1_npc2");
+   
     SHADOW_WIDTH = 1024;
     SHADOW_HEIGHT = 1024;
-
+    SCR_WIDTH = 1280;
+    SCR_HEIGHT = 720;
+    _mapeado_sombras=true;
+    _sombras_proyectadas=false;
+    if(_mapeado_sombras){
+        PreparacionSombras();
+    }
 }
 
 void TMooseEngine::PreparacionSombras(){
@@ -67,8 +75,11 @@ void TMooseEngine::PreparacionSombras(){
 }
 
 void TMooseEngine::ConfigurarSombrasMapeado(){
-    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.5f, 100.0f);  
-    glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),glm::vec3( 0.0f, 0.0f,  0.0f),glm::vec3( 0.0f, 1.0f,  0.0f));  
+    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 7.5f);  
+    glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
+                                      glm::vec3( 0.0f, 0.0f,  0.0f),
+                                      glm::vec3( 0.0f, 1.0f,  0.0f)); 
+    glm::mat4 lightSpaceMatrix = lightProjection * lightView; 
 }
 
 void TMooseEngine::ConfigurarSombrasProyectadas(){
@@ -232,39 +243,40 @@ void TMooseEngine::clear(){
 void TMooseEngine::draw(){
     clear();
     //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    _shader->use(Default);
-    drawCamaras();
+    if(_mapeado_sombras){//calcular del mapeado de sombras
+        _shader->use(mapeado_sombras_depth);
+        // 1. first render to depth map
+        glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+        glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+        glClear(GL_DEPTH_BUFFER_BIT);
+        ConfigurarSombrasMapeado();
+        _escena->draw(_shader);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        // 2. then render scene as normal with shadow mapping (using depth map)
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+    if(_mapeado_sombras){
+        _shader->use(mapeado_sombras_default);
+    }else{
+        _shader->use(Default);
+    }
     drawLuces();
+    drawCamaras();
+    if(_mapeado_sombras){
+        glBindTexture(GL_TEXTURE_2D, depthMap);
+    }
     _escena->draw(_shader);
-    //_skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-    //_shader->use(sombras_proyectadas);
-    //_escena->draw(_shader);
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    if(_sombras_proyectadas){//calculo de las sombras proyectadas
+        _shader->use(sombras_proyectadas);
+        _escena->draw(_shader);
+    }
     glfwSwapBuffers(window);
     glfwPollEvents();
-
-
-
-
-    /*//cosa
-    // 1. first render to depth map
-    glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-        glClear(GL_DEPTH_BUFFER_BIT);
-        ConfigureShaderAndMatrices();
-        RenderScene();
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    // 2. then render scene as normal with shadow mapping (using depth map)
-    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    ConfigureShaderAndMatrices();
-    glBindTexture(GL_TEXTURE_2D, depthMap);
-    RenderScene();*/
-
 }
 
 void TMooseEngine::drawSombras(){
-    //y yasta MUCHO PIDES TU HOY EH!
-    //y yasta2
 }
 
 void TMooseEngine::apagar(){
