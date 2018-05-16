@@ -59,8 +59,7 @@ void Puerta_Pincho::desactivar() {
     if(!_bloqueado) {
         _activado = false;   
         setY(-5.95);
-        Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
-        cambiar_icono_minimapa(50, 50, Enum_Puerta_Desactivada);
+        eliminar_del_minimapa();
     }
 }
 
@@ -69,7 +68,7 @@ void Puerta_Pincho::desactivar_bloquear() {
         _activado = false;   
         setY(-5.95);
         Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
-
+        eliminar_del_minimapa();
         _bloqueado = true;
     }
 }
