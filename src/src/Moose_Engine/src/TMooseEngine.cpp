@@ -279,6 +279,14 @@ TNodo* TMooseEngine::crearNodoLuz(TNodo *padre, TEntidad *ent){
     return aux;
 }
 
+Image_Map* TMooseEngine::anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo){
+    _mapa->anyadir_elemento_al_mapa(x,  y,  ancho,  alto,  tipo);
+}
+
+void TMooseEngine::eliminar_elemento_del_mapa(Image_Map* elemento_a_eliminar){
+    _mapa->eliminar_elemento_mapa(elemento_a_eliminar);
+}
+
 TTransform* TMooseEngine::crearTransform(){
     TTransform* transform = new TTransform();
     return transform;
@@ -355,7 +363,7 @@ void TMooseEngine::render_estado_Partida(){
     clear();
     draw();
     renderUIHUD();
-    glViewport(0, 0, 600, 600);
+    glViewport(1000, 0, 600, 600);
     _mapa->Draw();
     glViewport(0, 0, 1280, 720);
 

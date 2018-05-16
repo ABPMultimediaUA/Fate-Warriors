@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdint>
 #include <glm/ext.hpp>
+#include "Enum_Texturas.h"
 class TNodo;
 class TGestorRecursos;
 class TEntidad;
@@ -20,6 +21,7 @@ class Skybox;
 class UI;
 class ParticleGenerator;
 class Mapa;
+class Image_Map;
 
 class TMooseEngine{
 
@@ -48,6 +50,8 @@ class TMooseEngine{
             return _escena;
         }
 
+        Image_Map* anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo);
+        void eliminar_elemento_del_mapa(Image_Map* _elemento_a_eliminar);
         void draw();
         void drawSombras();
         void initUI();

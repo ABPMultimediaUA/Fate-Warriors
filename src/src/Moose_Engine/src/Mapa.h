@@ -5,18 +5,10 @@
 #include <glm/glm.hpp>
 
 #include "Shader.h"
+#include "Enum_Texturas.h"
 
 class Shader;
 class Image_Map;
-
-enum Texture_ID_Map {
-    Enum_Mapa = 0,
-    Enum_Llave,
-    Enum_Player,
-    Vegeta_count
-};
-
-
 class Mapa
 {
 public:

@@ -4,7 +4,7 @@
 #include "Image_Map.h"
 #include "glm/ext.hpp"
 #include <iostream>
-
+#include <algorithm>
 
 
 Mapa::Mapa(Shader* shader)
@@ -13,27 +13,31 @@ Mapa::Mapa(Shader* shader)
 
     Imagenes[Enum_Llave] =  "Imagenes_HUD/Llave_Silueta.png";
     Imagenes[Enum_Mapa] =  "Imagenes_HUD/mapa.png";
-    Imagenes[Enum_Player] =  "";
-    
-   anyadir_elemento_al_mapa(0,0,1280,720,Enum_Mapa);
-   anyadir_elemento_al_mapa(780,0,50,50,Enum_Llave);
-  // anyadir_elemento_al_mapa(200,200,200,200,Enum_Player);
+    Imagenes[Enum_Player] =  "Imagenes_HUD/Player.png";
+
+   anyadir_elemento_al_mapa(0,0,595,673,Enum_Mapa);
       
 }
 
 
 Mapa::~Mapa(){
+        
+ for (short i = 0; i < elementos_menu.size(); i++) {
+    delete elementos_menu[i];
+  }
+  elementos_menu.clear();
 }
 
 void Mapa::eliminar_elemento_mapa(Image_Map* objeto_a_eliminar){
-/*
-    std::vector<GameObject_Visual>::iterator it;
-    it = std::find(elementos_menu.begin(), elementos_menu.end(), objeto_a_eliminar);
+
+    std::vector<Image_Map*>::iterator it;
+   it = std::find(elementos_menu.begin(), elementos_menu.end(), objeto_a_eliminar);
     if ( it != elementos_menu.end()){
         elementos_menu.erase(it);
         delete objeto_a_eliminar;
     }
-    */
+    
+    
 }
 
 Image_Map* Mapa::anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo){

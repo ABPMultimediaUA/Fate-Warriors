@@ -24,22 +24,67 @@ Image_Map::~Image_Map(){
     glDeleteBuffers(1, &EBO);
 }
 
+
+void Image_Map::setTextureposition(float x, float y){
+    _x = x;
+    _y = y;
+
+    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(595,673); // [0..800][0..600] -> [-400..400][-300..300]
+    vertexPosition_homoneneousspace /= glm::vec2(595,673);
+                                                                // 1280 720 ->640 360
+    glm::vec2 vertexScale_homoneneousspace = glm::vec2(_width,_height); // [0..800][0..600] -> [-400..400][-300..300]
+    vertexScale_homoneneousspace /= glm::vec2(595,673);
+    
+    
+    float _x = vertexPosition_homoneneousspace.x;
+    float _y = vertexPosition_homoneneousspace.y;
+    float _width = vertexScale_homoneneousspace.x ;
+    float _height = vertexScale_homoneneousspace.y;
+    
+    
+     float vertices[] = {
+        // positions          // colors           // texture coords
+         _x + _width,  _y + _height,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
+         _x + _width, _y, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
+         _x, _y,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
+         _x,  _y + _height,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
+    };
+
+
+    unsigned int indices[] = {
+        0, 1, 3, // first triangle
+        1, 2, 3  // second triangle
+    };
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+}
+
+
 void Image_Map::init()
 {
     glEnable(GL_BLEND);
     // set up vertex data (and buffer(s)) and configure vertex attributes
-
+/*
     std::cout << _x << "x \n";
     std::cout << _y << "y \n";
     std::cout << _width << "xx \n";
     std::cout << _height << "xy \n";
-    
-    // ------------------------------------------------------------------
-    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(640,360); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexPosition_homoneneousspace /= glm::vec2(640,360);
+*/
+    // ------------------------------------------------------------------  POSICIONES DEL MAPA VA DE LA 1190 - 1346
+    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(595,673); // [0..800][0..600] -> [-400..400][-300..300]
+    vertexPosition_homoneneousspace /= glm::vec2(595,673);
                                                                 // 1280 720 ->640 360
     glm::vec2 vertexScale_homoneneousspace = glm::vec2(_width,_height); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexScale_homoneneousspace /= glm::vec2(640,360);
+    vertexScale_homoneneousspace /= glm::vec2(595,673);
     
     
     float _x = vertexPosition_homoneneousspace.x;
@@ -181,44 +226,3 @@ ModelMatrix = _traslacion * _rotacion * _escalado;
 
 
 
-
-void Image_Map::setTextureposition(float x, float y){
-
-    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(0,0) - glm::vec2(640,360); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexPosition_homoneneousspace /= glm::vec2(640,360);
-                                                                // 1280 720 ->640 360
-    glm::vec2 vertexScale_homoneneousspace = glm::vec2(1280,720); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexScale_homoneneousspace /= glm::vec2(640,360);
-    
-    
-    float _x = vertexPosition_homoneneousspace.x;
-    float _y = vertexPosition_homoneneousspace.y;
-    float _width = vertexScale_homoneneousspace.x ;
-    float _height = vertexScale_homoneneousspace.y;
-    
-    
-     float vertices[] = {
-        // positions          // colors           // texture coords
-         _x + _width,  _y + _height,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
-         _x + _width, _y, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
-         _x, _y,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
-         _x,  _y + _height,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
-    };
-    //_width = auxWidth; 
-
-    unsigned int indices[] = {
-        0, 1, 3, // first triangle
-        1, 2, 3  // second triangle
-    };
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-}

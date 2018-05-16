@@ -19,6 +19,7 @@
 
 #include "Cono_Vision.h"
 
+#include "../Moose_Engine/src/iObjeto_Mapa.h"
 #include <tuple>
 #include <iostream>
                                                                                                             //  vida_prota, velocidad
@@ -47,11 +48,13 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _especial = 0;
     _hace_cinta = false;
     //_sonido->Play_ambiente(2);
+    _yo = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Player);
 }    
 
 
 Player::~Player(){
     delete _cono_vision;
+    delete _yo;
 }
 
 void Player::update(){
@@ -68,6 +71,9 @@ void Player::update(){
     bool _apuntando_enemigo = false;
     
     if(_input->get_mover(_direccion)){
+
+        _yo->setTextureposition(getX(), getZ());
+        
         // Direccion buena con respecto de la camara
         int16_t _direccion_buena_2 = _direccion + Motor::Motor_GetInstance()->angulo_camara();
         while(_direccion_buena_2 >= 360) _direccion_buena_2 -= 360;

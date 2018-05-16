@@ -8,6 +8,7 @@ class Input;
 class Motor;
 class Interfaz_sonido;
 class Cono_Vision;
+class iObjeto_Mapa;
 
 class Player : public Character{
 public:
@@ -43,6 +44,8 @@ private:
 	Input* _input;
 	// double _tiempobloqueo; BORRAME
 	Cono_Vision* _cono_vision;
+
+	iObjeto_Mapa* _yo;
 };
 
 #endif /* SRC_PLAYER_H_ */

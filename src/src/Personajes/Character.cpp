@@ -901,7 +901,6 @@ void Character::animacion_correr() {
 
 void Character::recoge_llave(Llave* _llave) {
     set_accion(Accion_pre_Coger_Llave);
-
     auto _pos_llave = _llave->get_posicion();
     float _distancia = 3.5;
     uint16_t _angulo = lib_math_angulo_2_puntos(_objeto_motor->getZ(), _objeto_motor->getX(), std::get<1>(_pos_llave), std::get<0>(_pos_llave));
@@ -911,6 +910,7 @@ void Character::recoge_llave(Llave* _llave) {
     _objeto_motor->rotar_nodo(_angulo);
     _objeto_motor->cambiar_modelado("Anim_coger_objeto_jugador", 19);
 
+    _llave->eliminar_del_minimapa();
     _llave_aux_animacion = _llave;
 
     //std::cout << "Llave recogida"<< std::endl;
