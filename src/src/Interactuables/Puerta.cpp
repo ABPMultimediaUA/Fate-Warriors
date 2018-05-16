@@ -15,7 +15,7 @@ Puerta::Puerta(short _i_id, float _i_x, float _i_y, float _i_z, float _i_rotacio
     _abierta = false;
     Nivel::nivel_instancia()->nivel_cerrar_pasillo(_id_pasillo_que_abre);
 
-    _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Puerta);
+    _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 18, 36, Enum_Puerta);
 
     _objeto_motor->rotar_nodo(_i_rotacion);
     _sonido= Interfaz_sonido::GetInstancia();

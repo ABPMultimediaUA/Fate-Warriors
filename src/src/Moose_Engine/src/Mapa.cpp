@@ -12,11 +12,11 @@ Mapa::Mapa(Shader* shader)
 {
 
    Imagenes[Enum_Llave] =  "Imagenes_HUD/Llave_Silueta.png";
-   Imagenes[Enum_Mapa] =  "Imagenes_HUD/mapa.png";
-   Imagenes[Enum_Player] =  "Imagenes_HUD/Player.png";
-   Imagenes[Enum_Puerta] =  "Imagenes_HUD/Puerta.png";
-   Imagenes[Enum_Interruptor] =  "Imagenes_HUD/Interruptor.png";
-   Imagenes[Enum_Puerta_Pincho] =  "Imagenes_HUD/Puerta_Pincho.png";
+   Imagenes[Enum_Mapa] =  "Imagenes_HUD/Minimapa/mapa.png";
+   Imagenes[Enum_Player] =  "Imagenes_HUD/Minimapa/Player.png";
+   Imagenes[Enum_Puerta] =  "Imagenes_HUD/Minimapa/Cerradura.png";
+   Imagenes[Enum_Interruptor] =  "Imagenes_HUD/Minimapa/Interruptor.png";
+   Imagenes[Enum_Puerta_Pincho] =  "Imagenes_HUD/Minimapa/Puerta_Pincho.png";
 
    anyadir_elemento_al_mapa(406/2, 554/2, 406, 554,Enum_Mapa);
       
