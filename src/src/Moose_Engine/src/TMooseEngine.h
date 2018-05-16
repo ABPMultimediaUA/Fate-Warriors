@@ -76,6 +76,7 @@ class TMooseEngine{
         ParticleGenerator* get_gestor_particulas();
 
         void resize_window(int _i_width, int _i_height);
+        void guarda_tamanyo_viewport(int width,int height);
 
     private:
 
@@ -122,6 +123,8 @@ class TMooseEngine{
         Skybox* _skybox;
         ParticleGenerator* _particulas;
         Mapa* _mapa;
+        int _width;
+        int _height;
 };
 
 

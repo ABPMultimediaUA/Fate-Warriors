@@ -744,6 +744,7 @@ void Character::gestion_coger_llave(){
             _llave_aux_animacion->set_visible(false);
             _sonido->Play_escenario(1);
             Game::game_instancia()->set_llave_hud(true);
+            _llave_aux_animacion->eliminar_del_minimapa();
         }
     }
     else if(get_accion() == Accion_post_Coger_Llave){
@@ -763,6 +764,7 @@ void Character::gestion_usar_llave(){
             get_inventario()->eliminar_llave(_llave_aux_animacion);
             _puerta_aux_animacion->set_abierta();
             Game::game_instancia()->set_llave_hud(false);
+         //   _puerta_aux_animacion->eliminar_del_minimapa();   MIRAR AQUI
         }
     }
     else if(get_accion() == Accion_post_Usar_Llave){
@@ -910,7 +912,6 @@ void Character::recoge_llave(Llave* _llave) {
     _objeto_motor->rotar_nodo(_angulo);
     _objeto_motor->cambiar_modelado("Anim_coger_objeto_jugador", 19);
 
-    _llave->eliminar_del_minimapa();
     _llave_aux_animacion = _llave;
 
     //std::cout << "Llave recogida"<< std::endl;

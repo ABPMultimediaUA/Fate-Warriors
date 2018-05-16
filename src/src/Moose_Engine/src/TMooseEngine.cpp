@@ -188,8 +188,14 @@ void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos){
 }
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height){
+    TMooseEngine::get_instancia()->guarda_tamanyo_viewport(width,height);
     glViewport(0, 0, width, height);
 
+}
+
+void TMooseEngine::guarda_tamanyo_viewport(int width,int height){
+ _width = width;
+ _height = height;
 }
 
 void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
@@ -220,6 +226,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     //culling
     glEnable(GL_DEPTH_TEST);
     glViewport(0,0,width,height);
+    guarda_tamanyo_viewport(width,height);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK); //Hay que usar el front, asi que mirare el modelado.
     glFrontFace(GL_CCW);
@@ -363,9 +370,11 @@ void TMooseEngine::render_estado_Partida(){
     clear();
     draw();
     renderUIHUD();
-    glViewport(1000, 0, 600, 600);
+   // glViewport(_width*0.7, 0, 600, 600);
+    glViewport(800, 0, 397,534);
+   
     _mapa->Draw();
-    glViewport(0, 0, 1280, 720);
+    glViewport(0, 0, _width, _height);
 
     glfwSwapBuffers(window);
     glfwPollEvents();

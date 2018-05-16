@@ -48,7 +48,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _especial = 0;
     _hace_cinta = false;
     //_sonido->Play_ambiente(2);
-    _yo = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Player);
+    _yo = new iObjeto_Mapa(_i_x, _i_z, 10,10, Enum_Player);
 }    
 
 

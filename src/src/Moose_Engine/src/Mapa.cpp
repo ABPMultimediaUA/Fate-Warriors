@@ -15,7 +15,7 @@ Mapa::Mapa(Shader* shader)
     Imagenes[Enum_Mapa] =  "Imagenes_HUD/mapa.png";
     Imagenes[Enum_Player] =  "Imagenes_HUD/Player.png";
 
-   anyadir_elemento_al_mapa(0,0,595,673,Enum_Mapa);
+   anyadir_elemento_al_mapa(0,0,397,534,Enum_Mapa);
       
 }
 
