@@ -310,8 +310,8 @@ void Player::play_animaciones_recibir_danyo() {
 
 // Anyadir animaciones que se quieran pre-cargar
 void Player::carga_animaciones() {
-    _objeto_motor->cambiar_modelado("Anim_andar_jugador", 1);
-    _objeto_motor->cambiar_modelado("Anim_correr_jugador", 2);
+    _objeto_motor->cambiar_modelado("Anim_andar_jugador", 15);
+    _objeto_motor->cambiar_modelado("Anim_correr_jugador", 26);
     _objeto_motor->cambiar_modelado("Anim_ataque_d1_jugador", 10);
     _objeto_motor->cambiar_modelado("Anim_ataque_d2_jugador", 12);
     _objeto_motor->cambiar_modelado("Anim_ataque_d3_jugador", 13);
@@ -323,8 +323,8 @@ void Player::carga_animaciones() {
     _objeto_motor->cambiar_modelado("Anim_abrir_puerta_ok_jugador", 18);
     _objeto_motor->cambiar_modelado("Anim_coger_objeto_jugador", 19);
 
-    _objeto_motor->cambiar_modelado("Anim_andar_npc1", 1);
-    _objeto_motor->cambiar_modelado("Anim_correr_npc1", 2);
+    _objeto_motor->cambiar_modelado("Anim_andar_npc1", 15);
+    _objeto_motor->cambiar_modelado("Anim_correr_npc1", 26);
     _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc1", 10);
     _objeto_motor->cambiar_modelado("Anim_ataque_d2_npc1", 12);
     _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc1", 13);
@@ -333,8 +333,8 @@ void Player::carga_animaciones() {
     _objeto_motor->cambiar_modelado("Anim_ataque_f3_npc1", 15);
     _objeto_motor->cambiar_modelado("Anim_recibirdanyo_npc1", 16);
 
-    _objeto_motor->cambiar_modelado("Anim_andar_npc2jugador", 1);
-    _objeto_motor->cambiar_modelado("Anim_correr_npc2", 2);
+    _objeto_motor->cambiar_modelado("Anim_andar_npc2", 15);
+    _objeto_motor->cambiar_modelado("Anim_correr_npc2", 26);
     _objeto_motor->cambiar_modelado("Anim_ataque_d1_npc2", 10);
     _objeto_motor->cambiar_modelado("Anim_ataque_d2_npc2", 12);
     _objeto_motor->cambiar_modelado("Anim_ataque_d3_npc2", 13);
