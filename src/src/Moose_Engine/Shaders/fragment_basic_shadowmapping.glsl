@@ -48,21 +48,18 @@ vec3  Phong ()
     //COMPONENTE AMBIENTAL
     vec3 sumaLuces;
     
-    //revisar en la teoria que hace cada cosa, porque algo nos estamos dejando
-        for(int i=0;i<cantidad_luces;i++){
-            vec3 s = normalize(Light[i].Position - Position);
-            vec3 r = reflect(-s, n);
-            
-            //COMPONENTE DIFUSA 
-            vec3 Diffuse = Light[i].Diffuse * max(dot(s, n), 0) * vec3(texture(Material.Diffuse, TexCoords));  
-            
-            //COMPONENTE ESPECULAR  
-            vec3 Specular = Light[i].Specular * pow(max(dot(r, v), 0), 1) * vec3(texture(Material.Specular, TexCoords));//pow(max(dot(r, v), 0.0), 1): el 1 es un valor default ya que actualmente no hay brillos
-           
-           
-           
-           sumaLuces = ((Light[0].Ambient * vec3(texture(Material.Diffuse, TexCoords)) + (1-CalculoSombras(FragPosLightSpace))) * (Diffuse + Specular)) * vec3(texture(Material.Diffuse, TexCoords));  
-        }  
+    
+        vec3 s = normalize(Light[0].Position - Position);
+        vec3 r = reflect(-s, n);
+        
+        //COMPONENTE DIFUSA 
+        vec3 Diffuse = Light[0].Diffuse * max(dot(s, n), 0) * vec3(texture(Material.Diffuse, TexCoords));  
+        
+        //COMPONENTE ESPECULAR  
+        vec3 Specular = Light[0].Specular * pow(max(dot(r, v), 0), 1) * vec3(texture(Material.Specular, TexCoords));//pow(max(dot(r, v), 0.0), 1): el 1 es un valor default ya que actualmente no hay brillos
+        
+        sumaLuces = ((Light[0].Ambient * vec3(texture(Material.Diffuse, TexCoords)) + (1-CalculoSombras(FragPosLightSpace))) * (Diffuse + Specular)) * vec3(texture(Material.Diffuse, TexCoords));  
+ 
     return sumaLuces;  
 } 
 
