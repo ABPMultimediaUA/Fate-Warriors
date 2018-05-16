@@ -8,6 +8,7 @@ class Time;
 class Zona;
 class iObjeto_Mapa;
 
+#include "../Moose_Engine/src/Enum_Texturas.h"
 #include <cstdint>
 
 class Puerta_Pincho  : public Objeto {
@@ -21,6 +22,7 @@ public:
 
     void desactivar_bloquear();
     void eliminar_del_minimapa();
+    void cambiar_icono_minimapa(float ancho, float alto, Texture_ID_Map _tipo);
 
     inline void desbloquea() { _bloqueado = false;}
 

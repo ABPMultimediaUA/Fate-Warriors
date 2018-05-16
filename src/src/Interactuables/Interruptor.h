@@ -4,6 +4,7 @@
 #include "../Objeto.h"
 
 #include <vector>
+#include "../Moose_Engine/src/Enum_Texturas.h"
 
 class Puerta_Pincho;
 class Time;

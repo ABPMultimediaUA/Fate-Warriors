@@ -17,6 +17,9 @@ Mapa::Mapa(Shader* shader)
    Imagenes[Enum_Puerta] =  "Imagenes_HUD/Minimapa/Cerradura.png";
    Imagenes[Enum_Interruptor] =  "Imagenes_HUD/Minimapa/Interruptor.png";
    Imagenes[Enum_Puerta_Pincho] =  "Imagenes_HUD/Minimapa/Puerta_Pincho.png";
+   Imagenes[Enum_Puerta_Tiempo] =  "Imagenes_HUD/Minimapa/Puerta_Tiempo.png";
+   Imagenes[Enum_Puerta_Desactivada] =  "Imagenes_HUD/Minimapa/Puerta_Desactivada.png";
+   
 
    anyadir_elemento_al_mapa(406/2, 554/2, 406, 554,Enum_Mapa);
       
@@ -24,7 +27,6 @@ Mapa::Mapa(Shader* shader)
 
 
 Mapa::~Mapa(){
-        
  for (short i = 0; i < elementos_menu.size(); i++) {
     delete elementos_menu[i];
   }
@@ -54,7 +56,6 @@ void Mapa::Draw()
 {    
         // Use additive blending to give it a 'glow' effect
    // Don't forget to reset to default blending mode
-    
     glDisable(GL_CULL_FACE);
     for (int a =0; a < elementos_menu.size(); a++)
     {

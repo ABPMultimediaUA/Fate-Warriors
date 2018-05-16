@@ -160,6 +160,7 @@ TMooseEngine::~TMooseEngine(){
     delete _shader;
     delete _skybox;
     delete _particulas;
+    delete _mapa;
     _contadorIDEntidad=0;
     glfwTerminate();
 }

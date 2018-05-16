@@ -7,6 +7,8 @@ enum Texture_ID_Map {
     Enum_Player,
 	Enum_Puerta,
 	Enum_Puerta_Pincho,
+	Enum_Puerta_Tiempo,    
+    Enum_Puerta_Desactivada,
 	Enum_Interruptor,
     Vegeta_count
 };

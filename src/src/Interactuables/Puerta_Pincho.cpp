@@ -40,11 +40,18 @@ Puerta_Pincho::~Puerta_Pincho() {
     }
 }
 
+void Puerta_Pincho::cambiar_icono_minimapa(float ancho, float alto, Texture_ID_Map _tipo){
+    eliminar_del_minimapa();
+    _objeto_visual_mapa = new iObjeto_Mapa(getX(), getZ(), ancho,alto, _tipo);
+}
+
+
 void Puerta_Pincho::activar() {
     if(!_bloqueado) {
         _activado = true;
         setY(6);
         Nivel::nivel_instancia()->nivel_cerrar_pasillo(_pasillo_asociado);
+        cambiar_icono_minimapa(50, 50, Enum_Puerta_Pincho);
     }
 }
 
@@ -53,6 +60,7 @@ void Puerta_Pincho::desactivar() {
         _activado = false;   
         setY(-5.95);
         Nivel::nivel_instancia()->nivel_abrir_pasillo(_pasillo_asociado);
+        cambiar_icono_minimapa(50, 50, Enum_Puerta_Desactivada);
     }
 }
 

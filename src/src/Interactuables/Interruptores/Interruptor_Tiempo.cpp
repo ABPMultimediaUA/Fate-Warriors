@@ -17,8 +17,8 @@ Interruptor_Tiempo::~Interruptor_Tiempo() {
 void Interruptor_Tiempo::accionar() {
     if(_estado == false) {
         _estado = true;
-
 		cambiar_estado_puertas();
+       cambiar_icono_ascociados(Enum_Puerta_Tiempo);
         _t_final_activacion = _reloj->get_current() + _duracion;
         _sonido->Play_escenario(9);
     }
@@ -27,7 +27,6 @@ void Interruptor_Tiempo::accionar() {
 void Interruptor_Tiempo::update() {
 	if(_estado && _reloj->get_current() >= _t_final_activacion) {
 		_estado = false;
-       
        cambiar_estado_puertas();
         _sonido->Play_escenario(6);
 	}
@@ -41,4 +40,14 @@ void Interruptor_Tiempo::cambiar_estado_puertas() {
     }
     
     cambia_palito();
+}
+
+
+void Interruptor_Tiempo::cambiar_icono_ascociados(Texture_ID_Map textura) {
+    uint8_t size = _puertas_asociadas.size();
+
+    for(uint8_t i=0; i<size; i++) {
+    	_puertas_asociadas[i]->cambiar_icono_minimapa(50,50,textura);
+    }
+    
 }
