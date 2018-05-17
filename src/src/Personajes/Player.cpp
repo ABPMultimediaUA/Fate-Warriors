@@ -42,6 +42,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
     //std::cout<<"X player: "<<_motor->getX(_id_motor);
     //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
+    _motor->recibir_Danyo(_vida, _vida_maxima);   
 
     _input = _i_input;
     //_motor->set_text_vida(_vida);
@@ -233,6 +234,8 @@ void Player::modificar_vida_en(int16_t _i_vida){
         _vida+=_i_vida;
     }
     //_motor->set_text_vida(_vida);
+        _motor->recibir_Danyo(_vida, _vida_maxima);   
+
 }
 
 void Player::danyar(int16_t _danyo){
@@ -245,6 +248,8 @@ void Player::danyar(int16_t _danyo){
 
 void Player::set_vida(int16_t _i_vida){
 	_vida=_i_vida;
+        _motor->recibir_Danyo(_vida, _vida_maxima);   
+
    // _motor->set_text_vida(_vida);
 }
 
