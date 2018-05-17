@@ -37,6 +37,10 @@ TGestorRecursos::~TGestorRecursos(){
     }
 }
 
+void TGestorRecursos::setCalidad(uint8_t _calidad){
+    variableCalidad = _calidad;
+}
+
 TRecurso* TGestorRecursos::getRecurso(const char* nombre){
     TRecurso* rec;
     for(uint16_t i=0; i<_recursos.size();i++){
@@ -108,9 +112,24 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
     Assimp::Importer importer;
     uint16_t cont=0;
     std::string path2 = path.substr(path.find_last_of('_')+1, path.size()-path.find_last_of('_')-1);
-    std::string aux="animaciones/"+path2+"/"+path+"/"+path;
-    std::string path_obj=aux;
-    const std::string path_text="animaciones/"+path2+"/";
+    std::string aux;
+    std::string path_obj;
+    std::string path_text;
+    if(variableCalidad == 1){
+        aux="animaciones/"+path2+"/"+path+"/"+path;
+        path_obj=aux;
+        path_text="animaciones/"+path2+"/";
+    }
+    else if(variableCalidad == 2){
+        aux="animaciones_medium/"+path2+"/"+path+"/"+path;
+        path_obj=aux;
+        path_text="animaciones_medium/"+path2+"/";
+    }
+    else{
+        aux="animaciones_high/"+path2+"/"+path+"/"+path;
+        path_obj=aux;
+        path_text="animaciones_high/"+path2+"/";
+    }
     
     path_obj+="."+std::to_string(0)+'0'+'0'+std::to_string(cont)+".obj";
         
@@ -176,15 +195,45 @@ void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std:
 void TGestorRecursos::cargarModelo(std::string &path){
     std::vector<TRecursoMalla*> _modelos;
     Assimp::Importer importer;
-    std::string aux("models/");
-    aux+=path+"/"+path+".obj";//cambio de ruta para coger el obj
-    const aiScene* scene = importer.ReadFile(aux, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    
+    std::string aux;
+    const aiScene* scene;
+    if(variableCalidad == 1){
+            //calidad de textura normal
+            aux="models/";
+            aux+=path+"/"+path+".obj";//cambio de ruta para coger el obj
+            scene = importer.ReadFile(aux, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
-    if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){//si no es cero
-        std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-        return;
+            if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){//si no es cero
+                std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+                return;
+            }
+            aux="models/"+path+"/";//cambio de ruta para coger la ruta de la textura
     }
-    aux="models/"+path+"/";//cambio de ruta para coger la ruta de la textura
+    else if(variableCalidad == 2){
+            //calidad de textura media
+            aux="models_medium/";
+            aux+=path+"/"+path+".obj";//cambio de ruta para coger el obj
+            scene = importer.ReadFile(aux, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+
+            if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){//si no es cero
+                std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+                return;
+            }
+            aux="models_medium/"+path+"/";//cambio de ruta para coger la ruta de la textura
+    }
+    else{
+            //calidad de texturas epica
+            aux="models_high/";
+            aux+=path+"/"+path+".obj";//cambio de ruta para coger el obj
+            scene = importer.ReadFile(aux, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+
+            if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){//si no es cero
+                std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+                return;
+            }
+            aux="models_high/"+path+"/";//cambio de ruta para coger la ruta de la textura
+    }
     // coger el path
     //directory = path.substr(0, path.find_last_of('/'));
     cargarNodo(scene->mRootNode, scene, _modelos, aux);

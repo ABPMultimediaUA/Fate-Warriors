@@ -19,6 +19,8 @@ class Zonas_Manager;
 class Interactuable_Manager;
 class Interruptor;
 
+class TGestorRecursos;
+
 class Menu_Principal;
 class Menu_Pausa;
 class Menu_Fin;
@@ -105,6 +107,8 @@ private:
 	Menu_Fin*	_menu_fin;					// Menu Fin Partida
 
 	Animacion_Interruptor* _animacion_interruptor;
+
+	TGestorRecursos* _gestor_recursos;
 };
 
 

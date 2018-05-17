@@ -21,6 +21,8 @@
 #include "Interactuables/Animacion_Interruptor.h"
 #include "Interactuables/Interruptor.h"
 
+#include "Moose_Engine/src/TGestorRecursos.h"
+
 #include <iostream>
 #include <stack>
 
@@ -51,6 +53,10 @@ Game::Game() : _datos(nullptr),
 	render_actual = &Game::render_menu;
 
 	_input_jugador->asignar_teclas_menu();
+
+	_gestor_recursos = TGestorRecursos::get_instancia();
+	//opciones de calidad: 1 - Maquina Objetivo / 2 - Calidad Media / Otro numero - Calidad 4k
+	_gestor_recursos->setCalidad(1);
 	
 }
 

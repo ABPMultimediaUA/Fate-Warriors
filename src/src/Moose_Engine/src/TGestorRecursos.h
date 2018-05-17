@@ -40,11 +40,14 @@ public:
     void cargarModelo_sinBB(std::string &path);
     void cargarNodo_sinBB(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, const std::string& path);
     TRecursoMalla* cargarMalla_sinBB(aiMesh *mesh, const aiScene *scene,const std::string path);
+
+    void setCalidad(uint8_t _calidad);
 private:
     TGestorRecursos();
 	std::vector<TRecurso*> _recursos;
     std::string directory;
     static TGestorRecursos* _instancia;
+    uint8_t variableCalidad = 1;
 
 
     TRecurso* getRecurso(const char* nombre);
