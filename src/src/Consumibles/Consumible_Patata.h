@@ -10,7 +10,6 @@ public:
 	~Consumible_Patata();
 
 	bool usar(Character* _personaje) override;
-	void cambiar_modelado() override;
 	Interfaz_sonido* _sonido;
 };
 

@@ -47,12 +47,3 @@ bool Consumible_Vida_Infinita::comprobar_tiempo_power_up(){
     return false;
 }
 
-
-void Consumible_Vida_Infinita::cambiar_modelado(){
-    if(!_esta_lejos){
-        _esta_lejos=true;
-    }else{
-        _esta_lejos=false;
-    }
-
-}

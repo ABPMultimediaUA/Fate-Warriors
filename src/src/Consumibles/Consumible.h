@@ -14,13 +14,8 @@ public:
 	virtual bool usar(Character* modificar){};
 	short get_valor();
 
-	inline void set_esta_lejos(bool estado){_esta_lejos = estado;};
-	inline bool get_esta_lejos(){return _esta_lejos;};
-	virtual void cambiar_modelado() = 0;
-	
 protected:
 	short _valor;
-	bool _esta_lejos;
 };
 
 #endif /* SRC_CONSUMIBLE_H_ */

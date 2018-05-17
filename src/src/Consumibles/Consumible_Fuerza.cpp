@@ -48,13 +48,3 @@ bool Consumible_Fuerza::comprobar_tiempo_power_up(){
     }    
     return false;
 }
-
-
-
-void Consumible_Fuerza::cambiar_modelado(){
-    if(!_esta_lejos){
-        _esta_lejos=true;
-    }else{
-        _esta_lejos=false;
-    }
-}

@@ -37,6 +37,8 @@ private:
 
 	float mult;
 	std::vector<Consumible*> _consumibles;
+	std::vector<Consumible*> _consumibles_a_reusar;
+	
 
 	uint16_t numero_max;
 };
