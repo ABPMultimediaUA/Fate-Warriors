@@ -118,10 +118,17 @@ void UI::drawMenu(uint16_t opcion){
                     break;
     }
 
-    for(u_int16_t i = 0; i<_lista_imagenes.size(); i++){
+    for(u_int16_t i = 0; i<_lista_imagenes.size() - 1; i++){
         _lista_imagenes[i]->Draw();
     }
 }
+
+void UI::drawMenuLogo(uint16_t _opcion) {
+    drawMenu(_opcion);
+    _lista_imagenes[_lista_imagenes.size() - 1]->Draw();
+}
+
+
 
 //dibujar menu del juego
 void UI::drawMenuPausa(uint16_t opcion){

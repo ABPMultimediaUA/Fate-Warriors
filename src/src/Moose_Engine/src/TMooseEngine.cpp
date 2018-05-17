@@ -62,6 +62,8 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Fate_Warriors.png", "Imagenes_Menu/Fate_Warriors.png", -0.25, 0.35, 1.3, 0.85);
+    
 
     //MENU PAUSA
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_resume.png", "Imagenes_Menu/Opcion_resume_Selec.png", -0.9, 0.8, 0.7, 0.6);
@@ -391,8 +393,13 @@ void TMooseEngine::renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_a
     glDisable(GL_CULL_FACE);
     
     _ui->drawMenu(opcion);
-    if(config_abierta)
+    if(config_abierta){
+        _ui->drawMenu(opcion);
         renderUIMenuConfig(opcion2);
+    }
+    else{
+        _ui->drawMenuLogo(opcion);
+    }
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
     glfwPollEvents();
