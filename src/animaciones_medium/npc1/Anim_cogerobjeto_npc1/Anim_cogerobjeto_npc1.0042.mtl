@@ -1,0 +1,12 @@
+newmtl Npc1:NPC2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd NPC1_Base_Color.png
+map_Ka NPC1_Base_Color.png
+bump NPC1_Normal_OpenGL.png -bm 0.3
+Ni 1.50
+Ks 0.00 0.00 0.00
+map_Ks NPC1_Metallic.png
+Ns 10.00
