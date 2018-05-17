@@ -113,7 +113,7 @@ void Input::asignar_teclas_menu() {
 
 	_teclas[Input_Salto] = sf::Keyboard::Return;
 
-	_teclas[Input_Dash] = sf::Keyboard::BackSpace;
+	_teclas[Input_Dash] = sf::Keyboard::Escape;
 
 	_ejes[Input_Derecha] = sf::Joystick::PovX;
 	_ejes[Input_Arriba] = sf::Joystick::PovY;

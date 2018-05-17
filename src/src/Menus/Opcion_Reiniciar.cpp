@@ -20,7 +20,7 @@ Opcion* Opcion_Reiniciar::update_opcion(double _i_tiempo, Opcion* _this) {
     	Game::game_instancia()->fin_partida();
     	Game::game_instancia()->crea_partida();
     	_input->reiniciar_inputs();
-    	Game::game_instancia()->cambio_a_update_partida();
+    	Game::game_instancia()->cambio_a_update_pre_partida();
     }
 	return _this;
 }

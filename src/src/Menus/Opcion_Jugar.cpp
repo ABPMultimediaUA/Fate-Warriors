@@ -17,7 +17,7 @@ Opcion* Opcion_Jugar::update_opcion(double _i_tiempo, Opcion* _this) {
 	if(_input->get_saltar()){
 		_sonido->Play_menu(0);
     	Game::game_instancia()->crea_partida();
-    	Game::game_instancia()->cambio_a_update_partida();
+    	Game::game_instancia()->cambio_a_update_pre_partida();
     }
 	return _this;
 }

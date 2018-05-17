@@ -1028,6 +1028,15 @@ void Motor::render_Menu_Lose(){
 	_me->renderUIMenuLose(num_opcion);
 }
 
+void Motor::pantalla_carga() {
+	_me->render_pantalla_carga();
+}
+
+void Motor::render_partida_cargada() {
+	_me->render_partida_cargada();
+}
+
+
 void Motor::set_llave_hud(bool _i_tiene_llave){
 	_me->getUI()->set_tiene_llave(_i_tiene_llave);
 }

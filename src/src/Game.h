@@ -53,6 +53,7 @@ public:
     void cambio_a_update_win();
     void cambio_a_update_lose();
     void cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short _rotacion_x, short _rotacion_y, short _distancia);
+    void cambio_a_update_pre_partida();
 	//Consumible_Action* get_consumibles_action();
 
 	inline Menu_Principal* get_menu_principal(){ return _menu_principal; }
@@ -75,12 +76,14 @@ private:
 	void update_pausa(double _i_tiempo_desde_ultimo_update);		// Update de pausa
 	void update_fin_partida(double _i_tiempo_desde_ultimo_update);	// Update de fin de partida
 	void update_mirar(double _i_tiempo_desde_ultimo_update);		// Update de mirar a un objetivo
+	void update_pre_partida(double _i_tiempo_desde_ultimo_update);	// Update previo a la partida
 
 	void render_menu(float _i_interpolacion);						// Render del menu
 	void render_partida(float _i_interpolacion);					// Render de partida
 	void render_pausa(float _i_interpolacion);						// Render de pausa
 	void render_win(float _i_interpolacion);						// Render de fin de partida (win)
 	void render_lose(float _i_interpolacion);						// Render de fin de partida (lose)
+	void render_pre_partida(float _i_interpolacion);					// Render de momento previo a la partida
 
 
 	Player* _player;

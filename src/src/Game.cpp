@@ -68,6 +68,8 @@ Game::~Game(){
 
 
 void Game::crea_partida() {	
+	_motor->pantalla_carga();
+
 	_nivel = Nivel::nivel_instancia();
 	_sonido= Interfaz_sonido::GetInstancia();
 	_motor->CargaMapa();
@@ -197,6 +199,13 @@ void Game::update_mirar(double _i_tiempo_desde_ultimo_update){
 	}
 }
 
+
+void Game::update_pre_partida(double _i_tiempo_desde_ultimo_update){
+	//std::cout << "Update Pre Partida" << std::endl;
+	if(_input_jugador->get_saltar() && Time::Instance()->get_tiempo_inicio_pausa() > 500)
+   		Game::game_instancia()->cambio_a_update_partida();
+}
+
 // ------------------------------------ FUNCIONES DE RENDER ------------------------------------
 
 void Game::render(float _i_interpolacion){
@@ -221,6 +230,10 @@ void Game::render_win(float _i_interpolacion){
 
 void Game::render_lose(float _i_interpolacion){
 	_motor->render_Menu_Lose();
+}
+
+void Game::render_pre_partida(float _i_interpolacion){
+	_motor->render_partida_cargada();
 }
 
 
@@ -285,6 +298,16 @@ void Game::cambio_a_update_mirar(uint32_t _t_fin, Interruptor* _objetivo, short 
 
 	_sonido->Stop_pasos();
 	_animacion_interruptor->empieza(_t_fin, _objetivo, _rotacion_x, _rotacion_y, 20);
+}
+
+
+void Game::cambio_a_update_pre_partida() {
+	_input_jugador->asignar_teclas_menu();
+	update_actual = &Game::update_pre_partida;
+	render_actual = &Game::render_pre_partida;
+	
+	_menu_pausa->set_tiempo_pausa();
+	Time::Instance()->reanudar_reloj();
 }
 
 

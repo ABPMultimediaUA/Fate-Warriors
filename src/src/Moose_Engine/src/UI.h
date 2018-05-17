@@ -27,6 +27,7 @@ class UI{
         Image* crear_imagen_fin_lose(Shader* shader, const char* ruta, float x, float y, float width, float height);
         Image* crear_imagen_fin_lose(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
 
+        Image* crear_imagen_pantalla_carga(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
         void drawMenu(uint16_t opcion);
         void drawMenuPausa(uint16_t opcion);
@@ -47,6 +48,9 @@ class UI{
 
         void set_tiene_llave(bool _i_tiene_llave);
 
+        void render_pantalla_carga();
+        void render_partida_cargada();
+
     private:
         //MENU PRINCIPAL
         std::vector<Image*> _lista_imagenes;
@@ -60,6 +64,8 @@ class UI{
         std::vector<Image*> _lista_imagenes_fin_win;
         //MENU LOSE
         std::vector<Image*> _lista_imagenes_fin_lose;
+        //PANTALLA CARGA
+        std::vector<Image*> _lista_imagenes_carga;
 
         bool _tiene_llave;
         Image* _img_llave;

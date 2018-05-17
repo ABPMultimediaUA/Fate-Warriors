@@ -87,6 +87,13 @@ Image* UI::crear_imagen_fin_lose(Shader* shader, const char* ruta, const char* r
     return imagen;
 }
 
+
+Image* UI::crear_imagen_pantalla_carga(Shader* shader, const char* ruta, float x, float y, float width, float height){
+    Image* imagen = new Image(shader, 1, ruta, ruta, ruta, x, y, width, height);
+    _lista_imagenes_carga.push_back(imagen);
+    return imagen;
+}
+
 //dibujar menu del juego
 void UI::drawMenu(uint16_t opcion){
     switch(opcion){
@@ -333,4 +340,14 @@ void UI::set_tiene_llave(bool _i_tiene_llave){
         _lista_imagenes_hud.pop_back();
         _lista_imagenes_hud.push_back(_aux);
     }
+}
+
+void UI::render_pantalla_carga() {
+    _lista_imagenes[0]->Draw();
+    _lista_imagenes_carga[0]->Draw();
+}
+
+void UI::render_partida_cargada() {
+    _lista_imagenes[0]->Draw();
+    _lista_imagenes_carga[1]->Draw();
 }

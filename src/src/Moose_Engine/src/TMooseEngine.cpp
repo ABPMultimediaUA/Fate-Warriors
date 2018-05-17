@@ -122,6 +122,11 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.2, -0.2,  0.4, 0.2);
     _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.2, -0.35, 0.4, 0.2);
     
+
+    // PANTALLA CARGA
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loading.png", -0.6, 0.6, 1.2, 0.22);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Ready.png", -0.6, 0.6, 1.2, 0.22);
+    //ANYADIR IMAGEN DE MANDO CON CONTROLES E IMAGEN DE 'PULSA A PARA CONTINUAR'
 }
 
 void TMooseEngine::PreparacionSombras(){
@@ -438,6 +443,28 @@ void TMooseEngine::renderUIHUD(){
     _ui->drawHUD();
     glEnable(GL_CULL_FACE);
     //glfwSwapBuffers(window);
+}
+
+void TMooseEngine::render_pantalla_carga(){
+    clear();
+    glDisable(GL_CULL_FACE);
+    
+    _ui->render_pantalla_carga();
+
+    glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+void TMooseEngine::render_partida_cargada(){
+    clear();
+    glDisable(GL_CULL_FACE);
+    
+    _ui->render_partida_cargada();
+
+    glEnable(GL_CULL_FACE);
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void TMooseEngine::apagar(){
