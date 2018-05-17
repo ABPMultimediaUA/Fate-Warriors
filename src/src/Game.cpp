@@ -202,8 +202,10 @@ void Game::update_mirar(double _i_tiempo_desde_ultimo_update){
 
 void Game::update_pre_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Pre Partida" << std::endl;
-	if(_input_jugador->get_saltar() && Time::Instance()->get_tiempo_inicio_pausa() > 500)
+	if(_input_jugador->get_saltar() && Time::Instance()->get_tiempo_inicio_pausa() > 500) {
    		Game::game_instancia()->cambio_a_update_partida();
+		_sonido->Play_menu(0);
+	}
 }
 
 // ------------------------------------ FUNCIONES DE RENDER ------------------------------------
