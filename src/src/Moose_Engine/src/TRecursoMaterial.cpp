@@ -4,13 +4,11 @@
 #include <GLFW/glfw3.h>
 
 TRecursoMaterial::TRecursoMaterial(std::string nombre){
-    //_nombre=&nombre[0];
     _path=nombre;
     std::string aux(nombre);
-    std::string type = aux.substr(aux.find_last_of('_')+1, aux.size()-aux.find_last_of('_')-1);
-    std::string path = aux.substr(0,aux.find_last_of('_'));
-    cargarFichero(path.c_str());
-    //std::cout << _nombre << "   id: "<<_id<<std::endl;
+    std::string path = aux.substr(0,aux.find_last_of('_'));//quitar tipo de textura en el nombre
+    std::string aux2 = path.substr(0, path.find_last_of('-')-1);//quitar un extra de las normales de las animaciones
+    cargarFichero(aux2.c_str());
 }
 
 TRecursoMaterial::~TRecursoMaterial(){
