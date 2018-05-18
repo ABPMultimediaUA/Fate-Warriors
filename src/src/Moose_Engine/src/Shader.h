@@ -15,7 +15,7 @@ enum ShaderType {
     Shader_count
 };
 
-
+//el codigo de esta clase esta basado en el codigo de learnopengl
 class Shader{
     public:
         Shader();

@@ -19,28 +19,23 @@ Shader::Shader(){
 
 
 void Shader::LoadShader(ShaderType type,const char* vertex_path, const char* fragment_path){
-   // 1. retrieve the vertex/fragment source code from filePath
+    //crear shaders
     GLuint ID;
     std::string vertex_Code;
     std::string fragment_Code;
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
-    // ensure ifstream objects can throw exceptions:
     vShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
     try 
-    {
-        // open files
+    {//cargar shaders
         vShaderFile.open(vertex_path);
         fShaderFile.open(fragment_path);
         std::stringstream vShaderStream, fShaderStream;
-        // read file's buffer contents into streams
         vShaderStream << vShaderFile.rdbuf();
         fShaderStream << fShaderFile.rdbuf();
-        // close file handlers
         vShaderFile.close();
         fShaderFile.close();
-        // convert stream into string
         vertex_Code   = vShaderStream.str();
         fragment_Code = fShaderStream.str();
     }
@@ -50,21 +45,18 @@ void Shader::LoadShader(ShaderType type,const char* vertex_path, const char* fra
     }
     const char* vShaderCode = vertex_Code.c_str();
     const char * fShaderCode = fragment_Code.c_str();
-    // 2. compile shaders
     unsigned int vertex, fragment;
     int success;
     char infoLog[512];
-    // vertex shader
+    //compilado y linkeo de shaders
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vShaderCode, NULL);
     glCompileShader(vertex);
     checkCompileErrors(vertex, "Vertex_shader");
-    // fragment Shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fShaderCode, NULL);
     glCompileShader(fragment);
     checkCompileErrors(fragment, "Fragment_shader");
-    // shader Program
 
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
@@ -140,22 +132,13 @@ void Shader::setProjection(const glm::mat4 &mat){
 }
 void Shader::setLuz(const glm::vec3 _i_luces[], unsigned int cantidad_luces){
     //pasamos cada uno de los parametros de las luces al vertex
-    
-    const char*cAux;
-    std::string s="Light["+std::to_string(cantidad_luces)+']'+".Diffuse";//se pasa cada uno a string de manera individual para evitar el error de falta de conversion de array de char a char*
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[0][0]);
-    s="Light["+std::to_string(cantidad_luces)+']'+".Specular";
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[1][0]);
-    s="Light["+std::to_string(cantidad_luces)+']'+".Ambient";
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[2][0]);
-    s="Light["+std::to_string(cantidad_luces)+']'+".Position";
-    cAux=s.c_str();
-    glUniform3fv(glGetUniformLocation(Program, cAux),1,&_i_luces[3][0]);
+    std::string sarray[4]={".Diffuse",".Specular",".Ambient",".Position"};
+    std::string s;
+    for(uint8_t cont;cont<4;cont++){
+        s="Light["+std::to_string(cantidad_luces)+']'+sarray[cont];
+        glUniform3fv(glGetUniformLocation(Program, s.c_str()),1,&_i_luces[cont][0]);
+    }
     ++cantidad_luces;
-    //std::cout<<"luces: "<<cantidad_luces<<std::endl;
     setInt("cantidad_luces",cantidad_luces);
     
 }
