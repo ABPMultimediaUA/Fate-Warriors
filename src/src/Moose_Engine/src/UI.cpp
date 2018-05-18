@@ -11,6 +11,38 @@ UI::UI(){
 UI::~UI(){
     if(_img_llave != nullptr)
         delete _img_llave;
+
+    for(u_int16_t i = 0; i<_lista_imagenes.size() - 1; i++){
+        delete _lista_imagenes[i];
+    }
+
+    for(u_int16_t i = 0; i<_lista_imagenes_pausa.size(); i++){
+        delete _lista_imagenes_pausa[i];
+    }
+
+    for(u_int16_t i = 0; i<_lista_imagenes_config.size(); i++){
+        delete _lista_imagenes_config[i];
+    }
+
+    for(u_int16_t i = 0; i<_lista_imagenes_config_2.size(); i++){
+        delete _lista_imagenes_config_2[i];
+    }
+
+    for(u_int16_t i = 0; i < _lista_imagenes_hud.size(); i++){
+        delete _lista_imagenes_hud[i];
+    }
+
+    for(u_int16_t i = 0; i<_lista_imagenes_fin_lose.size(); i++){
+        delete _lista_imagenes_fin_lose[i];
+    }
+
+    for(u_int16_t i = 0; i<_lista_imagenes_fin_win.size(); i++){
+        delete _lista_imagenes_fin_win[i];
+    }
+
+    delete _lista_imagenes_carga[0];
+    delete _lista_imagenes_carga[1];
+
 }
 
 Image* UI::crear_imagen(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
@@ -169,6 +201,8 @@ void UI::drawMenuPausa(uint16_t opcion){
     for(u_int16_t i = 0; i<_lista_imagenes_pausa.size(); i++){
         _lista_imagenes_pausa[i]->Draw();
     }
+
+    
 }
 
 //dibujar menu de config
