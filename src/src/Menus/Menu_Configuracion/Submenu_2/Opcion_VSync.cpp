@@ -4,6 +4,7 @@
 #include "../../../Tiempo/Time.h"
 
 #include "../../../Motor_sonido/Interfaz_sonido.h"
+#include "../../../Interfaz/Motor.h"
 
 #include <iostream>
 
@@ -50,10 +51,10 @@ Opcion* Opcion_VSync::update_opcion(double _i_tiempo, Opcion* _this) {
 
 void Opcion_VSync::set_vsync() {
 	_vsync = true;
-	// Haz lo que tengas que hacer con OPENGL
+	Motor::Motor_GetInstance()->toggleVSync();
 }
 
 void Opcion_VSync::unset_vsync() {
 	_vsync = false;
-	// Haz lo que tengas que hacer con OPENGL
+	Motor::Motor_GetInstance()->toggleVSync();
 }

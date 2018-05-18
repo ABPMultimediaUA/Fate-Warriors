@@ -36,6 +36,8 @@ TMooseEngine* TMooseEngine::get_instancia(){
 TMooseEngine::TMooseEngine(){
     init_opengl(1280, 720);
     _fullscreen = false;
+    _vsync = false;
+    glfwSwapInterval(0);
     uint16_t _contadorIDEntidad = 0;
     _n_c_actual=0;
     _n_l_actual=0;
@@ -153,6 +155,28 @@ void TMooseEngine::toggleFullscreen(){
     }
 }
 
+void TMooseEngine::toggleVSync(){
+    _vsync != _vsync;
+    
+    if(_vsync){
+        glfwSwapInterval(1);
+    }
+    else{
+        glfwSwapInterval(0);
+    }
+}
+
+//reinicia la resolucion a pantalla completa a la resolucion del monitor
+//se utiliza para evitar errores graficos al cerrar el juego con resoluciones distintas a la nativa en fullscreen
+void TMooseEngine::reset_resolution(){
+    const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    
+    int window_width = mode->width;
+    int window_height = mode->height;
+
+    glfwSetWindowMonitor(window, NULL, 0, 0, window_width, window_height, 60);
+
+}
 
 void TMooseEngine::PreparacionSombras(){
     glGenFramebuffers(1, &depthMapFBO);  
@@ -238,7 +262,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, micallback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
 
     if (window == NULL){
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -260,6 +284,11 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK); 
     glFrontFace(GL_CCW);
+
+    //const char * extension= "GLX_EXT_swap_control";
+    //bool supported = glfwExtensionSupported(extension);
+    
+    
 }
 
 float TMooseEngine::getMouseOffsetX(){
@@ -474,6 +503,9 @@ void TMooseEngine::render_partida_cargada(){
 }
 
 void TMooseEngine::apagar(){
+    if(_fullscreen){
+        reset_resolution();
+    }
    glfwSetWindowShouldClose(window, true);
 }
 

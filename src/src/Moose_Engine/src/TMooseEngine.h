@@ -80,9 +80,13 @@ class TMooseEngine{
         void guarda_tamanyo_viewport(int width,int height);
         //---OPCIONES GRAFICAS---
         void toggleFullscreen();
+        void toggleVSync();
+        void reset_resolution();
 
     private:
         bool _fullscreen;
+        bool _vsync;
+
         void setMouseOffsetX(float offset);
         void setMouseOffsetY(float offset);
 

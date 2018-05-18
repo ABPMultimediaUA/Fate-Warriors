@@ -161,6 +161,7 @@ public:
 
     void resize_window(int _i_width, int _i_height);
     void toggleFullscreen();
+    void toggleVSync();
     
 private:
 

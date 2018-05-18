@@ -1048,3 +1048,7 @@ void Motor::resize_window(int _i_width, int _i_height) {
 void Motor::toggleFullscreen(){
 	_me->toggleFullscreen();
 }
+
+void Motor::toggleVSync(){
+	_me->toggleVSync();
+}
