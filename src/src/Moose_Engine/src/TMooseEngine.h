@@ -78,9 +78,11 @@ class TMooseEngine{
 
         void resize_window(int _i_width, int _i_height);
         void guarda_tamanyo_viewport(int width,int height);
+        //---OPCIONES GRAFICAS---
+        void toggleFullscreen();
 
     private:
-
+        bool _fullscreen;
         void setMouseOffsetX(float offset);
         void setMouseOffsetY(float offset);
 

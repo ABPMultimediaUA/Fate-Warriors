@@ -1044,3 +1044,7 @@ void Motor::set_llave_hud(bool _i_tiene_llave){
 void Motor::resize_window(int _i_width, int _i_height) {
     _me->resize_window(_i_width, _i_height);
 }
+
+void Motor::toggleFullscreen(){
+	_me->toggleFullscreen();
+}

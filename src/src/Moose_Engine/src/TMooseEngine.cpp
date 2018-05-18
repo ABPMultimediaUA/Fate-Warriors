@@ -35,6 +35,7 @@ TMooseEngine* TMooseEngine::get_instancia(){
 
 TMooseEngine::TMooseEngine(){
     init_opengl(1280, 720);
+    _fullscreen = false;
     uint16_t _contadorIDEntidad = 0;
     _n_c_actual=0;
     _n_l_actual=0;
@@ -72,6 +73,7 @@ void TMooseEngine::initUI(){
     
     //MENU CONFIG
         //textos de opciones
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", -0.1, 0.90, 0.15, 0.15); //submenu
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Music.png", "Imagenes_Config/Config_Music_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_SFX.png", "Imagenes_Config/Config_SFX_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Voices.png", "Imagenes_Config/Config_Voices_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
@@ -98,10 +100,18 @@ void TMooseEngine::initUI(){
         //boton on/off 2 (15)
         _ui->crear_imagen_config(_shader, "Imagenes_Config/OFF-ON_ON.png", "Imagenes_Config/OFF-ON_OFF.png",  0.4, -0.35, 0.4, 0.2);
         
+
+
         _ui->set_eje_x(false);
         _ui->set_eje_y(true);
         
-    
+
+
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.90, 0.15, 0.15); //submenu
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.70, 0.15, 0.15); //vsync
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.50, 0.15, 0.15); //res
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.30, 0.15, 0.15); //fullscreen
+        
     //MENU HUD
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Inferior.png", -0.722, 0.78, 0.326, 0.1);
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Barra_1.png", "Imagenes_HUD/HUD_Barra_2.png", "Imagenes_HUD/HUD_Barra_3.png", -0.722, 0.78, 0.326, 0.1);
@@ -130,6 +140,19 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Ready.png", -0.6, 0.6, 1.2, 0.22);
     //ANYADIR IMAGEN DE MANDO CON CONTROLES E IMAGEN DE 'PULSA A PARA CONTINUAR'
 }
+
+void TMooseEngine::toggleFullscreen(){
+    _fullscreen = !_fullscreen;
+    
+    if(_fullscreen){
+        glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, _width, _height, 60);
+    }
+
+    else{
+        glfwSetWindowMonitor(window, NULL, 0, 0, _width, _height, 60);    
+    }
+}
+
 
 void TMooseEngine::PreparacionSombras(){
     glGenFramebuffers(1, &depthMapFBO);  
@@ -212,8 +235,8 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     window = glfwCreateWindow(width, height, "Fate Warriors", NULL, NULL);
     
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPosCallback(window, micallback);
+    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetCursorPosCallback(window, micallback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSwapInterval(1);
 
@@ -293,7 +316,7 @@ TNodo* TMooseEngine::crearNodoLuz(TNodo *padre, TEntidad *ent){
 }
 
 Image_Map* TMooseEngine::anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo){
-   return _mapa->anyadir_elemento_al_mapa(x,  y,  ancho,  alto,  tipo);
+    return _mapa->anyadir_elemento_al_mapa(x,  y,  ancho,  alto,  tipo);
 }
 
 void TMooseEngine::eliminar_elemento_del_mapa(Image_Map* elemento_a_eliminar){

@@ -21,6 +21,9 @@ class UI{
         Image* crear_imagen_config(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
         Image* crear_imagen_config(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
+        Image* crear_imagen_config_2(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
+        Image* crear_imagen_config_2(Shader* shader, const char* ruta, float x, float y, float width, float height);
+
         Image* crear_imagen_fin_win(Shader* shader, const char* ruta, float x, float y, float width, float height);
         Image* crear_imagen_fin_win(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
 
@@ -57,8 +60,12 @@ class UI{
         std::vector<Image*> _lista_imagenes;
         //MENU PAUSA
         std::vector<Image*> _lista_imagenes_pausa;
+
         //MENU CONFIG
         std::vector<Image*> _lista_imagenes_config;
+        //MENU CONFIG 2
+        std::vector<Image*> _lista_imagenes_config_2;
+
         //HUD
         std::vector<Image*> _lista_imagenes_hud;
         //MENU WIN

@@ -4,11 +4,11 @@
 #include "../../../Tiempo/Time.h"
 
 #include "../../../Motor_sonido/Interfaz_sonido.h"
-
+#include "../../../Interfaz/Motor.h"
 #include <iostream>
 
 Opcion_Fullscreen::Opcion_Fullscreen(Input* _i_input) : Opcion(_i_input) {
-	_fullscreen = true;
+	_fullscreen = false;
 }
 
 Opcion_Fullscreen::~Opcion_Fullscreen(){
@@ -50,10 +50,10 @@ Opcion* Opcion_Fullscreen::update_opcion(double _i_tiempo, Opcion* _this) {
 
 void Opcion_Fullscreen::set_fullscreen() {
 	_fullscreen = true;
-	// Haz lo que tengas que hacer con OPENGL
+    Motor::Motor_GetInstance()->toggleFullscreen();
 }
 
 void Opcion_Fullscreen::unset_fullscreen() {
 	_fullscreen = false;
-	// Haz lo que tengas que hacer con OPENGL
+    Motor::Motor_GetInstance()->toggleFullscreen();
 }
