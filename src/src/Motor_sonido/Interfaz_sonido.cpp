@@ -139,11 +139,10 @@ Interfaz_sonido* Interfaz_sonido::GetInstancia(){
 
 Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
     char wavfile[] = "";//variable donde depositar el wav(en el caso de que se hiciera)
-    //FMOD::Studio::System* system = NULL;
+
     ERRCHECK( FMOD::Studio::System::create(&system) );
 
-    // The example Studio project is authored for 5.1 sound, so set up the system output mode to match
-    //FMOD::System* lowLevelSystem = NULL;
+
     ERRCHECK( system->getLowLevelSystem(&lowLevelSystem) );
     ERRCHECK( lowLevelSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_5POINT1, 0) );
 
@@ -151,10 +150,8 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
 
     ERRCHECK( system->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, &wavfile) );//inicializacion de fmod
 
-    //FMOD::Studio::Bank* masterBank = NULL;
     ERRCHECK( system->loadBankFile("Banks/Master Bank.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank) );
 
-    //FMOD::Studio::Bank* stringsBank = NULL;
     ERRCHECK( system->loadBankFile("Banks/Master Bank.strings.bank", FMOD_STUDIO_LOAD_BANK_NORMAL, &stringsBank) );
 
 
@@ -172,7 +169,6 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
 	_sonidos_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 	while(_iteracion!="Fin"){//bucle de lectura del fichero
 		_next=mapping_sonido;
-		//std::cout<<_iteracion<<std::endl;
 		while (_next->_nombre_objeto){
 			if(_iteracion==_next->_nombre_objeto){
 				(this->*_next->pmet)(_iteracion);
@@ -182,11 +178,6 @@ Interfaz_sonido::Interfaz_sonido(std::string _i_fichero){
 			++_next;
 		}
         _sonidos_txt>>_iteracion;
-		/*if(_iteracion=="NODO"){
-			sonidos_crear_nodo(_sonidos_txt, _iteracion);
-		}else if(_iteracion=="PASILLO"){
-			sonidos_crear_pasillo(_sonidos_txt, _iteracion);//llamada a la funcion de crear un nuevo pasillo
-		}*/
     }
     _sonidos_txt.close();//cierre del fichero
 
@@ -243,9 +234,6 @@ Interfaz_sonido::~Interfaz_sonido(){
     ERRCHECK( PasosBank->unload() );
     ERRCHECK( masterBank->unload() );
 
-    /*ERRCHECK( _chanel_voces->unload() );
-    ERRCHECK( _chanel_efectos->unload() );
-    ERRCHECK( _chanel_sfx->unload() );*/
     ERRCHECK( system->release() );
 }
 

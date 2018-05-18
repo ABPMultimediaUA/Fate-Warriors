@@ -16,13 +16,10 @@ TRecursoMaterial::~TRecursoMaterial(){
 }
 
 void TRecursoMaterial::SetNombre(std::string nombre){
-    //_nombre = nombre;
+
 }
 
 std::string TRecursoMaterial::GetNombre(){
-    /*std::cout<< "_id: "<<_id<<std::endl;
-    std::cout <<_path<<std::endl;
-    std::cout << _path << "   id: "<<_id<<std::endl;*/
     return _path;
 }
 
@@ -33,11 +30,7 @@ void TRecursoMaterial::cargarFichero(const char* path){
     glGenTextures(1, &textureID);
     
     int width=0, height=0, nrComponents=0;
-    //unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
     unsigned char *data = stbi_load(path, &width, &height, &nrComponents, 0);
-    /*std::cout <<nrComponents<<std::endl;
-    std::cout <<width<<"         "<<height<<std::endl;
-    std::cout <<"data:   "<<data<<std::endl;*/
     if (data)
     {
         GLenum format;
@@ -52,9 +45,6 @@ void TRecursoMaterial::cargarFichero(const char* path){
         }
         glBindTexture(GL_TEXTURE_2D, textureID);
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        //glGenerateMipmap(GL_TEXTURE_2D);
-//preguntar acerca del glGenerateMimmap
-//p
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

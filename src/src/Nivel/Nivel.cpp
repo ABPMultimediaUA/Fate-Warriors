@@ -242,25 +242,7 @@ void Nivel::nivel_crear_adyacentes(std::ifstream& _i_nivel_txt, std::string& _i_
 		nodo->get_blackboard()->anyadir_zona(_id_a);
 	}
 	_i_nivel_txt >> _i_iteracion;//obtiene el siguiente valor de nombre
-	//std::cout<<_i_iteracion<<std::endl;
-	//std::cout << "tamano"<< nodo->get_blackboard()->get_zonas_enemigas() << std::endl;
 }
-
-
-/*Funciones para guardar los datos del grafo dentro del nodo
- * */
-/*struct Tnodo_func{//declaracion de los parametros
-	const char* _nombre_objeto;
-	void (Nivel::*pmet)(std::ifstream&, std::string&);
-};
-
-Tnodo_func mapping[] = {//definicion de los parametros
-		{"PASILLO", &Nivel::nivel_crear_pasillo},
-		{"NODO", &Nivel::nivel_crear_nodo},
-		{"ARISTA", &Nivel::nivel_crear_arista},
-		{0, 0}
-};
-
 
 
 /*Funciones para guardar los datos
@@ -284,9 +266,8 @@ Tinstance2func mapping[] = {//definicion de los parametros
 Nivel::Nivel(std::string &_i_fichero) {
 	std::ifstream _nivel_txt;
 	Tinstance2func *_next;
-	_lod2 = new Grafo();					//nodo inicial del nivel
+	_lod2 = new Grafo();//nodo inicial del nivel
 
-	//(this.*pmet)(_nivel_txt,_iteracion);
 	_nivel_txt.open(_i_fichero);//apertura del fichero
 	std::string _iteracion;
 		if(_nivel_txt.fail()){//comprobacion de la apertura del fichero
@@ -296,7 +277,6 @@ Nivel::Nivel(std::string &_i_fichero) {
 	_nivel_txt >> _iteracion;//primera lectura de nombre de clase a introducir
 	while(_iteracion!="Fin"){//bucle de lectura del fichero
 		_next=mapping;
-		//std::cout<<_iteracion<<std::endl;
 		while (_next->_nombre_objeto){
 			if(_iteracion==_next->_nombre_objeto){
 				(this->*_next->pmet)(_nivel_txt,_iteracion);
@@ -304,20 +284,7 @@ Nivel::Nivel(std::string &_i_fichero) {
 
 			++_next;
 		}
-		/*if(_iteracion=="NODO"){
-			nivel_crear_nodo(_nivel_txt, _iteracion);
-		}else if(_iteracion=="PASILLO"){
-			nivel_crear_pasillo(_nivel_txt, _iteracion);//llamada a la funcion de crear un nuevo pasillo
-		}*/
 	}
-		/*uint16_t algo;
-	_lod2->grafo_get_numero_posiciones_spawn_enemigos(algo);
-	float** algo2;
-	algo2= new float*[algo];
-	for(int cont=0;cont<algo;cont++){
-		algo2[cont]=new float[2];
-	}
-	_lod2->grafo_get_posiciones_spawn_enemigos(algo2);*/
 	_nivel_txt.close();//cierre del fichero
 
 }
@@ -327,43 +294,6 @@ Nivel::~Nivel() {
 	instancia = 0;
 	delete _lod2;
 }
-
-//TO DO: hacer el grafo lod1
-//TO DO: funcion para recorrer el lod1 a partir de una x y una y
-//TO DO: funcion para dar el camino mas corto entre 2x y 2y (A*)
-//TO DO: funcion para encontrar el vertice mas cercano a partir de coordenadas
-
-/*Da un vertice dependiendo de su nombre.
- * Input: Id del vertice.
- * Output: puntero del vertice.
- * */
-
-/*Inserta un nodo en el grafo.
- * Input: id del nodo.
- * Output: ~.
- * */
-/*void Nivel::nivel_inserta_vertice(Vertice* _i_vert){
-
-
-	if(nivel_vacio()){
-		_h=_i_vert;
-	}
-	else{
-		Vertice *_aux;
-		_aux=_h;
-		while(_aux->_sig!=NULL){
-			_aux = _aux->_sig;
-		}
-		_aux->_sig=_i_vert;
-	}
-
-}
-*/
-/*Devuelve el mejor camino (LOD2) entre dos nodos dados.
- * Input: un origen y un destino.
- * Output: pila con el recorrido.
- * */
-
 
 void Nivel::Update(){
 	_lod2->Update();
