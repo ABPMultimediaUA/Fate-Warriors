@@ -31,11 +31,11 @@ TRecursoMalla::~TRecursoMalla(){
 }
 
 std::string TRecursoMalla::GetNombre(){
-    
+    return _nombre;
 }
 
 void TRecursoMalla::SetNombre(std::string nombre){
-    
+    _nombre = nombre;
 }
 void TRecursoMalla::draw(Shader* shader){
     for(uint8_t i = 0; i < textures.size(); i++){

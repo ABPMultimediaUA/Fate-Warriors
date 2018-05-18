@@ -293,7 +293,7 @@ TNodo* TMooseEngine::crearNodoLuz(TNodo *padre, TEntidad *ent){
 }
 
 Image_Map* TMooseEngine::anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo){
-    _mapa->anyadir_elemento_al_mapa(x,  y,  ancho,  alto,  tipo);
+   return _mapa->anyadir_elemento_al_mapa(x,  y,  ancho,  alto,  tipo);
 }
 
 void TMooseEngine::eliminar_elemento_del_mapa(Image_Map* elemento_a_eliminar){
