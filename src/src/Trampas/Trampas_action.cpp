@@ -87,7 +87,7 @@ void Trampas_action::eliminar_trampas_mina(){
 	_trampas->borrar_mina();
 }
 
-Pinchos** Trampas_action::comprobar_trampas_pinchos(){
+void Trampas_action::comprobar_trampas_pinchos(){
   unsigned short n_trampas           = _trampas->get_n_trampas_pincho();
   Objeto_Motor* _objeto_motor_pinchos;
   Motor* putero_a_motor              = Motor::Motor_GetInstance();

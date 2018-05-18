@@ -76,6 +76,7 @@ uint8_t Menu_Pausa::get_i_opcion() {
     	if(_opcion_actual == _opciones[i]) 
      		return i; 
   	} 
+  	return 0;
 }
 
 // Indica si el menu de opciones esta abierto (Se esta dentro de el)
@@ -85,5 +86,5 @@ bool Menu_Pausa::menu_opciones_abierto() {
 
 // Devuelve la opcion del menu principal
 uint8_t Menu_Pausa::get_i_configuracion() {
-	_opciones[1]->get_i_configuracion();
+	return _opciones[1]->get_i_configuracion();
 }

@@ -75,5 +75,5 @@ bool Opcion_Configuracion::get_dentro() {
 }
 
 uint8_t Opcion_Configuracion::get_i_configuracion() { 
-	_configuracion->get_i_configuracion(); 
+	return _configuracion->get_i_configuracion(); 
 }

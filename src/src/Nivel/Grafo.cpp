@@ -136,6 +136,7 @@ Arista * Grafo::grafo_get_arista(int _i_id){
 		}
 		_VertAux = _VertAux->get_sig();
 	}
+	return nullptr;
 }
 void Grafo::grafo_inserta_vertice(Vertice * _nuevo){
 

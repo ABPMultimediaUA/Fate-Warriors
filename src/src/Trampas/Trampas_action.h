@@ -13,7 +13,7 @@ public:
 
 	void comprobar_trampas_mina();
 	void eliminar_trampas_mina();
-	Pinchos** comprobar_trampas_pinchos();
+	void comprobar_trampas_pinchos();
 	void update();
 
 private:

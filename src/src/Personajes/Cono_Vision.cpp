@@ -74,7 +74,7 @@ uint16_t Cono_Vision::get_rotacion_con_objetivo(Character* _objetivo){
 }
 
 uint16_t Cono_Vision::get_rotacion_con_apuntando(){
-    get_rotacion_con_objetivo(_personaje_fijado);
+    return get_rotacion_con_objetivo(_personaje_fijado);
 }
 
 

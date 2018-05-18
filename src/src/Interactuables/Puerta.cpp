@@ -46,14 +46,14 @@ bool Puerta::get_abierta(){
 std::tuple<float, float> Puerta::get_posicion_cerrojo() {
     if(_rotacion == 0)
         return std::make_tuple(_objeto_motor->getX()+5.25, _objeto_motor->getZ()-6.25);
-    else if(_rotacion == 1)
+    else //if(_rotacion == 1)
         return std::make_tuple(_objeto_motor->getX()-5.25, _objeto_motor->getZ()+6.25);
 }
 
 float Puerta::get_rotacion_cerrojo() {
     if(_rotacion == 0) 
         return 0;
-    else if(_rotacion == 1)
+    else //if(_rotacion == 1)
         return 180;
 }
 

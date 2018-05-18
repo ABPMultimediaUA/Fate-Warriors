@@ -48,6 +48,7 @@ uint8_t Menu_Principal::get_i_opcion() {
     	if(_opcion_actual == _opciones[i]) 
       		return i; 
   	} 
+  	return 0;
 }
 
 // Pinta por terminal el estado actual
@@ -67,5 +68,5 @@ bool Menu_Principal::menu_opciones_abierto() {
 
 // Devuelve la opcion del menu principal
 uint8_t Menu_Principal::get_i_configuracion() {
-	_opciones[1]->get_i_configuracion();
+	return _opciones[1]->get_i_configuracion();
 }

@@ -139,13 +139,14 @@ uint8_t* Character::get_ref_rango_arma_corta(){
         _rango_arma_corta=_inventario->get_objeto_cerca()->get_rango();
         return &_rango_arma_corta;
     }
-		
+	return nullptr;
 }
 uint8_t* Character::get_ref_rango_arma_larga(){
 	if(_tiene_arma_larga==true){
         _rango_arma_larga=_inventario->get_objeto_distancia()->get_rango();
         return &_rango_arma_larga;
     }
+    return nullptr;
 }
 
 int16_t Character::get_danyo_ataque_normal(){
@@ -659,6 +660,7 @@ btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
         //std::cout<< "Escala RB ATAQUE default" <<std::endl;
         return btVector3(5,1,5);
     }
+    return btVector3(0,0,0);
 }
 
 void Character::set_accion(Enum_Acciones _i_accion){

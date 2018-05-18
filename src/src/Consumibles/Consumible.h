@@ -11,7 +11,7 @@ public:
 	virtual ~Consumible();
 	
 	bool comprobar_colision(Character* _character);
-	virtual bool usar(Character* modificar){};
+	virtual bool usar(Character* modificar) = 0;
 	short get_valor();
 
 protected:

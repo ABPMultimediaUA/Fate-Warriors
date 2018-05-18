@@ -43,12 +43,12 @@ public:
 	inline bool* get_ref_tiene_arma_larga(){
     	return &_tiene_arma_larga;
 	}
-	inline float* get_ref_x(){
+	/*inline float* get_ref_x(){
 		//return &_x; Tiene que coger la posicion del motor
 	}
 	inline float* get_ref_z(){
 		//return &_z; Tiene que coger la posicion del motor
-	}
+	}*/
 	inline int get_npcs_persiguiendome(){
 		return _npcs_persiguiendome;
 	}

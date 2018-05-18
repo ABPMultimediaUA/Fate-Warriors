@@ -126,4 +126,5 @@ uint8_t Menu_Configuracion::get_i_configuracion() {
     	if(_opcion_actual == _opciones[i]) 
     		return i; 
   	} 
+  	return 0;
 }
