@@ -9,8 +9,6 @@ struct Vertex {
     glm::vec3 Position;
     glm::vec3 Normal;
     glm::vec2 TexCoords;
-    /*glm::vec3 Tangent;
-    glm::vec3 Bitangent;*/
 };
 
 TRecursoMalla::TRecursoMalla(std::vector<Vertex> _i_vertices, 
@@ -58,20 +56,19 @@ void TRecursoMalla::draw(Shader* shader){
         glBindTexture(GL_TEXTURE_2D, textures[i]->Get_id());
     }
     
-    // draw mesh
+    // dibujar mesh
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    //std::cout<<"elementos: "<<(int)*std::max(indices.begin(),indices.end())<<std::endl;
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 void TRecursoMalla::Preparar_mesh(){
 
-    // create buffers/arrays
+    // crear buffers/arrays
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
     glBindVertexArray(VAO);
-    // load data into buffers
+    // pasar los datos a los buffers
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);  
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);

@@ -6,7 +6,7 @@ class Vertex;
 class Shader;
 class TRecursoMaterial;
 class TRecursoMalla : public TRecurso{
-
+//el dibujado de opengl esta basado en learnopengl
 public:
     TRecursoMalla(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TRecursoMaterial*> textures);
     ~TRecursoMalla();

@@ -4,7 +4,7 @@
 
 class aiMaterial;
 class TRecursoMaterial : public TRecurso{
-
+//la carga de assimp esta basada en learnopengl
 public:
     TRecursoMaterial(std::string nombre);
     ~TRecursoMaterial();

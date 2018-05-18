@@ -9,13 +9,6 @@ TTransform::~TTransform(){}
 void TTransform::beginDraw(Shader* _i_shader){
     _pila_matrices.push(_matriz);
     _matriz = _t_matriz * _matriz;   //MULTIPLICACION DE MATRIZ
-    //std::cout<<"ID ------"<<_ID<<"matrix:   "<<glm::to_string(_t_matriz)<<"\n";
-    //std::cout<<"lll:  "<<glm::to_string(matriz)<<"\n";
-    
-    /*    matriz= glm::outerProduct(&_t_matriz,&matriz);
-    glm::vec4 a(0.1, 0.2, 0.3, 0.4), b(0.5, 0.6, 0.7, 0.8);
-    glm::mat4 algo=(a,a,a,a);
-    glm::mat4 o = glm::outerProduct(a, b);*/
 
 }
 void TTransform::endDraw(){
