@@ -17,8 +17,6 @@ struct Vertex {
     glm::vec3 Position;
     glm::vec3 Normal;
     glm::vec2 TexCoords;
-    /*glm::vec3 Tangent;
-    glm::vec3 Bitangent;*/
 };
 
 
@@ -41,7 +39,7 @@ void TGestorRecursos::setCalidad(uint8_t _calidad){
     variableCalidad = _calidad;
 }
 
-TRecurso* TGestorRecursos::getRecurso(const char* nombre){
+TRecurso* TGestorRecursos::getRecurso(const char* nombre){//funcion de busqueda del recurso
     TRecurso* rec;
     for(uint16_t i=0; i<_recursos.size();i++){
         if(nombre==_recursos[i]->GetNombre()){
@@ -59,7 +57,6 @@ TRecursoAnimacion* TGestorRecursos::getRecursoAnim(const char* nombre){
         std::string s(nombre);
         std::vector<TRecursoModelado*> modelos;
         cargarAnim(s,modelos);
-        //_recursos.back()->SetNombre((char*)nombre);
         return static_cast<TRecursoAnimacion*>(_recursos.back());
     }
     return static_cast<TRecursoAnimacion*>(rec);
@@ -78,19 +75,7 @@ TRecursoModelado* TGestorRecursos::getRecursoModelo(const char* nombre){
     }
     return static_cast<TRecursoModelado*>(rec);
 }
-TRecursoModelado* TGestorRecursos::getRecursoModelo_sinBB(const char* nombre){
-    TRecurso* rec;
-    rec=getRecurso(nombre);
 
-    if(rec==nullptr){
-        
-        std::string s(nombre);
-        cargarModelo_sinBB(s);
-        _recursos.back()->SetNombre((char*)nombre);
-        return static_cast<TRecursoModelado*>(_recursos.back());
-    }
-    return static_cast<TRecursoModelado*>(rec);
-}
 
 
 TRecursoMaterial* TGestorRecursos::getRecursoMaterial(char* nombre){
@@ -98,11 +83,9 @@ TRecursoMaterial* TGestorRecursos::getRecursoMaterial(char* nombre){
     rec=getRecurso(nombre);
 
     if(rec==nullptr){
-        //std::cout<<"3 veces   "<<nombre<<std::endl;
         std::string s(nombre);
         rec = new TRecursoMaterial(nombre);
         _recursos.push_back(rec);
-        //_recursos.back()->SetNombre((char*)s.c_str());
         return static_cast<TRecursoMaterial*>(rec);
     }
 
@@ -115,6 +98,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
     std::string aux;
     std::string path_obj;
     std::string path_text;
+    //segun la calidad que se desee, se cargan las animaciones de una carpeta u otra
     if(variableCalidad == 1){
         aux="animaciones/"+path2+"/"+path+"/"+path;
         path_obj=aux;
@@ -138,7 +122,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
         scene = importer.ReadFile(path_obj, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         ++cont;
         path_obj=aux;
-        if(cont>=10){
+        if(cont>=10){//eleccion de la cantidad de 0 a poner
             if(cont>=100){
                 path_obj+="."+std::to_string(0)+std::to_string(cont)+".obj";
             }else{
@@ -152,7 +136,7 @@ void TGestorRecursos::cargarAnim(std::string &path, std::vector<TRecursoModelado
         cargarModelo(path_obj, scene, _i_modelados, path_text);
         ++cont;
         path_obj=aux;
-        if(cont>=10){
+        if(cont>=10){//busqueda de la cantidad de 0 que tiene
             if(cont>=100){
                 path_obj+="."+std::to_string(0)+std::to_string(cont)+".obj";
             }else{
@@ -178,6 +162,7 @@ void TGestorRecursos::cargarModelo(std::string &path, const aiScene* scene, std:
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
     glm::vec3 Vmax,Vmin,BB;
+    //paso final en la creacion del bounding box de una animacion
     for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
         Vmax.x=std::max(Vmax.x,(*it)->get_max().x);
         Vmax.y=std::max(Vmax.y,(*it)->get_max().y);
@@ -198,6 +183,7 @@ void TGestorRecursos::cargarModelo(std::string &path){
     
     std::string aux;
     const aiScene* scene;
+    //segun la calidad que se desee, se cargan los modelos de una carpeta u otra
     if(variableCalidad == 1){
             //calidad de textura normal
             aux="models/";
@@ -235,7 +221,6 @@ void TGestorRecursos::cargarModelo(std::string &path){
             aux="models_high/"+path+"/";//cambio de ruta para coger la ruta de la textura
     }
     // coger el path
-    //directory = path.substr(0, path.find_last_of('/'));
     cargarNodo(scene->mRootNode, scene, _modelos, aux);
     int width, height, nrChannels;
     
@@ -247,14 +232,7 @@ void TGestorRecursos::cargarModelo(std::string &path){
     TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
     glm::vec3 Vmax,Vmin,BB;
 
-    
-   /* for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
-        std::cout<<(*it)->get_max().x << "\n";
-        std::cout<<(*it)->get_max().y << "\n";
-
-    }*/
-
-
+    //paso final en la creacion del bounding box de una animacion
     for(auto it = _modelos.begin(); it!=_modelos.end(); it++){ 
         Vmax.x=std::max(Vmax.x,(*it)->get_max().x);
         Vmax.y=std::max(Vmax.y,(*it)->get_max().y);
@@ -271,32 +249,28 @@ void TGestorRecursos::cargarModelo(std::string &path){
 }
 
 void TGestorRecursos::cargarNodo(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, const std::string& path){
-    // process each mesh located at the current nodo
+    //funcion recursiva para la carga de los diferentes nodos de assimp
     for(unsigned int i = 0; i < nodo->mNumMeshes; i++){
-        // the nodo object only contains indices to index the actual objects in the scene. 
-        // the scene contains all the data, nodo is just to keep stuff organized (like relations between nodos).
         aiMesh* mesh = scene->mMeshes[nodo->mMeshes[i]];
         _i_modelos.push_back(cargarMalla(mesh, scene, path));
     }
-    // after we've processed all of the meshes (if any) we then recursively process each of the children nodos
     for(unsigned int i = 0; i < nodo->mNumChildren; i++){
         cargarNodo(nodo->mChildren[i], scene, _i_modelos, path);
     }
 }
 
 TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,const std::string path){
-    // data to fill
+    
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<TRecursoMaterial*> textures;
-    // Walk through each of the mesh's vertices
+    
     glm::vec3 Vmax;
     glm::vec3 Vmin;
     for(unsigned int i = 0; i < mesh->mNumVertices; i++)
-    {
+    {//carga de los vertices y busqueda de los maximimos y minimos
         Vertex vertex;
-        glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
-        // positions
+        glm::vec3 vector; 
         
         vector.x = mesh->mVertices[i].x * -1;
         vector.y = mesh->mVertices[i].y;
@@ -308,17 +282,15 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
         Vmin.y=std::min(Vmin.y,vector.y);
         Vmin.z=std::min(Vmin.z,vector.z);
         vertex.Position = vector;
-        // normals
+        // normales
         vector.x = mesh->mNormals[i].x;
         vector.y = mesh->mNormals[i].y;
         vector.z = mesh->mNormals[i].z;
         vertex.Normal = vector;
-        // texture coordinates
-        if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
+        // coordenadas de textura
+        if(mesh->mTextureCoords[0]) 
         {
             glm::vec2 vec;
-            // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-            // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
             vec.x = mesh->mTextureCoords[0][i].x; 
             vec.y = mesh->mTextureCoords[0][i].y;
             vertex.TexCoords = vec;
@@ -328,36 +300,30 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
         }
         vertices.push_back(vertex);
     }
-    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
     for(unsigned int i = 0; i < mesh->mNumFaces; i++)
     {
         aiFace face = mesh->mFaces[i];
-        // retrieve all indices of the face and store them in the indices vector
         for(unsigned int j = 0; j < face.mNumIndices; j++)
             indices.push_back(face.mIndices[j]);
     }
-    // process materials
-    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex]; 
-    /*TRecursoMaterial* _material=new TRecursoMaterial(material);
-    _material->SetNombre((char*)(path+std::to_string((int)mesh->mMaterialIndex)).c_str());*/
-
-    //maps
-    //diffuse maps
+   aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex]; 
+   //mapas
+    //diffuse
     std::vector<TRecursoMaterial*> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "_diffuse", path);
-    //std::cout<<"Textura difusa: "<<path<<std::endl;
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-    //specular maps
+
+    //specular
     std::vector<TRecursoMaterial*> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "_specular", path);
-    //std::cout<<"Textura specular: "<<path<<std::endl;
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-    //ambient maps
+
+    //ambiente
     std::vector<TRecursoMaterial*> abmientMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "_ambient", path);
-    //std::cout<<"Textura ambiente: "<<path<<std::endl;
     textures.insert(textures.end(), abmientMaps.begin(), abmientMaps.end()); 
-    //normales mpas
+
+    //normales
     std::vector<TRecursoMaterial*> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "_normales", path);
-    //std::cout<<"Textura ambiente: "<<path<<std::endl;
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+
 
     //devolver la malla creada a partir de los datos obtenidos*/
     TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
@@ -366,122 +332,17 @@ TRecursoMalla* TGestorRecursos::cargarMalla(aiMesh *mesh, const aiScene *scene,c
     return malla;
 }
 std::vector<TRecursoMaterial*> TGestorRecursos::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string& path)
-{
+{//el nombre del material esta basado en la ruta,el material y el tipo de material que es(ambient,normal...)
     std::vector<TRecursoMaterial*> materiales;
     for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
-    {
+    {//carga de los materiales
         aiString str;
         mat->GetTexture(type, i, &str);
         std::string aux(path);
         aux+=str.C_Str();
         std::string aux2(aux+typeName);
         TRecursoMaterial* material=getRecursoMaterial((char*)aux2.c_str());
-        //std::cout<<"Textura : "<<aux<<std::endl;
         materiales.push_back(material);
     }
     return materiales;
-}
-
-void TGestorRecursos::cargarModelo_sinBB(std::string &path){
-    std::vector<TRecursoMalla*> _modelos;
-    Assimp::Importer importer;
-    std::string aux("models/");
-    aux+=path+"/"+path+".obj";//cambio de ruta para coger el obj
-    const aiScene* scene = importer.ReadFile(aux, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-
-    if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){//si no es cero
-        std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-        return;
-    }
-    aux="models/"+path+"/";//cambio de ruta para coger la ruta de la textura
-    // coger el path
-    //directory = path.substr(0, path.find_last_of('/'));
-    cargarNodo_sinBB(scene->mRootNode, scene, _modelos, aux);
-    int width, height, nrChannels;
-    
-    unsigned int texture1, texture2;
-    glGenTextures(1,&texture1);
-    glBindTexture(GL_TEXTURE_2D,texture1);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    TRecursoModelado* modelado = new TRecursoModelado(_modelos,path.c_str());
-    _recursos.push_back(modelado);
-}
-
-void TGestorRecursos::cargarNodo_sinBB(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, const std::string& path){
-    // process each mesh located at the current nodo
-    for(unsigned int i = 0; i < nodo->mNumMeshes; i++){
-        // the nodo object only contains indices to index the actual objects in the scene. 
-        // the scene contains all the data, nodo is just to keep stuff organized (like relations between nodos).
-        aiMesh* mesh = scene->mMeshes[nodo->mMeshes[i]];
-        _i_modelos.push_back(cargarMalla(mesh, scene, path));
-    }
-    // after we've processed all of the meshes (if any) we then recursively process each of the children nodos
-    for(unsigned int i = 0; i < nodo->mNumChildren; i++){
-        cargarNodo_sinBB(nodo->mChildren[i], scene, _i_modelos, path);
-    }
-}
-
-TRecursoMalla* TGestorRecursos::cargarMalla_sinBB(aiMesh *mesh, const aiScene *scene,const std::string path){
-    // data to fill
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-    std::vector<TRecursoMaterial*> textures;
-    // Walk through each of the mesh's vertices
-    for(unsigned int i = 0; i < mesh->mNumVertices; i++)
-    {
-        Vertex vertex;
-        glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
-        // positions
-        vector.x = mesh->mVertices[i].x;
-        vector.y = mesh->mVertices[i].y;
-        vector.z = mesh->mVertices[i].z;
-        vertex.Position = vector;
-        // normals
-        vector.x = mesh->mNormals[i].x;
-        vector.y = mesh->mNormals[i].y;
-        vector.z = mesh->mNormals[i].z;
-        vertex.Normal = vector;
-        // texture coordinates
-        if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
-        {
-            glm::vec2 vec;
-            // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-            // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-            vec.x = mesh->mTextureCoords[0][i].x; 
-            vec.y = mesh->mTextureCoords[0][i].y;
-            vertex.TexCoords = vec;
-        }
-        else {
-            vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-        }
-        vertices.push_back(vertex);
-    }
-    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
-    for(unsigned int i = 0; i < mesh->mNumFaces; i++)
-    {
-        aiFace face = mesh->mFaces[i];
-        // retrieve all indices of the face and store them in the indices vector
-        for(unsigned int j = 0; j < face.mNumIndices; j++)
-            indices.push_back(face.mIndices[j]);
-    }
-    // process materials
-    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex]; 
-    /*TRecursoMaterial* _material=new TRecursoMaterial(material);
-    _material->SetNombre((char*)(path+std::to_string((int)mesh->mMaterialIndex)).c_str());*/
-
-    //maps
-    //diffuse maps
-    std::vector<TRecursoMaterial*> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", path);
-    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-    //specular maps
-    std::vector<TRecursoMaterial*> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", path);
-    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-    //shininess maps
-    std::vector<TRecursoMaterial*> normalMaps = loadMaterialTextures(material, aiTextureType_SHININESS, "texture_shininess", path);
-    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-
-    //devolver la malla creada a partir de los datos obtenidos*/
-    TRecursoMalla* malla= new TRecursoMalla(vertices, indices, textures);
-    return malla;
 }

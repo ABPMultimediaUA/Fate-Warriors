@@ -53,7 +53,6 @@ class TMooseEngine{
         Image_Map* anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo);
         void eliminar_elemento_del_mapa(Image_Map* _elemento_a_eliminar);
         void draw();
-        void drawSombras();
         void initUI();
         void render_estado_Partida();
         void renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_abierta);

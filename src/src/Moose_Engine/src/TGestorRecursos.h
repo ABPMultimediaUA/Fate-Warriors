@@ -16,7 +16,7 @@ class aiScene;
 class aiNode;
 class aiMaterial;
 class TGestorRecursos {
-
+//la carga de assimp ha sido basada en el codigo de learnopengl
 public:
     static TGestorRecursos* get_instancia();
     ~TGestorRecursos();
@@ -24,7 +24,6 @@ public:
     TRecursoModelado* getRecursoModelo(const char* nombre);	
     TRecursoMaterial* getRecursoMaterial(char* nombre);
     TRecursoAnimacion* getRecursoAnim(const char* nombre);
-    TRecursoModelado* getRecursoModelo_sinBB(const char* nombre);
 
 	//carga de animacion
     void cargarAnim(std::string &path, std::vector<TRecursoModelado*> &_i_modelados);
@@ -36,10 +35,7 @@ public:
     std::vector<TRecursoMaterial*> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string &path);
     TRecursoMalla* cargarMalla(aiMesh *mesh, const aiScene *scene,const std::string path);
     
-    //carga modelo sin Bounding box
-    void cargarModelo_sinBB(std::string &path);
-    void cargarNodo_sinBB(aiNode* nodo, const aiScene* scene, std::vector<TRecursoMalla*> &_i_modelos, const std::string& path);
-    TRecursoMalla* cargarMalla_sinBB(aiMesh *mesh, const aiScene *scene,const std::string path);
+    
 
     void setCalidad(uint8_t _calidad);
 private:

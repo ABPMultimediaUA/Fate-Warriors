@@ -19,7 +19,7 @@ void TModelado::beginDraw(Shader* _i_shader){
 }
 
 void TModelado::draw(Shader* _i_shader){
-    if(_i_shader->check_program(sombras_proyectadas)){
+    if(_i_shader->check_program(sombras_proyectadas)){//ajuste de la sombra por posicionamiento del pivote en el centro
         _matriz[3][1]=_matriz[3][1]-_modelado->get_BB().y/2+0.1;
     }
     _i_shader->setModel(_matriz);

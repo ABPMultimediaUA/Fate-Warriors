@@ -6,7 +6,7 @@ class TRecursoModelado;
 class TFichero;
 
 class Shader;
-
+//clase hecha para evitar su dibujado en el dibujado de sombras
 class TModeladoEscenario : public TModelado{
     public:
         TModeladoEscenario(const char* path);

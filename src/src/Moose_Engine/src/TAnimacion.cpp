@@ -23,7 +23,7 @@ void TAnimacion::beginDraw(Shader* _i_shader){
 }
 
 void TAnimacion::draw(Shader* _i_shader){
-    if(_i_shader->check_program(sombras_proyectadas)){
+    if(_i_shader->check_program(sombras_proyectadas)){//desviacion de la sombra para evitar superposicion
         _matriz[3][1]=_matriz[3][1]+0.46;
     }
     _i_shader->setModel(_matriz);
