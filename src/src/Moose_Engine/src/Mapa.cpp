@@ -11,7 +11,7 @@ Mapa::Mapa(Shader* shader)
     : shader(shader)
 {
 
-   Imagenes[Enum_Llave] =  "Imagenes_HUD/Llave_Silueta.png";
+   Imagenes[Enum_Llave] =  "Imagenes_HUD/Minimapa/Llave.png";
    Imagenes[Enum_Mapa] =  "Imagenes_HUD/Minimapa/mapa.png";
    Imagenes[Enum_Player] =  "Imagenes_HUD/Minimapa/Player.png";
    Imagenes[Enum_Puerta] =  "Imagenes_HUD/Minimapa/Cerradura.png";
