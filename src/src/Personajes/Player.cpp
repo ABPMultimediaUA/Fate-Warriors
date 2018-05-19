@@ -23,7 +23,7 @@
 #include <tuple>
 #include <iostream>
                                                                                                             //  vida_prota, velocidad
-Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 3000, 0.4, 50, 75, Enum_Equipo_B)
+Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) : Character(_id, _i_x, _i_y, _i_z, 3000, 0.4, 75, 50, Enum_Equipo_B)
                                                                 {   
     _motor= Motor::Motor_GetInstance();
     _sonido= Interfaz_sonido::GetInstancia();
@@ -158,11 +158,12 @@ void Player::update(){
             //std::cout << "Ataque Especial\n";
         }
         else if(std::get<2>(_ataques)){      // Ataque normal
-            atacar(Ataque_Normal);
+            atacar(Ataque_Fuerte);
             _cono_vision->preparar_ataque_objetivo_mas_proximo_con_impulso();
         }
         else {                          // Ataque fuerte
-            atacar(Ataque_Fuerte);
+            atacar(Ataque_Normal);
+            _cono_vision->preparar_ataque_objetivo_mas_proximo_con_impulso();
         }
         solo_andar = false;
     }

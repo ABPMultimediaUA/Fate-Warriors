@@ -20,7 +20,7 @@ bool Consumible_Carne::usar(Character* _personaje){
     if(comprobar_colision(_personaje)){
         if(_personaje->puede_subir_vida_(_valor)){
 			_personaje->modificar_vida_en(_valor);
-            _sonido->Play_consumibles(0);
+            _sonido->Play_consumibles(1);
             return true;
         }
     }
