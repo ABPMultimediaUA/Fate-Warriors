@@ -77,7 +77,7 @@ class TMooseEngine{
         ParticleGenerator* get_gestor_particulas();
 
         void resize_window(int _i_width, int _i_height);
-        void guarda_tamanyo_viewport(int width,int height);
+        void guarda_tamanyo_viewport(int _i_offset_viewport_X, int _i_offset_viewport_Y, int width,int height);
         void cambiar_posicion_y_tamanyo_minimapa(float x, float y, float scala);
 
         //---OPCIONES GRAFICAS---
@@ -138,6 +138,10 @@ class TMooseEngine{
         int _height_minimapa;
         int _position_x_minimapa;
         int _position_y_minimapa;
+
+        int _offset_viewport_X;
+        int _offset_viewport_Y;
+        
 };
 
 

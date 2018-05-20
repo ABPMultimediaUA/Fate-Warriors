@@ -249,12 +249,29 @@ void TMooseEngine::mouse_callback(GLFWwindow* window, double xpos, double ypos){
 }
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height){
-    TMooseEngine::get_instancia()->guarda_tamanyo_viewport(width,height);
-    glViewport(0, 0, width, height);
+    float _escala = width / height;
+    float _escala_buena = 16.0/9.0;
+    int _i_width = width; 
+    int _i_height = height; 
+    int _i_offset_viewport_X = 0;
+    int _i_offset_viewport_Y = 0;
 
+    if(_escala > _escala_buena) {
+        _i_width = height * _escala_buena;
+        _i_offset_viewport_X = (width-_i_width) / 2;
+    }
+    else if(_escala < _escala_buena) {
+        _i_height = width / _escala_buena;
+        _i_offset_viewport_Y = (height-_i_height) / 2;
+    }
+
+    TMooseEngine::get_instancia()->guarda_tamanyo_viewport(_i_offset_viewport_X, _i_offset_viewport_Y, _i_width, _i_height);
+    glViewport(_i_offset_viewport_X, _i_offset_viewport_Y, _i_width, _i_height);
 }
 
-void TMooseEngine::guarda_tamanyo_viewport(int width,int height){
+void TMooseEngine::guarda_tamanyo_viewport(int _i_offset_viewport_X, int _i_offset_viewport_Y, int width,int height){
+    _offset_viewport_X = _i_offset_viewport_X;
+    _offset_viewport_Y = _i_offset_viewport_Y;
     _width = width;
     _height = height;
 
@@ -317,9 +334,27 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
         exit(-1);
     }  
     //culling
+
+    float _escala = width / height;
+    float _escala_buena = 16.0/9.0;
+    
+    _width = width;
+    _height = _height;
+    _offset_viewport_X = 0;
+    _offset_viewport_Y = 0;
+
+    if(_escala > _escala_buena) {
+        _width = height * _escala_buena;
+        _offset_viewport_X = (width-_width) / 2;
+    }
+    else if(_escala < _escala_buena) {
+        _height = width / _escala_buena;
+        _offset_viewport_Y = (height-_height) / 2;
+    }
+    
     glEnable(GL_DEPTH_TEST);
-    glViewport(0,0,width,height);
-    guarda_tamanyo_viewport(width,height);
+    glViewport(_offset_viewport_X, _offset_viewport_Y, _width, _height);
+    guarda_tamanyo_viewport(_offset_viewport_X, _offset_viewport_Y, _width, _height);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK); 
     glFrontFace(GL_CCW);
@@ -422,7 +457,7 @@ TAnimacion* TMooseEngine::crearAnimacion(const char* _i_path){
 } 
 
 void TMooseEngine::clear(){
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void TMooseEngine::draw(){
@@ -446,11 +481,11 @@ void TMooseEngine::render_estado_Partida(){
    
    // glViewport(_width*0.7, 0, 600, 600);
 
-    glViewport(_position_x_minimapa, _position_y_minimapa, _width_minimapa, _height_minimapa);
+    glViewport(_position_x_minimapa+_offset_viewport_X, _position_y_minimapa+_offset_viewport_Y, _width_minimapa, _height_minimapa);
    
 
     _mapa->Draw();
-    glViewport(0, 0, _width, _height);
+    glViewport(_offset_viewport_X, _offset_viewport_Y, _width, _height);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
@@ -607,7 +642,7 @@ void TMooseEngine::drawCamaras(){
             TNodo* this_node = _mapping_camaras[i]->nodo; //obtenemos su nodo
             matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
             _shader->setView(matriz_view); //la pasamos al shader
-            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)1280 / (float)720, 0.1f, 10000.0f);
+            glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)_width / (float)_height, 0.1f, 10000.0f);
             projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
             _shader->setProjection(projection);
 
