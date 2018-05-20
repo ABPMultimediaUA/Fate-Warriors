@@ -70,9 +70,14 @@ void Interpolacion::actualiza_direccion(int16_t _i_direccion_actual) {
 
 // Interpola la direccion para un % de render y lo devuelve como un uint16_t
 int16_t Interpolacion::interpola_direccion(float _i_interpolacion){
-    int16_t _direccion_interpolada = _direccion_anterior * (1 -_i_interpolacion) + _direccion_actual * _i_interpolacion;
+	if(_direccion_anterior != _direccion_actual) {
+    	int16_t _direccion_interpolada = _direccion_anterior * (1 -_i_interpolacion) + _direccion_actual * _i_interpolacion;
+    	return _direccion_interpolada;
+	}
+	else {	// Evita molesto tembleque
+		return _direccion_actual;
+	}
 
-    return _direccion_interpolada;
 }
 
 

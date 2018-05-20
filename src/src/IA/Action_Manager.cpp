@@ -68,7 +68,7 @@ void Action_Manager::realiza_accion(NPC* _i_npc){
 
 		case Atacar:
 				{
-					if(rand()%16 < 2){	
+					if(rand()%16 < 4){	
 						x=_i_npc->getX();
 						z=_i_npc->getZ();
 						Character* enemigo = _blackboard->_enemigo_mas_cerca;
