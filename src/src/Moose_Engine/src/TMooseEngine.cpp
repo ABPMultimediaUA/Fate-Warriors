@@ -407,15 +407,21 @@ void TMooseEngine::draw(){
 
 }
 
-
-
 void TMooseEngine::render_estado_Partida(){
     clear();
     draw();
     renderUIHUD();
-   // glViewport(_width*0.7, 0, 600, 600);
-    glViewport(800, 0, 420, 560);
    
+   // glViewport(_width*0.7, 0, 600, 600);
+    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(0.8,0); 
+    vertexPosition_homoneneousspace *= glm::vec2(_width,_height);
+
+    glm::vec2 scale_homoneneousspace = glm::vec2(0.42/1.2,0.56/1.2);
+    scale_homoneneousspace *= glm::vec2(_width,_width);
+
+    glViewport(vertexPosition_homoneneousspace.x, 0, scale_homoneneousspace.x, scale_homoneneousspace.y);
+   
+
     _mapa->Draw();
     glViewport(0, 0, _width, _height);
 
