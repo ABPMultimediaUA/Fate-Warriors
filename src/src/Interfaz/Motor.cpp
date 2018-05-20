@@ -1017,12 +1017,14 @@ void Motor::set_eje_y(bool ejeY){
 }
 
 void Motor::render_Menu_Win(){
+	interpola_posiciones(0);
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_fin()->get_i_opcion();
 	_me->renderUIMenuWin(num_opcion);
 }
 
 void Motor::render_Menu_Lose(){
+	interpola_posiciones(0);
 	Game* game = Game::game_instancia();
 	uint8_t num_opcion = game->get_menu_fin()->get_i_opcion();
 	_me->renderUIMenuLose(num_opcion);

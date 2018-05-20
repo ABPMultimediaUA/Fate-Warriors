@@ -82,9 +82,7 @@ void Player::update(){
         uint16_t _direccion_buena = _direccion_buena_2;
         
         uint16_t _direccion_previa_movimiento = _direccion_buena;
-      
-        float direccion = (_direccion_buena * PIs)/180;
-        _yo->setTextureposition(getX(), getZ(),direccion);
+    
 
        if(_cono_vision->get_apuntando() != nullptr) {
             mover_direccion(_direccion_buena, _cono_vision->get_rotacion_con_apuntando());
@@ -200,6 +198,10 @@ void Player::update(){
             _motor->_interfaz->Crear_particulas_Suelo(getX(),1, getZ(), get_direccion_actual()); 
         }
     }
+
+    float direccion = (_direccion_actual * PIs)/180;
+    _yo->setTextureposition(getX(), getZ(),direccion);
+
 
     }
     else{
