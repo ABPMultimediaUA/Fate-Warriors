@@ -71,10 +71,10 @@ void Camara::Camara_setPositionColision(Vector3 position) {
 	
 		_hay_colision = true;
 		
-		_position = glm::vec3(position._x, position._y, position._z); 
+		_position = glm::vec3(position._x, position._y+10, position._z); 
 		_Camara->mover(position);
 
-		Vector3 posicion(_position.x,_position.y,_position.z);
+		Vector3 posicion(_position.x,_position.y+10,_position.z);
 		_interpolacion_colision->actualiza_posicion(posicion);
 
 }
@@ -161,12 +161,14 @@ void Camara::Camara_Update() {
 	_gradosRotacion = 35; 
 
 	if(!_unlocked){
-		if (_zdirection < -10) {
-			_zdirection = -10; 
-		}
-		else if (_zdirection > 35) {
-			_zdirection =35; 
-		}
+
+		if (_zdirection < -10) { 
+		_zdirection = -10;  
+		} 
+		else if (_zdirection > 20) { 
+		_zdirection =20;  
+		} 
+	
 
 		if(_direction >= 360)
 			_direction -= 360;
