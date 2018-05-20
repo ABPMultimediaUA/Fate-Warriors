@@ -28,7 +28,7 @@ Interruptor::Interruptor(short _i_id, float _i_x, float _i_z, float _i_rotacion,
     _rotacion_x = _i_rotacion_x;
     _rotacion_y = _i_rotacion_y;
     _distancia = _i_distancia;
-    _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 50,50, Enum_Interruptor);
+    _objeto_visual_mapa = new iObjeto_Mapa(_i_x, _i_z, 25,25, Enum_Interruptor);
 
 
     _sonido = Interfaz_sonido::GetInstancia();
@@ -107,7 +107,7 @@ void Interruptor::cambiar_icono_ascociados(Texture_ID_Map textura) {
     uint8_t size = _puertas_asociadas.size();
 
     for(uint8_t i=0; i<size; i++) {
-    	_puertas_asociadas[i]->cambiar_icono_minimapa(50,50,textura);
+    	_puertas_asociadas[i]->cambiar_icono_minimapa(25,25,textura);
     }
     
 }

@@ -12,6 +12,7 @@ enum ShaderType {
     sombras_proyectadas,
     texturas_menu,
     particulas,
+    emapa,
     Shader_count
 };
 

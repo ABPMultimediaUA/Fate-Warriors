@@ -15,12 +15,16 @@
 #include "../Consumibles/Consumible_Manager.h"
 
 #include "../Motor_sonido/Interfaz_sonido.h"
+#include "../Moose_Engine/src/iObjeto_Mapa.h"
 
 #include <iostream>
 
 NPC::NPC(float _i_x, float _i_z, int16_t _i_vida, float _i_velocidad,
     int16_t _i_danyo_ataque_normal, int16_t _i_danyo_ataque_fuerte, Enum_Equipo equipo) 
     : Character(0, _i_x, 0, _i_z, _i_vida, _i_velocidad, _i_danyo_ataque_normal, _i_danyo_ataque_fuerte, Enum_Equipo_A){
+
+    _yo = nullptr;
+
 
     const char* cstr;
     const char* cstr2;
@@ -42,6 +46,7 @@ NPC::NPC(float _i_x, float _i_z, int16_t _i_vida, float _i_velocidad,
 
 NPC::~NPC() {
     delete _blackboard;
+    delete _yo;
 }
 
 void NPC::morir(){
@@ -52,6 +57,7 @@ void NPC::morir(){
     _inventario->soltar_armas(getX(), getZ()); 
 
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
+    eliminar_npc_mapa();
 
     if(_zona_en_la_que_se_encuentra != nullptr){
         _zona_en_la_que_se_encuentra->eliminar_npc_de_zona(this);

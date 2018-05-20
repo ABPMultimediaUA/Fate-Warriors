@@ -117,9 +117,12 @@ void Consumible_Manager::anyadir_consumible(Vector2 posicion){
     //Comprobar que power up va a crear 
 
     if (_consumibles_a_reusar.size()>0){
-        _consumibles_a_reusar[0]->setPositionXZ(posicion._x, posicion._y);
-        _consumibles.push_back(_consumibles_a_reusar[0]);
-        _consumibles_a_reusar.erase(_consumibles_a_reusar.begin());
+        uint16_t _num = (rand() % 100);
+        if (_num<8){                            
+            _consumibles_a_reusar[0]->setPositionXZ(posicion._x, posicion._y);
+            _consumibles.push_back(_consumibles_a_reusar[0]);
+            _consumibles_a_reusar.erase(_consumibles_a_reusar.begin());
+        }
     }
 
     /*

@@ -1,21 +1,18 @@
-#version 330 core
+#version 450 core
 
-// Input vertex data, different for all executions of this shader.
-layout(location = 0) in vec2 vertexPosition_screenspace;
-layout(location = 1) in vec2 vertexUV;
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec4 aColor;
+layout (location = 2) in vec2 aTexCoord;
 
-// Output data ; will be interpolated for each fragment.
-out vec2 UV;
+uniform float rotacion_a;
+out vec4 ourColor;
+out vec2 TexCoord;
+out float rotacion;
 
-void main(){
-
-	// Output position of the vertex, in clip space
-	// map [0..800][0..600] to [-1..1][-1..1]
-	vec2 vertexPosition_homoneneousspace = vertexPosition_screenspace - vec2(400,300); // [0..800][0..600] -> [-400..400][-300..300]
-	vertexPosition_homoneneousspace /= vec2(400,300);
-	gl_Position =  vec4(vertexPosition_homoneneousspace,0,1);
-	
-	// UV of the vertex. No special space for this one.
-	UV = vertexUV;
+void main()
+{
+	rotacion = rotacion_a;
+	ourColor = aColor;
+	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+	gl_Position = vec4(aPos, 1.0);
 }
-

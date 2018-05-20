@@ -45,7 +45,6 @@ private:
 	// double _tiempobloqueo; BORRAME
 	Cono_Vision* _cono_vision;
 
-	iObjeto_Mapa* _yo;
 };
 
 #endif /* SRC_PLAYER_H_ */

@@ -15,6 +15,7 @@ class Zona;
 class Interfaz_sonido;
 class Puerta;
 class Llave;
+class iObjeto_Mapa;
 
 class Character : public Objeto{
 public:
@@ -152,8 +153,15 @@ public:
 		return pos_y_azar_en_zona;
 	}
 
+	void dibujar_npc();
+	void eliminar_npc_mapa();
+	
+	
+
 protected:
 	
+	iObjeto_Mapa* _yo;
+
 	int16_t _vida_maxima;
 	int16_t _vida;
 	float _velocidadAndar;		//velocidad al andar

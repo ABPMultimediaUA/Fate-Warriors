@@ -1,17 +1,19 @@
-#version 330 core
+#version 450 core
 
-// Interpolated values from the vertex shaders
-in vec2 UV;
+out vec4 FragColor;
+in vec4 ourColor;
+in vec2 TexCoord;
+in float rotacion;
 
-// Ouput data
-out vec4 color;
+// texture samplers
+uniform sampler2D texture1;
 
-// Values that stay constant for the whole mesh.
-uniform sampler2D myTextureSampler;
-
-void main(){
-
-	color = texture( myTextureSampler, UV );
-	
-	
+void main()
+{
+	float sin_factor = sin(rotacion);
+    float cos_factor = cos(rotacion);
+	vec2 Pos = vec2((TexCoord.x - 0.5) * (1280 / 720), TexCoord.y - 0.5) * mat2(cos_factor, sin_factor, -sin_factor, cos_factor);
+	Pos += 0.5;
+	FragColor = texture(texture1, Pos);
 }
+

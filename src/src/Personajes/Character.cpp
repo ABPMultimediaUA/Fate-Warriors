@@ -21,6 +21,8 @@
 #include "../Zonas/Respawn.h"
 
 #include "../Motor_sonido/Interfaz_sonido.h"
+#include "../Moose_Engine/src/iObjeto_Mapa.h"
+
 
 #include <iostream>
 
@@ -53,6 +55,21 @@ Character::~Character() {
     delete _inventario;
     Motor::Motor_GetInstance()->borrar_rb(_rb_ataque);
     //Game::game_instancia()->get_consumibles_action()->borrar_power_up(_power_up);
+}
+
+
+void Character::eliminar_npc_mapa(){
+    delete _yo;
+    _yo = nullptr;
+}
+
+void Character::dibujar_npc(){
+    if (_yo==nullptr){
+        _yo = new iObjeto_Mapa(getX(), getZ(), 12,12, Enum_Enemigo);
+    }
+    else{
+        _yo->setTextureposition(getX(), getZ());
+    }
 }
 
 int16_t Character::get_vida(){

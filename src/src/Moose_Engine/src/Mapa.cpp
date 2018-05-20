@@ -14,11 +14,13 @@ Mapa::Mapa(Shader* shader)
    Imagenes[Enum_Llave] =  "Imagenes_HUD/Minimapa/Llave.png";
    Imagenes[Enum_Mapa] =  "Imagenes_HUD/Minimapa/mapa.png";
    Imagenes[Enum_Player] =  "Imagenes_HUD/Minimapa/Player.png";
+   Imagenes[Enum_Enemigo] =  "Imagenes_HUD/Minimapa/Player.png";
    Imagenes[Enum_Puerta] =  "Imagenes_HUD/Minimapa/Cerradura.png";
    Imagenes[Enum_Interruptor] =  "Imagenes_HUD/Minimapa/Interruptor.png";
    Imagenes[Enum_Puerta_Pincho] =  "Imagenes_HUD/Minimapa/Puerta_Pincho.png";
    Imagenes[Enum_Puerta_Tiempo] =  "Imagenes_HUD/Minimapa/Puerta_Tiempo.png";
    Imagenes[Enum_Puerta_Desactivada] =  "Imagenes_HUD/Minimapa/Puerta_Desactivada.png";
+   
    
 
    anyadir_elemento_al_mapa(420/2, 560/2, 420, 560,Enum_Mapa);
@@ -57,10 +59,16 @@ void Mapa::Draw()
         // Use additive blending to give it a 'glow' effect
    // Don't forget to reset to default blending mode
     glDisable(GL_CULL_FACE);
+
     for (int a =0; a < elementos_menu.size(); a++)
-    {
+    {   
+        shader->use(texturas_menu);
+        if(a!=1)
         elementos_menu[a]->Draw();
     }
+
+    shader->use(emapa);
+    elementos_menu[1]->update_rotacion();
     elementos_menu[1]->Draw();
     glEnable(GL_CULL_FACE);
     // Don't forget to reset to default blending mode

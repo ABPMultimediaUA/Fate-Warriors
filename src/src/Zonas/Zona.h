@@ -41,6 +41,9 @@ public:
     void eliminar_npc_de_zona(Character* _i_npc);
 
 protected:
+    
+    void dibujar_objetos_mapa();
+    void eliminar_objetos_mapa();
 
     float distancia_player_a_zona();
     void activar_todas_las_puerta_pincho();

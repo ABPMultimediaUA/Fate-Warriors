@@ -25,9 +25,10 @@ Image_Map::~Image_Map(){
 }
 
 
-void Image_Map::setTextureposition(float x, float y){
+void Image_Map::setTextureposition(float x, float y, float rotacion){
     _x = x;
     _y = y;
+    _rotacion = rotacion;
 
     glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(420,560); // [0..800][0..600] -> [-400..400][-300..300]
     vertexPosition_homoneneousspace /= glm::vec2(420,560);
@@ -160,11 +161,16 @@ void Image_Map::load_texture(const char* ruta){
     
 }
 
+
+void Image_Map::update_rotacion(){
+    std::cout << _rotacion << "rotacion \n";
+    glUniform1f(glGetUniformLocation(Shader::Program, "rotacion_a"), _rotacion);    
+}
+
+
 // Render image
 void Image_Map::Draw()
 {
-      shader->use(texturas_menu);
-
     //shader->setUniform("width", _width);
     //shader->setUniform("scale", 0);
 

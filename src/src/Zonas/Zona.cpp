@@ -56,9 +56,23 @@ bool Zona::esta_jugador_en_zona(){
     Motor* motor = Motor::Motor_GetInstance();
 
     if(motor->comprobar_colision(_rb, _player->get_objeto_motor()->getRigidBody()) == true){
+        dibujar_objetos_mapa();
         return true;
     }
+    eliminar_objetos_mapa();
     return false;
+}
+
+void Zona::dibujar_objetos_mapa(){
+    for(uint8_t num = 0; num <_npc_en_la_zona.size(); num++){
+        _npc_en_la_zona[num]->dibujar_npc();
+    }
+}
+
+void Zona::eliminar_objetos_mapa(){
+    for(uint8_t num = 0; num <_npc_en_la_zona.size(); num++){
+        _npc_en_la_zona[num]->eliminar_npc_mapa();
+    }
 }
 
 uint8_t Zona::get_num_npc_en_zona(){

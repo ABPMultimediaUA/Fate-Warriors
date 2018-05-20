@@ -49,7 +49,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
     _especial = 0;
     _hace_cinta = false;
     //_sonido->Play_ambiente(2);
-    _yo = new iObjeto_Mapa(_i_x, _i_z, 10,10, Enum_Player);
+    _yo = new iObjeto_Mapa(_i_x, _i_z, 20,20, Enum_Player);
 }    
 
 
@@ -73,7 +73,6 @@ void Player::update(){
     
     if(_input->get_mover(_direccion)){
 
-        _yo->setTextureposition(getX(), getZ());
         
         // Direccion buena con respecto de la camara
         int16_t _direccion_buena_2 = _direccion + Motor::Motor_GetInstance()->angulo_camara();
@@ -83,6 +82,9 @@ void Player::update(){
         uint16_t _direccion_buena = _direccion_buena_2;
         
         uint16_t _direccion_previa_movimiento = _direccion_buena;
+      
+        float direccion = (_direccion_buena * PIs)/180;
+        _yo->setTextureposition(getX(), getZ(),direccion);
 
        if(_cono_vision->get_apuntando() != nullptr) {
             mover_direccion(_direccion_buena, _cono_vision->get_rotacion_con_apuntando());

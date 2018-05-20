@@ -12,6 +12,6 @@ iObjeto_Mapa::~iObjeto_Mapa(){
     TMooseEngine::get_instancia()->eliminar_elemento_del_mapa(_imagen_mapa);
 }
 
-void iObjeto_Mapa::setTextureposition(float x, float y){ 
-    _imagen_mapa->setTextureposition(x,y);
+void iObjeto_Mapa::setTextureposition(float x, float y, float rotacion){ 
+    _imagen_mapa->setTextureposition(x,y,rotacion);
 }

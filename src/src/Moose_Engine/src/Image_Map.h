@@ -19,7 +19,8 @@ public:
     ~Image_Map();
     // Render all particles
     void Draw();
-    void setTextureposition(float x, float y);
+    void setTextureposition(float x, float y, float rotacion);
+    void update_rotacion();
 
 private:
     //controla si se dibuja o no la version seleccionada de la imagen
@@ -36,7 +37,7 @@ private:
     void load_texture(const char* ruta);
     GLuint ID;
 
-    float _x, _y, _width, _height;
+    float _x, _y, _width, _height, _rotacion;
 
 };
 
