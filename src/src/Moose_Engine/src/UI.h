@@ -33,6 +33,7 @@ class UI{
         Image* crear_imagen_pantalla_carga(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
         void drawMenu(uint16_t opcion);
+        void drawMenuFondo(uint16_t _opcion);
         void drawMenuLogo(uint16_t _opcion);
         void drawMenuPausa(uint16_t opcion);
         void drawMenuConfig(uint16_t opcion);

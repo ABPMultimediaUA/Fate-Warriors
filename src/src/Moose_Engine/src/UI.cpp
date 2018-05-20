@@ -162,13 +162,16 @@ void UI::drawMenu(uint16_t opcion){
                     break;
     }
 
-    for(u_int16_t i = 0; i<_lista_imagenes.size() - 1; i++){
+    for(u_int16_t i = 1; i<_lista_imagenes.size() - 1; i++){
         _lista_imagenes[i]->Draw();
     }
 }
 
+void UI::drawMenuFondo(uint16_t _opcion) {
+    _lista_imagenes[0]->Draw();
+}
+
 void UI::drawMenuLogo(uint16_t _opcion) {
-    drawMenu(_opcion);
     _lista_imagenes[_lista_imagenes.size() - 1]->Draw();
 }
 

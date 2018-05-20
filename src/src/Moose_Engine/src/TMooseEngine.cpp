@@ -62,20 +62,22 @@ void TMooseEngine::initUI(){
     
     //MENU PRINCIPAL
     _ui->crear_imagen(_shader, "Imagenes_Menu/Fondo.png", "Imagenes_Menu/Fondo.png", -1, 1, 2, 2);
-    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.87, 0.75, 0.6, 0.5);
-    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
-    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
-    _ui->crear_imagen(_shader, "Imagenes_Menu/Fate_Warriors.png", "Imagenes_Menu/Fate_Warriors.png", -0.25, 0.35, 1.3, 0.85);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.26, 0.028, 0.53, 0.215);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.26, -0.275, 0.53, 0.215);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.58, 0.53, 0.215);
+    _ui->crear_imagen(_shader, "Imagenes_Menu/Fate_Warriors.png", "Imagenes_Menu/Fate_Warriors.png", -0.288, 0.91, 0.575, 0.548);
     
 
     //MENU PAUSA
-    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_resume.png", "Imagenes_Menu/Opcion_resume_Selec.png", -0.9, 0.8, 0.7, 0.6);
-    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.95, 0.20, 0.83, 0.5);
-    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.85, -0.30, 0.55, 0.55);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_4.png", "Imagenes_Menu/Opcion_4_Selec.png", -0.26, 0.028, 0.53, 0.215);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.26, -0.275, 0.53, 0.215);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.58, 0.53, 0.215);
     
     //MENU CONFIG
+        // ---------- SUBMENU 1 ----------
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_1.png", "Imagenes_Config/Submenu/Submenu_1_Activo.png", -0.299, 0.162, 0.075, 0.159); //submenu
+        
         //textos de opciones
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", -0.1, 0.90, 0.15, 0.15); //submenu
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Music.png", "Imagenes_Config/Config_Music_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_SFX.png", "Imagenes_Config/Config_SFX_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Voices.png", "Imagenes_Config/Config_Voices_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
@@ -97,23 +99,28 @@ void TMooseEngine::initUI(){
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png",  0.35, 0.0, 0.4, 0.1);    // barra menu
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png", 0.35, 0.0, 0.4, 0.1);    // barra menu
         
+
+        // ---------- SUBMENU 2 ----------
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_2.png", "Imagenes_Config/Submenu/Submenu_2_Activo.png", -0.035, 0.162, 0.075, 0.159); //submenu
+        
         //boton on/off 1 (14)
         _ui->crear_imagen_config(_shader, "Imagenes_Config/OFF-ON_ON.png", "Imagenes_Config/OFF-ON_OFF.png",  0.4, -0.15, 0.4, 0.2);
         //boton on/off 2 (15)
         _ui->crear_imagen_config(_shader, "Imagenes_Config/OFF-ON_ON.png", "Imagenes_Config/OFF-ON_OFF.png",  0.4, -0.35, 0.4, 0.2);
-        
-
 
         _ui->set_eje_x(false);
         _ui->set_eje_y(true);
         
 
+        // ---------- SUBMENU 3 ----------
 
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.90, 0.15, 0.15); //submenu
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu/Submenu_3.png", "Imagenes_Config/Submenu/Submenu_3_Activo.png", 0.225, 0.162, 0.075, 0.159); //submenu
+        
         _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.70, 0.15, 0.15); //vsync
         _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.50, 0.15, 0.15); //res
         _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.30, 0.15, 0.15); //fullscreen
         
+
     //MENU HUD
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Inferior.png", -0.722, 0.78, 0.326, 0.1);
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Barra_1.png", "Imagenes_HUD/HUD_Barra_2.png", "Imagenes_HUD/HUD_Barra_3.png", -0.722, 0.78, 0.326, 0.1);
@@ -128,13 +135,13 @@ void TMooseEngine::initUI(){
     
     //MENU WIN
     _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
-    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.2, -0.2,  0.4, 0.2);
-    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.2, -0.35, 0.4, 0.2);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_5.png", "Imagenes_Menu/Opcion_5_Selec.png", -0.26, 0.028, 0.53, 0.215);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.275, 0.53, 0.215);
 
     //MENU LOSE
     _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
-    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.2, -0.2,  0.4, 0.2);
-    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.2, -0.35, 0.4, 0.2);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_5.png", "Imagenes_Menu/Opcion_5_Selec.png", -0.26, 0.028, 0.53, 0.215);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.275, 0.53, 0.215);
     
 
     // PANTALLA CARGA
@@ -420,14 +427,15 @@ void TMooseEngine::renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_a
     clear();
     glDisable(GL_CULL_FACE);
     
-    _ui->drawMenu(opcion);
-    if(config_abierta){
-        _ui->drawMenu(opcion);
+    _ui->drawMenuFondo(opcion);
+    if(config_abierta) {
         renderUIMenuConfig(opcion2);
     }
-    else{
-        _ui->drawMenuLogo(opcion);
+    else {
+        _ui->drawMenu(opcion);
     }
+    _ui->drawMenuLogo(opcion);
+
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
     glfwPollEvents();
