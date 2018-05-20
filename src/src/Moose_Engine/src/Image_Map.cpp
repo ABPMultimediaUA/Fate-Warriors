@@ -163,7 +163,7 @@ void Image_Map::load_texture(const char* ruta){
 
 
 void Image_Map::update_rotacion(){
-    std::cout << _rotacion << "rotacion \n";
+  //  std::cout << _rotacion << "rotacion \n";
     glUniform1f(glGetUniformLocation(Shader::Program, "rotacion_a"), _rotacion);    
 }
 
