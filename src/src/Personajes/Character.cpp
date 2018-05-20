@@ -65,7 +65,7 @@ void Character::eliminar_npc_mapa(){
 
 void Character::dibujar_npc(){
     if (_yo==nullptr){
-        _yo = new iObjeto_Mapa(getX(), getZ(), 12,12, Enum_Enemigo);
+        _yo = new iObjeto_Mapa(getX(), getZ(), 8,8, Enum_Enemigo);
     }
     else{
         _yo->setTextureposition(getX(), getZ());

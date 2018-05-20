@@ -78,6 +78,8 @@ class TMooseEngine{
 
         void resize_window(int _i_width, int _i_height);
         void guarda_tamanyo_viewport(int width,int height);
+        void cambiar_posicion_y_tamanyo_minimapa(float x, float y, float scala);
+
         //---OPCIONES GRAFICAS---
         void toggleFullscreen();
         void toggleVSync();
@@ -132,6 +134,10 @@ class TMooseEngine{
         Mapa* _mapa;
         int _width;
         int _height;
+        int _width_minimapa;
+        int _height_minimapa;
+        int _position_x_minimapa;
+        int _position_y_minimapa;
 };
 
 

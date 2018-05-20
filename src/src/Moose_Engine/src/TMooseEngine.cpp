@@ -255,9 +255,41 @@ static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 }
 
 void TMooseEngine::guarda_tamanyo_viewport(int width,int height){
- _width = width;
- _height = height;
+    _width = width;
+    _height = height;
+
+    cambiar_posicion_y_tamanyo_minimapa(0.8,0,1.2);
+
+/*
+    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(0.8,0); 
+    vertexPosition_homoneneousspace *= glm::vec2(_width,_height);
+
+    glm::vec2 scale_homoneneousspace = glm::vec2(0.42/1.2,0.56/1.2);
+    scale_homoneneousspace *= glm::vec2(_width,_width);
+
+    _position_x_minimapa = vertexPosition_homoneneousspace.x;
+    _position_y_minimapa = vertexPosition_homoneneousspace.y;
+
+    _width_minimapa = scale_homoneneousspace.x;
+    _height_minimapa = scale_homoneneousspace.y;
+*/
+
 }
+
+void TMooseEngine::cambiar_posicion_y_tamanyo_minimapa(float x, float y, float scala){
+    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(x,y); 
+    vertexPosition_homoneneousspace *= glm::vec2(_width,_height);
+
+    glm::vec2 scale_homoneneousspace = glm::vec2(0.42/scala,0.56/scala);
+    scale_homoneneousspace *= glm::vec2(_width,_width);
+
+    _position_x_minimapa = vertexPosition_homoneneousspace.x;
+    _position_y_minimapa = vertexPosition_homoneneousspace.y;
+
+    _width_minimapa = scale_homoneneousspace.x;
+    _height_minimapa = scale_homoneneousspace.y;
+}
+
 
 void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     glfwInit();
@@ -413,13 +445,8 @@ void TMooseEngine::render_estado_Partida(){
     renderUIHUD();
    
    // glViewport(_width*0.7, 0, 600, 600);
-    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(0.8,0); 
-    vertexPosition_homoneneousspace *= glm::vec2(_width,_height);
 
-    glm::vec2 scale_homoneneousspace = glm::vec2(0.42/1.2,0.56/1.2);
-    scale_homoneneousspace *= glm::vec2(_width,_width);
-
-    glViewport(vertexPosition_homoneneousspace.x, 0, scale_homoneneousspace.x, scale_homoneneousspace.y);
+    glViewport(_position_x_minimapa, _position_y_minimapa, _width_minimapa, _height_minimapa);
    
 
     _mapa->Draw();
