@@ -19,18 +19,11 @@ Consumible_Manager::Consumible_Manager() {
     
     mult = 4.9212625;
 
-    _consumibles_a_reusar.push_back( new Consumible_Carne(5,mult*170, mult*99999, mult*52));
-    _consumibles_a_reusar.push_back( new Consumible_Carne(5,mult*150, mult*99999, mult*52));
-    _consumibles_a_reusar.push_back( new Consumible_Carne(5,mult*170, mult*99999, mult*50));
-    _consumibles_a_reusar.push_back( new Consumible_Carne(5,mult*150, mult*99999, mult*50));
-    _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*600, mult*99999, mult*52));
-    _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*400, mult*99999, mult*52));
-    _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*600, mult*99999, mult*50));
-    _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*400, mult*99999, mult*50));
-    _consumibles_a_reusar.push_back( new Consumible_Agua(5,mult*600, mult*99999, mult*52));
-    _consumibles_a_reusar.push_back( new Consumible_Agua(5,mult*400, mult*99999, mult*52));
-    _consumibles_a_reusar.push_back( new Consumible_Agua(5,mult*600, mult*99999, mult*50));
-    _consumibles_a_reusar.push_back( new Consumible_Agua(5,mult*400, mult*99999, mult*50));
+    _consumibles_a_reusar.push_back( new Consumible_Carne(5,mult*4000, 0, mult*52));
+    _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*4000, 0, mult*52));
+    _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*6000, 0, mult*52));
+    _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*5000, 0, mult*52));
+    _consumibles_a_reusar.push_back( new Consumible_Agua(5,mult*6000, 0, mult*52));
 
  //   _consumibles.push_back( new Consumible_Fuerza(5,mult*6, mult*0, mult*52));
 
@@ -118,7 +111,8 @@ void Consumible_Manager::anyadir_consumible(Vector2 posicion){
 
     if (_consumibles_a_reusar.size()>0){
         uint16_t _num = (rand() % 100);
-        if (_num<8){                            
+        if (_num<500){
+                                        
             _consumibles_a_reusar[0]->setPositionXZ(posicion._x, posicion._y);
             _consumibles.push_back(_consumibles_a_reusar[0]);
             _consumibles_a_reusar.erase(_consumibles_a_reusar.begin());
