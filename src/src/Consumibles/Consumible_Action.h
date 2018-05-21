@@ -8,7 +8,6 @@ class Consumible_Carne;
 class Consumible_Patata;
 class Consumible_Manager;
 class Consumible_Fuerza;
-class Consumible_Power_Up;
 
 class Consumible_Action{
 public:
@@ -16,7 +15,6 @@ public:
 	~Consumible_Action();
 
 	void comprobar_consumibles();
-	void borrar_power_up(Consumible_Power_Up* _i_power_up);
 
 private:
 	std::vector<Consumible*>* _consumibles;

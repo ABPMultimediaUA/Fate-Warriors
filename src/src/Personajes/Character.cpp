@@ -14,7 +14,6 @@
 #include "../Consumibles/Consumible_Action.h"
 #include "../Interfaz/Motor.h"
 #include "../Interfaz_Libs/Lib_Math.h"
-#include "../Consumibles/Consumible_Power_Up.h"
 #include "../Zonas/Respawn.h"
 
 #include "../Motor_sonido/Interfaz_sonido.h"
@@ -50,7 +49,6 @@ Character::Character(short _id, float _i_x, float _i_y, float _i_z, int16_t _i_v
 Character::~Character() {
     delete _inventario;
     Motor::Motor_GetInstance()->borrar_rb(_rb_ataque);
-    //Game::game_instancia()->get_consumibles_action()->borrar_power_up(_power_up);
 }
 
 
@@ -72,18 +70,8 @@ int16_t Character::get_vida(){
 	return _vida;
 }
 
-void Character::anyadir_power_up(Consumible_Power_Up* _i_power_up){
-    if(_power_up!=nullptr){
-        _power_up = _i_power_up;
-    }  
-}
-
 Enum_Equipo Character::get_equipo(){
     return _equipo;
-}
-
-void Character::eliminar_power_up_puntero(){
-        _power_up=nullptr;
 }
 
 void Character::activar_inmunidad_a_danyos(){

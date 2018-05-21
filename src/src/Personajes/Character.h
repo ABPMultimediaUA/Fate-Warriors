@@ -9,7 +9,6 @@
 class Interfaz;
 class Inventario;
 class Time;
-class Consumible_Power_Up;
 class Zona;
 class Interfaz_sonido;
 class Puerta;
@@ -74,10 +73,6 @@ public:
 
 	uint16_t get_direccion_actual();
 	void set_direccion_actual(uint16_t nueva_direccion);
-
-
-	void anyadir_power_up(Consumible_Power_Up* _i_power_up);
-	void eliminar_power_up_puntero();
 
 	Enum_Equipo get_equipo();
 
@@ -161,7 +156,6 @@ protected:
 	Enum_Tipo_Ataque _tipo_ataque;
 	Time * _tiempo;
 	double _duracion_accion_actual;
-	Consumible_Power_Up* _power_up;
 	btRigidBody *_rb_ataque;
 	uint16_t _direccion_actual;
 	bool _inmortal;

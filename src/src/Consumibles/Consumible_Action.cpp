@@ -42,12 +42,4 @@ void Consumible_Action::comprobar_consumibles(){
 		 }
 		se_ha_borrado=false;
 	}
-
-	_consumibles_manager->crear_todos_consumibles_que_faltan();
-
-}
-
-
-void Consumible_Action::borrar_power_up(Consumible_Power_Up* _i_power_up){
-	_consumibles_manager->borrar_consumible(_i_power_up);
 }
