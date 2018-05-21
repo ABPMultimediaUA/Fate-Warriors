@@ -17,16 +17,19 @@ public:
     ~Mapa();
 
     Image_Map* anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo);
+    //Elimina una imagen del mapa
     void eliminar_elemento_mapa(Image_Map* objeto_a_eliminar);
-    // Render all particles
+    // Dibuja todos los elementos del mapa
     void Draw();
 
 private:
-    // State
+    
+    //Elementos del menu 
     std::vector<Image_Map*> elementos_menu;
    
-    // Render state
     Shader* shader;
+    
+    //Contiene la ruta de las imagenes
     const char* Imagenes[Vegeta_count];
 
 };
