@@ -14,6 +14,8 @@ public:
 
 	void set_resolucion();
 
+	inline uint8_t get_resolucion() { return _resolucion;}
+
 private:
 	uint8_t _resolucion;								// De 0 a 3
 };

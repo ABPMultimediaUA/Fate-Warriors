@@ -166,3 +166,11 @@ uint8_t Menu_Configuracion::get_i_submenu() {
 
 	return _submenu_actual;
 }
+
+uint8_t Menu_Configuracion::get_resolucion(){
+	return _opciones[9]->get_resolucion();
+}
+
+uint8_t Menu_Configuracion::get_texturas(){
+	return _opciones[12]->get_texturas();
+}
