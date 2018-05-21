@@ -57,3 +57,7 @@ void Opcion_Fullscreen::unset_fullscreen() {
 	_fullscreen = false;
     Motor::Motor_GetInstance()->toggleFullscreen();
 }
+
+void Opcion_Fullscreen::actualiza_valores() {
+	_fullscreen = Motor::Motor_GetInstance()->get_fullscreen();
+}

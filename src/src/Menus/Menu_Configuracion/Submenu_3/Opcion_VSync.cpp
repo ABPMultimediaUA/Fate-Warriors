@@ -58,3 +58,7 @@ void Opcion_VSync::unset_vsync() {
 	_vsync = false;
 	Motor::Motor_GetInstance()->toggleVSync();
 }
+
+void Opcion_VSync::actualiza_valores() {
+	_vsync = Motor::Motor_GetInstance()->get_vsync();
+}

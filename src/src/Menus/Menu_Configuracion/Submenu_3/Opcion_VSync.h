@@ -15,6 +15,8 @@ public:
 	void set_vsync();
 	void unset_vsync();
 
+	void actualiza_valores();
+
 private:
 	bool _vsync;
 };

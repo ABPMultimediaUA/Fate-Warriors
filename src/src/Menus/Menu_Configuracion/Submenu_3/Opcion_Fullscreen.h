@@ -15,6 +15,8 @@ public:
 	void set_fullscreen();
 	void unset_fullscreen();
 
+	void actualiza_valores();
+
 private:
 	bool _fullscreen;
 };

@@ -66,3 +66,7 @@ void Opcion_Texturas::set_texturas() {
 	TGestorRecursos::get_instancia()->setCalidad(_texturas+1);
 	Motor::Motor_GetInstance()->setCalidadTexturas(_texturas);
 }
+
+void Opcion_Texturas::actualiza_valores() {
+	_texturas = Motor::Motor_GetInstance()->get_calidad_texturas();
+}

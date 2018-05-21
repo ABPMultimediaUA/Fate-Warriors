@@ -16,6 +16,8 @@ public:
 
 	inline uint8_t get_texturas() { return _texturas;}
 
+	void actualiza_valores();
+
 private:
 	uint8_t _texturas;								// De 0 a 2
 };

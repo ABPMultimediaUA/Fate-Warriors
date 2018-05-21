@@ -80,3 +80,8 @@ void Opcion_Resolucion::set_resolucion() {
 		break;
 	}
 }
+
+
+void Opcion_Resolucion::actualiza_valores() {
+	_resolucion = Motor::Motor_GetInstance()->get_resolution();
+}
