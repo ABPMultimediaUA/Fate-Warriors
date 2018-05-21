@@ -17,11 +17,14 @@ public:
     ~Mapa();
 
     Image_Map* anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo);
+    
     //Elimina una imagen del mapa
     void eliminar_elemento_mapa(Image_Map* objeto_a_eliminar);
+    
     // Dibuja todos los elementos del mapa
     void Draw();
 
+    /*Carga las texturas de los elementos del minimapa para luego reutilizar esa imagen en los demas elementos del minimapa*/
     GLuint load_texture(const char* ruta);
 
 private:

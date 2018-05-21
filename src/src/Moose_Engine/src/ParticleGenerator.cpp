@@ -1,6 +1,9 @@
 /* Basado y editado de:
-https://www.3dgep.com/simulating-particle-effects-using-opengl/
-
+    https://www.3dgep.com/simulating-particle-effects-using-opengl/
+    https://learnopengl.com/In-Practice/2D-Game/Particles
+    http://www.opengl-tutorial.org/intermediate-tutorials/billboards-particles/billboards/
+    http://www.opengl-tutorial.org/intermediate-tutorials/billboards-particles/particles-instancing/
+    ...
 */
 
 #include "ParticleGenerator.h"
@@ -9,8 +12,6 @@ https://www.3dgep.com/simulating-particle-effects-using-opengl/
 #include "glm/ext.hpp"
 #include <iostream>
 
-
-
 ParticleGenerator::ParticleGenerator(Shader* shader, GLuint amount)
     : shader(shader), amount(amount)
 {
@@ -18,18 +19,14 @@ ParticleGenerator::ParticleGenerator(Shader* shader, GLuint amount)
     load_texture();
 }
 
-
-
-
 ParticleGenerator::~ParticleGenerator(){
+    /*Elimina el array de vertices y los buffers*/
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
 }
 
-
-
-void ParticleGenerator::Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion){
+void ParticleGenerator::Reuse_Particles(GLuint newParticles, glm::vec3 offset, GLint _direccion){
         // Add new particles 
     for (GLuint i = 0; i < 2; ++i)
     {
@@ -41,8 +38,7 @@ void ParticleGenerator::Reuse_Particles(GameObject &object, GLuint newParticles,
     }
 }
 
-
-void ParticleGenerator::Reuse_Particles_Ground(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion){
+void ParticleGenerator::Reuse_Particles_Ground(GLuint newParticles, glm::vec3 offset, GLint _direccion){
         // Add new particles 
     for (GLuint i = 0; i < newParticles; ++i)
     {
@@ -52,16 +48,12 @@ void ParticleGenerator::Reuse_Particles_Ground(GameObject &object, GLuint newPar
     }
 }
 
+void ParticleGenerator::Update(GLfloat dt){
 
-
-void ParticleGenerator::Update(GLfloat dt)
-{
     // Update all particles
-    for (GLuint i = 0; i < this->amount; ++i)
-    {
-        Particle &p = this->particles[i];
+    for (GLuint i = 0; i < amount; ++i){
+        Particle &p = particles[i];
         p.grados = rand() % 359;
-        //std::cout << dt << std::endl;
         p.Life -= dt; // reduce life
         p.Scale += dt * p.Scale_Factor;
         if (p.Life > 0.0f)
@@ -76,7 +68,7 @@ void ParticleGenerator::Update(GLfloat dt)
     }
 }
 
-// Render all particles
+// Dibuja las particulas
 void ParticleGenerator::Draw()
 {
     // Use additive blending to give it a 'glow' effect
@@ -86,60 +78,50 @@ void ParticleGenerator::Draw()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader->use(particulas);
    
-    for (Particle particle : this->particles)
-    {
-      if (particle.Life > 0.0f)
-        {
+    for (Particle particle : this->particles){
+        if (particle.Life > 0.0f){
 
-        glDisable(GL_CULL_FACE);
-        
-        glm::mat4 projection = shader->getProjection();
-        glm::mat4 view = shader->getView();
-        
-        update_model_matrix(particle.Position, particle.grados, glm::vec3(0,0,1), glm::vec3(particle.Scale,particle.Scale,1));
-        
-        glm::mat4 MVP = projection*view*ModelMatrix;      
+            glDisable(GL_CULL_FACE);
+            
+            glm::mat4 projection = shader->getProjection();
+            glm::mat4 view = shader->getView();
+            
+            update_model_matrix(particle.Position, particle.grados, glm::vec3(0,0,1), glm::vec3(particle.Scale,particle.Scale,1));
+            
+            glm::mat4 MVP = projection*view*ModelMatrix;      
 
-        /*
-        GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-        GLfloat aColor = 0.5 + ((rand() % 100) / 100.0f);
-        particle.Color = glm::vec4(1.0, 1.0, 1.0, 1);
-        */
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-        glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, glm::value_ptr(particle.Color));
+            /*Paso de valores al shader*/
+            glUniformMatrix4fv(glGetUniformLocation(Shader::Program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+            glUniform4fv(glGetUniformLocation(Shader::Program, "color"), 1, glm::value_ptr(particle.Color));
+            glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
 
-        glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, ID);
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, ID);
+            glBindVertexArray(VAO);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-        glEnable(GL_CULL_FACE);
-
+            glEnable(GL_CULL_FACE);
 
         }
     }
-    // Don't forget to reset to default blending mode
-   // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-       glDepthMask(true);
 
-
+    glDepthMask(true);
 }
 
+/* Actualiza posicion, la rotacion y escalado de las particulas */
 void ParticleGenerator::update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado){
-    _rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(grados), rotation);
-    _escalado = glm::scale(escalado);
-    _traslacion = glm::translate(position);
+    glm::mat4 _rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(grados), rotation);
+    glm::mat4 _escalado = glm::scale(escalado);
+    glm::mat4 _traslacion = glm::translate(position);
   
     ModelMatrix =  _traslacion * _rotacion * _escalado;
-    glm::mat4 view = shader->getView();
 
-   
+    /* Obtener la matriz view para saber la rotacion que debe ponerse sobre la imagen */
+    glm::mat4 view = shader->getView();
+ 
     ModelMatrix[0][0] = view[0][0]; 
     ModelMatrix[1][0] = view[0][1];
     ModelMatrix[2][0] = view[0][2];
@@ -187,8 +169,6 @@ void ParticleGenerator::load_texture(){
    glUniform1i(glGetUniformLocation(Shader::Program, "sprite"), 0);
     
 }
-
-
 
 void ParticleGenerator::init()
 {
@@ -243,39 +223,41 @@ void ParticleGenerator::init()
         this->particles.push_back(Particle( glm::vec3(61.5158, 12, 44.2914), glm::vec3(0,1,0) * 0.1f, 0));
 }
 
-// Stores the index of the last particle used (for quick access to next dead particle)
+// Indice de la ultima particula usada
 GLuint lastUsedParticle = 0;
+/* Metodo si requiere crear una particula en ese preciso instante*/
 GLuint ParticleGenerator::firstUnusedParticle()
 {
-    // First search from last used particle, this will usually return almost instantly
-    for (GLuint i = lastUsedParticle; i < this->amount; ++i){
+    // Busca a partir de la ultima particula que fue previamente usada
+    for (GLuint i = lastUsedParticle; i < amount; ++i){
         if (this->particles[i].Life <= 0.0f){
             lastUsedParticle = i;
             return i;
         }
     }
-    // Otherwise, do a linear search
+    // Busqueda desde el inicio
     for (GLuint i = 0; i < lastUsedParticle; ++i){
         if (this->particles[i].Life <= 0.0f){
             lastUsedParticle = i;
             return i;
         }
     }
-    // All particles are taken, override the first one (note that if it repeatedly hits this case, more particles should be reserved)
+    // Ultima particula pasa a ser la primera
     lastUsedParticle = 0;
     return 0;
 }
 
+/*Metodo que no borra las particulas que estan en uso */
 GLuint ParticleGenerator::firstUnusedParticle_Active()
 {
-    // First search from last used particle, this will usually return almost instantly
+    // Busca a partir de la ultima particula que fue previamente usada
     for (GLuint i = lastUsedParticle; i < this->amount; ++i){
         if (this->particles[i].Life <= 0.0f){
             lastUsedParticle = i;
             return i;
         }
     }
-    // Otherwise, do a linear search
+    // Busqueda desde el inicio
     for (GLuint i = 0; i < lastUsedParticle; ++i){
         if (this->particles[i].Life <= 0.0f){
             lastUsedParticle = i;
@@ -283,11 +265,13 @@ GLuint ParticleGenerator::firstUnusedParticle_Active()
         }
     }
 
+    //Devuelve que no se puede crear ninguna
     return -1;
 }
 
-void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, GLfloat scale_factor, glm::vec3 velocidad, glm::vec3 offset, GLfloat _i_duracion, GLfloat red, GLfloat green, GLfloat blue)
-{
+/* Se asignan los parametros que se envian para la particula que se esta reusando */
+void ParticleGenerator::respawnParticle(Particle &particle, GLint _direccion, GLfloat scale_factor, glm::vec3 velocidad, glm::vec3 offset, GLfloat _i_duracion, GLfloat red, GLfloat green, GLfloat blue){
+   
     GLfloat desp_x, desp_z;
 
 	desp_z = cos((_direccion*std::acos(-1)/180));
