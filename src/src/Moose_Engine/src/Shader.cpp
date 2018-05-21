@@ -66,7 +66,6 @@ void Shader::LoadShader(ShaderType type,const char* vertex_path, const char* fra
     glLinkProgram(ID);
     checkCompileErrors(ID, "Program_shader");
     Programs[type] = ID;
-    std::cout<<"ID shader"<<(int)ID<<std::endl;
     // delete the shaders (estan linkeados a si que ya no nos sirven)
     glDeleteShader(vertex);
     glDeleteShader(fragment);
