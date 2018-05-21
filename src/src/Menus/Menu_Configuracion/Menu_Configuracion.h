@@ -6,8 +6,8 @@ class Input;
 
 #include <cstdint>
 
-// 11 opciones en este menu
-const uint8_t _n_opciones_configuracion = 11;
+// 13 opciones en este menu
+const uint8_t _n_opciones_configuracion = 13;
 
 class Menu_Configuracion {
 public:
@@ -19,6 +19,7 @@ public:
 	void actualiza();	// Actualiza los valores de las opciones
 
 	uint8_t get_i_configuracion();	// Devuelve la opción actual
+	uint8_t get_i_submenu();		// Devuelve el submenu actual
 
 private: 
 	Opcion** _opciones;
