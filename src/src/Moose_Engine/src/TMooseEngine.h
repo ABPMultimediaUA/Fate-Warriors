@@ -84,10 +84,22 @@ class TMooseEngine{
         void toggleFullscreen();
         void toggleVSync();
         void reset_resolution();
+        bool get_vsync();
+        bool get_fullscreen();
+        uint8_t get_resolution();
+        uint8_t get_calidad_texturas();
+        
+        void set_resolution(uint8_t res);
+        void set_calidad_texturas(uint8_t calidad);
 
     private:
         bool _fullscreen;
         bool _vsync;
+
+        uint8_t _resolution;
+        uint8_t _texture_quality;
+
+
 
         void setMouseOffsetX(float offset);
         void setMouseOffsetY(float offset);

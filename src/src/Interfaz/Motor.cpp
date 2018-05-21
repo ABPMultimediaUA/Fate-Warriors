@@ -985,6 +985,7 @@ void Motor::toggleVSync(){
 
 void Motor::setResolution(uint8_t position){
 	_me->getUI()->set_resolution(position);
+	_me->set_resolution(position);
 }
 
 
@@ -1006,4 +1007,21 @@ void Motor::actualizaMenuConfig(uint8_t opcion){
 
 void Motor::setCalidadTexturas(uint8_t opcion){
 	_me->getUI()->set_texturas(opcion);
+	_me->set_calidad_texturas(opcion);
+}
+
+bool Motor::get_fullscreen(){
+    return _me->get_fullscreen();
+}
+
+bool Motor::get_vsync(){
+    return _me->get_vsync();
+}
+
+uint8_t Motor::get_resolution(){
+    return _me->get_resolution();
+}
+
+uint8_t Motor::get_calidad_texturas(){
+    return _me->get_calidad_texturas();
 }

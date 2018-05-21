@@ -37,6 +37,8 @@ TMooseEngine::TMooseEngine(){
     init_opengl(1280, 720);
     _fullscreen = false;
     _vsync = false;
+    _resolution = 1;
+    _texture_quality = 0;
     glfwSwapInterval(0);
     uint16_t _contadorIDEntidad = 0;
     _n_c_actual=0;
@@ -700,4 +702,28 @@ ParticleGenerator* TMooseEngine::get_gestor_particulas(){
 
 void TMooseEngine::resize_window(int _i_width, int _i_height) {
     glfwSetWindowSize(window, _i_width, _i_height);
+}
+
+bool TMooseEngine::get_fullscreen(){
+    return _fullscreen;
+}
+
+bool TMooseEngine::get_vsync(){
+    return _vsync;
+}
+
+uint8_t TMooseEngine::get_resolution(){
+    return _resolution;
+}
+
+uint8_t TMooseEngine::get_calidad_texturas(){
+    return _texture_quality;
+}
+
+void TMooseEngine::set_resolution(uint8_t res){
+    _resolution = res;
+}
+
+void TMooseEngine::set_calidad_texturas(uint8_t calidad){
+    _texture_quality = calidad;
 }

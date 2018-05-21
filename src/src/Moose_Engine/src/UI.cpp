@@ -269,7 +269,7 @@ void UI::drawMenuConfigSubmenu3(){
 //dibujar menu de config
 void UI::setConfigSubmenu1(uint8_t opcion){
 
-    _lista_imagenes_config[0]->setSelected(2);
+    _lista_imagenes_config[0]->setSelected(3);
     _lista_imagenes_config[1]->setSelected(1);
     _lista_imagenes_config[2]->setSelected(1);
     _lista_imagenes_config[3]->setSelected(1);
@@ -319,7 +319,7 @@ void UI::setConfigSubmenu1(uint8_t opcion){
 //dibujar menu de config
 void UI::setConfigSubmenu2(uint8_t opcion){
 
-    _lista_imagenes_config_2[0]->setSelected(2);
+    _lista_imagenes_config_2[0]->setSelected(3);
     _lista_imagenes_config_2[1]->setSelected(1);
     _lista_imagenes_config_2[2]->setSelected(1);
     
@@ -346,7 +346,7 @@ void UI::setConfigSubmenu2(uint8_t opcion){
 
 void UI::setConfigSubmenu3(uint8_t opcion){
 
-    _lista_imagenes_config_3[0]->setSelected(2);
+    _lista_imagenes_config_3[0]->setSelected(3);
     _lista_imagenes_config_3[1]->setSelected(1);
     _lista_imagenes_config_3[2]->setSelected(1);
     _lista_imagenes_config_3[3]->setSelected(1);
@@ -357,6 +357,10 @@ void UI::setConfigSubmenu3(uint8_t opcion){
 
 
     switch(opcion){
+        case 8:     
+                    _lista_imagenes_config_3[0]->setSelected(2);
+                    break;
+
         case 9:     
                     _lista_imagenes_config_3[1]->setSelected(2);
                     break;

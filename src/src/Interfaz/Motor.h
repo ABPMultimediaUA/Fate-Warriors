@@ -166,6 +166,11 @@ public:
     
     void actualizaMenuConfig(uint8_t opcion);
 
+    bool get_fullscreen();
+    bool get_vsync();
+    uint8_t get_resolution();
+    uint8_t get_calidad_texturas();
+
 private:
 
       static Motor* _Motor;
