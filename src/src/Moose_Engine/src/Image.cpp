@@ -16,7 +16,7 @@
 
 
 
-Image::Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height)
+Image::Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta2, const char* ruta3, const char* ruta4, float x, float y, float width, float height)
     : shader(shader)
 {
     _selected = 1;
@@ -37,6 +37,12 @@ Image::Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta
         case 3: load_texture(ruta);
                 load_texture2(ruta2);
                 load_texture3(ruta3);
+                break;
+        
+        case 4: load_texture(ruta);
+                load_texture2(ruta2);
+                load_texture3(ruta3);
+                load_texture4(ruta4);
                 break;
     }
 }
@@ -186,6 +192,35 @@ void Image::load_texture3(const char* ruta){
     glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID3);
 }
 
+void Image::load_texture4(const char* ruta){
+    glGenTextures(1, &ID4);
+    glBindTexture(GL_TEXTURE_2D, ID4); 
+     // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    //nrChannels = 4;
+  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    SOIL_free_image_data(data);
+
+    glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID4);
+}
+
 // Render image
 void Image::Draw()
 {
@@ -231,6 +266,9 @@ ModelMatrix = _traslacion * _rotacion * _escalado;
                 break;
 
         case 3: glBindTexture(GL_TEXTURE_2D, ID3);
+                break;
+
+        case 4: glBindTexture(GL_TEXTURE_2D, ID4);
                 break;
     }
         

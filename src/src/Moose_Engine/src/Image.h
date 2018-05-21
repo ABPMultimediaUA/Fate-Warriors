@@ -15,7 +15,7 @@ class Shader;
 class Image{
 public:
     // Constructor
-    Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height); 
+    Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta2, const char* ruta3, const char* ruta4, float x, float y, float width, float height); 
     void setSelected(int selected);
     bool getSelected();
     ~Image();
@@ -37,7 +37,8 @@ private:
     void load_texture(const char* ruta);
     void load_texture2(const char* ruta);
     void load_texture3(const char* ruta);
-    GLuint ID,ID2,ID3;
+    void load_texture4(const char* ruta);
+    GLuint ID,ID2,ID3,ID4;
 
     float _x, _y, _width, _height;
 

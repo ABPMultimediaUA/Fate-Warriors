@@ -18,11 +18,17 @@ class UI{
         Image* crear_imagenHUD(Shader* shader, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height);
         Image* crear_imagenHUD_llave(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
+        Image* crear_imagen_config(Shader* shader, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height);
         Image* crear_imagen_config(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
         Image* crear_imagen_config(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
+        Image* crear_imagen_config_2(Shader* shader, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height);
         Image* crear_imagen_config_2(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
         Image* crear_imagen_config_2(Shader* shader, const char* ruta, float x, float y, float width, float height);
+
+        Image* crear_imagen_config_3(Shader* shader, const char* ruta, const char* ruta2, const char* ruta3, const char* ruta4, float x, float y, float width, float height);
+        Image* crear_imagen_config_3(Shader* shader, const char* ruta, const char* ruta2, const char* ruta3, float x, float y, float width, float height);
+        Image* crear_imagen_config_3(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
 
         Image* crear_imagen_fin_win(Shader* shader, const char* ruta, float x, float y, float width, float height);
         Image* crear_imagen_fin_win(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height);
@@ -32,14 +38,21 @@ class UI{
 
         Image* crear_imagen_pantalla_carga(Shader* shader, const char* ruta, float x, float y, float width, float height);
 
-        void drawMenu(uint16_t opcion);
-        void drawMenuFondo(uint16_t _opcion);
-        void drawMenuLogo(uint16_t _opcion);
-        void drawMenuPausa(uint16_t opcion);
-        void drawMenuConfig(uint16_t opcion);
+        void drawMenu(uint8_t opcion);
+        void drawMenuFondo(uint8_t _opcion);
+        void drawMenuLogo(uint8_t _opcion);
+        void drawMenuPausa(uint8_t opcion);
+        
+        void drawMenuConfigSubmenu1(); //music
+        void drawMenuConfigSubmenu2(); //gameplay
+        void drawMenuConfigSubmenu3(); //graphics
+        void setConfigSubmenu1(uint8_t opcion);
+        void setConfigSubmenu2(uint8_t opcion);
+        void setConfigSubmenu3(uint8_t opcion);
+
         void drawHUD();
-        void drawMenuFinWin(uint16_t opcion);
-        void drawMenuFinLose(uint16_t opcion);
+        void drawMenuFinWin(uint8_t opcion);
+        void drawMenuFinLose(uint8_t opcion);
 
         void set_escala_vida(float escala);
 
@@ -66,6 +79,8 @@ class UI{
         std::vector<Image*> _lista_imagenes_config;
         //MENU CONFIG 2
         std::vector<Image*> _lista_imagenes_config_2;
+        //MENU CONFIG 3
+        std::vector<Image*> _lista_imagenes_config_3;
 
         //HUD
         std::vector<Image*> _lista_imagenes_hud;

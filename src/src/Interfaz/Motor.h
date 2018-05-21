@@ -158,6 +158,8 @@ public:
     void toggleFullscreen();
     void toggleVSync();
     
+    void actualizaMenuConfig(uint8_t opcion);
+
 private:
 
       static Motor* _Motor;

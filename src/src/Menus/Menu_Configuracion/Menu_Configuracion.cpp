@@ -16,6 +16,7 @@
 #include "Submenu_3/Opcion_Texturas.h"
 
 #include "../../Input/Input.h"
+#include "../../Interfaz/Motor.h"
 
 #include <iostream>
 
@@ -97,7 +98,7 @@ Menu_Configuracion::~Menu_Configuracion() {
 // Se hace el update de la opción actual
 void Menu_Configuracion::update(double _i_tiempo) {
 	_opcion_actual = _opcion_actual->update(_i_tiempo, _opcion_actual);
-
+	Motor::Motor_GetInstance()->actualizaMenuConfig(get_i_configuracion());
 	pinta_estado();
 }
 
@@ -108,6 +109,7 @@ void Menu_Configuracion::actualiza() {
 	}
 	
 	_opcion_actual = _opciones[0];
+
 }
 
 

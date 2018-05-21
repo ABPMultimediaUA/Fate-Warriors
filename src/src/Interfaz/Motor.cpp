@@ -982,3 +982,18 @@ void Motor::toggleFullscreen(){
 void Motor::toggleVSync(){
 	_me->toggleVSync();
 }
+
+void Motor::actualizaMenuConfig(uint8_t opcion){
+	std::cout<< "OPCION: "<< opcion << "\n";
+	if(opcion < 5 ){
+		_me->getUI()->setConfigSubmenu1(opcion);
+	}
+
+	else if(opcion < 8 ){
+		_me->getUI()->setConfigSubmenu2(opcion);
+	}
+
+	else{
+		_me->getUI()->setConfigSubmenu3(opcion);
+	}
+}
