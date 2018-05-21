@@ -1,14 +1,20 @@
+/* Aprendido de paginas como: 
+http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-11-2d-text/
+https://www.gamedev.net/forums/topic/637183-how-to-create-minimap-sdlopengl/
+https://learnopengl.com/Getting-started/Textures
+https://stackoverflow.com/questions/1733488/terrain-minimap-in-opengl
+https://www.leadwerks.com/community/topic/4487-what-method-for-adding-a-mini-map/
+...
+*/
+
 #include "Image_Map.h"
 #include "SOIL.h"
 #include "src/Moose_Engine/src/Shader.h"
 #include <iostream>
 
-
-
 Image_Map::Image_Map(Shader* shader, const char* ruta, float x, float y, float width, float height)
     : shader(shader)
 {
-    _selected = 1;
     _x = x;
     _y = y;
     _width = width;
@@ -26,29 +32,30 @@ Image_Map::~Image_Map(){
 
 
 void Image_Map::setTextureposition(float x, float y, float rotacion){
+   
     _x = x;
     _y = y;
     _rotacion = rotacion;
 
-    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(420,560); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexPosition_homoneneousspace /= glm::vec2(420,560);
-                                                                // 1280 720 ->640 360
-    glm::vec2 vertexScale_homoneneousspace = glm::vec2(_width,_height); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexScale_homoneneousspace /= glm::vec2(420,560);
+    glm::vec2 posicion_en_pantalla = glm::vec2(_x,_y) - glm::vec2(420,560); // X, Y es la posicion en la pantalla se transforma la posicion a una posicion de opengl
+    posicion_en_pantalla /= glm::vec2(420,560);                             // Se divide para tener la coordenada en pantalla
+                                                                
+    glm::vec2 escala_en_pantalla = glm::vec2(_width,_height); // Se hace el mismo procedimiento en la escala (transformar de escala con respecto al tamaño a escala para opengl)
+    escala_en_pantalla /= glm::vec2(420,560);
+
+
+    float _x = posicion_en_pantalla.x;
+    float _y = posicion_en_pantalla.y;
+    float _width = escala_en_pantalla.x / 2;
+    float _height = escala_en_pantalla.y / 2;
     
     
-    float _x = vertexPosition_homoneneousspace.x;
-    float _y = vertexPosition_homoneneousspace.y;
-    float _width = vertexScale_homoneneousspace.x ;
-    float _height = vertexScale_homoneneousspace.y;
-    
- 
      float vertices[] = {
-        // positions          // colors           // texture coords
-         _x + _width/2,  _y + _height/2,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
-         _x + _width/2, _y  - _height/2, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
-         _x - _width/2, _y - _height/2,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
-         _x - _width/2,  _y + _height/2,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
+                  // positions                    // colors       // texture coords
+         _x + _width, _y + _height, 0.0f,     1.0f, 0.0f, 0.0f,   1.0f, 0.0f,    // arriba a la derecha
+         _x + _width, _y - _height, 0.0f,     0.0f, 1.0f, 0.0f,   1.0f, 1.0f,    // abajo a la derecha
+         _x - _width, _y - _height, 0.0f,     0.0f, 0.0f, 1.0f,   0.0f, 1.0f,    // abajo a la izquierda
+         _x - _width, _y + _height, 0.0f,     1.0f, 1.0f, 0.0f,   0.0f, 0.0f     // arriba a la izquierda
     };
 
 
@@ -72,36 +79,29 @@ void Image_Map::setTextureposition(float x, float y, float rotacion){
 
 void Image_Map::init()
 {
-    glEnable(GL_BLEND);
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-/*
-    std::cout << _x << "x \n";
-    std::cout << _y << "y \n";
-    std::cout << _width << "xx \n";
-    std::cout << _height << "xy \n";
-*/
-    // ------------------------------------------------------------------  POSICIONES DEL MAPA VA DE LA 1190 - 1346
 
-    glm::vec2 vertexPosition_homoneneousspace = glm::vec2(_x,_y) - glm::vec2(420,560); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexPosition_homoneneousspace /= glm::vec2(420,560);
-                                                                // 1280 720 ->640 360
-    glm::vec2 vertexScale_homoneneousspace = glm::vec2(_width,_height); // [0..800][0..600] -> [-400..400][-300..300]
-    vertexScale_homoneneousspace /= glm::vec2(420,560);
+    glEnable(GL_BLEND); //Activo para la opacidad de las imagenes
+
+    glm::vec2 posicion_en_pantalla = glm::vec2(_x,_y) - glm::vec2(420,560); // X, Y es la posicion en la pantalla se transforma la posicion a una posicion de opengl
+    posicion_en_pantalla /= glm::vec2(420,560);                             // Se divide para tener la coordenada en pantalla
+                                                                
+    glm::vec2 escala_en_pantalla = glm::vec2(_width,_height); // Se hace el mismo procedimiento en la escala (transformar de escala con respecto al tamaño a escala para opengl)
+    escala_en_pantalla /= glm::vec2(420,560);
+    
+    float _x = posicion_en_pantalla.x;
+    float _y = posicion_en_pantalla.y;
+    float _width = escala_en_pantalla.x / 2;
+    float _height = escala_en_pantalla.y / 2;
     
     
-    float _x = vertexPosition_homoneneousspace.x;
-    float _y = vertexPosition_homoneneousspace.y;
-    float _width = vertexScale_homoneneousspace.x ;
-    float _height = vertexScale_homoneneousspace.y;
-    
-    
-     float vertices[] = {
-        // positions          // colors           // texture coords
-         _x + _width/2,  _y + _height/2,          0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
-         _x + _width/2, _y  - _height/2, 0.0f,               0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // bottom right
-         _x - _width/2, _y - _height/2,          0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
-         _x - _width/2,  _y + _height/2,                   0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f // top left 
+    float vertices[] = {
+                  // positions                    // colors       // texture coords
+         _x + _width, _y + _height, 0.0f,     1.0f, 0.0f, 0.0f,   1.0f, 0.0f,    // arriba a la derecha
+         _x + _width, _y - _height, 0.0f,     0.0f, 1.0f, 0.0f,   1.0f, 1.0f,    // abajo a la derecha
+         _x - _width, _y - _height, 0.0f,     0.0f, 0.0f, 1.0f,   0.0f, 1.0f,    // abajo a la izquierda
+         _x - _width, _y + _height, 0.0f,     1.0f, 1.0f, 0.0f,   0.0f, 0.0f     // arriba a la izquierda
     };
+
     unsigned int indices[] = {
         0, 1, 3, // first triangle
         1, 2, 3  // second triangle
@@ -142,9 +142,7 @@ void Image_Map::load_texture(const char* ruta){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
-    //nrChannels = 4;
-  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    
     unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
@@ -168,68 +166,19 @@ void Image_Map::update_rotacion(){
 }
 
 
-// Render image
 void Image_Map::Draw()
 {
-    //shader->setUniform("width", _width);
-    //shader->setUniform("scale", 0);
-
-    glUniform1f(glGetUniformLocation(Shader::Program, "width"), _width);
-   // glUniform1f(glGetUniformLocation(Shader::Program, "scale"), a);
-    
-  //  glUniform1f(glGetUniformLocation(Shader::Program, "width"), a));
-
-    //std::cout << "UNIFORM: " << glGetUniformLocation(Shader::Program, "texture1") << "\n";
-    
-    //shader->setInt("texture1", ID);
+    //Desactivar la mascara de profundidad para situarlo en pantalla
     glDepthMask(false);
-    // Don't forget to reset to default blending mode
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    // Use additive blending to give it a 'glow' effect
-    
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
-    //glm::mat4 _escalado = glm::scale(glm::vec3(1,1,1));
-/*
-    _traslacion = glm::translate(position);
-  
-ModelMatrix = _traslacion * _rotacion * _escalado;
-    /*
-    glUniform1i(glGetUniformLocation(shader->ID, "texture"), 0);
-    */
-  //  glUniform2fv(glGetUniformLocation(shader->ID, "offset"), 1, &particle.Position[0]);
-  //  glUniform4fv(glGetUniformLocation(Shader::Program, "scala"), 1, glm::value_ptr(_escalado));
-
         
     glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, ID);
 
-  glBindTexture(GL_TEXTURE_2D, ID);
-
-        
     
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-
-    // Don't forget to reset to default blending mode
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //Devolverlo a como estaba previamente para dibujar el resto de elementos
     glDepthMask(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
