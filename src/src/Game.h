@@ -10,7 +10,6 @@ class Datos_Partida;
 class Interfaz;
 class Interfaz_Fisica;
 class Consumible_Action;
-class Trampas_action;
 class Nivel;
 class Motor;
 class Player;
@@ -99,7 +98,6 @@ private:
 	Motor* _motor;
 	Interfaz_sonido *_sonido;
 	Consumible_Action * _consumibles_action;
-	Trampas_action* _trampas_action;
 	Input* _input_jugador;
 
 	Menu_Principal* _menu_principal;		// Menu Principal

@@ -9,13 +9,11 @@
 
 
 #include "../Camara/Camara.h"
-#include "GUI.h"
 
 #include "EnumTiposBoundingBox.h"
 #include <btBulletCollisionCommon.h>
 #include "../Utilidades/Vector.h"
 
-//#include "../Moose_Engine/src/iNodoModelado.h"
 #include "../Moose_Engine/src/Interfaz_Particulas.h"
 
 
@@ -57,13 +55,10 @@ public:
    
     void apagar();
 
-    void configuracion_irlitch();
     void configuracion_bullet();
     void preparar_depuracion_mundo();
     iNodoModelado* importarEscenario(const char* rutaObj, float x, float y, float z);
 
-  
-    unsigned short crear_objeto(BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso);
     void crear_ObjetoMotor(Objeto_Motor* _i_objeto_motor);
     btRigidBody* crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const char*  ruta,float x, float y, float z, float _i_peso, iNodoModelado *cubeNode);
     
@@ -104,7 +99,7 @@ public:
     bool ventana_abierta();
     inline TMooseEngine* getEngine(){ return _me;}
     //void simulationUpdate();
-      //bool    colision_entre_dos_puntos(Vector3 inicio, Vector3 fin);
+    //bool    colision_entre_dos_puntos(Vector3 inicio, Vector3 fin);
 
 
     void update(double dt);
@@ -198,11 +193,8 @@ private:
     	btDynamicsWorld *world;
     	btBulletWorldImporter* fileLoader;
       
-      Time* _tiempo;
       uint8_t _numcubos;
 
-      
-      
       //ME
       TMooseEngine* _me;
       iNodoModelado* mapa;

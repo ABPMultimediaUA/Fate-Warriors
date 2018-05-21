@@ -9,7 +9,6 @@
 #include "Nivel/Nivel.h"
 #include "Consumibles/Consumible_Action.h"
 #include "Tiempo/Time.h"
-#include "Trampas/Trampas_action.h"
 #include "Motor_sonido/Interfaz_sonido.h"
 #include "Menus/Menu_Principal.h"
 #include "Menus/Menu_Pausa.h"
@@ -37,8 +36,8 @@ Game* Game::game_instancia(){
 Game::Game() : _datos(nullptr), 
 			   _action_manager(nullptr), 
 			   _decision_manager(nullptr), 
-			   _consumibles_action(nullptr),
-			   _trampas_action(nullptr) {
+			   _consumibles_action(nullptr)
+			     {
 	_motor = Motor::Motor_GetInstance();
     _sonido= Interfaz_sonido::GetInstancia();
 	_sonido->Play_musica(0);
@@ -92,7 +91,6 @@ void Game::crea_partida() {
 	_datos->inserta_npc_nivel();
 	
 	_consumibles_action = new Consumible_Action();	
-	_trampas_action 	= new Trampas_action();	
 
 	//_datos->posicionar_characters_inicialmente();
 
@@ -120,8 +118,6 @@ void Game::fin_partida() {
 	delete _action_manager;
 	
 	delete _consumibles_action;
-
-	delete _trampas_action;
 
 	delete _nivel;
 
@@ -166,8 +162,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 		_player->update();
 		_nivel->Update();
 		_consumibles_action->comprobar_consumibles();
-		_trampas_action->update();
-
+		
 		_motor->update(_i_tiempo_desde_ultimo_update);
 		_interactuable_manager->update_interruptores();
 		_decision_manager->toma_decisiones();

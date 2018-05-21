@@ -34,14 +34,6 @@
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Moose_Engine/src/iNodoLuz.h"
 
-/*
-#include "Entidad.h"
-#include "../Input.h"
-#include "../Utilidades/Vector.h"
-master*/
-
-
-
 
 Motor* Motor::_Motor=0;
 
@@ -298,26 +290,6 @@ Motor::~Motor(){
 
 _Motor=0;
 
-	//Bullet
-/*
-	for(short a=0; a<rigidbody.size(); a++){
-		world->removeRigidBody(rigidbody[a]);
-	    delete rigidbody[a]->getCollisionShape();
-
-		delete rigidbody[a];
-		rigidbody[a] = nullptr;
-	}
-	rigidbody.clear();
-
-
-	for(short a=0; a<nodes.size(); a++){
-		delete nodes[a];
-		nodes[a] = nullptr;
-	}
-	nodes.clear();
- 
- */
-
 	for(short a=0; a<_objetos_motor.size(); a++){
 		_objetos_motor[a]->getNodo()->remove();
 		world->removeRigidBody(_objetos_motor[a]->getRigidBody());
@@ -339,11 +311,6 @@ _Motor=0;
 	delete constraintSolver; 
 	delete fileLoader; 
 
-	////Irrlitch
-	//delete _GUI;
-	//driver->drop();
-	//device->drop();
-
 
 	world = nullptr;
 	camara = nullptr;
@@ -357,7 +324,6 @@ _Motor=0;
 
 
 void Motor::apagar(){
-	//device->closeDevice();
 	_me->apagar();
 }
 
@@ -397,9 +363,6 @@ void Motor::configuracion_bullet(){
 		_objeto_esceario->setFriction(0);
 		world->addRigidBody(_objeto_esceario,COL_ESCENARIO, escenario_colisiona_con);
 
-		//btBroadphaseProxy* proxy = esta_vez_si->getBroadphaseProxy();
-		//proxy->m_collisionFilterGroup = 4;
-		//proxy->m_collisionFilterMask = 4;
 	}	
 	
 	
@@ -436,14 +399,6 @@ bool Motor::ventana_abierta(){
     return !_me->ventana_abierta();
 }
 
-unsigned short Motor::crear_objeto(BoundingBoxes tipo,const char* ruta,float x, float y, float z, float _i_peso){
-	/*ISceneNode *cubeNode = crearModelado(ruta, x,y,z);
-	Interpolacion* interpolacion = crear_interpolacion(x,y,z);
-	btRigidBody* cuerpo = 	crearRigidBody(tipo,ruta,x, y, z, _i_peso, cubeNode); ;;
-	*/
-
-	return 1;
-}
 
 iNodoModelado* Motor::crearModelado(const char* ruta,float x, float y, float z){
 	iNodoModelado* cubeNode = new iNodoModelado(ruta, x, y, z);
@@ -508,7 +463,6 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	switch(tipo){
 		case E_BoundingCapsule: 
 			cubeShape = new btCapsuleShape(anchura*1.1,altura*0.69); // new btSphereShape(0.5)
-			std::cout << anchura << "anchura " << altura << " altura " << profundidad << "\n";
 
 					break;
 		case E_BoundingBox:
@@ -707,9 +661,6 @@ btCollisionWorld::AllHitsRayResultCallback Motor::trazaRayoAll(btVector3 start, 
 iNodoModelado* Motor::importarEscenario(const char* rutaObj, float x, float y, float z){
 	iNodoModelado* modelado = crearModeladoEscenario(rutaObj, x, y, z);
 
-	//modelado->rotar(-1,0,0,180);
-	//modelado->escalar(1,-1,1);
-	//modelado->rotar(0,0,1,180);
 	return modelado;
 }
 
@@ -783,23 +734,6 @@ bool Motor::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
 
 	btCollisionWorld::ClosestRayResultCallback rayCallback = this->trazaRayo(mX, mY,mascara_colision);
 
-	//if(dynamic_cast<Character*>(rayCallback)!=null){
-	//	std::cout<<"colisiona con personaje/npc  \n";
-	//}
-	//como no se quien es quito el control PD: HOLA FRAN :)
-	/*
-	if(rayCallback.hasHit()){
-		btVector3 point = rayCallback.m_hitPointWorld;
-		btVector3 normal = rayCallback.m_hitNormalWorld;
-		const btCollisionObject *object = rayCallback.m_collisionObject;
-		for(short i = 0; i<fileLoader->getNumRigidBodies();i++){
-			if(fileLoader->getRigidBodyByIndex(i) == object){
-				
-			}
-		}
-	}
-	*/
-	//std::cout<<"colisiona: "<<rayCallback.hasHit()<<std::endl;
 	return(!rayCallback.hasHit());
 }
 
@@ -844,12 +778,6 @@ void Motor::resetear_camara(){
 
 
 //Metodos set
-
-//void Motor::set_text_vida(int _i_vida){
-//	_GUI->set_text_vida(_i_vida);
-//	_vida = (_i_vida*300)/3000;
-//}
-
 
 void Motor::render(float _i_interpolacion){
 	interpola_posiciones(_i_interpolacion);

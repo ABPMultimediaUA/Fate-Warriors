@@ -8,7 +8,6 @@ class NPC;
 class Player;
 class Character;
 class Consumible_Manager;
-class Trampas_manager;
 class Interactuable_Manager;
 class Input;
 class Zonas_Manager;
@@ -21,8 +20,6 @@ public:
 	virtual ~Datos_Partida();
 
 	Player* get_player();
-
-	Trampas_manager* get_trampas_manager();
 
 	NPC_Manager* get_npc_manager();
 
@@ -46,7 +43,6 @@ private:
 	Character ** _characters;
 	uint16_t _num_characters;
 	NPC_Manager* _npc_manager;
-	Trampas_manager *_trampas_manager;
 	Consumible_Manager * _consumibles_manager;
     Interactuable_Manager * _interactuable_manager;
 	Zonas_Manager * _zonas_manager;

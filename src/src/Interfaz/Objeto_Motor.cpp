@@ -9,7 +9,6 @@
 //#include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include "DebugDraw.h"
 #include "../Camara/Camara.h"
-#include "GUI.h"
 #include "../Personajes/Interpolacion.h"
 #include "../Personajes/Character.h"
 #include "../Moose_Engine/src/iNodoModelado.h"
