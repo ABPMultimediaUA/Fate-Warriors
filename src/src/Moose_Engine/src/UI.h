@@ -50,6 +50,9 @@ class UI{
         void setConfigSubmenu2(uint8_t opcion);
         void setConfigSubmenu3(uint8_t opcion);
 
+        void setFullScreen(bool activar);
+        void setVsync(bool activar);
+
         void drawHUD();
         void drawMenuFinWin(uint8_t opcion);
         void drawMenuFinLose(uint8_t opcion);
@@ -63,6 +66,8 @@ class UI{
         
         void set_eje_x(bool ejeX);
         void set_eje_y(bool ejeY);
+        void set_resolution(uint8_t opcion);
+        void set_texturas(uint8_t opcion);
 
         void set_tiene_llave(bool _i_tiene_llave);
 

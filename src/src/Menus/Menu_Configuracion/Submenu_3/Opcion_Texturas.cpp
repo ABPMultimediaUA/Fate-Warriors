@@ -5,6 +5,7 @@
 
 #include "../../../Motor_sonido/Interfaz_sonido.h"
 #include "../../../Moose_Engine/src/TGestorRecursos.h"
+#include "../../../Interfaz/Motor.h"
 
 #include <iostream>
 
@@ -63,4 +64,5 @@ void Opcion_Texturas::set_texturas() {
 	// 		2 - MEDIUM
 	// 		3 - HIGH
 	TGestorRecursos::get_instancia()->setCalidad(_texturas+1);
+	Motor::Motor_GetInstance()->setCalidadTexturas(_texturas);
 }

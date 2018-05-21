@@ -983,6 +983,12 @@ void Motor::toggleVSync(){
 	_me->toggleVSync();
 }
 
+void Motor::setResolution(uint8_t position){
+	_me->getUI()->set_resolution(position);
+}
+
+
+
 void Motor::actualizaMenuConfig(uint8_t opcion){
 	std::cout<< "OPCION: "<< opcion << "\n";
 	if(opcion < 5 ){
@@ -996,4 +1002,8 @@ void Motor::actualizaMenuConfig(uint8_t opcion){
 	else{
 		_me->getUI()->setConfigSubmenu3(opcion);
 	}
+}
+
+void Motor::setCalidadTexturas(uint8_t opcion){
+	_me->getUI()->set_texturas(opcion);
 }

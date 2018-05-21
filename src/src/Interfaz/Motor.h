@@ -137,7 +137,7 @@ public:
     void render_Pausa();
     void render_Menu_Config();
     void recibir_Danyo(float vida, float vida_maxima);
-     Interfaz_Particulas* _interfaz;
+    Interfaz_Particulas* _interfaz;
     void set_escala_music(uint8_t escala);
     void set_escala_sfx(uint8_t escala);
     void set_escala_voz(uint8_t escala);
@@ -145,6 +145,10 @@ public:
 
     void set_eje_x(bool ejeX);
     void set_eje_y(bool ejeY);
+
+    void set_eje_vsync(bool ejeX);
+    void set_eje_fullscreen(bool ejeY);
+      
 
     void render_Menu_Win();
     void render_Menu_Lose();
@@ -157,6 +161,8 @@ public:
     void resize_window(int _i_width, int _i_height);
     void toggleFullscreen();
     void toggleVSync();
+    void setResolution(uint8_t opcion);
+    void setCalidadTexturas(uint8_t opcion);
     
     void actualizaMenuConfig(uint8_t opcion);
 

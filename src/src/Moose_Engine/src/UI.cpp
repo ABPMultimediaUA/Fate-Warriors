@@ -510,3 +510,51 @@ void UI::render_partida_cargada() {
     _lista_imagenes[0]->Draw();
     _lista_imagenes_carga[1]->Draw();
 }
+
+void UI::setVsync(bool activar){
+    if(activar){
+        _lista_imagenes_config_3[6]->setSelected(2);
+    }
+    else{
+        _lista_imagenes_config_3[6]->setSelected(1);
+    }
+}
+
+void UI::set_resolution(uint8_t opcion){
+    switch (opcion){
+        case 0: _lista_imagenes_config_3[5]->setSelected(1);
+                break;
+        
+        case 1: _lista_imagenes_config_3[5]->setSelected(2);
+                break;
+
+        case 2: _lista_imagenes_config_3[5]->setSelected(3);
+                break;
+
+        case 3: _lista_imagenes_config_3[5]->setSelected(4);
+                break;
+
+    }
+}
+
+void UI::setFullScreen(bool activar){
+    if(activar){
+        _lista_imagenes_config_3[7]->setSelected(2);
+    }
+    else{
+        _lista_imagenes_config_3[7]->setSelected(1);
+    }
+}
+
+void UI::set_texturas(uint8_t opcion){
+    switch (opcion){
+        case 0: _lista_imagenes_config_3[8]->setSelected(1);
+                break;
+
+        case 1: _lista_imagenes_config_3[8]->setSelected(2);
+                break;
+
+        case 2: _lista_imagenes_config_3[8]->setSelected(3);
+                break;
+    }
+}
