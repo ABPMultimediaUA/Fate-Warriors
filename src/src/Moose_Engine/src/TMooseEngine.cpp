@@ -62,6 +62,7 @@ void TMooseEngine::initUI(){
     
     //MENU PRINCIPAL
     _ui->crear_imagen(_shader, "Imagenes_Menu/Fondo.png", "Imagenes_Menu/Fondo.png", -1, 1, 2, 2);
+
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_1.png", "Imagenes_Menu/Opcion_1_Selec.png", -0.26, 0.028, 0.53, 0.215);
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.26, -0.275, 0.53, 0.215);
     _ui->crear_imagen(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.58, 0.53, 0.215);
@@ -73,54 +74,80 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.26, -0.275, 0.53, 0.215);
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.58, 0.53, 0.215);
     
-    //MENU CONFIG
-        // ---------- SUBMENU 1 ----------
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_1.png", "Imagenes_Config/Submenu/Submenu_1_Activo.png", -0.299, 0.162, 0.075, 0.159); //submenu
-        
-        //textos de opciones
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Music.png", "Imagenes_Config/Submenu_1/Option_Music_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_SFX.png", "Imagenes_Config/Submenu_1/Option_SFX_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Voices.png", "Imagenes_Config/Submenu_1/Option_Voices_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Menu.png", "Imagenes_Config/Submenu_1/Option_Menu_Selec.png", -0.1, 0.1, 0.4, 0.3);    //menu
-        //(4) 
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_2/Option_X.png", "Imagenes_Config/Submenu_2/Option_X_Selec.png", -0.1, -0.1, 0.4, 0.3);    //eje x
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_2/Option_Y.png", "Imagenes_Config/Submenu_2/Option_Y_Selec.png", -0.1, -0.3, 0.4, 0.3);    //eje y
+    // -------------------------- INICIO OPCIONES --------------------------
+        // ---------- SUBMENU 1 ----------  (0)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_1.png", "Imagenes_Config/Submenu/Submenu_1_Activo.png", -0.299, 0.162, 0.075, 0.159);
 
-        //barra opcion 1 (6)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png", 0.35, 0.60, 0.4, 0.1);     // barra musica
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png",  0.35, 0.60, 0.4, 0.1);     // barra musica
-        //barra opcion 2 (8)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png", 0.35, 0.40, 0.4, 0.1);     // barra sfx
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png",  0.35, 0.40, 0.4, 0.1);     // barra sfx
-        //barra opcion 3 (10)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png",  0.35, 0.20, 0.4, 0.1);     // barra voces
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png", 0.35, 0.20, 0.4, 0.1);     // barra voces
-        //barra opcion 4 (12)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png",  0.35, 0.0, 0.4, 0.1);    // barra menu
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png", 0.35, 0.0, 0.4, 0.1);    // barra menu
+        // MUSIC    (1)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Music.png", "Imagenes_Config/Submenu_1/Option_Music_Selec.png", -0.47, -0.16, 0.431, 0.12);
+        // SFX      (2)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_SFX.png", "Imagenes_Config/Submenu_1/Option_SFX_Selec.png", -0.47, -0.362, 0.431, 0.12);
+        // VOICES   (3)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Voices.png", "Imagenes_Config/Submenu_1/Option_Voices_Selec.png", -0.47, -0.565, 0.431, 0.12);
+        // MENU     (4)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Menu.png", "Imagenes_Config/Submenu_1/Option_Menu_Selec.png", -0.47, -0.767, 0.431, 0.12);
+
+        // EJE X    (14)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_2/Option_X.png", "Imagenes_Config/Submenu_2/Option_X_Selec.png", -0.47, -0.16, 0.431, 0.12);
+        // EJE Y    (15)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_2/Option_Y.png", "Imagenes_Config/Submenu_2/Option_Y_Selec.png", -0.47, -0.362, 0.431, 0.12);
+
+        // Barra Music  (5, 6)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png", 0.03, -0.153, 0.416, 0.13); 
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png",  0.03, -0.153, 0.416, 0.13); 
+        // Barra SFX    (7, 8)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png", 0.03, -0.355, 0.416, 0.13); 
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png",  0.03, -0.355, 0.416, 0.13); 
+        // Barra Voice  (9, 10)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png",  0.03, -0.558, 0.416, 0.13); 
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png", 0.03, -0.558, 0.416, 0.13); 
+        // Barra Menu   (11,12)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png",  0.03, -0.76, 0.416, 0.13); 
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Frente.png", 0.03, -0.76, 0.416, 0.13); 
         
 
-        // ---------- SUBMENU 2 ----------
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_2.png", "Imagenes_Config/Submenu/Submenu_2_Activo.png", -0.035, 0.162, 0.075, 0.159); //submenu
+
+        // ---------- SUBMENU 2 ----------  (13)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_2.png", "Imagenes_Config/Submenu/Submenu_2_Activo.png", -0.035, 0.162, 0.075, 0.159);
         
-        //boton on/off 1 (14)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png",  0.4, -0.15, 0.4, 0.2);
-        //boton on/off 2 (15)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png",  0.4, -0.35, 0.4, 0.2);
+        // TEXTOS
+
+        // OFF - ON     (16)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png", 0.045, -0.169, 0.305, 0.101);
+        // OFF - ON     (17)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png", 0.045, -0.368, 0.305, 0.101);
 
         _ui->set_eje_x(false);
         _ui->set_eje_y(true);
         
 
-        // ---------- SUBMENU 3 ----------
 
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu/Submenu_3.png", "Imagenes_Config/Submenu/Submenu_3_Activo.png", 0.225, 0.162, 0.075, 0.159); //submenu
+        // ---------- SUBMENU 3 ----------  (18)
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu/Submenu_3.png", "Imagenes_Config/Submenu/Submenu_3_Activo.png", 0.225, 0.162, 0.075, 0.159);
         
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Resolution.png", "Imagenes_Config/Submenu_3/Option_Resolution_Selec.png", 0.1, 0.70, 0.15, 0.15); //vsync
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_VSync.png", "Imagenes_Config/Submenu_3/Option_VSync_Selec.png", 0.1, 0.50, 0.15, 0.15); //res
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Fullscreen.png", "Imagenes_Config/Submenu_3/Option_Fullscreen_Selec.png", 0.1, 0.30, 0.15, 0.15); //fullscreen
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Textures.png", "Imagenes_Config/Submenu_3/Option_Textures_Selec.png", 0.1, 0.30, 0.15, 0.15); //fullscreen
+        // RESOLUTION   (19)
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Resolution.png", "Imagenes_Config/Submenu_3/Option_Resolution_Selec.png", -0.47, -0.16, 0.431, 0.12);
+        // V-SYNC       (20)
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_VSync.png", "Imagenes_Config/Submenu_3/Option_VSync_Selec.png", -0.47, -0.362, 0.431, 0.12);
+        // FULLSCREEN   (21)
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Fullscreen.png", "Imagenes_Config/Submenu_3/Option_Fullscreen_Selec.png", -0.47, -0.565, 0.431, 0.12);
+        // TEXTURES     (22)
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Textures.png", "Imagenes_Config/Submenu_3/Option_Textures_Selec.png", -0.47, -0.767, 0.431, 0.12);
         
+
+        // RESOLUTIONS  (23...?)
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Resoluciones/1920_1080.png", "Imagenes_Config/Resoluciones/1920_1080.png", 0.048, -0.15, 0.477, 0.141);
+
+        // OFF - ON
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png", 0.139, -0.368, 0.305, 0.101);
+        // OFF - ON
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png", 0.139, -0.575, 0.305, 0.101);
+
+        // TEXTURES
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Texturas/Low.png", "Imagenes_Config/Texturas/Low.png", 0.048, -0.758, 0.477, 0.141);
+
+
+    // -------------------------- FIN OPCIONES --------------------------
 
     //MENU HUD
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/HUD_Inferior.png", -0.722, 0.78, 0.326, 0.1);
