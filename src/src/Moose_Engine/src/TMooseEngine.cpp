@@ -78,13 +78,13 @@ void TMooseEngine::initUI(){
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_1.png", "Imagenes_Config/Submenu/Submenu_1_Activo.png", -0.299, 0.162, 0.075, 0.159); //submenu
         
         //textos de opciones
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Music.png", "Imagenes_Config/Config_Music_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_SFX.png", "Imagenes_Config/Config_SFX_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Voices.png", "Imagenes_Config/Config_Voices_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Menu.png", "Imagenes_Config/Config_Menu_Selec.png", -0.1, 0.1, 0.4, 0.3);    //menu
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Music.png", "Imagenes_Config/Submenu_1/Option_Music_Selec.png", -0.1, 0.70, 0.4, 0.3); //musica
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_SFX.png", "Imagenes_Config/Submenu_1/Option_SFX_Selec.png", -0.1, 0.50, 0.4, 0.3); //sfx
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Voices.png", "Imagenes_Config/Submenu_1/Option_Voices_Selec.png", -0.1, 0.30, 0.4, 0.3);    //voces
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_1/Option_Menu.png", "Imagenes_Config/Submenu_1/Option_Menu_Selec.png", -0.1, 0.1, 0.4, 0.3);    //menu
         //(4) 
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_X.png", "Imagenes_Config/Config_X_Selec.png", -0.1, -0.1, 0.4, 0.3);    //eje x
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/Config_Y.png", "Imagenes_Config/Config_Y_Selec.png", -0.1, -0.3, 0.4, 0.3);    //eje y
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_2/Option_X.png", "Imagenes_Config/Submenu_2/Option_X_Selec.png", -0.1, -0.1, 0.4, 0.3);    //eje x
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu_2/Option_Y.png", "Imagenes_Config/Submenu_2/Option_Y_Selec.png", -0.1, -0.3, 0.4, 0.3);    //eje y
 
         //barra opcion 1 (6)
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Barra_Fondo.png", 0.35, 0.60, 0.4, 0.1);     // barra musica
@@ -104,9 +104,9 @@ void TMooseEngine::initUI(){
         _ui->crear_imagen_config(_shader, "Imagenes_Config/Submenu/Submenu_2.png", "Imagenes_Config/Submenu/Submenu_2_Activo.png", -0.035, 0.162, 0.075, 0.159); //submenu
         
         //boton on/off 1 (14)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/OFF-ON_ON.png", "Imagenes_Config/OFF-ON_OFF.png",  0.4, -0.15, 0.4, 0.2);
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png",  0.4, -0.15, 0.4, 0.2);
         //boton on/off 2 (15)
-        _ui->crear_imagen_config(_shader, "Imagenes_Config/OFF-ON_ON.png", "Imagenes_Config/OFF-ON_OFF.png",  0.4, -0.35, 0.4, 0.2);
+        _ui->crear_imagen_config(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png",  0.4, -0.35, 0.4, 0.2);
 
         _ui->set_eje_x(false);
         _ui->set_eje_y(true);
@@ -116,9 +116,10 @@ void TMooseEngine::initUI(){
 
         _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu/Submenu_3.png", "Imagenes_Config/Submenu/Submenu_3_Activo.png", 0.225, 0.162, 0.075, 0.159); //submenu
         
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.70, 0.15, 0.15); //vsync
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.50, 0.15, 0.15); //res
-        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/negro.png", "Imagenes_Config/fondo.png", 0.1, 0.30, 0.15, 0.15); //fullscreen
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Resolution.png", "Imagenes_Config/Submenu_3/Option_Resolution_Selec.png", 0.1, 0.70, 0.15, 0.15); //vsync
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_VSync.png", "Imagenes_Config/Submenu_3/Option_VSync_Selec.png", 0.1, 0.50, 0.15, 0.15); //res
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Fullscreen.png", "Imagenes_Config/Submenu_3/Option_Fullscreen_Selec.png", 0.1, 0.30, 0.15, 0.15); //fullscreen
+        _ui->crear_imagen_config_2(_shader, "Imagenes_Config/Submenu_3/Option_Textures.png", "Imagenes_Config/Submenu_3/Option_Textures_Selec.png", 0.1, 0.30, 0.15, 0.15); //fullscreen
         
 
     //MENU HUD
