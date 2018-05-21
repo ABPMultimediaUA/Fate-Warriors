@@ -8,7 +8,7 @@
 
 class Shader;
 
-// Represents a single particle and its state
+// Representa una unica particula
 struct Particle {
     glm::vec3 Position;
     glm::vec3 Velocity;
@@ -18,67 +18,59 @@ struct Particle {
     GLfloat Scale_Factor;
     GLint grados;
 
-
-    Particle() : Position(0.0f), Velocity(0.0f), Color(1.0f), Life(0.0f) { }
-    Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, glm::vec4 _i_Color, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(_i_Color), Life(_i_Life), Scale(3.f) { }
     Particle(glm::vec3 _i_Position, glm::vec3 _i_Velocity, GLfloat _i_Life) : Position(_i_Position), Velocity(_i_Velocity), Color(1.0f), Life(_i_Life), Scale(3.f), Scale_Factor(3.f), grados(3.f) { }
 };
 
 
-// Represents a single particle and its state
-struct GameObject {
-    glm::vec2 Position, Velocity;
-    glm::vec4 Color;
-    GLfloat Life;
-
-    GameObject() : Position(0.0f), Velocity(0.0f), Color(1.0f), Life(0.0f) { }
-};
-
-// ParticleGenerator acts as a container for rendering a large number of 
-// particles by repeatedly spawning and updating particles and killing 
-// them after a given amount of time.
 class ParticleGenerator
 {
 public:
+
     // Constructor
     ParticleGenerator(Shader* shader,  GLuint amount);
     ~ParticleGenerator();
 
-    // Update all particles
+    // Actualiza la posicion de la particula es llamado desde el bucle principal del juego
     void Update(GLfloat dt);
-    // Render all particles
+    // Dibuja las particulas 
     void Draw();
-    void Reuse_Particles(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion);
-    void Reuse_Particles_Ground(GameObject &object, GLuint newParticles, glm::vec3 offset, GLint _direccion);
+    // Particulas para la sangre
+    void Reuse_Particles(GLuint newParticles, glm::vec3 offset, GLint _direccion);
+    //Particulas para el suelo
+    void Reuse_Particles_Ground(GLuint newParticles, glm::vec3 offset, GLint _direccion);
+
 private:
     // State
     std::vector<Particle> particles;
+
+    //Cantidad de particulas que hay en el juego
     GLuint amount;
+
     // Render state
     Shader* shader;
 
+    //BUffers
     GLuint VAO;
     GLuint VBO;
     GLuint EBO;
+
+    //Se encarga de posicionar en el mundo las posiciones de las particulas
     void update_model_matrix(glm::vec3 position, float grados, glm::vec3 rotation, glm::vec3 escalado);
 
     // Initializes buffer and vertex attributes
     void init();
-    // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle is currently inactive
+    
+    // Devuelve el indice de la primera particula que es usada Life <= 0.0f or 0 - si la particula no esta actualmente inactiva
     GLuint firstUnusedParticle();
-    // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0
+
+    // Devuelve el indice de la primera particula que es usada Life <= 0.0f or 0
     GLuint firstUnusedParticle_Active();
 
-    // Respawns particle
+    // Revive una particula
     void respawnParticle(Particle &particle, GLint _direccion, GLfloat scale_factor, glm::vec3 velocidad, glm::vec3 offset = glm::vec3(0.0f, 0.0f, 0.0f), GLfloat _i_duracion = .75f,  GLfloat red = 1, GLfloat green = 0, GLfloat blue = 0);
     void load_texture();
 
-    glm::mat4 _traslacion;
-    glm::mat4 _rotacion;
-    glm::mat4 _escalado;
     glm::mat4 ModelMatrix;
-    
-
     GLuint ID;
 
 };

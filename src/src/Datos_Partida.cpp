@@ -45,7 +45,6 @@ Datos_Partida::~Datos_Partida() {
 
 	delete _npc_manager;
   	delete _interactuable_manager;
-//	delete _respawn_Points;
 	delete _zonas_manager;
 
 	delete [] _characters;

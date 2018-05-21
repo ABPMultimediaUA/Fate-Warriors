@@ -35,20 +35,18 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
     _objeto_motor = new Objeto_Motor(true, this, E_BoundingCapsule, cstr, cstr2, _i_x,_i_y,_i_z,80);
     
-    //_id_motor = _motor->crear_objeto(E_BoundingCapsule, cstr, _i_x,_i_y,_i_z,69);
     _motor->poner_camara_a_entidad(_objeto_motor);
+    _motor->set_llave_hud(false);
     
     _cono_vision = new Cono_Vision(this);                                                            
 
-    //std::cout<<"X player: "<<_motor->getX(_id_motor);
-    //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
     _motor->recibir_Danyo(_vida, _vida_maxima);   
 
     _input = _i_input;
-    //_motor->set_text_vida(_vida);
     _especial = 0;
     _hace_cinta = false;
     //_sonido->Play_ambiente(2);
+    _direccion_actual = 0;
     _yo = new iObjeto_Mapa(_i_x, _i_z, 20,20, Enum_Player);
 }    
 
@@ -83,9 +81,6 @@ void Player::update(){
         
         uint16_t _direccion_previa_movimiento = _direccion_buena;
       
-        float direccion = (_direccion_buena * PIs)/180;
-        _yo->setTextureposition(getX(), getZ(),direccion);
-
        if(_cono_vision->get_apuntando() != nullptr) {
             mover_direccion(_direccion_buena, _cono_vision->get_rotacion_con_apuntando());
             _apuntando_enemigo = true;
@@ -165,7 +160,6 @@ void Player::update(){
     if(_input->get_saltar()){
        // saltar();
         _cono_vision->set_apuntando_a_objetivo_mas_proximo();
-       //_tiempobloqueo = _tiempo->get_current()+1000; BORRAME
 	}
 
     if(esta_bloqueado() == false && !_input->get_mover(_direccion) && !_input->get_dash() && !_input->get_interactuar()
@@ -191,12 +185,12 @@ void Player::update(){
             _motor->_interfaz->Crear_particulas_Suelo(getX(),1, getZ(), get_direccion_actual()); 
         }
     }
-
+        float direccion = (_direccion_actual * PIs)/180; 
+        _yo->setTextureposition(getX(), getZ(),direccion); 
     }
     else{
         morir();
     }
-
 }
 
 void Player::gestion_dash(){
@@ -227,9 +221,7 @@ void Player::modificar_vida_en(int16_t _i_vida){
     else{
         _vida+=_i_vida;
     }
-    //_motor->set_text_vida(_vida);
-        _motor->recibir_Danyo(_vida, _vida_maxima);   
-
+    _motor->recibir_Danyo(_vida, _vida_maxima);   
 }
 
 void Player::danyar(int16_t _danyo){
@@ -237,14 +229,11 @@ void Player::danyar(int16_t _danyo){
     _sonido->Play_voces(8);
     danyar_comun(_danyo);
     _motor->recibir_Danyo(_vida, _vida_maxima);   
-    //_motor->set_text_vida(_vida);
 }
 
 void Player::set_vida(int16_t _i_vida){
 	_vida=_i_vida;
-        _motor->recibir_Danyo(_vida, _vida_maxima);   
-
-   // _motor->set_text_vida(_vida);
+    _motor->recibir_Danyo(_vida, _vida_maxima);   
 }
 
 bool Player::puede_subir_especial(){
