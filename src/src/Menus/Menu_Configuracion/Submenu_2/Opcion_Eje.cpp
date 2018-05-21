@@ -40,10 +40,10 @@ Opcion* Opcion_Eje::update_opcion(double _i_tiempo, Opcion* _this) {
 		}
 	}
 
-	if(_invertido == true) 
+	/*if(_invertido == true) 
 		std::cout << "ON\n";
 	else
-		std::cout << "OFF\n";
+		std::cout << "OFF\n";*/
 
 	return _this;
 }

@@ -249,7 +249,7 @@ void Interfaz_sonido::crear_ambiente(std::string _i_iteracion){
     std::ifstream _ambiente_txt;    
     _ambiente_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_ambiente_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/ambiente" << _i_iteracion <<std::endl;
 		exit(0);
@@ -276,7 +276,7 @@ void Interfaz_sonido::crear_armas(std::string _i_iteracion){
     std::ifstream _armas_txt;    
     _armas_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_armas_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/armas" << _i_iteracion <<std::endl;
 		exit(0);
@@ -303,7 +303,7 @@ void Interfaz_sonido::crear_consumibles(std::string _i_iteracion){
     std::ifstream _consumibles_txt;    
     _consumibles_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_consumibles_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/consumibles" << _i_iteracion <<std::endl;
 		exit(0);
@@ -330,7 +330,7 @@ void Interfaz_sonido::crear_escenario(std::string _i_iteracion){
     std::ifstream _escenario_txt;    
     _escenario_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_escenario_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/escenario" << _i_iteracion <<std::endl;
 		exit(0);
@@ -357,7 +357,7 @@ void Interfaz_sonido::crear_menu(std::string _i_iteracion){
     std::ifstream _menu_txt;    
     _menu_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_menu_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/menu" << _i_iteracion <<std::endl;
 		exit(0);
@@ -385,7 +385,7 @@ void Interfaz_sonido::crear_pasos(std::string _i_iteracion){
     std::ifstream _pasos_txt;    
     _pasos_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_pasos_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/pasos" << _i_iteracion <<std::endl;
 		exit(0);
@@ -412,7 +412,7 @@ void Interfaz_sonido::crear_personaje(std::string _i_iteracion){
     std::ifstream _personaje_txt;    
     _personaje_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_personaje_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/personaje" << _i_iteracion <<std::endl;
 		exit(0);
@@ -439,7 +439,7 @@ void Interfaz_sonido::crear_voces(std::string _i_iteracion){
     std::ifstream _voces_txt;    
     _voces_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_voces_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/voces" << _i_iteracion <<std::endl;
 		exit(0);
@@ -466,7 +466,7 @@ void Interfaz_sonido::crear_musica(std::string _i_iteracion){
     std::ifstream _musica_txt;    
     _musica_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_musica_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/musica" << _i_iteracion <<std::endl;
 		exit(0);
@@ -493,7 +493,7 @@ void Interfaz_sonido::crear_canales(std::string _i_iteracion){
     std::ifstream _canales_txt;    
     _canales_txt.open(_i_iteracion);//apertura del fichero
 	std::string _iteracion;
-    std::cout<<_i_iteracion<<std::endl;
+    //std::cout<<_i_iteracion<<std::endl;
 	if(_canales_txt.fail()){//comprobacion de la apertura del fichero
 		std::cout<<"Error al abrir el archivo de sonido/canales" << _i_iteracion <<std::endl;
 		exit(0);

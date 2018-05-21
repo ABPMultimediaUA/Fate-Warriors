@@ -119,9 +119,9 @@ void Player::update(){
 
     if(_input->get_interactuar()){
         if(esta_bloqueado() == false){
-            std::cout<< "Pulsa E\n";
+            //std::cout<< "Pulsa E\n";
             if(!interactuar_con_objeto()){
-            std::cout<< "No encuentra objeto\n";
+            //std::cout<< "No encuentra objeto\n";
             }
             //this->bloquear_input(1000);
             //std::cout<< "Interactuando..."<< std::endl;
@@ -142,7 +142,7 @@ void Player::update(){
 
     if(std::get<0>(_ataques)) {
         if(std::get<1>(_ataques)) {    // Ataque especial
-            atacar(Ataque_Especial);
+            //atacar(Ataque_Especial);
             //std::cout << "Ataque Especial\n";
         }
         else if(std::get<2>(_ataques)){      // Ataque normal

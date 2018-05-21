@@ -28,7 +28,7 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	//Asignacion de los arboles
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
-	std::cout << "N nodos " << _n_nodos << "\n";
+	//std::cout << "N nodos " << _n_nodos << "\n";
 	_arboles_decision[0] = _nodos_decision[2]; // Padre del arbol
 
 }

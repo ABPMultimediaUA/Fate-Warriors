@@ -30,7 +30,7 @@ _reloj=Time::Instance();
 Zona::~Zona() {
     Motor::Motor_GetInstance()->borrar_rb(_rb);
     _interruptores_asociados.clear();
-    std::cout<<"borrado de zona"<<std::endl;
+    //std::cout<<"borrado de zona"<<std::endl;
 }
 
 

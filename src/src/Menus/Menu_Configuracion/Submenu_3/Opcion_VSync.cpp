@@ -41,10 +41,10 @@ Opcion* Opcion_VSync::update_opcion(double _i_tiempo, Opcion* _this) {
 		}
 	}
 
-	if(_vsync == true) 
+	/*if(_vsync == true) 
 		std::cout << "V-Sync ON\n";
 	else
-		std::cout << "V-Sync OFF\n";
+		std::cout << "V-Sync OFF\n";*/
 
 	return _this;
 }
