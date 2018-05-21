@@ -55,7 +55,7 @@ Game::Game() : _datos(nullptr),
 
 	_gestor_recursos = TGestorRecursos::get_instancia();
 	//opciones de calidad: 1 - Maquina Objetivo / 2 - Calidad Media / Otro numero - Calidad 4k
-	_gestor_recursos->setCalidad(1);
+	_gestor_recursos->setCalidad(2);
 	
 }
 
