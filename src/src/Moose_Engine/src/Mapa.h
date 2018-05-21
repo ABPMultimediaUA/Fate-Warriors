@@ -22,6 +22,8 @@ public:
     // Dibuja todos los elementos del mapa
     void Draw();
 
+    GLuint load_texture(const char* ruta);
+
 private:
     
     //Elementos del menu 
@@ -30,7 +32,7 @@ private:
     Shader* shader;
     
     //Contiene la ruta de las imagenes
-    const char* Imagenes[Vegeta_count];
+    GLuint Imagenes[Vegeta_count];
 
 };
 

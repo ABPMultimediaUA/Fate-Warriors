@@ -11,15 +11,15 @@ Mapa::Mapa(Shader* shader)
     : shader(shader)
 {
 
-   Imagenes[Enum_Llave] =  "Imagenes_HUD/Minimapa/Llave.png";
-   Imagenes[Enum_Mapa] =  "Imagenes_HUD/Minimapa/mapa.png";
-   Imagenes[Enum_Player] =  "Imagenes_HUD/Minimapa/Player.png";
-   Imagenes[Enum_Enemigo] =  "Imagenes_HUD/Minimapa/Enemy.png";
-   Imagenes[Enum_Puerta] =  "Imagenes_HUD/Minimapa/Cerradura.png";
-   Imagenes[Enum_Interruptor] =  "Imagenes_HUD/Minimapa/Interruptor.png";
-   Imagenes[Enum_Puerta_Pincho] =  "Imagenes_HUD/Minimapa/Puerta_Pincho.png";
-   Imagenes[Enum_Puerta_Tiempo] =  "Imagenes_HUD/Minimapa/Puerta_Tiempo.png";
-   Imagenes[Enum_Puerta_Desactivada] =  "Imagenes_HUD/Minimapa/Puerta_Desactivada.png";
+   Imagenes[Enum_Llave]              =  load_texture("Imagenes_HUD/Minimapa/Llave.png");
+   Imagenes[Enum_Mapa]               =  load_texture("Imagenes_HUD/Minimapa/mapa.png");
+   Imagenes[Enum_Player]             =  load_texture("Imagenes_HUD/Minimapa/Player.png");
+   Imagenes[Enum_Enemigo]            =  load_texture("Imagenes_HUD/Minimapa/Enemy.png");
+   Imagenes[Enum_Puerta]             =  load_texture("Imagenes_HUD/Minimapa/Cerradura.png");
+   Imagenes[Enum_Interruptor]        =  load_texture("Imagenes_HUD/Minimapa/Interruptor.png");
+   Imagenes[Enum_Puerta_Pincho]      =  load_texture("Imagenes_HUD/Minimapa/Puerta_Pincho.png");
+   Imagenes[Enum_Puerta_Tiempo]      =  load_texture("Imagenes_HUD/Minimapa/Puerta_Tiempo.png");
+   Imagenes[Enum_Puerta_Desactivada] =  load_texture("Imagenes_HUD/Minimapa/Puerta_Desactivada.png");
    
    anyadir_elemento_al_mapa(420/2, 560/2, 420, 560,Enum_Mapa);
       
@@ -74,3 +74,32 @@ void Mapa::Draw()
 
 }
 
+
+GLuint Mapa::load_texture(const char* ruta){
+    GLuint ID;
+    glGenTextures(1, &ID);
+    glBindTexture(GL_TEXTURE_2D, ID); 
+     // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    
+    unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    SOIL_free_image_data(data);
+    
+    glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID);
+    return ID;
+}

@@ -13,7 +13,7 @@ class Image_Map{
 public:
 
     /*Recibe por parametro el shader, la ruta de la imagen (ruta), la posicion (x,y) y la esccala (width, height)*/
-    Image_Map(Shader* shader,const char* ruta, float x, float y, float width, float height); 
+    Image_Map(Shader* shader,GLuint ruta, float x, float y, float width, float height); 
     ~Image_Map();
 
     /*Dibuja la textura*/

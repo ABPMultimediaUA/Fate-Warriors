@@ -12,7 +12,7 @@ https://www.leadwerks.com/community/topic/4487-what-method-for-adding-a-mini-map
 #include "src/Moose_Engine/src/Shader.h"
 #include <iostream>
 
-Image_Map::Image_Map(Shader* shader, const char* ruta, float x, float y, float width, float height)
+Image_Map::Image_Map(Shader* shader, GLuint ruta, float x, float y, float width, float height)
     : shader(shader)
 {
     _x = x;
@@ -20,7 +20,7 @@ Image_Map::Image_Map(Shader* shader, const char* ruta, float x, float y, float w
     _width = width;
     _height = height;
     init();
-    load_texture(ruta);
+    ID = ruta;
 }
 
 
@@ -129,34 +129,6 @@ void Image_Map::init()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-}
-
-void Image_Map::load_texture(const char* ruta){
-    glGenTextures(1, &ID);
-    glBindTexture(GL_TEXTURE_2D, ID); 
-     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-    
-    unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    SOIL_free_image_data(data);
-    
-    glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID);
-    
 }
 
 
