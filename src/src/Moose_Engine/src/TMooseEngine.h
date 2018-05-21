@@ -44,7 +44,7 @@ class TMooseEngine{
         inline GLFWwindow* getWindow(){ return window;}
 
         void        drawLuces();
-        void        drawCamaras();
+        void        drawCamaras(int camara_id);
 
         inline TNodo* nodoRaiz(){
             return _escena;

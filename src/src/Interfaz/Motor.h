@@ -77,6 +77,7 @@ public:
 
     btRigidBody* crear_rb_ataque();
     btRigidBody* crear_rb_vision();
+
     void setCollisionMask(int mask, btRigidBody *_i_rigidbody);
     void setCollisionGroup(int group, btRigidBody *_i_rigidbody );
     void poner_camara_a_entidad(Objeto_Motor* _objeto_motor);    //movimiento del prota
@@ -111,7 +112,7 @@ public:
 
     void cambia_animaciones();
   
-    inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador);}
+    inline void asigna_input(Input* _i_input_jugador) { camara->asigna_input(_i_input_jugador); camara2->asigna_input(_i_input_jugador);}
     
     void set_text_vida(int _i_vida);
   
@@ -137,7 +138,7 @@ public:
     void render_Pausa();
     void render_Menu_Config();
     void recibir_Danyo(float vida, float vida_maxima);
-    Interfaz_Particulas* _interfaz;
+     Interfaz_Particulas* _interfaz;
     void set_escala_music(uint8_t escala);
     void set_escala_sfx(uint8_t escala);
     void set_escala_voz(uint8_t escala);
@@ -145,10 +146,6 @@ public:
 
     void set_eje_x(bool ejeX);
     void set_eje_y(bool ejeY);
-
-    void set_eje_vsync(bool ejeX);
-    void set_eje_fullscreen(bool ejeY);
-      
 
     void render_Menu_Win();
     void render_Menu_Lose();
@@ -161,8 +158,6 @@ public:
     void resize_window(int _i_width, int _i_height);
     void toggleFullscreen();
     void toggleVSync();
-    void setResolution(uint8_t opcion);
-    void setCalidadTexturas(uint8_t opcion);
     
     void actualizaMenuConfig(uint8_t opcion);
 
@@ -189,6 +184,7 @@ private:
 
       //Camara
       Camara* camara;
+      Camara* camara2;
 
       //Draw
       DebugDraw* debugDraw;    

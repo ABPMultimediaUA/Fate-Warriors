@@ -15,8 +15,6 @@ public:
 
 	bool get_dentro();
 	uint8_t get_i_configuracion();
-	uint8_t get_resolucion();
-	uint8_t get_texturas();
 
 private:
 	bool _dentro_menu;	// Indica si está dentro del menu de configuración

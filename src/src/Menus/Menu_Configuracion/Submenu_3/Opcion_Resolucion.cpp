@@ -61,22 +61,18 @@ void Opcion_Resolucion::set_resolucion() {
 	switch(_resolucion) {
 		case 0:
 			Motor::Motor_GetInstance()->resize_window(640, 480);
-			Motor::Motor_GetInstance()->setResolution(0);
 		break;
 
 		case 1:
 			Motor::Motor_GetInstance()->resize_window(1024, 768);
-			Motor::Motor_GetInstance()->setResolution(1);
 		break;
 
 		case 2:
 			Motor::Motor_GetInstance()->resize_window(1280, 720);
-			Motor::Motor_GetInstance()->setResolution(2);
 		break;
 
 		case 3:
 			Motor::Motor_GetInstance()->resize_window(1920, 1080);
-			Motor::Motor_GetInstance()->setResolution(3);
 		break;
 	}
 }

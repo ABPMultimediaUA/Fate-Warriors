@@ -90,11 +90,3 @@ uint8_t Opcion::get_i_configuracion() {
 
 void Opcion::agrega_submenus(Opcion* _i_opcion_izq, Opcion* _i_opcion_der) {
 }
-
-uint8_t Opcion::get_resolucion() {
-	return 0;
-}
-
-uint8_t Opcion::get_texturas() {
-	return 0;
-}

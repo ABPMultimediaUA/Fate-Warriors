@@ -88,13 +88,3 @@ bool Menu_Pausa::menu_opciones_abierto() {
 uint8_t Menu_Pausa::get_i_configuracion() {
 	return _opciones[1]->get_i_configuracion();
 }
-
-// Devielve la resolucion de la configuracion
-uint8_t Menu_Pausa::get_resolucion() {
-	return _opciones[1]->get_resolucion();
-}
-
-// Devielve la textura de la configuracion
-uint8_t Menu_Pausa::get_texturas() {
-	return _opciones[1]->get_texturas();
-}

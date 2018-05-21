@@ -20,8 +20,6 @@ public:
 
 	uint8_t get_i_configuracion();	// Devuelve la opción actual
 	uint8_t get_i_submenu();		// Devuelve el submenu actual
-	uint8_t get_resolucion();		// Devuelve la resolucion
-	uint8_t get_texturas();			// Devuelve las texturas
 
 private: 
 	Opcion** _opciones;

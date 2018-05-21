@@ -25,8 +25,6 @@ public:
 	virtual bool get_dentro();
 	virtual uint8_t get_i_configuracion();
 	virtual void agrega_submenus(Opcion* _i_opcion_izq, Opcion* _i_opcion_der) ;
-	virtual uint8_t get_resolucion();
-	virtual uint8_t get_texturas();
 
 protected:
 	Opcion *_opcion_anterior;		// Opcion anterior (arriba) en el menu

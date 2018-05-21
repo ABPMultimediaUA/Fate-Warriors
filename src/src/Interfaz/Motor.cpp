@@ -178,7 +178,9 @@ Motor::Motor(){
 
 	desp_x = desp_z = 0;
 
-	camara = new Camara(true);
+	camara 	= new Camara(true);
+	camara2 = new Camara(true);	
+
 	angulo = 0;
 	_velocidad = 1;
 	_debug = false;
@@ -304,6 +306,7 @@ _Motor=0;
 	
 	delete world; 
 	delete camara; 
+	delete camara2;
 	delete debugDraw; 
 	delete collisionConfiguration; 
 	delete broadPhase; 
@@ -314,6 +317,7 @@ _Motor=0;
 
 	world = nullptr;
 	camara = nullptr;
+	camara2 = nullptr;
 	debugDraw = nullptr;
 	collisionConfiguration = nullptr;
 	broadPhase = nullptr;
@@ -628,8 +632,10 @@ void Motor::setCollisionMask(int mask, btRigidBody *_i_rigidbody) {
 void Motor::poner_camara_a_entidad(Objeto_Motor* _objeto_motor){
 	iNodoModelado *cubeNode = _objeto_motor->getNodo();
 	camara->Camara_setProta(cubeNode);
+	camara2->Camara_setProta(cubeNode);
 	_objeto_que_sigue_la_camara = _objeto_motor;
 	camara->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
+	camara2->set_posicion_inicial(_objeto_motor->getInterpolacion()->get_direccion_actual());
 }
 
 btCollisionWorld::ClosestRayResultCallback Motor::trazaRayo(btVector3 start, btVector3 end, int mascara_colision){
@@ -702,6 +708,7 @@ void Motor::update(double dt){
 
 void Motor::interpolar_altura(bool estado){
 	camara->set_posicion_interpolable(estado);
+	camara2->set_posicion_interpolable(estado);
 }
 
 void Motor::interpola_posiciones(float _i_interpolacion) {
@@ -722,9 +729,12 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 		}
 
 	 		camara->interpola_target(_posicion_interpolada);
+			camara2->interpola_target(_posicion_interpolada);
 		}	
 	}
 	camara->interpola_posicion(_i_interpolacion);
+	camara2->interpola_posicion(_i_interpolacion);
+	
 }
 
 bool Motor::x_ve_a_y(Vector3 x, Vector3 y, int mascara_colision){
@@ -747,6 +757,8 @@ void Motor::updateCamaraColision(){
         
 		
 		camara->Camara_Update();
+		camara2->Camara_Update();
+		
 		
 		Objeto * puntero = (Objeto*)_objeto_que_sigue_la_camara->getRigidBody()->getUserPointer();
 		if(dynamic_cast<Character*>(puntero) == nullptr){
@@ -762,6 +774,8 @@ void Motor::updateCamaraColision(){
 			btVector3 normal = rayCallback.m_hitNormalWorld;
 			const btCollisionObject *object = rayCallback.m_collisionObject;
 			camara->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
+			camara2->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
+			
 
 		}
 
@@ -772,6 +786,8 @@ void Motor::updateCamaraColision(){
 
 void Motor::resetear_camara(){
 	camara->Camara_reset(_objeto_que_sigue_la_camara->getInterpolacion()->get_direccion_actual());
+	camara2->Camara_reset(_objeto_que_sigue_la_camara->getInterpolacion()->get_direccion_actual());
+	
 }
 
 
@@ -885,6 +901,8 @@ void Motor::posicionar_rotar_y_escalar_rb_visor(btRigidBody *rb, btVector3 posic
 
 void Motor::gira_camara(short _rotacion_en_x, short _rotacion_en_y) {
 	camara->rota_camara_sin_interpolacion(_rotacion_en_x, _rotacion_en_y);
+	camara2->rota_camara_sin_interpolacion(_rotacion_en_x, _rotacion_en_y);
+	
 }
 
 void Motor::render_Menu(){
@@ -983,12 +1001,6 @@ void Motor::toggleVSync(){
 	_me->toggleVSync();
 }
 
-void Motor::setResolution(uint8_t position){
-	_me->getUI()->set_resolution(position);
-}
-
-
-
 void Motor::actualizaMenuConfig(uint8_t opcion){
 	std::cout<< "OPCION: "<< opcion << "\n";
 	if(opcion < 5 ){
@@ -1002,8 +1014,4 @@ void Motor::actualizaMenuConfig(uint8_t opcion){
 	else{
 		_me->getUI()->setConfigSubmenu3(opcion);
 	}
-}
-
-void Motor::setCalidadTexturas(uint8_t opcion){
-	_me->getUI()->set_texturas(opcion);
 }

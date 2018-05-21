@@ -77,11 +77,3 @@ bool Opcion_Configuracion::get_dentro() {
 uint8_t Opcion_Configuracion::get_i_configuracion() { 
 	return _configuracion->get_i_configuracion(); 
 }
-
-uint8_t Opcion_Configuracion::get_resolucion() {
-	return _configuracion->get_resolucion();
-}
-
-uint8_t Opcion_Configuracion::get_texturas() {
-	return _configuracion->get_texturas();
-}

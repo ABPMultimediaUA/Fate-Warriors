@@ -20,8 +20,6 @@ public:
 	uint8_t get_i_opcion();
 	bool menu_opciones_abierto();
 	uint8_t get_i_configuracion();
-	uint8_t get_resolucion();
-	uint8_t get_texturas();
 
 private: 
 	Opcion** _opciones;

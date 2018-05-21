@@ -137,9 +137,9 @@ void TMooseEngine::initUI(){
         // RESOLUTIONS  (5)
         _ui->crear_imagen_config_3(_shader, "Imagenes_Config/Resoluciones/640_480.png", "Imagenes_Config/Resoluciones/1024_768.png", "Imagenes_Config/Resoluciones/1280_720.png", "Imagenes_Config/Resoluciones/1920_1080.png", 0.048, -0.15, 0.477, 0.141);
         // OFF - ON     (6)
-        _ui->crear_imagen_config_3(_shader, "Imagenes_Config/Opcion_OFF.png", "Imagenes_Config/Opcion_ON.png", 0.139, -0.368, 0.305, 0.101);
+        _ui->crear_imagen_config_3(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png", 0.139, -0.368, 0.305, 0.101);
         // OFF - ON     (7)
-        _ui->crear_imagen_config_3(_shader, "Imagenes_Config/Opcion_OFF.png", "Imagenes_Config/Opcion_ON.png", 0.139, -0.575, 0.305, 0.101);
+        _ui->crear_imagen_config_3(_shader, "Imagenes_Config/Opcion_ON.png", "Imagenes_Config/Opcion_OFF.png", 0.139, -0.575, 0.305, 0.101);
         // TEXTURES     (8)
         _ui->crear_imagen_config_3(_shader, "Imagenes_Config/Texturas/Low.png", "Imagenes_Config/Texturas/Medium.png", "Imagenes_Config/Texturas/High.png", 0.048, -0.758, 0.477, 0.141);
 
@@ -180,25 +180,21 @@ void TMooseEngine::toggleFullscreen(){
     
     if(_fullscreen){
         glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, _width, _height, 60);
-        _ui->setFullScreen(true);
     }
 
     else{
         glfwSetWindowMonitor(window, NULL, 0, 0, _width, _height, 60);    
-        _ui->setFullScreen(false);
     }
 }
 
 void TMooseEngine::toggleVSync(){
-    _vsync = !_vsync;
+    _vsync != _vsync;
     
     if(_vsync){
         glfwSwapInterval(1);
-        _ui->setVsync(true);
     }
     else{
         glfwSwapInterval(0);
-        _ui->setVsync(false);
     }
 }
 
@@ -490,17 +486,27 @@ void TMooseEngine::clear(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void TMooseEngine::draw(){
+
+    
+    drawCamaras(0);
+    glViewport(0, _height/4, _width/2, _height/2);
+    
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
-    drawCamaras();
     drawLuces();
     _escena->draw(_shader);
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-
     _shader->use(sombras_proyectadas);
-    _escena->draw(_shader);
-    _particulas->Draw();
 
+    drawCamaras(1);
+    glViewport(_width/2, _height/4, _width/2, _height/2);
+    
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    _shader->use(Default);
+    drawLuces();
+    _escena->draw(_shader);
+    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
+    _shader->use(sombras_proyectadas);
 }
 
 void TMooseEngine::render_estado_Partida(){
@@ -673,11 +679,11 @@ void TMooseEngine::drawLuces(){
     }
 }
 
-void TMooseEngine::drawCamaras(){
+void TMooseEngine::drawCamaras(int i){
     u_int16_t cont = 0;
     std::stack<glm::mat4> pila_matriz_camara;
     matriz_view=glm::mat4(1.0f); //inicializar la matriz view
-    for(uint16_t i = 0; i < _mapping_camaras.size(); i++){ 
+
         if(_mapping_camaras[i]->activa){ //recorremos el mapeado de camaras buscando la que este activa
             TNodo* this_node = _mapping_camaras[i]->nodo; //obtenemos su nodo
             matriz_view = static_cast<TCamara*>(this_node->get_entidad())->calculaView();
@@ -685,10 +691,12 @@ void TMooseEngine::drawCamaras(){
             glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)_width / (float)_height, 0.1f, 10000.0f);
             projection = glm::scale(projection, glm::vec3(-1.0f, 1.0f, 1.0f));
             _shader->setProjection(projection);
-
+           
+            
         }
-    }
+    
 }
+
 
 bool TMooseEngine::ventana_abierta(){
     return glfwWindowShouldClose(window);
