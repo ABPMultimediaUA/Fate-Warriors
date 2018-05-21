@@ -52,10 +52,6 @@ NPC::~NPC() {
 void NPC::morir(){
     _sonido->Play_voces(4);
 
-    //float mult = 4.9212625;
-    //std::cout << "He muerto :("<< std::endl;
-    _inventario->soltar_armas(getX(), getZ()); 
-
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
     eliminar_npc_mapa();
 
@@ -91,12 +87,6 @@ void NPC::danyar(int16_t _danyo){
 
 void NPC::set_blackboard(Blackboard* _i_blackboard) {
     _blackboard = _i_blackboard;
-}
-
-void NPC::comprobar_si_asignar_arma_y_asignarla(Armas_Manager* _armas_manager){ 
-    if ((rand() % 100) < 1000){ 
-        _inventario->crear_un_arma_al_azar_asignar_y_equipar(_armas_manager); 
-    } 
 }
 
 void NPC::play_voces_ataque() {
@@ -188,8 +178,6 @@ void NPC::anim_ataque_tipo_2() {
 
 void NPC::aparecer_muerto() {
     _vida = 0;
-
-    _inventario->soltar_armas(getX(), getZ()); 
 
     Respawn::posiciones_instancia()->anyadir_character_y_tiempo_para_reaparecer(this, _tiempo->get_current()+9000);
 

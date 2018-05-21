@@ -5,14 +5,12 @@
 
 class Blackboard;
 class Motor;
-class Armas_Manager;
 
 class NPC : public Character {
 public:
 	NPC(float _i_x, float _i_z, int16_t _i_vida, float _i_velocidad, int16_t _i_danyo_ataque_normal, int16_t _i_danyo_ataque_fuerte, Enum_Equipo equipo);
 	virtual ~NPC();
 	
-	void comprobar_si_asignar_arma_y_asignarla(Armas_Manager* _armas_manager);
 	void stop();
 
 	void danyar(int16_t _danyo) override;

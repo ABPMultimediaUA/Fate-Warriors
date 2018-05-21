@@ -5,14 +5,11 @@
 #include "Personajes/Player.h"
 #include "Personajes/NPC_Manager.h"
 #include "Personajes/NPC.h"
-#include "Armas/Armas_Manager.h"
 #include "Consumibles/Consumible_Manager.h"
 #include "Trampas/Trampas_manager.h"
 #include "Zonas/Zonas_Manager.h"
 #include "Zonas/Respawn.h"
 #include "Utilidades/Vector.h"
-
-
 
 Datos_Partida::Datos_Partida(Input* _i_input) { 
 	float mult = 4.9212625; 
@@ -20,8 +17,7 @@ Datos_Partida::Datos_Partida(Input* _i_input) {
 	Vector2 pos 			=  _zonas_manager->get_posicion_zona_inicial();
   	_jugador 				= new Player( 0, pos._x, 1, pos._y, _i_input); 
     _consumibles_manager 	= new Consumible_Manager(); 
-  	_trampas_manager 		= new Trampas_manager(); 
-  	_armas_manager  		=  new Armas_Manager(); 
+  	_trampas_manager 		= new Trampas_manager();
 	//  _respawn_Points      =  new Respawn_Points(); 
 	_interactuable_manager  =   new Interactuable_Manager(_zonas_manager->get_zonas()); 
   	_npc_manager        	=   new NPC_Manager(); 
@@ -49,7 +45,6 @@ Datos_Partida::~Datos_Partida() {
 	delete _jugador;
 	delete _trampas_manager;
 	delete _consumibles_manager;
-	delete _armas_manager;
 
 	delete _npc_manager;
   	delete _interactuable_manager;
@@ -77,10 +72,6 @@ Consumible_Manager * Datos_Partida::get_Consumible_Manager(){
 
 Interactuable_Manager* Datos_Partida::get_interactuable_manager(){
 	return _interactuable_manager;
-}
-
-Armas_Manager* Datos_Partida::get_armas_manager(){
-	return _armas_manager;
 }
 
 Zonas_Manager* Datos_Partida::get_zonas_manager(){

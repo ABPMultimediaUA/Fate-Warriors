@@ -4,10 +4,7 @@
 #include "NPC.h"
 #include "NPC_Manager.h"
 #include "Player.h"
-
-#include "../Armas/Arma_distancia.h"
-#include "../Armas/Arma_cerca.h"
-#include "../Armas/Armas_Manager.h"
+#include "../Tiempo/Time.h"
 #include "../Game.h"
 #include "../Datos_Partida.h"
 #include "../Interactuables/Llave.h"
@@ -29,8 +26,7 @@
 Character::Character(short _id, float _i_x, float _i_y, float _i_z, int16_t _i_vida, float _i_velocidad,
     int16_t _i_danyo_ataque_normal, int16_t _i_danyo_ataque_fuerte, Enum_Equipo _i_equipo) 
     :Objeto(_id, _i_x, _i_y, _i_z), _vida(_i_vida), _vida_maxima(_i_vida), _velocidad(_i_velocidad),
-    _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte),_tiene_arma_corta(false),
-    _tiene_arma_larga(false){
+    _danyo_ataque_normal(_i_danyo_ataque_normal), _danyo_ataque_fuerte(_i_danyo_ataque_fuerte){
 
     _zona_en_la_que_se_encuentra = nullptr;
     _inmortal = false;
@@ -65,7 +61,7 @@ void Character::eliminar_npc_mapa(){
 
 void Character::dibujar_npc(){
     if (_yo==nullptr){
-        _yo = new iObjeto_Mapa(getX(), getZ(), 8,8, Enum_Enemigo);
+        _yo = new iObjeto_Mapa(getX(), getZ(), 12,12, Enum_Enemigo);
     }
     else{
         _yo->setTextureposition(getX(), getZ());
@@ -151,21 +147,6 @@ bool Character::puede_subir_vida_(int16_t _i_vida){
     return true;
 }
 
-uint8_t* Character::get_ref_rango_arma_corta(){
-    if(_tiene_arma_corta==true){
-        _rango_arma_corta=_inventario->get_objeto_cerca()->get_rango();
-        return &_rango_arma_corta;
-    }
-	return nullptr;
-}
-uint8_t* Character::get_ref_rango_arma_larga(){
-	if(_tiene_arma_larga==true){
-        _rango_arma_larga=_inventario->get_objeto_distancia()->get_rango();
-        return &_rango_arma_larga;
-    }
-    return nullptr;
-}
-
 int16_t Character::get_danyo_ataque_normal(){
 	return _danyo_ataque_normal;
 }
@@ -196,11 +177,7 @@ void Character::atacar(Enum_Tipo_Ataque _i_tipo_ataque){
     }
     else if(
             _accion == Accion_post_atacar && _tipo_ataque != Ataque_Salto && _tipo_ataque != Ataque_Especial && _tipo_ataque != Ataque_Normal_Normal 
-            && _tipo_ataque != Ataque_Normal_Fuerte && _tipo_ataque != Ataque_Fuerte_Normal && _tipo_ataque != Ataque_Fuerte_Fuerte &&
-                (
-                    (_inventario->get_tipo_arma() != Tipo_Arma_distancia) ||
-                    (_inventario->get_tipo_arma() == Tipo_Arma_distancia && _i_tipo_ataque != Ataque_Normal)
-                )
+            && _tipo_ataque != Ataque_Normal_Fuerte && _tipo_ataque != Ataque_Fuerte_Normal && _tipo_ataque != Ataque_Fuerte_Fuerte  
             ) {
                 
         Enum_Tipo_Ataque _ataque_combo;
@@ -373,50 +350,6 @@ bool Character::accion_en_curso(){
     }
 }
 
-
-/////////////////////////////////////////////////// GESTION DE ARMAS ///////////////////////////////////////
-
-
-void Character::coger_arma(Arma* _arma){
-    if(dynamic_cast<Arma_cerca*>(_arma) == NULL) {
-        //std::cout << "No es un arma cerca (es arma distancia)\n";
-        _inventario->cambiar_objeto_distancia(static_cast<Arma_distancia*>(_arma));
-    }
-    else {
-        //std::cout << "Es un arma cerca\n";
-         //_inventario->cambiar_objeto_cerca(_arma);
-        _inventario->cambiar_objeto_cerca(static_cast<Arma_cerca*>(_arma));
-    }
-}
-
-bool Character::intentar_recoger_arma() {
-    std::vector<Arma*>* _armas = Game::game_instancia()->game_get_datos()->get_armas_manager()->get_armas();
-   	Vector2 vec_player	= this->get_vector();
-    Vector2 vec_cons = vec_player;
-
-    for(uint8_t _i=0; _i<(*_armas).size(); _i++  ) {
-        vec_cons	= (*_armas)[_i]->get_vector();
-        if((*_armas)[_i]->get_ocupada()==false && comprobar_colision_teniendo_tambien_radio(vec_player, 2, vec_cons, 4)){
-            (*_armas)[_i]->setPositionXZ(99999,9999);
-            coger_arma((*_armas)[_i]);
-          //  _motor->haz_desaparecer(_id_motor);
-            return true;
-        }
-    }
-    
-    return false;
-}
-
-void Character::cambiar_arma_seleccionada_a_la_anterior(){
-    _inventario->cambiar_arma_seleccionada_a_la_anterior();
-}
-
-void  Character::cambiar_arma_seleccionada_a_la_siguiente(){
-    _inventario->cambiar_arma_seleccionada_a_la_siguiente();
-}
-
-
-
 ///////////////////////////////////////////////////////// INICIO GESTION ACCIONES /////////////////////////////////////////////////////////
 
 void Character::set_tipo_ataque(Enum_Tipo_Ataque _i_tipo_ataque){
@@ -439,9 +372,6 @@ void Character::impulso_danyar(Character * atacante, Character * atacado, int im
 }
 
 int Character::getTiempoAccion(Enum_Acciones _accion){
-
-    Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
-    Enum_Nombre_Arma nombre_arma = _inventario->get_nombre_arma();
 
     if(_accion == Accion_pre_atacar){
 
@@ -624,60 +554,25 @@ btVector3 Character::getPosicionRbAtaque(Enum_Tipo_Ataque _ataque){
 
 btVector3 Character::getEscalaRbAtaque(Enum_Tipo_Ataque _ataque){
     // ancho, alto, largo
-    Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
-    Enum_Nombre_Arma nombre_arma = _inventario->get_nombre_arma();
 
-
-    if(tipo_arma == Tipo_Arma_cuerpo_a_cuerpo){
-
-        if(_tipo_ataque == Ataque_Normal){
-            //std::cout<< "cuerpo a cuerpo normal" <<std::endl;
-            return btVector3(4,1,4);
-        }
-        else if(_tipo_ataque == Ataque_Fuerte){
-            //std::cout<< "cuerpo a cuerpo  fuerte" <<std::endl;
-            return btVector3(4,1,4.5);
-        }
-        else if(_tipo_ataque == Ataque_Salto){
-            //std::cout<< "cuerpo a cuerpo salto" <<std::endl;
-            return btVector3(2,1,2);
-        }
-        else if(_tipo_ataque == Ataque_Especial){
-            //std::cout<< "cuerpo a cuerpo Especial" <<std::endl;
-            return btVector3(2,1,2);
-        }
-        else
-            return btVector3(2,1,2);
+    if(_tipo_ataque == Ataque_Normal){
+        //std::cout<< "cuerpo a cuerpo normal" <<std::endl;
+        return btVector3(4,1,4);
     }
-    else if(tipo_arma == Tipo_Arma_cerca){
-
-        if(nombre_arma == Nombre_Arma_Katana){
-
-            if(_tipo_ataque == Ataque_Normal){
-                //std::cout<< "KATANA normal" <<std::endl;
-                return btVector3(2,1,2);
-            }
-            else if(_tipo_ataque == Ataque_Fuerte){
-                //std::cout<< "KATANA fuerte" <<std::endl;
-                return btVector3(2.5,1,2);
-            }
-            else if(_tipo_ataque == Ataque_Salto){
-                //std::cout<< "KATANA salto" <<std::endl;
-                return btVector3(2,1,2);
-            }
-            else if(_tipo_ataque == Ataque_Especial){
-                //std::cout<< "KATANA especial" <<std::endl;
-                return btVector3(2,1,2);
-            }
-            else
-                return btVector3(2,1,2);
-        }
+    else if(_tipo_ataque == Ataque_Fuerte){
+        //std::cout<< "cuerpo a cuerpo  fuerte" <<std::endl;
+        return btVector3(4,1,4.5);
     }
-    else{
-        //std::cout<< "Escala RB ATAQUE default" <<std::endl;
-        return btVector3(5,1,5);
+    else if(_tipo_ataque == Ataque_Salto){
+        //std::cout<< "cuerpo a cuerpo salto" <<std::endl;
+        return btVector3(2,1,2);
     }
-    return btVector3(0,0,0);
+    else if(_tipo_ataque == Ataque_Especial){
+        //std::cout<< "cuerpo a cuerpo Especial" <<std::endl;
+        return btVector3(2,1,2);
+    }
+    else
+        return btVector3(2,1,2);
 }
 
 void Character::set_accion(Enum_Acciones _i_accion){
@@ -806,59 +701,41 @@ void Character::gestion_ataque(){ // CONTROLAR GESTION DE ENEMIGO, que esta OVER
         _objeto_motor->colorear_nodo(255,255,0);
         if(esta_bloqueado() == false){
             this->set_accion(Atacar);
-            Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
-            if(_tipo_ataque == Ataque_Especial || _tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
-                Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), getEscalaRbAtaque(_tipo_ataque), _direccion_actual);
-            }
+            Motor::Motor_GetInstance()->posicionar_rotar_y_escalar_rb(_rb_ataque, getPosicionRbAtaque(_tipo_ataque), getEscalaRbAtaque(_tipo_ataque), _direccion_actual);
         }
     }
     else if(this->get_accion() == Atacar){
 
         play_voces_ataque();
 
-        Tipo_Arma tipo_arma = _inventario->get_tipo_arma();
+        Datos_Partida * _datos_partida = Game::game_instancia()->game_get_datos();
+        Character ** _characters = _datos_partida->get_characters();
+        uint16_t _cont, _num_characters;
+        _num_characters = _datos_partida->get_num_characters();
 
-        if(_tipo_ataque == Ataque_Especial || _tipo_ataque == Ataque_Fuerte || tipo_arma == Tipo_Arma_cuerpo_a_cuerpo || tipo_arma ==Tipo_Arma_cerca){
+        bool golpea = false;
 
-            Datos_Partida * _datos_partida = Game::game_instancia()->game_get_datos();
-            Character ** _characters = _datos_partida->get_characters();
-            uint16_t _cont, _num_characters;
-            _num_characters = _datos_partida->get_num_characters();
+        for(_cont = 0; _cont < _num_characters; _cont++) {
+            if( _characters[_cont]->get_vida_actual()>0 && _characters[_cont]->get_equipo() != _equipo &&
+                Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true)
+            {
 
-            bool golpea = false;
+                _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
+                Motor::Motor_GetInstance()->_interfaz->Crear_particulas( _characters[_cont]->getX(),9,  _characters[_cont]->getZ(), get_direccion_actual()); 
+                //std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
 
-            for(_cont = 0; _cont < _num_characters; _cont++) {
-                if( _characters[_cont]->get_vida_actual()>0 && _characters[_cont]->get_equipo() != _equipo &&
-                    Motor::Motor_GetInstance()->comprobar_colision(_rb_ataque, _characters[_cont]->get_objeto_motor()->getRigidBody()) == true)
-                {
+                // Impulsa al atacado
+                impulso_danyar(this, _characters[_cont], get_impulso_danyar(_tipo_ataque));
 
-                    _characters[_cont]->danyar(get_danyo_ataque(this->get_tipo_ataque()));
-                    Motor::Motor_GetInstance()->_interfaz->Crear_particulas( _characters[_cont]->getX(),9,  _characters[_cont]->getZ(), get_direccion_actual()); 
-                    //std::cout << "----- " << _characters[_cont]->get_vida() << "------" << std::endl;
-
-                    // Impulsa al atacado
-                    impulso_danyar(this, _characters[_cont], get_impulso_danyar(_tipo_ataque));
-
-                    golpea = true;
-                }
-            }
-
-            if(golpea == true && tipo_arma == Tipo_Arma_cerca){
-                Arma_cerca * arma = _inventario->get_objeto_cerca();
-                arma->decrementar_usos();
-                _inventario->borrar_si_se_puede(arma);
-            }
-            _objeto_motor->Impulso(_direccion_actual, 3000);
-        }
-        else if(tipo_arma == Tipo_Arma_distancia){
-            Character * atacado = _inventario->usar(_objeto_motor, _direccion_actual);
-            Arma_distancia* _arma_usada = _inventario->get_objeto_distancia();
-            
-            if(atacado != 0){
-                atacado->danyar(_arma_usada->get_danyo());
-                impulso_danyar(this, atacado, _arma_usada->get_impulso());
+                golpea = true;
             }
         }
+
+        if(golpea == true){
+           
+        }
+        _objeto_motor->Impulso(_direccion_actual, 3000);
+    
 
         //std::cout << "ATACANDO" << std::endl;
         _objeto_motor->colorear_nodo(0,0,255);

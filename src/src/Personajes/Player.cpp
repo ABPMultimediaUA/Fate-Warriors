@@ -42,8 +42,7 @@ Player::Player(short _id, float _i_x, float _i_y, float _i_z, Input* _i_input) :
 
     //std::cout<<"X player: "<<_motor->getX(_id_motor);
     //std::cout<<"Z player: "<<_motor->getZ(_id_motor)<<std::endl;
-    _motor->recibir_Danyo(_vida, _vida_maxima);
-    _motor->set_llave_hud(false);
+    _motor->recibir_Danyo(_vida, _vida_maxima);   
 
     _input = _i_input;
     //_motor->set_text_vida(_vida);
@@ -83,7 +82,9 @@ void Player::update(){
         uint16_t _direccion_buena = _direccion_buena_2;
         
         uint16_t _direccion_previa_movimiento = _direccion_buena;
-    
+      
+        float direccion = (_direccion_buena * PIs)/180;
+        _yo->setTextureposition(getX(), getZ(),direccion);
 
        if(_cono_vision->get_apuntando() != nullptr) {
             mover_direccion(_direccion_buena, _cono_vision->get_rotacion_con_apuntando());
@@ -126,7 +127,6 @@ void Player::update(){
             std::cout<< "Pulsa E\n";
             if(!interactuar_con_objeto()){
             std::cout<< "No encuentra objeto\n";
-                intentar_recoger_arma();
             }
             //this->bloquear_input(1000);
             //std::cout<< "Interactuando..."<< std::endl;
@@ -142,14 +142,6 @@ void Player::update(){
     }
 
     _cono_vision->update_direccion(_direccion_actual); 
-
-    auto _cambio = _input->get_cambiar_arma();
-    if(std::get<0>(_cambio)) {
-        if(std::get<1>(_cambio))
-            cambiar_arma_seleccionada_a_la_anterior();
-        else
-            cambiar_arma_seleccionada_a_la_siguiente();
-    }
 
     auto _ataques = _input->get_atacar();
 
@@ -199,10 +191,6 @@ void Player::update(){
             _motor->_interfaz->Crear_particulas_Suelo(getX(),1, getZ(), get_direccion_actual()); 
         }
     }
-
-    float direccion = (_direccion_actual * PIs)/180;
-    _yo->setTextureposition(getX(), getZ(),direccion);
-
 
     }
     else{

@@ -9,7 +9,6 @@
 class Interfaz;
 class Inventario;
 class Time;
-class Arma;
 class Consumible_Power_Up;
 class Zona;
 class Interfaz_sonido;
@@ -38,12 +37,6 @@ public:
 	inline int16_t* get_ref_vida_actual(){
 		return &_vida;
 	}
-	inline bool* get_ref_tiene_arma_corta(){
-    	return &_tiene_arma_corta;
-	}
-	inline bool* get_ref_tiene_arma_larga(){
-    	return &_tiene_arma_larga;
-	}
 	/*inline float* get_ref_x(){
 		//return &_x; Tiene que coger la posicion del motor
 	}
@@ -62,8 +55,6 @@ public:
 	inline void reiniciar_npcs_persiguiendome(){
 		_npcs_persiguiendome = 0;
 	}
-	uint8_t* get_ref_rango_arma_corta();
-	uint8_t* get_ref_rango_arma_larga();
     Inventario* get_inventario();
 	bool isDead();
 	int16_t get_danyo_ataque_normal();
@@ -80,11 +71,6 @@ public:
 	void mover_direccion(uint16_t _i_direccion, uint16_t _i_direccion_mover);
 	bool esta_bloqueado();
 	bool accion_en_curso();
-
-	bool intentar_recoger_arma();
-	void coger_arma(Arma* arma);
-	void cambiar_arma_seleccionada_a_la_siguiente();
-	void cambiar_arma_seleccionada_a_la_anterior();
 
 	uint16_t get_direccion_actual();
 	void set_direccion_actual(uint16_t nueva_direccion);
@@ -167,14 +153,10 @@ protected:
 	float _velocidadAndar;		//velocidad al andar
 	float _velocidad;
 	float _velocidadCorrer;
-	uint8_t _rango_arma_corta;
-	uint8_t _rango_arma_larga;
 	int16_t _danyo_ataque_normal;
 	int16_t _danyo_ataque_fuerte;
 	double _tiempo_inicio_accion; // El tiempo cuando ha empezado a realizar el Tipo_Accion
     Inventario* _inventario;
-	bool _tiene_arma_corta;
-	bool _tiene_arma_larga;
 	Enum_Acciones _accion;
 	Enum_Tipo_Ataque _tipo_ataque;
 	Time * _tiempo;
