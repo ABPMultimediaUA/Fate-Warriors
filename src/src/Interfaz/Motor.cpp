@@ -717,9 +717,12 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 	for(uint16_t i=0; i<_tam; i++){
 		
 		Vector3 _posicion_interpolada = _objetos_motor[i]->interpola_posiciones(_i_interpolacion);
+		Vector3 posicion_interpolada_2 = _posicion_interpolada;
+		posicion_interpolada_2._y +=15;
 
  	if(_objetos_motor[i] == _objeto_que_sigue_la_camara) { 
 		Objeto * puntero = (Objeto*)_objeto_que_sigue_la_camara->getRigidBody()->getUserPointer();
+		
 		if(dynamic_cast<Character*>(puntero) !=nullptr){
 			 _posicion_interpolada._y+=5;
 			 interpolar_altura(true);
@@ -729,7 +732,7 @@ void Motor::interpola_posiciones(float _i_interpolacion) {
 		}
 
 	 		camara->interpola_target(_posicion_interpolada);
-			camara2->interpola_target(_posicion_interpolada);
+			camara2->interpola_target(posicion_interpolada_2);
 		}	
 	}
 	camara->interpola_posicion(_i_interpolacion);
