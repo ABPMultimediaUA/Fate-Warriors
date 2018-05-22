@@ -40,9 +40,9 @@ UI::~UI(){
         delete _lista_imagenes_fin_win[i];
     }
 
-    delete _lista_imagenes_carga[0];
-    delete _lista_imagenes_carga[1];
-
+    for(u_int16_t i = 0; i<_lista_imagenes_carga.size(); i++){
+        delete _lista_imagenes_carga[i];
+    }
 }
 
 Image* UI::crear_imagen(Shader* shader, const char* ruta, const char* ruta2, float x, float y, float width, float height){
@@ -203,6 +203,22 @@ void UI::drawMenuFondo(uint8_t _opcion) {
 
 void UI::drawMenuLogo(uint8_t _opcion) {
     _lista_imagenes[_lista_imagenes.size() - 1]->Draw();
+}
+
+void UI::drawAyudaControles(){
+    _lista_imagenes_carga[0]->Draw();
+}
+
+void UI::drawFiltroPausa(){
+    _lista_imagenes_carga[5]->Draw();
+}
+
+void UI::drawFiltroLose(){
+    _lista_imagenes_carga[6]->Draw();
+}
+
+void UI::drawFiltroWin(){
+    _lista_imagenes_carga[5]->Draw();
 }
 
 //dibujar menu del juego
@@ -401,6 +417,7 @@ void UI::drawMenuFinWin(uint8_t opcion){
     for(u_int16_t i = 0; i<_lista_imagenes_fin_win.size(); i++){
         _lista_imagenes_fin_win[i]->Draw();
     }
+    _lista_imagenes_carga[0]->Draw();
 }
 
 //dibujar menu del juego
@@ -422,6 +439,7 @@ void UI::drawMenuFinLose(uint8_t opcion){
     for(u_int16_t i = 0; i<_lista_imagenes_fin_lose.size(); i++){
         _lista_imagenes_fin_lose[i]->Draw();
     }
+    _lista_imagenes_carga[0]->Draw();
 }
 
 /*
@@ -508,12 +526,18 @@ void UI::set_tiene_llave(bool _i_tiene_llave){
 
 void UI::render_pantalla_carga() {
     _lista_imagenes[0]->Draw();
-    _lista_imagenes_carga[0]->Draw();
+    _lista_imagenes_carga[1]->Draw();
+    _lista_imagenes_carga[3]->Draw();
+
+    drawAyudaControles();
 }
 
 void UI::render_partida_cargada() {
     _lista_imagenes[0]->Draw();
-    _lista_imagenes_carga[1]->Draw();
+    _lista_imagenes_carga[4]->Draw();
+    _lista_imagenes_carga[2]->Draw();
+    _lista_imagenes_carga[3]->Draw();
+    drawAyudaControles();
 }
 
 void UI::setVsync(bool activar){

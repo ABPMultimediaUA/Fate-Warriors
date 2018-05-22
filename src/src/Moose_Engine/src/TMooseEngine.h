@@ -157,6 +157,7 @@ class TMooseEngine{
         int _offset_viewport_X;
         int _offset_viewport_Y;
         
+        void carga_icono_ventana();
 };
 
 

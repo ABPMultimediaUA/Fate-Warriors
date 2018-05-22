@@ -8,6 +8,7 @@
 #include "TAnimacion.h"
 #include "TGestorRecursos.h"
 #include "Shader.h"
+#include "SOIL.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -63,6 +64,8 @@ TMooseEngine::TMooseEngine(){
     _texture_quality = 0;
 
     initUI();
+
+    carga_icono_ventana();
 }
 
 void TMooseEngine::initUI(){
@@ -161,11 +164,6 @@ void TMooseEngine::initUI(){
     _ui->crear_imagenHUD(_shader, "Imagenes_HUD/Llave_Silueta.png", 0.75, 0.85, 0.15, 0.15); // Dejar la penultima
     _ui->crear_imagenHUD_llave(_shader, "Imagenes_HUD/Llave.png", 0.75, 0.85, 0.15, 0.15); // Dejar la ultima
 
-    _ui->set_escala_musica(5);
-    _ui->set_escala_sfx(5);
-    _ui->set_escala_voz(5);
-    _ui->set_escala_sonido_menu(5);
-    _ui->set_resolution(_resolution);
     
     //MENU WIN
     _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
@@ -179,9 +177,22 @@ void TMooseEngine::initUI(){
     
 
     // PANTALLA CARGA
-    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loading.png", -0.6, 0.6, 1.2, 0.22);
-    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Ready.png", -0.6, 0.6, 1.2, 0.22);
-    //ANYADIR IMAGEN DE MANDO CON CONTROLES E IMAGEN DE 'PULSA A PARA CONTINUAR'
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Ayuda.png", -0.956, -0.485, 0.29, 0.438);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loading.png", 0.45, -0.7, 0.477, 0.209);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loaded.png", 0.45, -0.7, 0.477, 0.209);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Controles_Mando.png", -0.623, 0.723, 1.435, 1.353);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Gris.png", -1, 1, 2, 2);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Negro.png", -1, 1, 2, 2);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Rojo.png", -1, 1, 2, 2);
+
+
+
+
+    _ui->set_escala_musica(5);
+    _ui->set_escala_sfx(5);
+    _ui->set_escala_voz(5);
+    _ui->set_escala_sonido_menu(5);
+    _ui->set_resolution(_resolution);
 }
 
 void TMooseEngine::toggleFullscreen(){
@@ -547,6 +558,7 @@ void TMooseEngine::renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_a
     glDisable(GL_CULL_FACE);
     
     _ui->drawMenuFondo(opcion);
+    _ui->drawAyudaControles();
     if(config_abierta) {
         //funcion que renderiza el menu de configuracion sobre el menu estandar
         renderUIMenuConfig(opcion2);
@@ -565,6 +577,9 @@ void TMooseEngine::renderUIMenuPausa(uint16_t opcion, uint16_t opcion2, bool con
     clear();
     draw();
     glDisable(GL_CULL_FACE);
+
+    _ui->drawFiltroPausa();
+    _ui->drawAyudaControles();
 
     if(config_abierta){
         renderUIMenuConfig(opcion2);
@@ -597,7 +612,10 @@ void TMooseEngine::renderUIMenuWin(uint16_t opcion){
     clear();
     draw();
     glDisable(GL_CULL_FACE);
+
+    _ui->drawFiltroWin();
     _ui->drawMenuFinWin(opcion);
+
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
 }
@@ -607,7 +625,10 @@ void TMooseEngine::renderUIMenuLose(uint16_t opcion){
     clear();
     draw();
     glDisable(GL_CULL_FACE);
+
+    _ui->drawFiltroLose();
     _ui->drawMenuFinLose(opcion);
+
     glEnable(GL_CULL_FACE);
     glfwSwapBuffers(window);
 }
@@ -749,4 +770,14 @@ void TMooseEngine::set_resolution(uint8_t res){
 
 void TMooseEngine::set_calidad_texturas(uint8_t calidad){
     _texture_quality = calidad;
+}
+
+void TMooseEngine::carga_icono_ventana() {
+    // Carga Icono de la ventana
+    // Funcion encontrada en la pagina de GLFW
+    // Uso de la carga de imagenes de SOIL sacado de la pagina https://stackoverflow.com/questions/44321902/glfw-setwindowicon
+    GLFWimage image[1];
+    image[0].pixels = SOIL_load_image("Icono.png", &image[0].width, &image[0].height, 0, SOIL_LOAD_RGBA);;
+    glfwSetWindowIcon(window, 1, image);
+    SOIL_free_image_data(image[0].pixels);
 }

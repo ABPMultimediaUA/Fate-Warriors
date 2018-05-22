@@ -54,6 +54,12 @@ class UI{
         void drawMenu(uint8_t opcion);
         void drawMenuFondo(uint8_t _opcion);
         void drawMenuLogo(uint8_t _opcion);
+
+        void drawAyudaControles();
+        void drawFiltroPausa();
+        void drawFiltroLose();
+        void drawFiltroWin();
+
         void drawMenuPausa(uint8_t opcion);
         
         void drawMenuConfigSubmenu1(); //music
