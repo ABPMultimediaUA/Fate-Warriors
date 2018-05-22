@@ -34,7 +34,7 @@ TMooseEngine* TMooseEngine::get_instancia(){
 }
 
 TMooseEngine::TMooseEngine(){
-    init_opengl(1280, 720);
+    init_opengl(1280, 720); //inicializa la ventana de openGL y sus atributos
     _fullscreen = false;
     _vsync = false;
     _resolution = 1;
@@ -340,19 +340,22 @@ void TMooseEngine::cambiar_posicion_y_tamanyo_minimapa(float x, float y, float s
 
 
 void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
+    //codigo basado en los ejemplos de la web learnopengl
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     window = glfwCreateWindow(width, height, "Fate Warriors", NULL, NULL);
     
+    //Inputs de raton de GLFW
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, micallback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    //vsync
     glfwSwapInterval(0);
 
     if (window == NULL){
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cout << "Error al crear la ventana" << std::endl;
         glfwTerminate();
         exit(-1);
     }
@@ -368,7 +371,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
 
     float _escala = width / height;
     float _escala_buena = 16.0/9.0;
-    
+    //calculos de escala para el minimapa y la resolucion del viewport
     _width = width;
     _height = _height;
     _offset_viewport_X = 0;
@@ -449,6 +452,7 @@ TNodo* TMooseEngine::crearNodoLuz(TNodo *padre, TEntidad *ent){
     return aux;
 }
 
+//funciones para anyadir y eliminar iconos al minimapa
 Image_Map* TMooseEngine::anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo){
     return _mapa->anyadir_elemento_al_mapa(x,  y,  ancho,  alto,  tipo);
 }
@@ -495,18 +499,20 @@ void TMooseEngine::clear(){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+//dibujado del motor
 void TMooseEngine::draw(){
+    //dibuja skybox con su shader, restaura el shader estandar despues
     _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
     _shader->use(Default);
+    //dibujado recorrido de camaras y luces asignando sus matrices al shader
     drawCamaras();
     drawLuces();
+    //dibujado de la escena
     _escena->draw(_shader);
-    _skybox->draw(_shader, _shader->getView(),  _shader->getProjection());
-
+    //se ajusta el shader de las sombras y se dibujan
     _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
     _particulas->Draw();
-
 }
 
 void TMooseEngine::render_estado_Partida(){
