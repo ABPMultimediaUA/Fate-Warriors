@@ -156,6 +156,11 @@ void Player::update(){
         solo_andar = false;
     }
   
+    auto _cambio = _input->get_cambiar_arma(); 
+    if(std::get<0>(_cambio)) { 
+        if(std::get<1>(_cambio)) 
+            _motor->activar_desactivar_minimapa();
+    } 
 
     if(_input->get_saltar()){
        // saltar();

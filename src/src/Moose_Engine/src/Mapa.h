@@ -21,6 +21,9 @@ public:
     //Elimina una imagen del mapa
     void eliminar_elemento_mapa(Image_Map* objeto_a_eliminar);
     
+    //Activa/desactiva la visualizacion del mapa
+    void activar_desactivar_minimapa();
+
     // Dibuja todos los elementos del mapa
     void Draw();
 
@@ -34,6 +37,7 @@ private:
    
     Shader* shader;
     
+    bool activo;
     //Contiene la ruta de las imagenes
     GLuint Imagenes[Vegeta_count];
 

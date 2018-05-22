@@ -170,6 +170,7 @@ public:
     bool get_vsync();
     uint8_t get_resolution();
     uint8_t get_calidad_texturas();
+    void activar_desactivar_minimapa();
 
 private:
 

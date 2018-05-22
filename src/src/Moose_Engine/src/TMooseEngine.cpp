@@ -457,6 +457,10 @@ void TMooseEngine::eliminar_elemento_del_mapa(Image_Map* elemento_a_eliminar){
     _mapa->eliminar_elemento_mapa(elemento_a_eliminar);
 }
 
+void TMooseEngine::activar_desactivar_minimapa(){
+    _mapa->activar_desactivar_minimapa();
+}
+
 TTransform* TMooseEngine::crearTransform(){
     TTransform* transform = new TTransform();
     return transform;

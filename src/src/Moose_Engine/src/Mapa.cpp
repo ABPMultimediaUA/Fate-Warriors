@@ -8,7 +8,7 @@
 
 
 Mapa::Mapa(Shader* shader)
-    : shader(shader)
+    : shader(shader), activo(true)
 {
 
    Imagenes[Enum_Llave]              =  load_texture("Imagenes_HUD/Minimapa/Llave.png");
@@ -24,7 +24,6 @@ Mapa::Mapa(Shader* shader)
    anyadir_elemento_al_mapa(420/2, 560/2, 420, 560,Enum_Mapa);
       
 }
-
 
 Mapa::~Mapa(){
  for (short i = 0; i < elementos_menu.size(); i++) {
@@ -55,25 +54,29 @@ Image_Map* Mapa::anyadir_elemento_al_mapa(float x, float y, float ancho, float a
 }
 
 // Render all particles
-void Mapa::Draw()
-{    
-
+void Mapa::Draw(){    
+    
     glDisable(GL_CULL_FACE);
+    
+    if(activo){
+        for (int a =0; a < elementos_menu.size(); a++){   
+            shader->use(texturas_menu);
+            if(a!=1)
+            elementos_menu[a]->Draw();
+        }
 
-    for (int a =0; a < elementos_menu.size(); a++)
-    {   
-        shader->use(texturas_menu);
-        if(a!=1)
-        elementos_menu[a]->Draw();
+        shader->use(emapa);
+        elementos_menu[1]->update_rotacion();
+        elementos_menu[1]->Draw();
     }
 
-    shader->use(emapa);
-    elementos_menu[1]->update_rotacion();
-    elementos_menu[1]->Draw();
     glEnable(GL_CULL_FACE);
 
 }
 
+void Mapa::activar_desactivar_minimapa(){
+    activo = !activo;
+}
 
 GLuint Mapa::load_texture(const char* ruta){
     GLuint ID;

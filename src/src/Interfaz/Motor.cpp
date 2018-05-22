@@ -950,3 +950,7 @@ uint8_t Motor::get_resolution(){
 uint8_t Motor::get_calidad_texturas(){
     return _me->get_calidad_texturas();
 }
+
+void Motor::activar_desactivar_minimapa(){
+	_me->activar_desactivar_minimapa();
+}

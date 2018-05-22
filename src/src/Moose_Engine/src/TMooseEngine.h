@@ -50,8 +50,11 @@ class TMooseEngine{
             return _escena;
         }
 
+        //Minimapa
         Image_Map* anyadir_elemento_al_mapa(float x, float y, float ancho, float alto, Texture_ID_Map tipo);
         void eliminar_elemento_del_mapa(Image_Map* _elemento_a_eliminar);
+        void activar_desactivar_minimapa();
+
         void draw();
         void initUI();
         void render_estado_Partida();
