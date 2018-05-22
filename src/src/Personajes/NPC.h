@@ -1,6 +1,5 @@
 #ifndef SRC_NPC_H_
 #define SRC_NPC_H_
-#include "Enum_Tipo_Enemigo.h"
 #include "Character.h"
 
 class Blackboard;

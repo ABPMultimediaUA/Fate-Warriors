@@ -201,37 +201,6 @@ void Objeto_Motor::colorear_nodo(short r,short g, short b){
 	//_nodo->getMaterial(0).AmbientColor.set(255,r,g,b); //brillo, r,g,b
 }
 
-//Manu NO miro esta cosa.com
-
-void Objeto_Motor::abrir_puerta1(){
-	
-	_rigidbody->forceActivationState(DISABLE_SIMULATION);
-	btTransform btt; 
-	_rigidbody->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),10,btt.getOrigin().getZ())); // move body to the scene node new position
-
-	_rigidbody->getMotionState()->setWorldTransform(btt);
-	_rigidbody->setCenterOfMassTransform(btt);
-
-
-	btVector3 pos = _rigidbody->getCenterOfMassPosition();
-	_nodo->mover(Vector3(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
-}
-
-void Objeto_Motor::abrir_puerta2(){
-	
-	_rigidbody->forceActivationState(DISABLE_SIMULATION);
-	btTransform btt; 
-	_rigidbody->getMotionState()->getWorldTransform(btt);
-	btt.setOrigin(btVector3(btt.getOrigin().getX(),20,btt.getOrigin().getZ())); // move body to the scene node new position
-
-	_rigidbody->getMotionState()->setWorldTransform(btt);
-	_rigidbody->setCenterOfMassTransform(btt);
-
-	btVector3 pos = _rigidbody->getCenterOfMassPosition();
-		
-	_nodo->mover(Vector3(btt.getOrigin().getX(),btt.getOrigin().getY(),btt.getOrigin().getZ()));
-}
 
 void Objeto_Motor::abrir_puerta(){
 	setPositionY(20);
@@ -249,9 +218,6 @@ void Objeto_Motor::abrir_puerta(uint8_t _direccion){
 	}
 	_rigidbody->forceActivationState(DISABLE_SIMULATION);
 }
-
-
-
 
 float Objeto_Motor::getVelocidadY(){
 	return  _rigidbody->getLinearVelocity()[1];

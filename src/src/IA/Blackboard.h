@@ -7,7 +7,6 @@
 #include "Enum_Acciones.h"
 
 #include "../Personajes/Enum_Tipo_Ataque.h"
-#include "../Personajes/Enum_Tipo_Enemigo.h"
 #include "../Nivel/Nodo_blackboard.h"
 
 #include "../Zonas/Zona.h"

@@ -22,7 +22,6 @@
 
 #include "Moose_Engine/src/TGestorRecursos.h"
 
-#include <iostream>
 #include <stack>
 
 Game* Game::instancia = 0;
@@ -91,8 +90,6 @@ void Game::crea_partida() {
 	_datos->inserta_npc_nivel();
 	
 	_consumibles_action = new Consumible_Action();	
-
-	//_datos->posicionar_characters_inicialmente();
 
 	update_actual = &Game::update_partida;
 	render_actual = &Game::render_partida;
