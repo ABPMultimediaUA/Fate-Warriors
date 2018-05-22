@@ -25,6 +25,11 @@ glm::mat4 TCamara::calculaView(){
     //glm::vec3 _m_position(position._x, position._y, position._z);
     //glm::vec3 _m_target  (target._x,   target._y,   target._z)  ;  
     
+
+    //----------------Basado en el tutorial "camera" de learnopengl----------------//
+
+    //obtencion de los vectores necesarios para calcular la matriz view
+
     //vector direction (positive Z)
     glm::vec3 cameraDirection = glm::normalize(_position - _target);
 
@@ -82,7 +87,9 @@ glm::mat4 TCamara::calculaView(){
     matrixB[2][3] = 0;
     matrixB[3][3] = 1;
 
-    //_matriz_view = matrixA * matrixB;
+    //_matriz_view = matrixA * matrixB; //para implementar glLookAt a mano, basta con hacer la multiplicacion de ambas matrices
+
+    //-----------------------
     _matriz_view =  glm::lookAt(_position,_target, up);
     return _matriz_view;
 }

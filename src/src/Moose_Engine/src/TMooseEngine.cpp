@@ -406,6 +406,7 @@ void TMooseEngine::init_opengl(uint16_t width, uint16_t height){
     
 }
 
+//funciones para el retorno y ajustado del raton con openGL (movimiento de camara con teclado y raton)
 float TMooseEngine::getMouseOffsetX(){
     return _offsetX;
 }
@@ -435,7 +436,7 @@ void TMooseEngine::borrarNodo(uint16_t nodo){
     }
 }
 
-
+//funciones de interfaz interna para crear los nodos del arbol de escena
 TNodo* TMooseEngine::crearNodo(TNodo *padre, TEntidad *ent){
     ++_contadorIDEntidad;     
     TNodo* nodo = new TNodo(_contadorIDEntidad,padre);

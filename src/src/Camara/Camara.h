@@ -24,17 +24,17 @@ public:
 	Vector3 Camara_getPosition();
 	Vector3 Camara_getTarget();
 	Vector3 Camara_getDirection();
-	float Camara_getAngle();
-	float Camara_getAngleRad();
-	void Camara_Update(); //updatea la Camara usando el device
-	void update_position();
+	float Camara_getAngle();		//devuelve el angulo entre la camara y la direccion del jugador en grados (para el calculo de movimiento)		
+	float Camara_getAngleRad();		//devuelve el angulo entre la camara y la direccion del jugador en radianes (para el calculo de movimiento)
+	void Camara_Update(); 			//updatea la Camara usando el device
+	void update_position();			//actualiza la posicion teniendo en cuenta la colision de la camara con otros elementos del mundo
 	void asigna_input(Input* _i_input_jugador);
 
 	void set_posicion_inicial(short _i_direccion); 	// Pone la posicion inicial de la camara
 
 	void interpola_posicion(float _i_interpolacion);
 	void interpola_target(Vector3 _i_posicion_interpolada);
-	void Camara_reset(short _i_direccion);
+	void Camara_reset(short _i_direccion); //reajusta la camara para que mire justo hacia delante, hacia donde mira el personaje
 
 	void rota_camara_sin_interpolacion(short _i_direccion_x, short _rotacion_en_y);		// Rota la camara a una posicion
 

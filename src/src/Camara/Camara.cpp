@@ -14,17 +14,7 @@
 
 
 Camara::Camara(bool activa) {
-	//_Camara = smgr-> addCameraSceneNode(0, 
-	//									core::vector3df(0, 0, 0), 
-	//									core::vector3df(1, 1, 1)
-	//										); 
-	//_Camara = smgr->addCameraSceneNodeFPS();
-
-	//_OGLWindow = Motor::Motor_GetInstance()->getEngine()->getWindow();
-	
-	//_Cdevice = device; 
-	//_Cdevice->getCursorControl()->setVisible(false); 
-	//_inicial = core::vector3df(0,0,1);
+	//creamos el iNodoCamara que inicializa una TCamara en el arbol de escena
 	_Camara = new iNodoCamara(activa);
 	_inicial = glm::vec3(0,0,1);
 
@@ -51,7 +41,7 @@ Camara::Camara(bool activa) {
 	_dot = _det = _angle = _angleRad = 0;
 	_interpolacion = new Interpolacion(Vector3(_inicial_aux._x, _inicial_aux._y, _inicial_aux._z));		
 	_interpolacion_colision = new Interpolacion(Vector3(_inicial_aux._x, _inicial_aux._y, _inicial_aux._z));
-	_unlocked = false;	//angel busca esto	
+	_unlocked = false;	
 }
 
 void Camara::Camara_setPosition(Vector3 position) {
@@ -87,7 +77,6 @@ void Camara::set_position_interpolada(Vector3 position) {
 void Camara::Camara_setTarget(Vector3 targetPos){
 	_target = glm::vec3(targetPos._x, targetPos._y + 50, targetPos._z); 
 	_Camara->setTarget(targetPos);
-	//this->setTarget(targetPos); 
 }
 
 void Camara::Camara_setProta(iNodoModelado* prota) {
@@ -116,7 +105,6 @@ void Camara::Camara_reset(short _i_direccion){
 }
 
 void Camara::Camara_Update() {
-	// Desactivamos el cursor del raton
 	float offX = 0;
 	float offY = 0;
 	_changeX = 0;
@@ -132,26 +120,12 @@ void Camara::Camara_Update() {
 
 		_changeX = (offX) * _sensibilidadX;
 		_changeY = (offY) * _sensibilidadY;
-		//cursorPos = _Cdevice-> getCursorControl()-> getRelativePosition(); 
-
-		//_changeX = (cursorPos.X - 0.5) * _sensibilidadX; 
-		//_changeY = (cursorPos.Y - 0.5) * _sensibilidadY; 
-//
-		//_Cdevice-> getCursorControl()-> setPosition(0.5f, 0.5f); 
 	}
 	else {
 		if(_input->get_mover_camara()) {
 			Vector2* _vector_movimiento = _input->get_vector_camara();
 			_changeX = 10 * (_vector_movimiento->_x * _vector_movimiento->_x) * lib_math_sgn(_vector_movimiento->_x);
 			_changeY = 10 * (_vector_movimiento->_y * _vector_movimiento->_y) * lib_math_sgn(_vector_movimiento->_y);
-
-			/*std::cout << "Vector X " << _vector_movimiento->_x << "\n";
-			std::cout << "Vector Y " << _vector_movimiento->_y << "\n";*/
-
-			/*std::cout << "El signo de X es " << (int)lib_math_sgn(_vector_movimiento->_x) << "\n";
-			std::cout << "El signo de Y es " << (int)lib_math_sgn(_vector_movimiento->_y) << "\n";*/
-
-			//std::cout << "Por input de Pablo \n";
 		}
 	}
 
@@ -182,10 +156,6 @@ void Camara::Camara_Update() {
 			_direction += 360;
 	}
 
-	
-	/*std::cout << "Direction  " << _direction << "\n";
-	std::cout << "Zdirection " << _zdirection << "\n";*/
-
 	update_position();
 }
 
@@ -207,11 +177,14 @@ void Camara::update_position() {
 		
 		float distancia;
 
+		//esta variable permite desbloquear la limitacion de distancia de la camara para algunas pruebas
 		if(!_unlocked){
 			distancia = 25.0f;}
 		else{
 			distancia = 200.0f;}
 
+		//calculamos la posicion de la camara en funcion de los vectores de direccion y la posicion del jugador
+		//esto genera las posiciones para un movimiento orbital en tercera persona alrededor del jugador
 		float xf = playerPos._x - cos(_zdirection * PIs / 180.0f) * cos(_direction * PIs / 180.0f) * distancia; 
 		
 		float yf = playerPos._y - sin(_zdirection * PIs / 180.0f) * distancia; 
@@ -220,8 +193,7 @@ void Camara::update_position() {
 
 		if (_Prota-> getPosition()._y >= 0) {	// Calculos de la camara para una Y positiva
 			
-		//std::cout<<"llego loko"<<std::endl;
-			//std::cout << playerPos.Y << std::endl; 
+		
 			if(_posicion_interpolable){
 				this->Camara_setPosition(
 						Vector3(xf, 
@@ -296,37 +268,25 @@ void Camara::update_position() {
         _dot = inicial.x * _camaraDir.x + inicial.z * _camaraDir.z;
         _det = inicial.x * _camaraDir.z - inicial.z * _camaraDir.x;
 
-		/*std::cout << "X inicial " << inicial.x << "\ncamaraDir.x " << inicial.z << "\ncamaraDir.z" << _camaraDir.z << "\n";
-
-		std::cout<<"_dot: " << _dot << "\n";
-		std::cout<<"_det: " << _det << "\n";*/
-
-
 
         _angle = -(atan2f(_det,_dot)/PIs)*180;
-		//std::cout<<"inicial X: "<< inicial.x << "Z: " << inicial.z << "\n";
-		
-		//std::cout<<"camaraDir X: "<< _camaraDir.x << "Z: " << _camaraDir.z << "\n";				 
+			 
         
 		if(_angle<0){
             _angle+=360;
         }
 
         _angleRad = _angle * (PIs/180);
-		//_angleRad = 2,5;
-		//std::cout<<"ANGLE RAD: " << _angleRad << "\n";
 
 	}
 	
 }
 
 float Camara::Camara_getAngle(){
-	//std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angle << "\n";
 	return(_angle);
 }
 
 float Camara::Camara_getAngleRad(){
-	//std::cout<<"VAMOH A PROBAR EL ANGULO ESE: " << _angleRad << "\n";
 	return(_angleRad);
 }
 
@@ -366,6 +326,8 @@ void Camara::rota_camara_sin_interpolacion(short _rotacion_en_x, short _rotacion
 	_direction = _rotacion_en_x;
 	_zdirection = _rotacion_en_y * -1; // DEbe ir entre -5 (abajo) y -60 (arriba)
 
+	//limitaciones del valor zdirection. Esto establece los limites entre los cuales se puede levantar/bajar la camara para evitar
+	//que se desplace demasiado o provoque errores de visualizacion 
 	if (_zdirection < -10) {
 		_zdirection = -10; 
 	}
