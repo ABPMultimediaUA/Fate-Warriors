@@ -14,6 +14,7 @@
 #include "DebugDraw.h"
 #include "EnumTiposColision.h"
 #include "../Interactuables/Puerta_Pincho.h"
+#include "../Camara/Camara_aerea.h"
 #include "../Game.h"
 #include "../Datos_Partida.h"
 #include "../Menus/Menu_Principal.h"
@@ -179,7 +180,7 @@ Motor::Motor(){
 	desp_x = desp_z = 0;
 
 	camara 	= new Camara(true);
-	camara2 = new Camara(true);	
+	camara2 = new Camara_aerea(true);	
 
 	angulo = 0;
 	_velocidad = 1;

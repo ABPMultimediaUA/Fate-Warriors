@@ -40,7 +40,7 @@ public:
 
 	inline void set_posicion_interpolable(bool estado) { _posicion_interpolable = estado; };
 
-private:
+protected:
 	//las nuevas variables de escena del ME
 	GLFWwindow* _OGLWindow;
 	glm::vec3 _inicial;
