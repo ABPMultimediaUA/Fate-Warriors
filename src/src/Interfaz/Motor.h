@@ -177,16 +177,11 @@ private:
       Motor();
       Vector3* rayOrigen;
       Vector3* rayDestino;
-      int _vida; //salud para la barra de salud
-      int _maxvida; //vida maxima (barra negra)
       float desp_x, desp_z;
       float mult;
       bool moving;
       float angulo;
-      float _velocidad;
       
-      double mdt;
-
       float x;
       float z;
       

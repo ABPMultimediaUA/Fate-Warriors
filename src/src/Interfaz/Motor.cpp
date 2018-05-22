@@ -168,53 +168,34 @@ void Motor::CargaMapa(){
 }
 
 Motor::Motor(){
-    //configuracion_irlitch();
+
 	configuracion_ME(400, 400, false, false);
     configuracion_bullet();
     preparar_depuracion_mundo();
     
-
 	//cargaMapa();
 
 	desp_x = desp_z = 0;
 
 	camara = new Camara(true);
 	angulo = 0;
-	_velocidad = 1;
+
 	_debug = false;
 
 	rayOrigen = new Vector3(0,0,0);
 	rayDestino = new Vector3(0,0,0);
-/*
-	rayOrigen._x = 0;
-	rayOrigen._y = 0;
-	rayOrigen._z = 0;
 
-	rayDestino._x = 0;
-	rayDestino._y = 0;
-	rayDestino._z = 0;
-*/
-	
-	//esto no debe ir aqui y se cambia despues de la presentacion
-	_vida = 300;
-	_maxvida = 300;
-		_interfaz = new Interfaz_Particulas();
+	_interfaz = new Interfaz_Particulas();
 }
 
 void Motor::vaciar_motor(){
 	for(uint16_t i = 0; i < lista_i_nodo.size(); i++){
 		lista_i_nodo[i]->borrarNodo();
-		
-		//std::cout<< "dir: " << lista_i_nodo[i] << "\n";
 	}
 	lista_i_nodo.clear();
-	//for(short a=0; a<_objetos_motor.size();a++){
-	//	delete _objetos_motor[a];
-	//}
-	//_objetos_motor.clear();
+
 }
 
-//void Motor::crear_partida(){}
 void Motor::configuracion_ME(uint16_t width, uint16_t height, bool fullscreen, bool v_sync){
     _me = TMooseEngine::get_instancia();
 }
@@ -233,50 +214,7 @@ void Motor::borrar_objeto(Objeto_Motor* _objeto_motor){
         _objetos_motor.erase(ite2);
     }
 
-	//std::cout << "cantidad de elementos en el motor" << _objetos_motor.size() << std::endl;
-	
-
-	/*
-    auto ite = std::find(_interpolaciones.begin(), _interpolaciones.end(), _interpolacion);
-    if ( ite != _interpolaciones.end()){
-        _interpolaciones.erase(ite);
-        delete _interpolacion;
-    }
-
-
-	_nodo->remove();
-    auto ite2 = std::find(nodes.begin(), nodes.end(), _nodo);
-    if ( ite2 != nodes.end()){
-        nodes.erase(ite2);
-        //delete _nodo;
-    }
-
-	world->removeRigidBody(_rigidbody);
-	delete _rigidbody->getCollisionShape();
-
-    std::vector<btRigidBody*>::iterator it;
-    it = std::find(rigidbody.begin(), rigidbody.end(), _rigidbody);
-    if ( it != rigidbody.end()){
-        rigidbody.erase(it);
-        delete _rigidbody;
-    }
-
-
-
-/*
-    std::vector<ISceneNode*>::iterator it;
-    it = std::find(nodes.begin(), nodes.end(), _nodo);
-    if ( it != nodes.end()){
-        nodes.erase(it);
-        delete _nodo;
-    }
-	*/
 }
-
-
-/*bool Motor::colision_entre_dos_puntos(Vector3 inicio, Vector3 fin){
-	return _entidad->colision_entre_dos_puntos(inicio,fin);
-}*/ 
 
 void Motor::borrar_rb(btRigidBody* rb){ // Mejorar
 
@@ -326,8 +264,6 @@ _Motor=0;
 void Motor::apagar(){
 	_me->apagar();
 }
-
-
 
 void Motor::preparar_depuracion_mundo(){
 	//debugDraw = new DebugDraw(device);
@@ -506,7 +442,6 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 		mascara_colision = npc_colisiona_con;
 	}
 
-
 	else if(dynamic_cast<Puerta*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
@@ -608,7 +543,6 @@ btRigidBody* Motor::crear_rb_vision(){
 void Motor::getDimensiones(iNodoModelado* node, float &anchura, float &altura, float &profundidad){
 	Vector3 cosas = node->getBB();
 
-
 	anchura = cosas._z;
 	altura = cosas._y;
 	profundidad = cosas._x;
@@ -671,34 +605,26 @@ void Motor::update(double dt){
 		_debug = !_debug;
 	}
 
-	mdt = dt;
-   	//if(device->isWindowActive()) {
+    world->stepSimulation(dt * 0.001f,5);
 
-        world->stepSimulation(dt * 0.001f,5);
-
-		short tamanio = _objetos_motor.size();
-		for(short i=0; i<tamanio; i++){
-			// Actualiza el cuerpo dinamico de la caja
-			Objeto * puntero = (Objeto*)_objetos_motor[i]->getRigidBody()->getUserPointer();
-			if(dynamic_cast<Character*>(puntero) !=nullptr){
-				_objetos_motor[i]->updateDynamicBodyCharacter();
-			}
-			else{
-				_objetos_motor[i]->updateDynamicBody();
-			}
-
-			_objetos_motor[i]->setVelocidad(0,_objetos_motor[i]->getVelocidadY(),0);
+	short tamanio = _objetos_motor.size();
+	for(short i=0; i<tamanio; i++){
+		// Actualiza el cuerpo dinamico de la caja
+		Objeto * puntero = (Objeto*)_objetos_motor[i]->getRigidBody()->getUserPointer();
 		
+		if(dynamic_cast<Character*>(puntero) !=nullptr){
+			_objetos_motor[i]->updateDynamicBodyCharacter();
+		}
+		else{
+			_objetos_motor[i]->updateDynamicBody();
 		}
 
-		// Update de la posicion de la camara (despues de actualizar la del jugador)
-		updateCamaraColision();
-    //} 
+		_objetos_motor[i]->setVelocidad(0,_objetos_motor[i]->getVelocidadY(),0);		
+	}
 
-    //else {
-    //    Game::game_instancia()->cambio_a_update_pausa();
-    //}
-       
+	// Update de la posicion de la camara (despues de actualizar la del jugador)
+	updateCamaraColision();
+
 }
 
 void Motor::interpolar_altura(bool estado){
@@ -774,8 +700,6 @@ void Motor::updateCamaraColision(){
 void Motor::resetear_camara(){
 	camara->Camara_reset(_objeto_que_sigue_la_camara->getInterpolacion()->get_direccion_actual());
 }
-
-
 
 
 //Metodos set

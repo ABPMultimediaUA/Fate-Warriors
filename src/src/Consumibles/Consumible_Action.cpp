@@ -26,20 +26,12 @@ Consumible_Action::~Consumible_Action(){
 void Consumible_Action::comprobar_consumibles(){
 
 	short tamanio =(*_consumibles).size();
-
-  	Character** npc =  Game::game_instancia()->game_get_datos()->get_characters();
-	uint16_t numnpc = Game::game_instancia()->game_get_datos()->get_num_characters();
-	bool se_ha_borrado = false;
+	Player* _jugador =  Game::game_instancia()->game_get_datos()->get_player();
 	
 	for(short a=0; a<tamanio; a++){
-		for (short i=0; i<numnpc && !se_ha_borrado; i++){
-			if(npc[i]->get_vida_actual()>0 && (*_consumibles)[a]->usar(npc[i])){
-				  Vector2 pos((*_consumibles)[a]->getX(), (*_consumibles)[a]->getZ());
-				_consumibles_manager->borrar_consumible(a);
-				--tamanio;
-				se_ha_borrado=true;
-			}
-		 }
-		se_ha_borrado=false;
+		if(_jugador->get_vida_actual()>0 && (*_consumibles)[a]->usar(_jugador)){
+			_consumibles_manager->borrar_consumible(a);
+			--tamanio;
+		}
 	}
 }
