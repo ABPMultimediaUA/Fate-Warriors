@@ -1,7 +1,6 @@
 #include "UI.h"
 #include "Image.h"
 
-#include <iostream>
 //#include "stdint.h"
 
 UI::UI(){
@@ -279,8 +278,6 @@ void UI::setConfigSubmenu1(uint8_t opcion){
     
     _lista_imagenes_config_2[0]->setSelected(1);
     _lista_imagenes_config_3[0]->setSelected(1);
-    
-    std::cout<<"OPCION: "<< opcion << "\n";
 
     switch(opcion){
         case 0:     
