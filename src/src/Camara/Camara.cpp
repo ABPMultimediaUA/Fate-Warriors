@@ -163,6 +163,7 @@ void Camara::Camara_Update() {
 
 
 void Camara::update_position() {
+//codigo hecho a base de mirar diversos métodos en varios foros y libros
 	
 	// Antes de nada nos aseguramos de que el prota ha sido inicializado 
 	if (_Prota != nullptr) {

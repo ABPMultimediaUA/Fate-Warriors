@@ -9,9 +9,6 @@
 class Shader;
 
 
-// Image acts as a container for rendering a large number of 
-// particles by repeatedly spawning and updating particles and killing 
-// them after a given amount of time.
 class Image{
 public:
     // Constructor
@@ -28,12 +25,15 @@ private:
     float _sizeX; 
     // Render state
     Shader* shader;
+    //buffers para las imagenes
     GLuint VAO;
     GLuint VBO;
     GLuint EBO;
 
-    // Initializes buffer and vertex attributes
+    // inicializacion de los buffers y atributos de vertices
     void init();
+
+    //funciones para la carga de hasta 4 texturas por objeto Image
     void load_texture(const char* ruta);
     void load_texture2(const char* ruta);
     void load_texture3(const char* ruta);
