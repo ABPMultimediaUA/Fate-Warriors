@@ -9,7 +9,7 @@
 #include <iostream>
 
 Opcion_Resolucion::Opcion_Resolucion(Input* _i_input) : Opcion(_i_input) {
-	_resolucion = 1;
+	_resolucion = 2;
 }
 
 Opcion_Resolucion::~Opcion_Resolucion(){

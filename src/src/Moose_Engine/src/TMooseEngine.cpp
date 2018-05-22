@@ -56,6 +56,12 @@ TMooseEngine::TMooseEngine(){
    
     SHADOW_WIDTH = 1024;
     SHADOW_HEIGHT = 1024;
+
+    _fullscreen = false;
+    _vsync = false;
+    _resolution = 2;
+    _texture_quality = 0;
+
     initUI();
 }
 
@@ -159,6 +165,7 @@ void TMooseEngine::initUI(){
     _ui->set_escala_sfx(5);
     _ui->set_escala_voz(5);
     _ui->set_escala_sonido_menu(5);
+    _ui->set_resolution(_resolution);
     
     //MENU WIN
     _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
