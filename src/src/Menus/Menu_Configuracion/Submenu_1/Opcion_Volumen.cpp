@@ -39,7 +39,7 @@ Opcion* Opcion_Volumen::update_opcion(double _i_tiempo, Opcion* _this) {
 			set_volumen(_vol);
 			guarda_volumen();
 
-			std::cout << "Volumen " << (int)_volumen << "\n";
+			//std::cout << "Volumen " << (int)_volumen << "\n";
 		}
 	}
 

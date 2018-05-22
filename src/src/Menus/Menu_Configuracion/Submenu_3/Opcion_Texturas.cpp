@@ -51,7 +51,7 @@ Opcion* Opcion_Texturas::update_opcion(double _i_tiempo, Opcion* _this) {
 
 			set_texturas();
 
-			std::cout << "Texturas " << (int)_texturas << "\n";
+			//std::cout << "Texturas " << (int)_texturas << "\n";
 		}
 	}
 

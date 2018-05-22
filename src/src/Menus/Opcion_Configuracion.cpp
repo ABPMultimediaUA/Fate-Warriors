@@ -53,7 +53,7 @@ Opcion* Opcion_Configuracion::update_opcion(double _i_tiempo, Opcion* _this) {
 		 if(_input->get_dash()) { 			// Salir del menu
 			_sonido->Play_menu(1);
 		 	_dentro_menu = false;
-		 	std::cout << "Salir de CONFIG\n";
+		 	//std::cout << "Salir de CONFIG\n";
 		 }
 		 else {
 		 	_configuracion->update(_i_tiempo);
@@ -63,7 +63,7 @@ Opcion* Opcion_Configuracion::update_opcion(double _i_tiempo, Opcion* _this) {
 		_sonido->Play_menu(0);
 		_dentro_menu = true;
 		_configuracion->actualiza();
-		std::cout << "Entrar a CONFIG\n";
+		//std::cout << "Entrar a CONFIG\n";
 	}
 
 	return _this;

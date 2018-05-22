@@ -40,7 +40,7 @@ Menu_Fin::~Menu_Fin() {
 void Menu_Fin::update(double _i_tiempo) {
 	_opcion_actual = _opcion_actual->update(_i_tiempo, _opcion_actual);
 
-	pinta_estado();
+	//pinta_estado();
 }
 
 

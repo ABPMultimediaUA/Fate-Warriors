@@ -99,7 +99,8 @@ Menu_Configuracion::~Menu_Configuracion() {
 void Menu_Configuracion::update(double _i_tiempo) {
 	_opcion_actual = _opcion_actual->update(_i_tiempo, _opcion_actual);
 	Motor::Motor_GetInstance()->actualizaMenuConfig(get_i_configuracion());
-	pinta_estado();
+	
+	//pinta_estado();
 }
 
 

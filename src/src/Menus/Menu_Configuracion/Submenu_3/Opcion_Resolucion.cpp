@@ -50,7 +50,7 @@ Opcion* Opcion_Resolucion::update_opcion(double _i_tiempo, Opcion* _this) {
 
 			set_resolucion();
 
-			std::cout << "Resolucion " << (int)_resolucion << "\n";
+			//std::cout << "Resolucion " << (int)_resolucion << "\n";
 		}
 	}
 

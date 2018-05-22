@@ -40,10 +40,10 @@ Opcion* Opcion_Fullscreen::update_opcion(double _i_tiempo, Opcion* _this) {
 		}
 	}
 
-	if(_fullscreen == true) 
+	/*if(_fullscreen == true) 
 		std::cout << "Fullscreen ON\n";
 	else
-		std::cout << "Fullscreen OFF\n";
+		std::cout << "Fullscreen OFF\n";*/
 
 	return _this;
 }
