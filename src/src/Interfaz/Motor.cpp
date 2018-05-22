@@ -778,7 +778,7 @@ void Motor::updateCamaraColision(){
 			btVector3 normal = rayCallback.m_hitNormalWorld;
 			const btCollisionObject *object = rayCallback.m_collisionObject;
 			camara->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
-			camara2->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
+			//camara2->Camara_setPositionColision(Vector3(point[0],point[1],point[2]));
 			
 
 		}

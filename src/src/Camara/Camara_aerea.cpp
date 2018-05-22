@@ -40,7 +40,7 @@ void Camara_aerea::update_position(){
 
 		float xf = playerPos._x - cos(_zdirection * PIs / 180.0f) * cos(_direction * PIs / 180.0f) * distancia; 
 		
-		float yf = 500;
+		float yf = 400;
 
 		float zf = playerPos._z + cos(_zdirection * PIs / 180.0f) * sin(_direction * PIs / 180.0f) * distancia; 
 
