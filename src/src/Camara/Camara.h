@@ -26,8 +26,8 @@ public:
 	Vector3 Camara_getDirection();
 	float Camara_getAngle();
 	float Camara_getAngleRad();
-	void Camara_Update(); //updatea la Camara usando el device
-	void update_position();
+	virtual void Camara_Update(); //updatea la Camara usando el device
+	virtual void update_position();
 	void asigna_input(Input* _i_input_jugador);
 
 	void set_posicion_inicial(short _i_direccion); 	// Pone la posicion inicial de la camara

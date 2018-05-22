@@ -16,9 +16,10 @@ class iNodoCamara;
 class Camara_aerea : public Camara{
 public:
 	
-	
-	void Camara_Update();
-	void update_position();
+	Camara_aerea(bool activa);
+	~Camara_aerea();
+	void Camara_Update() override;
+	void update_position() override;
 
 
 private:

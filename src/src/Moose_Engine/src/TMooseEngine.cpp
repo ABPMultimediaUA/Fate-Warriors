@@ -175,26 +175,30 @@ void TMooseEngine::initUI(){
     //ANYADIR IMAGEN DE MANDO CON CONTROLES E IMAGEN DE 'PULSA A PARA CONTINUAR'
 }
 
+//funcion que alterna la pantalla completa
 void TMooseEngine::toggleFullscreen(){
     _fullscreen = !_fullscreen;
     
     if(_fullscreen){
+        //ajustar la ventana al monitor primario del usuario
         glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, _width, _height, 60);
     }
 
     else{
+        //ajustar la ventana a monitor Nulo (modo ventana)
         glfwSetWindowMonitor(window, NULL, 0, 0, _width, _height, 60);    
     }
 }
 
+//funcion que alterna el vsync
 void TMooseEngine::toggleVSync(){
     _vsync != _vsync;
     
     if(_vsync){
-        glfwSwapInterval(1);
+        glfwSwapInterval(1); //intervalo a frecuencia de refresco completa (limite de 60fps con vsync)
     }
     else{
-        glfwSwapInterval(0);
+        glfwSwapInterval(0.5); //intervalo al doble (limite de 120fps sin vsync)
     }
 }
 

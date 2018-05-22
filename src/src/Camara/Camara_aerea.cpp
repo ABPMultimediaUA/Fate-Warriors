@@ -10,7 +10,15 @@
 #include "../Moose_Engine/src/iNodoCamara.h"
 #include "../Interfaz/Motor.h"
 
-void Camara_aerea::update_position() {
+Camara_aerea::Camara_aerea(bool activa):Camara(activa){
+	
+}
+
+Camara_aerea::~Camara_aerea(){
+	
+}
+
+void Camara_aerea::update_position(){
 	
 	// Antes de nada nos aseguramos de que el prota ha sido inicializado 
 	if (_Prota != nullptr) {
@@ -32,7 +40,7 @@ void Camara_aerea::update_position() {
 
 		float xf = playerPos._x - cos(_zdirection * PIs / 180.0f) * cos(_direction * PIs / 180.0f) * distancia; 
 		
-		float yf = 100;
+		float yf = 500;
 
 		float zf = playerPos._z + cos(_zdirection * PIs / 180.0f) * sin(_direction * PIs / 180.0f) * distancia; 
 
@@ -54,7 +62,7 @@ void Camara_aerea::update_position() {
 			else{
 				this->Camara_setPosition(
 						Vector3(xf,
-								40,
+								300,
 								zf)
 				);
 				this->Camara_setTarget(	
@@ -88,12 +96,12 @@ void Camara_aerea::update_position() {
 			else{
 				this->Camara_setPosition(
 						Vector3(xf,
-								40,
+								300,
 								zf)
 				);
 				this->Camara_setTarget(	
 					Vector3(_Prota-> getPosition()._x, 
-								40, 
+								300, 
 							_Prota-> getPosition()._z)); 
 			}
 		}
