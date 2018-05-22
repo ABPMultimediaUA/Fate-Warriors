@@ -58,6 +58,7 @@ void Consumible_Manager::anyadir_consumible(Vector2 posicion){
     if (_num<4){               
         if (_consumibles_a_reusar.size()>0){   
             _consumibles_a_reusar[0]->setPositionXZ(posicion._x, posicion._y);
+            _consumibles_a_reusar[0]->set_tiempo_espera();
             _consumibles.push_back(_consumibles_a_reusar[0]);
             _consumibles_a_reusar.erase(_consumibles_a_reusar.begin());
         }
