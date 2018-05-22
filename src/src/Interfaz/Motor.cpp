@@ -515,6 +515,7 @@ btRigidBody* Motor::crearRigidBody(Objeto* _i_objeto, BoundingBoxes tipo,const c
 	else if(dynamic_cast<Puerta_Pincho*>(_i_objeto)!=NULL){
 		grupo_colision   = COL_PUERTA;
 		mascara_colision = puerta_colisiona_con;
+		cubeBody->setFriction(0);		
 	}
 
 	else if(dynamic_cast<Interruptor*>(_i_objeto)!=NULL){
