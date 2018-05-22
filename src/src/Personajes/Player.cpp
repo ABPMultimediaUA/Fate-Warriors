@@ -100,7 +100,6 @@ void Player::update(){
                 int16_t _direccion_incremento = (int16_t)_direccion_previa_movimiento-(int16_t)_direccion_posterior;
                 if(_direccion_incremento>-45 && _direccion_incremento<45){
                 // _cono_vision->set_apuntando_a_objetivo_mas_proximo();
-                std::cout << "va a hacer finta \n";
                 _hace_cinta = true;
                 _cono_vision->rotar_mirando_a_apuntando();
 
@@ -144,24 +143,20 @@ void Player::update(){
         if(std::get<1>(_ataques)) {    // Ataque especial
             //atacar(Ataque_Especial);
             //std::cout << "Ataque Especial\n";
+            _motor->activar_desactivar_minimapa();
         }
         else if(std::get<2>(_ataques)){      // Ataque normal
             atacar(Ataque_Fuerte);
             _cono_vision->preparar_ataque_objetivo_mas_proximo_con_impulso();
+            solo_andar = false;
         }
         else {                          // Ataque fuerte
             atacar(Ataque_Normal);
             _cono_vision->preparar_ataque_objetivo_mas_proximo_con_impulso();
+            solo_andar = false;
         }
-        solo_andar = false;
     }
   
-    auto _cambio = _input->get_cambiar_arma(); 
-    if(std::get<0>(_cambio)) { 
-        if(std::get<1>(_cambio)) 
-            _motor->activar_desactivar_minimapa();
-    } 
-
     if(_input->get_saltar()){
        // saltar();
         _cono_vision->set_apuntando_a_objetivo_mas_proximo();
