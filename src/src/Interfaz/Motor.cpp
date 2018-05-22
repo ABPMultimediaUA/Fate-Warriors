@@ -916,7 +916,6 @@ void Motor::setResolution(uint8_t position){
 
 
 void Motor::actualizaMenuConfig(uint8_t opcion){
-	//std::cout<< "OPCION: "<< opcion << "\n";
 	if(opcion < 5 ){
 		_me->getUI()->setConfigSubmenu1(opcion);
 	}

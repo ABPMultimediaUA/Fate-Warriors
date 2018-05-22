@@ -28,7 +28,6 @@ Arbol_Decision_Manager::Arbol_Decision_Manager() {
 	//Asignacion de los arboles
 	_arboles_decision = new Nodo_Decision*[_max_arboles];
 
-	//std::cout << "N nodos " << _n_nodos << "\n";
 	_arboles_decision[0] = _nodos_decision[2]; // Padre del arbol
 
 }
@@ -416,7 +415,7 @@ void Arbol_Decision_Manager::lee_fichero_y_crea_arbol(const std::string &_i_fich
 	_arbol_txt >> _iteracion;	
 	_max_nodos = std::atoi(_iteracion.c_str());
 		
-	std::cout << "Nº de nodos " << _max_nodos;
+	//std::cout << "Nº de nodos " << _max_nodos;
 
 	//Creacion de los nodos
 	_nodos_decision = new Nodo_Decision*[_max_nodos];
@@ -429,7 +428,7 @@ void Arbol_Decision_Manager::lee_fichero_y_crea_arbol(const std::string &_i_fich
 
 		_arbol_txt >> _iteracion;			// Lectura id de Nodo FIN
 		_id = std::atoi(_iteracion.c_str());
-		std::cout << (int)_id << " ";
+		//std::cout << (int)_id << " ";
 
 
 		// LECTURA DE TIPO DE NODO (MAPPING)
