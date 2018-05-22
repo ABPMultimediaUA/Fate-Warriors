@@ -8,6 +8,7 @@ UI::UI(){
 }
 
 UI::~UI(){
+
     if(_img_llave != nullptr)
         delete _img_llave;
 
@@ -206,6 +207,8 @@ void UI::drawMenuLogo(uint8_t _opcion) {
 
 //dibujar menu del juego
 void UI::drawMenuPausa(uint8_t opcion){
+    //actualizar las texturas de las imagenes del menu (seleccionadas / no seleccionadas)
+    //en funcion de la opcion de menu recibida por parametro
     switch(opcion){
         case 0:     _lista_imagenes_pausa[0]->setSelected(2);
                     _lista_imagenes_pausa[1]->setSelected(1);
@@ -240,7 +243,7 @@ void UI::drawMenuConfigSubmenu1(){
             _lista_imagenes_config[i]->Draw();
     }
 
-    //numeros 2 y 3
+    //desactivar la textura de seleccion en los menus 2 y 3 
     _lista_imagenes_config_2[0]->Draw();
     _lista_imagenes_config_3[0]->Draw();
 }
@@ -250,7 +253,7 @@ void UI::drawMenuConfigSubmenu2(){
             _lista_imagenes_config_2[i]->Draw();
     }
 
-    //numeros 1 y 3
+    //desactivar la textura de seleccion en los menus 1 y 3 
     _lista_imagenes_config[0]->Draw();
     _lista_imagenes_config_3[0]->Draw();
 }
@@ -260,14 +263,14 @@ void UI::drawMenuConfigSubmenu3(){
             _lista_imagenes_config_3[i]->Draw();
     }
 
-    //numeros 1 y 2
+    //desactivar la textura de seleccion en los menus 1 y 2 
     _lista_imagenes_config[0]->Draw();
     _lista_imagenes_config_2[0]->Draw();
 }
 
 //dibujar menu de config
 void UI::setConfigSubmenu1(uint8_t opcion){
-
+    //estado inicial de la seccion
     _lista_imagenes_config[0]->setSelected(3);
     _lista_imagenes_config[1]->setSelected(1);
     _lista_imagenes_config[2]->setSelected(1);
@@ -278,7 +281,7 @@ void UI::setConfigSubmenu1(uint8_t opcion){
     
     _lista_imagenes_config_2[0]->setSelected(1);
     _lista_imagenes_config_3[0]->setSelected(1);
-
+    //cambiar la textura de la imagen seleccionada
     switch(opcion){
         case 0:     
                     _lista_imagenes_config[0]->setSelected(2);
@@ -315,7 +318,7 @@ void UI::setConfigSubmenu1(uint8_t opcion){
 
 //dibujar menu de config
 void UI::setConfigSubmenu2(uint8_t opcion){
-
+    //estado inicial de la seccion
     _lista_imagenes_config_2[0]->setSelected(3);
     _lista_imagenes_config_2[1]->setSelected(1);
     _lista_imagenes_config_2[2]->setSelected(1);
@@ -323,7 +326,7 @@ void UI::setConfigSubmenu2(uint8_t opcion){
     _lista_imagenes_config[0]->setSelected(1);
     _lista_imagenes_config_3[0]->setSelected(1);
 
-
+    //cambiar la textura de la imagen seleccionada
     switch(opcion){
         case 5:     
                     _lista_imagenes_config_2[0]->setSelected(2);
@@ -342,7 +345,7 @@ void UI::setConfigSubmenu2(uint8_t opcion){
 }
 
 void UI::setConfigSubmenu3(uint8_t opcion){
-
+    //estado inicial de la seccion
     _lista_imagenes_config_3[0]->setSelected(3);
     _lista_imagenes_config_3[1]->setSelected(1);
     _lista_imagenes_config_3[2]->setSelected(1);
@@ -352,7 +355,7 @@ void UI::setConfigSubmenu3(uint8_t opcion){
     _lista_imagenes_config[0]->setSelected(1);
     _lista_imagenes_config_2[0]->setSelected(1);
 
-
+    //cambiar la textura de la imagen seleccionada
     switch(opcion){
         case 8:     
                     _lista_imagenes_config_3[0]->setSelected(2);
@@ -440,6 +443,7 @@ void UI::drawHUD(){
 
 void UI::set_escala_vida(float escala){
     _lista_imagenes_hud[1]->setSizeX(escala);      //sabemos que es la 1 porque la barra de vida es la 1 en el hud
+                                                   //la imagen 0 corresponde con la barra gris de fondo
     if(escala>=0.66){
         _lista_imagenes_hud[1]->setSelected(1); //barra verde
     }

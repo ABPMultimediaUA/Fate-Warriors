@@ -515,6 +515,7 @@ void TMooseEngine::draw(){
     _particulas->Draw();
 }
 
+//flujo de render de partida, permite coordinar las funciones de dibujado del arbol con el resto de renders de los menus y el HUD
 void TMooseEngine::render_estado_Partida(){
     clear();
     draw();
@@ -524,7 +525,7 @@ void TMooseEngine::render_estado_Partida(){
 
     glViewport(_position_x_minimapa+_offset_viewport_X, _position_y_minimapa+_offset_viewport_Y, _width_minimapa, _height_minimapa);
    
-
+    //dibujado del minimapa
     _mapa->Draw();
     glViewport(_offset_viewport_X, _offset_viewport_Y, _width, _height);
 
@@ -532,12 +533,14 @@ void TMooseEngine::render_estado_Partida(){
     glfwPollEvents();
 }
 
+//renderiza el Menu
 void TMooseEngine::renderUIMenu(uint16_t opcion, uint16_t opcion2, bool config_abierta){
     clear();
     glDisable(GL_CULL_FACE);
     
     _ui->drawMenuFondo(opcion);
     if(config_abierta) {
+        //funcion que renderiza el menu de configuracion sobre el menu estandar
         renderUIMenuConfig(opcion2);
     }
     else {
@@ -581,6 +584,7 @@ void TMooseEngine::renderUIMenuConfig(uint16_t opcion){
     //glfwSwapBuffers(window);
 }
 
+//menu de ganar partida
 void TMooseEngine::renderUIMenuWin(uint16_t opcion){
     clear();
     draw();
@@ -590,6 +594,7 @@ void TMooseEngine::renderUIMenuWin(uint16_t opcion){
     glfwSwapBuffers(window);
 }
 
+//menu de perder partida
 void TMooseEngine::renderUIMenuLose(uint16_t opcion){
     clear();
     draw();

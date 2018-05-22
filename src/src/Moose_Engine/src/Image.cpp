@@ -15,7 +15,7 @@
 #include <iostream>
 
 
-
+//constructor unico que recibe 4 rutas independientemente de las que se usen en cada tipo de imagen
 Image::Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta2, const char* ruta3, const char* ruta4, float x, float y, float width, float height)
     : shader(shader)
 {
@@ -25,7 +25,7 @@ Image::Image(Shader* shader, int numTexturas, const char* ruta, const char* ruta
     _width = width;
     _height = height;
     init();
-
+    //si se trata una imagen de menos de 4 rutas, se usan unicamente las rutas necesarias y se cargan el numero de texturas necesario
     switch (numTexturas){
         case 1: load_texture(ruta);
                 break;
@@ -64,7 +64,9 @@ Image::~Image(){
 void Image::init()
 {
     glEnable(GL_BLEND);
-    // set up vertex data (and buffer(s)) and configure vertex attributes
+    //posicionamiento de los vertices que conforman el rectangulo 2d de la imagen
+    //este init utiliza las variables de anchura y altura pasadas en la creacion para ajustar las posiciones de los
+    //vertices
     // ------------------------------------------------------------------
     float vertices[] = {
         // positions          // colors           // texture coords
@@ -78,6 +80,7 @@ void Image::init()
         1, 2, 3  // second triangle
     };
 
+    //manejo de buffers y arrays, basado en el tutorial "basic textures" de learnopengl
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -100,6 +103,7 @@ void Image::init()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
+
 }
 
 void Image::load_texture(const char* ruta){
@@ -115,8 +119,7 @@ void Image::load_texture(const char* ruta){
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     //nrChannels = 4;
-  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    //lectura de datos de textura usando la libreria de SOIL
     unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
@@ -128,7 +131,7 @@ void Image::load_texture(const char* ruta){
         std::cout << "Failed to load texture" << std::endl;
     }
     SOIL_free_image_data(data);
-    
+    //cargamos los datos de la textura en la variable ID
     glUniform1i(glGetUniformLocation(Shader::Program, "texture1"), ID);
     
 }
@@ -145,9 +148,7 @@ void Image::load_texture2(const char* ruta){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
-    //nrChannels = 4;
-  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    
     unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
@@ -174,9 +175,6 @@ void Image::load_texture3(const char* ruta){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
-    //nrChannels = 4;
-  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
     unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
@@ -203,9 +201,6 @@ void Image::load_texture4(const char* ruta){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
-    //nrChannels = 4;
-  //  stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
     unsigned char *data = SOIL_load_image(ruta, &width, &height, 0, SOIL_LOAD_RGBA);
     if (data)
     {
@@ -224,40 +219,20 @@ void Image::load_texture4(const char* ruta){
 // Render image
 void Image::Draw()
 {
+    //activamos el shader especifico para visualizar imagenes en 2D
     shader->use(texturas_menu);
-
-    //shader->setUniform("width", _width);
-    //shader->setUniform("scale", 0);
-
+    
     glUniform1f(glGetUniformLocation(Shader::Program, "width"), _width);
-   // glUniform1f(glGetUniformLocation(Shader::Program, "scale"), a);
     
-  //  glUniform1f(glGetUniformLocation(Shader::Program, "width"), a));
-
-    //std::cout << "UNIFORM: " << glGetUniformLocation(Shader::Program, "texture1") << "\n";
-    
-    //shader->setInt("texture1", ID);
     glDepthMask(false);
-    // Don't forget to reset to default blending mode
+
+    //funcion de fundido para conseguir las transparencias de las imagenes png
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    // Use additive blending to give it a 'glow' effect
     
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
-    //glm::mat4 _escalado = glm::scale(glm::vec3(1,1,1));
-/*
-    _traslacion = glm::translate(position);
-  
-ModelMatrix = _traslacion * _rotacion * _escalado;
-    /*
-    glUniform1i(glGetUniformLocation(shader->ID, "texture"), 0);
-    */
-  //  glUniform2fv(glGetUniformLocation(shader->ID, "offset"), 1, &particle.Position[0]);
-  //  glUniform4fv(glGetUniformLocation(Shader::Program, "scala"), 1, glm::value_ptr(_escalado));
-
-        
     glActiveTexture(GL_TEXTURE0);
 
+    //en funcion de que textura hay que seleccionar, se bindea la ID de las 4 disponibles 
+    //nota: cada ID se crea en su correspondiente funcion loadtexture
     switch(_selected){
         case 1: glBindTexture(GL_TEXTURE_2D, ID);
                 break;
@@ -277,11 +252,11 @@ ModelMatrix = _traslacion * _rotacion * _escalado;
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 
-    // Don't forget to reset to default blending mode
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDepthMask(true);
 }
 
+//ajusta el tamanyo de la imagen en funcion del parametro (0 = 0% || 1 = 100%) esto se consigue
+//reasignando los vertices de nuevo para cambiar sus posiciones
 void Image::setSizeX(float sizeX){
     _sizeX = sizeX;
     float auxWidth = _width;
