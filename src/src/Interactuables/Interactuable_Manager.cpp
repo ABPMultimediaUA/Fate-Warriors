@@ -21,9 +21,9 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	// tener xml con la informacion de todos los objetos
     
-	_n_llaves = 3;
-	_n_puertas = 3;
-	_n_puertas_pincho = 18;
+	_n_llaves = 0;
+	_n_puertas = 0;
+	_n_puertas_pincho = 1;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -33,29 +33,29 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 	float mult = 4.9212625;
           
-    _puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 0, false, 4);			//puerta situada entre nodo 3 y 5 pasillo 4
-    _puertas[1] = new Puerta(2,12.5*mult,0*mult, 21.155*mult, 0, false, 6); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
-	_puertas[2] = new Puerta(3, 77.5*mult,0*mult, 88.75*mult, 180, false, 6); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
+    //_puertas[0] = new Puerta(1,31.35*mult,0*mult, 36.5*mult, 0, false, 4);			//puerta situada entre nodo 3 y 5 pasillo 4
+    _puertas[0] = new Puerta(2,12.5*mult,0*mult, 21.155*mult, 0, false, 6); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
+	//_puertas[2] = new Puerta(3, 77.5*mult,0*mult, 88.75*mult, 180, false, 6); 		// puerta situada entre nodo 1 y nodo 7 pasillo 6
 
-	
+	/*
 	_llaves[0] = new Llave(0, 35*mult, 0*mult, 55*mult,_puertas[0]->get_id());	//Lave situada en nodo 18, abre la puerta situada en pasillo 4
 	_llaves[1] = new Llave(1, 12.5*mult, 0*mult, 17*mult,_puertas[1]->get_id());  // Llave situada en el nodo 1, abre puerta de pasillo 6
 	_llaves[2] = new Llave(3, 14*mult, 0*mult, 102*mult,_puertas[2]->get_id());  // Llave situada en el nodo 1, abre puerta de pasillo 6
-
+*/
 
 
 
 	// ------------------------------------ PUERTAS PINCHO ------------------------------------
 
 	// ZONA COLISEO 7
-	_puertas_pincho[0] = new Puerta_Pincho(0, 12.5*mult, 0, 23.5*mult, false, 0, 6);		//Entre la sala 1 y 7
-	_puertas_pincho[3] = new Puerta_Pincho(1, 18*mult, 0*mult, 31.5*mult, false, 90, 8);	//Entre la sala 3 y 7
-	_puertas_pincho[1] = new Puerta_Pincho(0, 10.5*mult, 0, 45.5*mult, false, 0, 9);		//Entre la sala 7 y 10
+//	_puertas_pincho[0] = new Puerta_Pincho(0, 12.5*mult, 0, 23.5*mult, false, 0, 6);		//Entre la sala 1 y 7
+//	_puertas_pincho[3] = new Puerta_Pincho(1, 18*mult, 0*mult, 31.5*mult, false, 90, 8);	//Entre la sala 3 y 7
+//	_puertas_pincho[1] = new Puerta_Pincho(0, 10.5*mult, 0, 45.5*mult, false, 0, 9);		//Entre la sala 7 y 10
 	
 
 	// PUERTA 1 SOLO USO ENTRE SALAS 1 Y 3
-	_puertas_pincho[2] = new Puerta_Pincho(0,25.5*mult,0,17.5*mult, true, 0, 2);	//Entre la sala 1 y 3
-
+	_puertas_pincho[0] = new Puerta_Pincho(0,25.5*mult,0,17.5*mult, true, 0, 2);	//Entre la sala 1 y 3
+/*
 
 	// PUERTA TIEMPO/1 USO ENTRE SALAS 16 Y 22
 	_puertas_pincho[5] = new Puerta_Pincho(0,41.45*mult,0,87.5*mult, true, 0, 21);	//Entre la sala 16 y 22
@@ -166,6 +166,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 
 	// Zona 32
 	_todas_las_zonas[6]->set_puerta_pincho_asociada(_puertas_pincho[9]);
+	*/
 }
 
 Interactuable_Manager::~Interactuable_Manager() {

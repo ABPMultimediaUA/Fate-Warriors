@@ -45,10 +45,13 @@ Motor* Motor::Motor_GetInstance(){
 }
 
 void Motor::CargaMapa(){
+	/*
 	const char* cstr = "suelo_t_1";
 	importarEscenario(cstr, 0,0,0);
+	*/
 	const char* cstr2 = "suelo_t_2";
 	importarEscenario(cstr2, 0,0,0);
+	/*
 	const char* cstr3 = "suelo_t_3";
 	importarEscenario(cstr3, 0,0,0);
 	const char* cstr4 = "suelo_t_4";
@@ -60,6 +63,7 @@ void Motor::CargaMapa(){
 	const char* cstr7 = "suelo_exterior_2";
 	importarEscenario(cstr7, 0,0,0);
 
+/*
 	const char* cstr8 = "barranco";
 	importarEscenario(cstr8, 0,0,0);
 
@@ -115,6 +119,7 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr33, 0,0,0);
 	const char* cstr34 = "EdificioLejos5";
 	importarEscenario(cstr34, 0,0,0);*/
+	/*
 	const char* cstr35 = "EdificioRuinas1";
 	importarEscenario(cstr35, 0,0,0);
 	const char* cstr36 = "Hoguera";
@@ -159,12 +164,14 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr55, 0,0,0);
 	const char* cstr56 = "tuberia_6";
 	importarEscenario(cstr56, 0,0,0);*/
+	/*
 	const char* cstr57 = "VallaCampamento2";
 	importarEscenario(cstr57, 0,0,0);
 	const char* cstr58 = "VallaPubli";
 	importarEscenario(cstr58, 0,0,0);
 	const char* cstr59 = "Vertedero";
 	importarEscenario(cstr59, 0,0,0);
+	*/
 }
 
 Motor::Motor(){
