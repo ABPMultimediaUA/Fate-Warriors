@@ -13,7 +13,7 @@ void Evento_sonido::ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
 Evento_sonido::Evento_sonido(std::string _i_ruta, FMOD::Studio::System *sys){
     _evento=NULL;
     _instancia=nullptr;
-    std::cout<<_i_ruta<<std::endl;
+    //std::cout<<_i_ruta<<std::endl;
     ERRCHECK( sys->getEvent(_i_ruta.c_str(), &_evento) );
 }
 Evento_sonido::~Evento_sonido(){
