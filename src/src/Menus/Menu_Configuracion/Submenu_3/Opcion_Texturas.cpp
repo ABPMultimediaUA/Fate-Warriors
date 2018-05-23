@@ -20,7 +20,7 @@ Opcion_Texturas::~Opcion_Texturas(){
 // Update de la opción de sonido
 Opcion* Opcion_Texturas::update_opcion(double _i_tiempo, Opcion* _this) {
 	auto _dir = _input->get_direccion();
-
+/*
 	uint32_t _t = Time::Instance()->get_current_sin_pausas();
 
 	if(std::get<0>(_dir) == true)
@@ -54,7 +54,7 @@ Opcion* Opcion_Texturas::update_opcion(double _i_tiempo, Opcion* _this) {
 			//std::cout << "Texturas " << (int)_texturas << "\n";
 		}
 	}
-
+*/
 	return _this;
 }
 
