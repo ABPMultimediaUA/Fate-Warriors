@@ -6,7 +6,7 @@
 #include <iostream>
 
 NPC_Manager::NPC_Manager() {
-	_n_npc = 50;
+	_n_npc = 0;
 	_npc = new NPC*[_n_npc];
 	for(uint16_t i=0; i<_n_npc; i++) {
 		int16_t _vida;

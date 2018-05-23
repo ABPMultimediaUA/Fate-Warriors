@@ -62,13 +62,14 @@ void Motor::CargaMapa(){
 
 	const char* cstr8 = "barranco";
 	importarEscenario(cstr8, 0,0,0);
-
+/*
 	const char* cstr9 = "Duna";
 	importarEscenario(cstr9, 0,0,0);
 	const char* cstr10 = "Arbol";
 	importarEscenario(cstr10, 0,0,0);
 	const char* cstr11 = "Bidones1";
 	importarEscenario(cstr11, 0,0,0);
+*//*
 	const char* cstr12 = "Bidones2";
 	importarEscenario(cstr12, 0,0,0);
 	const char* cstr13 = "Ruinas1";
@@ -83,6 +84,7 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr17, 0,0,0);
 	const char* cstr18 = "RuinaPuerta";
 	importarEscenario(cstr18, 0,0,0);
+	*/
 	const char* cstr19 = "Valla1";
 	importarEscenario(cstr19, 0,0,0);
 	const char* cstr20 = "Valla2";
@@ -133,6 +135,7 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr42, 0,0,0);
 	const char* cstr43 = "RuinaEdificio3";
 	importarEscenario(cstr43, 0,0,0);
+	/*
 	const char* cstr44 = "RuinaEdificio4";
 	importarEscenario(cstr44, 0,0,0);
 	const char* cstr45 = "RuinaEdificio5";
@@ -159,12 +162,14 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr55, 0,0,0);
 	const char* cstr56 = "tuberia_6";
 	importarEscenario(cstr56, 0,0,0);*/
+	/*
 	const char* cstr57 = "VallaCampamento2";
 	importarEscenario(cstr57, 0,0,0);
 	const char* cstr58 = "VallaPubli";
 	importarEscenario(cstr58, 0,0,0);
 	const char* cstr59 = "Vertedero";
 	importarEscenario(cstr59, 0,0,0);
+	*/
 }
 
 Motor::Motor(){

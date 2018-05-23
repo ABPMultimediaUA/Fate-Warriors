@@ -68,7 +68,7 @@ void Player::update(){
 
     bool solo_andar = false;
     bool _apuntando_enemigo = false;
-    
+    std::cout << getX() << " - " << getZ() << std::endl;
     if(_input->get_mover(_direccion)){
 
         
