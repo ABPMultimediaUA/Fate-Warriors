@@ -72,6 +72,8 @@ public:
 
 	inline void quita_saltar() 					{ _saltar = false;}
 
+	uint8_t get_tipo_control();
+
 private:
 	// Control de las direcciones
 	bool _arriba;

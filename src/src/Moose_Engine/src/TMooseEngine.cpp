@@ -185,6 +185,8 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Gris.png", -1, 1, 2, 2);
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Negro.png", -1, 1, 2, 2);
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Rojo.png", -1, 1, 2, 2);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Ayuda_Teclado.png", -0.956, -0.485, 0.29, 0.438);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Controles_Teclado.png", -0.653, 0.723, 1.435, 1.353);
 
 
     // Ajusta valores
@@ -780,4 +782,8 @@ void TMooseEngine::carga_icono_ventana() {
     image[0].pixels = SOIL_load_image("Icono.png", &image[0].width, &image[0].height, 0, SOIL_LOAD_RGBA);;
     glfwSetWindowIcon(window, 1, image);
     SOIL_free_image_data(image[0].pixels);
+}
+
+void TMooseEngine::set_tipo_control(uint8_t _i_tipo_control) {
+    _ui->set_tipo_control(_i_tipo_control);
 }

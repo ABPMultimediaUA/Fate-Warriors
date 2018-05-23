@@ -145,6 +145,7 @@ void Game::update(double _i_tiempo_desde_ultimo_update){
 void Game::update_menu(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Menu" << std::endl;
 	_menu_principal->update(_i_tiempo_desde_ultimo_update);
+	_motor->set_tipo_control(_input_jugador->get_tipo_control());
 }
 
 
@@ -171,6 +172,7 @@ void Game::update_partida(double _i_tiempo_desde_ultimo_update){
 void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Pausa" << std::endl;
 	_menu_pausa->update(_i_tiempo_desde_ultimo_update);
+	_motor->set_tipo_control(_input_jugador->get_tipo_control());
 
     if(update_actual == &Game::update_partida) {
 		_sonido->Play_menu(1);
@@ -182,6 +184,7 @@ void Game::update_pausa(double _i_tiempo_desde_ultimo_update){
 void Game::update_fin_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Fin Partida" << std::endl;
 	_menu_fin->update(_i_tiempo_desde_ultimo_update);
+	_motor->set_tipo_control(_input_jugador->get_tipo_control());
 
     if(update_actual == &Game::update_partida) {
 		update_partida(_i_tiempo_desde_ultimo_update);	
@@ -200,6 +203,7 @@ void Game::update_mirar(double _i_tiempo_desde_ultimo_update){
 
 void Game::update_pre_partida(double _i_tiempo_desde_ultimo_update){
 	//std::cout << "Update Pre Partida" << std::endl;
+	_motor->set_tipo_control(_input_jugador->get_tipo_control());
 	if(_input_jugador->get_saltar() && Time::Instance()->get_tiempo_inicio_pausa() > 500) {
    		Game::game_instancia()->cambio_a_update_partida();
 		_sonido->Play_menu(0);

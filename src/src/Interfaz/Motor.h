@@ -172,6 +172,8 @@ public:
     uint8_t get_calidad_texturas();
     void activar_desactivar_minimapa();
 
+    void set_tipo_control(uint8_t _i_tipo_control);
+
 private:
 
       static Motor* _Motor;

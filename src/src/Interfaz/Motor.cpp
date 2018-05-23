@@ -953,3 +953,7 @@ uint8_t Motor::get_calidad_texturas(){
 void Motor::activar_desactivar_minimapa(){
 	_me->activar_desactivar_minimapa();
 }
+
+void Motor::set_tipo_control(uint8_t _i_tipo_control) {
+    _me->set_tipo_control(_i_tipo_control);
+}

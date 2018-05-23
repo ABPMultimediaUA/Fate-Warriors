@@ -100,6 +100,8 @@ class UI{
         void render_pantalla_carga();
         void render_partida_cargada();
 
+        inline void set_tipo_control(uint8_t _i_tipo_control) { _tipo_control = _i_tipo_control;}
+
     private:
         //MENU PRINCIPAL
         std::vector<Image*> _lista_imagenes;
@@ -125,6 +127,7 @@ class UI{
         bool _tiene_llave;
         Image* _img_llave;
 
+        uint8_t _tipo_control;
 };
 
 #endif /* SRC_UI_H_ */

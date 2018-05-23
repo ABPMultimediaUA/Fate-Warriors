@@ -176,7 +176,7 @@ void Input::actualiza_mando() {
     	if(_hay_mando == false) {// Si no habia mando
 	    	_hay_mando = true;
 			_botones_mando = sf::Joystick::getButtonCount(0);
-			asignar_teclas_mando();
+			//asignar_teclas_mando();
 		}
 		//std::cout << "Mando esta conectado, que tiene " << sf::Joystick::getButtonCount(0) << " botones\n";
     }
@@ -908,4 +908,13 @@ void Input::pinta_inputs() {
 		std::cout << "[" << _raton[_cont] << "]";
 	}
 	std::cout << "\n\n";
+}
+
+uint8_t Input::get_tipo_control() {
+	if(_hay_mando) {
+		return 0;
+	}
+	else{
+		return 1;
+	}
 }

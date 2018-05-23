@@ -95,6 +95,8 @@ class TMooseEngine{
         void set_resolution(uint8_t res);
         void set_calidad_texturas(uint8_t calidad);
 
+        void set_tipo_control(uint8_t _i_tipo_control);
+
     private:
         bool _fullscreen;
         bool _vsync;

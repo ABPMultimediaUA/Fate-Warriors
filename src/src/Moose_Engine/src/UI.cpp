@@ -5,6 +5,7 @@
 
 UI::UI(){
     _tiene_llave = false;
+    _tipo_control = 0;
 }
 
 UI::~UI(){
@@ -206,7 +207,10 @@ void UI::drawMenuLogo(uint8_t _opcion) {
 }
 
 void UI::drawAyudaControles(){
-    _lista_imagenes_carga[0]->Draw();
+    if(_tipo_control == 0)
+        _lista_imagenes_carga[0]->Draw();
+    else
+        _lista_imagenes_carga[7]->Draw();
 }
 
 void UI::drawFiltroPausa(){
@@ -417,7 +421,8 @@ void UI::drawMenuFinWin(uint8_t opcion){
     for(u_int16_t i = 0; i<_lista_imagenes_fin_win.size(); i++){
         _lista_imagenes_fin_win[i]->Draw();
     }
-    _lista_imagenes_carga[0]->Draw();
+    
+    drawAyudaControles();
 }
 
 //dibujar menu del juego
@@ -439,7 +444,8 @@ void UI::drawMenuFinLose(uint8_t opcion){
     for(u_int16_t i = 0; i<_lista_imagenes_fin_lose.size(); i++){
         _lista_imagenes_fin_lose[i]->Draw();
     }
-    _lista_imagenes_carga[0]->Draw();
+    
+    drawAyudaControles();
 }
 
 /*
@@ -527,7 +533,11 @@ void UI::set_tiene_llave(bool _i_tiene_llave){
 void UI::render_pantalla_carga() {
     _lista_imagenes[0]->Draw();
     _lista_imagenes_carga[1]->Draw();
-    _lista_imagenes_carga[3]->Draw();
+
+    if(_tipo_control == 0)
+        _lista_imagenes_carga[3]->Draw();
+    else
+        _lista_imagenes_carga[8]->Draw();
 
     drawAyudaControles();
 }
@@ -536,7 +546,11 @@ void UI::render_partida_cargada() {
     _lista_imagenes[0]->Draw();
     _lista_imagenes_carga[4]->Draw();
     _lista_imagenes_carga[2]->Draw();
-    _lista_imagenes_carga[3]->Draw();
+
+    if(_tipo_control == 0)
+        _lista_imagenes_carga[3]->Draw();
+    else
+        _lista_imagenes_carga[8]->Draw();
 
     drawAyudaControles();
 }
