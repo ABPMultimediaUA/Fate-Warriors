@@ -538,8 +538,8 @@ void TMooseEngine::draw(){
     _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
     _particulas->Draw();
-    _nubes->draw();
     _vegetacion->draw();
+    _nubes->draw();
 }
 
 //flujo de render de partida, permite coordinar las funciones de dibujado del arbol con el resto de renders de los menus y el HUD

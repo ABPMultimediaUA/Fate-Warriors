@@ -11,8 +11,12 @@ Nubes::Nubes(Shader* _i_shader) : shader(_i_shader){
     init();
     load_texture();
 
-    for (GLuint i = 0; i < 1; ++i)
-        clouds.push_back(Nube(glm::vec3(61.5158, 12, 44.2914)));
+   
+        clouds.push_back(Nube(glm::vec3(61.5158, 15, 12.2914)));
+        clouds.push_back(Nube(glm::vec3(65.5158, 12, 44.2914)));
+        clouds.push_back(Nube(glm::vec3(69.5158, 8, 44.2914)));
+        clouds.push_back(Nube(glm::vec3(72.5158, 10, 100.2914)));
+        clouds.push_back(Nube(glm::vec3(75.5158, 12, 44.2914)));
 }
  
 Nubes::~Nubes() {
