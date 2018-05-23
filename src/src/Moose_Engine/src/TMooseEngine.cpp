@@ -187,6 +187,7 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Rojo.png", -1, 1, 2, 2);
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Ayuda_Teclado.png", -0.956, -0.485, 0.29, 0.438);
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Controles_Teclado.png", -0.653, 0.723, 1.435, 1.353);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loaded_Teclado.png", 0.48, -0.745, 0.477, 0.209);
 
 
     // Ajusta valores

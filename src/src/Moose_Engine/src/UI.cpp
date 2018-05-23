@@ -545,12 +545,15 @@ void UI::render_pantalla_carga() {
 void UI::render_partida_cargada() {
     _lista_imagenes[0]->Draw();
     _lista_imagenes_carga[4]->Draw();
-    _lista_imagenes_carga[2]->Draw();
 
-    if(_tipo_control == 0)
+    if(_tipo_control == 0) {
+        _lista_imagenes_carga[2]->Draw();
         _lista_imagenes_carga[3]->Draw();
-    else
+    }
+    else {
         _lista_imagenes_carga[8]->Draw();
+        _lista_imagenes_carga[9]->Draw();
+    }
 
     drawAyudaControles();
 }
