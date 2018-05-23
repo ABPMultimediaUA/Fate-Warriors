@@ -84,6 +84,7 @@ void TMooseEngine::initUI(){
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_4.png", "Imagenes_Menu/Opcion_4_Selec.png", -0.26, 0.028, 0.53, 0.215);
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_2.png", "Imagenes_Menu/Opcion_2_Selec.png", -0.26, -0.275, 0.53, 0.215);
     _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.58, 0.53, 0.215);
+    _ui->crear_imagen_pausa(_shader, "Imagenes_Menu/Pausa.png", "Imagenes_Menu/Pausa.png", -0.419, 0.779, 0.843, 0.222);
     
     // -------------------------- INICIO OPCIONES --------------------------
         // ---------- SUBMENU 1 ----------  (0)
@@ -166,28 +167,27 @@ void TMooseEngine::initUI(){
 
     
     //MENU WIN
-    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
+    _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Win.png", -0.419, 0.779, 0.843, 0.222);
     _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_5.png", "Imagenes_Menu/Opcion_5_Selec.png", -0.26, 0.028, 0.53, 0.215);
     _ui->crear_imagen_fin_win(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.275, 0.53, 0.215);
 
     //MENU LOSE
-    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_1.png", -0.3, 0.4, 0.6, 0.5);
+    _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Lose.png", -0.419, 0.779, 0.843, 0.222);
     _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_5.png", "Imagenes_Menu/Opcion_5_Selec.png", -0.26, 0.028, 0.53, 0.215);
     _ui->crear_imagen_fin_lose(_shader, "Imagenes_Menu/Opcion_3.png", "Imagenes_Menu/Opcion_3_Selec.png", -0.26, -0.275, 0.53, 0.215);
     
 
     // PANTALLA CARGA
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Ayuda.png", -0.956, -0.485, 0.29, 0.438);
-    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loading.png", 0.45, -0.7, 0.477, 0.209);
-    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loaded.png", 0.45, -0.7, 0.477, 0.209);
-    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Controles_Mando.png", -0.623, 0.723, 1.435, 1.353);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loading.png", 0.48, -0.745, 0.477, 0.209);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Loaded.png", 0.48, -0.745, 0.477, 0.209);
+    _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Controles_Mando.png", -0.653, 0.723, 1.435, 1.353);
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Gris.png", -1, 1, 2, 2);
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Negro.png", -1, 1, 2, 2);
     _ui->crear_imagen_pantalla_carga(_shader, "Imagenes_Carga/Filtros/Filtro_Rojo.png", -1, 1, 2, 2);
 
 
-
-
+    // Ajusta valores
     _ui->set_escala_musica(5);
     _ui->set_escala_sfx(5);
     _ui->set_escala_voz(5);

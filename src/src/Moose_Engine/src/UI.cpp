@@ -537,6 +537,7 @@ void UI::render_partida_cargada() {
     _lista_imagenes_carga[4]->Draw();
     _lista_imagenes_carga[2]->Draw();
     _lista_imagenes_carga[3]->Draw();
+
     drawAyudaControles();
 }
 
