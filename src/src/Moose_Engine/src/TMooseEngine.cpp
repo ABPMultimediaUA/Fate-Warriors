@@ -19,6 +19,8 @@
 #include "Skybox.h"
 #include "Mapa.h"
 
+#include "Nubes.h"
+#include "Vegetacion.h"
 
 TMooseEngine* TMooseEngine::_instancia = 0;
 
@@ -50,6 +52,8 @@ TMooseEngine::TMooseEngine(){
     _shader = new Shader();
     _skybox = new Skybox();
 
+    _nubes = new Nubes(_shader);
+    _vegetacion = new Vegetacion(_shader);
     _mapa = new Mapa(_shader);
     _particulas = new ParticleGenerator(_shader, 20);
 
@@ -271,6 +275,8 @@ TMooseEngine::~TMooseEngine(){
     delete _skybox;
     delete _particulas;
     delete _mapa;
+        delete _vegetacion;
+    delete _nubes;
     _contadorIDEntidad=0;
     glfwTerminate();
 }
@@ -532,6 +538,8 @@ void TMooseEngine::draw(){
     _shader->use(sombras_proyectadas);
     _escena->draw(_shader);
     _particulas->Draw();
+    _nubes->draw();
+    _vegetacion->draw();
 }
 
 //flujo de render de partida, permite coordinar las funciones de dibujado del arbol con el resto de renders de los menus y el HUD

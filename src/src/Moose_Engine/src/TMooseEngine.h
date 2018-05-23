@@ -22,6 +22,8 @@ class UI;
 class ParticleGenerator;
 class Mapa;
 class Image_Map;
+class Nubes;
+class Vegetacion;
 
 class TMooseEngine{
 
@@ -146,6 +148,8 @@ class TMooseEngine{
         UI* _ui;
         Skybox* _skybox;
         ParticleGenerator* _particulas;
+                Nubes*  _nubes;
+        Vegetacion* _vegetacion;
         Mapa* _mapa;
         int _width;
         int _height;
