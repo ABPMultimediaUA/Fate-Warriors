@@ -16,7 +16,7 @@ Zonas_Manager::Zonas_Manager() {
 
     // tener xml con la informacion de todos los objetos
     
-	_n_zonas = 1;
+	_n_zonas = 2;
 	_zonas = new Zona*[_n_zonas];
 
     unsigned short _cont;
@@ -25,6 +25,7 @@ Zonas_Manager::Zonas_Manager() {
 
 	_zona_incial = new Zona_Inicial(12.5*mult, 0*mult, 12.5*mult,(15*mult)/2,(15*mult)/2,73.5*mult, 99*mult); 	//Zona 1
 	_zonas[0] = _zona_incial;
+	_zonas[1] = new Zona_Final(72*mult, 0*mult, 42*mult,(25*mult)/2,(30*mult)/2, 6, 5, 2, 8); 
 		
 }
 

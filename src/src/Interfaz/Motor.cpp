@@ -167,9 +167,9 @@ void Motor::CargaMapa(){
 	importarEscenario(cstr57, 0,0,0);
 	const char* cstr58 = "VallaPubli";
 	importarEscenario(cstr58, 0,0,0);
+	*/
 	const char* cstr59 = "Vertedero";
 	importarEscenario(cstr59, 0,0,0);
-	*/
 }
 
 Motor::Motor(){

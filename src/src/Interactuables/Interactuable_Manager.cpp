@@ -23,7 +23,7 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
     
 	_n_llaves = 1;
 	_n_puertas = 1;
-	_n_puertas_pincho = 7;
+	_n_puertas_pincho = 8;
 
 	_llaves = new Llave*[_n_llaves];
     _puertas = new Puerta*[_n_puertas];
@@ -91,6 +91,9 @@ Interactuable_Manager::Interactuable_Manager(Zona** _todas_las_zonas) {
 	_interrutores[6]->agregar_interruptor(_interrutores[2]);
 
 	_interrutores[5]->agregar_interruptor(_interrutores[2]);
+
+	// ZONA COLISEO 28
+	_puertas_pincho[7] = new Puerta_Pincho(0, 65*mult, 0, 101.5*mult, true, 270, 27);
 
 }
 
