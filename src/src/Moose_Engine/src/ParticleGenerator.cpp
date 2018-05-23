@@ -1,6 +1,6 @@
-/* Basado y editado de:
+/* Basado y editado de (de orden de mas informacion a menos) BILLBOARDS :)
+    https://learnopengl.com/In-Practice/2D-Game/Particles 
     https://www.3dgep.com/simulating-particle-effects-using-opengl/
-    https://learnopengl.com/In-Practice/2D-Game/Particles
     http://www.opengl-tutorial.org/intermediate-tutorials/billboards-particles/billboards/
     http://www.opengl-tutorial.org/intermediate-tutorials/billboards-particles/particles-instancing/
     ...

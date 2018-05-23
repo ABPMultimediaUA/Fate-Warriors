@@ -6,11 +6,14 @@
 #include <iostream>
 #include <algorithm>
 
-
+/* Esta clase sirve para dibujar todos los elementos del minimapa los elementos son creados a traves de la interfaz, gestiona los recursos de las imagenes para la clase imagemap */
+/*La carga de imagenes ha sido aprendida a traves el tutorial:
+https://learnopengl.com/Getting-started/Textures
+*/
 Mapa::Mapa(Shader* shader)
     : shader(shader), activo(true)
 {
-
+    /*Los enum_ almacenan la ID de la imagen (solamente se llama al metodo de cargar una ver por imagen)*/
    Imagenes[Enum_Llave]              =  load_texture("Imagenes_HUD/Minimapa/Llave.png");
    Imagenes[Enum_Mapa]               =  load_texture("Imagenes_HUD/Minimapa/mapa.png");
    Imagenes[Enum_Player]             =  load_texture("Imagenes_HUD/Minimapa/Player.png");
@@ -25,6 +28,7 @@ Mapa::Mapa(Shader* shader)
       
 }
 
+/*Vaciado del minimapa*/
 Mapa::~Mapa(){
  for (short i = 0; i < elementos_menu.size(); i++) {
     delete elementos_menu[i];
@@ -33,7 +37,6 @@ Mapa::~Mapa(){
 }
 
 /* Busca y elimina un elemento del mapa */
-
 void Mapa::eliminar_elemento_mapa(Image_Map* objeto_a_eliminar){
 
     std::vector<Image_Map*>::iterator it;
@@ -53,7 +56,7 @@ Image_Map* Mapa::anyadir_elemento_al_mapa(float x, float y, float ancho, float a
     return objeto_nuevo;
 }
 
-// Render all particles
+//Dibuja todas las imagenes del mapa
 void Mapa::Draw(){    
     
     glDisable(GL_CULL_FACE);
@@ -74,10 +77,12 @@ void Mapa::Draw(){
 
 }
 
+/*Cambia el estado de activa o desactivado del minimpa para saber si dibujarlo*/
 void Mapa::activar_desactivar_minimapa(){
     activo = !activo;
 }
 
+/*Funcion para leer la textura del minimpa*/
 GLuint Mapa::load_texture(const char* ruta){
     GLuint ID;
     glGenTextures(1, &ID);

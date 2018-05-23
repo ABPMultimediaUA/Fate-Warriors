@@ -12,8 +12,11 @@ public:
     ~Skybox();
  
 private:
+    /*Carga las imagenes del skybox*/
     GLuint loadCubemap(std::vector<const GLchar*> faces);
+    /*Vector con los nombres de las imagenes del skybox*/
     std::vector<const GLchar*> faces;
+    /*Datos para el dibujado*/
     GLuint skyboxVAO, skyboxVBO;
     GLuint cubemapTexture;
 };

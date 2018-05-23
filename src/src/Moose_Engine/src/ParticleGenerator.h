@@ -68,6 +68,7 @@ private:
 
     // Revive una particula
     void respawnParticle(Particle &particle, GLint _direccion, GLfloat scale_factor, glm::vec3 velocidad, glm::vec3 offset = glm::vec3(0.0f, 0.0f, 0.0f), GLfloat _i_duracion = .75f,  GLfloat red = 1, GLfloat green = 0, GLfloat blue = 0);
+    //Carga la textura
     void load_texture();
 
     glm::mat4 ModelMatrix;

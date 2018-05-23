@@ -1,4 +1,4 @@
-/* Creado a partir de:
+/* Creado y modificado a partir de:
 https://learnopengl.com/Advanced-OpenGL/Cubemaps 
 */
 
