@@ -142,14 +142,14 @@ void iNodoAnimacion::cambiar_modelado(const char * _i_ruta, uint8_t _num_ruta){
 void iNodoAnimacion::update_anim(){
         //el numero de la comprobacion es la velocidad a la que reproducen las animaciones
         //cuanto mas grande sea el numero mas lenta ira la animacion y cuanto mas pequeño mas rapido
-         if(!_reloj->get_esta_pausado() && _reloj->get_current()-_tiempo_aux>=55){
-            while(_reloj->get_current()-_tiempo_aux>=55){
+         if(!_reloj->get_esta_pausado() && _reloj->get_current()-_tiempo_aux>=45){
+            while(_reloj->get_current()-_tiempo_aux>=45){
                 if(_contador_anim < _max_anim){//avanzar frame
-                    _tiempo_aux+=55;
+                    _tiempo_aux+=45;
                     ++_contador_anim;
                 }
                 else if(_bucle){//reiniciar animacion
-                    _tiempo_aux+=55;
+                    _tiempo_aux+=45;
                     _contador_anim = 0;
                 }
                 else if(!_bucle) {//terminar animacion

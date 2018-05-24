@@ -13,7 +13,7 @@ Input::Input() {
 	_saltar = false;
 	_ex_saltar = false;
 
-	_camara_con_teclado = false;
+	_camara_con_teclado = true;
 	_invertir_x = false;
 	_invertir_y = true;
 
@@ -91,10 +91,10 @@ void Input::asignar_teclas_partida() {
 
 
 	// ----------------- Inputs de la camara ---------------
-	_teclas[Input_Camara_Arriba] = sf::Keyboard::Up;
-	_teclas[Input_Camara_Abajo] = sf::Keyboard::Down;
-	_teclas[Input_Camara_Izquierda] = sf::Keyboard::Left;
-	_teclas[Input_Camara_Derecha] = sf::Keyboard::Right;
+	_teclas[Input_Camara_Arriba] = sf::Keyboard::Numpad8;
+	_teclas[Input_Camara_Abajo] = sf::Keyboard::Numpad2;
+	_teclas[Input_Camara_Izquierda] = sf::Keyboard::Numpad4;
+	_teclas[Input_Camara_Derecha] = sf::Keyboard::Numpad6;
 
 	_raton[Input_Camara_Arriba] = sf::Mouse::ButtonCount;
 	_raton[Input_Camara_Abajo] = sf::Mouse::ButtonCount;

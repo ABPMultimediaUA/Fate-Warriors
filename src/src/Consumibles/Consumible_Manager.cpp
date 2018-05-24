@@ -15,11 +15,21 @@ Consumible_Manager::Consumible_Manager() {
     
     float mult = 4.9212625;
 
-    _consumibles_a_reusar.push_back( new Consumible_Carne(5,mult*4000, 0, mult*52));
+    _consumibles_a_reusar.push_back( new Consumible_Carne(5,12.5*mult, 0*mult, 30.155));
     _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*4000, 0, mult*52));
     _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*6000, 0, mult*52));
     _consumibles_a_reusar.push_back( new Consumible_Patata(5,mult*5000, 0, mult*52));
-    _consumibles_a_reusar.push_back( new Consumible_Agua(5,mult*6000, 0, mult*52));
+    //_consumibles_a_reusar.push_back( new Consumible_Agua(5,mult*6000, 0, mult*52));
+
+    _consumibles_a_reusar[0]->setPositionXZ(14*mult, 30.155);
+    _consumibles_a_reusar[0]->set_tiempo_espera();
+    _consumibles.push_back(_consumibles_a_reusar[0]);
+    _consumibles_a_reusar.erase(_consumibles_a_reusar.begin());
+
+    _consumibles_a_reusar[0]->setPositionXZ(10*mult, 30.155);
+    _consumibles_a_reusar[0]->set_tiempo_espera();
+    _consumibles.push_back(_consumibles_a_reusar[0]);
+    _consumibles_a_reusar.erase(_consumibles_a_reusar.begin());
 
 }
 
